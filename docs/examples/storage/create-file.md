@@ -1,4 +1,5 @@
 const sdk = require('node-appwrite');
+const fs = require('fs');
 
 // Init SDK
 let client = new sdk.Client();
@@ -6,11 +7,11 @@ let client = new sdk.Client();
 let storage = new sdk.Storage(client);
 
 client
-    .setProject('')
-    .setKey('')
+    .setProject('5df5acd0d48c2') // Your project ID
+    .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-let promise = storage.createFile(document.getElementById('uploader').files[0], [], []);
+let promise = storage.createFile(fs.createReadStream(__dirname + '/file.png')), [], []);
 
 promise.then(function (response) {
     console.log(response);
