@@ -4,8 +4,9 @@ const Database = require('./lib/services/database.js');
 const Health = require('./lib/services/health.js');
 const Locale = require('./lib/services/locale.js');
 const Storage = require('./lib/services/storage.js');
-const Teams = require('./lib/services/teams.js');
+var Teams = require('./lib/services/teams.js');
 const Users = require('./lib/services/users.js');
+var fs = require('fs');
 
 module.exports = {
     Client,
