@@ -11,7 +11,7 @@ Appwrite is an open-source backend as a service server that abstract and simplif
 
 ![Appwrite](https://appwrite.io/images/github.png)
 
-## Installation
+## Installation Process
 
 To install via [NPM](https://www.npmjs.com/):
 
