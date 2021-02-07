@@ -1,3 +1,4 @@
+```js
 const sdk = require('node-appwrite');
 
 // Init SDK
@@ -17,3 +18,4 @@ promise.then(function (response) {
 }, function (error) {
     console.log(error);
 });
+```
