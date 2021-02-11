@@ -2,7 +2,7 @@
   "name": "node-appwrite",
   "homepage": "https://appwrite.io/support",
   "description": "Appwrite is an open-source self-hosted backend server that abstract and simplify complex and repetitive development tasks behind a very simple REST API",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "license": "BSD-3-Clause",
   "main": "index.js",
   "repository": {
@@ -11,7 +11,7 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "request": "^2.88.0",
-    "request-promise-native": "^1.0.7"
+    "axios": "^0.20.0",
+    "form-data": "^3.0.0"
   }
 }
