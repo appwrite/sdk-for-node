@@ -1,11 +1,11 @@
 # Appwrite Node.js SDK
 
 ![License](https://img.shields.io/github/license/appwrite/sdk-for-node.svg?style=flat-square)
-![Version](https://img.shields.io/badge/api%20version-0.7.0-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/api%20version-0.8.0-blue.svg?style=flat-square)
 [![Twitter Account](https://img.shields.io/twitter/follow/appwrite_io?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite_io)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
-**This SDK is compatible with Appwrite server version 0.7.x. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-node/releases).**
+**This SDK is compatible with Appwrite server version 0.8.x. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-node/releases).**
 
  > This is the Node.js SDK for integrating with Appwrite from your Node.js server-side code.
                             If you're looking to integrate from the browser, you should check [appwrite/sdk-for-web](https://github.com/appwrite/sdk-for-web)
@@ -39,6 +39,7 @@ client
     .setEndpoint('https://[HOSTNAME_OR_IP]/v1') // Your API Endpoint
     .setProject('5df5acd0d48c2') // Your project ID
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
+    .setSelfSigned() // Use only on dev mode with a self-signed SSL cert
 ;
 ```
 
@@ -67,6 +68,7 @@ client
     .setEndpoint('https://[HOSTNAME_OR_IP]/v1') // Your API Endpoint
     .setProject('5df5acd0d48c2') // Your project ID
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
+    .setSelfSigned() // Use only on dev mode with a self-signed SSL cert
 ;
 
 let users = new sdk.Users(client);
@@ -77,6 +79,19 @@ promise.then(function (response) {
 }, function (error) {
     console.log(error);
 });
+```
+
+### Error Handling
+The Appwrite Node SDK raises `AppwriteException` object with `message`, `code` and `response` properties. You can handle any errors by catching `AppwriteException` and present the `message` to the user or handle it yourself based on the provided error information. Below is an example.
+
+```js
+let users = new sdk.Users(client);
+
+try {
+    let res = await users.create('email@example.com', 'password');
+} catch(e) {
+    console.log(e.message);
+}
 ```
 
 ### Learn more
