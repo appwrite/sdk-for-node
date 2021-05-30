@@ -75,13 +75,22 @@ declare module "node-appwrite" {
   export interface Rule {
     $id: string;
     $collection: string;
-    type: string;
+    type: [
+      "text",
+      "numeric",
+      "boolean",
+      "wildcard",
+      "url",
+      "email",
+      "ip",
+      "document"
+    ];
     key: string;
     label: string;
     default: string;
     array: boolean;
     required: boolean;
-    list: string[];
+    list?: string[];
   }
   export interface Collection {
     $id: string;
@@ -326,7 +335,7 @@ declare module "node-appwrite" {
       name: string,
       read: string[],
       write: string[],
-      rules: string[]
+      rules: Rule[]
     ): Promise<Collection>;
     getCollection(collectionId: string): Promise<Collection>;
     updateCollection(
@@ -334,7 +343,7 @@ declare module "node-appwrite" {
       name: string,
       read?: string[],
       write?: string[],
-      rules?: string[]
+      rules?: Rule[]
     ): Promise<Collection>;
     deleteCollection(collectionId: string): Promise<Response>;
     listDocuments(
