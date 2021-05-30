@@ -75,16 +75,15 @@ declare module "node-appwrite" {
   export interface Rule {
     $id: string;
     $collection: string;
-    type: [
-      "text",
-      "numeric",
-      "boolean",
-      "wildcard",
-      "url",
-      "email",
-      "ip",
-      "document"
-    ];
+    type:
+      | "text"
+      | "numeric"
+      | "boolean"
+      | "wildcard"
+      | "url"
+      | "email"
+      | "ip"
+      | "document";
     key: string;
     label: string;
     default: string;
