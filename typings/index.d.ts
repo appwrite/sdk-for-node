@@ -1,15 +1,15 @@
 declare module "node-appwrite" {
-  export interface PreferencesObject extends Array<any> {}
-  export interface UserObject {
+  export interface Preferences extends Array<any> {}
+  export interface User {
     $id: string;
     name: string;
     registration: number;
     status: number;
     passwordUpdate: number;
     emailVerification: boolean;
-    prefs: PreferencesObject;
+    prefs: Preferences;
   }
-  export interface LogObject {
+  export interface Log {
     event: string;
     ip: string;
     time: number;
@@ -28,16 +28,16 @@ declare module "node-appwrite" {
     countryCode: string;
     countryName: string;
   }
-  export interface LogsListObject {
-    logs: LogObject[];
+  export interface LogsList {
+    logs: Log[];
   }
-  export interface TokenObject {
+  export interface Token {
     $id: string;
     userId: string;
     secret: string;
     expire: number;
   }
-  export interface SessionObject {
+  export interface Session {
     sum: number;
     $id: string;
     userId: string;
@@ -62,17 +62,17 @@ declare module "node-appwrite" {
     countryName: string;
     current: boolean;
   }
-  export interface ListObject {
+  export interface List {
     sum: number;
   }
-  export interface SessionsListObject extends ListObject {
-    sessions: SessionObject[];
+  export interface SessionsList extends List {
+    sessions: Session[];
   }
-  export interface PermissionsObject {
+  export interface Permissions {
     read: string[];
     write: string[];
   }
-  export interface RuleObject {
+  export interface Rule {
     $id: string;
     $collection: string;
     type: string;
@@ -83,28 +83,28 @@ declare module "node-appwrite" {
     required: boolean;
     list: string[];
   }
-  export interface CollectionObject {
+  export interface Collection {
     $id: string;
-    $permissions: PermissionsObject;
+    $permissions: Permissions;
     name: string;
     dateCreated: number;
     dateUpdated: number;
-    rules: RuleObject[];
+    rules: Rule[];
   }
-  export interface CollectionsListObject extends ListObject {
-    collections: CollectionObject[];
+  export interface CollectionsList extends List {
+    collections: Collection[];
   }
-  export interface DocumentObject {
+  export interface Document {
     $id: string;
     $collection: string;
-    $permissions: PermissionsObject;
+    $permissions: Permissions;
   }
-  export interface DocumentsListObject extends ListObject {
-    documents: DocumentObject[];
+  export interface DocumentsList extends List {
+    documents: Document[];
   }
-  export interface FunctionObject {
+  export interface Function {
     $id: string;
-    $permissions: PermissionsObject;
+    $permissions: Permissions;
     name: string;
     dateCreated: number;
     dateUpdated: number;
@@ -118,10 +118,10 @@ declare module "node-appwrite" {
     schedulePrevious: number;
     timeout: number;
   }
-  export interface FunctionsListObject extends ListObject {
-    functions: FunctionObject[];
+  export interface FunctionsList extends List {
+    functions: Function[];
   }
-  export interface ExecutionObject {
+  export interface Execution {
     $id: string;
     functionId: string;
     dateCreated: number;
@@ -132,20 +132,20 @@ declare module "node-appwrite" {
     stderr: string;
     time: number;
   }
-  export interface ExecutionsListObject extends ListObject {
-    executions: ExecutionObject[];
+  export interface ExecutionsList extends List {
+    executions: Execution[];
   }
-  export interface TagObject {
+  export interface Tag {
     $id: string;
     functionId: string;
     dateCreated: number;
     command: string;
     size: string;
   }
-  export interface TagsListObject extends ListObject {
-    tags: TagObject[];
+  export interface TagsList extends List {
+    tags: Tag[];
   }
-  export interface LocaleObject {
+  export interface Locale {
     ip: string;
     countryCode: string;
     country: string;
@@ -154,22 +154,22 @@ declare module "node-appwrite" {
     eu: boolean;
     currency: string;
   }
-  export interface CountryObject {
+  export interface Country {
     name: string;
     code: string;
   }
-  export interface CountriesListObject extends ListObject {
-    countries: CountryObject[];
+  export interface CountriesList extends List {
+    countries: Country[];
   }
-  export interface PhoneObject {
+  export interface Phone {
     code: string;
     countryCode: string;
     countryName: string;
   }
-  export interface PhonesListObject extends ListObject {
-    phones: PhoneObject[];
+  export interface PhonesList extends List {
+    phones: Phone[];
   }
-  export interface CurrencyObject {
+  export interface Currency {
     symbol: string;
     name: string;
     symbolNative: string;
@@ -178,39 +178,39 @@ declare module "node-appwrite" {
     code: string;
     namePlural: string;
   }
-  export interface CurrenciesListObject extends ListObject {
-    currencies: CurrencyObject[];
+  export interface CurrenciesList extends List {
+    currencies: Currency[];
   }
-  export interface LanguageObject {
+  export interface Language {
     name: string;
     code: string;
     nativeName: string;
   }
-  export interface LanguagesListObject extends ListObject {
-    languages: LanguageObject[];
+  export interface LanguagesList extends List {
+    languages: Language[];
   }
-  export interface FileObject {
+  export interface File {
     $id: string;
-    $permissions: PermissionsObject;
+    $permissions: Permissions;
     name: string;
     dateCreated: number;
     signature: string;
     mimeType: string;
     sizeOriginal: number;
   }
-  export interface FilesListObject extends ListObject {
-    files: FileObject[];
+  export interface FilesList extends List {
+    files: File[];
   }
-  export interface TeamObject {
+  export interface Team {
     $id: string;
     name: string;
     dateCreated: number;
     sum: number;
   }
-  export interface TeamsListObject extends ListObject {
-    teams: TeamObject[];
+  export interface TeamsList extends List {
+    teams: Team[];
   }
-  export interface MembershipObject {
+  export interface Membership {
     $id: string;
     userId: string;
     teamId: string;
@@ -221,11 +221,11 @@ declare module "node-appwrite" {
     confirm: boolean;
     roles: string[];
   }
-  export interface MembershipsListObject extends ListObject {
-    memberships: MembershipObject[];
+  export interface MembershipsList extends List {
+    memberships: Membership[];
   }
-  export interface UsersListObject extends ListObject {
-    users: UserObject[];
+  export interface UsersList extends List {
+    users: User[];
   }
 
   export class Client {
@@ -259,26 +259,26 @@ declare module "node-appwrite" {
     constructor(client: Client);
   }
   export class Account extends Service {
-    get(): Promise<UserObject>;
+    get(): Promise<User>;
     delete(): Promise<Response>;
-    updateEmail(email: string, password: string): Promise<UserObject>;
-    getLogs(): Promise<LogsListObject>;
-    updateName(name: string): Promise<UserObject>;
-    updatePassword(password: string, oldPassword: string): Promise<UserObject>;
-    getPrefs(): Promise<PreferencesObject>;
-    updatePrefs(prefs: object): Promise<UserObject>;
-    createRecovery(email: string, url: string): Promise<TokenObject>;
+    updateEmail(email: string, password: string): Promise<User>;
+    getLogs(): Promise<LogsList>;
+    updateName(name: string): Promise<User>;
+    updatePassword(password: string, oldPassword: string): Promise<User>;
+    getPrefs(): Promise<Preferences>;
+    updatePrefs(prefs: object): Promise<User>;
+    createRecovery(email: string, url: string): Promise<Token>;
     updateRecovery(
       userId: string,
       secret: string,
       password: string,
       passwordAgain: string
-    ): Promise<TokenObject>;
-    getSessions(): Promise<SessionsListObject>;
+    ): Promise<Token>;
+    getSessions(): Promise<SessionsList>;
     deleteSessions(): Promise<Response>;
     deleteSession(sessionId: string): Promise<Response>;
-    createVerification(url: string): Promise<TokenObject>;
-    updateVerification(userId: string, secret: string): Promise<TokenObject>;
+    createVerification(url: string): Promise<Token>;
+    updateVerification(userId: string, secret: string): Promise<Token>;
   }
   export class Avatars extends Service {
     getBrowser(
@@ -321,21 +321,21 @@ declare module "node-appwrite" {
       limit?: number,
       offset?: number,
       orderType?: string
-    ): Promise<CollectionsListObject>;
+    ): Promise<CollectionsList>;
     createCollection(
       name: string,
       read: string[],
       write: string[],
       rules: string[]
-    ): Promise<CollectionObject>;
-    getCollection(collectionId: string): Promise<CollectionObject>;
+    ): Promise<Collection>;
+    getCollection(collectionId: string): Promise<Collection>;
     updateCollection(
       collectionId: string,
       name: string,
       read?: string[],
       write?: string[],
       rules?: string[]
-    ): Promise<CollectionObject>;
+    ): Promise<Collection>;
     deleteCollection(collectionId: string): Promise<Response>;
     listDocuments(
       collectionId: string,
@@ -346,7 +346,7 @@ declare module "node-appwrite" {
       orderType?: string,
       orderCast?: string,
       search?: string
-    ): Promise<DocumentsListObject>;
+    ): Promise<DocumentsList>;
     createDocument(
       collectionId: string,
       data: object,
@@ -355,18 +355,15 @@ declare module "node-appwrite" {
       parentDocument?: string,
       parentProperty?: string,
       parentPropertyType?: string
-    ): Promise<DocumentObject>;
-    getDocument(
-      collectionId: string,
-      documentId: string
-    ): Promise<DocumentObject>;
+    ): Promise<Document>;
+    getDocument(collectionId: string, documentId: string): Promise<Document>;
     updateDocument(
       collectionId: string,
       documentId: string,
       data: object,
       read?: string[],
       write?: string[]
-    ): Promise<DocumentObject>;
+    ): Promise<Document>;
     deleteDocument(collectionId: string, documentId: string): Promise<Response>;
   }
   export class Functions extends Service {
@@ -375,7 +372,7 @@ declare module "node-appwrite" {
       limit?: number,
       offset?: number,
       orderType?: string
-    ): Promise<FunctionsListObject>;
+    ): Promise<FunctionsList>;
     create(
       name: string,
       execute: string,
@@ -384,8 +381,8 @@ declare module "node-appwrite" {
       events?: string[],
       schedule?: string,
       timeout?: number
-    ): Promise<FunctionObject>;
-    get(functionId: string): Promise<FunctionObject>;
+    ): Promise<Function>;
+    get(functionId: string): Promise<Function>;
     update(
       functionId: string,
       name: string,
@@ -394,7 +391,7 @@ declare module "node-appwrite" {
       events?: string[],
       schedule?: string,
       timeout?: number
-    ): Promise<FunctionObject>;
+    ): Promise<Function>;
     delete(functionId: string): Promise<Response>;
     listExecutions(
       functionId: string,
@@ -402,29 +399,19 @@ declare module "node-appwrite" {
       limit?: number,
       offset?: number,
       orderType?: string
-    ): Promise<ExecutionsListObject>;
-    createExecution(
-      functionId: string,
-      data?: string
-    ): Promise<ExecutionObject>;
-    getExecution(
-      functionId: string,
-      executionId: string
-    ): Promise<ExecutionObject>;
-    updateTag(functionId: string, tag: string): Promise<FunctionObject>;
+    ): Promise<ExecutionsList>;
+    createExecution(functionId: string, data?: string): Promise<Execution>;
+    getExecution(functionId: string, executionId: string): Promise<Execution>;
+    updateTag(functionId: string, tag: string): Promise<Function>;
     listTags(
       functionId: string,
       search?: string,
       limit?: number,
       offset?: number,
       orderType?: string
-    ): Promise<TagsListObject>;
-    createTag(
-      functionId: string,
-      command: string,
-      code: File
-    ): Promise<TagObject>;
-    getTag(functionId: string, tagId: string): Promise<TagObject>;
+    ): Promise<TagsList>;
+    createTag(functionId: string, command: string, code: File): Promise<Tag>;
+    getTag(functionId: string, tagId: string): Promise<Tag>;
     deleteTag(functionId: string, tagId: string): Promise<Response>;
   }
   export class Health extends Service {
@@ -442,13 +429,13 @@ declare module "node-appwrite" {
     getTime(): Promise<Response>;
   }
   export class Locale extends Service {
-    get(): Promise<LocaleObject>;
+    get(): Promise<Locale>;
     getContinents(): Promise<Response>;
-    getCountries(): Promise<CountriesListObject>;
-    getCountriesEU(): Promise<CountriesListObject>;
-    getCountriesPhones(): Promise<PhonesListObject>;
-    getCurrencies(): Promise<CurrenciesListObject>;
-    getLanguages(): Promise<LanguagesListObject>;
+    getCountries(): Promise<CountriesList>;
+    getCountriesEU(): Promise<CountriesList>;
+    getCountriesPhones(): Promise<PhonesList>;
+    getCurrencies(): Promise<CurrenciesList>;
+    getLanguages(): Promise<LanguagesList>;
   }
   export class Storage extends Service {
     listFiles(
@@ -456,18 +443,10 @@ declare module "node-appwrite" {
       limit?: number,
       offset?: number,
       orderType?: string
-    ): Promise<FilesListObject>;
-    createFile(
-      file: File,
-      read?: string[],
-      write?: string[]
-    ): Promise<FileObject>;
-    getFile(fileId: string): Promise<FileObject>;
-    updateFile(
-      fileId: string,
-      read: string[],
-      write: string[]
-    ): Promise<FileObject>;
+    ): Promise<FilesList>;
+    createFile(file: File, read?: string[], write?: string[]): Promise<File>;
+    getFile(fileId: string): Promise<File>;
+    updateFile(fileId: string, read: string[], write: string[]): Promise<File>;
     deleteFile(fileId: string): Promise<Response>;
     getFileDownload(fileId: string): Promise<Response>;
     getFilePreview(
@@ -491,10 +470,10 @@ declare module "node-appwrite" {
       limit?: number,
       offset?: number,
       orderType?: string
-    ): Promise<TeamsListObject>;
-    create(name: string, roles?: string[]): Promise<TeamObject>;
-    get(teamId: string): Promise<TeamObject>;
-    update(teamId: string, name: string): Promise<TeamObject>;
+    ): Promise<TeamsList>;
+    create(name: string, roles?: string[]): Promise<Team>;
+    get(teamId: string): Promise<Team>;
+    update(teamId: string, name: string): Promise<Team>;
     delete(teamId: string): Promise<Response>;
     getMemberships(
       teamId: string,
@@ -502,26 +481,26 @@ declare module "node-appwrite" {
       limit?: number,
       offset?: number,
       orderType?: string
-    ): Promise<MembershipsListObject>;
+    ): Promise<MembershipsList>;
     createMembership(
       teamId: string,
       email: string,
       roles: string[],
       url: string,
       name?: string
-    ): Promise<MembershipObject>;
+    ): Promise<Membership>;
     updateMembershipRoles(
       teamId: string,
       membershipId: string,
       roles: string[]
-    ): Promise<MembershipObject>;
+    ): Promise<Membership>;
     deleteMembership(teamId: string, membershipId: string): Promise<Response>;
     updateMembershipStatus(
       teamId: string,
       membershipId: string,
       userId: string,
       secret: string
-    ): Promise<MembershipObject>;
+    ): Promise<Membership>;
   }
   export class Users extends Service {
     list(
@@ -529,16 +508,16 @@ declare module "node-appwrite" {
       limit?: number,
       offset?: number,
       orderType?: string
-    ): Promise<UsersListObject>;
-    create(email: string, password: string, name?: string): Promise<UserObject>;
-    get(userId: string): Promise<UserObject>;
+    ): Promise<UsersList>;
+    create(email: string, password: string, name?: string): Promise<User>;
+    get(userId: string): Promise<User>;
     delete(userId: string): Promise<Response>;
-    getLogs(userId: string): Promise<LogsListObject>;
-    getPrefs(userId: string): Promise<PreferencesObject>;
-    updatePrefs(userId: string, prefs: object): Promise<PreferencesObject>;
-    getSessions(userId: string): Promise<SessionsListObject>;
+    getLogs(userId: string): Promise<LogsList>;
+    getPrefs(userId: string): Promise<Preferences>;
+    updatePrefs(userId: string, prefs: object): Promise<Preferences>;
+    getSessions(userId: string): Promise<SessionsList>;
     deleteSessions(userId: string): Promise<Response>;
     deleteSession(userId: string, sessionId: string): Promise<Response>;
-    updateStatus(userId: string, status: number): Promise<UserObject>;
+    updateStatus(userId: string, status: number): Promise<User>;
   }
 }
