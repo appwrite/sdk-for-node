@@ -73,8 +73,6 @@ declare module "node-appwrite" {
     write: string[];
   }
   export interface Rule {
-    $id: string;
-    $collection: string;
     type:
       | "text"
       | "numeric"
@@ -91,13 +89,17 @@ declare module "node-appwrite" {
     required: boolean;
     list?: string[];
   }
+  export interface CollectionRule extends Rule {
+    $id: string;
+    $collection: string;
+  }
   export interface Collection {
     $id: string;
     $permissions: Permissions;
     name: string;
     dateCreated: number;
     dateUpdated: number;
-    rules: Rule[];
+    rules: CollectionRule[];
   }
   export interface CollectionsList extends List {
     collections: Collection[];
