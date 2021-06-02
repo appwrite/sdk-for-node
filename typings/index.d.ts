@@ -108,6 +108,7 @@ declare module "node-appwrite" {
     $id: string;
     $collection: string;
     $permissions: Permissions;
+    [x: string]: any;
   }
   export interface DocumentsList extends List {
     documents: Document[];
