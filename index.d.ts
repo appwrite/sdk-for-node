@@ -84,7 +84,7 @@ declare module "node-appwrite" {
       | "document";
     key: string;
     label: string;
-    default: string;
+    default: any;
     array: boolean;
     required: boolean;
     list?: string[];
