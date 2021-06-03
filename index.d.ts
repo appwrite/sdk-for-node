@@ -304,9 +304,9 @@ declare module "node-appwrite" {
      * @param {number} height
      * @param {number} quality
      * @throws {AppwriteException}
-     * @returns {string}
+     * @returns {Promise}
      */
-    getBrowser(code: string, width?: number, height?: number, quality?: number): string;
+    getBrowser(code: string, width?: number, height?: number, quality?: number): Promise<Buffer>;
 
     /**
      * Get Credit Card Icon
@@ -320,9 +320,9 @@ declare module "node-appwrite" {
      * @param {number} height
      * @param {number} quality
      * @throws {AppwriteException}
-     * @returns {string}
+     * @returns {Promise}
      */
-    getCreditCard(code: string, width?: number, height?: number, quality?: number): string;
+    getCreditCard(code: string, width?: number, height?: number, quality?: number): Promise<Buffer>;
 
     /**
      * Get Favicon
@@ -333,9 +333,9 @@ declare module "node-appwrite" {
      *
      * @param {string} url
      * @throws {AppwriteException}
-     * @returns {string}
+     * @returns {Promise}
      */
-    getFavicon(url: string): string;
+    getFavicon(url: string): Promise<Buffer>;
 
     /**
      * Get Country Flag
@@ -349,9 +349,9 @@ declare module "node-appwrite" {
      * @param {number} height
      * @param {number} quality
      * @throws {AppwriteException}
-     * @returns {string}
+     * @returns {Promise}
      */
-    getFlag(code: string, width?: number, height?: number, quality?: number): string;
+    getFlag(code: string, width?: number, height?: number, quality?: number): Promise<Buffer>;
 
     /**
      * Get Image from URL
@@ -365,9 +365,9 @@ declare module "node-appwrite" {
      * @param {number} width
      * @param {number} height
      * @throws {AppwriteException}
-     * @returns {string}
+     * @returns {Promise}
      */
-    getImage(url: string, width?: number, height?: number): string;
+    getImage(url: string, width?: number, height?: number): Promise<Buffer>;
 
     /**
      * Get User Initials
@@ -389,9 +389,9 @@ declare module "node-appwrite" {
      * @param {string} color
      * @param {string} background
      * @throws {AppwriteException}
-     * @returns {string}
+     * @returns {Promise}
      */
-    getInitials(name?: string, width?: number, height?: number, color?: string, background?: string): string;
+    getInitials(name?: string, width?: number, height?: number, color?: string, background?: string): Promise<Buffer>;
 
     /**
      * Get QR Code
@@ -404,9 +404,9 @@ declare module "node-appwrite" {
      * @param {number} margin
      * @param {boolean} download
      * @throws {AppwriteException}
-     * @returns {string}
+     * @returns {Promise}
      */
-    getQR(text: string, size?: number, margin?: number, download?: boolean): string;
+    getQR(text: string, size?: number, margin?: number, download?: boolean): Promise<Buffer>;
   }
   export class Database extends Service {
 
@@ -1057,9 +1057,9 @@ declare module "node-appwrite" {
      *
      * @param {string} fileId
      * @throws {AppwriteException}
-     * @returns {string}
+     * @returns {Promise}
      */
-    getFileDownload(fileId: string): string;
+    getFileDownload(fileId: string): Promise<Buffer>;
 
     /**
      * Get File Preview
@@ -1081,9 +1081,9 @@ declare module "node-appwrite" {
      * @param {string} background
      * @param {string} output
      * @throws {AppwriteException}
-     * @returns {string}
+     * @returns {Promise}
      */
-    getFilePreview(fileId: string, width?: number, height?: number, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: string): string;
+    getFilePreview(fileId: string, width?: number, height?: number, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: string): Promise<Buffer>;
 
     /**
      * Get File for View
@@ -1094,9 +1094,9 @@ declare module "node-appwrite" {
      *
      * @param {string} fileId
      * @throws {AppwriteException}
-     * @returns {string}
+     * @returns {Promise}
      */
-    getFileView(fileId: string): string;
+    getFileView(fileId: string): Promise<Buffer>;
   }
   export class Teams extends Service {
 
