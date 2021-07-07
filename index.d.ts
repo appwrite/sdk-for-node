@@ -237,6 +237,18 @@ declare module "node-appwrite" {
     deleteSessions<T extends unknown>(): Promise<T>;
 
     /**
+     * Get Session By ID
+     *
+     * Use this endpoint to get a logged in user's session using a Session ID.
+     * Inputting 'current' will return the current session being used.
+     *
+     * @param {string} sessionId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getSession<T extends unknown>(sessionId: string): Promise<T>;
+
+    /**
      * Delete Account Session
      *
      * Use this endpoint to log out the currently logged in user from all their
@@ -590,7 +602,7 @@ declare module "node-appwrite" {
      *
      * @param {string} name
      * @param {string[]} execute
-     * @param {string} env
+     * @param {string} runtime
      * @param {object} vars
      * @param {string[]} events
      * @param {string} schedule
@@ -598,7 +610,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create<T extends unknown>(name: string, execute: string[], env: string, vars?: object, events?: string[], schedule?: string, timeout?: number): Promise<T>;
+    create<T extends unknown>(name: string, execute: string[], runtime: string, vars?: object, events?: string[], schedule?: string, timeout?: number): Promise<T>;
 
     /**
      * Get Function
@@ -1072,6 +1084,7 @@ declare module "node-appwrite" {
      * @param {string} fileId
      * @param {number} width
      * @param {number} height
+     * @param {string} gravity
      * @param {number} quality
      * @param {number} borderWidth
      * @param {string} borderColor
@@ -1083,7 +1096,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getFilePreview(fileId: string, width?: number, height?: number, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: string): Promise<Buffer>;
+    getFilePreview(fileId: string, width?: number, height?: number, gravity?: string, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: string): Promise<Buffer>;
 
     /**
      * Get File for View
@@ -1385,5 +1398,17 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     updateStatus<T extends unknown>(userId: string, status: number): Promise<T>;
+
+    /**
+     * Update Email Verification
+     *
+     * Update the user email verification status by its unique ID.
+     *
+     * @param {string} userId
+     * @param {boolean} emailVerification
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateVerification<T extends unknown>(userId: string, emailVerification: boolean): Promise<T>;
   }
 }
