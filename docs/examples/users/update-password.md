@@ -3,7 +3,7 @@ const sdk = require('node-appwrite');
 // Init SDK
 let client = new sdk.Client();
 
-let functions = new sdk.Functions(client);
+let users = new sdk.Users(client);
 
 client
     .setEndpoint('https://[HOSTNAME_OR_IP]/v1') // Your API Endpoint
@@ -11,7 +11,7 @@ client
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-let promise = functions.create('[NAME]', [], 'dotnet-5.0');
+let promise = users.updatePassword('[USER_ID]', 'password');
 
 promise.then(function (response) {
     console.log(response);
