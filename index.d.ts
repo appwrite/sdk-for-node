@@ -1,4 +1,891 @@
 declare module "node-appwrite" {
+  export namespace Models {
+      /**
+      * Collections List
+      */
+      export type CollectionList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of collections.
+          */
+          collections: Collection[];
+      }
+      /**
+      * Documents List
+      */
+      export type DocumentList<Document extends Models.Document> = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of documents.
+          */
+          documents: Document[];
+      }
+      /**
+      * Users List
+      */
+      export type UserList<Preferences extends Models.Preferences> = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of users.
+          */
+          users: User<Preferences>[];
+      }
+      /**
+      * Sessions List
+      */
+      export type SessionList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of sessions.
+          */
+          sessions: Session[];
+      }
+      /**
+      * Logs List
+      */
+      export type LogList = {
+          /**
+          * List of logs.
+          */
+          logs: Log[];
+      }
+      /**
+      * Files List
+      */
+      export type FileList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of files.
+          */
+          files: File[];
+      }
+      /**
+      * Teams List
+      */
+      export type TeamList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of teams.
+          */
+          teams: Team[];
+      }
+      /**
+      * Memberships List
+      */
+      export type MembershipList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of memberships.
+          */
+          memberships: Membership[];
+      }
+      /**
+      * Functions List
+      */
+      export type FunctionList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of functions.
+          */
+          functions: Function[];
+      }
+      /**
+      * Tags List
+      */
+      export type TagList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of tags.
+          */
+          tags: Tag[];
+      }
+      /**
+      * Executions List
+      */
+      export type ExecutionList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of executions.
+          */
+          executions: Execution[];
+      }
+      /**
+      * Countries List
+      */
+      export type CountryList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of countries.
+          */
+          countries: Country[];
+      }
+      /**
+      * Continents List
+      */
+      export type ContinentList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of continents.
+          */
+          continents: Continent[];
+      }
+      /**
+      * Languages List
+      */
+      export type LanguageList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of languages.
+          */
+          languages: Language[];
+      }
+      /**
+      * Currencies List
+      */
+      export type CurrencyList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of currencies.
+          */
+          currencies: Currency[];
+      }
+      /**
+      * Phones List
+      */
+      export type PhoneList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of phones.
+          */
+          phones: Phone[];
+      }
+      /**
+      * Permissions
+      */
+      export type Permissions = {
+          /**
+          * Read permissions.
+          */
+          read: string[];
+          /**
+          * Write permissions.
+          */
+          write: string[];
+      }
+      /**
+      * Collection
+      */
+      export type Collection = {
+          /**
+          * Collection ID.
+          */
+          $id: string;
+          /**
+          * Collection permissions.
+          */
+          $permissions: Permissions;
+          /**
+          * Collection name.
+          */
+          name: string;
+          /**
+          * Collection creation date in Unix timestamp.
+          */
+          dateCreated: number;
+          /**
+          * Collection creation date in Unix timestamp.
+          */
+          dateUpdated: number;
+          /**
+          * Collection rules.
+          */
+          rules: Rule[];
+      }
+      /**
+      * Document
+      */
+      export type Document = {
+          /**
+          * Document ID.
+          */
+          $id: string;
+          /**
+          * Collection ID.
+          */
+          $collection: string;
+          /**
+          * Document permissions.
+          */
+          $permissions: Permissions;
+      }
+      /**
+      * Rule
+      */
+      export type Rule = {
+          /**
+          * Rule ID.
+          */
+          $id: string;
+          /**
+          * Rule Collection.
+          */
+          $collection: string;
+          /**
+          * Rule type. Possible values: 
+          */
+          type: string;
+          /**
+          * Rule key.
+          */
+          key: string;
+          /**
+          * Rule label.
+          */
+          label: string;
+          /**
+          * Rule default value.
+          */
+          xdefault: string;
+          /**
+          * Is array?
+          */
+          array: boolean;
+          /**
+          * Is required?
+          */
+          required: boolean;
+          /**
+          * List of allowed values
+          */
+          list: string[];
+      }
+      /**
+      * Log
+      */
+      export type Log = {
+          /**
+          * Event name.
+          */
+          event: string;
+          /**
+          * IP session in use when the session was created.
+          */
+          ip: string;
+          /**
+          * Log creation time in Unix timestamp.
+          */
+          time: number;
+          /**
+          * Operating system code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/os.json).
+          */
+          osCode: string;
+          /**
+          * Operating system name.
+          */
+          osName: string;
+          /**
+          * Operating system version.
+          */
+          osVersion: string;
+          /**
+          * Client type.
+          */
+          clientType: string;
+          /**
+          * Client code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/clients.json).
+          */
+          clientCode: string;
+          /**
+          * Client name.
+          */
+          clientName: string;
+          /**
+          * Client version.
+          */
+          clientVersion: string;
+          /**
+          * Client engine name.
+          */
+          clientEngine: string;
+          /**
+          * Client engine name.
+          */
+          clientEngineVersion: string;
+          /**
+          * Device name.
+          */
+          deviceName: string;
+          /**
+          * Device brand name.
+          */
+          deviceBrand: string;
+          /**
+          * Device model name.
+          */
+          deviceModel: string;
+          /**
+          * Country two-character ISO 3166-1 alpha code.
+          */
+          countryCode: string;
+          /**
+          * Country name.
+          */
+          countryName: string;
+      }
+      /**
+      * User
+      */
+      export type User<Preferences extends Models.Preferences> = {
+          /**
+          * User ID.
+          */
+          $id: string;
+          /**
+          * User name.
+          */
+          name: string;
+          /**
+          * User registration date in Unix timestamp.
+          */
+          registration: number;
+          /**
+          * User status. 0 for Unactivated, 1 for active and 2 is blocked.
+          */
+          status: number;
+          /**
+          * Unix timestamp of the most recent password update
+          */
+          passwordUpdate: number;
+          /**
+          * User email address.
+          */
+          email: string;
+          /**
+          * Email verification status.
+          */
+          emailVerification: boolean;
+          /**
+          * User preferences as a key-value object
+          */
+          prefs: Preferences;
+      }
+      /**
+      * Preferences
+      */
+      export type Preferences = {
+      }
+      /**
+      * Session
+      */
+      export type Session = {
+          /**
+          * Session ID.
+          */
+          $id: string;
+          /**
+          * User ID.
+          */
+          userId: string;
+          /**
+          * Session expiration date in Unix timestamp.
+          */
+          expire: number;
+          /**
+          * Session Provider.
+          */
+          provider: string;
+          /**
+          * Session Provider User ID.
+          */
+          providerUid: string;
+          /**
+          * Session Provider Token.
+          */
+          providerToken: string;
+          /**
+          * IP in use when the session was created.
+          */
+          ip: string;
+          /**
+          * Operating system code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/os.json).
+          */
+          osCode: string;
+          /**
+          * Operating system name.
+          */
+          osName: string;
+          /**
+          * Operating system version.
+          */
+          osVersion: string;
+          /**
+          * Client type.
+          */
+          clientType: string;
+          /**
+          * Client code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/clients.json).
+          */
+          clientCode: string;
+          /**
+          * Client name.
+          */
+          clientName: string;
+          /**
+          * Client version.
+          */
+          clientVersion: string;
+          /**
+          * Client engine name.
+          */
+          clientEngine: string;
+          /**
+          * Client engine name.
+          */
+          clientEngineVersion: string;
+          /**
+          * Device name.
+          */
+          deviceName: string;
+          /**
+          * Device brand name.
+          */
+          deviceBrand: string;
+          /**
+          * Device model name.
+          */
+          deviceModel: string;
+          /**
+          * Country two-character ISO 3166-1 alpha code.
+          */
+          countryCode: string;
+          /**
+          * Country name.
+          */
+          countryName: string;
+          /**
+          * Returns true if this the current user session.
+          */
+          current: boolean;
+      }
+      /**
+      * Token
+      */
+      export type Token = {
+          /**
+          * Token ID.
+          */
+          $id: string;
+          /**
+          * User ID.
+          */
+          userId: string;
+          /**
+          * Token secret key. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
+          */
+          secret: string;
+          /**
+          * Token expiration date in Unix timestamp.
+          */
+          expire: number;
+      }
+      /**
+      * Locale
+      */
+      export type Locale = {
+          /**
+          * User IP address.
+          */
+          ip: string;
+          /**
+          * Country code in [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1) two-character format
+          */
+          countryCode: string;
+          /**
+          * Country name. This field support localization.
+          */
+          country: string;
+          /**
+          * Continent code. A two character continent code &quot;AF&quot; for Africa, &quot;AN&quot; for Antarctica, &quot;AS&quot; for Asia, &quot;EU&quot; for Europe, &quot;NA&quot; for North America, &quot;OC&quot; for Oceania, and &quot;SA&quot; for South America.
+          */
+          continentCode: string;
+          /**
+          * Continent name. This field support localization.
+          */
+          continent: string;
+          /**
+          * True if country is part of the Europian Union.
+          */
+          eu: boolean;
+          /**
+          * Currency code in [ISO 4217-1](http://en.wikipedia.org/wiki/ISO_4217) three-character format
+          */
+          currency: string;
+      }
+      /**
+      * File
+      */
+      export type File = {
+          /**
+          * File ID.
+          */
+          $id: string;
+          /**
+          * File permissions.
+          */
+          $permissions: Permissions;
+          /**
+          * File name.
+          */
+          name: string;
+          /**
+          * File creation date in Unix timestamp.
+          */
+          dateCreated: number;
+          /**
+          * File MD5 signature.
+          */
+          signature: string;
+          /**
+          * File mime type.
+          */
+          mimeType: string;
+          /**
+          * File original size in bytes.
+          */
+          sizeOriginal: number;
+      }
+      /**
+      * Team
+      */
+      export type Team = {
+          /**
+          * Team ID.
+          */
+          $id: string;
+          /**
+          * Team name.
+          */
+          name: string;
+          /**
+          * Team creation date in Unix timestamp.
+          */
+          dateCreated: number;
+          /**
+          * Total sum of team members.
+          */
+          sum: number;
+      }
+      /**
+      * Membership
+      */
+      export type Membership = {
+          /**
+          * Membership ID.
+          */
+          $id: string;
+          /**
+          * User ID.
+          */
+          userId: string;
+          /**
+          * Team ID.
+          */
+          teamId: string;
+          /**
+          * User name.
+          */
+          name: string;
+          /**
+          * User email address.
+          */
+          email: string;
+          /**
+          * Date, the user has been invited to join the team in Unix timestamp.
+          */
+          invited: number;
+          /**
+          * Date, the user has accepted the invitation to join the team in Unix timestamp.
+          */
+          joined: number;
+          /**
+          * User confirmation status, true if the user has joined the team or false otherwise.
+          */
+          confirm: boolean;
+          /**
+          * User list of roles
+          */
+          roles: string[];
+      }
+      /**
+      * Function
+      */
+      export type Function = {
+          /**
+          * Function ID.
+          */
+          $id: string;
+          /**
+          * Function permissions.
+          */
+          $permissions: Permissions;
+          /**
+          * Function name.
+          */
+          name: string;
+          /**
+          * Function creation date in Unix timestamp.
+          */
+          dateCreated: number;
+          /**
+          * Function update date in Unix timestamp.
+          */
+          dateUpdated: number;
+          /**
+          * Function status. Possible values: disabled, enabled
+          */
+          status: string;
+          /**
+          * Function execution runtime.
+          */
+          runtime: string;
+          /**
+          * Function active tag ID.
+          */
+          tag: string;
+          /**
+          * Function environment variables.
+          */
+          vars: string;
+          /**
+          * Function trigger events.
+          */
+          events: string[];
+          /**
+          * Function execution schedult in CRON format.
+          */
+          schedule: string;
+          /**
+          * Function next scheduled execution date in Unix timestamp.
+          */
+          scheduleNext: number;
+          /**
+          * Function next scheduled execution date in Unix timestamp.
+          */
+          schedulePrevious: number;
+          /**
+          * Function execution timeout in seconds.
+          */
+          timeout: number;
+      }
+      /**
+      * Tag
+      */
+      export type Tag = {
+          /**
+          * Tag ID.
+          */
+          $id: string;
+          /**
+          * Function ID.
+          */
+          functionId: string;
+          /**
+          * The tag creation date in Unix timestamp.
+          */
+          dateCreated: number;
+          /**
+          * The entrypoint command in use to execute the tag code.
+          */
+          command: string;
+          /**
+          * The code size in bytes.
+          */
+          size: string;
+      }
+      /**
+      * Execution
+      */
+      export type Execution = {
+          /**
+          * Execution ID.
+          */
+          $id: string;
+          /**
+          * Execution permissions.
+          */
+          $permissions: Permissions;
+          /**
+          * Function ID.
+          */
+          functionId: string;
+          /**
+          * The execution creation date in Unix timestamp.
+          */
+          dateCreated: number;
+          /**
+          * The trigger that caused the function to execute. Possible values can be: `http`, `schedule`, or `event`.
+          */
+          trigger: string;
+          /**
+          * The status of the function execution. Possible values can be: `waiting`, `processing`, `completed`, or `failed`.
+          */
+          status: string;
+          /**
+          * The script exit code.
+          */
+          exitCode: number;
+          /**
+          * The script stdout output string. Logs the last 4,000 characters of the execution stdout output.
+          */
+          stdout: string;
+          /**
+          * The script stderr output string. Logs the last 4,000 characters of the execution stderr output
+          */
+          stderr: string;
+          /**
+          * The script execution time in seconds.
+          */
+          time: number;
+      }
+      /**
+      * Country
+      */
+      export type Country = {
+          /**
+          * Country name.
+          */
+          name: string;
+          /**
+          * Country two-character ISO 3166-1 alpha code.
+          */
+          code: string;
+      }
+      /**
+      * Continent
+      */
+      export type Continent = {
+          /**
+          * Continent name.
+          */
+          name: string;
+          /**
+          * Continent two letter code.
+          */
+          code: string;
+      }
+      /**
+      * Language
+      */
+      export type Language = {
+          /**
+          * Language name.
+          */
+          name: string;
+          /**
+          * Language two-character ISO 639-1 codes.
+          */
+          code: string;
+          /**
+          * Language native name.
+          */
+          nativeName: string;
+      }
+      /**
+      * Currency
+      */
+      export type Currency = {
+          /**
+          * Currency symbol.
+          */
+          symbol: string;
+          /**
+          * Currency name.
+          */
+          name: string;
+          /**
+          * Currency native symbol.
+          */
+          symbolNative: string;
+          /**
+          * Number of decimal digits.
+          */
+          decimalDigits: number;
+          /**
+          * Currency digit rounding.
+          */
+          rounding: number;
+          /**
+          * Currency code in [ISO 4217-1](http://en.wikipedia.org/wiki/ISO_4217) three-character format.
+          */
+          code: string;
+          /**
+          * Currency plural name
+          */
+          namePlural: string;
+      }
+      /**
+      * Phone
+      */
+      export type Phone = {
+          /**
+          * Phone code.
+          */
+          code: string;
+          /**
+          * Country two-character ISO 3166-1 alpha code.
+          */
+          countryCode: string;
+          /**
+          * Country name.
+          */
+          countryName: string;
+      }
+  }
   export class Client {
     /**
      * Set endpoint.
@@ -73,7 +960,6 @@ declare module "node-appwrite" {
   }
 
   export class Account extends Service {
-
     /**
      * Get Account
      *
@@ -82,8 +968,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get<T extends unknown>(): Promise<T>;
-
+    get<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>>;
     /**
      * Delete Account
      *
@@ -96,8 +981,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    delete<T extends unknown>(): Promise<T>;
-
+    delete(): Promise<Response>;
     /**
      * Update Account Email
      *
@@ -113,8 +997,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateEmail<T extends unknown>(email: string, password: string): Promise<T>;
-
+    updateEmail<Preferences extends Models.Preferences>(email: string, password: string): Promise<Models.User<Preferences>>;
     /**
      * Get Account Logs
      *
@@ -124,8 +1007,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getLogs<T extends unknown>(): Promise<T>;
-
+    getLogs(): Promise<Models.LogList>;
     /**
      * Update Account Name
      *
@@ -135,8 +1017,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateName<T extends unknown>(name: string): Promise<T>;
-
+    updateName<Preferences extends Models.Preferences>(name: string): Promise<Models.User<Preferences>>;
     /**
      * Update Account Password
      *
@@ -149,8 +1030,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updatePassword<T extends unknown>(password: string, oldPassword?: string): Promise<T>;
-
+    updatePassword<Preferences extends Models.Preferences>(password: string, oldPassword?: string): Promise<Models.User<Preferences>>;
     /**
      * Get Account Preferences
      *
@@ -159,8 +1039,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getPrefs<T extends unknown>(): Promise<T>;
-
+    getPrefs<Preferences extends Models.Preferences>(): Promise<Preferences>;
     /**
      * Update Account Preferences
      *
@@ -171,8 +1050,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updatePrefs<T extends unknown>(prefs: object): Promise<T>;
-
+    updatePrefs<Preferences extends Models.Preferences>(prefs: object): Promise<Models.User<Preferences>>;
     /**
      * Create Password Recovery
      *
@@ -190,8 +1068,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createRecovery<T extends unknown>(email: string, url: string): Promise<T>;
-
+    createRecovery(email: string, url: string): Promise<Models.Token>;
     /**
      * Create Password Recovery (confirmation)
      *
@@ -212,8 +1089,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateRecovery<T extends unknown>(userId: string, secret: string, password: string, passwordAgain: string): Promise<T>;
-
+    updateRecovery(userId: string, secret: string, password: string, passwordAgain: string): Promise<Models.Token>;
     /**
      * Get Account Sessions
      *
@@ -223,8 +1099,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getSessions<T extends unknown>(): Promise<T>;
-
+    getSessions(): Promise<Models.SessionList>;
     /**
      * Delete All Account Sessions
      *
@@ -234,8 +1109,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteSessions<T extends unknown>(): Promise<T>;
-
+    deleteSessions(): Promise<Response>;
     /**
      * Get Session By ID
      *
@@ -246,8 +1120,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getSession<T extends unknown>(sessionId: string): Promise<T>;
-
+    getSession(sessionId: string): Promise<Models.Session>;
     /**
      * Delete Account Session
      *
@@ -259,8 +1132,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteSession<T extends unknown>(sessionId: string): Promise<T>;
-
+    deleteSession(sessionId: string): Promise<Response>;
     /**
      * Create Email Verification
      *
@@ -284,8 +1156,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createVerification<T extends unknown>(url: string): Promise<T>;
-
+    createVerification(url: string): Promise<Models.Token>;
     /**
      * Create Email Verification (confirmation)
      *
@@ -299,10 +1170,9 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateVerification<T extends unknown>(userId: string, secret: string): Promise<T>;
+    updateVerification(userId: string, secret: string): Promise<Models.Token>;
   }
   export class Avatars extends Service {
-
     /**
      * Get Browser Icon
      *
@@ -319,7 +1189,6 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     getBrowser(code: string, width?: number, height?: number, quality?: number): Promise<Buffer>;
-
     /**
      * Get Credit Card Icon
      *
@@ -335,7 +1204,6 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     getCreditCard(code: string, width?: number, height?: number, quality?: number): Promise<Buffer>;
-
     /**
      * Get Favicon
      *
@@ -348,7 +1216,6 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     getFavicon(url: string): Promise<Buffer>;
-
     /**
      * Get Country Flag
      *
@@ -364,7 +1231,6 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     getFlag(code: string, width?: number, height?: number, quality?: number): Promise<Buffer>;
-
     /**
      * Get Image from URL
      *
@@ -380,7 +1246,6 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     getImage(url: string, width?: number, height?: number): Promise<Buffer>;
-
     /**
      * Get User Initials
      *
@@ -404,7 +1269,6 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     getInitials(name?: string, width?: number, height?: number, color?: string, background?: string): Promise<Buffer>;
-
     /**
      * Get QR Code
      *
@@ -421,7 +1285,6 @@ declare module "node-appwrite" {
     getQR(text: string, size?: number, margin?: number, download?: boolean): Promise<Buffer>;
   }
   export class Database extends Service {
-
     /**
      * List Collections
      *
@@ -437,8 +1300,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listCollections<T extends unknown>(search?: string, limit?: number, offset?: number, orderType?: string): Promise<T>;
-
+    listCollections(search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.CollectionList>;
     /**
      * Create Collection
      *
@@ -451,8 +1313,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createCollection<T extends unknown>(name: string, read: string[], write: string[], rules: string[]): Promise<T>;
-
+    createCollection(name: string, read: string[], write: string[], rules: string[]): Promise<Models.Collection>;
     /**
      * Get Collection
      *
@@ -463,8 +1324,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCollection<T extends unknown>(collectionId: string): Promise<T>;
-
+    getCollection(collectionId: string): Promise<Models.Collection>;
     /**
      * Update Collection
      *
@@ -478,8 +1338,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateCollection<T extends unknown>(collectionId: string, name: string, read?: string[], write?: string[], rules?: string[]): Promise<T>;
-
+    updateCollection(collectionId: string, name: string, read?: string[], write?: string[], rules?: string[]): Promise<Models.Collection>;
     /**
      * Delete Collection
      *
@@ -490,8 +1349,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteCollection<T extends unknown>(collectionId: string): Promise<T>;
-
+    deleteCollection(collectionId: string): Promise<Response>;
     /**
      * List Documents
      *
@@ -511,8 +1369,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listDocuments<T extends unknown>(collectionId: string, filters?: string[], limit?: number, offset?: number, orderField?: string, orderType?: string, orderCast?: string, search?: string): Promise<T>;
-
+    listDocuments<Document extends Models.Document>(collectionId: string, filters?: string[], limit?: number, offset?: number, orderField?: string, orderType?: string, orderCast?: string, search?: string): Promise<Models.DocumentList<Document>>;
     /**
      * Create Document
      *
@@ -531,8 +1388,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createDocument<T extends unknown>(collectionId: string, data: object, read?: string[], write?: string[], parentDocument?: string, parentProperty?: string, parentPropertyType?: string): Promise<T>;
-
+    createDocument<Document extends Models.Document>(collectionId: string, data: object, read?: string[], write?: string[], parentDocument?: string, parentProperty?: string, parentPropertyType?: string): Promise<Document>;
     /**
      * Get Document
      *
@@ -544,8 +1400,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getDocument<T extends unknown>(collectionId: string, documentId: string): Promise<T>;
-
+    getDocument<Document extends Models.Document>(collectionId: string, documentId: string): Promise<Document>;
     /**
      * Update Document
      *
@@ -560,8 +1415,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateDocument<T extends unknown>(collectionId: string, documentId: string, data: object, read?: string[], write?: string[]): Promise<T>;
-
+    updateDocument<Document extends Models.Document>(collectionId: string, documentId: string, data: object, read?: string[], write?: string[]): Promise<Document>;
     /**
      * Delete Document
      *
@@ -574,10 +1428,9 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteDocument<T extends unknown>(collectionId: string, documentId: string): Promise<T>;
+    deleteDocument(collectionId: string, documentId: string): Promise<Response>;
   }
   export class Functions extends Service {
-
     /**
      * List Functions
      *
@@ -591,8 +1444,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    list<T extends unknown>(search?: string, limit?: number, offset?: number, orderType?: string): Promise<T>;
-
+    list(search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.FunctionList>;
     /**
      * Create Function
      *
@@ -610,8 +1462,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create<T extends unknown>(name: string, execute: string[], runtime: string, vars?: object, events?: string[], schedule?: string, timeout?: number): Promise<T>;
-
+    create(name: string, execute: string[], runtime: string, vars?: object, events?: string[], schedule?: string, timeout?: number): Promise<Models.Function>;
     /**
      * Get Function
      *
@@ -621,8 +1472,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get<T extends unknown>(functionId: string): Promise<T>;
-
+    get(functionId: string): Promise<Models.Function>;
     /**
      * Update Function
      *
@@ -638,8 +1488,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    update<T extends unknown>(functionId: string, name: string, execute: string[], vars?: object, events?: string[], schedule?: string, timeout?: number): Promise<T>;
-
+    update(functionId: string, name: string, execute: string[], vars?: object, events?: string[], schedule?: string, timeout?: number): Promise<Models.Function>;
     /**
      * Delete Function
      *
@@ -649,8 +1498,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    delete<T extends unknown>(functionId: string): Promise<T>;
-
+    delete(functionId: string): Promise<Response>;
     /**
      * List Executions
      *
@@ -667,8 +1515,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listExecutions<T extends unknown>(functionId: string, search?: string, limit?: number, offset?: number, orderType?: string): Promise<T>;
-
+    listExecutions(functionId: string, search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.ExecutionList>;
     /**
      * Create Execution
      *
@@ -682,8 +1529,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createExecution<T extends unknown>(functionId: string, data?: string): Promise<T>;
-
+    createExecution(functionId: string, data?: string): Promise<Models.Execution>;
     /**
      * Get Execution
      *
@@ -694,8 +1540,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getExecution<T extends unknown>(functionId: string, executionId: string): Promise<T>;
-
+    getExecution(functionId: string, executionId: string): Promise<Models.Execution>;
     /**
      * Update Function Tag
      *
@@ -708,8 +1553,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateTag<T extends unknown>(functionId: string, tag: string): Promise<T>;
-
+    updateTag(functionId: string, tag: string): Promise<Models.Function>;
     /**
      * List Tags
      *
@@ -724,8 +1568,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listTags<T extends unknown>(functionId: string, search?: string, limit?: number, offset?: number, orderType?: string): Promise<T>;
-
+    listTags(functionId: string, search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.TagList>;
     /**
      * Create Tag
      *
@@ -746,8 +1589,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createTag<T extends unknown>(functionId: string, command: string, code: File): Promise<T>;
-
+    createTag(functionId: string, command: string, code: File): Promise<Models.Tag>;
     /**
      * Get Tag
      *
@@ -758,8 +1600,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getTag<T extends unknown>(functionId: string, tagId: string): Promise<T>;
-
+    getTag(functionId: string, tagId: string): Promise<Models.Tag>;
     /**
      * Delete Tag
      *
@@ -770,10 +1611,9 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteTag<T extends unknown>(functionId: string, tagId: string): Promise<T>;
+    deleteTag(functionId: string, tagId: string): Promise<Response>;
   }
   export class Health extends Service {
-
     /**
      * Get HTTP
      *
@@ -782,8 +1622,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get<T extends unknown>(): Promise<T>;
-
+    get(): Promise<Response>;
     /**
      * Get Anti virus
      *
@@ -792,8 +1631,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getAntiVirus<T extends unknown>(): Promise<T>;
-
+    getAntiVirus(): Promise<Response>;
     /**
      * Get Cache
      *
@@ -803,8 +1641,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCache<T extends unknown>(): Promise<T>;
-
+    getCache(): Promise<Response>;
     /**
      * Get DB
      *
@@ -813,8 +1650,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getDB<T extends unknown>(): Promise<T>;
-
+    getDB(): Promise<Response>;
     /**
      * Get Certificate Queue
      *
@@ -825,16 +1661,14 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueCertificates<T extends unknown>(): Promise<T>;
-
+    getQueueCertificates(): Promise<Response>;
     /**
      * Get Functions Queue
      *
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueFunctions<T extends unknown>(): Promise<T>;
-
+    getQueueFunctions(): Promise<Response>;
     /**
      * Get Logs Queue
      *
@@ -844,8 +1678,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueLogs<T extends unknown>(): Promise<T>;
-
+    getQueueLogs(): Promise<Response>;
     /**
      * Get Tasks Queue
      *
@@ -855,8 +1688,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueTasks<T extends unknown>(): Promise<T>;
-
+    getQueueTasks(): Promise<Response>;
     /**
      * Get Usage Queue
      *
@@ -866,8 +1698,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueUsage<T extends unknown>(): Promise<T>;
-
+    getQueueUsage(): Promise<Response>;
     /**
      * Get Webhooks Queue
      *
@@ -877,8 +1708,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueWebhooks<T extends unknown>(): Promise<T>;
-
+    getQueueWebhooks(): Promise<Response>;
     /**
      * Get Local Storage
      *
@@ -887,8 +1717,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getStorageLocal<T extends unknown>(): Promise<T>;
-
+    getStorageLocal(): Promise<Response>;
     /**
      * Get Time
      *
@@ -903,10 +1732,9 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getTime<T extends unknown>(): Promise<T>;
+    getTime(): Promise<Response>;
   }
   export class Locale extends Service {
-
     /**
      * Get User Locale
      *
@@ -920,8 +1748,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get<T extends unknown>(): Promise<T>;
-
+    get(): Promise<Models.Locale>;
     /**
      * List Continents
      *
@@ -931,8 +1758,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getContinents<T extends unknown>(): Promise<T>;
-
+    getContinents(): Promise<Models.ContinentList>;
     /**
      * List Countries
      *
@@ -942,8 +1768,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCountries<T extends unknown>(): Promise<T>;
-
+    getCountries(): Promise<Models.CountryList>;
     /**
      * List EU Countries
      *
@@ -953,8 +1778,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCountriesEU<T extends unknown>(): Promise<T>;
-
+    getCountriesEU(): Promise<Models.CountryList>;
     /**
      * List Countries Phone Codes
      *
@@ -964,8 +1788,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCountriesPhones<T extends unknown>(): Promise<T>;
-
+    getCountriesPhones(): Promise<Models.PhoneList>;
     /**
      * List Currencies
      *
@@ -976,8 +1799,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCurrencies<T extends unknown>(): Promise<T>;
-
+    getCurrencies(): Promise<Models.CurrencyList>;
     /**
      * List Languages
      *
@@ -987,10 +1809,9 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getLanguages<T extends unknown>(): Promise<T>;
+    getLanguages(): Promise<Models.LanguageList>;
   }
   export class Storage extends Service {
-
     /**
      * List Files
      *
@@ -1005,8 +1826,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listFiles<T extends unknown>(search?: string, limit?: number, offset?: number, orderType?: string): Promise<T>;
-
+    listFiles(search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.FileList>;
     /**
      * Create File
      *
@@ -1020,8 +1840,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createFile<T extends unknown>(file: File, read?: string[], write?: string[]): Promise<T>;
-
+    createFile(file: File, read?: string[], write?: string[]): Promise<Models.File>;
     /**
      * Get File
      *
@@ -1032,8 +1851,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getFile<T extends unknown>(fileId: string): Promise<T>;
-
+    getFile(fileId: string): Promise<Models.File>;
     /**
      * Update File
      *
@@ -1046,8 +1864,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateFile<T extends unknown>(fileId: string, read: string[], write: string[]): Promise<T>;
-
+    updateFile(fileId: string, read: string[], write: string[]): Promise<Models.File>;
     /**
      * Delete File
      *
@@ -1058,8 +1875,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteFile<T extends unknown>(fileId: string): Promise<T>;
-
+    deleteFile(fileId: string): Promise<Response>;
     /**
      * Get File for Download
      *
@@ -1072,7 +1888,6 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     getFileDownload(fileId: string): Promise<Buffer>;
-
     /**
      * Get File Preview
      *
@@ -1097,7 +1912,6 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     getFilePreview(fileId: string, width?: number, height?: number, gravity?: string, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: string): Promise<Buffer>;
-
     /**
      * Get File for View
      *
@@ -1112,7 +1926,6 @@ declare module "node-appwrite" {
     getFileView(fileId: string): Promise<Buffer>;
   }
   export class Teams extends Service {
-
     /**
      * List Teams
      *
@@ -1128,8 +1941,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    list<T extends unknown>(search?: string, limit?: number, offset?: number, orderType?: string): Promise<T>;
-
+    list(search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.TeamList>;
     /**
      * Create Team
      *
@@ -1143,8 +1955,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create<T extends unknown>(name: string, roles?: string[]): Promise<T>;
-
+    create(name: string, roles?: string[]): Promise<Models.Team>;
     /**
      * Get Team
      *
@@ -1155,8 +1966,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get<T extends unknown>(teamId: string): Promise<T>;
-
+    get(teamId: string): Promise<Models.Team>;
     /**
      * Update Team
      *
@@ -1168,8 +1978,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    update<T extends unknown>(teamId: string, name: string): Promise<T>;
-
+    update(teamId: string, name: string): Promise<Models.Team>;
     /**
      * Delete Team
      *
@@ -1180,8 +1989,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    delete<T extends unknown>(teamId: string): Promise<T>;
-
+    delete(teamId: string): Promise<Response>;
     /**
      * Get Team Memberships
      *
@@ -1196,8 +2004,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getMemberships<T extends unknown>(teamId: string, search?: string, limit?: number, offset?: number, orderType?: string): Promise<T>;
-
+    getMemberships(teamId: string, search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.MembershipList>;
     /**
      * Create Team Membership
      *
@@ -1226,8 +2033,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createMembership<T extends unknown>(teamId: string, email: string, roles: string[], url: string, name?: string): Promise<T>;
-
+    createMembership(teamId: string, email: string, roles: string[], url: string, name?: string): Promise<Models.Membership>;
     /**
      * Update Membership Roles
      *
@@ -1237,8 +2043,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateMembershipRoles<T extends unknown>(teamId: string, membershipId: string, roles: string[]): Promise<T>;
-
+    updateMembershipRoles(teamId: string, membershipId: string, roles: string[]): Promise<Models.Membership>;
     /**
      * Delete Team Membership
      *
@@ -1251,8 +2056,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteMembership<T extends unknown>(teamId: string, membershipId: string): Promise<T>;
-
+    deleteMembership(teamId: string, membershipId: string): Promise<Response>;
     /**
      * Update Team Membership Status
      *
@@ -1267,10 +2071,9 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateMembershipStatus<T extends unknown>(teamId: string, membershipId: string, userId: string, secret: string): Promise<T>;
+    updateMembershipStatus(teamId: string, membershipId: string, userId: string, secret: string): Promise<Models.Membership>;
   }
   export class Users extends Service {
-
     /**
      * List Users
      *
@@ -1284,8 +2087,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    list<T extends unknown>(search?: string, limit?: number, offset?: number, orderType?: string): Promise<T>;
-
+    list<Preferences extends Models.Preferences>(search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.UserList<Preferences>>;
     /**
      * Create User
      *
@@ -1297,8 +2099,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create<T extends unknown>(email: string, password: string, name?: string): Promise<T>;
-
+    create<Preferences extends Models.Preferences>(email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
     /**
      * Get User
      *
@@ -1308,8 +2109,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get<T extends unknown>(userId: string): Promise<T>;
-
+    get<Preferences extends Models.Preferences>(userId: string): Promise<Models.User<Preferences>>;
     /**
      * Delete User
      *
@@ -1319,8 +2119,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    delete<T extends unknown>(userId: string): Promise<T>;
-
+    delete(userId: string): Promise<Response>;
     /**
      * Update Email
      *
@@ -1331,8 +2130,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateEmail<T extends unknown>(userId: string, email: string): Promise<T>;
-
+    updateEmail<Preferences extends Models.Preferences>(userId: string, email: string): Promise<Models.User<Preferences>>;
     /**
      * Get User Logs
      *
@@ -1342,8 +2140,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getLogs<T extends unknown>(userId: string): Promise<T>;
-
+    getLogs(userId: string): Promise<Models.LogList>;
     /**
      * Update Name
      *
@@ -1354,8 +2151,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateName<T extends unknown>(userId: string, name: string): Promise<T>;
-
+    updateName<Preferences extends Models.Preferences>(userId: string, name: string): Promise<Models.User<Preferences>>;
     /**
      * Update Password
      *
@@ -1366,8 +2162,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updatePassword<T extends unknown>(userId: string, password: string): Promise<T>;
-
+    updatePassword<Preferences extends Models.Preferences>(userId: string, password: string): Promise<Models.User<Preferences>>;
     /**
      * Get User Preferences
      *
@@ -1377,8 +2172,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getPrefs<T extends unknown>(userId: string): Promise<T>;
-
+    getPrefs<Preferences extends Models.Preferences>(userId: string): Promise<Preferences>;
     /**
      * Update User Preferences
      *
@@ -1390,8 +2184,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updatePrefs<T extends unknown>(userId: string, prefs: object): Promise<T>;
-
+    updatePrefs<Preferences extends Models.Preferences>(userId: string, prefs: object): Promise<Preferences>;
     /**
      * Get User Sessions
      *
@@ -1401,8 +2194,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getSessions<T extends unknown>(userId: string): Promise<T>;
-
+    getSessions(userId: string): Promise<Models.SessionList>;
     /**
      * Delete User Sessions
      *
@@ -1412,8 +2204,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteSessions<T extends unknown>(userId: string): Promise<T>;
-
+    deleteSessions(userId: string): Promise<Response>;
     /**
      * Delete User Session
      *
@@ -1424,8 +2215,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteSession<T extends unknown>(userId: string, sessionId: string): Promise<T>;
-
+    deleteSession(userId: string, sessionId: string): Promise<Response>;
     /**
      * Update User Status
      *
@@ -1436,8 +2226,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateStatus<T extends unknown>(userId: string, status: number): Promise<T>;
-
+    updateStatus<Preferences extends Models.Preferences>(userId: string, status: number): Promise<Models.User<Preferences>>;
     /**
      * Update Email Verification
      *
@@ -1448,6 +2237,6 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateVerification<T extends unknown>(userId: string, emailVerification: boolean): Promise<T>;
+    updateVerification<Preferences extends Models.Preferences>(userId: string, emailVerification: boolean): Promise<Models.User<Preferences>>;
   }
 }
