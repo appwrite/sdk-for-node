@@ -14,6 +14,19 @@ declare module "node-appwrite" {
           collections: Collection[];
       }
       /**
+      * Indexes List
+      */
+      export type IndexList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of indexes.
+          */
+          indexes: Index[];
+      }
+      /**
       * Documents List
       */
       export type DocumentList<Document extends Models.Document> = {
@@ -56,6 +69,10 @@ declare module "node-appwrite" {
       * Logs List
       */
       export type LogList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
           /**
           * List of logs.
           */
@@ -112,6 +129,19 @@ declare module "node-appwrite" {
           * List of functions.
           */
           functions: Function[];
+      }
+      /**
+      * Runtimes List
+      */
+      export type RuntimeList = {
+          /**
+          * Total number of items available on the server.
+          */
+          sum: number;
+          /**
+          * List of runtimes.
+          */
+          runtimes: Runtime[];
       }
       /**
       * Tags List
@@ -205,19 +235,6 @@ declare module "node-appwrite" {
           phones: Phone[];
       }
       /**
-      * Permissions
-      */
-      export type Permissions = {
-          /**
-          * Read permissions.
-          */
-          read: string[];
-          /**
-          * Write permissions.
-          */
-          write: string[];
-      }
-      /**
       * Collection
       */
       export type Collection = {
@@ -226,25 +243,343 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * Collection permissions.
+          * Collection read permissions.
           */
-          $permissions: Permissions;
+          $read: string[];
+          /**
+          * Collection write permissions.
+          */
+          $write: string[];
           /**
           * Collection name.
           */
           name: string;
           /**
-          * Collection creation date in Unix timestamp.
+          * Collection enabled.
           */
-          dateCreated: number;
+          enabled: boolean;
           /**
-          * Collection creation date in Unix timestamp.
+          * Collection permission model. Possible values: `document` or `collection`
           */
-          dateUpdated: number;
+          permission: string;
           /**
-          * Collection rules.
+          * Collection attributes.
           */
-          rules: Rule[];
+          attributes: string[];
+          /**
+          * Collection indexes.
+          */
+          indexes: Index[];
+      }
+      /**
+      * Attributes List
+      */
+      export type AttributeList = {
+          /**
+          * Total sum of items in the list.
+          */
+          sum: number;
+          /**
+          * List of attributes.
+          */
+          attributes: string[];
+      }
+      /**
+      * AttributeString
+      */
+      export type AttributeString = {
+          /**
+          * Attribute Key.
+          */
+          key: string;
+          /**
+          * Attribute type.
+          */
+          type: string;
+          /**
+          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+          */
+          status: string;
+          /**
+          * Is attribute required?
+          */
+          required: boolean;
+          /**
+          * Is attribute an array?
+          */
+          array?: boolean;
+          /**
+          * Attribute size.
+          */
+          size: string;
+          /**
+          * Default value for attribute when not provided. Cannot be set when attribute is required.
+          */
+          xdefault?: string;
+      }
+      /**
+      * AttributeInteger
+      */
+      export type AttributeInteger = {
+          /**
+          * Attribute Key.
+          */
+          key: string;
+          /**
+          * Attribute type.
+          */
+          type: string;
+          /**
+          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+          */
+          status: string;
+          /**
+          * Is attribute required?
+          */
+          required: boolean;
+          /**
+          * Is attribute an array?
+          */
+          array?: boolean;
+          /**
+          * Minimum value to enforce for new documents.
+          */
+          min?: number;
+          /**
+          * Maximum value to enforce for new documents.
+          */
+          max?: number;
+          /**
+          * Default value for attribute when not provided. Cannot be set when attribute is required.
+          */
+          xdefault?: number;
+      }
+      /**
+      * AttributeFloat
+      */
+      export type AttributeFloat = {
+          /**
+          * Attribute Key.
+          */
+          key: string;
+          /**
+          * Attribute type.
+          */
+          type: string;
+          /**
+          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+          */
+          status: string;
+          /**
+          * Is attribute required?
+          */
+          required: boolean;
+          /**
+          * Is attribute an array?
+          */
+          array?: boolean;
+          /**
+          * Minimum value to enforce for new documents.
+          */
+          min?: number;
+          /**
+          * Maximum value to enforce for new documents.
+          */
+          max?: number;
+          /**
+          * Default value for attribute when not provided. Cannot be set when attribute is required.
+          */
+          xdefault?: number;
+      }
+      /**
+      * AttributeBoolean
+      */
+      export type AttributeBoolean = {
+          /**
+          * Attribute Key.
+          */
+          key: string;
+          /**
+          * Attribute type.
+          */
+          type: string;
+          /**
+          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+          */
+          status: string;
+          /**
+          * Is attribute required?
+          */
+          required: boolean;
+          /**
+          * Is attribute an array?
+          */
+          array?: boolean;
+          /**
+          * Default value for attribute when not provided. Cannot be set when attribute is required.
+          */
+          xdefault?: boolean;
+      }
+      /**
+      * AttributeEmail
+      */
+      export type AttributeEmail = {
+          /**
+          * Attribute Key.
+          */
+          key: string;
+          /**
+          * Attribute type.
+          */
+          type: string;
+          /**
+          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+          */
+          status: string;
+          /**
+          * Is attribute required?
+          */
+          required: boolean;
+          /**
+          * Is attribute an array?
+          */
+          array?: boolean;
+          /**
+          * String format.
+          */
+          format: string;
+          /**
+          * Default value for attribute when not provided. Cannot be set when attribute is required.
+          */
+          xdefault?: string;
+      }
+      /**
+      * AttributeEnum
+      */
+      export type AttributeEnum = {
+          /**
+          * Attribute Key.
+          */
+          key: string;
+          /**
+          * Attribute type.
+          */
+          type: string;
+          /**
+          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+          */
+          status: string;
+          /**
+          * Is attribute required?
+          */
+          required: boolean;
+          /**
+          * Is attribute an array?
+          */
+          array?: boolean;
+          /**
+          * Array of elements in enumerated type.
+          */
+          elements: string[];
+          /**
+          * String format.
+          */
+          format: string;
+          /**
+          * Default value for attribute when not provided. Cannot be set when attribute is required.
+          */
+          xdefault?: string;
+      }
+      /**
+      * AttributeIP
+      */
+      export type AttributeIp = {
+          /**
+          * Attribute Key.
+          */
+          key: string;
+          /**
+          * Attribute type.
+          */
+          type: string;
+          /**
+          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+          */
+          status: string;
+          /**
+          * Is attribute required?
+          */
+          required: boolean;
+          /**
+          * Is attribute an array?
+          */
+          array?: boolean;
+          /**
+          * String format.
+          */
+          format: string;
+          /**
+          * Default value for attribute when not provided. Cannot be set when attribute is required.
+          */
+          xdefault?: string;
+      }
+      /**
+      * AttributeURL
+      */
+      export type AttributeUrl = {
+          /**
+          * Attribute Key.
+          */
+          key: string;
+          /**
+          * Attribute type.
+          */
+          type: string;
+          /**
+          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+          */
+          status: string;
+          /**
+          * Is attribute required?
+          */
+          required: boolean;
+          /**
+          * Is attribute an array?
+          */
+          array?: boolean;
+          /**
+          * String format.
+          */
+          format: string;
+          /**
+          * Default value for attribute when not provided. Cannot be set when attribute is required.
+          */
+          xdefault?: string;
+      }
+      /**
+      * Index
+      */
+      export type Index = {
+          /**
+          * Index Key.
+          */
+          key: string;
+          /**
+          * Index type.
+          */
+          type: string;
+          /**
+          * Index status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+          */
+          status: string;
+          /**
+          * Index attributes.
+          */
+          attributes: string[];
+          /**
+          * Index orders.
+          */
+          orders: string[];
       }
       /**
       * Document
@@ -259,50 +594,13 @@ declare module "node-appwrite" {
           */
           $collection: string;
           /**
-          * Document permissions.
+          * Document read permissions.
           */
-          $permissions: Permissions;
-      }
-      /**
-      * Rule
-      */
-      export type Rule = {
+          $read: string[];
           /**
-          * Rule ID.
+          * Document write permissions.
           */
-          $id: string;
-          /**
-          * Rule Collection.
-          */
-          $collection: string;
-          /**
-          * Rule type. Possible values: 
-          */
-          type: string;
-          /**
-          * Rule key.
-          */
-          key: string;
-          /**
-          * Rule label.
-          */
-          label: string;
-          /**
-          * Rule default value.
-          */
-          xdefault: string;
-          /**
-          * Is array?
-          */
-          array: boolean;
-          /**
-          * Is required?
-          */
-          required: boolean;
-          /**
-          * List of allowed values
-          */
-          list: string[];
+          $write: string[];
       }
       /**
       * Log
@@ -312,6 +610,22 @@ declare module "node-appwrite" {
           * Event name.
           */
           event: string;
+          /**
+          * User ID.
+          */
+          userId: string;
+          /**
+          * User Email.
+          */
+          userEmail: string;
+          /**
+          * User Name.
+          */
+          userName: string;
+          /**
+          * API mode when event triggered.
+          */
+          mode: string;
           /**
           * IP session in use when the session was created.
           */
@@ -394,9 +708,9 @@ declare module "node-appwrite" {
           */
           registration: number;
           /**
-          * User status. 0 for Unactivated, 1 for active and 2 is blocked.
+          * User status. Pass `true` for enabled and `false` for disabled.
           */
-          status: number;
+          status: boolean;
           /**
           * Unix timestamp of the most recent password update
           */
@@ -575,9 +889,13 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * File permissions.
+          * File read permissions.
           */
-          $permissions: Permissions;
+          $read: string[];
+          /**
+          * File write permissions.
+          */
+          $write: string[];
           /**
           * File name.
           */
@@ -670,9 +988,9 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * Function permissions.
+          * Execution permissions.
           */
-          $permissions: Permissions;
+          execute: string;
           /**
           * Function name.
           */
@@ -686,7 +1004,7 @@ declare module "node-appwrite" {
           */
           dateUpdated: number;
           /**
-          * Function status. Possible values: disabled, enabled
+          * Function status. Possible values: `disabled`, `enabled`
           */
           status: string;
           /**
@@ -723,6 +1041,39 @@ declare module "node-appwrite" {
           timeout: number;
       }
       /**
+      * Runtime
+      */
+      export type Runtime = {
+          /**
+          * Runtime ID.
+          */
+          $id: string;
+          /**
+          * Runtime Name.
+          */
+          name: string;
+          /**
+          * Runtime version.
+          */
+          version: string;
+          /**
+          * Base Docker image used to build the runtime.
+          */
+          base: string;
+          /**
+          * Image name of Docker Hub.
+          */
+          image: string;
+          /**
+          * Name of the logo image.
+          */
+          logo: string;
+          /**
+          * List of supported architectures.
+          */
+          supports: string[];
+      }
+      /**
       * Tag
       */
       export type Tag = {
@@ -756,9 +1107,9 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * Execution permissions.
+          * Execution read permissions.
           */
-          $permissions: Permissions;
+          $read: string[];
           /**
           * Function ID.
           */
@@ -885,6 +1236,58 @@ declare module "node-appwrite" {
           */
           countryName: string;
       }
+      /**
+      * Health Antivirus
+      */
+      export type HealthAntivirus = {
+          /**
+          * Antivirus version.
+          */
+          version: string;
+          /**
+          * Antivirus status. Possible values can are: `disabled`, `offline`, `online`
+          */
+          status: string;
+      }
+      /**
+      * Health Queue
+      */
+      export type HealthQueue = {
+          /**
+          * Amount of actions in the queue.
+          */
+          size: number;
+      }
+      /**
+      * Health Status
+      */
+      export type HealthStatus = {
+          /**
+          * Duration in milliseconds how long the health check took.
+          */
+          ping: number;
+          /**
+          * Service status. Possible values can are: `pass`, `fail`
+          */
+          status: string;
+      }
+      /**
+      * Health Time
+      */
+      export type HealthTime = {
+          /**
+          * Current unix timestamp on trustful remote server.
+          */
+          remoteTime: number;
+          /**
+          * Current unix timestamp of local server where Appwrite runs.
+          */
+          localTime: number;
+          /**
+          * Difference of unix remote and local timestamps in milliseconds.
+          */
+          diff: number;
+      }
   }
   export class Client {
     /**
@@ -986,11 +1389,13 @@ declare module "node-appwrite" {
      * Update Account Email
      *
      * Update currently logged in user account email address. After changing user
-     * address, user confirmation status is being reset and a new confirmation
-     * mail is sent. For security measures, user password is required to complete
-     * this request.
+     * address, the user confirmation status will get reset. A new confirmation
+     * email is not sent automatically however you can use the send confirmation
+     * email endpoint again to send the confirmation email. For security measures,
+     * user password is required to complete this request.
      * This endpoint can also be used to convert an anonymous account to a normal
      * one, by passing an email address and a new password.
+     * 
      *
      * @param {string} email
      * @param {string} password
@@ -1004,10 +1409,12 @@ declare module "node-appwrite" {
      * Get currently logged in user list of latest security activity logs. Each
      * log returns user IP address, location and date and time of log.
      *
+     * @param {number} limit
+     * @param {number} offset
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getLogs(): Promise<Models.LogList>;
+    getLogs(limit?: number, offset?: number): Promise<Models.LogList>;
     /**
      * Update Account Name
      *
@@ -1296,24 +1703,27 @@ declare module "node-appwrite" {
      * @param {string} search
      * @param {number} limit
      * @param {number} offset
+     * @param {string} cursor
+     * @param {string} cursorDirection
      * @param {string} orderType
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listCollections(search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.CollectionList>;
+    listCollections(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.CollectionList>;
     /**
      * Create Collection
      *
      * Create a new Collection.
      *
+     * @param {string} collectionId
      * @param {string} name
+     * @param {string} permission
      * @param {string[]} read
      * @param {string[]} write
-     * @param {string[]} rules
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createCollection(name: string, read: string[], write: string[], rules: string[]): Promise<Models.Collection>;
+    createCollection(collectionId: string, name: string, permission: string, read: string[], write: string[]): Promise<Models.Collection>;
     /**
      * Get Collection
      *
@@ -1332,13 +1742,14 @@ declare module "node-appwrite" {
      *
      * @param {string} collectionId
      * @param {string} name
+     * @param {string} permission
      * @param {string[]} read
      * @param {string[]} write
-     * @param {string[]} rules
+     * @param {boolean} enabled
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateCollection(collectionId: string, name: string, read?: string[], write?: string[], rules?: string[]): Promise<Models.Collection>;
+    updateCollection(collectionId: string, name: string, permission: string, read?: string[], write?: string[], enabled?: boolean): Promise<Models.Collection>;
     /**
      * Delete Collection
      *
@@ -1351,6 +1762,157 @@ declare module "node-appwrite" {
      */
     deleteCollection(collectionId: string): Promise<Response>;
     /**
+     * List Attributes
+     *
+     * @param {string} collectionId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listAttributes(collectionId: string): Promise<Models.AttributeList>;
+    /**
+     * Create Boolean Attribute
+     *
+     * Create a boolean attribute.
+     * 
+     *
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {boolean} default
+     * @param {boolean} array
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createBooleanAttribute(collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean>;
+    /**
+     * Create Email Attribute
+     *
+     * Create an email attribute.
+     * 
+     *
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {string} default
+     * @param {boolean} array
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createEmailAttribute(collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail>;
+    /**
+     * Create Enum Attribute
+     *
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {string[]} elements
+     * @param {boolean} required
+     * @param {string} default
+     * @param {boolean} array
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createEnumAttribute(collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum>;
+    /**
+     * Create Float Attribute
+     *
+     * Create a float attribute. Optionally, minimum and maximum values can be
+     * provided.
+     * 
+     *
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {string} min
+     * @param {string} max
+     * @param {string} default
+     * @param {boolean} array
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createFloatAttribute(collectionId: string, key: string, required: boolean, min?: string, max?: string, xdefault?: string, array?: boolean): Promise<Models.AttributeFloat>;
+    /**
+     * Create Integer Attribute
+     *
+     * Create an integer attribute. Optionally, minimum and maximum values can be
+     * provided.
+     * 
+     *
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {number} min
+     * @param {number} max
+     * @param {number} default
+     * @param {boolean} array
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createIntegerAttribute(collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger>;
+    /**
+     * Create IP Address Attribute
+     *
+     * Create IP address attribute.
+     * 
+     *
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {string} default
+     * @param {boolean} array
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createIpAttribute(collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp>;
+    /**
+     * Create String Attribute
+     *
+     * Create a string attribute.
+     * 
+     *
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {number} size
+     * @param {boolean} required
+     * @param {string} default
+     * @param {boolean} array
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createStringAttribute(collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeString>;
+    /**
+     * Create URL Attribute
+     *
+     * Create a URL attribute.
+     * 
+     *
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {string} default
+     * @param {boolean} array
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createUrlAttribute(collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl>;
+    /**
+     * Get Attribute
+     *
+     * @param {string} collectionId
+     * @param {string} key
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getAttribute(collectionId: string, key: string): Promise<Response>;
+    /**
+     * Delete Attribute
+     *
+     * @param {string} collectionId
+     * @param {string} key
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    deleteAttribute(collectionId: string, key: string): Promise<Response>;
+    /**
      * List Documents
      *
      * Get a list of all the user documents. You can use the query params to
@@ -1359,17 +1921,17 @@ declare module "node-appwrite" {
      * modes](/docs/admin).
      *
      * @param {string} collectionId
-     * @param {string[]} filters
+     * @param {string[]} queries
      * @param {number} limit
      * @param {number} offset
-     * @param {string} orderField
-     * @param {string} orderType
-     * @param {string} orderCast
-     * @param {string} search
+     * @param {string} cursor
+     * @param {string} cursorDirection
+     * @param {string[]} orderAttributes
+     * @param {string[]} orderTypes
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listDocuments<Document extends Models.Document>(collectionId: string, filters?: string[], limit?: number, offset?: number, orderField?: string, orderType?: string, orderCast?: string, search?: string): Promise<Models.DocumentList<Document>>;
+    listDocuments<Document extends Models.Document>(collectionId: string, queries?: string[], limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderAttributes?: string[], orderTypes?: string[]): Promise<Models.DocumentList<Document>>;
     /**
      * Create Document
      *
@@ -1379,16 +1941,14 @@ declare module "node-appwrite" {
      * directly from your database console.
      *
      * @param {string} collectionId
+     * @param {string} documentId
      * @param {object} data
      * @param {string[]} read
      * @param {string[]} write
-     * @param {string} parentDocument
-     * @param {string} parentProperty
-     * @param {string} parentPropertyType
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createDocument<Document extends Models.Document>(collectionId: string, data: object, read?: string[], write?: string[], parentDocument?: string, parentProperty?: string, parentPropertyType?: string): Promise<Document>;
+    createDocument<Document extends Models.Document>(collectionId: string, documentId: string, data: object, read?: string[], write?: string[]): Promise<Document>;
     /**
      * Get Document
      *
@@ -1429,6 +1989,44 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     deleteDocument(collectionId: string, documentId: string): Promise<Response>;
+    /**
+     * List Indexes
+     *
+     * @param {string} collectionId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listIndexes(collectionId: string): Promise<Models.IndexList>;
+    /**
+     * Create Index
+     *
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {string} type
+     * @param {string[]} attributes
+     * @param {string[]} orders
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createIndex(collectionId: string, key: string, type: string, attributes: string[], orders?: string[]): Promise<Models.Index>;
+    /**
+     * Get Index
+     *
+     * @param {string} collectionId
+     * @param {string} key
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getIndex(collectionId: string, key: string): Promise<Models.Index>;
+    /**
+     * Delete Index
+     *
+     * @param {string} collectionId
+     * @param {string} key
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    deleteIndex(collectionId: string, key: string): Promise<Response>;
   }
   export class Functions extends Service {
     /**
@@ -1440,11 +2038,13 @@ declare module "node-appwrite" {
      * @param {string} search
      * @param {number} limit
      * @param {number} offset
+     * @param {string} cursor
+     * @param {string} cursorDirection
      * @param {string} orderType
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    list(search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.FunctionList>;
+    list(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.FunctionList>;
     /**
      * Create Function
      *
@@ -1452,6 +2052,7 @@ declare module "node-appwrite" {
      * [permissions](/docs/permissions) to allow different project users or team
      * with access to execute the function using the client API.
      *
+     * @param {string} functionId
      * @param {string} name
      * @param {string[]} execute
      * @param {string} runtime
@@ -1462,7 +2063,16 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create(name: string, execute: string[], runtime: string, vars?: object, events?: string[], schedule?: string, timeout?: number): Promise<Models.Function>;
+    create(functionId: string, name: string, execute: string[], runtime: string, vars?: object, events?: string[], schedule?: string, timeout?: number): Promise<Models.Function>;
+    /**
+     * List the currently active function runtimes.
+     *
+     * Get a list of all runtimes that are currently active in your project.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listRuntimes(): Promise<Models.RuntimeList>;
     /**
      * Get Function
      *
@@ -1508,14 +2118,15 @@ declare module "node-appwrite" {
      * different API modes](/docs/admin).
      *
      * @param {string} functionId
-     * @param {string} search
      * @param {number} limit
      * @param {number} offset
-     * @param {string} orderType
+     * @param {string} search
+     * @param {string} cursor
+     * @param {string} cursorDirection
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listExecutions(functionId: string, search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.ExecutionList>;
+    listExecutions(functionId: string, limit?: number, offset?: number, search?: string, cursor?: string, cursorDirection?: string): Promise<Models.ExecutionList>;
     /**
      * Create Execution
      *
@@ -1564,11 +2175,13 @@ declare module "node-appwrite" {
      * @param {string} search
      * @param {number} limit
      * @param {number} offset
+     * @param {string} cursor
+     * @param {string} cursorDirection
      * @param {string} orderType
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listTags(functionId: string, search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.TagList>;
+    listTags(functionId: string, search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.TagList>;
     /**
      * Create Tag
      *
@@ -1622,16 +2235,16 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get(): Promise<Response>;
+    get(): Promise<Models.HealthStatus>;
     /**
-     * Get Anti virus
+     * Get Antivirus
      *
-     * Check the Appwrite Anti Virus server is up and connection is successful.
+     * Check the Appwrite Antivirus server is up and connection is successful.
      *
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getAntiVirus(): Promise<Response>;
+    getAntivirus(): Promise<Models.HealthAntivirus>;
     /**
      * Get Cache
      *
@@ -1641,7 +2254,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCache(): Promise<Response>;
+    getCache(): Promise<Models.HealthStatus>;
     /**
      * Get DB
      *
@@ -1650,9 +2263,9 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getDB(): Promise<Response>;
+    getDB(): Promise<Models.HealthStatus>;
     /**
-     * Get Certificate Queue
+     * Get Certificates Queue
      *
      * Get the number of certificates that are waiting to be issued against
      * [Letsencrypt](https://letsencrypt.org/) in the Appwrite internal queue
@@ -1661,14 +2274,14 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueCertificates(): Promise<Response>;
+    getQueueCertificates(): Promise<Models.HealthQueue>;
     /**
      * Get Functions Queue
      *
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueFunctions(): Promise<Response>;
+    getQueueFunctions(): Promise<Models.HealthQueue>;
     /**
      * Get Logs Queue
      *
@@ -1678,17 +2291,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueLogs(): Promise<Response>;
-    /**
-     * Get Tasks Queue
-     *
-     * Get the number of tasks that are waiting to be processed in the Appwrite
-     * internal queue server.
-     *
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    getQueueTasks(): Promise<Response>;
+    getQueueLogs(): Promise<Models.HealthQueue>;
     /**
      * Get Usage Queue
      *
@@ -1698,7 +2301,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueUsage(): Promise<Response>;
+    getQueueUsage(): Promise<Models.HealthQueue>;
     /**
      * Get Webhooks Queue
      *
@@ -1708,7 +2311,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueWebhooks(): Promise<Response>;
+    getQueueWebhooks(): Promise<Models.HealthQueue>;
     /**
      * Get Local Storage
      *
@@ -1717,7 +2320,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getStorageLocal(): Promise<Response>;
+    getStorageLocal(): Promise<Models.HealthStatus>;
     /**
      * Get Time
      *
@@ -1732,7 +2335,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getTime(): Promise<Response>;
+    getTime(): Promise<Models.HealthTime>;
   }
   export class Locale extends Service {
     /**
@@ -1822,11 +2425,13 @@ declare module "node-appwrite" {
      * @param {string} search
      * @param {number} limit
      * @param {number} offset
+     * @param {string} cursor
+     * @param {string} cursorDirection
      * @param {string} orderType
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listFiles(search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.FileList>;
+    listFiles(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.FileList>;
     /**
      * Create File
      *
@@ -1834,13 +2439,14 @@ declare module "node-appwrite" {
      * assigned to read and write access unless he has passed custom values for
      * read and write arguments.
      *
+     * @param {string} fileId
      * @param {File} file
      * @param {string[]} read
      * @param {string[]} write
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createFile(file: File, read?: string[], write?: string[]): Promise<Models.File>;
+    createFile(fileId: string, file: File, read?: string[], write?: string[]): Promise<Models.File>;
     /**
      * Get File
      *
@@ -1929,38 +2535,40 @@ declare module "node-appwrite" {
     /**
      * List Teams
      *
-     * Get a list of all the current user teams. You can use the query params to
-     * filter your results. On admin mode, this endpoint will return a list of all
-     * of the project's teams. [Learn more about different API
-     * modes](/docs/admin).
+     * Get a list of all the teams in which the current user is a member. You can
+     * use the parameters to filter your results.
+     * 
+     * In admin mode, this endpoint returns a list of all the teams in the current
+     * project. [Learn more about different API modes](/docs/admin).
      *
      * @param {string} search
      * @param {number} limit
      * @param {number} offset
+     * @param {string} cursor
+     * @param {string} cursorDirection
      * @param {string} orderType
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    list(search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.TeamList>;
+    list(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.TeamList>;
     /**
      * Create Team
      *
      * Create a new team. The user who creates the team will automatically be
-     * assigned as the owner of the team. The team owner can invite new members,
-     * who will be able add new owners and update or delete the team from your
-     * project.
+     * assigned as the owner of the team. Only the users with the owner role can
+     * invite new members, add new owners and delete or update the team.
      *
+     * @param {string} teamId
      * @param {string} name
      * @param {string[]} roles
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create(name: string, roles?: string[]): Promise<Models.Team>;
+    create(teamId: string, name: string, roles?: string[]): Promise<Models.Team>;
     /**
      * Get Team
      *
-     * Get a team by its unique ID. All team members have read access for this
-     * resource.
+     * Get a team by its ID. All team members have read access for this resource.
      *
      * @param {string} teamId
      * @throws {AppwriteException}
@@ -1970,8 +2578,8 @@ declare module "node-appwrite" {
     /**
      * Update Team
      *
-     * Update a team by its unique ID. Only team owners have write access for this
-     * resource.
+     * Update a team using its ID. Only members with the owner role can update the
+     * team.
      *
      * @param {string} teamId
      * @param {string} name
@@ -1982,8 +2590,8 @@ declare module "node-appwrite" {
     /**
      * Delete Team
      *
-     * Delete a team by its unique ID. Only team owners have write access for this
-     * resource.
+     * Delete a team using its ID. Only team members with the owner role can
+     * delete the team.
      *
      * @param {string} teamId
      * @throws {AppwriteException}
@@ -1993,37 +2601,38 @@ declare module "node-appwrite" {
     /**
      * Get Team Memberships
      *
-     * Get a team members by the team unique ID. All team members have read access
-     * for this list of resources.
+     * Use this endpoint to list a team's members using the team's ID. All team
+     * members have read access to this endpoint.
      *
      * @param {string} teamId
      * @param {string} search
      * @param {number} limit
      * @param {number} offset
+     * @param {string} cursor
+     * @param {string} cursorDirection
      * @param {string} orderType
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getMemberships(teamId: string, search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.MembershipList>;
+    getMemberships(teamId: string, search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.MembershipList>;
     /**
      * Create Team Membership
      *
-     * Use this endpoint to invite a new member to join your team. If initiated
-     * from Client SDK, an email with a link to join the team will be sent to the
-     * new member's email address if the member doesn't exist in the project it
-     * will be created automatically. If initiated from server side SDKs, new
-     * member will automatically be added to the team.
+     * Invite a new member to join your team. If initiated from the client SDK, an
+     * email with a link to join the team will be sent to the member's email
+     * address and an account will be created for them should they not be signed
+     * up already. If initiated from server-side SDKs, the new member will
+     * automatically be added to the team.
      * 
-     * Use the 'URL' parameter to redirect the user from the invitation email back
+     * Use the 'url' parameter to redirect the user from the invitation email back
      * to your app. When the user is redirected, use the [Update Team Membership
      * Status](/docs/client/teams#teamsUpdateMembershipStatus) endpoint to allow
-     * the user to accept the invitation to the team.  While calling from side
-     * SDKs the redirect url can be empty string.
+     * the user to accept the invitation to the team. 
      * 
-     * Please note that in order to avoid a [Redirect
-     * Attacks](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md)
+     * Please note that to avoid a [Redirect
+     * Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md)
      * the only valid redirect URL's are the once from domains you have set when
-     * added your platforms in the console interface.
+     * adding your platforms in the console interface.
      *
      * @param {string} teamId
      * @param {string} email
@@ -2035,7 +2644,23 @@ declare module "node-appwrite" {
      */
     createMembership(teamId: string, email: string, roles: string[], url: string, name?: string): Promise<Models.Membership>;
     /**
+     * Get Team Membership
+     *
+     * Get a team member by the membership unique id. All team members have read
+     * access for this resource.
+     *
+     * @param {string} teamId
+     * @param {string} membershipId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getMembership(teamId: string, membershipId: string): Promise<Models.MembershipList>;
+    /**
      * Update Membership Roles
+     *
+     * Modify the roles of a team member. Only team members with the owner role
+     * have access to this endpoint. Learn more about [roles and
+     * permissions](/docs/permissions).
      *
      * @param {string} teamId
      * @param {string} membershipId
@@ -2061,7 +2686,7 @@ declare module "node-appwrite" {
      * Update Team Membership Status
      *
      * Use this endpoint to allow a user to accept an invitation to join a team
-     * after being redirected back to your app from the invitation email recieved
+     * after being redirected back to your app from the invitation email received
      * by the user.
      *
      * @param {string} teamId
@@ -2083,23 +2708,26 @@ declare module "node-appwrite" {
      * @param {string} search
      * @param {number} limit
      * @param {number} offset
+     * @param {string} cursor
+     * @param {string} cursorDirection
      * @param {string} orderType
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    list<Preferences extends Models.Preferences>(search?: string, limit?: number, offset?: number, orderType?: string): Promise<Models.UserList<Preferences>>;
+    list<Preferences extends Models.Preferences>(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.UserList<Preferences>>;
     /**
      * Create User
      *
      * Create a new user.
      *
+     * @param {string} userId
      * @param {string} email
      * @param {string} password
      * @param {string} name
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create<Preferences extends Models.Preferences>(email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
+    create<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
     /**
      * Get User
      *
@@ -2134,13 +2762,15 @@ declare module "node-appwrite" {
     /**
      * Get User Logs
      *
-     * Get a user activity logs list by its unique ID.
+     * Get the user activity logs list by its unique ID.
      *
      * @param {string} userId
+     * @param {number} limit
+     * @param {number} offset
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getLogs(userId: string): Promise<Models.LogList>;
+    getLogs(userId: string, limit?: number, offset?: number): Promise<Models.LogList>;
     /**
      * Update Name
      *
@@ -2222,11 +2852,11 @@ declare module "node-appwrite" {
      * Update the user status by its unique ID.
      *
      * @param {string} userId
-     * @param {number} status
+     * @param {boolean} status
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateStatus<Preferences extends Models.Preferences>(userId: string, status: number): Promise<Models.User<Preferences>>;
+    updateStatus<Preferences extends Models.Preferences>(userId: string, status: boolean): Promise<Models.User<Preferences>>;
     /**
      * Update Email Verification
      *
