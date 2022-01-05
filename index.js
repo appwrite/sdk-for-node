@@ -1,4 +1,5 @@
 const Client = require('./lib/client.js');
+const Query = require('./lib/query.js');
 const AppwriteException = require('./lib/exception.js');
 const Account = require('./lib/services/account.js');
 const Avatars = require('./lib/services/avatars.js');
@@ -12,6 +13,7 @@ const Users = require('./lib/services/users.js');
 
 module.exports = {
     Client,
+    Query,
     AppwriteException,
     Account,
     Avatars,
