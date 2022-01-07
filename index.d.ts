@@ -311,7 +311,7 @@ declare module "node-appwrite" {
           /**
           * Attribute size.
           */
-          size: string;
+          size: number;
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
@@ -1450,8 +1450,9 @@ declare module "node-appwrite" {
     /**
      * Update Account Preferences
      *
-     * Update currently logged in user account preferences. You can pass only the
-     * specific settings you wish to update.
+     * Update currently logged in user account preferences. The object you pass is
+     * stored as is, and replaces any previous value. The maximum allowed prefs
+     * size is 64kB and throws error if exceeded.
      *
      * @param {object} prefs
      * @throws {AppwriteException}
@@ -2806,8 +2807,9 @@ declare module "node-appwrite" {
     /**
      * Update User Preferences
      *
-     * Update the user preferences by its unique ID. You can pass only the
-     * specific settings you wish to update.
+     * Update the user preferences by its unique ID. The object you pass is stored
+     * as is, and replaces any previous value. The maximum allowed prefs size is
+     * 64kB and throws error if exceeded.
      *
      * @param {string} userId
      * @param {object} prefs
