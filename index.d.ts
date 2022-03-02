@@ -1,13 +1,26 @@
 declare module "node-appwrite" {
   export namespace Models {
       /**
+      * Documents List
+      */
+      export type DocumentList<Document extends Models.Document> = {
+          /**
+          * Total number of documents documents that matched your query.
+          */
+          total: number;
+          /**
+          * List of documents.
+          */
+          documents: Document[];
+      }
+      /**
       * Collections List
       */
       export type CollectionList = {
           /**
-          * Total number of items available on the server.
+          * Total number of collections documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of collections.
           */
@@ -18,35 +31,22 @@ declare module "node-appwrite" {
       */
       export type IndexList = {
           /**
-          * Total number of items available on the server.
+          * Total number of indexes documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of indexes.
           */
           indexes: Index[];
       }
       /**
-      * Documents List
-      */
-      export type DocumentList<Document extends Models.Document> = {
-          /**
-          * Total number of items available on the server.
-          */
-          sum: number;
-          /**
-          * List of documents.
-          */
-          documents: Document[];
-      }
-      /**
       * Users List
       */
       export type UserList<Preferences extends Models.Preferences> = {
           /**
-          * Total number of items available on the server.
+          * Total number of users documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of users.
           */
@@ -57,9 +57,9 @@ declare module "node-appwrite" {
       */
       export type SessionList = {
           /**
-          * Total number of items available on the server.
+          * Total number of sessions documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of sessions.
           */
@@ -70,9 +70,9 @@ declare module "node-appwrite" {
       */
       export type LogList = {
           /**
-          * Total number of items available on the server.
+          * Total number of logs documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of logs.
           */
@@ -83,22 +83,35 @@ declare module "node-appwrite" {
       */
       export type FileList = {
           /**
-          * Total number of items available on the server.
+          * Total number of files documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of files.
           */
           files: File[];
       }
       /**
+      * Buckets List
+      */
+      export type BucketList = {
+          /**
+          * Total number of buckets documents that matched your query.
+          */
+          total: number;
+          /**
+          * List of buckets.
+          */
+          buckets: Bucket[];
+      }
+      /**
       * Teams List
       */
       export type TeamList = {
           /**
-          * Total number of items available on the server.
+          * Total number of teams documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of teams.
           */
@@ -109,9 +122,9 @@ declare module "node-appwrite" {
       */
       export type MembershipList = {
           /**
-          * Total number of items available on the server.
+          * Total number of memberships documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of memberships.
           */
@@ -122,9 +135,9 @@ declare module "node-appwrite" {
       */
       export type FunctionList = {
           /**
-          * Total number of items available on the server.
+          * Total number of functions documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of functions.
           */
@@ -135,35 +148,35 @@ declare module "node-appwrite" {
       */
       export type RuntimeList = {
           /**
-          * Total number of items available on the server.
+          * Total number of runtimes documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of runtimes.
           */
           runtimes: Runtime[];
       }
       /**
-      * Tags List
+      * Deployments List
       */
-      export type TagList = {
+      export type DeploymentList = {
           /**
-          * Total number of items available on the server.
+          * Total number of deployments documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
-          * List of tags.
+          * List of deployments.
           */
-          tags: Tag[];
+          deployments: Deployment[];
       }
       /**
       * Executions List
       */
       export type ExecutionList = {
           /**
-          * Total number of items available on the server.
+          * Total number of executions documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of executions.
           */
@@ -174,9 +187,9 @@ declare module "node-appwrite" {
       */
       export type CountryList = {
           /**
-          * Total number of items available on the server.
+          * Total number of countries documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of countries.
           */
@@ -187,9 +200,9 @@ declare module "node-appwrite" {
       */
       export type ContinentList = {
           /**
-          * Total number of items available on the server.
+          * Total number of continents documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of continents.
           */
@@ -200,9 +213,9 @@ declare module "node-appwrite" {
       */
       export type LanguageList = {
           /**
-          * Total number of items available on the server.
+          * Total number of languages documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of languages.
           */
@@ -213,9 +226,9 @@ declare module "node-appwrite" {
       */
       export type CurrencyList = {
           /**
-          * Total number of items available on the server.
+          * Total number of currencies documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of currencies.
           */
@@ -226,9 +239,9 @@ declare module "node-appwrite" {
       */
       export type PhoneList = {
           /**
-          * Total number of items available on the server.
+          * Total number of phones documents that matched your query.
           */
-          sum: number;
+          total: number;
           /**
           * List of phones.
           */
@@ -276,9 +289,9 @@ declare module "node-appwrite" {
       */
       export type AttributeList = {
           /**
-          * Total sum of items in the list.
+          * Total number of attributes in the given collection.
           */
-          sum: number;
+          total: number;
           /**
           * List of attributes.
           */
@@ -758,9 +771,17 @@ declare module "node-appwrite" {
           */
           providerUid: string;
           /**
-          * Session Provider Token.
+          * Session Provider Access Token.
           */
-          providerToken: string;
+          providerAccessToken: string;
+          /**
+          * Date, the Unix timestamp of when the access token expires.
+          */
+          providerAccessTokenExpiry: number;
+          /**
+          * Session Provider Refresh Token.
+          */
+          providerRefreshToken: string;
           /**
           * IP in use when the session was created.
           */
@@ -889,6 +910,10 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Bucket ID.
+          */
+          bucketId: string;
+          /**
           * File read permissions.
           */
           $read: string[];
@@ -916,6 +941,67 @@ declare module "node-appwrite" {
           * File original size in bytes.
           */
           sizeOriginal: number;
+          /**
+          * Total number of chunks available
+          */
+          chunksTotal: number;
+          /**
+          * Total number of chunks uploaded
+          */
+          chunksUploaded: number;
+      }
+      /**
+      * Bucket
+      */
+      export type Bucket = {
+          /**
+          * Bucket ID.
+          */
+          $id: string;
+          /**
+          * File read permissions.
+          */
+          $read: string[];
+          /**
+          * File write permissions.
+          */
+          $write: string[];
+          /**
+          * Bucket permission model. Possible values: `bucket` or `file`
+          */
+          permission: string;
+          /**
+          * Bucket creation date in Unix timestamp.
+          */
+          dateCreated: number;
+          /**
+          * Bucket update date in Unix timestamp.
+          */
+          dateUpdated: number;
+          /**
+          * Bucket name.
+          */
+          name: string;
+          /**
+          * Bucket enabled.
+          */
+          enabled: boolean;
+          /**
+          * Maximum file size supported.
+          */
+          maximumFileSize: number;
+          /**
+          * Allowed file extensions.
+          */
+          allowedFileExtensions: string[];
+          /**
+          * Bucket is encrypted.
+          */
+          encryption: boolean;
+          /**
+          * Virus scanning is enabled.
+          */
+          antivirus: boolean;
       }
       /**
       * Team
@@ -934,9 +1020,9 @@ declare module "node-appwrite" {
           */
           dateCreated: number;
           /**
-          * Total sum of team members.
+          * Total number of team members.
           */
-          sum: number;
+          total: number;
       }
       /**
       * Membership
@@ -990,7 +1076,7 @@ declare module "node-appwrite" {
           /**
           * Execution permissions.
           */
-          execute: string;
+          execute: string[];
           /**
           * Function name.
           */
@@ -1012,13 +1098,13 @@ declare module "node-appwrite" {
           */
           runtime: string;
           /**
-          * Function active tag ID.
+          * Function&#039;s active deployment ID.
           */
-          tag: string;
+          deployment: string;
           /**
           * Function environment variables.
           */
-          vars: string;
+          vars: object;
           /**
           * Function trigger events.
           */
@@ -1074,29 +1160,53 @@ declare module "node-appwrite" {
           supports: string[];
       }
       /**
-      * Tag
+      * Deployment
       */
-      export type Tag = {
+      export type Deployment = {
           /**
-          * Tag ID.
+          * Deployment ID.
           */
           $id: string;
           /**
-          * Function ID.
+          * Resource ID.
           */
-          functionId: string;
+          resourceId: string;
           /**
-          * The tag creation date in Unix timestamp.
+          * Resource type.
+          */
+          resourceType: string;
+          /**
+          * The deployment creation date in Unix timestamp.
           */
           dateCreated: number;
           /**
-          * The entrypoint command in use to execute the tag code.
+          * The entrypoint file to use to execute the deployment code.
           */
-          command: string;
+          entrypoint: string;
           /**
           * The code size in bytes.
           */
-          size: string;
+          size: number;
+          /**
+          * The current build ID.
+          */
+          buildId: string;
+          /**
+          * Whether the deployment should be automatically activated.
+          */
+          activate: boolean;
+          /**
+          * The deployment status.
+          */
+          status: string;
+          /**
+          * The build stdout.
+          */
+          buildStdout: string;
+          /**
+          * The build stderr.
+          */
+          buildStderr: string;
       }
       /**
       * Execution
@@ -1127,9 +1237,9 @@ declare module "node-appwrite" {
           */
           status: string;
           /**
-          * The script exit code.
+          * The script status code.
           */
-          exitCode: number;
+          statusCode: number;
           /**
           * The script stdout output string. Logs the last 4,000 characters of the execution stdout output.
           */
@@ -1362,6 +1472,30 @@ declare module "node-appwrite" {
     constructor(client: Client);
   }
 
+  type QueryTypesSingle = string | number | boolean;
+  type QueryTypesList = string[] | number[] | boolean[];
+  type QueryTypes = QueryTypesSingle | QueryTypesList;
+
+  export class Query {
+    static equal(attribute: string, value: QueryTypes): string;
+
+    static notEqual(attribute: string, value: QueryTypes): string;
+
+    static lesser(attribute: string, value: QueryTypes): string;
+
+    static lesserEqual(attribute: string, value: QueryTypes): string;
+
+    static greater(attribute: string, value: QueryTypes): string;
+
+    static greaterEqual(attribute: string, value: QueryTypes): string;
+
+    static search(attribute: string, value: string): string;
+
+    private static addQuery(attribute: string, oper: string, value: QueryTypes): string;
+
+    private static parseValues(value: QueryTypes): string;
+  }
+
   export class Account extends Service {
     /**
      * Get Account
@@ -1530,11 +1664,20 @@ declare module "node-appwrite" {
      */
     getSession(sessionId: string): Promise<Models.Session>;
     /**
+     * Update Session (Refresh Tokens)
+     *
+     * @param {string} sessionId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateSession(sessionId: string): Promise<Models.Session>;
+    /**
      * Delete Account Session
      *
      * Use this endpoint to log out the currently logged in user from all their
      * account sessions across all of their different devices. When using the
-     * option id argument, only the session unique ID provider will be deleted.
+     * Session ID argument, only the unique session ID provided is deleted.
+     * 
      *
      * @param {string} sessionId
      * @throws {AppwriteException}
@@ -1823,14 +1966,14 @@ declare module "node-appwrite" {
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
-     * @param {string} min
-     * @param {string} max
-     * @param {string} default
+     * @param {number} min
+     * @param {number} max
+     * @param {number} default
      * @param {boolean} array
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createFloatAttribute(collectionId: string, key: string, required: boolean, min?: string, max?: string, xdefault?: string, array?: boolean): Promise<Models.AttributeFloat>;
+    createFloatAttribute(collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat>;
     /**
      * Create Integer Attribute
      *
@@ -2111,6 +2254,90 @@ declare module "node-appwrite" {
      */
     delete(functionId: string): Promise<Response>;
     /**
+     * List Deployments
+     *
+     * Get a list of all the project's code deployments. You can use the query
+     * params to filter your results.
+     *
+     * @param {string} functionId
+     * @param {string} search
+     * @param {number} limit
+     * @param {number} offset
+     * @param {string} cursor
+     * @param {string} cursorDirection
+     * @param {string} orderType
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listDeployments(functionId: string, search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.DeploymentList>;
+    /**
+     * Create Deployment
+     *
+     * Create a new function code deployment. Use this endpoint to upload a new
+     * version of your code function. To execute your newly uploaded code, you'll
+     * need to update the function's deployment to use your new deployment UID.
+     * 
+     * This endpoint accepts a tar.gz file compressed with your code. Make sure to
+     * include any dependencies your code has within the compressed file. You can
+     * learn more about code packaging in the [Appwrite Cloud Functions
+     * tutorial](/docs/functions).
+     * 
+     * Use the "command" param to set the entry point used to execute your code.
+     *
+     * @param {string} functionId
+     * @param {string} entrypoint
+     * @param {string} code
+     * @param {boolean} activate
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createDeployment(functionId: string, entrypoint: string, code: string, activate: boolean): Promise<Models.Deployment>;
+    /**
+     * Get Deployment
+     *
+     * Get a code deployment by its unique ID.
+     *
+     * @param {string} functionId
+     * @param {string} deploymentId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getDeployment(functionId: string, deploymentId: string): Promise<Models.DeploymentList>;
+    /**
+     * Update Function Deployment
+     *
+     * Update the function code deployment ID using the unique function ID. Use
+     * this endpoint to switch the code deployment that should be executed by the
+     * execution endpoint.
+     *
+     * @param {string} functionId
+     * @param {string} deploymentId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateDeployment(functionId: string, deploymentId: string): Promise<Models.Function>;
+    /**
+     * Delete Deployment
+     *
+     * Delete a code deployment by its unique ID.
+     *
+     * @param {string} functionId
+     * @param {string} deploymentId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    deleteDeployment(functionId: string, deploymentId: string): Promise<Response>;
+    /**
+     * Retry Build
+     *
+     * @param {string} functionId
+     * @param {string} deploymentId
+     * @param {string} buildId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    retryBuild(functionId: string, deploymentId: string, buildId: string): Promise<Response>;
+    /**
      * List Executions
      *
      * Get a list of all the current user function execution logs. You can use the
@@ -2138,10 +2365,11 @@ declare module "node-appwrite" {
      *
      * @param {string} functionId
      * @param {string} data
+     * @param {boolean} async
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createExecution(functionId: string, data?: string): Promise<Models.Execution>;
+    createExecution(functionId: string, data?: string, async?: boolean): Promise<Models.Execution>;
     /**
      * Get Execution
      *
@@ -2153,79 +2381,6 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     getExecution(functionId: string, executionId: string): Promise<Models.Execution>;
-    /**
-     * Update Function Tag
-     *
-     * Update the function code tag ID using the unique function ID. Use this
-     * endpoint to switch the code tag that should be executed by the execution
-     * endpoint.
-     *
-     * @param {string} functionId
-     * @param {string} tag
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    updateTag(functionId: string, tag: string): Promise<Models.Function>;
-    /**
-     * List Tags
-     *
-     * Get a list of all the project's code tags. You can use the query params to
-     * filter your results.
-     *
-     * @param {string} functionId
-     * @param {string} search
-     * @param {number} limit
-     * @param {number} offset
-     * @param {string} cursor
-     * @param {string} cursorDirection
-     * @param {string} orderType
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    listTags(functionId: string, search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.TagList>;
-    /**
-     * Create Tag
-     *
-     * Create a new function code tag. Use this endpoint to upload a new version
-     * of your code function. To execute your newly uploaded code, you'll need to
-     * update the function's tag to use your new tag UID.
-     * 
-     * This endpoint accepts a tar.gz file compressed with your code. Make sure to
-     * include any dependencies your code has within the compressed file. You can
-     * learn more about code packaging in the [Appwrite Cloud Functions
-     * tutorial](/docs/functions).
-     * 
-     * Use the "command" param to set the entry point used to execute your code.
-     *
-     * @param {string} functionId
-     * @param {string} command
-     * @param {File} code
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    createTag(functionId: string, command: string, code: File): Promise<Models.Tag>;
-    /**
-     * Get Tag
-     *
-     * Get a code tag by its unique ID.
-     *
-     * @param {string} functionId
-     * @param {string} tagId
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    getTag(functionId: string, tagId: string): Promise<Models.Tag>;
-    /**
-     * Delete Tag
-     *
-     * Delete a code tag by its unique ID.
-     *
-     * @param {string} functionId
-     * @param {string} tagId
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    deleteTag(functionId: string, tagId: string): Promise<Response>;
   }
   export class Health extends Service {
     /**
@@ -2417,11 +2572,10 @@ declare module "node-appwrite" {
   }
   export class Storage extends Service {
     /**
-     * List Files
+     * List buckets
      *
-     * Get a list of all the user files. You can use the query params to filter
-     * your results. On admin mode, this endpoint will return a list of all of the
-     * project's files. [Learn more about different API modes](/docs/admin).
+     * Get a list of all the storage buckets. You can use the query params to
+     * filter your results.
      *
      * @param {string} search
      * @param {number} limit
@@ -2432,57 +2586,153 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listFiles(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.FileList>;
+    listBuckets(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.BucketList>;
+    /**
+     * Create bucket
+     *
+     * Create a new storage bucket.
+     *
+     * @param {string} bucketId
+     * @param {string} name
+     * @param {string} permission
+     * @param {string[]} read
+     * @param {string[]} write
+     * @param {boolean} enabled
+     * @param {number} maximumFileSize
+     * @param {string[]} allowedFileExtensions
+     * @param {boolean} encryption
+     * @param {boolean} antivirus
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createBucket(bucketId: string, name: string, permission: string, read?: string[], write?: string[], enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
+    /**
+     * Get Bucket
+     *
+     * Get a storage bucket by its unique ID. This endpoint response returns a
+     * JSON object with the storage bucket metadata.
+     *
+     * @param {string} bucketId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getBucket(bucketId: string): Promise<Models.Bucket>;
+    /**
+     * Update Bucket
+     *
+     * Update a storage bucket by its unique ID.
+     *
+     * @param {string} bucketId
+     * @param {string} name
+     * @param {string} permission
+     * @param {string[]} read
+     * @param {string[]} write
+     * @param {boolean} enabled
+     * @param {number} maximumFileSize
+     * @param {string[]} allowedFileExtensions
+     * @param {boolean} encryption
+     * @param {boolean} antivirus
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateBucket(bucketId: string, name: string, permission: string, read?: string[], write?: string[], enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
+    /**
+     * Delete Bucket
+     *
+     * Delete a storage bucket by its unique ID.
+     *
+     * @param {string} bucketId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    deleteBucket(bucketId: string): Promise<Response>;
+    /**
+     * List Files
+     *
+     * Get a list of all the user files. You can use the query params to filter
+     * your results. On admin mode, this endpoint will return a list of all of the
+     * project's files. [Learn more about different API modes](/docs/admin).
+     *
+     * @param {string} bucketId
+     * @param {string} search
+     * @param {number} limit
+     * @param {number} offset
+     * @param {string} cursor
+     * @param {string} cursorDirection
+     * @param {string} orderType
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listFiles(bucketId: string, search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.FileList>;
     /**
      * Create File
      *
-     * Create a new file. The user who creates the file will automatically be
-     * assigned to read and write access unless he has passed custom values for
-     * read and write arguments.
+     * Create a new file. Before using this route, you should create a new bucket
+     * resource using either a [server
+     * integration](/docs/server/database#storageCreateBucket) API or directly
+     * from your Appwrite console.
+     * 
+     * Larger files should be uploaded using multiple requests with the
+     * [content-range](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range)
+     * header to send a partial request with a maximum supported chunk of `5MB`.
+     * The `content-range` header values should always be in bytes.
+     * 
+     * When the first request is sent, the server will return the **File** object,
+     * and the subsequent part request must include the file's **id** in
+     * `x-appwrite-id` header to allow the server to know that the partial upload
+     * is for the existing file and not for a new one.
+     * 
+     * If you're creating a new file using one of the Appwrite SDKs, all the
+     * chunking logic will be managed by the SDK internally.
+     * 
      *
+     * @param {string} bucketId
      * @param {string} fileId
-     * @param {File} file
+     * @param {string} file
      * @param {string[]} read
      * @param {string[]} write
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createFile(fileId: string, file: File, read?: string[], write?: string[]): Promise<Models.File>;
+    createFile(bucketId: string, fileId: string, file: string, read?: string[], write?: string[]): Promise<Models.File>;
     /**
      * Get File
      *
      * Get a file by its unique ID. This endpoint response returns a JSON object
      * with the file metadata.
      *
+     * @param {string} bucketId
      * @param {string} fileId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getFile(fileId: string): Promise<Models.File>;
+    getFile(bucketId: string, fileId: string): Promise<Models.File>;
     /**
      * Update File
      *
      * Update a file by its unique ID. Only users with write permissions have
      * access to update this resource.
      *
+     * @param {string} bucketId
      * @param {string} fileId
      * @param {string[]} read
      * @param {string[]} write
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateFile(fileId: string, read: string[], write: string[]): Promise<Models.File>;
+    updateFile(bucketId: string, fileId: string, read?: string[], write?: string[]): Promise<Models.File>;
     /**
      * Delete File
      *
      * Delete a file by its unique ID. Only users with write permissions have
      * access to delete this resource.
      *
+     * @param {string} bucketId
      * @param {string} fileId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteFile(fileId: string): Promise<Response>;
+    deleteFile(bucketId: string, fileId: string): Promise<Response>;
     /**
      * Get File for Download
      *
@@ -2490,19 +2740,22 @@ declare module "node-appwrite" {
      * 'Content-Disposition: attachment' header that tells the browser to start
      * downloading the file to user downloads directory.
      *
+     * @param {string} bucketId
      * @param {string} fileId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getFileDownload(fileId: string): Promise<Buffer>;
+    getFileDownload(bucketId: string, fileId: string): Promise<Buffer>;
     /**
      * Get File Preview
      *
      * Get a file preview image. Currently, this method supports preview for image
      * files (jpg, png, and gif), other supported formats, like pdf, docs, slides,
      * and spreadsheets, will return the file icon image. You can also pass query
-     * string arguments for cutting and resizing your preview image.
+     * string arguments for cutting and resizing your preview image. Preview is
+     * supported only for image files smaller than 10MB.
      *
+     * @param {string} bucketId
      * @param {string} fileId
      * @param {number} width
      * @param {number} height
@@ -2518,7 +2771,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getFilePreview(fileId: string, width?: number, height?: number, gravity?: string, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: string): Promise<Buffer>;
+    getFilePreview(bucketId: string, fileId: string, width?: number, height?: number, gravity?: string, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: string): Promise<Buffer>;
     /**
      * Get File for View
      *
@@ -2526,11 +2779,12 @@ declare module "node-appwrite" {
      * download method but returns with no  'Content-Disposition: attachment'
      * header.
      *
+     * @param {string} bucketId
      * @param {string} fileId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getFileView(fileId: string): Promise<Buffer>;
+    getFileView(bucketId: string, fileId: string): Promise<Buffer>;
   }
   export class Teams extends Service {
     /**
@@ -2689,6 +2943,10 @@ declare module "node-appwrite" {
      * Use this endpoint to allow a user to accept an invitation to join a team
      * after being redirected back to your app from the invitation email received
      * by the user.
+     * 
+     * If the request is successful, a session for the user is automatically
+     * created.
+     * 
      *
      * @param {string} teamId
      * @param {string} membershipId

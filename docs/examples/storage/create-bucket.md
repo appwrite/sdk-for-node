@@ -11,7 +11,7 @@ client
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-let promise = storage.getFileDownload('[BUCKET_ID]', '[FILE_ID]');
+let promise = storage.createBucket('[BUCKET_ID]', '[NAME]', 'file');
 
 promise.then(function (response) {
     console.log(response);
