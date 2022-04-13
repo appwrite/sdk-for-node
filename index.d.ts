@@ -2211,7 +2211,7 @@ declare module "node-appwrite" {
     /**
      * List the currently active function runtimes.
      *
-     * Get a list of all runtimes that are currently active in your project.
+     * Get a list of all runtimes that are currently active on your instance.
      *
      * @throws {AppwriteException}
      * @returns {Promise}
