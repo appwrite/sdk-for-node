@@ -27,6 +27,19 @@ declare module "node-appwrite" {
           collections: Collection[];
       }
       /**
+      * Databases List
+      */
+      export type DatabaseList = {
+          /**
+          * Total number of databases documents that matched your query.
+          */
+          total: number;
+          /**
+          * List of databases.
+          */
+          databases: Database[];
+      }
+      /**
       * Indexes List
       */
       export type IndexList = {
@@ -248,6 +261,19 @@ declare module "node-appwrite" {
           phones: Phone[];
       }
       /**
+      * Database
+      */
+      export type Database = {
+          /**
+          * Database ID.
+          */
+          $id: string;
+          /**
+          * Database name.
+          */
+          name: string;
+      }
+      /**
       * Collection
       */
       export type Collection = {
@@ -256,6 +282,14 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Collection creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Collection update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * Collection read permissions.
           */
           $read: string[];
@@ -263,6 +297,10 @@ declare module "node-appwrite" {
           * Collection write permissions.
           */
           $write: string[];
+          /**
+          * Database ID.
+          */
+          databaseId: string;
           /**
           * Collection name.
           */
@@ -607,6 +645,14 @@ declare module "node-appwrite" {
           */
           $collection: string;
           /**
+          * Document creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Document update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * Document read permissions.
           */
           $read: string[];
@@ -713,6 +759,14 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * User creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * User update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * User name.
           */
           name: string;
@@ -733,9 +787,17 @@ declare module "node-appwrite" {
           */
           email: string;
           /**
+          * User phone number in E.164 format.
+          */
+          phone: string;
+          /**
           * Email verification status.
           */
           emailVerification: boolean;
+          /**
+          * Phone verification status.
+          */
+          phoneVerification: boolean;
           /**
           * User preferences as a key-value object
           */
@@ -754,6 +816,10 @@ declare module "node-appwrite" {
           * Session ID.
           */
           $id: string;
+          /**
+          * Session creation date in Unix timestamp.
+          */
+          $createdAt: number;
           /**
           * User ID.
           */
@@ -856,6 +922,10 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Token creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
           * User ID.
           */
           userId: string;
@@ -914,6 +984,14 @@ declare module "node-appwrite" {
           */
           bucketId: string;
           /**
+          * File creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * File update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * File read permissions.
           */
           $read: string[];
@@ -925,10 +1003,6 @@ declare module "node-appwrite" {
           * File name.
           */
           name: string;
-          /**
-          * File creation date in Unix timestamp.
-          */
-          dateCreated: number;
           /**
           * File MD5 signature.
           */
@@ -959,6 +1033,14 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Bucket creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Bucket update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * File read permissions.
           */
           $read: string[];
@@ -970,14 +1052,6 @@ declare module "node-appwrite" {
           * Bucket permission model. Possible values: `bucket` or `file`
           */
           permission: string;
-          /**
-          * Bucket creation date in Unix timestamp.
-          */
-          dateCreated: number;
-          /**
-          * Bucket update date in Unix timestamp.
-          */
-          dateUpdated: number;
           /**
           * Bucket name.
           */
@@ -1012,13 +1086,17 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Team creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Team update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * Team name.
           */
           name: string;
-          /**
-          * Team creation date in Unix timestamp.
-          */
-          dateCreated: number;
           /**
           * Total number of team members.
           */
@@ -1032,6 +1110,14 @@ declare module "node-appwrite" {
           * Membership ID.
           */
           $id: string;
+          /**
+          * Membership creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Membership update date in Unix timestamp.
+          */
+          $updatedAt: number;
           /**
           * User ID.
           */
@@ -1078,6 +1164,14 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Function creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Function update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * Execution permissions.
           */
           execute: string[];
@@ -1085,14 +1179,6 @@ declare module "node-appwrite" {
           * Function name.
           */
           name: string;
-          /**
-          * Function creation date in Unix timestamp.
-          */
-          dateCreated: number;
-          /**
-          * Function update date in Unix timestamp.
-          */
-          dateUpdated: number;
           /**
           * Function status. Possible values: `disabled`, `enabled`
           */
@@ -1172,6 +1258,14 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Deployment creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Deployment update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * Resource ID.
           */
           resourceId: string;
@@ -1179,10 +1273,6 @@ declare module "node-appwrite" {
           * Resource type.
           */
           resourceType: string;
-          /**
-          * The deployment creation date in Unix timestamp.
-          */
-          dateCreated: number;
           /**
           * The entrypoint file to use to execute the deployment code.
           */
@@ -1221,6 +1311,14 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
+          * Execution creation date in Unix timestamp.
+          */
+          $createdAt: number;
+          /**
+          * Execution update date in Unix timestamp.
+          */
+          $updatedAt: number;
+          /**
           * Execution read permissions.
           */
           $read: string[];
@@ -1228,10 +1326,6 @@ declare module "node-appwrite" {
           * Function ID.
           */
           functionId: string;
-          /**
-          * The execution creation date in Unix timestamp.
-          */
-          dateCreated: number;
           /**
           * The trigger that caused the function to execute. Possible values can be: `http`, `schedule`, or `event`.
           */
@@ -1564,6 +1658,20 @@ declare module "node-appwrite" {
      */
     updatePassword<Preferences extends Models.Preferences>(password: string, oldPassword?: string): Promise<Models.User<Preferences>>;
     /**
+     * Update Account Phone
+     *
+     * Update currently logged in user account phone number. After changing phone
+     * number, the user confirmation status will get reset. A new confirmation SMS
+     * is not sent automatically however you can use the phone confirmation
+     * endpoint again to send the confirmation SMS.
+     *
+     * @param {string} number
+     * @param {string} password
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updatePhone<Preferences extends Models.Preferences>(number: string, password: string): Promise<Models.User<Preferences>>;
+    /**
      * Get Account Preferences
      *
      * Get currently logged in user preferences as a key-value object.
@@ -1700,8 +1808,8 @@ declare module "node-appwrite" {
      * should redirect the user back to your app and allow you to complete the
      * verification process by verifying both the **userId** and **secret**
      * parameters. Learn more about how to [complete the verification
-     * process](/docs/client/account#accountUpdateVerification). The verification
-     * link sent to the user's email address is valid for 7 days.
+     * process](/docs/client/account#accountUpdateEmailVerification). The
+     * verification link sent to the user's email address is valid for 7 days.
      * 
      * Please note that in order to avoid a [Redirect
      * Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md),
@@ -1728,6 +1836,35 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     updateVerification(userId: string, secret: string): Promise<Models.Token>;
+    /**
+     * Create Phone Verification
+     *
+     * Use this endpoint to send a verification message to your user's phone
+     * number to confirm they are the valid owners of that address. The provided
+     * secret should allow you to complete the verification process by verifying
+     * both the **userId** and **secret** parameters. Learn more about how to
+     * [complete the verification
+     * process](/docs/client/account#accountUpdatePhoneVerification). The
+     * verification link sent to the user's phone number is valid for 15 minutes.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createPhoneVerification(): Promise<Models.Token>;
+    /**
+     * Create Phone Verification (confirmation)
+     *
+     * Use this endpoint to complete the user phone verification process. Use the
+     * **userId** and **secret** that were sent to your user's phone number to
+     * verify the user email ownership. If confirmed this route will return a 200
+     * status code.
+     *
+     * @param {string} userId
+     * @param {string} secret
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updatePhoneVerification(userId: string, secret: string): Promise<Models.Token>;
   }
   export class Avatars extends Service {
     /**
@@ -1871,14 +2008,9 @@ declare module "node-appwrite" {
      */
     getQR(text: string, size?: number, margin?: number, download?: boolean): Promise<Buffer>;
   }
-  export class Database extends Service {
+  export class Databases extends Service {
     /**
-     * List Collections
-     *
-     * Get a list of all the user collections. You can use the query params to
-     * filter your results. On admin mode, this endpoint will return a list of all
-     * of the project's collections. [Learn more about different API
-     * modes](/docs/admin).
+     * List Databases
      *
      * @param {string} search
      * @param {number} limit
@@ -1889,12 +2021,59 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listCollections(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.CollectionList>;
+    list(search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.DatabaseList>;
+    /**
+     * Create Database
+     *
+     * @param {string} databaseId
+     * @param {string} name
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    create(databaseId: string, name: string): Promise<Models.Database>;
+    /**
+     * Get Database
+     *
+     * @param {string} databaseId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    get(databaseId: string): Promise<Models.Collection>;
+    /**
+     * Update Database
+     *
+     * @param {string} databaseId
+     * @param {string} name
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    update(databaseId: string, name: string): Promise<Models.Collection>;
+    /**
+     * Delete Database
+     *
+     * @param {string} databaseId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    delete(databaseId: string): Promise<Response>;
+    /**
+     * List Collections
+     *
+     * @param {string} databaseId
+     * @param {string} search
+     * @param {number} limit
+     * @param {number} offset
+     * @param {string} cursor
+     * @param {string} cursorDirection
+     * @param {string} orderType
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listCollections(databaseId: string, search?: string, limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderType?: string): Promise<Models.CollectionList>;
     /**
      * Create Collection
      *
-     * Create a new Collection.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} name
      * @param {string} permission
@@ -1903,23 +2082,20 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createCollection(collectionId: string, name: string, permission: string, read: string[], write: string[]): Promise<Models.Collection>;
+    createCollection(databaseId: string, collectionId: string, name: string, permission: string, read: string[], write: string[]): Promise<Models.Collection>;
     /**
      * Get Collection
      *
-     * Get a collection by its unique ID. This endpoint response returns a JSON
-     * object with the collection metadata.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCollection(collectionId: string): Promise<Models.Collection>;
+    getCollection(databaseId: string, collectionId: string): Promise<Models.Collection>;
     /**
      * Update Collection
      *
-     * Update a collection by its unique ID.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} name
      * @param {string} permission
@@ -1929,32 +2105,29 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateCollection(collectionId: string, name: string, permission: string, read?: string[], write?: string[], enabled?: boolean): Promise<Models.Collection>;
+    updateCollection(databaseId: string, collectionId: string, name: string, permission: string, read?: string[], write?: string[], enabled?: boolean): Promise<Models.Collection>;
     /**
      * Delete Collection
      *
-     * Delete a collection by its unique ID. Only users with write permissions
-     * have access to delete this resource.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteCollection(collectionId: string): Promise<Response>;
+    deleteCollection(databaseId: string, collectionId: string): Promise<Response>;
     /**
      * List Attributes
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listAttributes(collectionId: string): Promise<Models.AttributeList>;
+    listAttributes(databaseId: string, collectionId: string): Promise<Models.AttributeList>;
     /**
      * Create Boolean Attribute
      *
-     * Create a boolean attribute.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
@@ -1963,13 +2136,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createBooleanAttribute(collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean>;
+    createBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean>;
     /**
      * Create Email Attribute
      *
-     * Create an email attribute.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
@@ -1978,10 +2149,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createEmailAttribute(collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail>;
+    createEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail>;
     /**
      * Create Enum Attribute
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {string[]} elements
@@ -1991,14 +2163,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createEnumAttribute(collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum>;
+    createEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum>;
     /**
      * Create Float Attribute
      *
-     * Create a float attribute. Optionally, minimum and maximum values can be
-     * provided.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
@@ -2009,14 +2178,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createFloatAttribute(collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat>;
+    createFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat>;
     /**
      * Create Integer Attribute
      *
-     * Create an integer attribute. Optionally, minimum and maximum values can be
-     * provided.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
@@ -2027,13 +2193,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createIntegerAttribute(collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger>;
+    createIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger>;
     /**
      * Create IP Address Attribute
      *
-     * Create IP address attribute.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
@@ -2042,13 +2206,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createIpAttribute(collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp>;
+    createIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp>;
     /**
      * Create String Attribute
      *
-     * Create a string attribute.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {number} size
@@ -2058,13 +2220,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createStringAttribute(collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeString>;
+    createStringAttribute(databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeString>;
     /**
      * Create URL Attribute
      *
-     * Create a URL attribute.
-     * 
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
@@ -2073,33 +2233,31 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createUrlAttribute(collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl>;
+    createUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl>;
     /**
      * Get Attribute
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getAttribute(collectionId: string, key: string): Promise<Response>;
+    getAttribute(databaseId: string, collectionId: string, key: string): Promise<Response>;
     /**
      * Delete Attribute
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteAttribute(collectionId: string, key: string): Promise<Response>;
+    deleteAttribute(databaseId: string, collectionId: string, key: string): Promise<Response>;
     /**
      * List Documents
      *
-     * Get a list of all the user documents. You can use the query params to
-     * filter your results. On admin mode, this endpoint will return a list of all
-     * of the project's documents. [Learn more about different API
-     * modes](/docs/admin).
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string[]} queries
      * @param {number} limit
@@ -2111,15 +2269,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listDocuments<Document extends Models.Document>(collectionId: string, queries?: string[], limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderAttributes?: string[], orderTypes?: string[]): Promise<Models.DocumentList<Document>>;
+    listDocuments<Document extends Models.Document>(databaseId: string, collectionId: string, queries?: string[], limit?: number, offset?: number, cursor?: string, cursorDirection?: string, orderAttributes?: string[], orderTypes?: string[]): Promise<Models.DocumentList<Document>>;
     /**
      * Create Document
      *
-     * Create a new Document. Before using this route, you should create a new
-     * collection resource using either a [server
-     * integration](/docs/server/database#databaseCreateCollection) API or
-     * directly from your database console.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} documentId
      * @param {object} data
@@ -2128,25 +2282,21 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createDocument<Document extends Models.Document>(collectionId: string, documentId: string, data: object, read?: string[], write?: string[]): Promise<Document>;
+    createDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data: object, read?: string[], write?: string[]): Promise<Document>;
     /**
      * Get Document
      *
-     * Get a document by its unique ID. This endpoint response returns a JSON
-     * object with the document data.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} documentId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getDocument<Document extends Models.Document>(collectionId: string, documentId: string): Promise<Document>;
+    getDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string): Promise<Document>;
     /**
      * Update Document
      *
-     * Update a document by its unique ID. Using the patch method you can pass
-     * only specific fields that will get updated.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} documentId
      * @param {object} data
@@ -2155,29 +2305,30 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateDocument<Document extends Models.Document>(collectionId: string, documentId: string, data: object, read?: string[], write?: string[]): Promise<Document>;
+    updateDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data?: object, read?: string[], write?: string[]): Promise<Document>;
     /**
      * Delete Document
      *
-     * Delete a document by its unique ID.
-     *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} documentId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteDocument(collectionId: string, documentId: string): Promise<Response>;
+    deleteDocument(databaseId: string, collectionId: string, documentId: string): Promise<Response>;
     /**
      * List Indexes
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listIndexes(collectionId: string): Promise<Models.IndexList>;
+    listIndexes(databaseId: string, collectionId: string): Promise<Models.IndexList>;
     /**
      * Create Index
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @param {string} type
@@ -2186,25 +2337,27 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createIndex(collectionId: string, key: string, type: string, attributes: string[], orders?: string[]): Promise<Models.Index>;
+    createIndex(databaseId: string, collectionId: string, key: string, type: string, attributes: string[], orders?: string[]): Promise<Models.Index>;
     /**
      * Get Index
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getIndex(collectionId: string, key: string): Promise<Models.Index>;
+    getIndex(databaseId: string, collectionId: string, key: string): Promise<Models.Index>;
     /**
      * Delete Index
      *
+     * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteIndex(collectionId: string, key: string): Promise<Response>;
+    deleteIndex(databaseId: string, collectionId: string, key: string): Promise<Response>;
   }
   export class Functions extends Service {
     /**
@@ -2320,12 +2473,12 @@ declare module "node-appwrite" {
      *
      * @param {string} functionId
      * @param {string} entrypoint
-     * @param {string} code
+     * @param {InputFile} code
      * @param {boolean} activate
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createDeployment(functionId: string, entrypoint: string, code: string, activate: boolean): Promise<Models.Deployment>;
+    createDeployment(functionId: string, entrypoint: string, code: InputFile, activate: boolean): Promise<Models.Deployment>;
     /**
      * Get Deployment
      *
@@ -2712,13 +2865,13 @@ declare module "node-appwrite" {
      *
      * @param {string} bucketId
      * @param {string} fileId
-     * @param {string} file
+     * @param {InputFile} file
      * @param {string[]} read
      * @param {string[]} write
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createFile(bucketId: string, fileId: string, file: string, read?: string[], write?: string[]): Promise<Models.File>;
+    createFile(bucketId: string, fileId: string, file: InputFile, read?: string[], write?: string[]): Promise<Models.File>;
     /**
      * Get File
      *
@@ -3091,6 +3244,17 @@ declare module "node-appwrite" {
      */
     updatePassword<Preferences extends Models.Preferences>(userId: string, password: string): Promise<Models.User<Preferences>>;
     /**
+     * Update Phone
+     *
+     * Update the user phone by its unique ID.
+     *
+     * @param {string} userId
+     * @param {string} number
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updatePhone<Preferences extends Models.Preferences>(userId: string, number: string): Promise<Models.User<Preferences>>;
+    /**
      * Get User Preferences
      *
      * Get the user preferences by its unique ID.
@@ -3166,6 +3330,17 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateVerification<Preferences extends Models.Preferences>(userId: string, emailVerification: boolean): Promise<Models.User<Preferences>>;
+    updateEmailVerification<Preferences extends Models.Preferences>(userId: string, emailVerification: boolean): Promise<Models.User<Preferences>>;
+    /**
+     * Update Phone Verification
+     *
+     * Update the user phone verification status by its unique ID.
+     *
+     * @param {string} userId
+     * @param {boolean} phoneVerification
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updatePhoneVerification<Preferences extends Models.Preferences>(userId: string, phoneVerification: boolean): Promise<Models.User<Preferences>>;
   }
 }
