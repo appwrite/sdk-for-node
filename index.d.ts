@@ -645,6 +645,10 @@ declare module "node-appwrite" {
           */
           $collection: string;
           /**
+          *  Collection data
+          */
+          [key: string]: any; // Document data for variable key ,
+          /**
           * Document creation date in Unix timestamp.
           */
           $createdAt: number;
