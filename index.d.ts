@@ -286,11 +286,11 @@ declare module "node-appwrite" {
           */
           name: string;
           /**
-          * Database creation date in Datetime
+          * Database creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
-          * Database update date in Datetime
+          * Database update date in ISO 8601 format.
           */
           $updatedAt: string;
       }
@@ -303,11 +303,11 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * Collection creation date in Datetime
+          * Collection creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
-          * Collection update date in Datetime
+          * Collection update date in ISO 8601 format.
           */
           $updatedAt: string;
           /**
@@ -375,7 +375,7 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * Attribute size.
           */
@@ -383,7 +383,7 @@ declare module "node-appwrite" {
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: string;
+          xdefault?: string;
       }
       /**
       * AttributeInteger
@@ -408,19 +408,19 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * Minimum value to enforce for new documents.
           */
-          min: number;
+          min?: number;
           /**
           * Maximum value to enforce for new documents.
           */
-          max: number;
+          max?: number;
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: number;
+          xdefault?: number;
       }
       /**
       * AttributeFloat
@@ -445,19 +445,19 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * Minimum value to enforce for new documents.
           */
-          min: number;
+          min?: number;
           /**
           * Maximum value to enforce for new documents.
           */
-          max: number;
+          max?: number;
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: number;
+          xdefault?: number;
       }
       /**
       * AttributeBoolean
@@ -482,11 +482,11 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: boolean;
+          xdefault?: boolean;
       }
       /**
       * AttributeEmail
@@ -511,7 +511,7 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * String format.
           */
@@ -519,7 +519,7 @@ declare module "node-appwrite" {
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: string;
+          xdefault?: string;
       }
       /**
       * AttributeEnum
@@ -544,7 +544,7 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * Array of elements in enumerated type.
           */
@@ -556,7 +556,7 @@ declare module "node-appwrite" {
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: string;
+          xdefault?: string;
       }
       /**
       * AttributeIP
@@ -581,7 +581,7 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * String format.
           */
@@ -589,7 +589,7 @@ declare module "node-appwrite" {
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: string;
+          xdefault?: string;
       }
       /**
       * AttributeURL
@@ -614,7 +614,7 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
           * String format.
           */
@@ -622,7 +622,7 @@ declare module "node-appwrite" {
           /**
           * Default value for attribute when not provided. Cannot be set when attribute is required.
           */
-          xdefault: string;
+          xdefault?: string;
       }
       /**
       * AttributeDatetime
@@ -647,15 +647,15 @@ declare module "node-appwrite" {
           /**
           * Is attribute an array?
           */
-          array: boolean;
+          array?: boolean;
           /**
-          * Datetime format.
+          * ISO 8601 format.
           */
           format: string;
           /**
           * Default value for attribute when not provided. Only null is optional
           */
-          xdefault: string;
+          xdefault?: string;
       }
       /**
       * Index
@@ -680,7 +680,7 @@ declare module "node-appwrite" {
           /**
           * Index orders.
           */
-          orders: string[];
+          orders?: string[];
       }
       /**
       * Document
@@ -695,11 +695,11 @@ declare module "node-appwrite" {
           */
           $collection: string;
           /**
-          * Document creation date in Datetime
+          * Document creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
-          * Document update date in Datetime
+          * Document update date in ISO 8601 format.
           */
           $updatedAt: string;
           /**
@@ -736,7 +736,7 @@ declare module "node-appwrite" {
           */
           ip: string;
           /**
-          * Log creation date in Datetime.
+          * Log creation date in ISO 8601 format.
           */
           time: string;
           /**
@@ -805,11 +805,11 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * User creation date in Datetime.
+          * User creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
-          * User update date in Datetime.
+          * User update date in ISO 8601 format.
           */
           $updatedAt: string;
           /**
@@ -829,7 +829,7 @@ declare module "node-appwrite" {
           */
           hashOptions: object;
           /**
-          * User registration date in Datetime.
+          * User registration date in ISO 8601 format.
           */
           registration: string;
           /**
@@ -837,7 +837,7 @@ declare module "node-appwrite" {
           */
           status: boolean;
           /**
-          * Datetime of the most recent password update
+          * Password update time in ISO 8601 format.
           */
           passwordUpdate: string;
           /**
@@ -945,11 +945,11 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * User creation date in Datetime.
+          * User creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
-          * User update date in Datetime.
+          * User update date in ISO 8601 format.
           */
           $updatedAt: string;
           /**
@@ -957,7 +957,7 @@ declare module "node-appwrite" {
           */
           name: string;
           /**
-          * User registration date in Datetime.
+          * User registration date in ISO 8601 format.
           */
           registration: string;
           /**
@@ -965,7 +965,7 @@ declare module "node-appwrite" {
           */
           status: boolean;
           /**
-          * Datetime of the most recent password update
+          * Password update time in ISO 8601 format.
           */
           passwordUpdate: string;
           /**
@@ -1003,7 +1003,7 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * Session creation date in Datetime
+          * Session creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
@@ -1011,7 +1011,7 @@ declare module "node-appwrite" {
           */
           userId: string;
           /**
-          * Session expiration date in Datetime
+          * Session expiration date in ISO 8601 format.
           */
           expire: string;
           /**
@@ -1027,7 +1027,7 @@ declare module "node-appwrite" {
           */
           providerAccessToken: string;
           /**
-          * The date of when the access token expires in Datetime format.
+          * The date of when the access token expires in ISO 8601 format.
           */
           providerAccessTokenExpiry: string;
           /**
@@ -1108,7 +1108,7 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * Token creation date in Datetime
+          * Token creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
@@ -1120,7 +1120,7 @@ declare module "node-appwrite" {
           */
           secret: string;
           /**
-          * Token expiration date in Datetime.
+          * Token expiration date in ISO 8601 format.
           */
           expire: string;
       }
@@ -1170,11 +1170,11 @@ declare module "node-appwrite" {
           */
           bucketId: string;
           /**
-          * File creation date in Datetime
+          * File creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
-          * File update date in Datetime
+          * File update date in ISO 8601 format.
           */
           $updatedAt: string;
           /**
@@ -1215,11 +1215,11 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * Bucket creation time in Datetime
+          * Bucket creation time in ISO 8601 format.
           */
           $createdAt: string;
           /**
-          * Bucket update date in Datetime
+          * Bucket update date in ISO 8601 format.
           */
           $updatedAt: string;
           /**
@@ -1268,11 +1268,11 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * Team creation date in Datetime
+          * Team creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
-          * Team update date in Datetime
+          * Team update date in ISO 8601 format.
           */
           $updatedAt: string;
           /**
@@ -1293,11 +1293,11 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * Membership creation date in Datetime
+          * Membership creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
-          * Membership update date in Datetime
+          * Membership update date in ISO 8601 format.
           */
           $updatedAt: string;
           /**
@@ -1321,11 +1321,11 @@ declare module "node-appwrite" {
           */
           teamName: string;
           /**
-          * Date, the user has been invited to join the team in Datetime
+          * Date, the user has been invited to join the team in ISO 8601 format.
           */
           invited: string;
           /**
-          * Date, the user has accepted the invitation to join the team in Datetime
+          * Date, the user has accepted the invitation to join the team in ISO 8601 format.
           */
           joined: string;
           /**
@@ -1346,11 +1346,11 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * Function creation date in Datetime
+          * Function creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
-          * Function update date in Datetime
+          * Function update date in ISO 8601 format.
           */
           $updatedAt: string;
           /**
@@ -1386,11 +1386,11 @@ declare module "node-appwrite" {
           */
           schedule: string;
           /**
-          * Function&#039;s next scheduled execution time in Datetime.
+          * Function&#039;s next scheduled execution time in ISO 8601 format.
           */
           scheduleNext: string;
           /**
-          * Function&#039;s previous scheduled execution time in Datetime.
+          * Function&#039;s previous scheduled execution time in ISO 8601 format.
           */
           schedulePrevious: string;
           /**
@@ -1440,11 +1440,11 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * Deployment creation date in Datetime
+          * Deployment creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
-          * Deployment update date in Datetime
+          * Deployment update date in ISO 8601 format.
           */
           $updatedAt: string;
           /**
@@ -1493,11 +1493,11 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * Execution creation date in Datetime
+          * Execution creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
-          * Execution upate date in Datetime
+          * Execution upate date in ISO 8601 format.
           */
           $updatedAt: string;
           /**
@@ -1546,11 +1546,11 @@ declare module "node-appwrite" {
           */
           $id: string;
           /**
-          * Variable creation date in Datetime
+          * Variable creation date in ISO 8601 format.
           */
           $createdAt: string;
           /**
-          * Variable creation date in Datetime
+          * Variable creation date in ISO 8601 format.
           */
           $updatedAt: string;
           /**
@@ -2340,7 +2340,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createCollection(databaseId: string, collectionId: string, name: string, permissions: string[], documentSecurity: boolean): Promise<Models.Collection>;
+    createCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean): Promise<Models.Collection>;
     /**
      * Get Collection
      *
@@ -2361,13 +2361,13 @@ declare module "node-appwrite" {
      * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} name
-     * @param {boolean} documentSecurity
      * @param {string[]} permissions
+     * @param {boolean} documentSecurity
      * @param {boolean} enabled
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateCollection(databaseId: string, collectionId: string, name: string, documentSecurity: boolean, permissions?: string[], enabled?: boolean): Promise<Models.Collection>;
+    updateCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection>;
     /**
      * Delete Collection
      *
@@ -3133,8 +3133,8 @@ declare module "node-appwrite" {
      *
      * @param {string} bucketId
      * @param {string} name
-     * @param {boolean} fileSecurity
      * @param {string[]} permissions
+     * @param {boolean} fileSecurity
      * @param {boolean} enabled
      * @param {number} maximumFileSize
      * @param {string[]} allowedFileExtensions
@@ -3144,7 +3144,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createBucket(bucketId: string, name: string, fileSecurity: boolean, permissions?: string[], enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: string, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
+    createBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: string, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
     /**
      * Get Bucket
      *
@@ -3163,8 +3163,8 @@ declare module "node-appwrite" {
      *
      * @param {string} bucketId
      * @param {string} name
-     * @param {boolean} fileSecurity
      * @param {string[]} permissions
+     * @param {boolean} fileSecurity
      * @param {boolean} enabled
      * @param {number} maximumFileSize
      * @param {string[]} allowedFileExtensions
@@ -3174,7 +3174,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateBucket(bucketId: string, name: string, fileSecurity: boolean, permissions?: string[], enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: string, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
+    updateBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: string, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
     /**
      * Delete Bucket
      *
