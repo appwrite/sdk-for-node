@@ -2229,12 +2229,11 @@ declare module "node-appwrite" {
      * @param {string} name
      * @param {number} width
      * @param {number} height
-     * @param {string} color
      * @param {string} background
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getInitials(name?: string, width?: number, height?: number, color?: string, background?: string): Promise<Buffer>;
+    getInitials(name?: string, width?: number, height?: number, background?: string): Promise<Buffer>;
     /**
      * Get QR Code
      *
