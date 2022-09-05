@@ -3,7 +3,7 @@ const sdk = require('node-appwrite');
 // Init SDK
 const client = new sdk.Client();
 
-const databases = new sdk.Databases(client, '[DATABASE_ID]');
+const databases = new sdk.Databases(client);
 
 client
     .setEndpoint('https://[HOSTNAME_OR_IP]/v1') // Your API Endpoint

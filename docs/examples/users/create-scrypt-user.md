@@ -3,7 +3,7 @@ const sdk = require('node-appwrite');
 // Init SDK
 const client = new sdk.Client();
 
-const databases = new sdk.Databases(client);
+const users = new sdk.Users(client);
 
 client
     .setEndpoint('https://[HOSTNAME_OR_IP]/v1') // Your API Endpoint
@@ -11,7 +11,7 @@ client
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-const promise = databases.createIndex('[DATABASE_ID]', '[COLLECTION_ID]', '', 'key', []);
+const promise = users.createScryptUser('[USER_ID]', 'email@example.com', 'password', '[PASSWORD_SALT]', null, null, null, null);
 
 promise.then(function (response) {
     console.log(response);
