@@ -693,7 +693,11 @@ declare module "node-appwrite" {
           /**
           * Collection ID.
           */
-          $collection: string;
+          $collectionId: string;
+          /**
+          * Database ID.
+          */
+          $databaseId: string;
           /**
           * Document creation date in ISO 8601 format.
           */
@@ -1229,7 +1233,7 @@ declare module "node-appwrite" {
           /**
           * Whether file-level security is enabled. [Learn more about permissions](/docs/permissions).
           */
-          fileSecurity: string;
+          fileSecurity: boolean;
           /**
           * Bucket name.
           */
@@ -1362,9 +1366,9 @@ declare module "node-appwrite" {
           */
           name: string;
           /**
-          * Function status. Possible values: `disabled`, `enabled`
+          * Function enabled.
           */
-          status: string;
+          enabled: boolean;
           /**
           * Function execution runtime.
           */
@@ -1533,9 +1537,9 @@ declare module "node-appwrite" {
           */
           stderr: string;
           /**
-          * The script execution time in seconds.
+          * The script execution duration in seconds.
           */
-          time: number;
+          duration: number;
       }
       /**
       * Variable
@@ -1864,7 +1868,7 @@ declare module "node-appwrite" {
      */
     updateEmail<Preferences extends Models.Preferences>(email: string, password: string): Promise<Models.Account<Preferences>>;
     /**
-     * Get Account Logs
+     * List Account Logs
      *
      * Get currently logged in user list of latest security activity logs. Each
      * log returns user IP address, location and date and time of log.
@@ -1873,7 +1877,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getLogs(queries?: string[]): Promise<Models.LogList>;
+    listLogs(queries?: string[]): Promise<Models.LogList>;
     /**
      * Update Account Name
      *
@@ -1973,7 +1977,7 @@ declare module "node-appwrite" {
      */
     updateRecovery(userId: string, secret: string, password: string, passwordAgain: string): Promise<Models.Token>;
     /**
-     * Get Account Sessions
+     * List Account Sessions
      *
      * Get currently logged in user list of active sessions across different
      * devices.
@@ -1981,7 +1985,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getSessions(): Promise<Models.SessionList>;
+    listSessions(): Promise<Models.SessionList>;
     /**
      * Delete All Account Sessions
      *
@@ -2698,10 +2702,11 @@ declare module "node-appwrite" {
      * @param {string[]} events
      * @param {string} schedule
      * @param {number} timeout
+     * @param {boolean} enabled
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create(functionId: string, name: string, execute: string[], runtime: string, events?: string[], schedule?: string, timeout?: number): Promise<Models.Function>;
+    create(functionId: string, name: string, execute: string[], runtime: string, events?: string[], schedule?: string, timeout?: number, enabled?: boolean): Promise<Models.Function>;
     /**
      * List runtimes
      *
@@ -2732,10 +2737,11 @@ declare module "node-appwrite" {
      * @param {string[]} events
      * @param {string} schedule
      * @param {number} timeout
+     * @param {boolean} enabled
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    update(functionId: string, name: string, execute: string[], events?: string[], schedule?: string, timeout?: number): Promise<Models.Function>;
+    update(functionId: string, name: string, execute: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean): Promise<Models.Function>;
     /**
      * Delete Function
      *
@@ -2873,12 +2879,10 @@ declare module "node-appwrite" {
      * Get a list of all variables of a specific function.
      *
      * @param {string} functionId
-     * @param {string[]} queries
-     * @param {string} search
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listVariables(functionId: string, queries?: string[], search?: string): Promise<Models.VariableList>;
+    listVariables(functionId: string): Promise<Models.VariableList>;
     /**
      * Create Variable
      *
@@ -3057,7 +3061,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getContinents(): Promise<Models.ContinentList>;
+    listContinents(): Promise<Models.ContinentList>;
     /**
      * List Countries
      *
@@ -3067,7 +3071,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCountries(): Promise<Models.CountryList>;
+    listCountries(): Promise<Models.CountryList>;
     /**
      * List EU Countries
      *
@@ -3077,7 +3081,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCountriesEU(): Promise<Models.CountryList>;
+    listCountriesEU(): Promise<Models.CountryList>;
     /**
      * List Countries Phone Codes
      *
@@ -3087,7 +3091,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCountriesPhones(): Promise<Models.PhoneList>;
+    listCountriesPhones(): Promise<Models.PhoneList>;
     /**
      * List Currencies
      *
@@ -3098,7 +3102,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCurrencies(): Promise<Models.CurrencyList>;
+    listCurrencies(): Promise<Models.CurrencyList>;
     /**
      * List Languages
      *
@@ -3108,7 +3112,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getLanguages(): Promise<Models.LanguageList>;
+    listLanguages(): Promise<Models.LanguageList>;
   }
   export class Storage extends Service {
     constructor(client: Client);
@@ -3384,7 +3388,7 @@ declare module "node-appwrite" {
      */
     delete(teamId: string): Promise<Response>;
     /**
-     * Get Team Memberships
+     * List Team Memberships
      *
      * Use this endpoint to list a team's members using the team's ID. All team
      * members have read access to this endpoint.
@@ -3395,7 +3399,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getMemberships(teamId: string, queries?: string[], search?: string): Promise<Models.MembershipList>;
+    listMemberships(teamId: string, queries?: string[], search?: string): Promise<Models.MembershipList>;
     /**
      * Create Team Membership
      *
@@ -3669,7 +3673,7 @@ declare module "node-appwrite" {
      */
     updateEmail<Preferences extends Models.Preferences>(userId: string, email: string): Promise<Models.User<Preferences>>;
     /**
-     * Get User Logs
+     * List User Logs
      *
      * Get the user activity logs list by its unique ID.
      *
@@ -3678,9 +3682,9 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getLogs(userId: string, queries?: string[]): Promise<Models.LogList>;
+    listLogs(userId: string, queries?: string[]): Promise<Models.LogList>;
     /**
-     * Get User Memberships
+     * List User Memberships
      *
      * Get the user membership list by its unique ID.
      *
@@ -3688,7 +3692,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getMemberships(userId: string): Promise<Models.MembershipList>;
+    listMemberships(userId: string): Promise<Models.MembershipList>;
     /**
      * Update Name
      *
@@ -3746,7 +3750,7 @@ declare module "node-appwrite" {
      */
     updatePrefs<Preferences extends Models.Preferences>(userId: string, prefs: object): Promise<Preferences>;
     /**
-     * Get User Sessions
+     * List User Sessions
      *
      * Get the user sessions list by its unique ID.
      *
@@ -3754,7 +3758,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getSessions(userId: string): Promise<Models.SessionList>;
+    listSessions(userId: string): Promise<Models.SessionList>;
     /**
      * Delete User Sessions
      *
