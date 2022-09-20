@@ -1830,7 +1830,7 @@ declare module "node-appwrite" {
     
     static limit(value: number): string;
     
-    static offset = (value: number): string;
+    static offset(value: number): string;
 
     private static addQuery(attribute: string, method: string, value: QueryTypes): string;
 
