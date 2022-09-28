@@ -3837,4 +3837,20 @@ declare module "node-appwrite" {
      */
     updatePhoneVerification<Preferences extends Models.Preferences>(userId: string, phoneVerification: boolean): Promise<Models.User<Preferences>>;
   }
+
+  export interface FunctionRequest {
+    payload: string
+    headers: { [name: string]: string }
+    variables: { [name: string]: string }
+  }
+
+  export interface FunctionResponse {
+    send: (text: string, status?: number) => void
+    json: (body: object, status?: number) => void
+  }
+
+  /**
+   * Type for "main" function
+   */
+  export type AppwriteFunction = (req: FunctionRequest, res: FunctionResponse) => void
 }
