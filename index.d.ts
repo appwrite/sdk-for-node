@@ -869,26 +869,46 @@ declare module "node-appwrite" {
       * AlgoMD5
       */
       export type AlgoMd5 = {
+          /**
+          * Algo type.
+          */
+          type: string;
       }
       /**
       * AlgoSHA
       */
       export type AlgoSha = {
+          /**
+          * Algo type.
+          */
+          type: string;
       }
       /**
       * AlgoPHPass
       */
       export type AlgoPhpass = {
+          /**
+          * Algo type.
+          */
+          type: string;
       }
       /**
       * AlgoBcrypt
       */
       export type AlgoBcrypt = {
+          /**
+          * Algo type.
+          */
+          type: string;
       }
       /**
       * AlgoScrypt
       */
       export type AlgoScrypt = {
+          /**
+          * Algo type.
+          */
+          type: string;
           /**
           * CPU complexity of computed hash.
           */
@@ -911,6 +931,10 @@ declare module "node-appwrite" {
       */
       export type AlgoScryptModified = {
           /**
+          * Algo type.
+          */
+          type: string;
+          /**
           * Salt used to compute hash.
           */
           salt: string;
@@ -927,6 +951,10 @@ declare module "node-appwrite" {
       * AlgoArgon2
       */
       export type AlgoArgon2 = {
+          /**
+          * Algo type.
+          */
+          type: string;
           /**
           * Memory used to compute hash.
           */
@@ -1487,6 +1515,10 @@ declare module "node-appwrite" {
           * The build stderr.
           */
           buildStderr: string;
+          /**
+          * The current build time in seconds.
+          */
+          buildTime: number;
       }
       /**
       * Execution
@@ -1872,7 +1904,7 @@ declare module "node-appwrite" {
      */
     get<Preferences extends Models.Preferences>(): Promise<Models.Account<Preferences>>;
     /**
-     * Update Account Email
+     * Update Email
      *
      * Update currently logged in user account email address. After changing user
      * address, the user confirmation status will get reset. A new confirmation
@@ -1890,7 +1922,7 @@ declare module "node-appwrite" {
      */
     updateEmail<Preferences extends Models.Preferences>(email: string, password: string): Promise<Models.Account<Preferences>>;
     /**
-     * List Account Logs
+     * List Logs
      *
      * Get currently logged in user list of latest security activity logs. Each
      * log returns user IP address, location and date and time of log.
@@ -1901,7 +1933,7 @@ declare module "node-appwrite" {
      */
     listLogs(queries?: string[]): Promise<Models.LogList>;
     /**
-     * Update Account Name
+     * Update Name
      *
      * Update currently logged in user account name.
      *
@@ -1911,7 +1943,7 @@ declare module "node-appwrite" {
      */
     updateName<Preferences extends Models.Preferences>(name: string): Promise<Models.Account<Preferences>>;
     /**
-     * Update Account Password
+     * Update Password
      *
      * Update currently logged in user password. For validation, user is required
      * to pass in the new password, and the old password. For users created with
@@ -1924,7 +1956,7 @@ declare module "node-appwrite" {
      */
     updatePassword<Preferences extends Models.Preferences>(password: string, oldPassword?: string): Promise<Models.Account<Preferences>>;
     /**
-     * Update Account Phone
+     * Update Phone
      *
      * Update the currently logged in user's phone number. After updating the
      * phone number, the phone verification status will be reset. A confirmation
@@ -1948,7 +1980,7 @@ declare module "node-appwrite" {
      */
     getPrefs<Preferences extends Models.Preferences>(): Promise<Preferences>;
     /**
-     * Update Account Preferences
+     * Update Preferences
      *
      * Update currently logged in user account preferences. The object you pass is
      * stored as is, and replaces any previous value. The maximum allowed prefs
@@ -1999,7 +2031,7 @@ declare module "node-appwrite" {
      */
     updateRecovery(userId: string, secret: string, password: string, passwordAgain: string): Promise<Models.Token>;
     /**
-     * List Account Sessions
+     * List Sessions
      *
      * Get currently logged in user list of active sessions across different
      * devices.
@@ -2009,7 +2041,7 @@ declare module "node-appwrite" {
      */
     listSessions(): Promise<Models.SessionList>;
     /**
-     * Delete All Account Sessions
+     * Delete Sessions
      *
      * Delete all sessions from the user account and remove any sessions cookies
      * from the end client.
@@ -2019,7 +2051,7 @@ declare module "node-appwrite" {
      */
     deleteSessions(): Promise<Response>;
     /**
-     * Get Session By ID
+     * Get Session
      *
      * Use this endpoint to get a logged in user's session using a Session ID.
      * Inputting 'current' will return the current session being used.
@@ -2030,7 +2062,7 @@ declare module "node-appwrite" {
      */
     getSession(sessionId: string): Promise<Models.Session>;
     /**
-     * Update Session (Refresh Tokens)
+     * Update OAuth Session (Refresh Tokens)
      *
      * Access tokens have limited lifespan and expire to mitigate security risks.
      * If session was created using an OAuth provider, this route can be used to
@@ -2042,7 +2074,7 @@ declare module "node-appwrite" {
      */
     updateSession(sessionId: string): Promise<Models.Session>;
     /**
-     * Delete Account Session
+     * Delete Session
      *
      * Use this endpoint to log out the currently logged in user from all their
      * account sessions across all of their different devices. When using the
@@ -2055,7 +2087,7 @@ declare module "node-appwrite" {
      */
     deleteSession(sessionId: string): Promise<Response>;
     /**
-     * Update Account Status
+     * Update Status
      *
      * Block the currently logged in user account. Behind the scene, the user
      * record is not deleted but permanently blocked from any access. To
@@ -2584,9 +2616,7 @@ declare module "node-appwrite" {
      * List Documents
      *
      * Get a list of all the user's documents in a given collection. You can use
-     * the query params to filter your results. On admin mode, this endpoint will
-     * return a list of all of documents belonging to the provided collectionId.
-     * [Learn more about different API modes](/docs/admin).
+     * the query params to filter your results.
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -2845,7 +2875,7 @@ declare module "node-appwrite" {
      */
     deleteDeployment(functionId: string, deploymentId: string): Promise<Response>;
     /**
-     * Retry Build
+     * Create Build
      *
      * @param {string} functionId
      * @param {string} deploymentId
@@ -2853,14 +2883,12 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    retryBuild(functionId: string, deploymentId: string, buildId: string): Promise<Response>;
+    createBuild(functionId: string, deploymentId: string, buildId: string): Promise<Response>;
     /**
      * List Executions
      *
      * Get a list of all the current user function execution logs. You can use the
-     * query params to filter your results. On admin mode, this endpoint will
-     * return a list of all of the project's executions. [Learn more about
-     * different API modes](/docs/admin).
+     * query params to filter your results.
      *
      * @param {string} functionId
      * @param {string[]} queries
@@ -2953,6 +2981,30 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     deleteVariable(functionId: string, variableId: string): Promise<Response>;
+  }
+  export class Graphql extends Service {
+    constructor(client: Client);
+    
+    /**
+     * GraphQL Endpoint
+     *
+     * Execute a GraphQL mutation.
+     *
+     * @param {object} query
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    query(query: object): Promise<Response>;
+    /**
+     * GraphQL Endpoint
+     *
+     * Execute a GraphQL mutation.
+     *
+     * @param {object} query
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    mutation(query: object): Promise<Response>;
   }
   export class Health extends Service {
     constructor(client: Client);
@@ -3214,8 +3266,7 @@ declare module "node-appwrite" {
      * List Files
      *
      * Get a list of all the user files. You can use the query params to filter
-     * your results. On admin mode, this endpoint will return a list of all of the
-     * project's files. [Learn more about different API modes](/docs/admin).
+     * your results.
      *
      * @param {string} bucketId
      * @param {string[]} queries
@@ -3352,9 +3403,6 @@ declare module "node-appwrite" {
      *
      * Get a list of all the teams in which the current user is a member. You can
      * use the parameters to filter your results.
-     * 
-     * In admin mode, this endpoint returns a list of all the teams in the current
-     * project. [Learn more about different API modes](/docs/admin).
      *
      * @param {string[]} queries
      * @param {string} search
@@ -3461,7 +3509,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getMembership(teamId: string, membershipId: string): Promise<Models.MembershipList>;
+    getMembership(teamId: string, membershipId: string): Promise<Models.Membership>;
     /**
      * Update Membership Roles
      *

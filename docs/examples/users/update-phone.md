@@ -11,7 +11,7 @@ client
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-const promise = users.updatePhone('[USER_ID]', '');
+const promise = users.updatePhone('[USER_ID]', '+12065550100');
 
 promise.then(function (response) {
     console.log(response);

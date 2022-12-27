@@ -3,15 +3,15 @@ const sdk = require('node-appwrite');
 // Init SDK
 const client = new sdk.Client();
 
-const account = new sdk.Account(client);
+const graphql = new sdk.Graphql(client);
 
 client
     .setEndpoint('https://[HOSTNAME_OR_IP]/v1') // Your API Endpoint
     .setProject('5df5acd0d48c2') // Your project ID
-    .setJWT('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ...') // Your secret JSON Web Token
+    .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-const promise = account.getSessions();
+const promise = graphql.mutation({});
 
 promise.then(function (response) {
     console.log(response);
