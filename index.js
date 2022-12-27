@@ -9,6 +9,7 @@ const Account = require('./lib/services/account.js');
 const Avatars = require('./lib/services/avatars.js');
 const Databases = require('./lib/services/databases.js');
 const Functions = require('./lib/services/functions.js');
+const Graphql = require('./lib/services/graphql.js');
 const Health = require('./lib/services/health.js');
 const Locale = require('./lib/services/locale.js');
 const Storage = require('./lib/services/storage.js');
@@ -27,6 +28,7 @@ module.exports = {
     Avatars,
     Databases,
     Functions,
+    Graphql,
     Health,
     Locale,
     Storage,
