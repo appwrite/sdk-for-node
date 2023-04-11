@@ -120,7 +120,7 @@ declare module "node-appwrite" {
       /**
       * Teams List
       */
-      export type TeamList = {
+      export type TeamList<Preferences extends Models.Preferences> = {
           /**
           * Total number of teams documents that matched your query.
           */
@@ -128,7 +128,7 @@ declare module "node-appwrite" {
           /**
           * List of teams.
           */
-          teams: Team[];
+          teams: Team<Preferences>[];
       }
       /**
       * Memberships List
@@ -658,6 +658,55 @@ declare module "node-appwrite" {
           xdefault?: string;
       }
       /**
+      * AttributeRelationship
+      */
+      export type AttributeRelationship = {
+          /**
+          * Attribute Key.
+          */
+          key: string;
+          /**
+          * Attribute type.
+          */
+          type: string;
+          /**
+          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+          */
+          status: string;
+          /**
+          * Is attribute required?
+          */
+          required: boolean;
+          /**
+          * Is attribute an array?
+          */
+          array?: boolean;
+          /**
+          * The ID of the related collection.
+          */
+          relatedCollection: string;
+          /**
+          * The type of the relationship.
+          */
+          relationType: string;
+          /**
+          * Is the relationship two-way?
+          */
+          twoWay: boolean;
+          /**
+          * The key of the two-way relationship.
+          */
+          twoWayKey: string;
+          /**
+          * How deleting the parent document will propagate to child documents.
+          */
+          onDelete: string;
+          /**
+          * Whether this is the parent or child side of the relationship
+          */
+          side: string;
+      }
+      /**
       * Index
       */
       export type Index = {
@@ -823,15 +872,15 @@ declare module "node-appwrite" {
           /**
           * Hashed user password.
           */
-          password: string;
+          password?: string;
           /**
           * Password hashing algorithm.
           */
-          hash: string;
+          hash?: string;
           /**
           * Password hashing algorithm configuration.
           */
-          hashOptions: object;
+          hashOptions?: object;
           /**
           * User registration date in ISO 8601 format.
           */
@@ -967,59 +1016,6 @@ declare module "node-appwrite" {
           * Number of threads used to compute hash.
           */
           threads: number;
-      }
-      /**
-      * Account
-      */
-      export type Account<Preferences extends Models.Preferences> = {
-          /**
-          * User ID.
-          */
-          $id: string;
-          /**
-          * User creation date in ISO 8601 format.
-          */
-          $createdAt: string;
-          /**
-          * User update date in ISO 8601 format.
-          */
-          $updatedAt: string;
-          /**
-          * User name.
-          */
-          name: string;
-          /**
-          * User registration date in ISO 8601 format.
-          */
-          registration: string;
-          /**
-          * User status. Pass `true` for enabled and `false` for disabled.
-          */
-          status: boolean;
-          /**
-          * Password update time in ISO 8601 format.
-          */
-          passwordUpdate: string;
-          /**
-          * User email address.
-          */
-          email: string;
-          /**
-          * User phone number in E.164 format.
-          */
-          phone: string;
-          /**
-          * Email verification status.
-          */
-          emailVerification: boolean;
-          /**
-          * Phone verification status.
-          */
-          phoneVerification: boolean;
-          /**
-          * User preferences as a key-value object
-          */
-          prefs: Preferences;
       }
       /**
       * Preferences
@@ -1181,7 +1177,7 @@ declare module "node-appwrite" {
           */
           continent: string;
           /**
-          * True if country is part of the Europian Union.
+          * True if country is part of the European Union.
           */
           eu: boolean;
           /**
@@ -1294,7 +1290,7 @@ declare module "node-appwrite" {
       /**
       * Team
       */
-      export type Team = {
+      export type Team<Preferences extends Models.Preferences> = {
           /**
           * Team ID.
           */
@@ -1315,6 +1311,10 @@ declare module "node-appwrite" {
           * Total number of team members.
           */
           total: number;
+          /**
+          * Team preferences as a key-value object
+          */
+          prefs: Preferences;
       }
       /**
       * Membership
@@ -1826,11 +1826,13 @@ declare module "node-appwrite" {
 
     static fromBuffer(buffer: Buffer, filename: string): InputFile;
 
-    static fromBlob(blob: Blob, filename: string): InputFile;
+    static fromBlob(blob: buffer.Blob, filename: string): Promise<InputFile>;
 
-    static fromStream(stream: any, filename: string, size: number): InputFile;
+    static fromStream(stream: NodeJS.ReadableStream, filename: string, size: number): InputFile;
 
     static fromPlainText(content: string, filename: string): InputFile;
+
+    constructor(stream: NodeJS.ReadableStream, filename: string, size: number);
   }
 
   type QueryTypesSingle = string | number | boolean;
@@ -1902,7 +1904,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get<Preferences extends Models.Preferences>(): Promise<Models.Account<Preferences>>;
+    get<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>>;
     /**
      * Update Email
      *
@@ -1920,7 +1922,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateEmail<Preferences extends Models.Preferences>(email: string, password: string): Promise<Models.Account<Preferences>>;
+    updateEmail<Preferences extends Models.Preferences>(email: string, password: string): Promise<Models.User<Preferences>>;
     /**
      * List Logs
      *
@@ -1941,7 +1943,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateName<Preferences extends Models.Preferences>(name: string): Promise<Models.Account<Preferences>>;
+    updateName<Preferences extends Models.Preferences>(name: string): Promise<Models.User<Preferences>>;
     /**
      * Update Password
      *
@@ -1954,7 +1956,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updatePassword<Preferences extends Models.Preferences>(password: string, oldPassword?: string): Promise<Models.Account<Preferences>>;
+    updatePassword<Preferences extends Models.Preferences>(password: string, oldPassword?: string): Promise<Models.User<Preferences>>;
     /**
      * Update Phone
      *
@@ -1969,7 +1971,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updatePhone<Preferences extends Models.Preferences>(phone: string, password: string): Promise<Models.Account<Preferences>>;
+    updatePhone<Preferences extends Models.Preferences>(phone: string, password: string): Promise<Models.User<Preferences>>;
     /**
      * Get Account Preferences
      *
@@ -1990,7 +1992,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updatePrefs<Preferences extends Models.Preferences>(prefs: object): Promise<Models.Account<Preferences>>;
+    updatePrefs<Preferences extends Models.Preferences>(prefs: object): Promise<Models.User<Preferences>>;
     /**
      * Create Password Recovery
      *
@@ -2049,7 +2051,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteSessions(): Promise<Response>;
+    deleteSessions(): Promise<string>;
     /**
      * Get Session
      *
@@ -2085,7 +2087,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteSession(sessionId: string): Promise<Response>;
+    deleteSession(sessionId: string): Promise<string>;
     /**
      * Update Status
      *
@@ -2096,7 +2098,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateStatus<Preferences extends Models.Preferences>(): Promise<Models.Account<Preferences>>;
+    updateStatus<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>>;
     /**
      * Create Email Verification
      *
@@ -2367,7 +2369,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    delete(databaseId: string): Promise<Response>;
+    delete(databaseId: string): Promise<string>;
     /**
      * List Collections
      *
@@ -2436,7 +2438,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteCollection(databaseId: string, collectionId: string): Promise<Response>;
+    deleteCollection(databaseId: string, collectionId: string): Promise<string>;
     /**
      * List Attributes
      *
@@ -2463,6 +2465,18 @@ declare module "node-appwrite" {
      */
     createBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean>;
     /**
+     * Update Boolean Attribute
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {boolean} default
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean): Promise<Models.AttributeBoolean>;
+    /**
      * Create DateTime Attribute
      *
      * @param {string} databaseId
@@ -2475,6 +2489,18 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     createDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeDatetime>;
+    /**
+     * Update DateTime Attribute
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {string} default
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributeDatetime>;
     /**
      * Create Email Attribute
      *
@@ -2492,6 +2518,22 @@ declare module "node-appwrite" {
      */
     createEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail>;
     /**
+     * Update Email Attribute
+     *
+     * Update an email attribute. Changing the `default` value will not update
+     * already existing documents.
+     * 
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {string} default
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributeEmail>;
+    /**
      * Create Enum Attribute
      *
      * @param {string} databaseId
@@ -2505,6 +2547,23 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     createEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum>;
+    /**
+     * Update Enum Attribute
+     *
+     * Update an enum attribute. Changing the `default` value will not update
+     * already existing documents.
+     * 
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {string[]} elements
+     * @param {boolean} required
+     * @param {string} default
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string): Promise<Models.AttributeEnum>;
     /**
      * Create Float Attribute
      *
@@ -2525,6 +2584,24 @@ declare module "node-appwrite" {
      */
     createFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat>;
     /**
+     * Update Float Attribute
+     *
+     * Update a float attribute. Changing the `default` value will not update
+     * already existing documents.
+     * 
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {number} min
+     * @param {number} max
+     * @param {number} default
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number): Promise<Models.AttributeFloat>;
+    /**
      * Create Integer Attribute
      *
      * Create an integer attribute. Optionally, minimum and maximum values can be
@@ -2544,6 +2621,24 @@ declare module "node-appwrite" {
      */
     createIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger>;
     /**
+     * Update Integer Attribute
+     *
+     * Update an integer attribute. Changing the `default` value will not update
+     * already existing documents.
+     * 
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {number} min
+     * @param {number} max
+     * @param {number} default
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number): Promise<Models.AttributeInteger>;
+    /**
      * Create IP Address Attribute
      *
      * Create IP address attribute.
@@ -2559,6 +2654,41 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     createIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp>;
+    /**
+     * Update IP Address Attribute
+     *
+     * Update an ip attribute. Changing the `default` value will not update
+     * already existing documents.
+     * 
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {string} default
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributeIp>;
+    /**
+     * Create Relationship Attribute
+     *
+     * Create relationship attribute. [Learn more about relationship
+     * attributes](docs/databases-relationships#relationship-attributes).
+     * 
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {string} relatedCollectionId
+     * @param {string} type
+     * @param {boolean} twoWay
+     * @param {string} key
+     * @param {string} twoWayKey
+     * @param {string} onDelete
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createRelationshipAttribute(databaseId: string, collectionId: string, relatedCollectionId: string, type: string, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: string): Promise<Models.AttributeRelationship>;
     /**
      * Create String Attribute
      *
@@ -2577,6 +2707,22 @@ declare module "node-appwrite" {
      */
     createStringAttribute(databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeString>;
     /**
+     * Update String Attribute
+     *
+     * Update a string attribute. Changing the `default` value will not update
+     * already existing documents.
+     * 
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {string} default
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateStringAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributeString>;
+    /**
      * Create URL Attribute
      *
      * Create a URL attribute.
@@ -2593,6 +2739,22 @@ declare module "node-appwrite" {
      */
     createUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl>;
     /**
+     * Update URL Attribute
+     *
+     * Update an url attribute. Changing the `default` value will not update
+     * already existing documents.
+     * 
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {boolean} required
+     * @param {string} default
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributeUrl>;
+    /**
      * Get Attribute
      *
      * @param {string} databaseId
@@ -2601,7 +2763,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getAttribute(databaseId: string, collectionId: string, key: string): Promise<Response>;
+    getAttribute(databaseId: string, collectionId: string, key: string): Promise<string>;
     /**
      * Delete Attribute
      *
@@ -2611,7 +2773,22 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteAttribute(databaseId: string, collectionId: string, key: string): Promise<Response>;
+    deleteAttribute(databaseId: string, collectionId: string, key: string): Promise<string>;
+    /**
+     * Update Relationship Attribute
+     *
+     * Update relationship attribute. [Learn more about relationship
+     * attributes](docs/databases-relationships#relationship-attributes).
+     * 
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {string} key
+     * @param {string} onDelete
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateRelationshipAttribute(databaseId: string, collectionId: string, key: string, onDelete?: string): Promise<Models.AttributeRelationship>;
     /**
      * List Documents
      *
@@ -2651,10 +2828,11 @@ declare module "node-appwrite" {
      * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} documentId
+     * @param {string[]} queries
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string): Promise<Document>;
+    getDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, queries?: string[]): Promise<Document>;
     /**
      * Update Document
      *
@@ -2681,7 +2859,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteDocument(databaseId: string, collectionId: string, documentId: string): Promise<Response>;
+    deleteDocument(databaseId: string, collectionId: string, documentId: string): Promise<string>;
     /**
      * List Indexes
      *
@@ -2723,7 +2901,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteIndex(databaseId: string, collectionId: string, key: string): Promise<Response>;
+    deleteIndex(databaseId: string, collectionId: string, key: string): Promise<string>;
   }
   export class Functions extends Service {
     constructor(client: Client);
@@ -2749,8 +2927,8 @@ declare module "node-appwrite" {
      *
      * @param {string} functionId
      * @param {string} name
-     * @param {string[]} execute
      * @param {string} runtime
+     * @param {string[]} execute
      * @param {string[]} events
      * @param {string} schedule
      * @param {number} timeout
@@ -2758,7 +2936,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create(functionId: string, name: string, execute: string[], runtime: string, events?: string[], schedule?: string, timeout?: number, enabled?: boolean): Promise<Models.Function>;
+    create(functionId: string, name: string, runtime: string, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean): Promise<Models.Function>;
     /**
      * List runtimes
      *
@@ -2793,7 +2971,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    update(functionId: string, name: string, execute: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean): Promise<Models.Function>;
+    update(functionId: string, name: string, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean): Promise<Models.Function>;
     /**
      * Delete Function
      *
@@ -2803,7 +2981,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    delete(functionId: string): Promise<Response>;
+    delete(functionId: string): Promise<string>;
     /**
      * List Deployments
      *
@@ -2873,7 +3051,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteDeployment(functionId: string, deploymentId: string): Promise<Response>;
+    deleteDeployment(functionId: string, deploymentId: string): Promise<string>;
     /**
      * Create Build
      *
@@ -2883,7 +3061,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createBuild(functionId: string, deploymentId: string, buildId: string): Promise<Response>;
+    createBuild(functionId: string, deploymentId: string, buildId: string): Promise<string>;
     /**
      * List Executions
      *
@@ -2980,7 +3158,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteVariable(functionId: string, variableId: string): Promise<Response>;
+    deleteVariable(functionId: string, variableId: string): Promise<string>;
   }
   export class Graphql extends Service {
     constructor(client: Client);
@@ -2994,7 +3172,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    query(query: object): Promise<Response>;
+    query(query: object): Promise<string>;
     /**
      * GraphQL Endpoint
      *
@@ -3004,7 +3182,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    mutation(query: object): Promise<Response>;
+    mutation(query: object): Promise<string>;
   }
   export class Health extends Service {
     constructor(client: Client);
@@ -3261,7 +3439,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteBucket(bucketId: string): Promise<Response>;
+    deleteBucket(bucketId: string): Promise<string>;
     /**
      * List Files
      *
@@ -3341,7 +3519,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteFile(bucketId: string, fileId: string): Promise<Response>;
+    deleteFile(bucketId: string, fileId: string): Promise<string>;
     /**
      * Get File for Download
      *
@@ -3409,7 +3587,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    list(queries?: string[], search?: string): Promise<Models.TeamList>;
+    list<Preferences extends Models.Preferences>(queries?: string[], search?: string): Promise<Models.TeamList<Preferences>>;
     /**
      * Create Team
      *
@@ -3423,7 +3601,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create(teamId: string, name: string, roles?: string[]): Promise<Models.Team>;
+    create<Preferences extends Models.Preferences>(teamId: string, name: string, roles?: string[]): Promise<Models.Team<Preferences>>;
     /**
      * Get Team
      *
@@ -3433,19 +3611,18 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    get(teamId: string): Promise<Models.Team>;
+    get<Preferences extends Models.Preferences>(teamId: string): Promise<Models.Team<Preferences>>;
     /**
-     * Update Team
+     * Update Name
      *
-     * Update a team using its ID. Only members with the owner role can update the
-     * team.
+     * Update the team's name by its unique ID.
      *
      * @param {string} teamId
      * @param {string} name
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    update(teamId: string, name: string): Promise<Models.Team>;
+    updateName<Preferences extends Models.Preferences>(teamId: string, name: string): Promise<Models.Team<Preferences>>;
     /**
      * Delete Team
      *
@@ -3456,7 +3633,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    delete(teamId: string): Promise<Response>;
+    delete(teamId: string): Promise<string>;
     /**
      * List Team Memberships
      *
@@ -3473,31 +3650,39 @@ declare module "node-appwrite" {
     /**
      * Create Team Membership
      *
-     * Invite a new member to join your team. If initiated from the client SDK, an
-     * email with a link to join the team will be sent to the member's email
-     * address and an account will be created for them should they not be signed
-     * up already. If initiated from server-side SDKs, the new member will
-     * automatically be added to the team.
+     * Invite a new member to join your team. Provide an ID for existing users, or
+     * invite unregistered users using an email or phone number. If initiated from
+     * a Client SDK, Appwrite will send an email or sms with a link to join the
+     * team to the invited user, and an account will be created for them if one
+     * doesn't exist. If initiated from a Server SDK, the new member will be added
+     * automatically to the team.
      * 
-     * Use the 'url' parameter to redirect the user from the invitation email back
-     * to your app. When the user is redirected, use the [Update Team Membership
+     * You only need to provide one of a user ID, email, or phone number. Appwrite
+     * will prioritize accepting the user ID > email > phone number if you provide
+     * more than one of these parameters.
+     * 
+     * Use the `url` parameter to redirect the user from the invitation email to
+     * your app. After the user is redirected, use the [Update Team Membership
      * Status](/docs/client/teams#teamsUpdateMembershipStatus) endpoint to allow
      * the user to accept the invitation to the team. 
      * 
      * Please note that to avoid a [Redirect
      * Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md)
-     * the only valid redirect URL's are the once from domains you have set when
-     * adding your platforms in the console interface.
+     * Appwrite will accept the only redirect URLs under the domains you have
+     * added as a platform on the Appwrite Console.
+     * 
      *
      * @param {string} teamId
-     * @param {string} email
      * @param {string[]} roles
      * @param {string} url
+     * @param {string} email
+     * @param {string} userId
+     * @param {string} phone
      * @param {string} name
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createMembership(teamId: string, email: string, roles: string[], url: string, name?: string): Promise<Models.Membership>;
+    createMembership(teamId: string, roles: string[], url: string, email?: string, userId?: string, phone?: string, name?: string): Promise<Models.Membership>;
     /**
      * Get Team Membership
      *
@@ -3536,7 +3721,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteMembership(teamId: string, membershipId: string): Promise<Response>;
+    deleteMembership(teamId: string, membershipId: string): Promise<string>;
     /**
      * Update Team Membership Status
      *
@@ -3556,6 +3741,31 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     updateMembershipStatus(teamId: string, membershipId: string, userId: string, secret: string): Promise<Models.Membership>;
+    /**
+     * Get Team Preferences
+     *
+     * Get the team's shared preferences by its unique ID. If a preference doesn't
+     * need to be shared by all team members, prefer storing them in [user
+     * preferences](/docs/client/account#accountGetPrefs).
+     *
+     * @param {string} teamId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getPrefs<Preferences extends Models.Preferences>(teamId: string): Promise<Preferences>;
+    /**
+     * Update Preferences
+     *
+     * Update the team's preferences by its unique ID. The object you pass is
+     * stored as is and replaces any previous value. The maximum allowed prefs
+     * size is 64kB and throws an error if exceeded.
+     *
+     * @param {string} teamId
+     * @param {object} prefs
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updatePrefs<Preferences extends Models.Preferences>(teamId: string, prefs: object): Promise<Preferences>;
   }
   export class Users extends Service {
     constructor(client: Client);
@@ -3730,7 +3940,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    delete(userId: string): Promise<Response>;
+    delete(userId: string): Promise<string>;
     /**
      * Update Email
      *
@@ -3838,7 +4048,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteSessions(userId: string): Promise<Response>;
+    deleteSessions(userId: string): Promise<string>;
     /**
      * Delete User Session
      *
@@ -3849,7 +4059,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteSession(userId: string, sessionId: string): Promise<Response>;
+    deleteSession(userId: string, sessionId: string): Promise<string>;
     /**
      * Update User Status
      *

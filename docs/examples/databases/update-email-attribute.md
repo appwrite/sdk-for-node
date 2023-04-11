@@ -3,7 +3,7 @@ const sdk = require('node-appwrite');
 // Init SDK
 const client = new sdk.Client();
 
-const functions = new sdk.Functions(client);
+const databases = new sdk.Databases(client);
 
 client
     .setEndpoint('https://[HOSTNAME_OR_IP]/v1') // Your API Endpoint
@@ -11,7 +11,7 @@ client
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-const promise = functions.create('[FUNCTION_ID]', '[NAME]', 'node-14.5');
+const promise = databases.updateEmailAttribute('[DATABASE_ID]', '[COLLECTION_ID]', '', false, 'email@example.com');
 
 promise.then(function (response) {
     console.log(response);

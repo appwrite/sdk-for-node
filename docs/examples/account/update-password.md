@@ -11,7 +11,7 @@ client
     .setJWT('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ...') // Your secret JSON Web Token
 ;
 
-const promise = account.updatePassword('password');
+const promise = account.updatePassword('');
 
 promise.then(function (response) {
     console.log(response);
