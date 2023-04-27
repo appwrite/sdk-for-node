@@ -1826,7 +1826,7 @@ declare module "node-appwrite" {
 
     static fromBuffer(buffer: Buffer, filename: string): InputFile;
 
-    static fromBlob(blob: buffer.Blob, filename: string): Promise<InputFile>;
+    static fromBlob(blob: Blob, filename: string): Promise<InputFile>;
 
     static fromStream(stream: NodeJS.ReadableStream, filename: string, size: number): InputFile;
 
@@ -2674,7 +2674,7 @@ declare module "node-appwrite" {
      * Create Relationship Attribute
      *
      * Create relationship attribute. [Learn more about relationship
-     * attributes](docs/databases-relationships#relationship-attributes).
+     * attributes](/docs/databases-relationships#relationship-attributes).
      * 
      *
      * @param {string} databaseId
@@ -2763,7 +2763,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getAttribute(databaseId: string, collectionId: string, key: string): Promise<string>;
+    getAttribute(databaseId: string, collectionId: string, key: string): Promise<any>;
     /**
      * Delete Attribute
      *
@@ -2778,7 +2778,7 @@ declare module "node-appwrite" {
      * Update Relationship Attribute
      *
      * Update relationship attribute. [Learn more about relationship
-     * attributes](docs/databases-relationships#relationship-attributes).
+     * attributes](/docs/databases-relationships#relationship-attributes).
      * 
      *
      * @param {string} databaseId
@@ -3061,7 +3061,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createBuild(functionId: string, deploymentId: string, buildId: string): Promise<string>;
+    createBuild(functionId: string, deploymentId: string, buildId: string): Promise<any>;
     /**
      * List Executions
      *
@@ -3172,7 +3172,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    query(query: object): Promise<string>;
+    query(query: object): Promise<any>;
     /**
      * GraphQL Endpoint
      *
@@ -3182,7 +3182,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    mutation(query: object): Promise<string>;
+    mutation(query: object): Promise<any>;
   }
   export class Health extends Service {
     constructor(client: Client);
