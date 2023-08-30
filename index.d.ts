@@ -287,19 +287,6 @@ declare module "node-appwrite" {
           variables: Variable[];
       }
       /**
-      * Rule List
-      */
-      export type ProxyRuleList = {
-          /**
-          * Total number of rules documents that matched your query.
-          */
-          total: number;
-          /**
-          * List of rules.
-          */
-          rules: ProxyRule[];
-      }
-      /**
       * Locale codes list
       */
       export type LocaleCodeList = {
@@ -2008,47 +1995,6 @@ declare module "node-appwrite" {
           * Header value.
           */
           value: string;
-      }
-      /**
-      * Rule
-      */
-      export type ProxyRule = {
-          /**
-          * Rule ID.
-          */
-          $id: string;
-          /**
-          * Rule creation date in ISO 8601 format.
-          */
-          $createdAt: string;
-          /**
-          * Rule update date in ISO 8601 format.
-          */
-          $updatedAt: string;
-          /**
-          * Domain name.
-          */
-          domain: string;
-          /**
-          * Action definition for the rule. Possible values are &quot;api&quot;, &quot;function&quot;, or &quot;redirect&quot;
-          */
-          resourceType: string;
-          /**
-          * ID of resource for the action type. If resourceType is &quot;api&quot; or &quot;url&quot;, it is empty. If resourceType is &quot;function&quot;, it is ID of the function.
-          */
-          resourceId: string;
-          /**
-          * Domain verification status. Possible values are &quot;created&quot;, &quot;verifying&quot;, &quot;verified&quot; and &quot;unverified&quot;
-          */
-          status: string;
-          /**
-          * Certificate generation logs. This will return an empty string if generation did not run, or succeeded.
-          */
-          logs: string;
-          /**
-          * Certificate auto-renewal date in ISO 8601 format.
-          */
-          renewAt: string;
       }
   }
   export class Client {
@@ -3772,121 +3718,6 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     listLanguages(): Promise<Models.LanguageList>;
-  }
-  export class Project extends Service {
-    constructor(client: Client);
-    
-    /**
-     * List Variables
-     *
-     * Get a list of all project variables. These variables will be accessible in
-     * all Appwrite Functions at runtime.
-     *
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    listVariables(): Promise<Models.VariableList>;
-    /**
-     * Create Variable
-     *
-     * Create a new project variable. This variable will be accessible in all
-     * Appwrite Functions at runtime.
-     *
-     * @param {string} key
-     * @param {string} value
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    createVariable(key: string, value: string): Promise<Models.Variable>;
-    /**
-     * Get Variable
-     *
-     * Get a project variable by its unique ID.
-     *
-     * @param {string} variableId
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    getVariable(variableId: string): Promise<Models.Variable>;
-    /**
-     * Update Variable
-     *
-     * Update project variable by its unique ID. This variable will be accessible
-     * in all Appwrite Functions at runtime.
-     *
-     * @param {string} variableId
-     * @param {string} key
-     * @param {string} value
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    updateVariable(variableId: string, key: string, value?: string): Promise<Models.Variable>;
-    /**
-     * Delete Variable
-     *
-     * Delete a project variable by its unique ID. 
-     *
-     * @param {string} variableId
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    deleteVariable(variableId: string): Promise<string>;
-  }
-  export class Proxy extends Service {
-    constructor(client: Client);
-    
-    /**
-     * List Rules
-     *
-     * Get a list of all the proxy rules. You can use the query params to filter
-     * your results.
-     *
-     * @param {string[]} queries
-     * @param {string} search
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    listRules(queries?: string[], search?: string): Promise<Models.ProxyRuleList>;
-    /**
-     * Create Rule
-     *
-     * Create a new proxy rule.
-     *
-     * @param {string} domain
-     * @param {string} resourceType
-     * @param {string} resourceId
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    createRule(domain: string, resourceType: string, resourceId?: string): Promise<Models.ProxyRule>;
-    /**
-     * Get Rule
-     *
-     * Get a proxy rule by its unique ID.
-     *
-     * @param {string} ruleId
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    getRule(ruleId: string): Promise<Models.ProxyRule>;
-    /**
-     * Delete Rule
-     *
-     * Delete a proxy rule by its unique ID.
-     *
-     * @param {string} ruleId
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    deleteRule(ruleId: string): Promise<string>;
-    /**
-     * Update Rule Verification Status
-     *
-     * @param {string} ruleId
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    updateRuleVerification(ruleId: string): Promise<Models.ProxyRule>;
   }
   export class Storage extends Service {
     constructor(client: Client);
