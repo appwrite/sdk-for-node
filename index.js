@@ -12,6 +12,8 @@ const Functions = require('./lib/services/functions.js');
 const Graphql = require('./lib/services/graphql.js');
 const Health = require('./lib/services/health.js');
 const Locale = require('./lib/services/locale.js');
+const Project = require('./lib/services/project.js');
+const Proxy = require('./lib/services/proxy.js');
 const Storage = require('./lib/services/storage.js');
 const Teams = require('./lib/services/teams.js');
 const Users = require('./lib/services/users.js');
@@ -31,6 +33,8 @@ module.exports = {
     Graphql,
     Health,
     Locale,
+    Project,
+    Proxy,
     Storage,
     Teams,
     Users,
