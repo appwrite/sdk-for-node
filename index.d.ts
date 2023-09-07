@@ -3279,7 +3279,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    update(functionId: string, name: string, runtime: string, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string): Promise<Models.Function>;
+    update(functionId: string, name: string, runtime?: string, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string): Promise<Models.Function>;
     /**
      * Delete Function
      *
@@ -4028,15 +4028,15 @@ declare module "node-appwrite" {
      *
      * @param {string} teamId
      * @param {string[]} roles
-     * @param {string} url
      * @param {string} email
      * @param {string} userId
      * @param {string} phone
+     * @param {string} url
      * @param {string} name
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createMembership(teamId: string, roles: string[], url: string, email?: string, userId?: string, phone?: string, name?: string): Promise<Models.Membership>;
+    createMembership(teamId: string, roles: string[], email?: string, userId?: string, phone?: string, url?: string, name?: string): Promise<Models.Membership>;
     /**
      * Get Team Membership
      *
