@@ -341,7 +341,7 @@ declare module "node-appwrite" {
           */
           $updatedAt: string;
           /**
-          * Collection permissions. [Learn more about permissions](/docs/permissions).
+          * Collection permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
           */
           $permissions: string[];
           /**
@@ -357,7 +357,7 @@ declare module "node-appwrite" {
           */
           enabled: boolean;
           /**
-          * Whether document-level permissions are enabled. [Learn more about permissions](/docs/permissions).
+          * Whether document-level permissions are enabled. [Learn more about permissions](https://appwrite.io/docs/permissions).
           */
           documentSecurity: boolean;
           /**
@@ -830,7 +830,7 @@ declare module "node-appwrite" {
           */
           $updatedAt: string;
           /**
-          * Document permissions. [Learn more about permissions](/docs/permissions).
+          * Document permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
           */
           $permissions: string[];
       }
@@ -1346,7 +1346,7 @@ declare module "node-appwrite" {
           */
           $updatedAt: string;
           /**
-          * File permissions. [Learn more about permissions](/docs/permissions).
+          * File permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
           */
           $permissions: string[];
           /**
@@ -1391,11 +1391,11 @@ declare module "node-appwrite" {
           */
           $updatedAt: string;
           /**
-          * Bucket permissions. [Learn more about permissions](/docs/permissions).
+          * Bucket permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
           */
           $permissions: string[];
           /**
-          * Whether file-level security is enabled. [Learn more about permissions](/docs/permissions).
+          * Whether file-level security is enabled. [Learn more about permissions](https://appwrite.io/docs/permissions).
           */
           fileSecurity: boolean;
           /**
@@ -2152,13 +2152,14 @@ declare module "node-appwrite" {
     static guests(): string;
     static team(id: string, role?: string): string;
     static member(id: string): string;
+    static label(name: string): string;
   }
 
   export class Account extends Service {
     constructor(client: Client);
     
     /**
-     * Get Account
+     * Get account
      *
      * Get the currently logged in user.
      *
@@ -2167,7 +2168,7 @@ declare module "node-appwrite" {
      */
     get<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>>;
     /**
-     * Update Email
+     * Update email
      *
      * Update currently logged in user account email address. After changing user
      * address, the user confirmation status will get reset. A new confirmation
@@ -2205,7 +2206,7 @@ declare module "node-appwrite" {
      */
     deleteIdentity(identityId: string): Promise<string>;
     /**
-     * List Logs
+     * List logs
      *
      * Get the list of latest security activity logs for the currently logged in
      * user. Each log returns user IP address, location and date and time of log.
@@ -2216,7 +2217,7 @@ declare module "node-appwrite" {
      */
     listLogs(queries?: string[]): Promise<Models.LogList>;
     /**
-     * Update Name
+     * Update name
      *
      * Update currently logged in user account name.
      *
@@ -2226,7 +2227,7 @@ declare module "node-appwrite" {
      */
     updateName<Preferences extends Models.Preferences>(name: string): Promise<Models.User<Preferences>>;
     /**
-     * Update Password
+     * Update password
      *
      * Update currently logged in user password. For validation, user is required
      * to pass in the new password, and the old password. For users created with
@@ -2239,12 +2240,12 @@ declare module "node-appwrite" {
      */
     updatePassword<Preferences extends Models.Preferences>(password: string, oldPassword?: string): Promise<Models.User<Preferences>>;
     /**
-     * Update Phone
+     * Update phone
      *
      * Update the currently logged in user's phone number. After updating the
      * phone number, the phone verification status will be reset. A confirmation
      * SMS is not sent automatically, however you can use the [POST
-     * /account/verification/phone](/docs/client/account#accountCreatePhoneVerification)
+     * /account/verification/phone](https://appwrite.io/docs/references/cloud/client-web/account#createPhoneVerification)
      * endpoint to send a confirmation SMS.
      *
      * @param {string} phone
@@ -2254,7 +2255,7 @@ declare module "node-appwrite" {
      */
     updatePhone<Preferences extends Models.Preferences>(phone: string, password: string): Promise<Models.User<Preferences>>;
     /**
-     * Get Account Preferences
+     * Get account preferences
      *
      * Get the preferences as a key-value object for the currently logged in user.
      *
@@ -2263,7 +2264,7 @@ declare module "node-appwrite" {
      */
     getPrefs<Preferences extends Models.Preferences>(): Promise<Preferences>;
     /**
-     * Update Preferences
+     * Update preferences
      *
      * Update currently logged in user account preferences. The object you pass is
      * stored as is, and replaces any previous value. The maximum allowed prefs
@@ -2275,16 +2276,16 @@ declare module "node-appwrite" {
      */
     updatePrefs<Preferences extends Models.Preferences>(prefs: object): Promise<Models.User<Preferences>>;
     /**
-     * Create Password Recovery
+     * Create password recovery
      *
      * Sends the user an email with a temporary secret key for password reset.
      * When the user clicks the confirmation link he is redirected back to your
      * app password reset URL with the secret key and email address values
      * attached to the URL query string. Use the query string params to submit a
      * request to the [PUT
-     * /account/recovery](/docs/client/account#accountUpdateRecovery) endpoint to
-     * complete the process. The verification link sent to the user's email
-     * address is valid for 1 hour.
+     * /account/recovery](https://appwrite.io/docs/references/cloud/client-web/account#updateRecovery)
+     * endpoint to complete the process. The verification link sent to the user's
+     * email address is valid for 1 hour.
      *
      * @param {string} email
      * @param {string} url
@@ -2293,12 +2294,13 @@ declare module "node-appwrite" {
      */
     createRecovery(email: string, url: string): Promise<Models.Token>;
     /**
-     * Create Password Recovery (confirmation)
+     * Create password recovery (confirmation)
      *
      * Use this endpoint to complete the user account password reset. Both the
      * **userId** and **secret** arguments will be passed as query parameters to
      * the redirect URL you have provided when sending your request to the [POST
-     * /account/recovery](/docs/client/account#accountCreateRecovery) endpoint.
+     * /account/recovery](https://appwrite.io/docs/references/cloud/client-web/account#createRecovery)
+     * endpoint.
      * 
      * Please note that in order to avoid a [Redirect
      * Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md)
@@ -2314,7 +2316,7 @@ declare module "node-appwrite" {
      */
     updateRecovery(userId: string, secret: string, password: string, passwordAgain: string): Promise<Models.Token>;
     /**
-     * List Sessions
+     * List sessions
      *
      * Get the list of active sessions across different devices for the currently
      * logged in user.
@@ -2324,7 +2326,7 @@ declare module "node-appwrite" {
      */
     listSessions(): Promise<Models.SessionList>;
     /**
-     * Delete Sessions
+     * Delete sessions
      *
      * Delete all sessions from the user account and remove any sessions cookies
      * from the end client.
@@ -2334,7 +2336,7 @@ declare module "node-appwrite" {
      */
     deleteSessions(): Promise<string>;
     /**
-     * Get Session
+     * Get session
      *
      * Use this endpoint to get a logged in user's session using a Session ID.
      * Inputting 'current' will return the current session being used.
@@ -2345,7 +2347,7 @@ declare module "node-appwrite" {
      */
     getSession(sessionId: string): Promise<Models.Session>;
     /**
-     * Update OAuth Session (Refresh Tokens)
+     * Update OAuth session (refresh tokens)
      *
      * Access tokens have limited lifespan and expire to mitigate security risks.
      * If session was created using an OAuth provider, this route can be used to
@@ -2357,12 +2359,13 @@ declare module "node-appwrite" {
      */
     updateSession(sessionId: string): Promise<Models.Session>;
     /**
-     * Delete Session
+     * Delete session
      *
      * Logout the user. Use 'current' as the session ID to logout on this device,
      * use a session ID to logout on another device. If you're looking to logout
      * the user on all devices, use [Delete
-     * Sessions](/docs/client/account#accountDeleteSessions) instead.
+     * Sessions](https://appwrite.io/docs/references/cloud/client-web/account#deleteSessions)
+     * instead.
      *
      * @param {string} sessionId
      * @throws {AppwriteException}
@@ -2370,7 +2373,7 @@ declare module "node-appwrite" {
      */
     deleteSession(sessionId: string): Promise<string>;
     /**
-     * Update Status
+     * Update status
      *
      * Block the currently logged in user account. Behind the scene, the user
      * record is not deleted but permanently blocked from any access. To
@@ -2381,7 +2384,7 @@ declare module "node-appwrite" {
      */
     updateStatus<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>>;
     /**
-     * Create Email Verification
+     * Create email verification
      *
      * Use this endpoint to send a verification message to your user email address
      * to confirm they are the valid owners of that address. Both the **userId**
@@ -2390,8 +2393,8 @@ declare module "node-appwrite" {
      * should redirect the user back to your app and allow you to complete the
      * verification process by verifying both the **userId** and **secret**
      * parameters. Learn more about how to [complete the verification
-     * process](/docs/client/account#accountUpdateEmailVerification). The
-     * verification link sent to the user's email address is valid for 7 days.
+     * process](https://appwrite.io/docs/references/cloud/client-web/account#updateVerification).
+     * The verification link sent to the user's email address is valid for 7 days.
      * 
      * Please note that in order to avoid a [Redirect
      * Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md),
@@ -2405,7 +2408,7 @@ declare module "node-appwrite" {
      */
     createVerification(url: string): Promise<Models.Token>;
     /**
-     * Create Email Verification (confirmation)
+     * Create email verification (confirmation)
      *
      * Use this endpoint to complete the user email verification process. Use both
      * the **userId** and **secret** parameters that were attached to your app URL
@@ -2419,21 +2422,23 @@ declare module "node-appwrite" {
      */
     updateVerification(userId: string, secret: string): Promise<Models.Token>;
     /**
-     * Create Phone Verification
+     * Create phone verification
      *
      * Use this endpoint to send a verification SMS to the currently logged in
      * user. This endpoint is meant for use after updating a user's phone number
-     * using the [accountUpdatePhone](/docs/client/account#accountUpdatePhone)
+     * using the
+     * [accountUpdatePhone](https://appwrite.io/docs/references/cloud/client-web/account#updatePhone)
      * endpoint. Learn more about how to [complete the verification
-     * process](/docs/client/account#accountUpdatePhoneVerification). The
-     * verification code sent to the user's phone number is valid for 15 minutes.
+     * process](https://appwrite.io/docs/references/cloud/client-web/account#updatePhoneVerification).
+     * The verification code sent to the user's phone number is valid for 15
+     * minutes.
      *
      * @throws {AppwriteException}
      * @returns {Promise}
      */
     createPhoneVerification(): Promise<Models.Token>;
     /**
-     * Create Phone Verification (confirmation)
+     * Create phone verification (confirmation)
      *
      * Use this endpoint to complete the user phone verification process. Use the
      * **userId** and **secret** that were sent to your user's phone number to
@@ -2451,12 +2456,13 @@ declare module "node-appwrite" {
     constructor(client: Client);
     
     /**
-     * Get Browser Icon
+     * Get browser icon
      *
      * You can use this endpoint to show different browser icons to your users.
      * The code argument receives the browser code as it appears in your user [GET
-     * /account/sessions](/docs/client/account#accountGetSessions) endpoint. Use
-     * width, height and quality arguments to change the output settings.
+     * /account/sessions](https://appwrite.io/docs/references/cloud/client-web/account#getSessions)
+     * endpoint. Use width, height and quality arguments to change the output
+     * settings.
      * 
      * When one dimension is specified and the other is 0, the image is scaled
      * with preserved aspect ratio. If both dimensions are 0, the API provides an
@@ -2472,7 +2478,7 @@ declare module "node-appwrite" {
      */
     getBrowser(code: string, width?: number, height?: number, quality?: number): Promise<Buffer>;
     /**
-     * Get Credit Card Icon
+     * Get credit card icon
      *
      * The credit card endpoint will return you the icon of the credit card
      * provider you need. Use width, height and quality arguments to change the
@@ -2493,7 +2499,7 @@ declare module "node-appwrite" {
      */
     getCreditCard(code: string, width?: number, height?: number, quality?: number): Promise<Buffer>;
     /**
-     * Get Favicon
+     * Get favicon
      *
      * Use this endpoint to fetch the favorite icon (AKA favicon) of any remote
      * website URL.
@@ -2505,12 +2511,12 @@ declare module "node-appwrite" {
      */
     getFavicon(url: string): Promise<Buffer>;
     /**
-     * Get Country Flag
+     * Get country flag
      *
      * You can use this endpoint to show different country flags icons to your
      * users. The code argument receives the 2 letter country code. Use width,
      * height and quality arguments to change the output settings. Country codes
-     * follow the [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1) standard.
+     * follow the [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) standard.
      * 
      * When one dimension is specified and the other is 0, the image is scaled
      * with preserved aspect ratio. If both dimensions are 0, the API provides an
@@ -2527,7 +2533,7 @@ declare module "node-appwrite" {
      */
     getFlag(code: string, width?: number, height?: number, quality?: number): Promise<Buffer>;
     /**
-     * Get Image from URL
+     * Get image from URL
      *
      * Use this endpoint to fetch a remote image URL and crop it to any image size
      * you want. This endpoint is very useful if you need to crop and display
@@ -2548,7 +2554,7 @@ declare module "node-appwrite" {
      */
     getImage(url: string, width?: number, height?: number): Promise<Buffer>;
     /**
-     * Get User Initials
+     * Get user initials
      *
      * Use this endpoint to show your user initials avatar icon on your website or
      * app. By default, this route will try to print your logged-in user name or
@@ -2576,7 +2582,7 @@ declare module "node-appwrite" {
      */
     getInitials(name?: string, width?: number, height?: number, background?: string): Promise<Buffer>;
     /**
-     * Get QR Code
+     * Get QR code
      *
      * Converts a given plain text to a QR code image. You can use the query
      * parameters to change the size and style of the resulting image.
@@ -2595,7 +2601,7 @@ declare module "node-appwrite" {
     constructor(client: Client);
     
     /**
-     * List Databases
+     * List databases
      *
      * Get a list of all databases from the current Appwrite project. You can use
      * the search parameter to filter your results.
@@ -2607,7 +2613,7 @@ declare module "node-appwrite" {
      */
     list(queries?: string[], search?: string): Promise<Models.DatabaseList>;
     /**
-     * Create Database
+     * Create database
      *
      * Create a new Database.
      * 
@@ -2620,7 +2626,7 @@ declare module "node-appwrite" {
      */
     create(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database>;
     /**
-     * Get Database
+     * Get database
      *
      * Get a database by its unique ID. This endpoint response returns a JSON
      * object with the database metadata.
@@ -2631,7 +2637,7 @@ declare module "node-appwrite" {
      */
     get(databaseId: string): Promise<Models.Database>;
     /**
-     * Update Database
+     * Update database
      *
      * Update a database by its unique ID.
      *
@@ -2643,7 +2649,7 @@ declare module "node-appwrite" {
      */
     update(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database>;
     /**
-     * Delete Database
+     * Delete database
      *
      * Delete a database by its unique ID. Only API keys with with databases.write
      * scope can delete a database.
@@ -2654,7 +2660,7 @@ declare module "node-appwrite" {
      */
     delete(databaseId: string): Promise<string>;
     /**
-     * List Collections
+     * List collections
      *
      * Get a list of all collections that belong to the provided databaseId. You
      * can use the search parameter to filter your results.
@@ -2667,12 +2673,12 @@ declare module "node-appwrite" {
      */
     listCollections(databaseId: string, queries?: string[], search?: string): Promise<Models.CollectionList>;
     /**
-     * Create Collection
+     * Create collection
      *
      * Create a new Collection. Before using this route, you should create a new
      * database resource using either a [server
-     * integration](/docs/server/databases#databasesCreateCollection) API or
-     * directly from your database console.
+     * integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
+     * API or directly from your database console.
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -2685,7 +2691,7 @@ declare module "node-appwrite" {
      */
     createCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection>;
     /**
-     * Get Collection
+     * Get collection
      *
      * Get a collection by its unique ID. This endpoint response returns a JSON
      * object with the collection metadata.
@@ -2697,7 +2703,7 @@ declare module "node-appwrite" {
      */
     getCollection(databaseId: string, collectionId: string): Promise<Models.Collection>;
     /**
-     * Update Collection
+     * Update collection
      *
      * Update a collection by its unique ID.
      *
@@ -2712,7 +2718,7 @@ declare module "node-appwrite" {
      */
     updateCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection>;
     /**
-     * Delete Collection
+     * Delete collection
      *
      * Delete a collection by its unique ID. Only users with write permissions
      * have access to delete this resource.
@@ -2724,7 +2730,7 @@ declare module "node-appwrite" {
      */
     deleteCollection(databaseId: string, collectionId: string): Promise<string>;
     /**
-     * List Attributes
+     * List attributes
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -2734,7 +2740,7 @@ declare module "node-appwrite" {
      */
     listAttributes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.AttributeList>;
     /**
-     * Create Boolean Attribute
+     * Create boolean attribute
      *
      * Create a boolean attribute.
      * 
@@ -2750,7 +2756,7 @@ declare module "node-appwrite" {
      */
     createBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean>;
     /**
-     * Update Boolean Attribute
+     * Update boolean attribute
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -2762,7 +2768,7 @@ declare module "node-appwrite" {
      */
     updateBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean): Promise<Models.AttributeBoolean>;
     /**
-     * Create DateTime Attribute
+     * Create datetime attribute
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -2775,7 +2781,7 @@ declare module "node-appwrite" {
      */
     createDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeDatetime>;
     /**
-     * Update DateTime Attribute
+     * Update dateTime attribute
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -2787,7 +2793,7 @@ declare module "node-appwrite" {
      */
     updateDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributeDatetime>;
     /**
-     * Create Email Attribute
+     * Create email attribute
      *
      * Create an email attribute.
      * 
@@ -2803,7 +2809,7 @@ declare module "node-appwrite" {
      */
     createEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail>;
     /**
-     * Update Email Attribute
+     * Update email attribute
      *
      * Update an email attribute. Changing the `default` value will not update
      * already existing documents.
@@ -2819,7 +2825,7 @@ declare module "node-appwrite" {
      */
     updateEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributeEmail>;
     /**
-     * Create Enum Attribute
+     * Create enum attribute
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -2833,7 +2839,7 @@ declare module "node-appwrite" {
      */
     createEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum>;
     /**
-     * Update Enum Attribute
+     * Update enum attribute
      *
      * Update an enum attribute. Changing the `default` value will not update
      * already existing documents.
@@ -2850,7 +2856,7 @@ declare module "node-appwrite" {
      */
     updateEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string): Promise<Models.AttributeEnum>;
     /**
-     * Create Float Attribute
+     * Create float attribute
      *
      * Create a float attribute. Optionally, minimum and maximum values can be
      * provided.
@@ -2869,7 +2875,7 @@ declare module "node-appwrite" {
      */
     createFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat>;
     /**
-     * Update Float Attribute
+     * Update float attribute
      *
      * Update a float attribute. Changing the `default` value will not update
      * already existing documents.
@@ -2887,7 +2893,7 @@ declare module "node-appwrite" {
      */
     updateFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number): Promise<Models.AttributeFloat>;
     /**
-     * Create Integer Attribute
+     * Create integer attribute
      *
      * Create an integer attribute. Optionally, minimum and maximum values can be
      * provided.
@@ -2906,7 +2912,7 @@ declare module "node-appwrite" {
      */
     createIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger>;
     /**
-     * Update Integer Attribute
+     * Update integer attribute
      *
      * Update an integer attribute. Changing the `default` value will not update
      * already existing documents.
@@ -2924,7 +2930,7 @@ declare module "node-appwrite" {
      */
     updateIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number): Promise<Models.AttributeInteger>;
     /**
-     * Create IP Address Attribute
+     * Create IP address attribute
      *
      * Create IP address attribute.
      * 
@@ -2940,7 +2946,7 @@ declare module "node-appwrite" {
      */
     createIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp>;
     /**
-     * Update IP Address Attribute
+     * Update IP address attribute
      *
      * Update an ip attribute. Changing the `default` value will not update
      * already existing documents.
@@ -2956,10 +2962,10 @@ declare module "node-appwrite" {
      */
     updateIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributeIp>;
     /**
-     * Create Relationship Attribute
+     * Create relationship attribute
      *
      * Create relationship attribute. [Learn more about relationship
-     * attributes](/docs/databases-relationships#relationship-attributes).
+     * attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
      * 
      *
      * @param {string} databaseId
@@ -2975,7 +2981,7 @@ declare module "node-appwrite" {
      */
     createRelationshipAttribute(databaseId: string, collectionId: string, relatedCollectionId: string, type: string, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: string): Promise<Models.AttributeRelationship>;
     /**
-     * Create String Attribute
+     * Create string attribute
      *
      * Create a string attribute.
      * 
@@ -2993,7 +2999,7 @@ declare module "node-appwrite" {
      */
     createStringAttribute(databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean): Promise<Models.AttributeString>;
     /**
-     * Update String Attribute
+     * Update string attribute
      *
      * Update a string attribute. Changing the `default` value will not update
      * already existing documents.
@@ -3009,7 +3015,7 @@ declare module "node-appwrite" {
      */
     updateStringAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributeString>;
     /**
-     * Create URL Attribute
+     * Create URL attribute
      *
      * Create a URL attribute.
      * 
@@ -3025,7 +3031,7 @@ declare module "node-appwrite" {
      */
     createUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl>;
     /**
-     * Update URL Attribute
+     * Update URL attribute
      *
      * Update an url attribute. Changing the `default` value will not update
      * already existing documents.
@@ -3041,7 +3047,7 @@ declare module "node-appwrite" {
      */
     updateUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributeUrl>;
     /**
-     * Get Attribute
+     * Get attribute
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -3051,7 +3057,7 @@ declare module "node-appwrite" {
      */
     getAttribute(databaseId: string, collectionId: string, key: string): Promise<any>;
     /**
-     * Delete Attribute
+     * Delete attribute
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -3061,10 +3067,10 @@ declare module "node-appwrite" {
      */
     deleteAttribute(databaseId: string, collectionId: string, key: string): Promise<string>;
     /**
-     * Update Relationship Attribute
+     * Update relationship attribute
      *
      * Update relationship attribute. [Learn more about relationship
-     * attributes](/docs/databases-relationships#relationship-attributes).
+     * attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
      * 
      *
      * @param {string} databaseId
@@ -3076,7 +3082,7 @@ declare module "node-appwrite" {
      */
     updateRelationshipAttribute(databaseId: string, collectionId: string, key: string, onDelete?: string): Promise<Models.AttributeRelationship>;
     /**
-     * List Documents
+     * List documents
      *
      * Get a list of all the user's documents in a given collection. You can use
      * the query params to filter your results.
@@ -3089,12 +3095,12 @@ declare module "node-appwrite" {
      */
     listDocuments<Document extends Models.Document>(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.DocumentList<Document>>;
     /**
-     * Create Document
+     * Create document
      *
      * Create a new Document. Before using this route, you should create a new
      * collection resource using either a [server
-     * integration](/docs/server/databases#databasesCreateCollection) API or
-     * directly from your database console.
+     * integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
+     * API or directly from your database console.
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -3106,7 +3112,7 @@ declare module "node-appwrite" {
      */
     createDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data: object, permissions?: string[]): Promise<Document>;
     /**
-     * Get Document
+     * Get document
      *
      * Get a document by its unique ID. This endpoint response returns a JSON
      * object with the document data.
@@ -3120,7 +3126,7 @@ declare module "node-appwrite" {
      */
     getDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, queries?: string[]): Promise<Document>;
     /**
-     * Update Document
+     * Update document
      *
      * Update a document by its unique ID. Using the patch method you can pass
      * only specific fields that will get updated.
@@ -3135,7 +3141,7 @@ declare module "node-appwrite" {
      */
     updateDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data?: object, permissions?: string[]): Promise<Document>;
     /**
-     * Delete Document
+     * Delete document
      *
      * Delete a document by its unique ID.
      *
@@ -3147,7 +3153,7 @@ declare module "node-appwrite" {
      */
     deleteDocument(databaseId: string, collectionId: string, documentId: string): Promise<string>;
     /**
-     * List Indexes
+     * List indexes
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -3157,7 +3163,7 @@ declare module "node-appwrite" {
      */
     listIndexes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.IndexList>;
     /**
-     * Create Index
+     * Create index
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -3170,7 +3176,7 @@ declare module "node-appwrite" {
      */
     createIndex(databaseId: string, collectionId: string, key: string, type: string, attributes: string[], orders?: string[]): Promise<Models.Index>;
     /**
-     * Get Index
+     * Get index
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -3180,7 +3186,7 @@ declare module "node-appwrite" {
      */
     getIndex(databaseId: string, collectionId: string, key: string): Promise<Models.Index>;
     /**
-     * Delete Index
+     * Delete index
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -3194,7 +3200,7 @@ declare module "node-appwrite" {
     constructor(client: Client);
     
     /**
-     * List Functions
+     * List functions
      *
      * Get a list of all the project's functions. You can use the query params to
      * filter your results.
@@ -3206,11 +3212,12 @@ declare module "node-appwrite" {
      */
     list(queries?: string[], search?: string): Promise<Models.FunctionList>;
     /**
-     * Create Function
+     * Create function
      *
      * Create a new function. You can pass a list of
-     * [permissions](/docs/permissions) to allow different project users or team
-     * with access to execute the function using the client API.
+     * [permissions](https://appwrite.io/docs/permissions) to allow different
+     * project users or team with access to execute the function using the client
+     * API.
      *
      * @param {string} functionId
      * @param {string} name
@@ -3246,7 +3253,7 @@ declare module "node-appwrite" {
      */
     listRuntimes(): Promise<Models.RuntimeList>;
     /**
-     * Get Function
+     * Get function
      *
      * Get a function by its unique ID.
      *
@@ -3256,7 +3263,7 @@ declare module "node-appwrite" {
      */
     get(functionId: string): Promise<Models.Function>;
     /**
-     * Update Function
+     * Update function
      *
      * Update function by its unique ID.
      *
@@ -3281,7 +3288,7 @@ declare module "node-appwrite" {
      */
     update(functionId: string, name: string, runtime?: string, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string): Promise<Models.Function>;
     /**
-     * Delete Function
+     * Delete function
      *
      * Delete a function by its unique ID.
      *
@@ -3291,7 +3298,7 @@ declare module "node-appwrite" {
      */
     delete(functionId: string): Promise<string>;
     /**
-     * List Deployments
+     * List deployments
      *
      * Get a list of all the project's code deployments. You can use the query
      * params to filter your results.
@@ -3304,7 +3311,7 @@ declare module "node-appwrite" {
      */
     listDeployments(functionId: string, queries?: string[], search?: string): Promise<Models.DeploymentList>;
     /**
-     * Create Deployment
+     * Create deployment
      *
      * Create a new function code deployment. Use this endpoint to upload a new
      * version of your code function. To execute your newly uploaded code, you'll
@@ -3313,7 +3320,7 @@ declare module "node-appwrite" {
      * This endpoint accepts a tar.gz file compressed with your code. Make sure to
      * include any dependencies your code has within the compressed file. You can
      * learn more about code packaging in the [Appwrite Cloud Functions
-     * tutorial](/docs/functions).
+     * tutorial](https://appwrite.io/docs/functions).
      * 
      * Use the "command" param to set the entrypoint used to execute your code.
      *
@@ -3327,7 +3334,7 @@ declare module "node-appwrite" {
      */
     createDeployment(functionId: string, code: InputFile, activate: boolean, entrypoint?: string, commands?: string): Promise<Models.Deployment>;
     /**
-     * Get Deployment
+     * Get deployment
      *
      * Get a code deployment by its unique ID.
      *
@@ -3338,7 +3345,7 @@ declare module "node-appwrite" {
      */
     getDeployment(functionId: string, deploymentId: string): Promise<Models.Deployment>;
     /**
-     * Update Function Deployment
+     * Update function deployment
      *
      * Update the function code deployment ID using the unique function ID. Use
      * this endpoint to switch the code deployment that should be executed by the
@@ -3351,7 +3358,7 @@ declare module "node-appwrite" {
      */
     updateDeployment(functionId: string, deploymentId: string): Promise<Models.Function>;
     /**
-     * Delete Deployment
+     * Delete deployment
      *
      * Delete a code deployment by its unique ID.
      *
@@ -3362,7 +3369,7 @@ declare module "node-appwrite" {
      */
     deleteDeployment(functionId: string, deploymentId: string): Promise<string>;
     /**
-     * Create Build
+     * Create build
      *
      * Create a new build for an Appwrite Function deployment. This endpoint can
      * be used to retry a failed build.
@@ -3377,6 +3384,9 @@ declare module "node-appwrite" {
     /**
      * Download Deployment
      *
+     * Get a Deployment's contents by its unique ID. This endpoint supports range
+     * requests for partial or streaming file download.
+     *
      * @param {string} functionId
      * @param {string} deploymentId
      * @throws {AppwriteException}
@@ -3384,7 +3394,7 @@ declare module "node-appwrite" {
      */
     downloadDeployment(functionId: string, deploymentId: string): Promise<Buffer>;
     /**
-     * List Executions
+     * List executions
      *
      * Get a list of all the current user function execution logs. You can use the
      * query params to filter your results.
@@ -3397,7 +3407,7 @@ declare module "node-appwrite" {
      */
     listExecutions(functionId: string, queries?: string[], search?: string): Promise<Models.ExecutionList>;
     /**
-     * Create Execution
+     * Create execution
      *
      * Trigger a function execution. The returned object will return you the
      * current execution status. You can ping the `Get Execution` endpoint to get
@@ -3415,7 +3425,7 @@ declare module "node-appwrite" {
      */
     createExecution(functionId: string, body?: string, async?: boolean, xpath?: string, method?: string, headers?: object): Promise<Models.Execution>;
     /**
-     * Get Execution
+     * Get execution
      *
      * Get a function execution log by its unique ID.
      *
@@ -3426,7 +3436,7 @@ declare module "node-appwrite" {
      */
     getExecution(functionId: string, executionId: string): Promise<Models.Execution>;
     /**
-     * List Variables
+     * List variables
      *
      * Get a list of all variables of a specific function.
      *
@@ -3436,7 +3446,7 @@ declare module "node-appwrite" {
      */
     listVariables(functionId: string): Promise<Models.VariableList>;
     /**
-     * Create Variable
+     * Create variable
      *
      * Create a new function environment variable. These variables can be accessed
      * in the function at runtime as environment variables.
@@ -3449,7 +3459,7 @@ declare module "node-appwrite" {
      */
     createVariable(functionId: string, key: string, value: string): Promise<Models.Variable>;
     /**
-     * Get Variable
+     * Get variable
      *
      * Get a variable by its unique ID.
      *
@@ -3460,7 +3470,7 @@ declare module "node-appwrite" {
      */
     getVariable(functionId: string, variableId: string): Promise<Models.Variable>;
     /**
-     * Update Variable
+     * Update variable
      *
      * Update variable by its unique ID.
      *
@@ -3473,7 +3483,7 @@ declare module "node-appwrite" {
      */
     updateVariable(functionId: string, variableId: string, key: string, value?: string): Promise<Models.Variable>;
     /**
-     * Delete Variable
+     * Delete variable
      *
      * Delete a variable by its unique ID.
      *
@@ -3488,7 +3498,7 @@ declare module "node-appwrite" {
     constructor(client: Client);
     
     /**
-     * GraphQL Endpoint
+     * GraphQL endpoint
      *
      * Execute a GraphQL mutation.
      *
@@ -3498,7 +3508,7 @@ declare module "node-appwrite" {
      */
     query(query: object): Promise<any>;
     /**
-     * GraphQL Endpoint
+     * GraphQL endpoint
      *
      * Execute a GraphQL mutation.
      *
@@ -3521,7 +3531,7 @@ declare module "node-appwrite" {
      */
     get(): Promise<Models.HealthStatus>;
     /**
-     * Get Antivirus
+     * Get antivirus
      *
      * Check the Appwrite Antivirus server is up and connection is successful.
      *
@@ -3530,7 +3540,7 @@ declare module "node-appwrite" {
      */
     getAntivirus(): Promise<Models.HealthAntivirus>;
     /**
-     * Get Cache
+     * Get cache
      *
      * Check the Appwrite in-memory cache servers are up and connection is
      * successful.
@@ -3549,7 +3559,7 @@ declare module "node-appwrite" {
      */
     getDB(): Promise<Models.HealthStatus>;
     /**
-     * Get PubSub
+     * Get pubsub
      *
      * Check the Appwrite pub-sub servers are up and connection is successful.
      *
@@ -3558,7 +3568,7 @@ declare module "node-appwrite" {
      */
     getPubSub(): Promise<Models.HealthStatus>;
     /**
-     * Get Queue
+     * Get queue
      *
      * Check the Appwrite queue messaging servers are up and connection is
      * successful.
@@ -3568,45 +3578,116 @@ declare module "node-appwrite" {
      */
     getQueue(): Promise<Models.HealthStatus>;
     /**
-     * Get Certificates Queue
+     * Get builds queue
+     *
+     * Get the number of builds that are waiting to be processed in the Appwrite
+     * internal queue server.
+     *
+     * @param {number} threshold
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getQueueBuilds(threshold?: number): Promise<Models.HealthQueue>;
+    /**
+     * Get certificates queue
      *
      * Get the number of certificates that are waiting to be issued against
      * [Letsencrypt](https://letsencrypt.org/) in the Appwrite internal queue
      * server.
      *
+     * @param {number} threshold
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueCertificates(): Promise<Models.HealthQueue>;
+    getQueueCertificates(threshold?: number): Promise<Models.HealthQueue>;
     /**
-     * Get Functions Queue
+     * Get databases queue
      *
+     * Get the number of database changes that are waiting to be processed in the
+     * Appwrite internal queue server.
+     *
+     * @param {string} name
+     * @param {number} threshold
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueFunctions(): Promise<Models.HealthQueue>;
+    getQueueDatabases(name?: string, threshold?: number): Promise<Models.HealthQueue>;
     /**
-     * Get Logs Queue
+     * Get deletes queue
+     *
+     * Get the number of background destructive changes that are waiting to be
+     * processed in the Appwrite internal queue server.
+     *
+     * @param {number} threshold
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getQueueDeletes(threshold?: number): Promise<Models.HealthQueue>;
+    /**
+     * Get functions queue
+     *
+     * @param {number} threshold
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getQueueFunctions(threshold?: number): Promise<Models.HealthQueue>;
+    /**
+     * Get logs queue
      *
      * Get the number of logs that are waiting to be processed in the Appwrite
      * internal queue server.
      *
+     * @param {number} threshold
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueLogs(): Promise<Models.HealthQueue>;
+    getQueueLogs(threshold?: number): Promise<Models.HealthQueue>;
     /**
-     * Get Webhooks Queue
+     * Get mails queue
+     *
+     * Get the number of mails that are waiting to be processed in the Appwrite
+     * internal queue server.
+     *
+     * @param {number} threshold
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getQueueMails(threshold?: number): Promise<Models.HealthQueue>;
+    /**
+     * Get messaging queue
+     *
+     * Get the number of messages that are waiting to be processed in the Appwrite
+     * internal queue server.
+     *
+     * @param {number} threshold
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getQueueMessaging(threshold?: number): Promise<Models.HealthQueue>;
+    /**
+     * Get migrations queue
+     *
+     * Get the number of migrations that are waiting to be processed in the
+     * Appwrite internal queue server.
+     *
+     * @param {number} threshold
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getQueueMigrations(threshold?: number): Promise<Models.HealthQueue>;
+    /**
+     * Get webhooks queue
      *
      * Get the number of webhooks that are waiting to be processed in the Appwrite
      * internal queue server.
      *
+     * @param {number} threshold
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueWebhooks(): Promise<Models.HealthQueue>;
+    getQueueWebhooks(threshold?: number): Promise<Models.HealthQueue>;
     /**
-     * Get Local Storage
+     * Get local storage
      *
      * Check the Appwrite local storage device is up and connection is successful.
      *
@@ -3615,7 +3696,7 @@ declare module "node-appwrite" {
      */
     getStorageLocal(): Promise<Models.HealthStatus>;
     /**
-     * Get Time
+     * Get time
      *
      * Check the Appwrite server time is synced with Google remote NTP server. We
      * use this technology to smoothly handle leap seconds with no disruptive
@@ -3634,7 +3715,7 @@ declare module "node-appwrite" {
     constructor(client: Client);
     
     /**
-     * Get User Locale
+     * Get user locale
      *
      * Get the current user location based on IP. Returns an object with user
      * country code, country name, continent name, continent code, ip address and
@@ -3658,7 +3739,7 @@ declare module "node-appwrite" {
      */
     listCodes(): Promise<Models.LocaleCodeList>;
     /**
-     * List Continents
+     * List continents
      *
      * List of all continents. You can use the locale header to get the data in a
      * supported language.
@@ -3668,7 +3749,7 @@ declare module "node-appwrite" {
      */
     listContinents(): Promise<Models.ContinentList>;
     /**
-     * List Countries
+     * List countries
      *
      * List of all countries. You can use the locale header to get the data in a
      * supported language.
@@ -3678,7 +3759,7 @@ declare module "node-appwrite" {
      */
     listCountries(): Promise<Models.CountryList>;
     /**
-     * List EU Countries
+     * List EU countries
      *
      * List of all countries that are currently members of the EU. You can use the
      * locale header to get the data in a supported language.
@@ -3688,7 +3769,7 @@ declare module "node-appwrite" {
      */
     listCountriesEU(): Promise<Models.CountryList>;
     /**
-     * List Countries Phone Codes
+     * List countries phone codes
      *
      * List of all countries phone codes. You can use the locale header to get the
      * data in a supported language.
@@ -3698,7 +3779,7 @@ declare module "node-appwrite" {
      */
     listCountriesPhones(): Promise<Models.PhoneList>;
     /**
-     * List Currencies
+     * List currencies
      *
      * List of all currencies, including currency symbol, name, plural, and
      * decimal digits for all major and minor currencies. You can use the locale
@@ -3709,7 +3790,7 @@ declare module "node-appwrite" {
      */
     listCurrencies(): Promise<Models.CurrencyList>;
     /**
-     * List Languages
+     * List languages
      *
      * List of all languages classified by ISO 639-1 including 2-letter code, name
      * in English, and name in the respective language.
@@ -3754,7 +3835,7 @@ declare module "node-appwrite" {
      */
     createBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: string, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
     /**
-     * Get Bucket
+     * Get bucket
      *
      * Get a storage bucket by its unique ID. This endpoint response returns a
      * JSON object with the storage bucket metadata.
@@ -3765,7 +3846,7 @@ declare module "node-appwrite" {
      */
     getBucket(bucketId: string): Promise<Models.Bucket>;
     /**
-     * Update Bucket
+     * Update bucket
      *
      * Update a storage bucket by its unique ID.
      *
@@ -3784,7 +3865,7 @@ declare module "node-appwrite" {
      */
     updateBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: string, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
     /**
-     * Delete Bucket
+     * Delete bucket
      *
      * Delete a storage bucket by its unique ID.
      *
@@ -3794,7 +3875,7 @@ declare module "node-appwrite" {
      */
     deleteBucket(bucketId: string): Promise<string>;
     /**
-     * List Files
+     * List files
      *
      * Get a list of all the user files. You can use the query params to filter
      * your results.
@@ -3807,12 +3888,12 @@ declare module "node-appwrite" {
      */
     listFiles(bucketId: string, queries?: string[], search?: string): Promise<Models.FileList>;
     /**
-     * Create File
+     * Create file
      *
      * Create a new file. Before using this route, you should create a new bucket
      * resource using either a [server
-     * integration](/docs/server/storage#storageCreateBucket) API or directly from
-     * your Appwrite console.
+     * integration](https://appwrite.io/docs/server/storage#storageCreateBucket)
+     * API or directly from your Appwrite console.
      * 
      * Larger files should be uploaded using multiple requests with the
      * [content-range](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range)
@@ -3837,7 +3918,7 @@ declare module "node-appwrite" {
      */
     createFile(bucketId: string, fileId: string, file: InputFile, permissions?: string[]): Promise<Models.File>;
     /**
-     * Get File
+     * Get file
      *
      * Get a file by its unique ID. This endpoint response returns a JSON object
      * with the file metadata.
@@ -3849,7 +3930,7 @@ declare module "node-appwrite" {
      */
     getFile(bucketId: string, fileId: string): Promise<Models.File>;
     /**
-     * Update File
+     * Update file
      *
      * Update a file by its unique ID. Only users with write permissions have
      * access to update this resource.
@@ -3875,7 +3956,7 @@ declare module "node-appwrite" {
      */
     deleteFile(bucketId: string, fileId: string): Promise<string>;
     /**
-     * Get File for Download
+     * Get file for download
      *
      * Get a file content by its unique ID. The endpoint response return with a
      * 'Content-Disposition: attachment' header that tells the browser to start
@@ -3888,7 +3969,7 @@ declare module "node-appwrite" {
      */
     getFileDownload(bucketId: string, fileId: string): Promise<Buffer>;
     /**
-     * Get File Preview
+     * Get file preview
      *
      * Get a file preview image. Currently, this method supports preview for image
      * files (jpg, png, and gif), other supported formats, like pdf, docs, slides,
@@ -3914,7 +3995,7 @@ declare module "node-appwrite" {
      */
     getFilePreview(bucketId: string, fileId: string, width?: number, height?: number, gravity?: string, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: string): Promise<Buffer>;
     /**
-     * Get File for View
+     * Get file for view
      *
      * Get a file content by its unique ID. This endpoint is similar to the
      * download method but returns with no  'Content-Disposition: attachment'
@@ -3931,7 +4012,7 @@ declare module "node-appwrite" {
     constructor(client: Client);
     
     /**
-     * List Teams
+     * List teams
      *
      * Get a list of all the teams in which the current user is a member. You can
      * use the parameters to filter your results.
@@ -3943,7 +4024,7 @@ declare module "node-appwrite" {
      */
     list<Preferences extends Models.Preferences>(queries?: string[], search?: string): Promise<Models.TeamList<Preferences>>;
     /**
-     * Create Team
+     * Create team
      *
      * Create a new team. The user who creates the team will automatically be
      * assigned as the owner of the team. Only the users with the owner role can
@@ -3957,7 +4038,7 @@ declare module "node-appwrite" {
      */
     create<Preferences extends Models.Preferences>(teamId: string, name: string, roles?: string[]): Promise<Models.Team<Preferences>>;
     /**
-     * Get Team
+     * Get team
      *
      * Get a team by its ID. All team members have read access for this resource.
      *
@@ -3967,7 +4048,7 @@ declare module "node-appwrite" {
      */
     get<Preferences extends Models.Preferences>(teamId: string): Promise<Models.Team<Preferences>>;
     /**
-     * Update Name
+     * Update name
      *
      * Update the team's name by its unique ID.
      *
@@ -3978,7 +4059,7 @@ declare module "node-appwrite" {
      */
     updateName<Preferences extends Models.Preferences>(teamId: string, name: string): Promise<Models.Team<Preferences>>;
     /**
-     * Delete Team
+     * Delete team
      *
      * Delete a team using its ID. Only team members with the owner role can
      * delete the team.
@@ -3989,7 +4070,7 @@ declare module "node-appwrite" {
      */
     delete(teamId: string): Promise<string>;
     /**
-     * List Team Memberships
+     * List team memberships
      *
      * Use this endpoint to list a team's members using the team's ID. All team
      * members have read access to this endpoint.
@@ -4002,7 +4083,7 @@ declare module "node-appwrite" {
      */
     listMemberships(teamId: string, queries?: string[], search?: string): Promise<Models.MembershipList>;
     /**
-     * Create Team Membership
+     * Create team membership
      *
      * Invite a new member to join your team. Provide an ID for existing users, or
      * invite unregistered users using an email or phone number. If initiated from
@@ -4017,8 +4098,8 @@ declare module "node-appwrite" {
      * 
      * Use the `url` parameter to redirect the user from the invitation email to
      * your app. After the user is redirected, use the [Update Team Membership
-     * Status](/docs/client/teams#teamsUpdateMembershipStatus) endpoint to allow
-     * the user to accept the invitation to the team. 
+     * Status](https://appwrite.io/docs/references/cloud/client-web/teams#updateMembershipStatus)
+     * endpoint to allow the user to accept the invitation to the team. 
      * 
      * Please note that to avoid a [Redirect
      * Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md)
@@ -4038,7 +4119,7 @@ declare module "node-appwrite" {
      */
     createMembership(teamId: string, roles: string[], email?: string, userId?: string, phone?: string, url?: string, name?: string): Promise<Models.Membership>;
     /**
-     * Get Team Membership
+     * Get team membership
      *
      * Get a team member by the membership unique id. All team members have read
      * access for this resource.
@@ -4050,11 +4131,11 @@ declare module "node-appwrite" {
      */
     getMembership(teamId: string, membershipId: string): Promise<Models.Membership>;
     /**
-     * Update Membership
+     * Update membership
      *
      * Modify the roles of a team member. Only team members with the owner role
      * have access to this endpoint. Learn more about [roles and
-     * permissions](/docs/permissions).
+     * permissions](https://appwrite.io/docs/permissions).
      * 
      *
      * @param {string} teamId
@@ -4065,7 +4146,7 @@ declare module "node-appwrite" {
      */
     updateMembership(teamId: string, membershipId: string, roles: string[]): Promise<Models.Membership>;
     /**
-     * Delete Team Membership
+     * Delete team membership
      *
      * This endpoint allows a user to leave a team or for a team owner to delete
      * the membership of any other team member. You can also use this endpoint to
@@ -4078,7 +4159,7 @@ declare module "node-appwrite" {
      */
     deleteMembership(teamId: string, membershipId: string): Promise<string>;
     /**
-     * Update Team Membership Status
+     * Update team membership status
      *
      * Use this endpoint to allow a user to accept an invitation to join a team
      * after being redirected back to your app from the invitation email received
@@ -4097,11 +4178,11 @@ declare module "node-appwrite" {
      */
     updateMembershipStatus(teamId: string, membershipId: string, userId: string, secret: string): Promise<Models.Membership>;
     /**
-     * Get Team Preferences
+     * Get team preferences
      *
      * Get the team's shared preferences by its unique ID. If a preference doesn't
      * need to be shared by all team members, prefer storing them in [user
-     * preferences](/docs/client/account#accountGetPrefs).
+     * preferences](https://appwrite.io/docs/references/cloud/client-web/account#getPrefs).
      *
      * @param {string} teamId
      * @throws {AppwriteException}
@@ -4109,7 +4190,7 @@ declare module "node-appwrite" {
      */
     getPrefs<Preferences extends Models.Preferences>(teamId: string): Promise<Preferences>;
     /**
-     * Update Preferences
+     * Update preferences
      *
      * Update the team's preferences by its unique ID. The object you pass is
      * stored as is and replaces any previous value. The maximum allowed prefs
@@ -4126,7 +4207,7 @@ declare module "node-appwrite" {
     constructor(client: Client);
     
     /**
-     * List Users
+     * List users
      *
      * Get a list of all the project's users. You can use the query params to
      * filter your results.
@@ -4138,7 +4219,7 @@ declare module "node-appwrite" {
      */
     list<Preferences extends Models.Preferences>(queries?: string[], search?: string): Promise<Models.UserList<Preferences>>;
     /**
-     * Create User
+     * Create user
      *
      * Create a new user.
      *
@@ -4152,12 +4233,12 @@ declare module "node-appwrite" {
      */
     create<Preferences extends Models.Preferences>(userId: string, email?: string, phone?: string, password?: string, name?: string): Promise<Models.User<Preferences>>;
     /**
-     * Create User with Argon2 Password
+     * Create user with Argon2 password
      *
      * Create a new user. Password provided must be hashed with the
      * [Argon2](https://en.wikipedia.org/wiki/Argon2) algorithm. Use the [POST
-     * /users](/docs/server/users#usersCreate) endpoint to create users with a
-     * plain text password.
+     * /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
+     * create users with a plain text password.
      *
      * @param {string} userId
      * @param {string} email
@@ -4168,12 +4249,12 @@ declare module "node-appwrite" {
      */
     createArgon2User<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
     /**
-     * Create User with Bcrypt Password
+     * Create user with bcrypt password
      *
      * Create a new user. Password provided must be hashed with the
      * [Bcrypt](https://en.wikipedia.org/wiki/Bcrypt) algorithm. Use the [POST
-     * /users](/docs/server/users#usersCreate) endpoint to create users with a
-     * plain text password.
+     * /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
+     * create users with a plain text password.
      *
      * @param {string} userId
      * @param {string} email
@@ -4205,12 +4286,12 @@ declare module "node-appwrite" {
      */
     deleteIdentity(identityId: string): Promise<string>;
     /**
-     * Create User with MD5 Password
+     * Create user with MD5 password
      *
      * Create a new user. Password provided must be hashed with the
      * [MD5](https://en.wikipedia.org/wiki/MD5) algorithm. Use the [POST
-     * /users](/docs/server/users#usersCreate) endpoint to create users with a
-     * plain text password.
+     * /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
+     * create users with a plain text password.
      *
      * @param {string} userId
      * @param {string} email
@@ -4221,12 +4302,12 @@ declare module "node-appwrite" {
      */
     createMD5User<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
     /**
-     * Create User with PHPass Password
+     * Create user with PHPass password
      *
      * Create a new user. Password provided must be hashed with the
      * [PHPass](https://www.openwall.com/phpass/) algorithm. Use the [POST
-     * /users](/docs/server/users#usersCreate) endpoint to create users with a
-     * plain text password.
+     * /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
+     * create users with a plain text password.
      *
      * @param {string} userId
      * @param {string} email
@@ -4237,12 +4318,12 @@ declare module "node-appwrite" {
      */
     createPHPassUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
     /**
-     * Create User with Scrypt Password
+     * Create user with Scrypt password
      *
      * Create a new user. Password provided must be hashed with the
      * [Scrypt](https://github.com/Tarsnap/scrypt) algorithm. Use the [POST
-     * /users](/docs/server/users#usersCreate) endpoint to create users with a
-     * plain text password.
+     * /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
+     * create users with a plain text password.
      *
      * @param {string} userId
      * @param {string} email
@@ -4258,12 +4339,13 @@ declare module "node-appwrite" {
      */
     createScryptUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number, passwordMemory: number, passwordParallel: number, passwordLength: number, name?: string): Promise<Models.User<Preferences>>;
     /**
-     * Create User with Scrypt Modified Password
+     * Create user with Scrypt modified password
      *
      * Create a new user. Password provided must be hashed with the [Scrypt
      * Modified](https://gist.github.com/Meldiron/eecf84a0225eccb5a378d45bb27462cc)
-     * algorithm. Use the [POST /users](/docs/server/users#usersCreate) endpoint
-     * to create users with a plain text password.
+     * algorithm. Use the [POST
+     * /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
+     * create users with a plain text password.
      *
      * @param {string} userId
      * @param {string} email
@@ -4277,12 +4359,12 @@ declare module "node-appwrite" {
      */
     createScryptModifiedUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, passwordSalt: string, passwordSaltSeparator: string, passwordSignerKey: string, name?: string): Promise<Models.User<Preferences>>;
     /**
-     * Create User with SHA Password
+     * Create user with SHA password
      *
      * Create a new user. Password provided must be hashed with the
      * [SHA](https://en.wikipedia.org/wiki/Secure_Hash_Algorithm) algorithm. Use
-     * the [POST /users](/docs/server/users#usersCreate) endpoint to create users
-     * with a plain text password.
+     * the [POST /users](https://appwrite.io/docs/server/users#usersCreate)
+     * endpoint to create users with a plain text password.
      *
      * @param {string} userId
      * @param {string} email
@@ -4294,7 +4376,7 @@ declare module "node-appwrite" {
      */
     createSHAUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, passwordVersion?: string, name?: string): Promise<Models.User<Preferences>>;
     /**
-     * Get User
+     * Get user
      *
      * Get a user by its unique ID.
      *
@@ -4304,12 +4386,13 @@ declare module "node-appwrite" {
      */
     get<Preferences extends Models.Preferences>(userId: string): Promise<Models.User<Preferences>>;
     /**
-     * Delete User
+     * Delete user
      *
      * Delete a user by its unique ID, thereby releasing it's ID. Since ID is
      * released and can be reused, all user-related resources like documents or
      * storage files should be deleted before user deletion. If you want to keep
-     * ID reserved, use the [updateStatus](/docs/server/users#usersUpdateStatus)
+     * ID reserved, use the
+     * [updateStatus](https://appwrite.io/docs/server/users#usersUpdateStatus)
      * endpoint instead.
      *
      * @param {string} userId
@@ -4318,7 +4401,7 @@ declare module "node-appwrite" {
      */
     delete(userId: string): Promise<string>;
     /**
-     * Update Email
+     * Update email
      *
      * Update the user email by its unique ID.
      *
@@ -4329,14 +4412,14 @@ declare module "node-appwrite" {
      */
     updateEmail<Preferences extends Models.Preferences>(userId: string, email: string): Promise<Models.User<Preferences>>;
     /**
-     * Update User Labels
+     * Update user labels
      *
      * Update the user labels by its unique ID. 
      * 
      * Labels can be used to grant access to resources. While teams are a way for
      * user's to share access to a resource, labels can be defined by the
      * developer to grant access without an invitation. See the [Permissions
-     * docs](/docs/permissions) for more info.
+     * docs](https://appwrite.io/docs/permissions) for more info.
      *
      * @param {string} userId
      * @param {string[]} labels
@@ -4345,7 +4428,7 @@ declare module "node-appwrite" {
      */
     updateLabels<Preferences extends Models.Preferences>(userId: string, labels: string[]): Promise<Models.User<Preferences>>;
     /**
-     * List User Logs
+     * List user logs
      *
      * Get the user activity logs list by its unique ID.
      *
@@ -4356,7 +4439,7 @@ declare module "node-appwrite" {
      */
     listLogs(userId: string, queries?: string[]): Promise<Models.LogList>;
     /**
-     * List User Memberships
+     * List user memberships
      *
      * Get the user membership list by its unique ID.
      *
@@ -4366,7 +4449,7 @@ declare module "node-appwrite" {
      */
     listMemberships(userId: string): Promise<Models.MembershipList>;
     /**
-     * Update Name
+     * Update name
      *
      * Update the user name by its unique ID.
      *
@@ -4377,7 +4460,7 @@ declare module "node-appwrite" {
      */
     updateName<Preferences extends Models.Preferences>(userId: string, name: string): Promise<Models.User<Preferences>>;
     /**
-     * Update Password
+     * Update password
      *
      * Update the user password by its unique ID.
      *
@@ -4388,7 +4471,7 @@ declare module "node-appwrite" {
      */
     updatePassword<Preferences extends Models.Preferences>(userId: string, password: string): Promise<Models.User<Preferences>>;
     /**
-     * Update Phone
+     * Update phone
      *
      * Update the user phone by its unique ID.
      *
@@ -4399,7 +4482,7 @@ declare module "node-appwrite" {
      */
     updatePhone<Preferences extends Models.Preferences>(userId: string, number: string): Promise<Models.User<Preferences>>;
     /**
-     * Get User Preferences
+     * Get user preferences
      *
      * Get the user preferences by its unique ID.
      *
@@ -4409,7 +4492,7 @@ declare module "node-appwrite" {
      */
     getPrefs<Preferences extends Models.Preferences>(userId: string): Promise<Preferences>;
     /**
-     * Update User Preferences
+     * Update user preferences
      *
      * Update the user preferences by its unique ID. The object you pass is stored
      * as is, and replaces any previous value. The maximum allowed prefs size is
@@ -4422,7 +4505,7 @@ declare module "node-appwrite" {
      */
     updatePrefs<Preferences extends Models.Preferences>(userId: string, prefs: object): Promise<Preferences>;
     /**
-     * List User Sessions
+     * List user sessions
      *
      * Get the user sessions list by its unique ID.
      *
@@ -4432,7 +4515,7 @@ declare module "node-appwrite" {
      */
     listSessions(userId: string): Promise<Models.SessionList>;
     /**
-     * Delete User Sessions
+     * Delete user sessions
      *
      * Delete all user's sessions by using the user's unique ID.
      *
@@ -4442,7 +4525,7 @@ declare module "node-appwrite" {
      */
     deleteSessions(userId: string): Promise<string>;
     /**
-     * Delete User Session
+     * Delete user session
      *
      * Delete a user sessions by its unique ID.
      *
@@ -4453,7 +4536,7 @@ declare module "node-appwrite" {
      */
     deleteSession(userId: string, sessionId: string): Promise<string>;
     /**
-     * Update User Status
+     * Update user status
      *
      * Update the user status by its unique ID. Use this endpoint as an
      * alternative to deleting a user if you want to keep user's ID reserved.
@@ -4465,7 +4548,7 @@ declare module "node-appwrite" {
      */
     updateStatus<Preferences extends Models.Preferences>(userId: string, status: boolean): Promise<Models.User<Preferences>>;
     /**
-     * Update Email Verification
+     * Update email verification
      *
      * Update the user email verification status by its unique ID.
      *
@@ -4476,7 +4559,7 @@ declare module "node-appwrite" {
      */
     updateEmailVerification<Preferences extends Models.Preferences>(userId: string, emailVerification: boolean): Promise<Models.User<Preferences>>;
     /**
-     * Update Phone Verification
+     * Update phone verification
      *
      * Update the user phone verification status by its unique ID.
      *
