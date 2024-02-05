@@ -300,6 +300,71 @@ declare module "node-appwrite" {
           localeCodes: LocaleCode[];
       }
       /**
+      * Provider list
+      */
+      export type ProviderList = {
+          /**
+          * Total number of providers documents that matched your query.
+          */
+          total: number;
+          /**
+          * List of providers.
+          */
+          providers: Provider[];
+      }
+      /**
+      * Message list
+      */
+      export type MessageList = {
+          /**
+          * Total number of messages documents that matched your query.
+          */
+          total: number;
+          /**
+          * List of messages.
+          */
+          messages: Message[];
+      }
+      /**
+      * Topic list
+      */
+      export type TopicList = {
+          /**
+          * Total number of topics documents that matched your query.
+          */
+          total: number;
+          /**
+          * List of topics.
+          */
+          topics: Topic[];
+      }
+      /**
+      * Subscriber list
+      */
+      export type SubscriberList = {
+          /**
+          * Total number of subscribers documents that matched your query.
+          */
+          total: number;
+          /**
+          * List of subscribers.
+          */
+          subscribers: Subscriber[];
+      }
+      /**
+      * Target list
+      */
+      export type TargetList = {
+          /**
+          * Total number of targets documents that matched your query.
+          */
+          total: number;
+          /**
+          * List of targets.
+          */
+          targets: Target[];
+      }
+      /**
       * Database
       */
       export type Database = {
@@ -988,9 +1053,21 @@ declare module "node-appwrite" {
           */
           phoneVerification: boolean;
           /**
+          * Multi factor authentication status.
+          */
+          mfa: boolean;
+          /**
+          * TOTP status.
+          */
+          totp: boolean;
+          /**
           * User preferences as a key-value object
           */
           prefs: Preferences;
+          /**
+          * A user-owned message receiver. A single user may have multiple e.g. emails, phones, and a browser. Each target is registered with a single provider.
+          */
+          targets: Target[];
           /**
           * Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
           */
@@ -1208,6 +1285,14 @@ declare module "node-appwrite" {
           * Returns true if this the current user session.
           */
           current: boolean;
+          /**
+          * Returns a list of active session factors.
+          */
+          factors: number;
+          /**
+          * Secret used to authenticate the user. Only included if the request was made with an API key
+          */
+          secret: string;
       }
       /**
       * Identity
@@ -1278,6 +1363,19 @@ declare module "node-appwrite" {
           * Token expiration date in ISO 8601 format.
           */
           expire: string;
+          /**
+          * Security phrase of a token. Empty if security phrase was not requested when creating a token. It includes randomly generated phrase which is also sent in the external resource such as email.
+          */
+          phrase: string;
+      }
+      /**
+      * JWT
+      */
+      export type Jwt = {
+          /**
+          * JWT encoded string.
+          */
+          jwt: string;
       }
       /**
       * Locale
@@ -1504,6 +1602,10 @@ declare module "node-appwrite" {
           * User confirmation status, true if the user has joined the team or false otherwise.
           */
           confirm: boolean;
+          /**
+          * Multi factor authentication status, true if the user has MFA enabled or false otherwise.
+          */
+          mfa: boolean;
           /**
           * User list of roles
           */
@@ -1996,6 +2098,270 @@ declare module "node-appwrite" {
           */
           value: string;
       }
+      /**
+      * MFA Challenge
+      */
+      export type MfaChallenge = {
+          /**
+          * Token ID.
+          */
+          $id: string;
+          /**
+          * Token creation date in ISO 8601 format.
+          */
+          $createdAt: string;
+          /**
+          * User ID.
+          */
+          userId: string;
+          /**
+          * Token expiration date in ISO 8601 format.
+          */
+          expire: string;
+      }
+      /**
+      * MFAProvider
+      */
+      export type MfaProvider = {
+          /**
+          * Backup codes.
+          */
+          backups: string[];
+          /**
+          * Secret token used for TOTP factor.
+          */
+          secret: string;
+          /**
+          * URI for authenticator apps.
+          */
+          uri: string;
+      }
+      /**
+      * MFAProviders
+      */
+      export type MfaProviders = {
+          /**
+          * TOTP
+          */
+          totp: boolean;
+          /**
+          * Phone
+          */
+          phone: boolean;
+          /**
+          * Email
+          */
+          email: boolean;
+      }
+      /**
+      * Provider
+      */
+      export type Provider = {
+          /**
+          * Provider ID.
+          */
+          $id: string;
+          /**
+          * Provider creation time in ISO 8601 format.
+          */
+          $createdAt: string;
+          /**
+          * Provider update date in ISO 8601 format.
+          */
+          $updatedAt: string;
+          /**
+          * The name for the provider instance.
+          */
+          name: string;
+          /**
+          * The name of the provider service.
+          */
+          provider: string;
+          /**
+          * Is provider enabled?
+          */
+          enabled: boolean;
+          /**
+          * Type of provider.
+          */
+          type: string;
+          /**
+          * Provider credentials.
+          */
+          credentials: object;
+          /**
+          * Provider options.
+          */
+          options?: object;
+      }
+      /**
+      * Message
+      */
+      export type Message = {
+          /**
+          * Message ID.
+          */
+          $id: string;
+          /**
+          * Message creation time in ISO 8601 format.
+          */
+          $createdAt: string;
+          /**
+          * Message update date in ISO 8601 format.
+          */
+          $updatedAt: string;
+          /**
+          * Message provider type.
+          */
+          providerType: string;
+          /**
+          * Topic IDs set as recipients.
+          */
+          topics: string[];
+          /**
+          * User IDs set as recipients.
+          */
+          users: string[];
+          /**
+          * Target IDs set as recipients.
+          */
+          targets: string[];
+          /**
+          * The scheduled time for message.
+          */
+          scheduledAt?: string;
+          /**
+          * The time when the message was delivered.
+          */
+          deliveredAt?: string;
+          /**
+          * Delivery errors if any.
+          */
+          deliveryErrors?: string[];
+          /**
+          * Number of recipients the message was delivered to.
+          */
+          deliveredTotal: number;
+          /**
+          * Data of the message.
+          */
+          data: object;
+          /**
+          * Status of delivery.
+          */
+          status: string;
+          /**
+          * Message description.
+          */
+          description?: string;
+      }
+      /**
+      * Topic
+      */
+      export type Topic = {
+          /**
+          * Topic ID.
+          */
+          $id: string;
+          /**
+          * Topic creation time in ISO 8601 format.
+          */
+          $createdAt: string;
+          /**
+          * Topic update date in ISO 8601 format.
+          */
+          $updatedAt: string;
+          /**
+          * The name of the topic.
+          */
+          name: string;
+          /**
+          * Total count of subscribers subscribed to topic.
+          */
+          total: number;
+          /**
+          * Description of the topic.
+          */
+          description?: string;
+      }
+      /**
+      * Subscriber
+      */
+      export type Subscriber = {
+          /**
+          * Subscriber ID.
+          */
+          $id: string;
+          /**
+          * Subscriber creation time in ISO 8601 format.
+          */
+          $createdAt: string;
+          /**
+          * Subscriber update date in ISO 8601 format.
+          */
+          $updatedAt: string;
+          /**
+          * Target ID.
+          */
+          targetId: string;
+          /**
+          * Target.
+          */
+          target: Target;
+          /**
+          * Topic ID.
+          */
+          userId: string;
+          /**
+          * User Name.
+          */
+          userName: string;
+          /**
+          * Topic ID.
+          */
+          topicId: string;
+          /**
+          * The target provider type. Can be one of the following: `email`, `sms` or `push`.
+          */
+          providerType: string;
+      }
+      /**
+      * Target
+      */
+      export type Target = {
+          /**
+          * Target ID.
+          */
+          $id: string;
+          /**
+          * Target creation time in ISO 8601 format.
+          */
+          $createdAt: string;
+          /**
+          * Target update date in ISO 8601 format.
+          */
+          $updatedAt: string;
+          /**
+          * Target Name.
+          */
+          name: string;
+          /**
+          * User ID.
+          */
+          userId: string;
+          /**
+          * Provider ID.
+          */
+          providerId?: string;
+          /**
+          * The target provider type. Can be one of the following: `email`, `sms` or `push`.
+          */
+          providerType: string;
+          /**
+          * The target identifier.
+          */
+          identifier: string;
+      }
   }
   export class Client {
     /**
@@ -2057,6 +2423,39 @@ declare module "node-appwrite" {
      * @returns {this}
      */
     setLocale(locale: string): Client;
+
+    /**
+     * Set Session
+     *
+     * The user session to authenticate with
+     *
+     * @param {string} value
+     *
+     * @returns {this}
+     */
+    setSession(session: string): Client;
+
+    /**
+     * Set ForwardedFor
+     *
+     * The IP address of the client that made the request
+     *
+     * @param {string} value
+     *
+     * @returns {this}
+     */
+    setForwardedFor(forwardedfor: string): Client;
+
+    /**
+     * Set ForwardedUserAgent
+     *
+     * The user agent string of the client that made the request
+     *
+     * @param {string} value
+     *
+     * @returns {this}
+     */
+    setForwardedUserAgent(forwardeduseragent: string): Client;
   }
 
   export class AppwriteException extends Error {
@@ -2168,6 +2567,25 @@ declare module "node-appwrite" {
      */
     get<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>>;
     /**
+     * Create account
+     *
+     * Use this endpoint to allow a new user to register a new account in your
+     * project. After the user registration completes successfully, you can use
+     * the
+     * [/account/verfication](https://appwrite.io/docs/references/cloud/client-web/account#createVerification)
+     * route to start verifying the user email address. To allow the new user to
+     * login to their new account, you need to create a new [account
+     * session](https://appwrite.io/docs/references/cloud/client-web/account#createEmailSession).
+     *
+     * @param {string} userId
+     * @param {string} email
+     * @param {string} password
+     * @param {string} name
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    create<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
+    /**
      * Update email
      *
      * Update currently logged in user account email address. After changing user
@@ -2190,13 +2608,13 @@ declare module "node-appwrite" {
      *
      * Get the list of identities for the currently logged in user.
      *
-     * @param {string} queries
+     * @param {string[]} queries
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listIdentities(queries?: string): Promise<Models.IdentityList>;
+    listIdentities(queries?: string[]): Promise<Models.IdentityList>;
     /**
-     * Delete Identity
+     * Delete identity
      *
      * Delete an identity by its unique ID.
      *
@@ -2205,6 +2623,19 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     deleteIdentity(identityId: string): Promise<string>;
+    /**
+     * Create JWT
+     *
+     * Use this endpoint to create a JSON Web Token. You can use the resulting JWT
+     * to authenticate on behalf of the current user when working with the
+     * Appwrite server-side API and SDKs. The JWT secret is valid for 15 minutes
+     * from its creation and will be invalid if the user will logout in that time
+     * frame.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createJWT(): Promise<Models.Jwt>;
     /**
      * List logs
      *
@@ -2216,6 +2647,66 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     listLogs(queries?: string[]): Promise<Models.LogList>;
+    /**
+     * Update MFA
+     *
+     * @param {boolean} mfa
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateMFA<Preferences extends Models.Preferences>(mfa: boolean): Promise<Models.User<Preferences>>;
+    /**
+     * Create MFA Challenge
+     *
+     * @param {AuthenticatorProvider} provider
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createChallenge(provider: AuthenticatorProvider): Promise<Models.MfaChallenge>;
+    /**
+     * Create MFA Challenge (confirmation)
+     *
+     * @param {string} challengeId
+     * @param {string} otp
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateChallenge(challengeId: string, otp: string): Promise<any>;
+    /**
+     * List Factors
+     *
+     * Get the currently logged in user.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listFactors(): Promise<Models.MfaProviders>;
+    /**
+     * Add Authenticator
+     *
+     * @param {AuthenticatorFactor} factor
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    addAuthenticator(factor: AuthenticatorFactor): Promise<Models.MfaProvider>;
+    /**
+     * Verify Authenticator
+     *
+     * @param {AuthenticatorFactor} factor
+     * @param {string} otp
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    verifyAuthenticator<Preferences extends Models.Preferences>(factor: AuthenticatorFactor, otp: string): Promise<Models.User<Preferences>>;
+    /**
+     * Delete Authenticator
+     *
+     * @param {AuthenticatorProvider} provider
+     * @param {string} otp
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    deleteAuthenticator<Preferences extends Models.Preferences>(provider: AuthenticatorProvider, otp: string): Promise<Models.User<Preferences>>;
     /**
      * Update name
      *
@@ -2310,11 +2801,10 @@ declare module "node-appwrite" {
      * @param {string} userId
      * @param {string} secret
      * @param {string} password
-     * @param {string} passwordAgain
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateRecovery(userId: string, secret: string, password: string, passwordAgain: string): Promise<Models.Token>;
+    updateRecovery(userId: string, secret: string, password: string): Promise<Models.Token>;
     /**
      * List sessions
      *
@@ -2336,6 +2826,92 @@ declare module "node-appwrite" {
      */
     deleteSessions(): Promise<string>;
     /**
+     * Create anonymous session
+     *
+     * Use this endpoint to allow a new user to register an anonymous account in
+     * your project. This route will also create a new session for the user. To
+     * allow the new user to convert an anonymous account to a normal account, you
+     * need to update its [email and
+     * password](https://appwrite.io/docs/references/cloud/client-web/account#updateEmail)
+     * or create an [OAuth2
+     * session](https://appwrite.io/docs/references/cloud/client-web/account#CreateOAuth2Session).
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createAnonymousSession(): Promise<Models.Session>;
+    /**
+     * Create email password session
+     *
+     * Allow the user to login into their account by providing a valid email and
+     * password combination. This route will create a new session for the user.
+     * 
+     * A user is limited to 10 active sessions at a time by default. [Learn more
+     * about session
+     * limits](https://appwrite.io/docs/authentication-security#limits).
+     *
+     * @param {string} email
+     * @param {string} password
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createEmailPasswordSession(email: string, password: string): Promise<Models.Session>;
+    /**
+     * Create session (deprecated)
+     *
+     * Use this endpoint to create a session from token. Provide the **userId**
+     * and **secret** parameters from the successful response of authentication
+     * flows initiated by token creation. For example, magic URL and phone login.
+     *
+     * @param {string} userId
+     * @param {string} secret
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateMagicURLSession(userId: string, secret: string): Promise<Models.Session>;
+    /**
+     * Create OAuth2 session
+     *
+     * Allow the user to login to their account using the OAuth2 provider of their
+     * choice. Each OAuth2 provider should be enabled from the Appwrite console
+     * first. Use the success and failure arguments to provide a redirect URL's
+     * back to your app when login is completed.
+     * 
+     * If there is already an active session, the new session will be attached to
+     * the logged-in account. If there are no active sessions, the server will
+     * attempt to look for a user with the same email address as the email
+     * received from the OAuth2 provider and attach the new session to the
+     * existing user. If no matching user is found - the server will create a new
+     * user.
+     * 
+     * A user is limited to 10 active sessions at a time by default. [Learn more
+     * about session
+     * limits](https://appwrite.io/docs/authentication-security#limits).
+     * 
+     *
+     * @param {OAuthProvider} provider
+     * @param {string} success
+     * @param {string} failure
+     * @param {boolean} token
+     * @param {string[]} scopes
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createOAuth2Session(provider: OAuthProvider, success?: string, failure?: string, token?: boolean, scopes?: string[]): Promise<any>;
+    /**
+     * Create session
+     *
+     * Use this endpoint to create a session from token. Provide the **userId**
+     * and **secret** parameters from the successful response of authentication
+     * flows initiated by token creation. For example, magic URL and phone login.
+     *
+     * @param {string} userId
+     * @param {string} secret
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createSession(userId: string, secret: string): Promise<Models.Session>;
+    /**
      * Get session
      *
      * Use this endpoint to get a logged in user's session using a Session ID.
@@ -2347,11 +2923,10 @@ declare module "node-appwrite" {
      */
     getSession(sessionId: string): Promise<Models.Session>;
     /**
-     * Update OAuth session (refresh tokens)
+     * Update (or renew) a session
      *
-     * Access tokens have limited lifespan and expire to mitigate security risks.
-     * If session was created using an OAuth provider, this route can be used to
-     * "refresh" the access token.
+     * Extend session's expiry to increase it's lifespan. Extending a session is
+     * useful when session length is short such as 5 minutes.
      *
      * @param {string} sessionId
      * @throws {AppwriteException}
@@ -2383,6 +2958,75 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     updateStatus<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>>;
+    /**
+     * Create email token (OTP)
+     *
+     * Sends the user an email with a secret key for creating a session. If the
+     * provided user ID has not be registered, a new user will be created. Use the
+     * returned user ID and secret and submit a request to the [POST
+     * /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession)
+     * endpoint to complete the login process. The secret sent to the user's email
+     * is valid for 15 minutes.
+     * 
+     * A user is limited to 10 active sessions at a time by default. [Learn more
+     * about session
+     * limits](https://appwrite.io/docs/authentication-security#limits).
+     *
+     * @param {string} userId
+     * @param {string} email
+     * @param {boolean} phrase
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createEmailToken(userId: string, email: string, phrase?: boolean): Promise<Models.Token>;
+    /**
+     * Create magic URL token
+     *
+     * Sends the user an email with a secret key for creating a session. If the
+     * provided user ID has not been registered, a new user will be created. When
+     * the user clicks the link in the email, the user is redirected back to the
+     * URL you provided with the secret key and userId values attached to the URL
+     * query string. Use the query string parameters to submit a request to the
+     * [POST
+     * /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession)
+     * endpoint to complete the login process. The link sent to the user's email
+     * address is valid for 1 hour. If you are on a mobile device you can leave
+     * the URL parameter empty, so that the login completion will be handled by
+     * your Appwrite instance by default.
+     * 
+     * A user is limited to 10 active sessions at a time by default. [Learn more
+     * about session
+     * limits](https://appwrite.io/docs/authentication-security#limits).
+     * 
+     *
+     * @param {string} userId
+     * @param {string} email
+     * @param {string} url
+     * @param {boolean} phrase
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createMagicURLToken(userId: string, email: string, url?: string, phrase?: boolean): Promise<Models.Token>;
+    /**
+     * Create phone token
+     *
+     * Sends the user an SMS with a secret key for creating a session. If the
+     * provided user ID has not be registered, a new user will be created. Use the
+     * returned user ID and secret and submit a request to the [POST
+     * /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession)
+     * endpoint to complete the login process. The secret sent to the user's phone
+     * is valid for 15 minutes.
+     * 
+     * A user is limited to 10 active sessions at a time by default. [Learn more
+     * about session
+     * limits](https://appwrite.io/docs/authentication-security#limits).
+     *
+     * @param {string} userId
+     * @param {string} phone
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createPhoneToken(userId: string, phone: string): Promise<Models.Token>;
     /**
      * Create email verification
      *
@@ -2469,14 +3113,14 @@ declare module "node-appwrite" {
      * image at source quality. If dimensions are not specified, the default size
      * of image returned is 100x100px.
      *
-     * @param {string} code
+     * @param {Browser} code
      * @param {number} width
      * @param {number} height
      * @param {number} quality
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getBrowser(code: string, width?: number, height?: number, quality?: number): Promise<Buffer>;
+    getBrowser(code: Browser, width?: number, height?: number, quality?: number): Promise<ArrayBuffer>;
     /**
      * Get credit card icon
      *
@@ -2490,14 +3134,14 @@ declare module "node-appwrite" {
      * of image returned is 100x100px.
      * 
      *
-     * @param {string} code
+     * @param {CreditCard} code
      * @param {number} width
      * @param {number} height
      * @param {number} quality
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getCreditCard(code: string, width?: number, height?: number, quality?: number): Promise<Buffer>;
+    getCreditCard(code: CreditCard, width?: number, height?: number, quality?: number): Promise<ArrayBuffer>;
     /**
      * Get favicon
      *
@@ -2509,7 +3153,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getFavicon(url: string): Promise<Buffer>;
+    getFavicon(url: string): Promise<ArrayBuffer>;
     /**
      * Get country flag
      *
@@ -2524,14 +3168,14 @@ declare module "node-appwrite" {
      * of image returned is 100x100px.
      * 
      *
-     * @param {string} code
+     * @param {Flag} code
      * @param {number} width
      * @param {number} height
      * @param {number} quality
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getFlag(code: string, width?: number, height?: number, quality?: number): Promise<Buffer>;
+    getFlag(code: Flag, width?: number, height?: number, quality?: number): Promise<ArrayBuffer>;
     /**
      * Get image from URL
      *
@@ -2552,7 +3196,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getImage(url: string, width?: number, height?: number): Promise<Buffer>;
+    getImage(url: string, width?: number, height?: number): Promise<ArrayBuffer>;
     /**
      * Get user initials
      *
@@ -2580,7 +3224,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getInitials(name?: string, width?: number, height?: number, background?: string): Promise<Buffer>;
+    getInitials(name?: string, width?: number, height?: number, background?: string): Promise<ArrayBuffer>;
     /**
      * Get QR code
      *
@@ -2595,7 +3239,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQR(text: string, size?: number, margin?: number, download?: boolean): Promise<Buffer>;
+    getQR(text: string, size?: number, margin?: number, download?: boolean): Promise<ArrayBuffer>;
   }
   export class Databases extends Service {
     constructor(client: Client);
@@ -2971,15 +3615,15 @@ declare module "node-appwrite" {
      * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} relatedCollectionId
-     * @param {string} type
+     * @param {RelationshipType} type
      * @param {boolean} twoWay
      * @param {string} key
      * @param {string} twoWayKey
-     * @param {string} onDelete
+     * @param {RelationMutate} onDelete
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createRelationshipAttribute(databaseId: string, collectionId: string, relatedCollectionId: string, type: string, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: string): Promise<Models.AttributeRelationship>;
+    createRelationshipAttribute(databaseId: string, collectionId: string, relatedCollectionId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate): Promise<Models.AttributeRelationship>;
     /**
      * Create string attribute
      *
@@ -3076,11 +3720,11 @@ declare module "node-appwrite" {
      * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
-     * @param {string} onDelete
+     * @param {RelationMutate} onDelete
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateRelationshipAttribute(databaseId: string, collectionId: string, key: string, onDelete?: string): Promise<Models.AttributeRelationship>;
+    updateRelationshipAttribute(databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate): Promise<Models.AttributeRelationship>;
     /**
      * List documents
      *
@@ -3168,13 +3812,13 @@ declare module "node-appwrite" {
      * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
-     * @param {string} type
+     * @param {IndexType} type
      * @param {string[]} attributes
      * @param {string[]} orders
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createIndex(databaseId: string, collectionId: string, key: string, type: string, attributes: string[], orders?: string[]): Promise<Models.Index>;
+    createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[]): Promise<Models.Index>;
     /**
      * Get index
      *
@@ -3221,7 +3865,7 @@ declare module "node-appwrite" {
      *
      * @param {string} functionId
      * @param {string} name
-     * @param {string} runtime
+     * @param {Runtime} runtime
      * @param {string[]} execute
      * @param {string[]} events
      * @param {string} schedule
@@ -3242,7 +3886,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create(functionId: string, name: string, runtime: string, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, templateRepository?: string, templateOwner?: string, templateRootDirectory?: string, templateBranch?: string): Promise<Models.Function>;
+    create(functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, templateRepository?: string, templateOwner?: string, templateRootDirectory?: string, templateBranch?: string): Promise<Models.Function>;
     /**
      * List runtimes
      *
@@ -3269,7 +3913,7 @@ declare module "node-appwrite" {
      *
      * @param {string} functionId
      * @param {string} name
-     * @param {string} runtime
+     * @param {Runtime} runtime
      * @param {string[]} execute
      * @param {string[]} events
      * @param {string} schedule
@@ -3286,7 +3930,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    update(functionId: string, name: string, runtime?: string, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string): Promise<Models.Function>;
+    update(functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string): Promise<Models.Function>;
     /**
      * Delete function
      *
@@ -3392,7 +4036,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    downloadDeployment(functionId: string, deploymentId: string): Promise<Buffer>;
+    downloadDeployment(functionId: string, deploymentId: string): Promise<ArrayBuffer>;
     /**
      * List executions
      *
@@ -3418,12 +4062,12 @@ declare module "node-appwrite" {
      * @param {string} body
      * @param {boolean} async
      * @param {string} path
-     * @param {string} method
+     * @param {ExecutionMethod} method
      * @param {object} headers
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createExecution(functionId: string, body?: string, async?: boolean, xpath?: string, method?: string, headers?: object): Promise<Models.Execution>;
+    createExecution(functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object): Promise<Models.Execution>;
     /**
      * Get execution
      *
@@ -3800,6 +4444,582 @@ declare module "node-appwrite" {
      */
     listLanguages(): Promise<Models.LanguageList>;
   }
+  export class Messaging extends Service {
+    constructor(client: Client);
+    
+    /**
+     * List messages
+     *
+     * @param {string[]} queries
+     * @param {string} search
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listMessages(queries?: string[], search?: string): Promise<Models.MessageList>;
+    /**
+     * Create an email.
+     *
+     * @param {string} messageId
+     * @param {string} subject
+     * @param {string} content
+     * @param {string[]} topics
+     * @param {string[]} users
+     * @param {string[]} targets
+     * @param {string[]} cc
+     * @param {string[]} bcc
+     * @param {MessageType} status
+     * @param {boolean} html
+     * @param {string} scheduledAt
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createEmail(messageId: string, subject: string, content: string, topics?: string[], users?: string[], targets?: string[], cc?: string[], bcc?: string[], status?: MessageType, html?: boolean, scheduledAt?: string): Promise<Models.Message>;
+    /**
+     * Update an email.
+     *
+     * @param {string} messageId
+     * @param {string[]} topics
+     * @param {string[]} users
+     * @param {string[]} targets
+     * @param {string} subject
+     * @param {string} content
+     * @param {MessageType} status
+     * @param {boolean} html
+     * @param {string[]} cc
+     * @param {string[]} bcc
+     * @param {string} scheduledAt
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateEmail(messageId: string, topics?: string[], users?: string[], targets?: string[], subject?: string, content?: string, status?: MessageType, html?: boolean, cc?: string[], bcc?: string[], scheduledAt?: string): Promise<Models.Message>;
+    /**
+     * Create a push notification.
+     *
+     * @param {string} messageId
+     * @param {string} title
+     * @param {string} body
+     * @param {string[]} topics
+     * @param {string[]} users
+     * @param {string[]} targets
+     * @param {object} data
+     * @param {string} action
+     * @param {string} icon
+     * @param {string} sound
+     * @param {string} color
+     * @param {string} tag
+     * @param {string} badge
+     * @param {MessageType} status
+     * @param {string} scheduledAt
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createPush(messageId: string, title: string, body: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: string, status?: MessageType, scheduledAt?: string): Promise<Models.Message>;
+    /**
+     * Update a push notification.
+     *
+     * @param {string} messageId
+     * @param {string[]} topics
+     * @param {string[]} users
+     * @param {string[]} targets
+     * @param {string} title
+     * @param {string} body
+     * @param {object} data
+     * @param {string} action
+     * @param {string} icon
+     * @param {string} sound
+     * @param {string} color
+     * @param {string} tag
+     * @param {number} badge
+     * @param {MessageType} status
+     * @param {string} scheduledAt
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updatePush(messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, status?: MessageType, scheduledAt?: string): Promise<Models.Message>;
+    /**
+     * Create an SMS.
+     *
+     * @param {string} messageId
+     * @param {string} content
+     * @param {string[]} topics
+     * @param {string[]} users
+     * @param {string[]} targets
+     * @param {MessageType} status
+     * @param {string} scheduledAt
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createSMS(messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], status?: MessageType, scheduledAt?: string): Promise<Models.Message>;
+    /**
+     * Update an SMS.
+     *
+     * @param {string} messageId
+     * @param {string[]} topics
+     * @param {string[]} users
+     * @param {string[]} targets
+     * @param {string} content
+     * @param {MessageType} status
+     * @param {string} scheduledAt
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateSMS(messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, status?: MessageType, scheduledAt?: string): Promise<Models.Message>;
+    /**
+     * Get a message
+     *
+     * @param {string} messageId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getMessage(messageId: string): Promise<Models.Message>;
+    /**
+     * Delete a message
+     *
+     * @param {string} messageId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    delete(messageId: string): Promise<string>;
+    /**
+     * List message logs
+     *
+     * @param {string} messageId
+     * @param {string[]} queries
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listMessageLogs(messageId: string, queries?: string[]): Promise<Models.LogList>;
+    /**
+     * List message targets
+     *
+     * List the targets associated with a message as set via the targets
+     * attribute.
+     *
+     * @param {string} messageId
+     * @param {string[]} queries
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listTargets(messageId: string, queries?: string[]): Promise<Models.TargetList>;
+    /**
+     * List providers
+     *
+     * @param {string[]} queries
+     * @param {string} search
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listProviders(queries?: string[], search?: string): Promise<Models.ProviderList>;
+    /**
+     * Create APNS provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {string} authKey
+     * @param {string} authKeyId
+     * @param {string} teamId
+     * @param {string} bundleId
+     * @param {boolean} enabled
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createAPNSProvider(providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, enabled?: boolean): Promise<Models.Provider>;
+    /**
+     * Update APNS provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {boolean} enabled
+     * @param {string} authKey
+     * @param {string} authKeyId
+     * @param {string} teamId
+     * @param {string} bundleId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateAPNSProvider(providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string): Promise<Models.Provider>;
+    /**
+     * Create FCM provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {object} serviceAccountJSON
+     * @param {boolean} enabled
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createFCMProvider(providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean): Promise<Models.Provider>;
+    /**
+     * Update FCM provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {boolean} enabled
+     * @param {object} serviceAccountJSON
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateFCMProvider(providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object): Promise<Models.Provider>;
+    /**
+     * Create Mailgun provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {string} apiKey
+     * @param {string} domain
+     * @param {boolean} isEuRegion
+     * @param {string} fromName
+     * @param {string} fromEmail
+     * @param {string} replyToName
+     * @param {string} replyToEmail
+     * @param {boolean} enabled
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createMailgunProvider(providerId: string, name: string, apiKey?: string, domain?: string, isEuRegion?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    /**
+     * Update Mailgun provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {string} apiKey
+     * @param {string} domain
+     * @param {boolean} isEuRegion
+     * @param {boolean} enabled
+     * @param {string} fromName
+     * @param {string} fromEmail
+     * @param {string} replyToName
+     * @param {string} replyToEmail
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateMailgunProvider(providerId: string, name?: string, apiKey?: string, domain?: string, isEuRegion?: boolean, enabled?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string): Promise<Models.Provider>;
+    /**
+     * Create Msg91 provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {string} from
+     * @param {string} senderId
+     * @param {string} authKey
+     * @param {boolean} enabled
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createMsg91Provider(providerId: string, name: string, from?: string, senderId?: string, authKey?: string, enabled?: boolean): Promise<Models.Provider>;
+    /**
+     * Update Msg91 provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {boolean} enabled
+     * @param {string} senderId
+     * @param {string} authKey
+     * @param {string} from
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateMsg91Provider(providerId: string, name?: string, enabled?: boolean, senderId?: string, authKey?: string, from?: string): Promise<Models.Provider>;
+    /**
+     * Create Sendgrid provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {string} apiKey
+     * @param {string} fromName
+     * @param {string} fromEmail
+     * @param {string} replyToName
+     * @param {string} replyToEmail
+     * @param {boolean} enabled
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createSendgridProvider(providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    /**
+     * Update Sendgrid provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {boolean} enabled
+     * @param {string} apiKey
+     * @param {string} fromName
+     * @param {string} fromEmail
+     * @param {string} replyToName
+     * @param {string} replyToEmail
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateSendgridProvider(providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string): Promise<Models.Provider>;
+    /**
+     * Create SMTP provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {string} host
+     * @param {number} port
+     * @param {string} username
+     * @param {string} password
+     * @param {SMTPEncryption} encryption
+     * @param {boolean} autoTLS
+     * @param {string} mailer
+     * @param {string} fromName
+     * @param {string} fromEmail
+     * @param {string} replyToName
+     * @param {string} replyToEmail
+     * @param {boolean} enabled
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createSMTPProvider(providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SMTPEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    /**
+     * Update SMTP provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {string} host
+     * @param {number} port
+     * @param {string} username
+     * @param {string} password
+     * @param {SMTPEncryption} encryption
+     * @param {boolean} autoTLS
+     * @param {string} fromName
+     * @param {string} fromEmail
+     * @param {string} replyToName
+     * @param {string} replyToEmail
+     * @param {boolean} enabled
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateSMTPProvider(providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SMTPEncryption, autoTLS?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    /**
+     * Create Telesign provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {string} from
+     * @param {string} username
+     * @param {string} password
+     * @param {boolean} enabled
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createTelesignProvider(providerId: string, name: string, from?: string, username?: string, password?: string, enabled?: boolean): Promise<Models.Provider>;
+    /**
+     * Update Telesign provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {boolean} enabled
+     * @param {string} username
+     * @param {string} password
+     * @param {string} from
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateTelesignProvider(providerId: string, name?: string, enabled?: boolean, username?: string, password?: string, from?: string): Promise<Models.Provider>;
+    /**
+     * Create Textmagic provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {string} from
+     * @param {string} username
+     * @param {string} apiKey
+     * @param {boolean} enabled
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createTextmagicProvider(providerId: string, name: string, from?: string, username?: string, apiKey?: string, enabled?: boolean): Promise<Models.Provider>;
+    /**
+     * Update Textmagic provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {boolean} enabled
+     * @param {string} username
+     * @param {string} apiKey
+     * @param {string} from
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateTextmagicProvider(providerId: string, name?: string, enabled?: boolean, username?: string, apiKey?: string, from?: string): Promise<Models.Provider>;
+    /**
+     * Create Twilio provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {string} from
+     * @param {string} accountSid
+     * @param {string} authToken
+     * @param {boolean} enabled
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createTwilioProvider(providerId: string, name: string, from?: string, accountSid?: string, authToken?: string, enabled?: boolean): Promise<Models.Provider>;
+    /**
+     * Update Twilio provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {boolean} enabled
+     * @param {string} accountSid
+     * @param {string} authToken
+     * @param {string} from
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateTwilioProvider(providerId: string, name?: string, enabled?: boolean, accountSid?: string, authToken?: string, from?: string): Promise<Models.Provider>;
+    /**
+     * Create Vonage provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {string} from
+     * @param {string} apiKey
+     * @param {string} apiSecret
+     * @param {boolean} enabled
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createVonageProvider(providerId: string, name: string, from?: string, apiKey?: string, apiSecret?: string, enabled?: boolean): Promise<Models.Provider>;
+    /**
+     * Update Vonage provider
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {boolean} enabled
+     * @param {string} apiKey
+     * @param {string} apiSecret
+     * @param {string} from
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateVonageProvider(providerId: string, name?: string, enabled?: boolean, apiKey?: string, apiSecret?: string, from?: string): Promise<Models.Provider>;
+    /**
+     * Get provider
+     *
+     * @param {string} providerId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getProvider(providerId: string): Promise<Models.Provider>;
+    /**
+     * Delete provider
+     *
+     * @param {string} providerId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    deleteProvider(providerId: string): Promise<string>;
+    /**
+     * List provider logs
+     *
+     * @param {string} providerId
+     * @param {string[]} queries
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listProviderLogs(providerId: string, queries?: string[]): Promise<Models.LogList>;
+    /**
+     * List subscriber logs
+     *
+     * @param {string} subscriberId
+     * @param {string[]} queries
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listSubscriberLogs(subscriberId: string, queries?: string[]): Promise<Models.LogList>;
+    /**
+     * List topics.
+     *
+     * @param {string[]} queries
+     * @param {string} search
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listTopics(queries?: string[], search?: string): Promise<Models.TopicList>;
+    /**
+     * Create a topic.
+     *
+     * @param {string} topicId
+     * @param {string} name
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createTopic(topicId: string, name: string): Promise<Models.Topic>;
+    /**
+     * Get a topic.
+     *
+     * @param {string} topicId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getTopic(topicId: string): Promise<Models.Topic>;
+    /**
+     * Update a topic.
+     *
+     * @param {string} topicId
+     * @param {string} name
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateTopic(topicId: string, name?: string): Promise<Models.Topic>;
+    /**
+     * Delete a topic.
+     *
+     * @param {string} topicId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    deleteTopic(topicId: string): Promise<string>;
+    /**
+     * List topic logs
+     *
+     * @param {string} topicId
+     * @param {string[]} queries
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listTopicLogs(topicId: string, queries?: string[]): Promise<Models.LogList>;
+    /**
+     * List subscribers.
+     *
+     * @param {string} topicId
+     * @param {string[]} queries
+     * @param {string} search
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listSubscribers(topicId: string, queries?: string[], search?: string): Promise<Models.SubscriberList>;
+    /**
+     * Create a subscriber.
+     *
+     * @param {string} topicId
+     * @param {string} subscriberId
+     * @param {string} targetId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createSubscriber(topicId: string, subscriberId: string, targetId: string): Promise<Models.Subscriber>;
+    /**
+     * Get a subscriber.
+     *
+     * @param {string} topicId
+     * @param {string} subscriberId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getSubscriber(topicId: string, subscriberId: string): Promise<Models.Subscriber>;
+    /**
+     * Delete a subscriber.
+     *
+     * @param {string} topicId
+     * @param {string} subscriberId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    deleteSubscriber(topicId: string, subscriberId: string): Promise<string>;
+  }
   export class Storage extends Service {
     constructor(client: Client);
     
@@ -3827,13 +5047,13 @@ declare module "node-appwrite" {
      * @param {boolean} enabled
      * @param {number} maximumFileSize
      * @param {string[]} allowedFileExtensions
-     * @param {string} compression
+     * @param {Compression} compression
      * @param {boolean} encryption
      * @param {boolean} antivirus
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: string, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
+    createBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
     /**
      * Get bucket
      *
@@ -3857,13 +5077,13 @@ declare module "node-appwrite" {
      * @param {boolean} enabled
      * @param {number} maximumFileSize
      * @param {string[]} allowedFileExtensions
-     * @param {string} compression
+     * @param {Compression} compression
      * @param {boolean} encryption
      * @param {boolean} antivirus
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: string, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
+    updateBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
     /**
      * Delete bucket
      *
@@ -3967,7 +5187,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getFileDownload(bucketId: string, fileId: string): Promise<Buffer>;
+    getFileDownload(bucketId: string, fileId: string): Promise<ArrayBuffer>;
     /**
      * Get file preview
      *
@@ -3981,7 +5201,7 @@ declare module "node-appwrite" {
      * @param {string} fileId
      * @param {number} width
      * @param {number} height
-     * @param {string} gravity
+     * @param {ImageGravity} gravity
      * @param {number} quality
      * @param {number} borderWidth
      * @param {string} borderColor
@@ -3989,11 +5209,11 @@ declare module "node-appwrite" {
      * @param {number} opacity
      * @param {number} rotation
      * @param {string} background
-     * @param {string} output
+     * @param {ImageFormat} output
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getFilePreview(bucketId: string, fileId: string, width?: number, height?: number, gravity?: string, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: string): Promise<Buffer>;
+    getFilePreview(bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat): Promise<ArrayBuffer>;
     /**
      * Get file for view
      *
@@ -4006,7 +5226,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getFileView(bucketId: string, fileId: string): Promise<Buffer>;
+    getFileView(bucketId: string, fileId: string): Promise<ArrayBuffer>;
   }
   export class Teams extends Service {
     constructor(client: Client);
@@ -4269,14 +5489,14 @@ declare module "node-appwrite" {
      *
      * Get identities for all users.
      *
-     * @param {string} queries
+     * @param {string[]} queries
      * @param {string} search
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    listIdentities(queries?: string, search?: string): Promise<Models.IdentityList>;
+    listIdentities(queries?: string[], search?: string): Promise<Models.IdentityList>;
     /**
-     * Delete Identity
+     * Delete identity
      *
      * Delete an identity by its unique ID.
      *
@@ -4369,12 +5589,12 @@ declare module "node-appwrite" {
      * @param {string} userId
      * @param {string} email
      * @param {string} password
-     * @param {string} passwordVersion
+     * @param {PasswordVersion} passwordVersion
      * @param {string} name
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createSHAUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, passwordVersion?: string, name?: string): Promise<Models.User<Preferences>>;
+    createSHAUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, passwordVersion?: PasswordVersion, name?: string): Promise<Models.User<Preferences>>;
     /**
      * Get user
      *
@@ -4449,6 +5669,25 @@ declare module "node-appwrite" {
      */
     listMemberships(userId: string): Promise<Models.MembershipList>;
     /**
+     * Update MFA
+     *
+     * @param {string} userId
+     * @param {boolean} mfa
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateMfa<Preferences extends Models.Preferences>(userId: string, mfa: boolean): Promise<Models.User<Preferences>>;
+    /**
+     * Delete Authenticator
+     *
+     * @param {string} userId
+     * @param {AuthenticatorProvider} provider
+     * @param {string} otp
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    deleteAuthenticator<Preferences extends Models.Preferences>(userId: string, provider: AuthenticatorProvider, otp: string): Promise<Models.User<Preferences>>;
+    /**
      * Update name
      *
      * Update the user name by its unique ID.
@@ -4505,6 +5744,14 @@ declare module "node-appwrite" {
      */
     updatePrefs<Preferences extends Models.Preferences>(userId: string, prefs: object): Promise<Preferences>;
     /**
+     * List Providers
+     *
+     * @param {string} userId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listProviders(userId: string): Promise<Models.MfaProviders>;
+    /**
      * List user sessions
      *
      * Get the user sessions list by its unique ID.
@@ -4514,6 +5761,21 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     listSessions(userId: string): Promise<Models.SessionList>;
+    /**
+     * Create session
+     *
+     * Creates a session for a user. Returns an immediately usable session object.
+     * 
+     * If you want to generate a token for a custom authentication flow, use the
+     * [POST
+     * /users/{userId}/tokens](https://appwrite.io/docs/server/users#createToken)
+     * endpoint.
+     *
+     * @param {string} userId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createSession(userId: string): Promise<Models.Session>;
     /**
      * Delete user sessions
      *
@@ -4547,6 +5809,74 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     updateStatus<Preferences extends Models.Preferences>(userId: string, status: boolean): Promise<Models.User<Preferences>>;
+    /**
+     * List User Targets
+     *
+     * @param {string} userId
+     * @param {string[]} queries
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listTargets(userId: string, queries?: string[]): Promise<Models.TargetList>;
+    /**
+     * Create User Target
+     *
+     * @param {string} userId
+     * @param {string} targetId
+     * @param {MessagingProviderType} providerType
+     * @param {string} identifier
+     * @param {string} providerId
+     * @param {string} name
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createTarget(userId: string, targetId: string, providerType: MessagingProviderType, identifier: string, providerId?: string, name?: string): Promise<Models.Target>;
+    /**
+     * Get User Target
+     *
+     * @param {string} userId
+     * @param {string} targetId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getTarget(userId: string, targetId: string): Promise<Models.Target>;
+    /**
+     * Update User target
+     *
+     * @param {string} userId
+     * @param {string} targetId
+     * @param {string} identifier
+     * @param {string} providerId
+     * @param {string} name
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateTarget(userId: string, targetId: string, identifier?: string, providerId?: string, name?: string): Promise<Models.Target>;
+    /**
+     * Delete user target
+     *
+     * @param {string} userId
+     * @param {string} targetId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    deleteTarget(userId: string, targetId: string): Promise<string>;
+    /**
+     * Create token
+     *
+     * Returns a token with a secret key for creating a session. If the provided
+     * user ID has not be registered, a new user will be created. Use the returned
+     * user ID and secret and submit a request to the [PUT
+     * /account/sessions/custom](https://appwrite.io/docs/references/cloud/client-web/account#updateCustomSession)
+     * endpoint to complete the login process.
+     *
+     * @param {string} userId
+     * @param {number} length
+     * @param {number} expire
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createToken(userId: string, length?: number, expire?: number): Promise<Models.Token>;
     /**
      * Update email verification
      *
