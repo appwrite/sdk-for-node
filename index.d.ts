@@ -1288,7 +1288,7 @@ declare module "node-appwrite" {
           /**
           * Returns a list of active session factors.
           */
-          factors: number;
+          factors: string[];
           /**
           * Secret used to authenticate the user. Only included if the request was made with an API key
           */
@@ -2250,10 +2250,6 @@ declare module "node-appwrite" {
           * Status of delivery.
           */
           status: string;
-          /**
-          * Message description.
-          */
-          description?: string;
       }
       /**
       * Topic
@@ -2279,10 +2275,6 @@ declare module "node-appwrite" {
           * Total count of subscribers subscribed to topic.
           */
           total: number;
-          /**
-          * Description of the topic.
-          */
-          description?: string;
       }
       /**
       * Subscriber
