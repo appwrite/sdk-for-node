@@ -11,7 +11,7 @@ client
     .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-const promise = databases.createIndex('[DATABASE_ID]', '[COLLECTION_ID]', '', sdk.IndexType.Key, []);
+const promise = databases.createIndex('[DATABASE_ID]', '[COLLECTION_ID]', '', 'key', []);
 
 promise.then(function (response) {
     console.log(response);
