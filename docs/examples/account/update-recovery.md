@@ -8,10 +8,10 @@ const account = new sdk.Account(client);
 client
     .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
     .setProject('5df5acd0d48c2') // Your project ID
-    .setJWT('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ...') // Your secret JSON Web Token
+    .setSession('') // The user session to authenticate with
 ;
 
-const promise = account.updateRecovery('[USER_ID]', '[SECRET]', 'password', 'password');
+const promise = account.updateRecovery('[USER_ID]', '[SECRET]', '');
 
 promise.then(function (response) {
     console.log(response);
