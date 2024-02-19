@@ -2691,11 +2691,11 @@ declare module "node-appwrite" {
     /**
      * Create 2FA Challenge
      *
-     * @param {Factor} factor
+     * @param {AuthenticationFactor} factor
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create2FAChallenge(factor: Factor): Promise<Models.MfaChallenge>;
+    create2FAChallenge(factor: AuthenticationFactor): Promise<Models.MfaChallenge>;
     /**
      * Create MFA Challenge (confirmation)
      *
@@ -2715,29 +2715,29 @@ declare module "node-appwrite" {
     /**
      * Add Authenticator
      *
-     * @param {Type} type
+     * @param {AuthenticatorType} type
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    addAuthenticator(type: Type): Promise<Models.MfaType>;
+    addAuthenticator(type: AuthenticatorType): Promise<Models.MfaType>;
     /**
      * Verify Authenticator
      *
-     * @param {Type} type
+     * @param {AuthenticatorType} type
      * @param {string} otp
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    verifyAuthenticator<Preferences extends Models.Preferences>(type: Type, otp: string): Promise<Models.User<Preferences>>;
+    verifyAuthenticator<Preferences extends Models.Preferences>(type: AuthenticatorType, otp: string): Promise<Models.User<Preferences>>;
     /**
      * Delete Authenticator
      *
-     * @param {Type} type
+     * @param {AuthenticatorType} type
      * @param {string} otp
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteAuthenticator<Preferences extends Models.Preferences>(type: Type, otp: string): Promise<Models.User<Preferences>>;
+    deleteAuthenticator<Preferences extends Models.Preferences>(type: AuthenticatorType, otp: string): Promise<Models.User<Preferences>>;
     /**
      * Update name
      *
@@ -5744,12 +5744,12 @@ declare module "node-appwrite" {
      * Delete Authenticator
      *
      * @param {string} userId
-     * @param {Type} type
+     * @param {AuthenticatorType} type
      * @param {string} otp
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteAuthenticator<Preferences extends Models.Preferences>(userId: string, type: Type, otp: string): Promise<Models.User<Preferences>>;
+    deleteAuthenticator<Preferences extends Models.Preferences>(userId: string, type: AuthenticatorType, otp: string): Promise<Models.User<Preferences>>;
     /**
      * Update name
      *

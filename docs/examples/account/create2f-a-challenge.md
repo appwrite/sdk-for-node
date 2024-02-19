@@ -10,7 +10,7 @@ client
     .setProject('5df5acd0d48c2') // Your project ID
 ;
 
-const promise = account.create2FAChallenge(sdk..Totp);
+const promise = account.create2FAChallenge(sdk.AuthenticationFactor.Totp);
 
 promise.then(function (response) {
     console.log(response);
