@@ -4503,6 +4503,8 @@ declare module "node-appwrite" {
     /**
      * List messages
      *
+     * Get a list of all messages from the current Appwrite project.
+     *
      * @param {string[]} queries
      * @param {string} search
      * @throws {AppwriteException}
@@ -4510,7 +4512,9 @@ declare module "node-appwrite" {
      */
     listMessages(queries?: string[], search?: string): Promise<Models.MessageList>;
     /**
-     * Create an email.
+     * Create an email
+     *
+     * Create a new email message.
      *
      * @param {string} messageId
      * @param {string} subject
@@ -4520,15 +4524,19 @@ declare module "node-appwrite" {
      * @param {string[]} targets
      * @param {string[]} cc
      * @param {string[]} bcc
+     * @param {string[]} attachments
      * @param {MessageStatus} status
      * @param {boolean} html
      * @param {string} scheduledAt
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createEmail(messageId: string, subject: string, content: string, topics?: string[], users?: string[], targets?: string[], cc?: string[], bcc?: string[], status?: MessageStatus, html?: boolean, scheduledAt?: string): Promise<Models.Message>;
+    createEmail(messageId: string, subject: string, content: string, topics?: string[], users?: string[], targets?: string[], cc?: string[], bcc?: string[], attachments?: string[], status?: MessageStatus, html?: boolean, scheduledAt?: string): Promise<Models.Message>;
     /**
-     * Update an email.
+     * Update an email
+     *
+     * Update an email message by its unique ID.
+     * 
      *
      * @param {string} messageId
      * @param {string[]} topics
@@ -4546,7 +4554,9 @@ declare module "node-appwrite" {
      */
     updateEmail(messageId: string, topics?: string[], users?: string[], targets?: string[], subject?: string, content?: string, status?: MessageStatus, html?: boolean, cc?: string[], bcc?: string[], scheduledAt?: string): Promise<Models.Message>;
     /**
-     * Create a push notification.
+     * Create a push notification
+     *
+     * Create a new push notification.
      *
      * @param {string} messageId
      * @param {string} title
@@ -4556,6 +4566,7 @@ declare module "node-appwrite" {
      * @param {string[]} targets
      * @param {object} data
      * @param {string} action
+     * @param {string} image
      * @param {string} icon
      * @param {string} sound
      * @param {string} color
@@ -4566,9 +4577,12 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createPush(messageId: string, title: string, body: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: string, status?: MessageStatus, scheduledAt?: string): Promise<Models.Message>;
+    createPush(messageId: string, title: string, body: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: string, status?: MessageStatus, scheduledAt?: string): Promise<Models.Message>;
     /**
-     * Update a push notification.
+     * Update a push notification
+     *
+     * Update a push notification by its unique ID.
+     * 
      *
      * @param {string} messageId
      * @param {string[]} topics
@@ -4578,6 +4592,7 @@ declare module "node-appwrite" {
      * @param {string} body
      * @param {object} data
      * @param {string} action
+     * @param {string} image
      * @param {string} icon
      * @param {string} sound
      * @param {string} color
@@ -4588,9 +4603,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updatePush(messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, status?: MessageStatus, scheduledAt?: string): Promise<Models.Message>;
+    updatePush(messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, status?: MessageStatus, scheduledAt?: string): Promise<Models.Message>;
     /**
-     * Create an SMS.
+     * Create an SMS
+     *
+     * Create a new SMS message.
      *
      * @param {string} messageId
      * @param {string} content
@@ -4602,9 +4619,12 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createSMS(messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], status?: MessageStatus, scheduledAt?: string): Promise<Models.Message>;
+    createSms(messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], status?: MessageStatus, scheduledAt?: string): Promise<Models.Message>;
     /**
-     * Update an SMS.
+     * Update an SMS
+     *
+     * Update an email message by its unique ID.
+     * 
      *
      * @param {string} messageId
      * @param {string[]} topics
@@ -4616,9 +4636,12 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateSMS(messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, status?: MessageStatus, scheduledAt?: string): Promise<Models.Message>;
+    updateSms(messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, status?: MessageStatus, scheduledAt?: string): Promise<Models.Message>;
     /**
      * Get a message
+     *
+     * Get a message by its unique ID.
+     * 
      *
      * @param {string} messageId
      * @throws {AppwriteException}
@@ -4636,6 +4659,8 @@ declare module "node-appwrite" {
     /**
      * List message logs
      *
+     * Get the message activity logs listed by its unique ID.
+     *
      * @param {string} messageId
      * @param {string[]} queries
      * @throws {AppwriteException}
@@ -4645,8 +4670,7 @@ declare module "node-appwrite" {
     /**
      * List message targets
      *
-     * List the targets associated with a message as set via the targets
-     * attribute.
+     * Get a list of the targets associated with a message.
      *
      * @param {string} messageId
      * @param {string[]} queries
@@ -4657,6 +4681,8 @@ declare module "node-appwrite" {
     /**
      * List providers
      *
+     * Get a list of all providers from the current Appwrite project.
+     *
      * @param {string[]} queries
      * @param {string} search
      * @throws {AppwriteException}
@@ -4665,6 +4691,8 @@ declare module "node-appwrite" {
     listProviders(queries?: string[], search?: string): Promise<Models.ProviderList>;
     /**
      * Create APNS provider
+     *
+     * Create a new Apple Push Notification service provider.
      *
      * @param {string} providerId
      * @param {string} name
@@ -4676,9 +4704,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createAPNSProvider(providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, enabled?: boolean): Promise<Models.Provider>;
+    createApnsProvider(providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, enabled?: boolean): Promise<Models.Provider>;
     /**
      * Update APNS provider
+     *
+     * Update a Apple Push Notification service provider by its unique ID.
      *
      * @param {string} providerId
      * @param {string} name
@@ -4694,6 +4724,8 @@ declare module "node-appwrite" {
     /**
      * Create FCM provider
      *
+     * Create a new Firebase Cloud Messaging provider.
+     *
      * @param {string} providerId
      * @param {string} name
      * @param {object} serviceAccountJSON
@@ -4701,9 +4733,11 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createFCMProvider(providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean): Promise<Models.Provider>;
+    createFcmProvider(providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean): Promise<Models.Provider>;
     /**
      * Update FCM provider
+     *
+     * Update a Firebase Cloud Messaging provider by its unique ID.
      *
      * @param {string} providerId
      * @param {string} name
@@ -4715,6 +4749,8 @@ declare module "node-appwrite" {
     updateFCMProvider(providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object): Promise<Models.Provider>;
     /**
      * Create Mailgun provider
+     *
+     * Create a new Mailgun provider.
      *
      * @param {string} providerId
      * @param {string} name
@@ -4733,6 +4769,8 @@ declare module "node-appwrite" {
     /**
      * Update Mailgun provider
      *
+     * Update a Mailgun provider by its unique ID.
+     *
      * @param {string} providerId
      * @param {string} name
      * @param {string} apiKey
@@ -4750,6 +4788,8 @@ declare module "node-appwrite" {
     /**
      * Create Msg91 provider
      *
+     * Create a new MSG91 provider.
+     *
      * @param {string} providerId
      * @param {string} name
      * @param {string} from
@@ -4762,6 +4802,8 @@ declare module "node-appwrite" {
     createMsg91Provider(providerId: string, name: string, from?: string, senderId?: string, authKey?: string, enabled?: boolean): Promise<Models.Provider>;
     /**
      * Update Msg91 provider
+     *
+     * Update a MSG91 provider by its unique ID.
      *
      * @param {string} providerId
      * @param {string} name
@@ -4791,6 +4833,8 @@ declare module "node-appwrite" {
     /**
      * Update Sendgrid provider
      *
+     * Update a Sendgrid provider by its unique ID.
+     *
      * @param {string} providerId
      * @param {string} name
      * @param {boolean} enabled
@@ -4806,26 +4850,7 @@ declare module "node-appwrite" {
     /**
      * Create SMTP provider
      *
-     * @param {string} providerId
-     * @param {string} name
-     * @param {string} host
-     * @param {number} port
-     * @param {string} username
-     * @param {string} password
-     * @param {SMTPEncryption} encryption
-     * @param {boolean} autoTLS
-     * @param {string} mailer
-     * @param {string} fromName
-     * @param {string} fromEmail
-     * @param {string} replyToName
-     * @param {string} replyToEmail
-     * @param {boolean} enabled
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    createSMTPProvider(providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SMTPEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
-    /**
-     * Update SMTP provider
+     * Create a new SMTP provider.
      *
      * @param {string} providerId
      * @param {string} name
@@ -4833,7 +4858,7 @@ declare module "node-appwrite" {
      * @param {number} port
      * @param {string} username
      * @param {string} password
-     * @param {SMTPEncryption} encryption
+     * @param {Encryption} encryption
      * @param {boolean} autoTLS
      * @param {string} mailer
      * @param {string} fromName
@@ -4844,9 +4869,34 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateSMTPProvider(providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SMTPEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    createSmtpProvider(providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: Encryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    /**
+     * Update SMTP provider
+     *
+     * Update a SMTP provider by its unique ID.
+     *
+     * @param {string} providerId
+     * @param {string} name
+     * @param {string} host
+     * @param {number} port
+     * @param {string} username
+     * @param {string} password
+     * @param {Encryption} encryption
+     * @param {boolean} autoTLS
+     * @param {string} mailer
+     * @param {string} fromName
+     * @param {string} fromEmail
+     * @param {string} replyToName
+     * @param {string} replyToEmail
+     * @param {boolean} enabled
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateSmtpProvider(providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: Encryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
     /**
      * Create Telesign provider
+     *
+     * Create a new Telesign provider.
      *
      * @param {string} providerId
      * @param {string} name
@@ -4861,6 +4911,8 @@ declare module "node-appwrite" {
     /**
      * Update Telesign provider
      *
+     * Update a Telesign provider by its unique ID.
+     *
      * @param {string} providerId
      * @param {string} name
      * @param {boolean} enabled
@@ -4873,6 +4925,8 @@ declare module "node-appwrite" {
     updateTelesignProvider(providerId: string, name?: string, enabled?: boolean, customerId?: string, apiKey?: string, from?: string): Promise<Models.Provider>;
     /**
      * Create Textmagic provider
+     *
+     * Create a new Textmagic provider.
      *
      * @param {string} providerId
      * @param {string} name
@@ -4887,6 +4941,8 @@ declare module "node-appwrite" {
     /**
      * Update Textmagic provider
      *
+     * Update a Textmagic provider by its unique ID.
+     *
      * @param {string} providerId
      * @param {string} name
      * @param {boolean} enabled
@@ -4899,6 +4955,8 @@ declare module "node-appwrite" {
     updateTextmagicProvider(providerId: string, name?: string, enabled?: boolean, username?: string, apiKey?: string, from?: string): Promise<Models.Provider>;
     /**
      * Create Twilio provider
+     *
+     * Create a new Twilio provider.
      *
      * @param {string} providerId
      * @param {string} name
@@ -4913,6 +4971,8 @@ declare module "node-appwrite" {
     /**
      * Update Twilio provider
      *
+     * Update a Twilio provider by its unique ID.
+     *
      * @param {string} providerId
      * @param {string} name
      * @param {boolean} enabled
@@ -4925,6 +4985,8 @@ declare module "node-appwrite" {
     updateTwilioProvider(providerId: string, name?: string, enabled?: boolean, accountSid?: string, authToken?: string, from?: string): Promise<Models.Provider>;
     /**
      * Create Vonage provider
+     *
+     * Create a new Vonage provider.
      *
      * @param {string} providerId
      * @param {string} name
@@ -4939,6 +5001,8 @@ declare module "node-appwrite" {
     /**
      * Update Vonage provider
      *
+     * Update a Vonage provider by its unique ID.
+     *
      * @param {string} providerId
      * @param {string} name
      * @param {boolean} enabled
@@ -4952,6 +5016,9 @@ declare module "node-appwrite" {
     /**
      * Get provider
      *
+     * Get a provider by its unique ID.
+     * 
+     *
      * @param {string} providerId
      * @throws {AppwriteException}
      * @returns {Promise}
@@ -4960,6 +5027,8 @@ declare module "node-appwrite" {
     /**
      * Delete provider
      *
+     * Delete a provider by its unique ID.
+     *
      * @param {string} providerId
      * @throws {AppwriteException}
      * @returns {Promise}
@@ -4967,6 +5036,8 @@ declare module "node-appwrite" {
     deleteProvider(providerId: string): Promise<string>;
     /**
      * List provider logs
+     *
+     * Get the provider activity logs listed by its unique ID.
      *
      * @param {string} providerId
      * @param {string[]} queries
@@ -4977,6 +5048,8 @@ declare module "node-appwrite" {
     /**
      * List subscriber logs
      *
+     * Get the subscriber activity logs listed by its unique ID.
+     *
      * @param {string} subscriberId
      * @param {string[]} queries
      * @throws {AppwriteException}
@@ -4984,7 +5057,9 @@ declare module "node-appwrite" {
      */
     listSubscriberLogs(subscriberId: string, queries?: string[]): Promise<Models.LogList>;
     /**
-     * List topics.
+     * List topics
+     *
+     * Get a list of all topics from the current Appwrite project.
      *
      * @param {string[]} queries
      * @param {string} search
@@ -4993,7 +5068,9 @@ declare module "node-appwrite" {
      */
     listTopics(queries?: string[], search?: string): Promise<Models.TopicList>;
     /**
-     * Create a topic.
+     * Create a topic
+     *
+     * Create a new topic.
      *
      * @param {string} topicId
      * @param {string} name
@@ -5003,7 +5080,10 @@ declare module "node-appwrite" {
      */
     createTopic(topicId: string, name: string, subscribe?: string[]): Promise<Models.Topic>;
     /**
-     * Get a topic.
+     * Get a topic
+     *
+     * Get a topic by its unique ID.
+     * 
      *
      * @param {string} topicId
      * @throws {AppwriteException}
@@ -5011,7 +5091,10 @@ declare module "node-appwrite" {
      */
     getTopic(topicId: string): Promise<Models.Topic>;
     /**
-     * Update a topic.
+     * Update a topic
+     *
+     * Update a topic by its unique ID.
+     * 
      *
      * @param {string} topicId
      * @param {string} name
@@ -5020,7 +5103,9 @@ declare module "node-appwrite" {
      */
     updateTopic(topicId: string, name?: string): Promise<Models.Topic>;
     /**
-     * Delete a topic.
+     * Delete a topic
+     *
+     * Delete a topic by its unique ID.
      *
      * @param {string} topicId
      * @throws {AppwriteException}
@@ -5030,6 +5115,8 @@ declare module "node-appwrite" {
     /**
      * List topic logs
      *
+     * Get the topic activity logs listed by its unique ID.
+     *
      * @param {string} topicId
      * @param {string[]} queries
      * @throws {AppwriteException}
@@ -5037,7 +5124,9 @@ declare module "node-appwrite" {
      */
     listTopicLogs(topicId: string, queries?: string[]): Promise<Models.LogList>;
     /**
-     * List subscribers.
+     * List subscribers
+     *
+     * Get a list of all subscribers from the current Appwrite project.
      *
      * @param {string} topicId
      * @param {string[]} queries
@@ -5047,7 +5136,9 @@ declare module "node-appwrite" {
      */
     listSubscribers(topicId: string, queries?: string[], search?: string): Promise<Models.SubscriberList>;
     /**
-     * Create a subscriber.
+     * Create a subscriber
+     *
+     * Create a new subscriber.
      *
      * @param {string} topicId
      * @param {string} subscriberId
@@ -5057,7 +5148,10 @@ declare module "node-appwrite" {
      */
     createSubscriber(topicId: string, subscriberId: string, targetId: string): Promise<Models.Subscriber>;
     /**
-     * Get a subscriber.
+     * Get a subscriber
+     *
+     * Get a subscriber by its unique ID.
+     * 
      *
      * @param {string} topicId
      * @param {string} subscriberId
@@ -5066,7 +5160,9 @@ declare module "node-appwrite" {
      */
     getSubscriber(topicId: string, subscriberId: string): Promise<Models.Subscriber>;
     /**
-     * Delete a subscriber.
+     * Delete a subscriber
+     *
+     * Delete a subscriber by its unique ID.
      *
      * @param {string} topicId
      * @param {string} subscriberId
@@ -5955,4 +6051,411 @@ declare module "node-appwrite" {
      */
     updatePhoneVerification<Preferences extends Models.Preferences>(userId: string, phoneVerification: boolean): Promise<Models.User<Preferences>>;
   }
+  export const AuthenticationFactor: Readonly<{
+    Totp: 'totp',
+    Phone: 'phone',
+    Email: 'email',
+  }>
+  export const AuthenticatorType: Readonly<{
+    Totp: 'totp',
+  }>
+  export const OAuthProvider: Readonly<{
+    Amazon: 'amazon',
+    Apple: 'apple',
+    Auth0: 'auth0',
+    Authentik: 'authentik',
+    Autodesk: 'autodesk',
+    Bitbucket: 'bitbucket',
+    Bitly: 'bitly',
+    Box: 'box',
+    Dailymotion: 'dailymotion',
+    Discord: 'discord',
+    Disqus: 'disqus',
+    Dropbox: 'dropbox',
+    Etsy: 'etsy',
+    Facebook: 'facebook',
+    Github: 'github',
+    Gitlab: 'gitlab',
+    Google: 'google',
+    Linkedin: 'linkedin',
+    Microsoft: 'microsoft',
+    Notion: 'notion',
+    Oidc: 'oidc',
+    Okta: 'okta',
+    Paypal: 'paypal',
+    PaypalSandbox: 'paypalSandbox',
+    Podio: 'podio',
+    Salesforce: 'salesforce',
+    Slack: 'slack',
+    Spotify: 'spotify',
+    Stripe: 'stripe',
+    Tradeshift: 'tradeshift',
+    TradeshiftBox: 'tradeshiftBox',
+    Twitch: 'twitch',
+    Wordpress: 'wordpress',
+    Yahoo: 'yahoo',
+    Yammer: 'yammer',
+    Yandex: 'yandex',
+    Zoho: 'zoho',
+    Zoom: 'zoom',
+    Mock: 'mock',
+  }>
+  export const Browser: Readonly<{
+    AvantBrowser: 'aa',
+    AndroidWebViewBeta: 'an',
+    GoogleChrome: 'ch',
+    GoogleChromeIOS: 'ci',
+    GoogleChromeMobile: 'cm',
+    Chromium: 'cr',
+    MozillaFirefox: 'ff',
+    Safari: 'sf',
+    MobileSafari: 'mf',
+    MicrosoftEdge: 'ps',
+    MicrosoftEdgeIOS: 'oi',
+    OperaMini: 'om',
+    Opera: 'op',
+    OperaNext: 'on',
+  }>
+  export const CreditCard: Readonly<{
+    AmericanExpress: 'amex',
+    Argencard: 'argencard',
+    Cabal: 'cabal',
+    Consosud: 'censosud',
+    DinersClub: 'diners',
+    Discover: 'discover',
+    Elo: 'elo',
+    Hipercard: 'hipercard',
+    JCB: 'jcb',
+    Mastercard: 'mastercard',
+    Naranja: 'naranja',
+    TarjetaShopping: 'targeta-shopping',
+    UnionChinaPay: 'union-china-pay',
+    Visa: 'visa',
+    MIR: 'mir',
+    Maestro: 'maestro',
+  }>
+  export const Flag: Readonly<{
+    Afghanistan: 'af',
+    Angola: 'ao',
+    Albania: 'al',
+    Andorra: 'ad',
+    UnitedArabEmirates: 'ae',
+    Argentina: 'ar',
+    Armenia: 'am',
+    AntiguaAndBarbuda: 'ag',
+    Australia: 'au',
+    Austria: 'at',
+    Azerbaijan: 'az',
+    Burundi: 'bi',
+    Belgium: 'be',
+    Benin: 'bj',
+    BurkinaFaso: 'bf',
+    Bangladesh: 'bd',
+    Bulgaria: 'bg',
+    Bahrain: 'bh',
+    Bahamas: 'bs',
+    BosniaAndHerzegovina: 'ba',
+    Belarus: 'by',
+    Belize: 'bz',
+    Bolivia: 'bo',
+    Brazil: 'br',
+    Barbados: 'bb',
+    BruneiDarussalam: 'bn',
+    Bhutan: 'bt',
+    Botswana: 'bw',
+    CentralAfricanRepublic: 'cf',
+    Canada: 'ca',
+    Switzerland: 'ch',
+    Chile: 'cl',
+    China: 'cn',
+    CTeDIvoire: 'ci',
+    Cameroon: 'cm',
+    DemocraticRepublicOfTheCongo: 'cd',
+    RepublicOfTheCongo: 'cg',
+    Colombia: 'co',
+    Comoros: 'km',
+    CapeVerde: 'cv',
+    CostaRica: 'cr',
+    Cuba: 'cu',
+    Cyprus: 'cy',
+    CzechRepublic: 'cz',
+    Germany: 'de',
+    Djibouti: 'dj',
+    Dominica: 'dm',
+    Denmark: 'dk',
+    DominicanRepublic: 'do',
+    Algeria: 'dz',
+    Ecuador: 'ec',
+    Egypt: 'eg',
+    Eritrea: 'er',
+    Spain: 'es',
+    Estonia: 'ee',
+    Ethiopia: 'et',
+    Finland: 'fi',
+    Fiji: 'fj',
+    France: 'fr',
+    MicronesiaFederatedStatesOf: 'fm',
+    Gabon: 'ga',
+    UnitedKingdom: 'gb',
+    Georgia: 'ge',
+    Ghana: 'gh',
+    Guinea: 'gn',
+    Gambia: 'gm',
+    GuineaBissau: 'gw',
+    EquatorialGuinea: 'gq',
+    Greece: 'gr',
+    Grenada: 'gd',
+    Guatemala: 'gt',
+    Guyana: 'gy',
+    Honduras: 'hn',
+    Croatia: 'hr',
+    Haiti: 'ht',
+    Hungary: 'hu',
+    Indonesia: 'id',
+    India: 'in',
+    Ireland: 'ie',
+    IranIslamicRepublicOf: 'ir',
+    Iraq: 'iq',
+    Iceland: 'is',
+    Israel: 'il',
+    Italy: 'it',
+    Jamaica: 'jm',
+    Jordan: 'jo',
+    Japan: 'jp',
+    Kazakhstan: 'kz',
+    Kenya: 'ke',
+    Kyrgyzstan: 'kg',
+    Cambodia: 'kh',
+    Kiribati: 'ki',
+    SaintKittsAndNevis: 'kn',
+    SouthKorea: 'kr',
+    Kuwait: 'kw',
+    LaoPeopleSDemocraticRepublic: 'la',
+    Lebanon: 'lb',
+    Liberia: 'lr',
+    Libya: 'ly',
+    SaintLucia: 'lc',
+    Liechtenstein: 'li',
+    SriLanka: 'lk',
+    Lesotho: 'ls',
+    Lithuania: 'lt',
+    Luxembourg: 'lu',
+    Latvia: 'lv',
+    Morocco: 'ma',
+    Monaco: 'mc',
+    Moldova: 'md',
+    Madagascar: 'mg',
+    Maldives: 'mv',
+    Mexico: 'mx',
+    MarshallIslands: 'mh',
+    NorthMacedonia: 'mk',
+    Mali: 'ml',
+    Malta: 'mt',
+    Myanmar: 'mm',
+    Montenegro: 'me',
+    Mongolia: 'mn',
+    Mozambique: 'mz',
+    Mauritania: 'mr',
+    Mauritius: 'mu',
+    Malawi: 'mw',
+    Malaysia: 'my',
+    Namibia: 'na',
+    Niger: 'ne',
+    Nigeria: 'ng',
+    Nicaragua: 'ni',
+    Netherlands: 'nl',
+    Norway: 'no',
+    Nepal: 'np',
+    Nauru: 'nr',
+    NewZealand: 'nz',
+    Oman: 'om',
+    Pakistan: 'pk',
+    Panama: 'pa',
+    Peru: 'pe',
+    Philippines: 'ph',
+    Palau: 'pw',
+    PapuaNewGuinea: 'pg',
+    Poland: 'pl',
+    NorthKorea: 'kp',
+    Portugal: 'pt',
+    Paraguay: 'py',
+    Qatar: 'qa',
+    Romania: 'ro',
+    Russia: 'ru',
+    Rwanda: 'rw',
+    SaudiArabia: 'sa',
+    Sudan: 'sd',
+    Senegal: 'sn',
+    Singapore: 'sg',
+    SolomonIslands: 'sb',
+    SierraLeone: 'sl',
+    ElSalvador: 'sv',
+    SanMarino: 'sm',
+    Somalia: 'so',
+    Serbia: 'rs',
+    SouthSudan: 'ss',
+    SaoTomeAndPrincipe: 'st',
+    Suriname: 'sr',
+    Slovakia: 'sk',
+    Slovenia: 'si',
+    Sweden: 'se',
+    Eswatini: 'sz',
+    Seychelles: 'sc',
+    Syria: 'sy',
+    Chad: 'td',
+    Togo: 'tg',
+    Thailand: 'th',
+    Tajikistan: 'tj',
+    Turkmenistan: 'tm',
+    TimorLeste: 'tl',
+    Tonga: 'to',
+    TrinidadAndTobago: 'tt',
+    Tunisia: 'tn',
+    Turkey: 'tr',
+    Tuvalu: 'tv',
+    Tanzania: 'tz',
+    Uganda: 'ug',
+    Ukraine: 'ua',
+    Uruguay: 'uy',
+    UnitedStates: 'us',
+    Uzbekistan: 'uz',
+    VaticanCity: 'va',
+    SaintVincentAndTheGrenadines: 'vc',
+    Venezuela: 've',
+    Vietnam: 'vn',
+    Vanuatu: 'vu',
+    Samoa: 'ws',
+    Yemen: 'ye',
+    SouthAfrica: 'za',
+    Zambia: 'zm',
+    Zimbabwe: 'zw',
+  }>
+  export const RelationshipType: Readonly<{
+    OneToOne: 'oneToOne',
+    ManyToOne: 'manyToOne',
+    ManyToMany: 'manyToMany',
+    OneToMany: 'oneToMany',
+  }>
+  export const RelationMutate: Readonly<{
+    Cascade: 'cascade',
+    Restrict: 'restrict',
+    SetNull: 'setNull',
+  }>
+  export const IndexType: Readonly<{
+    Key: 'key',
+    Fulltext: 'fulltext',
+    Unique: 'unique',
+    Spatial: 'spatial',
+  }>
+  export const Runtime: Readonly<{
+    Node145: 'node-14.5',
+    Node160: 'node-16.0',
+    Node180: 'node-18.0',
+    Node190: 'node-19.0',
+    Node200: 'node-20.0',
+    Php80: 'php-8.0',
+    Php81: 'php-8.1',
+    Php82: 'php-8.2',
+    Ruby30: 'ruby-3.0',
+    Ruby31: 'ruby-3.1',
+    Ruby32: 'ruby-3.2',
+    Python38: 'python-3.8',
+    Python39: 'python-3.9',
+    Python310: 'python-3.10',
+    Python311: 'python-3.11',
+    Python312: 'python-3.12',
+    Dart215: 'dart-2.15',
+    Dart216: 'dart-2.16',
+    Dart217: 'dart-2.17',
+    Dart218: 'dart-2.18',
+    Dart30: 'dart-3.0',
+    Dart31: 'dart-3.1',
+    Dotnet31: 'dotnet-3.1',
+    Dotnet60: 'dotnet-6.0',
+    Dotnet70: 'dotnet-7.0',
+    Java80: 'java-8.0',
+    Java110: 'java-11.0',
+    Java170: 'java-17.0',
+    Java180: 'java-18.0',
+    Swift55: 'swift-5.5',
+    Swift58: 'swift-5.8',
+    Kotlin16: 'kotlin-1.6',
+    Kotlin18: 'kotlin-1.8',
+    Cpp17: 'cpp-17',
+    Cpp20: 'cpp-20',
+    Bun10: 'bun-1.0',
+  }>
+  export const ExecutionMethod: Readonly<{
+    GET: 'GET',
+    POST: 'POST',
+    PUT: 'PUT',
+    PATCH: 'PATCH',
+    DELETE: 'DELETE',
+    OPTIONS: 'OPTIONS',
+  }>
+  export const Name: Readonly<{
+    V1Database: 'v1-database',
+    V1Deletes: 'v1-deletes',
+    V1Audits: 'v1-audits',
+    V1Mails: 'v1-mails',
+    V1Functions: 'v1-functions',
+    V1Usage: 'v1-usage',
+    Webhooksv1: 'webhooksv1',
+    V1Certificates: 'v1-certificates',
+    V1Builds: 'v1-builds',
+    V1Messaging: 'v1-messaging',
+    V1Migrations: 'v1-migrations',
+    Hamsterv1: 'hamsterv1',
+  }>
+  export const MessageStatus: Readonly<{
+    Draft: 'draft',
+    Scheduled: 'scheduled',
+    Processing: 'processing',
+  }>
+  export const Encryption: Readonly<{
+    None: 'none',
+    Ssl: 'ssl',
+    Tls: 'tls',
+  }>
+  export const Compression: Readonly<{
+    None: 'none',
+    Gzip: 'gzip',
+    Zstd: 'zstd',
+  }>
+  export const ImageGravity: Readonly<{
+    Center: 'center',
+    TopLeft: 'top-left',
+    Top: 'top',
+    TopRight: 'top-right',
+    Left: 'left',
+    Right: 'right',
+    BottomLeft: 'bottom-left',
+    Bottom: 'bottom',
+    BottomRight: 'bottom-right',
+  }>
+  export const ImageFormat: Readonly<{
+    Jpg: 'jpg',
+    Jpeg: 'jpeg',
+    Gif: 'gif',
+    Png: 'png',
+    Webp: 'webp',
+  }>
+  export const PasswordHash: Readonly<{
+    Sha1: 'sha1',
+    Sha224: 'sha224',
+    Sha256: 'sha256',
+    Sha384: 'sha384',
+    Sha512224: 'sha512/224',
+    Sha512256: 'sha512/256',
+    Sha512: 'sha512',
+    Sha3224: 'sha3-224',
+    Sha3256: 'sha3-256',
+    Sha3384: 'sha3-384',
+    Sha3512: 'sha3-512',
+  }>
+  export const MessagingProviderType: Readonly<{
+    Email: 'email',
+    Sms: 'sms',
+    Push: 'push',
+  }>
 }
