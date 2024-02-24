@@ -7,9 +7,13 @@ const client = new sdk.Client()
 
 const messaging = new sdk.Messaging(client);
 
-const response = await messaging.updateFCMProvider(
-    '[PROVIDER_ID]', // providerId
-    '[NAME]', // name (optional)
+const response = await messaging.updateApnsProvider(
+    '<PROVIDER_ID>', // providerId
+    '<NAME>', // name (optional)
     false, // enabled (optional)
-    {} // serviceAccountJSON (optional)
+    '<AUTH_KEY>', // authKey (optional)
+    '<AUTH_KEY_ID>', // authKeyId (optional)
+    '<TEAM_ID>', // teamId (optional)
+    '<BUNDLE_ID>', // bundleId (optional)
+    false // sandbox (optional)
 );

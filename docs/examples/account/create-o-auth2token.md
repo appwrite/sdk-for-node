@@ -6,7 +6,9 @@ const client = new sdk.Client()
 
 const account = new sdk.Account(client);
 
-const response = await account.createSession(
-    '<USER_ID>', // userId
-    '<SECRET>' // secret
+const response = await account.createOAuth2Token(
+    sdk.OAuthProvider.Amazon, // provider
+    'https://example.com', // success (optional)
+    'https://example.com', // failure (optional)
+    [] // scopes (optional)
 );

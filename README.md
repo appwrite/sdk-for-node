@@ -48,7 +48,7 @@ Once your SDK object is set, create any of the Appwrite service objects and choo
 ```js
 let users = new sdk.Users(client);
 
-let promise = users.create(sdk.ID.unique(), 'email@example.com', undefined, 'password', 'Jane Doe');
+let promise = users.create(sdk.ID.unique(), "email@example.com", "+123456789", "password", "Walter O'Brien");
 
 promise.then(function (response) {
     console.log(response);
@@ -71,7 +71,7 @@ client
 ;
 
 let users = new sdk.Users(client);
-let promise = users.create(sdk.ID.unique(), 'email@example.com', undefined, 'password', 'Jane Doe');
+let promise = users.create(sdk.ID.unique(), "email@example.com", "+123456789", "password", "Walter O'Brien");
 
 promise.then(function (response) {
     console.log(response);
@@ -87,7 +87,7 @@ The Appwrite Node SDK raises `AppwriteException` object with `message`, `code` a
 let users = new sdk.Users(client);
 
 try {
-    let res = await users.create(sdk.ID.unique(), 'email@example.com', 'password');
+    let res = await users.create(sdk.ID.unique(), "email@example.com", "+123456789", "password", "Walter O'Brien");
 } catch(e) {
     console.log(e.message);
 }

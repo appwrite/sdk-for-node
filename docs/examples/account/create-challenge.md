@@ -6,6 +6,6 @@ const client = new sdk.Client()
 
 const account = new sdk.Account(client);
 
-const response = await account.create2FAChallenge(
+const response = await account.createChallenge(
     sdk.AuthenticationFactor.Totp // factor
 );

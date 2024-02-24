@@ -29,7 +29,7 @@ const Runtime = require("./lib/enums/runtime.js");
 const ExecutionMethod = require("./lib/enums/execution-method.js");
 const Name = require("./lib/enums/name.js");
 const MessageStatus = require("./lib/enums/message-status.js");
-const Encryption = require("./lib/enums/encryption.js");
+const SmtpEncryption = require("./lib/enums/smtp-encryption.js");
 const Compression = require("./lib/enums/compression.js");
 const ImageGravity = require("./lib/enums/image-gravity.js");
 const ImageFormat = require("./lib/enums/image-format.js");
@@ -68,7 +68,7 @@ module.exports = {
     ExecutionMethod,
     Name,
     MessageStatus,
-    Encryption,
+    SmtpEncryption,
     Compression,
     ImageGravity,
     ImageFormat,

@@ -2469,17 +2469,6 @@ declare module "node-appwrite" {
     setSession(session: string): Client;
 
     /**
-     * Set ForwardedFor
-     *
-     * The IP address of the client that made the request
-     *
-     * @param {string} value
-     *
-     * @returns {this}
-     */
-    setForwardedFor(forwardedfor: string): Client;
-
-    /**
      * Set ForwardedUserAgent
      *
      * The user agent string of the client that made the request
@@ -2695,7 +2684,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    create2FAChallenge(factor: AuthenticationFactor): Promise<Models.MfaChallenge>;
+    createChallenge(factor: AuthenticationFactor): Promise<Models.MfaChallenge>;
     /**
      * Create MFA Challenge (confirmation)
      *
@@ -2923,12 +2912,11 @@ declare module "node-appwrite" {
      * @param {OAuthProvider} provider
      * @param {string} success
      * @param {string} failure
-     * @param {boolean} token
      * @param {string[]} scopes
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createOAuth2Session(provider: OAuthProvider, success?: string, failure?: string, token?: boolean, scopes?: string[]): Promise<any>;
+    createOAuth2Session(provider: OAuthProvider, success?: string, failure?: string, scopes?: string[]): Promise<string>;
     /**
      * Create session
      *
@@ -3038,6 +3026,32 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     createMagicURLToken(userId: string, email: string, url?: string, phrase?: boolean): Promise<Models.Token>;
+    /**
+     * Create OAuth2 token
+     *
+     * Allow the user to login to their account using the OAuth2 provider of their
+     * choice. Each OAuth2 provider should be enabled from the Appwrite console
+     * first. Use the success and failure arguments to provide a redirect URL's
+     * back to your app when login is completed. 
+     * 
+     * If authentication succeeds, `userId` and `secret` of a token will be
+     * appended to the success URL as query parameters. These can be used to
+     * create a new session using the [Create
+     * session](https://appwrite.io/docs/references/cloud/client-web/account#createSession)
+     * endpoint.
+     * 
+     * A user is limited to 10 active sessions at a time by default. [Learn more
+     * about session
+     * limits](https://appwrite.io/docs/authentication-security#limits).
+     *
+     * @param {OAuthProvider} provider
+     * @param {string} success
+     * @param {string} failure
+     * @param {string[]} scopes
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createOAuth2Token(provider: OAuthProvider, success?: string, failure?: string, scopes?: string[]): Promise<string>;
     /**
      * Create phone token
      *
@@ -4700,11 +4714,12 @@ declare module "node-appwrite" {
      * @param {string} authKeyId
      * @param {string} teamId
      * @param {string} bundleId
+     * @param {boolean} sandbox
      * @param {boolean} enabled
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createApnsProvider(providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, enabled?: boolean): Promise<Models.Provider>;
+    createApnsProvider(providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean): Promise<Models.Provider>;
     /**
      * Update APNS provider
      *
@@ -4717,10 +4732,11 @@ declare module "node-appwrite" {
      * @param {string} authKeyId
      * @param {string} teamId
      * @param {string} bundleId
+     * @param {boolean} sandbox
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateAPNSProvider(providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string): Promise<Models.Provider>;
+    updateApnsProvider(providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean): Promise<Models.Provider>;
     /**
      * Create FCM provider
      *
@@ -4746,7 +4762,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateFCMProvider(providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object): Promise<Models.Provider>;
+    updateFcmProvider(providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object): Promise<Models.Provider>;
     /**
      * Create Mailgun provider
      *
@@ -4858,7 +4874,7 @@ declare module "node-appwrite" {
      * @param {number} port
      * @param {string} username
      * @param {string} password
-     * @param {Encryption} encryption
+     * @param {SmtpEncryption} encryption
      * @param {boolean} autoTLS
      * @param {string} mailer
      * @param {string} fromName
@@ -4869,7 +4885,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createSmtpProvider(providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: Encryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    createSmtpProvider(providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
     /**
      * Update SMTP provider
      *
@@ -4881,7 +4897,7 @@ declare module "node-appwrite" {
      * @param {number} port
      * @param {string} username
      * @param {string} password
-     * @param {Encryption} encryption
+     * @param {SmtpEncryption} encryption
      * @param {boolean} autoTLS
      * @param {string} mailer
      * @param {string} fromName
@@ -4892,7 +4908,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateSmtpProvider(providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: Encryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    updateSmtpProvider(providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
     /**
      * Create Telesign provider
      *
@@ -5098,10 +5114,11 @@ declare module "node-appwrite" {
      *
      * @param {string} topicId
      * @param {string} name
+     * @param {string[]} subscribe
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateTopic(topicId: string, name?: string): Promise<Models.Topic>;
+    updateTopic(topicId: string, name?: string, subscribe?: string[]): Promise<Models.Topic>;
     /**
      * Delete a topic
      *
@@ -6412,7 +6429,7 @@ declare module "node-appwrite" {
     Scheduled: 'scheduled',
     Processing: 'processing',
   }>
-  export const Encryption: Readonly<{
+  export const SmtpEncryption: Readonly<{
     None: 'none',
     Ssl: 'ssl',
     Tls: 'tls',
