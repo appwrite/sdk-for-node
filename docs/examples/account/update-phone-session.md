@@ -6,9 +6,7 @@ const client = new sdk.Client()
 
 const account = new sdk.Account(client);
 
-const response = await account.createOAuth2Session(
-    sdk.OAuthProvider.Amazon, // provider
-    'https://example.com', // success (optional)
-    'https://example.com', // failure (optional)
-    [] // scopes (optional)
+const result = await account.updatePhoneSession(
+    '<USER_ID>', // userId
+    '<SECRET>' // secret
 );

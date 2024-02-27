@@ -2672,6 +2672,8 @@ declare module "node-appwrite" {
     /**
      * Update MFA
      *
+     * Enable or disable MFA on an account.
+     *
      * @param {boolean} mfa
      * @throws {AppwriteException}
      * @returns {Promise}
@@ -2688,6 +2690,8 @@ declare module "node-appwrite" {
     /**
      * Create MFA Challenge (confirmation)
      *
+     * Complete the MFA challenge by providing the one-time password.
+     *
      * @param {string} challengeId
      * @param {string} otp
      * @throws {AppwriteException}
@@ -2697,12 +2701,19 @@ declare module "node-appwrite" {
     /**
      * List Factors
      *
+     * List the factors available on the account to be used as a MFA challange.
+     *
      * @throws {AppwriteException}
      * @returns {Promise}
      */
     listFactors(): Promise<Models.MfaFactors>;
     /**
      * Add Authenticator
+     *
+     * Add an authenticator app to be used as an MFA factor. Verify the
+     * authenticator using the [verify
+     * authenticator](/docs/references/cloud/client-web/account#verifyAuthenticator)
+     * method.
      *
      * @param {AuthenticatorType} type
      * @throws {AppwriteException}
@@ -2712,6 +2723,10 @@ declare module "node-appwrite" {
     /**
      * Verify Authenticator
      *
+     * Verify an authenticator app after adding it using the [add
+     * authenticator](/docs/references/cloud/client-web/account#addAuthenticator)
+     * method.
+     *
      * @param {AuthenticatorType} type
      * @param {string} otp
      * @throws {AppwriteException}
@@ -2720,6 +2735,8 @@ declare module "node-appwrite" {
     verifyAuthenticator<Preferences extends Models.Preferences>(type: AuthenticatorType, otp: string): Promise<Models.User<Preferences>>;
     /**
      * Delete Authenticator
+     *
+     * Delete an authenticator for a user by ID.
      *
      * @param {AuthenticatorType} type
      * @param {string} otp
@@ -2877,7 +2894,7 @@ declare module "node-appwrite" {
      */
     createEmailPasswordSession(email: string, password: string): Promise<Models.Session>;
     /**
-     * Create session (deprecated)
+     * Update magic URL session
      *
      * Use this endpoint to create a session from token. Provide the **userId**
      * and **secret** parameters from the successful response of authentication
@@ -2890,33 +2907,18 @@ declare module "node-appwrite" {
      */
     updateMagicURLSession(userId: string, secret: string): Promise<Models.Session>;
     /**
-     * Create OAuth2 session
+     * Update phone session
      *
-     * Allow the user to login to their account using the OAuth2 provider of their
-     * choice. Each OAuth2 provider should be enabled from the Appwrite console
-     * first. Use the success and failure arguments to provide a redirect URL's
-     * back to your app when login is completed.
-     * 
-     * If there is already an active session, the new session will be attached to
-     * the logged-in account. If there are no active sessions, the server will
-     * attempt to look for a user with the same email address as the email
-     * received from the OAuth2 provider and attach the new session to the
-     * existing user. If no matching user is found - the server will create a new
-     * user.
-     * 
-     * A user is limited to 10 active sessions at a time by default. [Learn more
-     * about session
-     * limits](https://appwrite.io/docs/authentication-security#limits).
-     * 
+     * Use this endpoint to create a session from token. Provide the **userId**
+     * and **secret** parameters from the successful response of authentication
+     * flows initiated by token creation. For example, magic URL and phone login.
      *
-     * @param {OAuthProvider} provider
-     * @param {string} success
-     * @param {string} failure
-     * @param {string[]} scopes
+     * @param {string} userId
+     * @param {string} secret
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createOAuth2Session(provider: OAuthProvider, success?: string, failure?: string, scopes?: string[]): Promise<string>;
+    updatePhoneSession(userId: string, secret: string): Promise<Models.Session>;
     /**
      * Create session
      *
@@ -2942,7 +2944,7 @@ declare module "node-appwrite" {
      */
     getSession(sessionId: string): Promise<Models.Session>;
     /**
-     * Update (or renew) a session
+     * Update (or renew) session
      *
      * Extend session's expiry to increase it's lifespan. Extending a session is
      * useful when session length is short such as 5 minutes.
@@ -3421,6 +3423,8 @@ declare module "node-appwrite" {
     /**
      * List attributes
      *
+     * List attributes in the collection.
+     *
      * @param {string} databaseId
      * @param {string} collectionId
      * @param {string[]} queries
@@ -3447,6 +3451,9 @@ declare module "node-appwrite" {
     /**
      * Update boolean attribute
      *
+     * Update a boolean attribute. Changing the `default` value will not update
+     * already existing documents.
+     *
      * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
@@ -3458,6 +3465,8 @@ declare module "node-appwrite" {
     updateBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean): Promise<Models.AttributeBoolean>;
     /**
      * Create datetime attribute
+     *
+     * Create a date time attribute according to the ISO 8601 standard.
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -3471,6 +3480,9 @@ declare module "node-appwrite" {
     createDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeDatetime>;
     /**
      * Update dateTime attribute
+     *
+     * Update a date time attribute. Changing the `default` value will not update
+     * already existing documents.
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -3515,6 +3527,10 @@ declare module "node-appwrite" {
     updateEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributeEmail>;
     /**
      * Create enum attribute
+     *
+     * Create an enumeration attribute. The `elements` param acts as a white-list
+     * of accepted values for this attribute. 
+     * 
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -3738,6 +3754,8 @@ declare module "node-appwrite" {
     /**
      * Get attribute
      *
+     * Get attribute by ID.
+     *
      * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
@@ -3747,6 +3765,8 @@ declare module "node-appwrite" {
     getAttribute(databaseId: string, collectionId: string, key: string): Promise<any>;
     /**
      * Delete attribute
+     *
+     * Deletes an attribute.
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -3844,6 +3864,8 @@ declare module "node-appwrite" {
     /**
      * List indexes
      *
+     * List indexes in the collection.
+     *
      * @param {string} databaseId
      * @param {string} collectionId
      * @param {string[]} queries
@@ -3853,6 +3875,10 @@ declare module "node-appwrite" {
     listIndexes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.IndexList>;
     /**
      * Create index
+     *
+     * Creates an index on the attributes listed. Your index should include all
+     * the attributes you will query in a single request.
+     * Attributes can be `key`, `fulltext`, and `unique`.
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -3867,6 +3893,8 @@ declare module "node-appwrite" {
     /**
      * Get index
      *
+     * Get index by ID.
+     *
      * @param {string} databaseId
      * @param {string} collectionId
      * @param {string} key
@@ -3876,6 +3904,8 @@ declare module "node-appwrite" {
     getIndex(databaseId: string, collectionId: string, key: string): Promise<Models.Index>;
     /**
      * Delete index
+     *
+     * Delete an index.
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -4337,6 +4367,9 @@ declare module "node-appwrite" {
     /**
      * Get functions queue
      *
+     * Get the number of function executions that are waiting to be processed in
+     * the Appwrite internal queue server.
+     *
      * @param {number} threshold
      * @throws {AppwriteException}
      * @returns {Promise}
@@ -4526,7 +4559,7 @@ declare module "node-appwrite" {
      */
     listMessages(queries?: string[], search?: string): Promise<Models.MessageList>;
     /**
-     * Create an email
+     * Create email
      *
      * Create a new email message.
      *
@@ -4539,15 +4572,15 @@ declare module "node-appwrite" {
      * @param {string[]} cc
      * @param {string[]} bcc
      * @param {string[]} attachments
-     * @param {MessageStatus} status
+     * @param {boolean} draft
      * @param {boolean} html
      * @param {string} scheduledAt
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createEmail(messageId: string, subject: string, content: string, topics?: string[], users?: string[], targets?: string[], cc?: string[], bcc?: string[], attachments?: string[], status?: MessageStatus, html?: boolean, scheduledAt?: string): Promise<Models.Message>;
+    createEmail(messageId: string, subject: string, content: string, topics?: string[], users?: string[], targets?: string[], cc?: string[], bcc?: string[], attachments?: string[], draft?: boolean, html?: boolean, scheduledAt?: string): Promise<Models.Message>;
     /**
-     * Update an email
+     * Update email
      *
      * Update an email message by its unique ID.
      * 
@@ -4558,7 +4591,7 @@ declare module "node-appwrite" {
      * @param {string[]} targets
      * @param {string} subject
      * @param {string} content
-     * @param {MessageStatus} status
+     * @param {boolean} draft
      * @param {boolean} html
      * @param {string[]} cc
      * @param {string[]} bcc
@@ -4566,9 +4599,9 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateEmail(messageId: string, topics?: string[], users?: string[], targets?: string[], subject?: string, content?: string, status?: MessageStatus, html?: boolean, cc?: string[], bcc?: string[], scheduledAt?: string): Promise<Models.Message>;
+    updateEmail(messageId: string, topics?: string[], users?: string[], targets?: string[], subject?: string, content?: string, draft?: boolean, html?: boolean, cc?: string[], bcc?: string[], scheduledAt?: string): Promise<Models.Message>;
     /**
-     * Create a push notification
+     * Create push notification
      *
      * Create a new push notification.
      *
@@ -4586,14 +4619,14 @@ declare module "node-appwrite" {
      * @param {string} color
      * @param {string} tag
      * @param {string} badge
-     * @param {MessageStatus} status
+     * @param {boolean} draft
      * @param {string} scheduledAt
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createPush(messageId: string, title: string, body: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: string, status?: MessageStatus, scheduledAt?: string): Promise<Models.Message>;
+    createPush(messageId: string, title: string, body: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: string, draft?: boolean, scheduledAt?: string): Promise<Models.Message>;
     /**
-     * Update a push notification
+     * Update push notification
      *
      * Update a push notification by its unique ID.
      * 
@@ -4612,14 +4645,14 @@ declare module "node-appwrite" {
      * @param {string} color
      * @param {string} tag
      * @param {number} badge
-     * @param {MessageStatus} status
+     * @param {boolean} draft
      * @param {string} scheduledAt
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updatePush(messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, status?: MessageStatus, scheduledAt?: string): Promise<Models.Message>;
+    updatePush(messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string): Promise<Models.Message>;
     /**
-     * Create an SMS
+     * Create SMS
      *
      * Create a new SMS message.
      *
@@ -4628,14 +4661,14 @@ declare module "node-appwrite" {
      * @param {string[]} topics
      * @param {string[]} users
      * @param {string[]} targets
-     * @param {MessageStatus} status
+     * @param {boolean} draft
      * @param {string} scheduledAt
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createSms(messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], status?: MessageStatus, scheduledAt?: string): Promise<Models.Message>;
+    createSms(messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string): Promise<Models.Message>;
     /**
-     * Update an SMS
+     * Update SMS
      *
      * Update an email message by its unique ID.
      * 
@@ -4645,14 +4678,14 @@ declare module "node-appwrite" {
      * @param {string[]} users
      * @param {string[]} targets
      * @param {string} content
-     * @param {MessageStatus} status
+     * @param {boolean} draft
      * @param {string} scheduledAt
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateSms(messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, status?: MessageStatus, scheduledAt?: string): Promise<Models.Message>;
+    updateSms(messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string): Promise<Models.Message>;
     /**
-     * Get a message
+     * Get message
      *
      * Get a message by its unique ID.
      * 
@@ -4663,7 +4696,10 @@ declare module "node-appwrite" {
      */
     getMessage(messageId: string): Promise<Models.Message>;
     /**
-     * Delete a message
+     * Delete message
+     *
+     * Delete a message. If the message is not a draft or scheduled, but has been
+     * sent, this will not recall the message.
      *
      * @param {string} messageId
      * @throws {AppwriteException}
@@ -4833,6 +4869,8 @@ declare module "node-appwrite" {
     updateMsg91Provider(providerId: string, name?: string, enabled?: boolean, senderId?: string, authKey?: string, from?: string): Promise<Models.Provider>;
     /**
      * Create Sendgrid provider
+     *
+     * Create a new Sendgrid provider.
      *
      * @param {string} providerId
      * @param {string} name
@@ -5084,7 +5122,7 @@ declare module "node-appwrite" {
      */
     listTopics(queries?: string[], search?: string): Promise<Models.TopicList>;
     /**
-     * Create a topic
+     * Create topic
      *
      * Create a new topic.
      *
@@ -5096,7 +5134,7 @@ declare module "node-appwrite" {
      */
     createTopic(topicId: string, name: string, subscribe?: string[]): Promise<Models.Topic>;
     /**
-     * Get a topic
+     * Get topic
      *
      * Get a topic by its unique ID.
      * 
@@ -5107,7 +5145,7 @@ declare module "node-appwrite" {
      */
     getTopic(topicId: string): Promise<Models.Topic>;
     /**
-     * Update a topic
+     * Update topic
      *
      * Update a topic by its unique ID.
      * 
@@ -5120,7 +5158,7 @@ declare module "node-appwrite" {
      */
     updateTopic(topicId: string, name?: string, subscribe?: string[]): Promise<Models.Topic>;
     /**
-     * Delete a topic
+     * Delete topic
      *
      * Delete a topic by its unique ID.
      *
@@ -5153,7 +5191,7 @@ declare module "node-appwrite" {
      */
     listSubscribers(topicId: string, queries?: string[], search?: string): Promise<Models.SubscriberList>;
     /**
-     * Create a subscriber
+     * Create subscriber
      *
      * Create a new subscriber.
      *
@@ -5165,7 +5203,7 @@ declare module "node-appwrite" {
      */
     createSubscriber(topicId: string, subscriberId: string, targetId: string): Promise<Models.Subscriber>;
     /**
-     * Get a subscriber
+     * Get subscriber
      *
      * Get a subscriber by its unique ID.
      * 
@@ -5177,7 +5215,7 @@ declare module "node-appwrite" {
      */
     getSubscriber(topicId: string, subscriberId: string): Promise<Models.Subscriber>;
     /**
-     * Delete a subscriber
+     * Delete subscriber
      *
      * Delete a subscriber by its unique ID.
      *
@@ -5839,6 +5877,8 @@ declare module "node-appwrite" {
     /**
      * Update MFA
      *
+     * Enable or disable MFA on a user account.
+     *
      * @param {string} userId
      * @param {boolean} mfa
      * @throws {AppwriteException}
@@ -5848,6 +5888,8 @@ declare module "node-appwrite" {
     /**
      * List Factors
      *
+     * List the factors available on the account to be used as a MFA challange.
+     *
      * @param {string} userId
      * @throws {AppwriteException}
      * @returns {Promise}
@@ -5856,13 +5898,14 @@ declare module "node-appwrite" {
     /**
      * Delete Authenticator
      *
+     * Delete an authenticator app.
+     *
      * @param {string} userId
      * @param {AuthenticatorType} type
-     * @param {string} otp
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteAuthenticator<Preferences extends Models.Preferences>(userId: string, type: AuthenticatorType, otp: string): Promise<Models.User<Preferences>>;
+    deleteAuthenticator<Preferences extends Models.Preferences>(userId: string, type: AuthenticatorType): Promise<Models.User<Preferences>>;
     /**
      * Update name
      *
@@ -5980,6 +6023,8 @@ declare module "node-appwrite" {
     /**
      * List User Targets
      *
+     * List the messaging targets that are associated with a user.
+     *
      * @param {string} userId
      * @param {string[]} queries
      * @throws {AppwriteException}
@@ -5988,6 +6033,8 @@ declare module "node-appwrite" {
     listTargets(userId: string, queries?: string[]): Promise<Models.TargetList>;
     /**
      * Create User Target
+     *
+     * Create a messaging target.
      *
      * @param {string} userId
      * @param {string} targetId
@@ -6002,6 +6049,8 @@ declare module "node-appwrite" {
     /**
      * Get User Target
      *
+     * Get a user's push notification target by ID.
+     *
      * @param {string} userId
      * @param {string} targetId
      * @throws {AppwriteException}
@@ -6010,6 +6059,8 @@ declare module "node-appwrite" {
     getTarget(userId: string, targetId: string): Promise<Models.Target>;
     /**
      * Update User target
+     *
+     * Update a messaging target.
      *
      * @param {string} userId
      * @param {string} targetId
@@ -6022,6 +6073,8 @@ declare module "node-appwrite" {
     updateTarget(userId: string, targetId: string, identifier?: string, providerId?: string, name?: string): Promise<Models.Target>;
     /**
      * Delete user target
+     *
+     * Delete a messaging target.
      *
      * @param {string} userId
      * @param {string} targetId
@@ -6362,7 +6415,6 @@ declare module "node-appwrite" {
     Key: 'key',
     Fulltext: 'fulltext',
     Unique: 'unique',
-    Spatial: 'spatial',
   }>
   export const Runtime: Readonly<{
     Node145: 'node-14.5',
@@ -6423,11 +6475,6 @@ declare module "node-appwrite" {
     V1Messaging: 'v1-messaging',
     V1Migrations: 'v1-migrations',
     Hamsterv1: 'hamsterv1',
-  }>
-  export const MessageStatus: Readonly<{
-    Draft: 'draft',
-    Scheduled: 'scheduled',
-    Processing: 'processing',
   }>
   export const SmtpEncryption: Readonly<{
     None: 'none',
