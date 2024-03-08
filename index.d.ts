@@ -4491,7 +4491,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    getQueueUsage(threshold?: number): Promise<Models.HealthQueue>;
+    getQueueUsageDump(threshold?: number): Promise<Models.HealthQueue>;
     /**
      * Get webhooks queue
      *
