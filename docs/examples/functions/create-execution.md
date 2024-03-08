@@ -1,20 +1,17 @@
 const sdk = require('node-appwrite');
 
-// Init SDK
-const client = new sdk.Client();
+const client = new sdk.Client()
+    .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
+    .setProject('5df5acd0d48c2') // Your project ID
+    .setSession(''); // The user session to authenticate with
 
 const functions = new sdk.Functions(client);
 
-client
-    .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
-    .setProject('5df5acd0d48c2') // Your project ID
-    .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
-;
-
-const promise = functions.createExecution('[FUNCTION_ID]');
-
-promise.then(function (response) {
-    console.log(response);
-}, function (error) {
-    console.log(error);
-});
+const result = await functions.createExecution(
+    '<FUNCTION_ID>', // functionId
+    '<BODY>', // body (optional)
+    false, // async (optional)
+    '<PATH>', // path (optional)
+    sdk.ExecutionMethod.GET, // method (optional)
+    {} // headers (optional)
+);

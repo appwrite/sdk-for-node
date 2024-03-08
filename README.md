@@ -1,19 +1,19 @@
 # Appwrite Node.js SDK
 
 ![License](https://img.shields.io/github/license/appwrite/sdk-for-node.svg?style=flat-square)
-![Version](https://img.shields.io/badge/api%20version-1.4.12-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/api%20version-1.5.0-blue.svg?style=flat-square)
 [![Build Status](https://img.shields.io/travis/com/appwrite/sdk-generator?style=flat-square)](https://travis-ci.com/appwrite/sdk-generator)
 [![Twitter Account](https://img.shields.io/twitter/follow/appwrite?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
-**This SDK is compatible with Appwrite server version 1.4.x. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-node/releases).**
+**This SDK is compatible with Appwrite server version 1.5.x. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-node/releases).**
 
  > This is the Node.js SDK for integrating with Appwrite from your Node.js server-side code.
                             If you're looking to integrate from the browser, you should check [appwrite/sdk-for-web](https://github.com/appwrite/sdk-for-web)
 
 Appwrite is an open-source backend as a service server that abstract and simplify complex and repetitive development tasks behind a very simple to use REST API. Appwrite aims to help you develop your apps faster and in a more secure way. Use the Node.js SDK to integrate your app with the Appwrite server to easily start interacting with all of Appwrite backend APIs and tools. For full API documentation and tutorials go to [https://appwrite.io/docs](https://appwrite.io/docs)
 
-![Appwrite](https://appwrite.io/images/github.png)
+![Appwrite](https://github.com/appwrite/appwrite/raw/main/public/images/github.png)
 
 ## Installation
 
@@ -48,7 +48,7 @@ Once your SDK object is set, create any of the Appwrite service objects and choo
 ```js
 let users = new sdk.Users(client);
 
-let promise = users.create(sdk.ID.unique(), 'email@example.com', undefined, 'password', 'Jane Doe');
+let promise = users.create(sdk.ID.unique(), "email@example.com", "+123456789", "password", "Walter O'Brien");
 
 promise.then(function (response) {
     console.log(response);
@@ -71,7 +71,7 @@ client
 ;
 
 let users = new sdk.Users(client);
-let promise = users.create(sdk.ID.unique(), 'email@example.com', undefined, 'password', 'Jane Doe');
+let promise = users.create(sdk.ID.unique(), "email@example.com", "+123456789", "password", "Walter O'Brien");
 
 promise.then(function (response) {
     console.log(response);
@@ -87,7 +87,7 @@ The Appwrite Node SDK raises `AppwriteException` object with `message`, `code` a
 let users = new sdk.Users(client);
 
 try {
-    let res = await users.create(sdk.ID.unique(), 'email@example.com', 'password');
+    let res = await users.create(sdk.ID.unique(), "email@example.com", "+123456789", "password", "Walter O'Brien");
 } catch(e) {
     console.log(e.message);
 }
