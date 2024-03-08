@@ -7,7 +7,7 @@ const client = new sdk.Client()
 
 const account = new sdk.Account(client);
 
-const result = await account.verifyAuthenticator(
-    sdk.AuthenticatorType.Totp, // type
+const result = await account.updateMfaChallenge(
+    '<CHALLENGE_ID>', // challengeId
     '<OTP>' // otp
 );

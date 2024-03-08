@@ -16,8 +16,8 @@ const Messaging = require('./lib/services/messaging.js');
 const Storage = require('./lib/services/storage.js');
 const Teams = require('./lib/services/teams.js');
 const Users = require('./lib/services/users.js');
-const AuthenticationFactor = require("./lib/enums/authentication-factor.js");
 const AuthenticatorType = require("./lib/enums/authenticator-type.js");
+const AuthenticationFactor = require("./lib/enums/authentication-factor.js");
 const OAuthProvider = require("./lib/enums/o-auth-provider.js");
 const Browser = require("./lib/enums/browser.js");
 const CreditCard = require("./lib/enums/credit-card.js");
@@ -54,8 +54,8 @@ module.exports = {
     Storage,
     Teams,
     Users,
-    AuthenticationFactor,
     AuthenticatorType,
+    AuthenticationFactor,
     OAuthProvider,
     Browser,
     CreditCard,

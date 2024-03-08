@@ -1057,10 +1057,6 @@ declare module "node-appwrite" {
           */
           mfa: boolean;
           /**
-          * TOTP status.
-          */
-          totp: boolean;
-          /**
           * User preferences as a key-value object
           */
           prefs: Preferences;
@@ -1293,6 +1289,10 @@ declare module "node-appwrite" {
           * Secret used to authenticate the user. Only included if the request was made with an API key
           */
           secret: string;
+          /**
+          * Most recent date in ISO 8601 format when the session successfully passed MFA challenge.
+          */
+          mfaUpdatedAt: string;
       }
       /**
       * Identity
@@ -2149,13 +2149,18 @@ declare module "node-appwrite" {
           expire: string;
       }
       /**
+      * MFA Recovery Codes
+      */
+      export type MfaRecoveryCodes = {
+          /**
+          * Recovery codes.
+          */
+          recoveryCodes: string[];
+      }
+      /**
       * MFAType
       */
       export type MfaType = {
-          /**
-          * Backup codes.
-          */
-          backups: string[];
           /**
           * Secret token used for TOTP factor.
           */
@@ -2680,34 +2685,6 @@ declare module "node-appwrite" {
      */
     updateMFA<Preferences extends Models.Preferences>(mfa: boolean): Promise<Models.User<Preferences>>;
     /**
-     * Create 2FA Challenge
-     *
-     * @param {AuthenticationFactor} factor
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    createChallenge(factor: AuthenticationFactor): Promise<Models.MfaChallenge>;
-    /**
-     * Create MFA Challenge (confirmation)
-     *
-     * Complete the MFA challenge by providing the one-time password.
-     *
-     * @param {string} challengeId
-     * @param {string} otp
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    updateChallenge(challengeId: string, otp: string): Promise<any>;
-    /**
-     * List Factors
-     *
-     * List the factors available on the account to be used as a MFA challange.
-     *
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    listFactors(): Promise<Models.MfaFactors>;
-    /**
      * Add Authenticator
      *
      * Add an authenticator app to be used as an MFA factor. Verify the
@@ -2719,7 +2696,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    addAuthenticator(type: AuthenticatorType): Promise<Models.MfaType>;
+    createMfaAuthenticator(type: AuthenticatorType): Promise<Models.MfaType>;
     /**
      * Verify Authenticator
      *
@@ -2732,7 +2709,7 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    verifyAuthenticator<Preferences extends Models.Preferences>(type: AuthenticatorType, otp: string): Promise<Models.User<Preferences>>;
+    updateMfaAuthenticator<Preferences extends Models.Preferences>(type: AuthenticatorType, otp: string): Promise<Models.User<Preferences>>;
     /**
      * Delete Authenticator
      *
@@ -2743,7 +2720,80 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteAuthenticator<Preferences extends Models.Preferences>(type: AuthenticatorType, otp: string): Promise<Models.User<Preferences>>;
+    deleteMfaAuthenticator<Preferences extends Models.Preferences>(type: AuthenticatorType, otp: string): Promise<Models.User<Preferences>>;
+    /**
+     * Create 2FA Challenge
+     *
+     * Begin the process of MFA verification after sign-in. Finish the flow with
+     * [updateMfaChallenge](/docs/references/cloud/client-web/account#updateMfaChallenge)
+     * method.
+     *
+     * @param {AuthenticationFactor} factor
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createMfaChallenge(factor: AuthenticationFactor): Promise<Models.MfaChallenge>;
+    /**
+     * Create MFA Challenge (confirmation)
+     *
+     * Complete the MFA challenge by providing the one-time password. Finish the
+     * process of MFA verification by providing the one-time password. To begin
+     * the flow, use
+     * [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge)
+     * method.
+     *
+     * @param {string} challengeId
+     * @param {string} otp
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateMfaChallenge(challengeId: string, otp: string): Promise<any>;
+    /**
+     * List Factors
+     *
+     * List the factors available on the account to be used as a MFA challange.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listMfaFactors(): Promise<Models.MfaFactors>;
+    /**
+     * Get MFA Recovery Codes
+     *
+     * Get recovery codes that can be used as backup for MFA flow. Before getting
+     * codes, they must be generated using
+     * [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
+     * method. An OTP challenge is required to read recovery codes.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getMfaRecoveryCodes(): Promise<Models.MfaRecoveryCodes>;
+    /**
+     * Create MFA Recovery Codes
+     *
+     * Generate recovery codes as backup for MFA flow. It's recommended to
+     * generate and show then immediately after user successfully adds their
+     * authehticator. Recovery codes can be used as a MFA verification type in
+     * [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge)
+     * method.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createMfaRecoveryCodes(): Promise<Models.MfaRecoveryCodes>;
+    /**
+     * Regenerate MFA Recovery Codes
+     *
+     * Regenerate recovery codes that can be used as backup for MFA flow. Before
+     * regenerating codes, they must be first generated using
+     * [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
+     * method. An OTP challenge is required to regenreate recovery codes.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateMfaRecoveryCodes(): Promise<Models.MfaRecoveryCodes>;
     /**
      * Update name
      *
@@ -2944,10 +2994,11 @@ declare module "node-appwrite" {
      */
     getSession(sessionId: string): Promise<Models.Session>;
     /**
-     * Update (or renew) session
+     * Update session
      *
-     * Extend session's expiry to increase it's lifespan. Extending a session is
-     * useful when session length is short such as 5 minutes.
+     * Use this endpoint to extend a session's length. Extending a session is
+     * useful when session expiry is short. If the session was created using an
+     * OAuth provider, this endpoint refreshes the access token from the provider.
      *
      * @param {string} sessionId
      * @throws {AppwriteException}
@@ -4420,6 +4471,28 @@ declare module "node-appwrite" {
      */
     getQueueMigrations(threshold?: number): Promise<Models.HealthQueue>;
     /**
+     * Get usage queue
+     *
+     * Get the number of metrics that are waiting to be processed in the Appwrite
+     * internal queue server.
+     *
+     * @param {number} threshold
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getQueueUsage(threshold?: number): Promise<Models.HealthQueue>;
+    /**
+     * Get usage dump queue
+     *
+     * Get the number of projects containing metrics that are waiting to be
+     * processed in the Appwrite internal queue server.
+     *
+     * @param {number} threshold
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getQueueUsage(threshold?: number): Promise<Models.HealthQueue>;
+    /**
      * Get webhooks queue
      *
      * Get the number of webhooks that are waiting to be processed in the Appwrite
@@ -4430,6 +4503,15 @@ declare module "node-appwrite" {
      * @returns {Promise}
      */
     getQueueWebhooks(threshold?: number): Promise<Models.HealthQueue>;
+    /**
+     * Get storage
+     *
+     * Check the Appwrite storage device is up and connection is successful.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getStorage(): Promise<Models.HealthStatus>;
     /**
      * Get local storage
      *
@@ -5886,16 +5968,6 @@ declare module "node-appwrite" {
      */
     updateMfa<Preferences extends Models.Preferences>(userId: string, mfa: boolean): Promise<Models.User<Preferences>>;
     /**
-     * List Factors
-     *
-     * List the factors available on the account to be used as a MFA challange.
-     *
-     * @param {string} userId
-     * @throws {AppwriteException}
-     * @returns {Promise}
-     */
-    listFactors(userId: string): Promise<Models.MfaFactors>;
-    /**
      * Delete Authenticator
      *
      * Delete an authenticator app.
@@ -5905,7 +5977,56 @@ declare module "node-appwrite" {
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    deleteAuthenticator<Preferences extends Models.Preferences>(userId: string, type: AuthenticatorType): Promise<Models.User<Preferences>>;
+    deleteMfaAuthenticator<Preferences extends Models.Preferences>(userId: string, type: AuthenticatorType): Promise<Models.User<Preferences>>;
+    /**
+     * List Factors
+     *
+     * List the factors available on the account to be used as a MFA challange.
+     *
+     * @param {string} userId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    listMfaFactors(userId: string): Promise<Models.MfaFactors>;
+    /**
+     * Get MFA Recovery Codes
+     *
+     * Get recovery codes that can be used as backup for MFA flow by User ID.
+     * Before getting codes, they must be generated using
+     * [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
+     * method.
+     *
+     * @param {string} userId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    getMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes>;
+    /**
+     * Regenerate MFA Recovery Codes
+     *
+     * Regenerate recovery codes that can be used as backup for MFA flow by User
+     * ID. Before regenerating codes, they must be first generated using
+     * [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
+     * method.
+     *
+     * @param {string} userId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    updateMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes>;
+    /**
+     * Create MFA Recovery Codes
+     *
+     * Generate recovery codes used as backup for MFA flow for User ID. Recovery
+     * codes can be used as a MFA verification type in
+     * [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge)
+     * method by client SDK.
+     *
+     * @param {string} userId
+     * @throws {AppwriteException}
+     * @returns {Promise}
+     */
+    createMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes>;
     /**
      * Update name
      *
@@ -6121,13 +6242,14 @@ declare module "node-appwrite" {
      */
     updatePhoneVerification<Preferences extends Models.Preferences>(userId: string, phoneVerification: boolean): Promise<Models.User<Preferences>>;
   }
-  export const AuthenticationFactor: Readonly<{
-    Totp: 'totp',
-    Phone: 'phone',
-    Email: 'email',
-  }>
   export const AuthenticatorType: Readonly<{
     Totp: 'totp',
+  }>
+  export const AuthenticationFactor: Readonly<{
+    Email: 'email',
+    Phone: 'phone',
+    Totp: 'totp',
+    Recoverycode: 'recoverycode',
   }>
   export const OAuthProvider: Readonly<{
     Amazon: 'amazon',
@@ -6238,7 +6360,7 @@ declare module "node-appwrite" {
     Switzerland: 'ch',
     Chile: 'cl',
     China: 'cn',
-    CTeDIvoire: 'ci',
+    CoteDIvoire: 'ci',
     Cameroon: 'cm',
     DemocraticRepublicOfTheCongo: 'cd',
     RepublicOfTheCongo: 'cg',
@@ -6422,23 +6544,28 @@ declare module "node-appwrite" {
     Node180: 'node-18.0',
     Node190: 'node-19.0',
     Node200: 'node-20.0',
+    Node210: 'node-21.0',
     Php80: 'php-8.0',
     Php81: 'php-8.1',
     Php82: 'php-8.2',
+    Php83: 'php-8.3',
     Ruby30: 'ruby-3.0',
     Ruby31: 'ruby-3.1',
     Ruby32: 'ruby-3.2',
+    Ruby33: 'ruby-3.3',
     Python38: 'python-3.8',
     Python39: 'python-3.9',
     Python310: 'python-3.10',
     Python311: 'python-3.11',
     Python312: 'python-3.12',
+    Deno140: 'deno-1.40',
     Dart215: 'dart-2.15',
     Dart216: 'dart-2.16',
     Dart217: 'dart-2.17',
     Dart218: 'dart-2.18',
     Dart30: 'dart-3.0',
     Dart31: 'dart-3.1',
+    Dart33: 'dart-3.3',
     Dotnet31: 'dotnet-3.1',
     Dotnet60: 'dotnet-6.0',
     Dotnet70: 'dotnet-7.0',
@@ -6446,10 +6573,13 @@ declare module "node-appwrite" {
     Java110: 'java-11.0',
     Java170: 'java-17.0',
     Java180: 'java-18.0',
+    Java210: 'java-21.0',
     Swift55: 'swift-5.5',
     Swift58: 'swift-5.8',
+    Swift59: 'swift-5.9',
     Kotlin16: 'kotlin-1.6',
     Kotlin18: 'kotlin-1.8',
+    Kotlin19: 'kotlin-1.9',
     Cpp17: 'cpp-17',
     Cpp20: 'cpp-20',
     Bun10: 'bun-1.0',
@@ -6469,6 +6599,7 @@ declare module "node-appwrite" {
     V1Mails: 'v1-mails',
     V1Functions: 'v1-functions',
     V1Usage: 'v1-usage',
+    V1UsageDump: 'v1-usage-dump',
     Webhooksv1: 'webhooksv1',
     V1Certificates: 'v1-certificates',
     V1Builds: 'v1-builds',

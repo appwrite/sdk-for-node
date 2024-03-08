@@ -7,7 +7,4 @@ const client = new sdk.Client()
 
 const account = new sdk.Account(client);
 
-const result = await account.updateChallenge(
-    '<CHALLENGE_ID>', // challengeId
-    '<OTP>' // otp
-);
+const result = await account.getMfaRecoveryCodes();
