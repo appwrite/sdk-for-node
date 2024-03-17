@@ -2488,6 +2488,7 @@ declare module "node-appwrite" {
   export class AppwriteException extends Error {
     public code: number | null;
     public response: string | null;
+    public type: string | null;
     constructor(message: string, code?: number, response?: string);
   }
 
