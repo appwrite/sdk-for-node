@@ -4926,14 +4926,14 @@ declare module "node-appwrite" {
      *
      * @param {string} providerId
      * @param {string} name
-     * @param {string} from
+     * @param {string} templateId
      * @param {string} senderId
      * @param {string} authKey
      * @param {boolean} enabled
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    createMsg91Provider(providerId: string, name: string, from?: string, senderId?: string, authKey?: string, enabled?: boolean): Promise<Models.Provider>;
+    createMsg91Provider(providerId: string, name: string, templateId?: string, senderId?: string, authKey?: string, enabled?: boolean): Promise<Models.Provider>;
     /**
      * Update Msg91 provider
      *
@@ -4942,13 +4942,13 @@ declare module "node-appwrite" {
      * @param {string} providerId
      * @param {string} name
      * @param {boolean} enabled
+     * @param {string} templateId
      * @param {string} senderId
      * @param {string} authKey
-     * @param {string} from
      * @throws {AppwriteException}
      * @returns {Promise}
      */
-    updateMsg91Provider(providerId: string, name?: string, enabled?: boolean, senderId?: string, authKey?: string, from?: string): Promise<Models.Provider>;
+    updateMsg91Provider(providerId: string, name?: string, enabled?: boolean, templateId?: string, senderId?: string, authKey?: string): Promise<Models.Provider>;
     /**
      * Create Sendgrid provider
      *
