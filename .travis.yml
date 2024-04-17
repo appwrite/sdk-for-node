@@ -1,12 +1,12 @@
 language: node_js
 node_js:
-  - "14.16"
+  - "16"
 
 jobs:
   include:
     - stage: NPM RC Release
       if: tag =~ /-(rc|RC)/
-      node_js: "14.16"
+      node_js: "16"
       script:
         - npm install
         - npm run build
@@ -16,9 +16,12 @@ jobs:
         email: $NPM_EMAIL
         api_key: $NPM_API_KEY
         tag: next
+        skip_cleanup: true
+        on:
+          tags: true
     - stage: NPM Release
       if: not tag =~ /-(rc|RC)/
-      node_js: "14.16"
+      node_js: "16"
       script:
         - npm install
         - npm run build
