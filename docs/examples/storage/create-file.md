@@ -11,6 +11,6 @@ const storage = new sdk.Storage(client);
 const result = await storage.createFile(
     '<BUCKET_ID>', // bucketId
     '<FILE_ID>', // fileId
-    document.getElementById('uploader').files[0], // file
+    InputFile.fromPath('/path/to/file', 'filename'), // file
     ["read("any")"] // permissions (optional)
 );
