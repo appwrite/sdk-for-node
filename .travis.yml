@@ -16,9 +16,6 @@ jobs:
         email: $NPM_EMAIL
         api_key: $NPM_API_KEY
         tag: next
-        skip_cleanup: true
-        on:
-          tags: true
     - stage: NPM Release
       if: not tag =~ /-(rc|RC)/
       node_js: "16"
