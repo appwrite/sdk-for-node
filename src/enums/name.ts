@@ -11,5 +11,4 @@ export enum Name {
     V1builds = 'v1-builds',
     V1messaging = 'v1-messaging',
     V1migrations = 'v1-migrations',
-    Hamsterv1 = 'hamsterv1',
 }
