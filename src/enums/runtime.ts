@@ -18,6 +18,7 @@ export enum Runtime {
     Python310 = 'python-3.10',
     Python311 = 'python-3.11',
     Python312 = 'python-3.12',
+    Pythonml311 = 'python-ml-3.11',
     Deno140 = 'deno-1.40',
     Dart215 = 'dart-2.15',
     Dart216 = 'dart-2.16',

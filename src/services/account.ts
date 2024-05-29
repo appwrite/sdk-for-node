@@ -266,7 +266,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
     /**
      * Add Authenticator
      *
-     * Add an authenticator app to be used as an MFA factor. Verify the authenticator using the [verify authenticator](/docs/references/cloud/client-web/account#verifyAuthenticator) method.
+     * Add an authenticator app to be used as an MFA factor. Verify the authenticator using the [verify authenticator](/docs/references/cloud/client-web/account#updateMfaAuthenticator) method.
      *
      * @param {AuthenticatorType} type
      * @throws {AppwriteException}
@@ -294,7 +294,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
     /**
      * Verify Authenticator
      *
-     * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#addAuthenticator) method.
+     * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#createMfaAuthenticator) method. add 
      *
      * @param {AuthenticatorType} type
      * @param {string} otp
@@ -334,9 +334,9 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @param {AuthenticatorType} type
      * @param {string} otp
      * @throws {AppwriteException}
-     * @returns {Promise<Models.User<Preferences>>}
+     * @returns {Promise<{}>}
      */
-    async deleteMfaAuthenticator<Preferences extends Models.Preferences>(type: AuthenticatorType, otp: string): Promise<Models.User<Preferences>> {
+    async deleteMfaAuthenticator(type: AuthenticatorType, otp: string): Promise<{}> {
         if (typeof type === 'undefined') {
             throw new AppwriteException('Missing required parameter: "type"');
         }
