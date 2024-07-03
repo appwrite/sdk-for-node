@@ -5,9 +5,9 @@ const client = new sdk.Client()
     .setProject('&lt;YOUR_PROJECT_ID&gt;') // Your project ID
     .setKey('&lt;YOUR_API_KEY&gt;'); // Your secret API key
 
-const users = new sdk.Users(client);
+const functions = new sdk.Functions(client);
 
-const result = await users.list(
-    [], // queries (optional)
-    '<SEARCH>' // search (optional)
+const result = await functions.deleteExecution(
+    '<FUNCTION_ID>', // functionId
+    '<EXECUTION_ID>' // executionId
 );

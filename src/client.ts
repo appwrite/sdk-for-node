@@ -327,6 +327,11 @@ class Client {
 
         const response = await fetch(uri, options);
 
+        const warnings = response.headers.get('x-appwrite-warning');
+        if (warnings) {
+            warnings.split(';').forEach((warning: string) => console.warn('Warning: ' + warning));
+        }
+
         if (response.headers.get('content-type')?.includes('application/json')) {
             data = await response.json();
         } else if (responseType === 'arrayBuffer') {

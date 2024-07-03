@@ -1,3 +1,6 @@
+/**
+ * Appwrite Models
+ */
 export namespace Models {
     /**
      * Documents List
@@ -1661,6 +1664,10 @@ export namespace Models {
          */
         deployment: string;
         /**
+         * Allowed permission scopes.
+         */
+        scopes: string[];
+        /**
          * Function variables.
          */
         vars: Variable[];
@@ -1907,6 +1914,47 @@ export namespace Models {
          * Function execution duration in seconds.
          */
         duration: number;
+    }
+    /**
+     * Build
+     */
+    export type Build = {
+        /**
+         * Build ID.
+         */
+        $id: string;
+        /**
+         * The deployment that created this build.
+         */
+        deploymentId: string;
+        /**
+         * The build status. There are a few different types and each one means something different. \nFailed - The deployment build has failed. More details can usually be found in buildStderr\nReady - The deployment build was successful and the deployment is ready to be deployed\nProcessing - The deployment is currently waiting to have a build triggered\nBuilding - The deployment is currently being built
+         */
+        status: string;
+        /**
+         * The stdout of the build.
+         */
+        stdout: string;
+        /**
+         * The stderr of the build.
+         */
+        stderr: string;
+        /**
+         * The deployment creation date in ISO 8601 format.
+         */
+        startTime: string;
+        /**
+         * The time the build was finished in ISO 8601 format.
+         */
+        endTime: string;
+        /**
+         * The build duration in seconds.
+         */
+        duration: number;
+        /**
+         * The code size in bytes.
+         */
+        size: number;
     }
     /**
      * Variable

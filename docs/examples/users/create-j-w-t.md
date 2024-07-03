@@ -7,7 +7,8 @@ const client = new sdk.Client()
 
 const users = new sdk.Users(client);
 
-const result = await users.list(
-    [], // queries (optional)
-    '<SEARCH>' // search (optional)
+const result = await users.createJWT(
+    '<USER_ID>', // userId
+    '<SESSION_ID>', // sessionId (optional)
+    0 // duration (optional)
 );
