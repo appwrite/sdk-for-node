@@ -1,6 +1,9 @@
 import { fetch, FormData, File } from 'node-fetch-native-with-agent';
 import { createAgent } from 'node-fetch-native-with-agent/agent';
 import { Models } from './models';
+import { NewPayload } from './NewPayload';
+import * as multipart from 'parse-multipart-data';
+const { buffer } = require('node:stream/consumers');  
 
 type Payload = {
     [key: string]: any;
@@ -31,6 +34,16 @@ class AppwriteException extends Error {
         this.response = response;
     }
 }
+
+function getBoundary(str: string): string {
+    const lines = str.replaceAll("\r\n", "\n").split("\n").reverse();
+    for (const line of lines) {
+      if (line !== "") {
+        return line.slice(0, -2).slice(2);
+      }
+    }
+    return "";
+  }
 
 function getUserAgent() {
     let ua = 'AppwriteNodeJSSDK/13.0.0';
@@ -331,7 +344,22 @@ class Client {
             data = await response.json();
         } else if (responseType === 'arrayBuffer') {
             data = await response.arrayBuffer();
-        } else {
+        } else if (response.headers.get('content-type')?.includes('multipart/form-data')) {
+            const body = await buffer(response.body);
+            const boundary = getBoundary(body.toString());
+            const parts = multipart.parse(body, boundary);
+            const partsObject = parts.reduce<{ [key: string]: Buffer }>((acc, part) => {
+                if (part.name) {
+                  acc[part.name] = part.data;
+                }
+                return acc;
+              }, {});
+            data = {
+                ...partsObject,
+                responseBody: new NewPayload(partsObject.responseBody)
+            }
+        }
+        else {
             data = {
                 message: await response.text()
             };
