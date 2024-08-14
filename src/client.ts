@@ -35,16 +35,6 @@ class AppwriteException extends Error {
     }
 }
 
-function getBoundary(str: string): string {
-    const lines = str.replaceAll("\r\n", "\n").split("\n").reverse();
-    for (const line of lines) {
-      if (line !== "") {
-        return line.slice(0, -2).slice(2);
-      }
-    }
-    return "";
-  }
-
 function getUserAgent() {
     let ua = 'AppwriteNodeJSSDK/13.0.0';
 
@@ -346,7 +336,7 @@ class Client {
             data = await response.arrayBuffer();
         } else if (response.headers.get('content-type')?.includes('multipart/form-data')) {
             const body = await buffer(response.body);
-            const boundary = getBoundary(body.toString());
+            const boundary = multipart.getBoundary(response.headers.get('content-type') || '');
             const parts = multipart.parse(body, boundary);
             const partsObject = parts.reduce<{ [key: string]: Buffer }>((acc, part) => {
                 if (part.name) {

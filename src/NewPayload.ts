@@ -1,60 +1,47 @@
 import { realpathSync, readFileSync } from "fs";
 export class NewPayload {
-  private data: any;
+  private data: Buffer;
 
-  constructor(data: any) {
+  constructor(data: Buffer) {
     this.data = data;
   }
 
-  // converts JSON to binary data (Buffer)
-  static async fromJson(json: object): Promise<NewPayload> {
-    const jsonString = JSON.stringify(json);
-    const encoder = new TextEncoder();
-    const buffer = encoder.encode(jsonString);
-    return new NewPayload(buffer);
+  public getData(): Buffer {
+    return this.data;
   }
 
-  // converts file to binary data (Buffer)
-  static fromPath(path: string): NewPayload {
+  public static fromBuffer(buffer: Buffer): Buffer {
+    return Buffer.from(buffer);
+  }
+
+  public toBuffer(): Buffer {
+    return this.data;
+  }
+
+  public static fromString(string: string): Buffer {
+    return Buffer.from(string);
+  }
+
+  public toString(encoding: BufferEncoding = "utf8"): string {
+    return this.data.toString(encoding);
+  }
+
+  public static fromJSON(json: object): Buffer {
+    return Buffer.from(JSON.stringify(json));
+  }
+
+  public toJSON(): object {
+    return JSON.parse(this.data.toString());
+  }
+
+  public static fromPath(path: string): Buffer {
     const realPath = realpathSync(path);
     const contents = readFileSync(realPath);
-    return new NewPayload(new Uint8Array(contents));
+    return Buffer.from(contents);
   }
 
-  // converts text to binary data (Buffer)
-  static async fromPlainText(text: string): Promise<NewPayload> {
-    const arrayBytes = new TextEncoder().encode(text);
-    return new NewPayload(arrayBytes);
-  }
-
-  async fromBinary(): Promise<NewPayload> {
-    return new NewPayload(this.data);
-  }
-
-  // converts binary data (Buffer) to JSON
-  async toJson(): Promise<any> {
-    const decoder = new TextDecoder();
-    const jsonString = decoder.decode(this.data);
-    return JSON.parse(jsonString);
-  }
-
-  // convert binary data (Buffer) to file
-  async toFile(fileName: string): Promise<File> {
+  public toFile(fileName: string): File {
     const blob = new Blob([this.data]);
     return new File([blob], fileName);
-  }
-
-  // converts binary data (Buffer) to text
-  async toPlainText(): Promise<string> {
-    const decoder = new TextDecoder();
-    return decoder.decode(this.data);
-  }
-
-  toBinary(): Uint8Array {
-    return Uint8Array.from(this.data);
-  }
-
-  public getData(): any {
-    return this.data;
   }
 }
