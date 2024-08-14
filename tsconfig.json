@@ -10,7 +10,7 @@
         "strict": true,
         "module": "es2022",
         "moduleResolution": "Bundler",
-        "lib": ["dom", "es2022"]
+        "lib": ["es2022"]
     },
     "compileOnSave": false,
     "exclude": ["node_modules", "dist"],

@@ -640,7 +640,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         const apiPath = '/functions/{functionId}/executions'.replace('{functionId}', functionId);
         const payload: Payload = {};
         if (typeof body !== 'undefined') {
-            payload['body'] = body ? body.getData : body;
+            payload['body'] = body ? body.getData() : body;
         }
         if (typeof async !== 'undefined') {
             payload['async'] = async;

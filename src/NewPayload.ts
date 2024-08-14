@@ -26,11 +26,11 @@ export class NewPayload {
     return this.data.toString(encoding);
   }
 
-  public static fromJSON(json: object): Buffer {
+  public static fromJson(json: object): Buffer {
     return Buffer.from(JSON.stringify(json));
   }
 
-  public toJSON(): object {
+  public toJson(): object {
     return JSON.parse(this.data.toString());
   }
 

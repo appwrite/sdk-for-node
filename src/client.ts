@@ -336,18 +336,20 @@ class Client {
             data = await response.arrayBuffer();
         } else if (response.headers.get('content-type')?.includes('multipart/form-data')) {
             const body = await buffer(response.body);
-            const boundary = multipart.getBoundary(response.headers.get('content-type') || '');
+            const boundary = multipart.getBoundary(
+              response.headers.get("content-type") || ""
+            );
             const parts = multipart.parse(body, boundary);
-            const partsObject = parts.reduce<{ [key: string]: Buffer }>((acc, part) => {
-                if (part.name) {
-                  acc[part.name] = part.data;
-                }
-                return acc;
-              }, {});
-            data = {
-                ...partsObject,
-                responseBody: new NewPayload(partsObject.responseBody)
+            const partsObject: { [key: string]: Buffer } = {};
+            for (const part of parts) {
+              if (part.name) {
+                partsObject[part.name] = part.data;
+              }
             }
+            data = {
+              ...partsObject,
+              responseBody: new NewPayload(partsObject.responseBody),
+            };
         }
         else {
             data = {
