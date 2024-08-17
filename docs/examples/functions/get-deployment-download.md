@@ -3,11 +3,11 @@ const sdk = require('node-appwrite');
 const client = new sdk.Client()
     .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
     .setProject('&lt;YOUR_PROJECT_ID&gt;') // Your project ID
-    .setKey('&lt;YOUR_API_KEY&gt;'); // Your secret API key
+    .setSession(''); // The user session to authenticate with
 
 const functions = new sdk.Functions(client);
 
-const result = await functions.downloadDeployment(
+const result = await functions.getDeploymentDownload(
     '<FUNCTION_ID>', // functionId
     '<DEPLOYMENT_ID>' // deploymentId
 );

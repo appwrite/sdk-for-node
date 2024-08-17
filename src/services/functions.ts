@@ -67,11 +67,11 @@ export class Functions {
      * @param {string} templateRepository
      * @param {string} templateOwner
      * @param {string} templateRootDirectory
-     * @param {string} templateBranch
+     * @param {string} templateVersion
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
-    async create(functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, templateRepository?: string, templateOwner?: string, templateRootDirectory?: string, templateBranch?: string): Promise<Models.Function> {
+    async create(functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, templateRepository?: string, templateOwner?: string, templateRootDirectory?: string, templateVersion?: string): Promise<Models.Function> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -143,8 +143,8 @@ export class Functions {
         if (typeof templateRootDirectory !== 'undefined') {
             payload['templateRootDirectory'] = templateRootDirectory;
         }
-        if (typeof templateBranch !== 'undefined') {
-            payload['templateBranch'] = templateBranch;
+        if (typeof templateVersion !== 'undefined') {
+            payload['templateVersion'] = templateVersion;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -169,6 +169,74 @@ export class Functions {
      */
     async listRuntimes(): Promise<Models.RuntimeList> {
         const apiPath = '/functions/runtimes';
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return await this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+    /**
+     * List function templates
+     *
+     * List available function templates. You can use template details in [createFunction](/docs/references/cloud/server-nodejs/functions#create) method.
+     *
+     * @param {string[]} runtimes
+     * @param {string[]} useCases
+     * @param {number} limit
+     * @param {number} offset
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.TemplateFunctionList>}
+     */
+    async listTemplates(runtimes?: string[], useCases?: string[], limit?: number, offset?: number): Promise<Models.TemplateFunctionList> {
+        const apiPath = '/functions/templates';
+        const payload: Payload = {};
+        if (typeof runtimes !== 'undefined') {
+            payload['runtimes'] = runtimes;
+        }
+        if (typeof useCases !== 'undefined') {
+            payload['useCases'] = useCases;
+        }
+        if (typeof limit !== 'undefined') {
+            payload['limit'] = limit;
+        }
+        if (typeof offset !== 'undefined') {
+            payload['offset'] = offset;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return await this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+    /**
+     * Get function template
+     *
+     * Get a function template using ID. You can use template details in [createFunction](/docs/references/cloud/server-nodejs/functions#create) method.
+     *
+     * @param {string} templateId
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.TemplateFunction>}
+     */
+    async getTemplate(templateId: string): Promise<Models.TemplateFunction> {
+        if (typeof templateId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "templateId"');
+        }
+        const apiPath = '/functions/templates/{templateId}'.replace('{templateId}', templateId);
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -458,7 +526,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Update function deployment
+     * Update deployment
      *
      * Update the function code deployment ID using the unique function ID. Use this endpoint to switch the code deployment that should be executed by the execution endpoint.
      *
@@ -588,7 +656,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Download Deployment
+     * Download deployment
      *
      * Get a Deployment&#039;s contents by its unique ID. This endpoint supports range requests for partial or streaming file download.
      *
@@ -597,7 +665,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    async downloadDeployment(functionId: string, deploymentId: string): Promise<ArrayBuffer> {
+    async getDeploymentDownload(functionId: string, deploymentId: string): Promise<ArrayBuffer> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -671,7 +739,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<Models.Execution>}
      */
-    async createExecution(functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string): Promise<Models.Execution> {
+    async createExecution(functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string, onProgress = (progress: UploadProgress) => {}): Promise<Models.Execution> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -698,14 +766,15 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
+            'content-type': 'multipart/form-data',
         }
 
-        return await this.client.call(
+        return await this.client.chunkedUpload(
             'post',
             uri,
             apiHeaders,
             payload,
+            onProgress
         );
     }
     /**

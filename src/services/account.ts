@@ -264,7 +264,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         );
     }
     /**
-     * Add Authenticator
+     * Create Authenticator
      *
      * Add an authenticator app to be used as an MFA factor. Verify the authenticator using the [verify authenticator](/docs/references/cloud/client-web/account#updateMfaAuthenticator) method.
      *
@@ -332,22 +332,15 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * Delete an authenticator for a user by ID.
      *
      * @param {AuthenticatorType} type
-     * @param {string} otp
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async deleteMfaAuthenticator(type: AuthenticatorType, otp: string): Promise<{}> {
+    async deleteMfaAuthenticator(type: AuthenticatorType): Promise<{}> {
         if (typeof type === 'undefined') {
             throw new AppwriteException('Missing required parameter: "type"');
         }
-        if (typeof otp === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "otp"');
-        }
         const apiPath = '/account/mfa/authenticators/{type}'.replace('{type}', type);
         const payload: Payload = {};
-        if (typeof otp !== 'undefined') {
-            payload['otp'] = otp;
-        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -362,7 +355,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         );
     }
     /**
-     * Create 2FA Challenge
+     * Create MFA Challenge
      *
      * Begin the process of MFA verification after sign-in. Finish the flow with [updateMfaChallenge](/docs/references/cloud/client-web/account#updateMfaChallenge) method.
      *
@@ -1378,7 +1371,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
         );
     }
     /**
-     * Create phone verification (confirmation)
+     * Update phone verification (confirmation)
      *
      * Use this endpoint to complete the user phone verification process. Use the **userId** and **secret** that were sent to your user&#039;s phone number to verify the user email ownership. If confirmed this route will return a 200 status code.
      *
