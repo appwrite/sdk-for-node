@@ -1,3 +1,6 @@
+/**
+ * Appwrite Models
+ */
 export namespace Models {
     /**
      * Documents List
@@ -362,6 +365,19 @@ export namespace Models {
          * List of targets.
          */
         targets: Target[];
+    }
+    /**
+     * Specifications List
+     */
+    export type SpecificationList = {
+        /**
+         * Total number of specifications documents that matched your query.
+         */
+        total: number;
+        /**
+         * List of specifications.
+         */
+        specifications: Specification[];
     }
     /**
      * Database
@@ -1661,6 +1677,10 @@ export namespace Models {
          */
         deployment: string;
         /**
+         * Allowed permission scopes.
+         */
+        scopes: string[];
+        /**
          * Function variables.
          */
         vars: Variable[];
@@ -1708,6 +1728,10 @@ export namespace Models {
          * Is VCS (Version Control System) connection is in silent mode? When in silence mode, no comments will be posted on the repository pull or merge requests
          */
         providerSilentMode: boolean;
+        /**
+         * Machine specification for builds and executions.
+         */
+        specification: string;
     }
     /**
      * Runtime
@@ -1717,6 +1741,10 @@ export namespace Models {
          * Runtime ID.
          */
         $id: string;
+        /**
+         * Parent runtime key.
+         */
+        key: string;
         /**
          * Runtime Name.
          */
@@ -1778,6 +1806,10 @@ export namespace Models {
          * The code size in bytes.
          */
         size: number;
+        /**
+         * The build output size in bytes.
+         */
+        buildSize: number;
         /**
          * The current build ID.
          */
@@ -1907,6 +1939,51 @@ export namespace Models {
          * Function execution duration in seconds.
          */
         duration: number;
+        /**
+         * The scheduled time for execution. If left empty, execution will be queued immediately.
+         */
+        scheduledAt?: string;
+    }
+    /**
+     * Build
+     */
+    export type Build = {
+        /**
+         * Build ID.
+         */
+        $id: string;
+        /**
+         * The deployment that created this build.
+         */
+        deploymentId: string;
+        /**
+         * The build status. There are a few different types and each one means something different. \nFailed - The deployment build has failed. More details can usually be found in buildStderr\nReady - The deployment build was successful and the deployment is ready to be deployed\nProcessing - The deployment is currently waiting to have a build triggered\nBuilding - The deployment is currently being built
+         */
+        status: string;
+        /**
+         * The stdout of the build.
+         */
+        stdout: string;
+        /**
+         * The stderr of the build.
+         */
+        stderr: string;
+        /**
+         * The deployment creation date in ISO 8601 format.
+         */
+        startTime: string;
+        /**
+         * The time the build was finished in ISO 8601 format.
+         */
+        endTime: string;
+        /**
+         * The build duration in seconds.
+         */
+        duration: number;
+        /**
+         * The code size in bytes.
+         */
+        size: number;
     }
     /**
      * Variable
@@ -2131,6 +2208,27 @@ export namespace Models {
          * Header value.
          */
         value: string;
+    }
+    /**
+     * Specification
+     */
+    export type Specification = {
+        /**
+         * Memory size in MB.
+         */
+        memory: number;
+        /**
+         * Number of CPUs.
+         */
+        cpus: number;
+        /**
+         * Is size enabled.
+         */
+        enabled: boolean;
+        /**
+         * Size slug.
+         */
+        slug: string;
     }
     /**
      * MFA Challenge
