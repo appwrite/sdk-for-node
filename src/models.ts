@@ -172,19 +172,6 @@ export namespace Models {
         functions: Function[];
     }
     /**
-     * Function Templates List
-     */
-    export type TemplateFunctionList = {
-        /**
-         * Total number of templates documents that matched your query.
-         */
-        total: number;
-        /**
-         * List of templates.
-         */
-        templates: TemplateFunction[];
-    }
-    /**
      * Runtimes List
      */
     export type RuntimeList = {
