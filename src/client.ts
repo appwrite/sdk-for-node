@@ -1,6 +1,9 @@
 import { fetch, FormData, File } from 'node-fetch-native-with-agent';
 import { createAgent } from 'node-fetch-native-with-agent/agent';
 import { Models } from './models';
+import { NewPayload } from './NewPayload';
+import * as multipart from 'parse-multipart-data';
+const { buffer } = require('node:stream/consumers');  
 
 type Payload = {
     [key: string]: any;
@@ -331,7 +334,28 @@ class Client {
             data = await response.json();
         } else if (responseType === 'arrayBuffer') {
             data = await response.arrayBuffer();
-        } else {
+        } else if (response.headers.get('content-type')?.includes('multipart/form-data')) {
+            const body = await buffer(response.body);
+            const boundary = multipart.getBoundary(
+              response.headers.get("content-type") || ""
+            );
+            const parts = multipart.parse(body, boundary);
+            const partsObject: { [key: string]: Buffer | string } = {};
+            for (const part of parts) {
+              if (part.name) {
+                if (part.name === "responseBody") {
+                  partsObject[part.name] = part.data;
+                } else {
+                  partsObject[part.name] = part.data.toString();
+                }
+              }
+            }
+            data = {
+              ...partsObject,
+              responseBody: new NewPayload(partsObject.responseBody as Buffer),
+            };
+        }
+        else {
             data = {
                 message: await response.text()
             };

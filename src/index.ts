@@ -33,3 +33,5 @@ export { ImageGravity } from './enums/image-gravity';
 export { ImageFormat } from './enums/image-format';
 export { PasswordHash } from './enums/password-hash';
 export { MessagingProviderType } from './enums/messaging-provider-type';
+export { NewPayload } from './NewPayload';
+export { InputFile } from './inputFile';
