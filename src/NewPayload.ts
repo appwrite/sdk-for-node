@@ -41,6 +41,9 @@ export class NewPayload {
   }
 
   public toFile(fileName: string): File {
+    if (!fileName) {
+      fileName = "code.tar.gz";
+    }
     const blob = new Blob([this.data]);
     return new File([blob], fileName);
   }

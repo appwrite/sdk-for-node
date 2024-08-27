@@ -340,15 +340,19 @@ class Client {
               response.headers.get("content-type") || ""
             );
             const parts = multipart.parse(body, boundary);
-            const partsObject: { [key: string]: Buffer } = {};
+            const partsObject: { [key: string]: Buffer | string } = {};
             for (const part of parts) {
               if (part.name) {
-                partsObject[part.name] = part.data;
+                if (part.name === "responseBody") {
+                  partsObject[part.name] = part.data;
+                } else {
+                  partsObject[part.name] = part.data.toString();
+                }
               }
             }
             data = {
               ...partsObject,
-              responseBody: new NewPayload(partsObject.responseBody),
+              responseBody: new NewPayload(partsObject.responseBody as Buffer),
             };
         }
         else {
