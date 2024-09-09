@@ -103,6 +103,7 @@ When one dimension is specified and the other is 0, the image is scaled with pre
      *
      * Use this endpoint to fetch the favorite icon (AKA favicon) of any remote website URL.
 
+This endpoint does not follow HTTP redirects.
      *
      * @param {string} url
      * @throws {AppwriteException}
@@ -182,6 +183,7 @@ When one dimension is specified and the other is 0, the image is scaled with pre
 
 When one dimension is specified and the other is 0, the image is scaled with preserved aspect ratio. If both dimensions are 0, the API provides an image at source quality. If dimensions are not specified, the default size of image returned is 400x400px.
 
+This endpoint does not follow HTTP redirects.
      *
      * @param {string} url
      * @param {number} width
