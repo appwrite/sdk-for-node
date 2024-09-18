@@ -1,4 +1,5 @@
-import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
+import { AppwriteException, Client, type Params, UploadProgress } from '../client';
+import { Payload } from '../payload';
 import type { Models } from '../models';
 import { SmtpEncryption } from '../enums/smtp-encryption';
 
@@ -21,7 +22,7 @@ export class Messaging {
      */
     async listMessages(queries?: string[], search?: string): Promise<Models.MessageList> {
         const apiPath = '/messaging/messages';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -72,7 +73,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "content"');
         }
         const apiPath = '/messaging/messages/email';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof messageId !== 'undefined') {
             payload['messageId'] = messageId;
         }
@@ -148,7 +149,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
         const apiPath = '/messaging/messages/email/{messageId}'.replace('{messageId}', messageId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof topics !== 'undefined') {
             payload['topics'] = topics;
         }
@@ -230,7 +231,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "body"');
         }
         const apiPath = '/messaging/messages/push';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof messageId !== 'undefined') {
             payload['messageId'] = messageId;
         }
@@ -322,7 +323,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
         const apiPath = '/messaging/messages/push/{messageId}'.replace('{messageId}', messageId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof topics !== 'undefined') {
             payload['topics'] = topics;
         }
@@ -404,7 +405,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "content"');
         }
         const apiPath = '/messaging/messages/sms';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof messageId !== 'undefined') {
             payload['messageId'] = messageId;
         }
@@ -460,7 +461,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
         const apiPath = '/messaging/messages/sms/{messageId}'.replace('{messageId}', messageId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof topics !== 'undefined') {
             payload['topics'] = topics;
         }
@@ -507,7 +508,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
         const apiPath = '/messaging/messages/{messageId}'.replace('{messageId}', messageId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -535,7 +536,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
         const apiPath = '/messaging/messages/{messageId}'.replace('{messageId}', messageId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -564,7 +565,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
         const apiPath = '/messaging/messages/{messageId}/logs'.replace('{messageId}', messageId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -596,7 +597,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
         const apiPath = '/messaging/messages/{messageId}/targets'.replace('{messageId}', messageId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -625,7 +626,7 @@ export class Messaging {
      */
     async listProviders(queries?: string[], search?: string): Promise<Models.ProviderList> {
         const apiPath = '/messaging/providers';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -669,7 +670,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/messaging/providers/apns';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof providerId !== 'undefined') {
             payload['providerId'] = providerId;
         }
@@ -728,7 +729,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
         const apiPath = '/messaging/providers/apns/{providerId}'.replace('{providerId}', providerId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -783,7 +784,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/messaging/providers/fcm';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof providerId !== 'undefined') {
             payload['providerId'] = providerId;
         }
@@ -826,7 +827,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
         const apiPath = '/messaging/providers/fcm/{providerId}'.replace('{providerId}', providerId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -875,7 +876,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/messaging/providers/mailgun';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof providerId !== 'undefined') {
             payload['providerId'] = providerId;
         }
@@ -942,7 +943,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
         const apiPath = '/messaging/providers/mailgun/{providerId}'.replace('{providerId}', providerId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -1005,7 +1006,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/messaging/providers/msg91';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof providerId !== 'undefined') {
             payload['providerId'] = providerId;
         }
@@ -1056,7 +1057,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
         const apiPath = '/messaging/providers/msg91/{providerId}'.replace('{providerId}', providerId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -1109,7 +1110,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/messaging/providers/sendgrid';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof providerId !== 'undefined') {
             payload['providerId'] = providerId;
         }
@@ -1168,7 +1169,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
         const apiPath = '/messaging/providers/sendgrid/{providerId}'.replace('{providerId}', providerId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -1236,7 +1237,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "host"');
         }
         const apiPath = '/messaging/providers/smtp';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof providerId !== 'undefined') {
             payload['providerId'] = providerId;
         }
@@ -1319,7 +1320,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
         const apiPath = '/messaging/providers/smtp/{providerId}'.replace('{providerId}', providerId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -1394,7 +1395,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/messaging/providers/telesign';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof providerId !== 'undefined') {
             payload['providerId'] = providerId;
         }
@@ -1445,7 +1446,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
         const apiPath = '/messaging/providers/telesign/{providerId}'.replace('{providerId}', providerId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -1496,7 +1497,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/messaging/providers/textmagic';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof providerId !== 'undefined') {
             payload['providerId'] = providerId;
         }
@@ -1547,7 +1548,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
         const apiPath = '/messaging/providers/textmagic/{providerId}'.replace('{providerId}', providerId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -1598,7 +1599,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/messaging/providers/twilio';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof providerId !== 'undefined') {
             payload['providerId'] = providerId;
         }
@@ -1649,7 +1650,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
         const apiPath = '/messaging/providers/twilio/{providerId}'.replace('{providerId}', providerId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -1700,7 +1701,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/messaging/providers/vonage';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof providerId !== 'undefined') {
             payload['providerId'] = providerId;
         }
@@ -1751,7 +1752,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
         const apiPath = '/messaging/providers/vonage/{providerId}'.replace('{providerId}', providerId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -1795,7 +1796,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
         const apiPath = '/messaging/providers/{providerId}'.replace('{providerId}', providerId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1823,7 +1824,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
         const apiPath = '/messaging/providers/{providerId}'.replace('{providerId}', providerId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1852,7 +1853,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
         const apiPath = '/messaging/providers/{providerId}/logs'.replace('{providerId}', providerId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -1884,7 +1885,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "subscriberId"');
         }
         const apiPath = '/messaging/subscribers/{subscriberId}/logs'.replace('{subscriberId}', subscriberId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -1913,7 +1914,7 @@ export class Messaging {
      */
     async listTopics(queries?: string[], search?: string): Promise<Models.TopicList> {
         const apiPath = '/messaging/topics';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -1952,7 +1953,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/messaging/topics';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof topicId !== 'undefined') {
             payload['topicId'] = topicId;
         }
@@ -1990,7 +1991,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
         const apiPath = '/messaging/topics/{topicId}'.replace('{topicId}', topicId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -2021,7 +2022,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
         const apiPath = '/messaging/topics/{topicId}'.replace('{topicId}', topicId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -2055,7 +2056,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
         const apiPath = '/messaging/topics/{topicId}'.replace('{topicId}', topicId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -2084,7 +2085,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
         const apiPath = '/messaging/topics/{topicId}/logs'.replace('{topicId}', topicId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -2117,7 +2118,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
         const apiPath = '/messaging/topics/{topicId}/subscribers'.replace('{topicId}', topicId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -2159,7 +2160,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "targetId"');
         }
         const apiPath = '/messaging/topics/{topicId}/subscribers'.replace('{topicId}', topicId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof subscriberId !== 'undefined') {
             payload['subscriberId'] = subscriberId;
         }
@@ -2198,7 +2199,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "subscriberId"');
         }
         const apiPath = '/messaging/topics/{topicId}/subscribers/{subscriberId}'.replace('{topicId}', topicId).replace('{subscriberId}', subscriberId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -2230,7 +2231,7 @@ export class Messaging {
             throw new AppwriteException('Missing required parameter: "subscriberId"');
         }
         const apiPath = '/messaging/topics/{topicId}/subscribers/{subscriberId}'.replace('{topicId}', topicId).replace('{subscriberId}', subscriberId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {

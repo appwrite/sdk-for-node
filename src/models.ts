@@ -1,3 +1,5 @@
+import type { Payload } from './payload';
+
 /**
  * Appwrite Models
  */

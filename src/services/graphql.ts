@@ -1,4 +1,5 @@
-import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
+import { AppwriteException, Client, type Params, UploadProgress } from '../client';
+import { Payload } from '../payload';
 import type { Models } from '../models';
 
 export class Graphql {
@@ -22,7 +23,7 @@ export class Graphql {
             throw new AppwriteException('Missing required parameter: "query"');
         }
         const apiPath = '/graphql';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof query !== 'undefined') {
             payload['query'] = query;
         }
@@ -54,7 +55,7 @@ export class Graphql {
             throw new AppwriteException('Missing required parameter: "query"');
         }
         const apiPath = '/graphql/mutation';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof query !== 'undefined') {
             payload['query'] = query;
         }

@@ -1,4 +1,5 @@
-import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
+import { AppwriteException, Client, type Params, UploadProgress } from '../client';
+import { Payload } from '../payload';
 import type { Models } from '../models';
 
 export class Locale {
@@ -20,7 +21,7 @@ export class Locale {
      */
     async get(): Promise<Models.Locale> {
         const apiPath = '/locale';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -44,7 +45,7 @@ export class Locale {
      */
     async listCodes(): Promise<Models.LocaleCodeList> {
         const apiPath = '/locale/codes';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -68,7 +69,7 @@ export class Locale {
      */
     async listContinents(): Promise<Models.ContinentList> {
         const apiPath = '/locale/continents';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -92,7 +93,7 @@ export class Locale {
      */
     async listCountries(): Promise<Models.CountryList> {
         const apiPath = '/locale/countries';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -116,7 +117,7 @@ export class Locale {
      */
     async listCountriesEU(): Promise<Models.CountryList> {
         const apiPath = '/locale/countries/eu';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -140,7 +141,7 @@ export class Locale {
      */
     async listCountriesPhones(): Promise<Models.PhoneList> {
         const apiPath = '/locale/countries/phones';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -164,7 +165,7 @@ export class Locale {
      */
     async listCurrencies(): Promise<Models.CurrencyList> {
         const apiPath = '/locale/currencies';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -188,7 +189,7 @@ export class Locale {
      */
     async listLanguages(): Promise<Models.LanguageList> {
         const apiPath = '/locale/languages';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {

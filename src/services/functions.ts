@@ -1,4 +1,5 @@
-import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
+import { AppwriteException, Client, type Params, UploadProgress } from '../client';
+import { Payload } from '../payload';
 import type { Models } from '../models';
 import { Runtime } from '../enums/runtime';
 import { ExecutionMethod } from '../enums/execution-method';
@@ -22,7 +23,7 @@ export class Functions {
      */
     async list(queries?: string[], search?: string): Promise<Models.FunctionList> {
         const apiPath = '/functions';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -83,7 +84,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "runtime"');
         }
         const apiPath = '/functions';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof functionId !== 'undefined') {
             payload['functionId'] = functionId;
         }
@@ -173,7 +174,7 @@ export class Functions {
      */
     async listRuntimes(): Promise<Models.RuntimeList> {
         const apiPath = '/functions/runtimes';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -198,7 +199,7 @@ export class Functions {
      */
     async listSpecifications(): Promise<Models.SpecificationList> {
         const apiPath = '/functions/specifications';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -226,7 +227,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
         const apiPath = '/functions/{functionId}'.replace('{functionId}', functionId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -274,7 +275,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/functions/{functionId}'.replace('{functionId}', functionId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -353,7 +354,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
         const apiPath = '/functions/{functionId}'.replace('{functionId}', functionId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -383,7 +384,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
         const apiPath = '/functions/{functionId}/deployments'.replace('{functionId}', functionId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -413,14 +414,14 @@ This endpoint accepts a tar.gz file compressed with your code. Make sure to incl
 Use the &quot;command&quot; param to set the entrypoint used to execute your code.
      *
      * @param {string} functionId
-     * @param {File} code
+     * @param {Payload} code
      * @param {boolean} activate
      * @param {string} entrypoint
      * @param {string} commands
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    async createDeployment(functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string, onProgress = (progress: UploadProgress) => {}): Promise<Models.Deployment> {
+    async createDeployment(functionId: string, code: Payload, activate: boolean, entrypoint?: string, commands?: string, onProgress = (progress: UploadProgress) => {}): Promise<Models.Deployment> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -431,7 +432,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "activate"');
         }
         const apiPath = '/functions/{functionId}/deployments'.replace('{functionId}', functionId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof entrypoint !== 'undefined') {
             payload['entrypoint'] = entrypoint;
         }
@@ -476,7 +477,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
         const apiPath = '/functions/{functionId}/deployments/{deploymentId}'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -508,7 +509,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
         const apiPath = '/functions/{functionId}/deployments/{deploymentId}'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -540,7 +541,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
         const apiPath = '/functions/{functionId}/deployments/{deploymentId}'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -572,7 +573,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
         const apiPath = '/functions/{functionId}/deployments/{deploymentId}/build'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof buildId !== 'undefined') {
             payload['buildId'] = buildId;
         }
@@ -606,7 +607,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
         const apiPath = '/functions/{functionId}/deployments/{deploymentId}/build'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -638,7 +639,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
         const apiPath = '/functions/{functionId}/deployments/{deploymentId}/download'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -669,7 +670,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
         const apiPath = '/functions/{functionId}/executions'.replace('{functionId}', functionId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -695,7 +696,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * Trigger a function execution. The returned object will return you the current execution status. You can ping the `Get Execution` endpoint to get updates on the current execution status. Once this endpoint is called, your function execution process will start asynchronously.
      *
      * @param {string} functionId
-     * @param {string} body
+     * @param {Payload} body
      * @param {boolean} async
      * @param {string} xpath
      * @param {ExecutionMethod} method
@@ -704,14 +705,14 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<Models.Execution>}
      */
-    async createExecution(functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string): Promise<Models.Execution> {
+    async createExecution(functionId: string, body?: Payload, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string, onProgress = (progress: UploadProgress) => {}): Promise<Models.Execution> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
         const apiPath = '/functions/{functionId}/executions'.replace('{functionId}', functionId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof body !== 'undefined') {
-            payload['body'] = body;
+            payload['body'] = body.toBinary();
         }
         if (typeof async !== 'undefined') {
             payload['async'] = async;
@@ -731,7 +732,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
+            'content-type': 'multipart/form-data',
         }
 
         return await this.client.call(
@@ -759,7 +760,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "executionId"');
         }
         const apiPath = '/functions/{functionId}/executions/{executionId}'.replace('{functionId}', functionId).replace('{executionId}', executionId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -792,7 +793,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "executionId"');
         }
         const apiPath = '/functions/{functionId}/executions/{executionId}'.replace('{functionId}', functionId).replace('{executionId}', executionId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -820,7 +821,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
         const apiPath = '/functions/{functionId}/variables'.replace('{functionId}', functionId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -856,7 +857,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "value"');
         }
         const apiPath = '/functions/{functionId}/variables'.replace('{functionId}', functionId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
         }
@@ -894,7 +895,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "variableId"');
         }
         const apiPath = '/functions/{functionId}/variables/{variableId}'.replace('{functionId}', functionId).replace('{variableId}', variableId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -931,7 +932,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "key"');
         }
         const apiPath = '/functions/{functionId}/variables/{variableId}'.replace('{functionId}', functionId).replace('{variableId}', variableId);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
         }
@@ -969,7 +970,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
             throw new AppwriteException('Missing required parameter: "variableId"');
         }
         const apiPath = '/functions/{functionId}/variables/{variableId}'.replace('{functionId}', functionId).replace('{variableId}', variableId);
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {

@@ -1,4 +1,5 @@
-import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
+import { AppwriteException, Client, type Params, UploadProgress } from '../client';
+import { Payload } from '../payload';
 import type { Models } from '../models';
 import { Name } from '../enums/name';
 
@@ -19,7 +20,7 @@ export class Health {
      */
     async get(): Promise<Models.HealthStatus> {
         const apiPath = '/health';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -43,7 +44,7 @@ export class Health {
      */
     async getAntivirus(): Promise<Models.HealthAntivirus> {
         const apiPath = '/health/anti-virus';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -67,7 +68,7 @@ export class Health {
      */
     async getCache(): Promise<Models.HealthStatus> {
         const apiPath = '/health/cache';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -92,7 +93,7 @@ export class Health {
      */
     async getCertificate(domain?: string): Promise<Models.HealthCertificate> {
         const apiPath = '/health/certificate';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof domain !== 'undefined') {
             payload['domain'] = domain;
         }
@@ -119,7 +120,7 @@ export class Health {
      */
     async getDB(): Promise<Models.HealthStatus> {
         const apiPath = '/health/db';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -143,7 +144,7 @@ export class Health {
      */
     async getPubSub(): Promise<Models.HealthStatus> {
         const apiPath = '/health/pubsub';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -167,7 +168,7 @@ export class Health {
      */
     async getQueue(): Promise<Models.HealthStatus> {
         const apiPath = '/health/queue';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -192,7 +193,7 @@ export class Health {
      */
     async getQueueBuilds(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/builds';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
         }
@@ -220,7 +221,7 @@ export class Health {
      */
     async getQueueCertificates(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/certificates';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
         }
@@ -249,7 +250,7 @@ export class Health {
      */
     async getQueueDatabases(name?: string, threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/databases';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -280,7 +281,7 @@ export class Health {
      */
     async getQueueDeletes(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/deletes';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
         }
@@ -313,7 +314,7 @@ export class Health {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/health/queue/failed/{name}'.replace('{name}', name);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
         }
@@ -341,7 +342,7 @@ export class Health {
      */
     async getQueueFunctions(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/functions';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
         }
@@ -369,7 +370,7 @@ export class Health {
      */
     async getQueueLogs(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/logs';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
         }
@@ -397,7 +398,7 @@ export class Health {
      */
     async getQueueMails(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/mails';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
         }
@@ -425,7 +426,7 @@ export class Health {
      */
     async getQueueMessaging(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/messaging';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
         }
@@ -453,7 +454,7 @@ export class Health {
      */
     async getQueueMigrations(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/migrations';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
         }
@@ -481,7 +482,7 @@ export class Health {
      */
     async getQueueUsage(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/usage';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
         }
@@ -509,7 +510,7 @@ export class Health {
      */
     async getQueueUsageDump(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/usage-dump';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
         }
@@ -537,7 +538,7 @@ export class Health {
      */
     async getQueueWebhooks(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/webhooks';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
         }
@@ -564,7 +565,7 @@ export class Health {
      */
     async getStorage(): Promise<Models.HealthStatus> {
         const apiPath = '/health/storage';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -588,7 +589,7 @@ export class Health {
      */
     async getStorageLocal(): Promise<Models.HealthStatus> {
         const apiPath = '/health/storage/local';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -612,7 +613,7 @@ export class Health {
      */
     async getTime(): Promise<Models.HealthTime> {
         const apiPath = '/health/time';
-        const payload: Payload = {};
+        const payload: Params = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
