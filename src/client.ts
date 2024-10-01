@@ -1,8 +1,8 @@
 import { fetch, FormData, Blob } from 'node-fetch-native-with-agent';
+import { getBoundary, parse as parseMultipart} from 'parse-multipart-data';
 import { createAgent } from 'node-fetch-native-with-agent/agent';
 import { Models } from './models';
 import { Payload } from './payload';
-import * as multipart from 'parse-multipart-data';
 
 type Params = {
     [key: string]: any;
@@ -35,7 +35,7 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/15.0.0-rc1';
+    let ua = 'AppwriteNodeJSSDK/14.1.0';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
@@ -84,7 +84,7 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '15.0.0-rc1',
+        'x-sdk-version': '14.1.0',
         'user-agent' : getUserAgent(),
         'X-Appwrite-Response-Format': '1.6.0',
     };
@@ -350,15 +350,11 @@ class Client {
         } else if (responseType === 'arrayBuffer') {
             data = await response.arrayBuffer();
         } else if (response.headers.get('content-type')?.includes('multipart/form-data')) {
-            const chunks = [];
-            for await (const chunk of (response.body as AsyncIterable<any>)) {
-                chunks.push(chunk instanceof Buffer ? chunk : Buffer.from(chunk));
-            }
-            const body = Buffer.concat(chunks);
-            const boundary = multipart.getBoundary(
+            const body = await response.arrayBuffer();
+            const boundary = getBoundary(
                 response.headers.get("content-type") || ""
             );
-            const parts = multipart.parse(body, boundary);
+            const parts = parseMultipart(Buffer.from(body), boundary);
             const partsObject: { [key: string]: any } = {};
             
             for (const part of parts) {
