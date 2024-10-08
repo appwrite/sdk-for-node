@@ -1,4 +1,5 @@
 const sdk = require('node-appwrite');
+const fs = require('fs');
 
 const client = new sdk.Client()
     .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
@@ -9,7 +10,7 @@ const functions = new sdk.Functions(client);
 
 const result = await functions.createExecution(
     '<FUNCTION_ID>', // functionId
-    '<BODY>', // body (optional)
+    Payload.fromJson({ x: "y" }), // body (optional)
     false, // async (optional)
     '<PATH>', // path (optional)
     sdk.ExecutionMethod.GET, // method (optional)

@@ -1,3 +1,5 @@
+import type { Payload } from './payload';
+
 /**
  * Appwrite Models
  */
@@ -491,6 +493,14 @@ export namespace Models {
          */
         array?: boolean;
         /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
          * Attribute size.
          */
         size: number;
@@ -527,6 +537,14 @@ export namespace Models {
          * Is attribute an array?
          */
         array?: boolean;
+        /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
         /**
          * Minimum value to enforce for new documents.
          */
@@ -569,6 +587,14 @@ export namespace Models {
          */
         array?: boolean;
         /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
          * Minimum value to enforce for new documents.
          */
         min?: number;
@@ -610,6 +636,14 @@ export namespace Models {
          */
         array?: boolean;
         /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
         default?: boolean;
@@ -642,6 +676,14 @@ export namespace Models {
          * Is attribute an array?
          */
         array?: boolean;
+        /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
         /**
          * String format.
          */
@@ -679,6 +721,14 @@ export namespace Models {
          * Is attribute an array?
          */
         array?: boolean;
+        /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
         /**
          * Array of elements in enumerated type.
          */
@@ -721,6 +771,14 @@ export namespace Models {
          */
         array?: boolean;
         /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
          * String format.
          */
         format: string;
@@ -757,6 +815,14 @@ export namespace Models {
          * Is attribute an array?
          */
         array?: boolean;
+        /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
         /**
          * String format.
          */
@@ -795,6 +861,14 @@ export namespace Models {
          */
         array?: boolean;
         /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
          * ISO 8601 format.
          */
         format: string;
@@ -831,6 +905,14 @@ export namespace Models {
          * Is attribute an array?
          */
         array?: boolean;
+        /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
         /**
          * The ID of the related collection.
          */
@@ -884,6 +966,14 @@ export namespace Models {
          * Index orders.
          */
         orders?: string[];
+        /**
+         * Index creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Index update date in ISO 8601 format.
+         */
+        $updatedAt: string;
     }
     /**
      * Document
@@ -1922,7 +2012,7 @@ export namespace Models {
         /**
          * HTTP response body. This will return empty unless execution is created as synchronous.
          */
-        responseBody: string;
+        responseBody: Payload;
         /**
          * HTTP response headers as a key-value object. This will return only whitelisted headers. All headers are returned if execution is created as synchronous.
          */

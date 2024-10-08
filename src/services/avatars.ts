@@ -1,4 +1,5 @@
-import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
+import { AppwriteException, Client, type Params, UploadProgress } from '../client';
+import { Payload } from '../payload';
 import type { Models } from '../models';
 import { Browser } from '../enums/browser';
 import { CreditCard } from '../enums/credit-card';
@@ -30,7 +31,7 @@ When one dimension is specified and the other is 0, the image is scaled with pre
             throw new AppwriteException('Missing required parameter: "code"');
         }
         const apiPath = '/avatars/browsers/{code}'.replace('{code}', code);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof width !== 'undefined') {
             payload['width'] = width;
         }
@@ -74,7 +75,7 @@ When one dimension is specified and the other is 0, the image is scaled with pre
             throw new AppwriteException('Missing required parameter: "code"');
         }
         const apiPath = '/avatars/credit-cards/{code}'.replace('{code}', code);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof width !== 'undefined') {
             payload['width'] = width;
         }
@@ -114,7 +115,7 @@ This endpoint does not follow HTTP redirects.
             throw new AppwriteException('Missing required parameter: "url"');
         }
         const apiPath = '/avatars/favicon';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof url !== 'undefined') {
             payload['url'] = url;
         }
@@ -152,7 +153,7 @@ When one dimension is specified and the other is 0, the image is scaled with pre
             throw new AppwriteException('Missing required parameter: "code"');
         }
         const apiPath = '/avatars/flags/{code}'.replace('{code}', code);
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof width !== 'undefined') {
             payload['width'] = width;
         }
@@ -196,7 +197,7 @@ This endpoint does not follow HTTP redirects.
             throw new AppwriteException('Missing required parameter: "url"');
         }
         const apiPath = '/avatars/image';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof url !== 'undefined') {
             payload['url'] = url;
         }
@@ -239,7 +240,7 @@ When one dimension is specified and the other is 0, the image is scaled with pre
      */
     async getInitials(name?: string, width?: number, height?: number, background?: string): Promise<ArrayBuffer> {
         const apiPath = '/avatars/initials';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -284,7 +285,7 @@ When one dimension is specified and the other is 0, the image is scaled with pre
             throw new AppwriteException('Missing required parameter: "text"');
         }
         const apiPath = '/avatars/qr';
-        const payload: Payload = {};
+        const payload: Params = {};
         if (typeof text !== 'undefined') {
             payload['text'] = text;
         }
