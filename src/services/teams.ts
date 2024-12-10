@@ -1,5 +1,4 @@
-import { AppwriteException, Client, type Params, UploadProgress } from '../client';
-import { Payload } from '../payload';
+import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
 import type { Models } from '../models';
 
 export class Teams {
@@ -21,7 +20,7 @@ export class Teams {
      */
     async list<Preferences extends Models.Preferences>(queries?: string[], search?: string): Promise<Models.TeamList<Preferences>> {
         const apiPath = '/teams';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -60,7 +59,7 @@ export class Teams {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/teams';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof teamId !== 'undefined') {
             payload['teamId'] = teamId;
         }
@@ -97,7 +96,7 @@ export class Teams {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
         const apiPath = '/teams/{teamId}'.replace('{teamId}', teamId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -129,7 +128,7 @@ export class Teams {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/teams/{teamId}'.replace('{teamId}', teamId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -160,7 +159,7 @@ export class Teams {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
         const apiPath = '/teams/{teamId}'.replace('{teamId}', teamId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -177,7 +176,7 @@ export class Teams {
     /**
      * List team memberships
      *
-     * Use this endpoint to list a team&#039;s members using the team&#039;s ID. All team members have read access to this endpoint.
+     * Use this endpoint to list a team&#039;s members using the team&#039;s ID. All team members have read access to this endpoint. Hide sensitive attributes from the response by toggling membership privacy in the Console.
      *
      * @param {string} teamId
      * @param {string[]} queries
@@ -190,7 +189,7 @@ export class Teams {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
         const apiPath = '/teams/{teamId}/memberships'.replace('{teamId}', teamId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -240,7 +239,7 @@ Please note that to avoid a [Redirect Attack](https://github.com/OWASP/CheatShee
             throw new AppwriteException('Missing required parameter: "roles"');
         }
         const apiPath = '/teams/{teamId}/memberships'.replace('{teamId}', teamId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof email !== 'undefined') {
             payload['email'] = email;
         }
@@ -275,7 +274,7 @@ Please note that to avoid a [Redirect Attack](https://github.com/OWASP/CheatShee
     /**
      * Get team membership
      *
-     * Get a team member by the membership unique id. All team members have read access for this resource.
+     * Get a team member by the membership unique id. All team members have read access for this resource. Hide sensitive attributes from the response by toggling membership privacy in the Console.
      *
      * @param {string} teamId
      * @param {string} membershipId
@@ -290,7 +289,7 @@ Please note that to avoid a [Redirect Attack](https://github.com/OWASP/CheatShee
             throw new AppwriteException('Missing required parameter: "membershipId"');
         }
         const apiPath = '/teams/{teamId}/memberships/{membershipId}'.replace('{teamId}', teamId).replace('{membershipId}', membershipId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -327,7 +326,7 @@ Please note that to avoid a [Redirect Attack](https://github.com/OWASP/CheatShee
             throw new AppwriteException('Missing required parameter: "roles"');
         }
         const apiPath = '/teams/{teamId}/memberships/{membershipId}'.replace('{teamId}', teamId).replace('{membershipId}', membershipId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof roles !== 'undefined') {
             payload['roles'] = roles;
         }
@@ -362,7 +361,7 @@ Please note that to avoid a [Redirect Attack](https://github.com/OWASP/CheatShee
             throw new AppwriteException('Missing required parameter: "membershipId"');
         }
         const apiPath = '/teams/{teamId}/memberships/{membershipId}'.replace('{teamId}', teamId).replace('{membershipId}', membershipId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -405,7 +404,7 @@ If the request is successful, a session for the user is automatically created.
             throw new AppwriteException('Missing required parameter: "secret"');
         }
         const apiPath = '/teams/{teamId}/memberships/{membershipId}/status'.replace('{teamId}', teamId).replace('{membershipId}', membershipId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -439,7 +438,7 @@ If the request is successful, a session for the user is automatically created.
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
         const apiPath = '/teams/{teamId}/prefs'.replace('{teamId}', teamId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -471,7 +470,7 @@ If the request is successful, a session for the user is automatically created.
             throw new AppwriteException('Missing required parameter: "prefs"');
         }
         const apiPath = '/teams/{teamId}/prefs'.replace('{teamId}', teamId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof prefs !== 'undefined') {
             payload['prefs'] = prefs;
         }

@@ -1,5 +1,4 @@
-import { AppwriteException, Client, type Params, UploadProgress } from '../client';
-import { Payload } from '../payload';
+import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
 import type { Models } from '../models';
 import { PasswordHash } from '../enums/password-hash';
 import { AuthenticatorType } from '../enums/authenticator-type';
@@ -24,7 +23,7 @@ export class Users {
      */
     async list<Preferences extends Models.Preferences>(queries?: string[], search?: string): Promise<Models.UserList<Preferences>> {
         const apiPath = '/users';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -62,7 +61,7 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -114,7 +113,7 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "password"');
         }
         const apiPath = '/users/argon2';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -163,7 +162,7 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "password"');
         }
         const apiPath = '/users/bcrypt';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -201,7 +200,7 @@ export class Users {
      */
     async listIdentities(queries?: string[], search?: string): Promise<Models.IdentityList> {
         const apiPath = '/users/identities';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -235,7 +234,7 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "identityId"');
         }
         const apiPath = '/users/identities/{identityId}'.replace('{identityId}', identityId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -272,7 +271,7 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "password"');
         }
         const apiPath = '/users/md5';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -321,7 +320,7 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "password"');
         }
         const apiPath = '/users/phpass';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -390,7 +389,7 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "passwordLength"');
         }
         const apiPath = '/users/scrypt';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -466,7 +465,7 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "passwordSignerKey"');
         }
         const apiPath = '/users/scrypt-modified';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -525,7 +524,7 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "password"');
         }
         const apiPath = '/users/sha';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -568,7 +567,7 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -596,7 +595,7 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -628,7 +627,7 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "email"');
         }
         const apiPath = '/users/{userId}/email'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof email !== 'undefined') {
             payload['email'] = email;
         }
@@ -661,7 +660,7 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/jwts'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof sessionId !== 'undefined') {
             payload['sessionId'] = sessionId;
         }
@@ -701,7 +700,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "labels"');
         }
         const apiPath = '/users/{userId}/labels'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof labels !== 'undefined') {
             payload['labels'] = labels;
         }
@@ -733,7 +732,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/logs'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -764,7 +763,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/memberships'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -796,7 +795,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "mfa"');
         }
         const apiPath = '/users/{userId}/mfa'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof mfa !== 'undefined') {
             payload['mfa'] = mfa;
         }
@@ -831,7 +830,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "type"');
         }
         const apiPath = '/users/{userId}/mfa/authenticators/{type}'.replace('{userId}', userId).replace('{type}', type);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -859,7 +858,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/mfa/factors'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -887,7 +886,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -915,7 +914,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -943,7 +942,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -975,7 +974,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/users/{userId}/name'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -1010,7 +1009,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "password"');
         }
         const apiPath = '/users/{userId}/password'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof password !== 'undefined') {
             payload['password'] = password;
         }
@@ -1045,7 +1044,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "number"');
         }
         const apiPath = '/users/{userId}/phone'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof number !== 'undefined') {
             payload['number'] = number;
         }
@@ -1076,7 +1075,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/prefs'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1108,7 +1107,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "prefs"');
         }
         const apiPath = '/users/{userId}/prefs'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof prefs !== 'undefined') {
             payload['prefs'] = prefs;
         }
@@ -1139,7 +1138,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/sessions'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1169,7 +1168,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/sessions'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1197,7 +1196,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/sessions'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1229,7 +1228,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
             throw new AppwriteException('Missing required parameter: "sessionId"');
         }
         const apiPath = '/users/{userId}/sessions/{sessionId}'.replace('{userId}', userId).replace('{sessionId}', sessionId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1261,7 +1260,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
             throw new AppwriteException('Missing required parameter: "status"');
         }
         const apiPath = '/users/{userId}/status'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof status !== 'undefined') {
             payload['status'] = status;
         }
@@ -1293,7 +1292,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/targets'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -1338,7 +1337,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
             throw new AppwriteException('Missing required parameter: "identifier"');
         }
         const apiPath = '/users/{userId}/targets'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof targetId !== 'undefined') {
             payload['targetId'] = targetId;
         }
@@ -1385,7 +1384,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
             throw new AppwriteException('Missing required parameter: "targetId"');
         }
         const apiPath = '/users/{userId}/targets/{targetId}'.replace('{userId}', userId).replace('{targetId}', targetId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1420,7 +1419,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
             throw new AppwriteException('Missing required parameter: "targetId"');
         }
         const apiPath = '/users/{userId}/targets/{targetId}'.replace('{userId}', userId).replace('{targetId}', targetId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof identifier !== 'undefined') {
             payload['identifier'] = identifier;
         }
@@ -1461,7 +1460,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
             throw new AppwriteException('Missing required parameter: "targetId"');
         }
         const apiPath = '/users/{userId}/targets/{targetId}'.replace('{userId}', userId).replace('{targetId}', targetId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1492,7 +1491,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/tokens'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof length !== 'undefined') {
             payload['length'] = length;
         }
@@ -1530,7 +1529,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
             throw new AppwriteException('Missing required parameter: "emailVerification"');
         }
         const apiPath = '/users/{userId}/verification'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof emailVerification !== 'undefined') {
             payload['emailVerification'] = emailVerification;
         }
@@ -1565,7 +1564,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
             throw new AppwriteException('Missing required parameter: "phoneVerification"');
         }
         const apiPath = '/users/{userId}/verification/phone'.replace('{userId}', userId);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof phoneVerification !== 'undefined') {
             payload['phoneVerification'] = phoneVerification;
         }

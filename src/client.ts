@@ -1,10 +1,8 @@
-import { fetch, FormData, Blob } from 'node-fetch-native-with-agent';
-import { getBoundary, parse as parseMultipart} from 'parse-multipart-data';
+import { fetch, FormData, File } from 'node-fetch-native-with-agent';
 import { createAgent } from 'node-fetch-native-with-agent/agent';
 import { Models } from './models';
-import { Payload } from './payload';
 
-type Params = {
+type Payload = {
     [key: string]: any;
 }
 
@@ -35,7 +33,7 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/14.1.0';
+    let ua = 'AppwriteNodeJSSDK/14.2.0';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
@@ -84,7 +82,7 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '14.1.0',
+        'x-sdk-version': '14.2.0',
         'user-agent' : getUserAgent(),
         'X-Appwrite-Response-Format': '1.6.0',
     };
@@ -219,7 +217,7 @@ class Client {
         return this;
     }
 
-    prepareRequest(method: string, url: URL, headers: Headers = {}, params: Params = {}): { uri: string, options: RequestInit } {
+    prepareRequest(method: string, url: URL, headers: Headers = {}, params: Payload = {}): { uri: string, options: RequestInit } {
         method = method.toUpperCase();
 
         headers = Object.assign({}, this.headers, headers);
@@ -244,8 +242,8 @@ class Client {
                     const formData = new FormData();
 
                     for (const [key, value] of Object.entries(params)) {
-                        if (value instanceof Payload) {
-                            formData.append(key, new Blob([value.toBinary()]), value.filename);
+                        if (value instanceof File) {
+                            formData.append(key, value, value.name);
                         } else if (Array.isArray(value)) {
                             for (const nestedValue of value) {
                                 formData.append(`${key}[]`, nestedValue);
@@ -257,7 +255,6 @@ class Client {
 
                     options.body = formData;
                     delete headers['content-type'];
-                    headers['accept'] = 'multipart/form-data';
                     break;
             }
         }
@@ -265,18 +262,8 @@ class Client {
         return { uri: url.toString(), options };
     }
 
-    async chunkedUpload(method: string, url: URL, headers: Headers = {}, originalPayload: Params = {}, onProgress: (progress: UploadProgress) => void) {
-        let file;
-        for (const value of Object.values(originalPayload)) {
-            if (value instanceof Payload) {
-                file = value;
-                break;
-            }
-        }
-
-        if (!file) {
-            throw new Error('No payload found in params');
-        }
+    async chunkedUpload(method: string, url: URL, headers: Headers = {}, originalPayload: Payload = {}, onProgress: (progress: UploadProgress) => void) {
+        const file = Object.values(originalPayload).find((value) => value instanceof File);
 
         if (file.size <= Client.CHUNK_SIZE) {
             return await this.call(method, url, headers, originalPayload);
@@ -292,9 +279,9 @@ class Client {
             }
 
             headers['content-range'] = `bytes ${start}-${end-1}/${file.size}`;
-            const chunk = file.toBinary(start, end - start);
+            const chunk = file.slice(start, end);
 
-            let payload = { ...originalPayload, file: new Payload(Buffer.from(chunk), file.filename)};
+            let payload = { ...originalPayload, file: new File([chunk], file.name)};
 
             response = await this.call(method, url, headers, payload);
 
@@ -318,7 +305,11 @@ class Client {
         return response;
     }
 
-    async redirect(method: string, url: URL, headers: Headers = {}, params: Params = {}): Promise<string> {
+    async ping(): Promise<string> {
+        return this.call('GET', new URL(this.config.endpoint + '/ping'));
+    }
+
+    async redirect(method: string, url: URL, headers: Headers = {}, params: Payload = {}): Promise<string> {
         const { uri, options } = this.prepareRequest(method, url, headers, params);
         
         const response = await fetch(uri, {
@@ -333,7 +324,7 @@ class Client {
         return response.headers.get('location') || '';
     }
 
-    async call(method: string, url: URL, headers: Headers = {}, params: Params = {}, responseType = 'json'): Promise<any> {
+    async call(method: string, url: URL, headers: Headers = {}, params: Payload = {}, responseType = 'json'): Promise<any> {
         const { uri, options } = this.prepareRequest(method, url, headers, params);
 
         let data: any = null;
@@ -349,35 +340,6 @@ class Client {
             data = await response.json();
         } else if (responseType === 'arrayBuffer') {
             data = await response.arrayBuffer();
-        } else if (response.headers.get('content-type')?.includes('multipart/form-data')) {
-            const body = await response.arrayBuffer();
-            const boundary = getBoundary(
-                response.headers.get("content-type") || ""
-            );
-            const parts = parseMultipart(Buffer.from(body), boundary);
-            const partsObject: { [key: string]: any } = {};
-            
-            for (const part of parts) {
-                if (!part.name) {
-                    continue;
-                }
-                if (part.name === "responseBody") {
-                    partsObject[part.name] = Payload.fromBinary(part.data, part.filename);
-                } else if (part.name === "responseStatusCode") {
-                    partsObject[part.name] = parseInt(part.data.toString());
-                } else if (part.name === "duration") {
-                    partsObject[part.name] = parseFloat(part.data.toString());
-                } else if (part.type === 'application/json') {
-                    try {
-                        partsObject[part.name] = JSON.parse(part.data.toString());
-                    } catch (e) {
-                        throw new Error(`Error parsing JSON for part ${part.name}: ${e instanceof Error ? e.message : 'Unknown error'}`);
-                    }
-                } else {
-                    partsObject[part.name] = part.data.toString();
-                }
-            }
-            data = partsObject;
         } else {
             data = {
                 message: await response.text()
@@ -391,8 +353,8 @@ class Client {
         return data;
     }
 
-    static flatten(data: Params, prefix = ''): Params {
-        let output: Params = {};
+    static flatten(data: Payload, prefix = ''): Payload {
+        let output: Payload = {};
 
         for (const [key, value] of Object.entries(data)) {
             let finalKey = prefix ? prefix + '[' + key +']' : key;
@@ -409,5 +371,5 @@ class Client {
 
 export { Client, AppwriteException };
 export { Query } from './query';
-export type { Models, Params, UploadProgress };
+export type { Models, Payload, UploadProgress };
 export type { QueryTypes, QueryTypesList } from './query';

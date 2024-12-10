@@ -1,5 +1,4 @@
-import { AppwriteException, Client, type Params, UploadProgress } from '../client';
-import { Payload } from '../payload';
+import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
 import type { Models } from '../models';
 import { AuthenticatorType } from '../enums/authenticator-type';
 import { AuthenticationFactor } from '../enums/authentication-factor';
@@ -22,7 +21,7 @@ export class Account {
      */
     async get<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>> {
         const apiPath = '/account';
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -59,7 +58,7 @@ export class Account {
             throw new AppwriteException('Missing required parameter: "password"');
         }
         const apiPath = '/account';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -105,7 +104,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             throw new AppwriteException('Missing required parameter: "password"');
         }
         const apiPath = '/account/email';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof email !== 'undefined') {
             payload['email'] = email;
         }
@@ -136,7 +135,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      */
     async listIdentities(queries?: string[]): Promise<Models.IdentityList> {
         const apiPath = '/account/identities';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -167,7 +166,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             throw new AppwriteException('Missing required parameter: "identityId"');
         }
         const apiPath = '/account/identities/{identityId}'.replace('{identityId}', identityId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -191,7 +190,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      */
     async createJWT(): Promise<Models.Jwt> {
         const apiPath = '/account/jwts';
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -216,7 +215,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      */
     async listLogs(queries?: string[]): Promise<Models.LogList> {
         const apiPath = '/account/logs';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
         }
@@ -247,7 +246,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             throw new AppwriteException('Missing required parameter: "mfa"');
         }
         const apiPath = '/account/mfa';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof mfa !== 'undefined') {
             payload['mfa'] = mfa;
         }
@@ -278,7 +277,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             throw new AppwriteException('Missing required parameter: "type"');
         }
         const apiPath = '/account/mfa/authenticators/{type}'.replace('{type}', type);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -310,7 +309,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             throw new AppwriteException('Missing required parameter: "otp"');
         }
         const apiPath = '/account/mfa/authenticators/{type}'.replace('{type}', type);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof otp !== 'undefined') {
             payload['otp'] = otp;
         }
@@ -341,7 +340,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             throw new AppwriteException('Missing required parameter: "type"');
         }
         const apiPath = '/account/mfa/authenticators/{type}'.replace('{type}', type);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -369,7 +368,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             throw new AppwriteException('Missing required parameter: "factor"');
         }
         const apiPath = '/account/mfa/challenge';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof factor !== 'undefined') {
             payload['factor'] = factor;
         }
@@ -404,7 +403,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             throw new AppwriteException('Missing required parameter: "otp"');
         }
         const apiPath = '/account/mfa/challenge';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof challengeId !== 'undefined') {
             payload['challengeId'] = challengeId;
         }
@@ -434,7 +433,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      */
     async listMfaFactors(): Promise<Models.MfaFactors> {
         const apiPath = '/account/mfa/factors';
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -458,7 +457,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      */
     async getMfaRecoveryCodes(): Promise<Models.MfaRecoveryCodes> {
         const apiPath = '/account/mfa/recovery-codes';
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -482,7 +481,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      */
     async createMfaRecoveryCodes(): Promise<Models.MfaRecoveryCodes> {
         const apiPath = '/account/mfa/recovery-codes';
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -506,7 +505,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      */
     async updateMfaRecoveryCodes(): Promise<Models.MfaRecoveryCodes> {
         const apiPath = '/account/mfa/recovery-codes';
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -534,7 +533,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/account/name';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
         }
@@ -566,7 +565,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             throw new AppwriteException('Missing required parameter: "password"');
         }
         const apiPath = '/account/password';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof password !== 'undefined') {
             payload['password'] = password;
         }
@@ -604,7 +603,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             throw new AppwriteException('Missing required parameter: "password"');
         }
         const apiPath = '/account/phone';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof phone !== 'undefined') {
             payload['phone'] = phone;
         }
@@ -634,7 +633,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      */
     async getPrefs<Preferences extends Models.Preferences>(): Promise<Preferences> {
         const apiPath = '/account/prefs';
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -662,7 +661,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             throw new AppwriteException('Missing required parameter: "prefs"');
         }
         const apiPath = '/account/prefs';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof prefs !== 'undefined') {
             payload['prefs'] = prefs;
         }
@@ -697,7 +696,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             throw new AppwriteException('Missing required parameter: "url"');
         }
         const apiPath = '/account/recovery';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof email !== 'undefined') {
             payload['email'] = email;
         }
@@ -741,7 +740,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
             throw new AppwriteException('Missing required parameter: "password"');
         }
         const apiPath = '/account/recovery';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -774,7 +773,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
      */
     async listSessions(): Promise<Models.SessionList> {
         const apiPath = '/account/sessions';
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -798,7 +797,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
      */
     async deleteSessions(): Promise<{}> {
         const apiPath = '/account/sessions';
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -822,7 +821,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
      */
     async createAnonymousSession(): Promise<Models.Session> {
         const apiPath = '/account/sessions/anonymous';
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -856,7 +855,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             throw new AppwriteException('Missing required parameter: "password"');
         }
         const apiPath = '/account/sessions/email';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof email !== 'undefined') {
             payload['email'] = email;
         }
@@ -894,7 +893,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             throw new AppwriteException('Missing required parameter: "secret"');
         }
         const apiPath = '/account/sessions/magic-url';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -932,7 +931,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             throw new AppwriteException('Missing required parameter: "secret"');
         }
         const apiPath = '/account/sessions/phone';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -970,7 +969,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             throw new AppwriteException('Missing required parameter: "secret"');
         }
         const apiPath = '/account/sessions/token';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -1004,7 +1003,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             throw new AppwriteException('Missing required parameter: "sessionId"');
         }
         const apiPath = '/account/sessions/{sessionId}'.replace('{sessionId}', sessionId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1032,7 +1031,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             throw new AppwriteException('Missing required parameter: "sessionId"');
         }
         const apiPath = '/account/sessions/{sessionId}'.replace('{sessionId}', sessionId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1060,7 +1059,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             throw new AppwriteException('Missing required parameter: "sessionId"');
         }
         const apiPath = '/account/sessions/{sessionId}'.replace('{sessionId}', sessionId);
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1084,7 +1083,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
      */
     async updateStatus<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>> {
         const apiPath = '/account/status';
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1119,7 +1118,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             throw new AppwriteException('Missing required parameter: "email"');
         }
         const apiPath = '/account/tokens/email';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -1145,7 +1144,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
     /**
      * Create magic URL token
      *
-     * Sends the user an email with a secret key for creating a session. If the provided user ID has not been registered, a new user will be created. When the user clicks the link in the email, the user is redirected back to the URL you provided with the secret key and userId values attached to the URL query string. Use the query string parameters to submit a request to the [POST /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession) endpoint to complete the login process. The link sent to the user&#039;s email address is valid for 1 hour. If you are on a mobile device you can leave the URL parameter empty, so that the login completion will be handled by your Appwrite instance by default.
+     * Sends the user an email with a secret key for creating a session. If the provided user ID has not been registered, a new user will be created. When the user clicks the link in the email, the user is redirected back to the URL you provided with the secret key and userId values attached to the URL query string. Use the query string parameters to submit a request to the [POST /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession) endpoint to complete the login process. The link sent to the user&#039;s email address is valid for 1 hour.
 
 A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
 
@@ -1165,7 +1164,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             throw new AppwriteException('Missing required parameter: "email"');
         }
         const apiPath = '/account/tokens/magic-url';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -1212,7 +1211,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             throw new AppwriteException('Missing required parameter: "provider"');
         }
         const apiPath = '/account/tokens/oauth2/{provider}'.replace('{provider}', provider);
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof success !== 'undefined') {
             payload['success'] = success;
         }
@@ -1255,7 +1254,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             throw new AppwriteException('Missing required parameter: "phone"');
         }
         const apiPath = '/account/tokens/phone';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -1292,7 +1291,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
             throw new AppwriteException('Missing required parameter: "url"');
         }
         const apiPath = '/account/verification';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof url !== 'undefined') {
             payload['url'] = url;
         }
@@ -1327,7 +1326,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
             throw new AppwriteException('Missing required parameter: "secret"');
         }
         const apiPath = '/account/verification';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
@@ -1357,7 +1356,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
      */
     async createPhoneVerification(): Promise<Models.Token> {
         const apiPath = '/account/verification/phone';
-        const payload: Params = {};
+        const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1389,7 +1388,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
             throw new AppwriteException('Missing required parameter: "secret"');
         }
         const apiPath = '/account/verification/phone';
-        const payload: Params = {};
+        const payload: Payload = {};
         if (typeof userId !== 'undefined') {
             payload['userId'] = userId;
         }
