@@ -27,6 +27,7 @@ export { IndexType } from './enums/index-type';
 export { Runtime } from './enums/runtime';
 export { ExecutionMethod } from './enums/execution-method';
 export { Name } from './enums/name';
+export { MessagePriority } from './enums/message-priority';
 export { SmtpEncryption } from './enums/smtp-encryption';
 export { Compression } from './enums/compression';
 export { ImageGravity } from './enums/image-gravity';
