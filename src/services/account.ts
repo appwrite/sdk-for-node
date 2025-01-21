@@ -125,7 +125,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         );
     }
     /**
-     * List Identities
+     * List identities
      *
      * Get the list of identities for the currently logged in user.
      *
@@ -264,7 +264,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         );
     }
     /**
-     * Create Authenticator
+     * Create authenticator
      *
      * Add an authenticator app to be used as an MFA factor. Verify the authenticator using the [verify authenticator](/docs/references/cloud/client-web/account#updateMfaAuthenticator) method.
      *
@@ -292,7 +292,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         );
     }
     /**
-     * Verify Authenticator
+     * Verify authenticator
      *
      * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#createMfaAuthenticator) method.
      *
@@ -327,7 +327,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         );
     }
     /**
-     * Delete Authenticator
+     * Delete authenticator
      *
      * Delete an authenticator for a user by ID.
      *
@@ -355,7 +355,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         );
     }
     /**
-     * Create MFA Challenge
+     * Create MFA challenge
      *
      * Begin the process of MFA verification after sign-in. Finish the flow with [updateMfaChallenge](/docs/references/cloud/client-web/account#updateMfaChallenge) method.
      *
@@ -386,7 +386,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         );
     }
     /**
-     * Create MFA Challenge (confirmation)
+     * Create MFA challenge (confirmation)
      *
      * Complete the MFA challenge by providing the one-time password. Finish the process of MFA verification by providing the one-time password. To begin the flow, use [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge) method.
      *
@@ -424,7 +424,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         );
     }
     /**
-     * List Factors
+     * List factors
      *
      * List the factors available on the account to be used as a MFA challange.
      *
@@ -448,7 +448,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         );
     }
     /**
-     * Get MFA Recovery Codes
+     * Get MFA recovery codes
      *
      * Get recovery codes that can be used as backup for MFA flow. Before getting codes, they must be generated using [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes) method. An OTP challenge is required to read recovery codes.
      *
@@ -472,7 +472,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         );
     }
     /**
-     * Create MFA Recovery Codes
+     * Create MFA recovery codes
      *
      * Generate recovery codes as backup for MFA flow. It&#039;s recommended to generate and show then immediately after user successfully adds their authehticator. Recovery codes can be used as a MFA verification type in [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge) method.
      *
@@ -496,7 +496,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         );
     }
     /**
-     * Regenerate MFA Recovery Codes
+     * Regenerate MFA recovery codes
      *
      * Regenerate recovery codes that can be used as backup for MFA flow. Before regenerating codes, they must be first generated using [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes) method. An OTP challenge is required to regenreate recovery codes.
      *
@@ -1144,7 +1144,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
     /**
      * Create magic URL token
      *
-     * Sends the user an email with a secret key for creating a session. If the provided user ID has not been registered, a new user will be created. When the user clicks the link in the email, the user is redirected back to the URL you provided with the secret key and userId values attached to the URL query string. Use the query string parameters to submit a request to the [POST /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession) endpoint to complete the login process. The link sent to the user&#039;s email address is valid for 1 hour. If you are on a mobile device you can leave the URL parameter empty, so that the login completion will be handled by your Appwrite instance by default.
+     * Sends the user an email with a secret key for creating a session. If the provided user ID has not been registered, a new user will be created. When the user clicks the link in the email, the user is redirected back to the URL you provided with the secret key and userId values attached to the URL query string. Use the query string parameters to submit a request to the [POST /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession) endpoint to complete the login process. The link sent to the user&#039;s email address is valid for 1 hour.
 
 A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
 
