@@ -461,7 +461,7 @@ export class Messaging {
     /**
      * Update SMS
      *
-     * Update an email message by its unique ID.
+     * Update an SMS message by its unique ID.
 
      *
      * @param {string} messageId
