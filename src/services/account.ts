@@ -393,9 +393,9 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @param {string} challengeId
      * @param {string} otp
      * @throws {AppwriteException}
-     * @returns {Promise<{}>}
+     * @returns {Promise<Models.Session>}
      */
-    async updateMfaChallenge(challengeId: string, otp: string): Promise<{}> {
+    async updateMfaChallenge(challengeId: string, otp: string): Promise<Models.Session> {
         if (typeof challengeId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "challengeId"');
         }

@@ -557,6 +557,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
     /**
      * Rebuild deployment
      *
+     * Create a new build for an existing function deployment. This endpoint allows you to rebuild a deployment with the updated function configuration, including its entrypoint and build commands if they have been modified The build process will be queued and executed asynchronously. The original deployment&#039;s code will be preserved and used for the new build.
      *
      * @param {string} functionId
      * @param {string} deploymentId
@@ -592,6 +593,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
     /**
      * Cancel deployment
      *
+     * Cancel an ongoing function deployment build. If the build is already in progress, it will be stopped and marked as canceled. If the build hasn&#039;t started yet, it will be marked as canceled without executing. You cannot cancel builds that have already completed (status &#039;ready&#039;) or failed. The response includes the final build status and details.
      *
      * @param {string} functionId
      * @param {string} deploymentId

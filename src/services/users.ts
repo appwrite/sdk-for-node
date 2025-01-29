@@ -820,9 +820,9 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @param {string} userId
      * @param {AuthenticatorType} type
      * @throws {AppwriteException}
-     * @returns {Promise<Models.User<Preferences>>}
+     * @returns {Promise<{}>}
      */
-    async deleteMfaAuthenticator<Preferences extends Models.Preferences>(userId: string, type: AuthenticatorType): Promise<Models.User<Preferences>> {
+    async deleteMfaAuthenticator(userId: string, type: AuthenticatorType): Promise<{}> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
