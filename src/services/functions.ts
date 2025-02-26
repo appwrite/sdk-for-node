@@ -11,8 +11,6 @@ export class Functions {
     }
 
     /**
-     * List functions
-     *
      * Get a list of all the project&#039;s functions. You can use the query params to filter your results.
      *
      * @param {string[]} queries
@@ -43,8 +41,6 @@ export class Functions {
         );
     }
     /**
-     * Create function
-     *
      * Create a new function. You can pass a list of [permissions](https://appwrite.io/docs/permissions) to allow different project users or team with access to execute the function using the client API.
      *
      * @param {string} functionId
@@ -164,8 +160,6 @@ export class Functions {
         );
     }
     /**
-     * List runtimes
-     *
      * Get a list of all runtimes that are currently active on your instance.
      *
      * @throws {AppwriteException}
@@ -188,8 +182,6 @@ export class Functions {
         );
     }
     /**
-     * List available function runtime specifications
-     *
      * List allowed function specifications for this instance.
 
      *
@@ -213,8 +205,6 @@ export class Functions {
         );
     }
     /**
-     * Get function
-     *
      * Get a function by its unique ID.
      *
      * @param {string} functionId
@@ -241,8 +231,6 @@ export class Functions {
         );
     }
     /**
-     * Update function
-     *
      * Update function by its unique ID.
      *
      * @param {string} functionId
@@ -340,8 +328,6 @@ export class Functions {
         );
     }
     /**
-     * Delete function
-     *
      * Delete a function by its unique ID.
      *
      * @param {string} functionId
@@ -368,8 +354,6 @@ export class Functions {
         );
     }
     /**
-     * List deployments
-     *
      * Get a list of all the project&#039;s code deployments. You can use the query params to filter your results.
      *
      * @param {string} functionId
@@ -404,8 +388,6 @@ export class Functions {
         );
     }
     /**
-     * Create deployment
-     *
      * Create a new function code deployment. Use this endpoint to upload a new version of your code function. To execute your newly uploaded code, you&#039;ll need to update the function&#039;s deployment to use your new deployment UID.
 
 This endpoint accepts a tar.gz file compressed with your code. Make sure to include any dependencies your code has within the compressed file. You can learn more about code packaging in the [Appwrite Cloud Functions tutorial](https://appwrite.io/docs/functions).
@@ -459,8 +441,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Get deployment
-     *
      * Get a code deployment by its unique ID.
      *
      * @param {string} functionId
@@ -491,8 +471,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Update deployment
-     *
      * Update the function code deployment ID using the unique function ID. Use this endpoint to switch the code deployment that should be executed by the execution endpoint.
      *
      * @param {string} functionId
@@ -523,8 +501,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Delete deployment
-     *
      * Delete a code deployment by its unique ID.
      *
      * @param {string} functionId
@@ -555,8 +531,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Rebuild deployment
-     *
      * Create a new build for an existing function deployment. This endpoint allows you to rebuild a deployment with the updated function configuration, including its entrypoint and build commands if they have been modified The build process will be queued and executed asynchronously. The original deployment&#039;s code will be preserved and used for the new build.
      *
      * @param {string} functionId
@@ -591,8 +565,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Cancel deployment
-     *
      * Cancel an ongoing function deployment build. If the build is already in progress, it will be stopped and marked as canceled. If the build hasn&#039;t started yet, it will be marked as canceled without executing. You cannot cancel builds that have already completed (status &#039;ready&#039;) or failed. The response includes the final build status and details.
      *
      * @param {string} functionId
@@ -623,8 +595,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Download deployment
-     *
      * Get a Deployment&#039;s contents by its unique ID. This endpoint supports range requests for partial or streaming file download.
      *
      * @param {string} functionId
@@ -656,8 +626,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * List executions
-     *
      * Get a list of all the current user function execution logs. You can use the query params to filter your results.
      *
      * @param {string} functionId
@@ -692,8 +660,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Create execution
-     *
      * Trigger a function execution. The returned object will return you the current execution status. You can ping the `Get Execution` endpoint to get updates on the current execution status. Once this endpoint is called, your function execution process will start asynchronously.
      *
      * @param {string} functionId
@@ -744,8 +710,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Get execution
-     *
      * Get a function execution log by its unique ID.
      *
      * @param {string} functionId
@@ -776,8 +740,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Delete execution
-     *
      * Delete a function execution by its unique ID.
 
      *
@@ -809,8 +771,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * List variables
-     *
      * Get a list of all variables of a specific function.
      *
      * @param {string} functionId
@@ -837,8 +797,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Create variable
-     *
      * Create a new function environment variable. These variables can be accessed in the function at runtime as environment variables.
      *
      * @param {string} functionId
@@ -879,8 +837,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Get variable
-     *
      * Get a variable by its unique ID.
      *
      * @param {string} functionId
@@ -911,8 +867,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Update variable
-     *
      * Update variable by its unique ID.
      *
      * @param {string} functionId
@@ -954,8 +908,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Delete variable
-     *
      * Delete a variable by its unique ID.
      *
      * @param {string} functionId

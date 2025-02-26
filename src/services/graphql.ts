@@ -9,8 +9,6 @@ export class Graphql {
     }
 
     /**
-     * GraphQL endpoint
-     *
      * Execute a GraphQL mutation.
      *
      * @param {object} query
@@ -41,8 +39,6 @@ export class Graphql {
         );
     }
     /**
-     * GraphQL endpoint
-     *
      * Execute a GraphQL mutation.
      *
      * @param {object} query
