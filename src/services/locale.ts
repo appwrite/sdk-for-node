@@ -16,7 +16,7 @@ export class Locale {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Locale>}
      */
-    async get(): Promise<Models.Locale> {
+     get(): Promise<Models.Locale> {
         const apiPath = '/locale';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -25,7 +25,7 @@ export class Locale {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -38,7 +38,7 @@ export class Locale {
      * @throws {AppwriteException}
      * @returns {Promise<Models.LocaleCodeList>}
      */
-    async listCodes(): Promise<Models.LocaleCodeList> {
+     listCodes(): Promise<Models.LocaleCodeList> {
         const apiPath = '/locale/codes';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -47,7 +47,7 @@ export class Locale {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -60,7 +60,7 @@ export class Locale {
      * @throws {AppwriteException}
      * @returns {Promise<Models.ContinentList>}
      */
-    async listContinents(): Promise<Models.ContinentList> {
+     listContinents(): Promise<Models.ContinentList> {
         const apiPath = '/locale/continents';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -69,7 +69,7 @@ export class Locale {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -82,7 +82,7 @@ export class Locale {
      * @throws {AppwriteException}
      * @returns {Promise<Models.CountryList>}
      */
-    async listCountries(): Promise<Models.CountryList> {
+     listCountries(): Promise<Models.CountryList> {
         const apiPath = '/locale/countries';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -91,7 +91,7 @@ export class Locale {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -104,7 +104,7 @@ export class Locale {
      * @throws {AppwriteException}
      * @returns {Promise<Models.CountryList>}
      */
-    async listCountriesEU(): Promise<Models.CountryList> {
+     listCountriesEU(): Promise<Models.CountryList> {
         const apiPath = '/locale/countries/eu';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -113,7 +113,7 @@ export class Locale {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -126,7 +126,7 @@ export class Locale {
      * @throws {AppwriteException}
      * @returns {Promise<Models.PhoneList>}
      */
-    async listCountriesPhones(): Promise<Models.PhoneList> {
+     listCountriesPhones(): Promise<Models.PhoneList> {
         const apiPath = '/locale/countries/phones';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -135,7 +135,7 @@ export class Locale {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -148,7 +148,7 @@ export class Locale {
      * @throws {AppwriteException}
      * @returns {Promise<Models.CurrencyList>}
      */
-    async listCurrencies(): Promise<Models.CurrencyList> {
+     listCurrencies(): Promise<Models.CurrencyList> {
         const apiPath = '/locale/currencies';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -157,7 +157,7 @@ export class Locale {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -170,7 +170,7 @@ export class Locale {
      * @throws {AppwriteException}
      * @returns {Promise<Models.LanguageList>}
      */
-    async listLanguages(): Promise<Models.LanguageList> {
+     listLanguages(): Promise<Models.LanguageList> {
         const apiPath = '/locale/languages';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -179,7 +179,7 @@ export class Locale {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,

@@ -17,7 +17,7 @@ export class Account {
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-    async get<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>> {
+     get<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>> {
         const apiPath = '/account';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -26,7 +26,7 @@ export class Account {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -43,7 +43,7 @@ export class Account {
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-    async create<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>> {
+     create<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -73,7 +73,7 @@ export class Account {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -90,7 +90,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-    async updateEmail<Preferences extends Models.Preferences>(email: string, password: string): Promise<Models.User<Preferences>> {
+     updateEmail<Preferences extends Models.Preferences>(email: string, password: string): Promise<Models.User<Preferences>> {
         if (typeof email === 'undefined') {
             throw new AppwriteException('Missing required parameter: "email"');
         }
@@ -111,7 +111,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -125,7 +125,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.IdentityList>}
      */
-    async listIdentities(queries?: string[]): Promise<Models.IdentityList> {
+     listIdentities(queries?: string[]): Promise<Models.IdentityList> {
         const apiPath = '/account/identities';
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -137,7 +137,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -151,7 +151,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async deleteIdentity(identityId: string): Promise<{}> {
+     deleteIdentity(identityId: string): Promise<{}> {
         if (typeof identityId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "identityId"');
         }
@@ -163,7 +163,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'delete',
             uri,
             apiHeaders,
@@ -176,7 +176,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Jwt>}
      */
-    async createJWT(): Promise<Models.Jwt> {
+     createJWT(): Promise<Models.Jwt> {
         const apiPath = '/account/jwts';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -185,7 +185,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -199,7 +199,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    async listLogs(queries?: string[]): Promise<Models.LogList> {
+     listLogs(queries?: string[]): Promise<Models.LogList> {
         const apiPath = '/account/logs';
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -211,7 +211,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -225,7 +225,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-    async updateMFA<Preferences extends Models.Preferences>(mfa: boolean): Promise<Models.User<Preferences>> {
+     updateMFA<Preferences extends Models.Preferences>(mfa: boolean): Promise<Models.User<Preferences>> {
         if (typeof mfa === 'undefined') {
             throw new AppwriteException('Missing required parameter: "mfa"');
         }
@@ -240,7 +240,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -254,7 +254,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaType>}
      */
-    async createMfaAuthenticator(type: AuthenticatorType): Promise<Models.MfaType> {
+     createMfaAuthenticator(type: AuthenticatorType): Promise<Models.MfaType> {
         if (typeof type === 'undefined') {
             throw new AppwriteException('Missing required parameter: "type"');
         }
@@ -266,7 +266,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -281,7 +281,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-    async updateMfaAuthenticator<Preferences extends Models.Preferences>(type: AuthenticatorType, otp: string): Promise<Models.User<Preferences>> {
+     updateMfaAuthenticator<Preferences extends Models.Preferences>(type: AuthenticatorType, otp: string): Promise<Models.User<Preferences>> {
         if (typeof type === 'undefined') {
             throw new AppwriteException('Missing required parameter: "type"');
         }
@@ -299,7 +299,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'put',
             uri,
             apiHeaders,
@@ -313,7 +313,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async deleteMfaAuthenticator(type: AuthenticatorType): Promise<{}> {
+     deleteMfaAuthenticator(type: AuthenticatorType): Promise<{}> {
         if (typeof type === 'undefined') {
             throw new AppwriteException('Missing required parameter: "type"');
         }
@@ -325,7 +325,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'delete',
             uri,
             apiHeaders,
@@ -339,7 +339,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaChallenge>}
      */
-    async createMfaChallenge(factor: AuthenticationFactor): Promise<Models.MfaChallenge> {
+     createMfaChallenge(factor: AuthenticationFactor): Promise<Models.MfaChallenge> {
         if (typeof factor === 'undefined') {
             throw new AppwriteException('Missing required parameter: "factor"');
         }
@@ -354,7 +354,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -369,7 +369,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Session>}
      */
-    async updateMfaChallenge(challengeId: string, otp: string): Promise<Models.Session> {
+     updateMfaChallenge(challengeId: string, otp: string): Promise<Models.Session> {
         if (typeof challengeId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "challengeId"');
         }
@@ -390,7 +390,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'put',
             uri,
             apiHeaders,
@@ -403,7 +403,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaFactors>}
      */
-    async listMfaFactors(): Promise<Models.MfaFactors> {
+     listMfaFactors(): Promise<Models.MfaFactors> {
         const apiPath = '/account/mfa/factors';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -412,7 +412,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -425,7 +425,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
      */
-    async getMfaRecoveryCodes(): Promise<Models.MfaRecoveryCodes> {
+     getMfaRecoveryCodes(): Promise<Models.MfaRecoveryCodes> {
         const apiPath = '/account/mfa/recovery-codes';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -434,7 +434,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -447,7 +447,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
      */
-    async createMfaRecoveryCodes(): Promise<Models.MfaRecoveryCodes> {
+     createMfaRecoveryCodes(): Promise<Models.MfaRecoveryCodes> {
         const apiPath = '/account/mfa/recovery-codes';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -456,7 +456,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -469,7 +469,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
      */
-    async updateMfaRecoveryCodes(): Promise<Models.MfaRecoveryCodes> {
+     updateMfaRecoveryCodes(): Promise<Models.MfaRecoveryCodes> {
         const apiPath = '/account/mfa/recovery-codes';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -478,7 +478,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -492,7 +492,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-    async updateName<Preferences extends Models.Preferences>(name: string): Promise<Models.User<Preferences>> {
+     updateName<Preferences extends Models.Preferences>(name: string): Promise<Models.User<Preferences>> {
         if (typeof name === 'undefined') {
             throw new AppwriteException('Missing required parameter: "name"');
         }
@@ -507,7 +507,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -522,7 +522,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-    async updatePassword<Preferences extends Models.Preferences>(password: string, oldPassword?: string): Promise<Models.User<Preferences>> {
+     updatePassword<Preferences extends Models.Preferences>(password: string, oldPassword?: string): Promise<Models.User<Preferences>> {
         if (typeof password === 'undefined') {
             throw new AppwriteException('Missing required parameter: "password"');
         }
@@ -540,7 +540,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -555,7 +555,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-    async updatePhone<Preferences extends Models.Preferences>(phone: string, password: string): Promise<Models.User<Preferences>> {
+     updatePhone<Preferences extends Models.Preferences>(phone: string, password: string): Promise<Models.User<Preferences>> {
         if (typeof phone === 'undefined') {
             throw new AppwriteException('Missing required parameter: "phone"');
         }
@@ -576,7 +576,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -589,7 +589,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Preferences>}
      */
-    async getPrefs<Preferences extends Models.Preferences>(): Promise<Preferences> {
+     getPrefs<Preferences extends Models.Preferences>(): Promise<Preferences> {
         const apiPath = '/account/prefs';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -598,7 +598,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -612,7 +612,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-    async updatePrefs<Preferences extends Models.Preferences>(prefs: Partial<Preferences>): Promise<Models.User<Preferences>> {
+     updatePrefs<Preferences extends Models.Preferences>(prefs: Partial<Preferences>): Promise<Models.User<Preferences>> {
         if (typeof prefs === 'undefined') {
             throw new AppwriteException('Missing required parameter: "prefs"');
         }
@@ -627,7 +627,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -642,7 +642,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Token>}
      */
-    async createRecovery(email: string, url: string): Promise<Models.Token> {
+     createRecovery(email: string, url: string): Promise<Models.Token> {
         if (typeof email === 'undefined') {
             throw new AppwriteException('Missing required parameter: "email"');
         }
@@ -663,7 +663,7 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -681,7 +681,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
      * @throws {AppwriteException}
      * @returns {Promise<Models.Token>}
      */
-    async updateRecovery(userId: string, secret: string, password: string): Promise<Models.Token> {
+     updateRecovery(userId: string, secret: string, password: string): Promise<Models.Token> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -708,7 +708,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'put',
             uri,
             apiHeaders,
@@ -721,7 +721,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
      * @throws {AppwriteException}
      * @returns {Promise<Models.SessionList>}
      */
-    async listSessions(): Promise<Models.SessionList> {
+     listSessions(): Promise<Models.SessionList> {
         const apiPath = '/account/sessions';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -730,7 +730,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -743,7 +743,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async deleteSessions(): Promise<{}> {
+     deleteSessions(): Promise<{}> {
         const apiPath = '/account/sessions';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -752,7 +752,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'delete',
             uri,
             apiHeaders,
@@ -765,7 +765,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
      * @throws {AppwriteException}
      * @returns {Promise<Models.Session>}
      */
-    async createAnonymousSession(): Promise<Models.Session> {
+     createAnonymousSession(): Promise<Models.Session> {
         const apiPath = '/account/sessions/anonymous';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -774,7 +774,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -791,7 +791,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Session>}
      */
-    async createEmailPasswordSession(email: string, password: string): Promise<Models.Session> {
+     createEmailPasswordSession(email: string, password: string): Promise<Models.Session> {
         if (typeof email === 'undefined') {
             throw new AppwriteException('Missing required parameter: "email"');
         }
@@ -812,7 +812,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -827,7 +827,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Session>}
      */
-    async updateMagicURLSession(userId: string, secret: string): Promise<Models.Session> {
+     updateMagicURLSession(userId: string, secret: string): Promise<Models.Session> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -848,7 +848,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'put',
             uri,
             apiHeaders,
@@ -863,7 +863,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Session>}
      */
-    async updatePhoneSession(userId: string, secret: string): Promise<Models.Session> {
+     updatePhoneSession(userId: string, secret: string): Promise<Models.Session> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -884,7 +884,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'put',
             uri,
             apiHeaders,
@@ -899,7 +899,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Session>}
      */
-    async createSession(userId: string, secret: string): Promise<Models.Session> {
+     createSession(userId: string, secret: string): Promise<Models.Session> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -920,7 +920,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -934,7 +934,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Session>}
      */
-    async getSession(sessionId: string): Promise<Models.Session> {
+     getSession(sessionId: string): Promise<Models.Session> {
         if (typeof sessionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "sessionId"');
         }
@@ -946,7 +946,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -960,7 +960,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Session>}
      */
-    async updateSession(sessionId: string): Promise<Models.Session> {
+     updateSession(sessionId: string): Promise<Models.Session> {
         if (typeof sessionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "sessionId"');
         }
@@ -972,7 +972,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -986,7 +986,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async deleteSession(sessionId: string): Promise<{}> {
+     deleteSession(sessionId: string): Promise<{}> {
         if (typeof sessionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "sessionId"');
         }
@@ -998,7 +998,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'delete',
             uri,
             apiHeaders,
@@ -1011,7 +1011,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-    async updateStatus<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>> {
+     updateStatus<Preferences extends Models.Preferences>(): Promise<Models.User<Preferences>> {
         const apiPath = '/account/status';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1020,7 +1020,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1038,7 +1038,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Token>}
      */
-    async createEmailToken(userId: string, email: string, phrase?: boolean): Promise<Models.Token> {
+     createEmailToken(userId: string, email: string, phrase?: boolean): Promise<Models.Token> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1062,7 +1062,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1082,7 +1082,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Token>}
      */
-    async createMagicURLToken(userId: string, email: string, url?: string, phrase?: boolean): Promise<Models.Token> {
+     createMagicURLToken(userId: string, email: string, url?: string, phrase?: boolean): Promise<Models.Token> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1109,7 +1109,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1130,7 +1130,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
      * @throws {AppwriteException}
      * @returns {Promise<string>}
      */
-    async createOAuth2Token(provider: OAuthProvider, success?: string, failure?: string, scopes?: string[]): Promise<string> {
+     createOAuth2Token(provider: OAuthProvider, success?: string, failure?: string, scopes?: string[]): Promise<string> {
         if (typeof provider === 'undefined') {
             throw new AppwriteException('Missing required parameter: "provider"');
         }
@@ -1151,7 +1151,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             'content-type': 'application/json',
         }
 
-        return await this.client.redirect(
+        return this.client.redirect(
             'get',
             uri,
             apiHeaders,
@@ -1168,7 +1168,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Token>}
      */
-    async createPhoneToken(userId: string, phone: string): Promise<Models.Token> {
+     createPhoneToken(userId: string, phone: string): Promise<Models.Token> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1189,7 +1189,7 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1206,7 +1206,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
      * @throws {AppwriteException}
      * @returns {Promise<Models.Token>}
      */
-    async createVerification(url: string): Promise<Models.Token> {
+     createVerification(url: string): Promise<Models.Token> {
         if (typeof url === 'undefined') {
             throw new AppwriteException('Missing required parameter: "url"');
         }
@@ -1221,7 +1221,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1236,7 +1236,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
      * @throws {AppwriteException}
      * @returns {Promise<Models.Token>}
      */
-    async updateVerification(userId: string, secret: string): Promise<Models.Token> {
+     updateVerification(userId: string, secret: string): Promise<Models.Token> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1257,7 +1257,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'put',
             uri,
             apiHeaders,
@@ -1270,7 +1270,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
      * @throws {AppwriteException}
      * @returns {Promise<Models.Token>}
      */
-    async createPhoneVerification(): Promise<Models.Token> {
+     createPhoneVerification(): Promise<Models.Token> {
         const apiPath = '/account/verification/phone';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1279,7 +1279,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1294,7 +1294,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
      * @throws {AppwriteException}
      * @returns {Promise<Models.Token>}
      */
-    async updatePhoneVerification(userId: string, secret: string): Promise<Models.Token> {
+     updatePhoneVerification(userId: string, secret: string): Promise<Models.Token> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1315,7 +1315,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'put',
             uri,
             apiHeaders,
