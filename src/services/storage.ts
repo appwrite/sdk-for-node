@@ -19,7 +19,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.BucketList>}
      */
-     listBuckets(queries?: string[], search?: string): Promise<Models.BucketList> {
+    listBuckets(queries?: string[], search?: string): Promise<Models.BucketList> {
         const apiPath = '/storage/buckets';
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -57,7 +57,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
-     createBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket> {
+    createBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket> {
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
         }
@@ -116,7 +116,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
-     getBucket(bucketId: string): Promise<Models.Bucket> {
+    getBucket(bucketId: string): Promise<Models.Bucket> {
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
         }
@@ -151,7 +151,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
-     updateBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket> {
+    updateBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket> {
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
         }
@@ -207,7 +207,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteBucket(bucketId: string): Promise<{}> {
+    deleteBucket(bucketId: string): Promise<{}> {
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
         }
@@ -235,7 +235,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.FileList>}
      */
-     listFiles(bucketId: string, queries?: string[], search?: string): Promise<Models.FileList> {
+    listFiles(bucketId: string, queries?: string[], search?: string): Promise<Models.FileList> {
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
         }
@@ -277,7 +277,7 @@ If you&#039;re creating a new file using one of the Appwrite SDKs, all the chunk
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
-     createFile(bucketId: string, fileId: string, file: File, permissions?: string[], onProgress = (progress: UploadProgress) => {}): Promise<Models.File> {
+    createFile(bucketId: string, fileId: string, file: File, permissions?: string[], onProgress = (progress: UploadProgress) => {}): Promise<Models.File> {
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
         }
@@ -320,7 +320,7 @@ If you&#039;re creating a new file using one of the Appwrite SDKs, all the chunk
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
-     getFile(bucketId: string, fileId: string): Promise<Models.File> {
+    getFile(bucketId: string, fileId: string): Promise<Models.File> {
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
         }
@@ -352,7 +352,7 @@ If you&#039;re creating a new file using one of the Appwrite SDKs, all the chunk
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
-     updateFile(bucketId: string, fileId: string, name?: string, permissions?: string[]): Promise<Models.File> {
+    updateFile(bucketId: string, fileId: string, name?: string, permissions?: string[]): Promise<Models.File> {
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
         }
@@ -388,7 +388,7 @@ If you&#039;re creating a new file using one of the Appwrite SDKs, all the chunk
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteFile(bucketId: string, fileId: string): Promise<{}> {
+    deleteFile(bucketId: string, fileId: string): Promise<{}> {
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
         }
@@ -418,7 +418,7 @@ If you&#039;re creating a new file using one of the Appwrite SDKs, all the chunk
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-     getFileDownload(bucketId: string, fileId: string): Promise<ArrayBuffer> {
+    getFileDownload(bucketId: string, fileId: string): Promise<ArrayBuffer> {
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
         }
@@ -460,7 +460,7 @@ If you&#039;re creating a new file using one of the Appwrite SDKs, all the chunk
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-     getFilePreview(bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat): Promise<ArrayBuffer> {
+    getFilePreview(bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat): Promise<ArrayBuffer> {
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
         }
@@ -524,7 +524,7 @@ If you&#039;re creating a new file using one of the Appwrite SDKs, all the chunk
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-     getFileView(bucketId: string, fileId: string): Promise<ArrayBuffer> {
+    getFileView(bucketId: string, fileId: string): Promise<ArrayBuffer> {
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
         }

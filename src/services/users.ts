@@ -19,7 +19,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.UserList<Preferences>>}
      */
-     list<Preferences extends Models.Preferences>(queries?: string[], search?: string): Promise<Models.UserList<Preferences>> {
+    list<Preferences extends Models.Preferences>(queries?: string[], search?: string): Promise<Models.UserList<Preferences>> {
         const apiPath = '/users';
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -52,7 +52,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     create<Preferences extends Models.Preferences>(userId: string, email?: string, phone?: string, password?: string, name?: string): Promise<Models.User<Preferences>> {
+    create<Preferences extends Models.Preferences>(userId: string, email?: string, phone?: string, password?: string, name?: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -96,7 +96,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     createArgon2User<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>> {
+    createArgon2User<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -143,7 +143,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     createBcryptUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>> {
+    createBcryptUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -188,7 +188,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.IdentityList>}
      */
-     listIdentities(queries?: string[], search?: string): Promise<Models.IdentityList> {
+    listIdentities(queries?: string[], search?: string): Promise<Models.IdentityList> {
         const apiPath = '/users/identities';
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -217,7 +217,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteIdentity(identityId: string): Promise<{}> {
+    deleteIdentity(identityId: string): Promise<{}> {
         if (typeof identityId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "identityId"');
         }
@@ -246,7 +246,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     createMD5User<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>> {
+    createMD5User<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -293,7 +293,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     createPHPassUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>> {
+    createPHPassUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -345,7 +345,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     createScryptUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number, passwordMemory: number, passwordParallel: number, passwordLength: number, name?: string): Promise<Models.User<Preferences>> {
+    createScryptUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number, passwordMemory: number, passwordParallel: number, passwordLength: number, name?: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -425,7 +425,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     createScryptModifiedUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, passwordSalt: string, passwordSaltSeparator: string, passwordSignerKey: string, name?: string): Promise<Models.User<Preferences>> {
+    createScryptModifiedUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, passwordSalt: string, passwordSaltSeparator: string, passwordSignerKey: string, name?: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -491,7 +491,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     createSHAUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, passwordVersion?: PasswordHash, name?: string): Promise<Models.User<Preferences>> {
+    createSHAUser<Preferences extends Models.Preferences>(userId: string, email: string, password: string, passwordVersion?: PasswordHash, name?: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -538,7 +538,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     get<Preferences extends Models.Preferences>(userId: string): Promise<Models.User<Preferences>> {
+    get<Preferences extends Models.Preferences>(userId: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -564,7 +564,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     delete(userId: string): Promise<{}> {
+    delete(userId: string): Promise<{}> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -591,7 +591,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     updateEmail<Preferences extends Models.Preferences>(userId: string, email: string): Promise<Models.User<Preferences>> {
+    updateEmail<Preferences extends Models.Preferences>(userId: string, email: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -625,7 +625,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Jwt>}
      */
-     createJWT(userId: string, sessionId?: string, duration?: number): Promise<Models.Jwt> {
+    createJWT(userId: string, sessionId?: string, duration?: number): Promise<Models.Jwt> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -660,7 +660,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     updateLabels<Preferences extends Models.Preferences>(userId: string, labels: string[]): Promise<Models.User<Preferences>> {
+    updateLabels<Preferences extends Models.Preferences>(userId: string, labels: string[]): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -693,7 +693,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-     listLogs(userId: string, queries?: string[]): Promise<Models.LogList> {
+    listLogs(userId: string, queries?: string[]): Promise<Models.LogList> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -722,7 +722,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Models.MembershipList>}
      */
-     listMemberships(userId: string): Promise<Models.MembershipList> {
+    listMemberships(userId: string): Promise<Models.MembershipList> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -749,7 +749,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     updateMfa<Preferences extends Models.Preferences>(userId: string, mfa: boolean): Promise<Models.User<Preferences>> {
+    updateMfa<Preferences extends Models.Preferences>(userId: string, mfa: boolean): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -782,7 +782,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteMfaAuthenticator(userId: string, type: AuthenticatorType): Promise<{}> {
+    deleteMfaAuthenticator(userId: string, type: AuthenticatorType): Promise<{}> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -811,7 +811,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaFactors>}
      */
-     listMfaFactors(userId: string): Promise<Models.MfaFactors> {
+    listMfaFactors(userId: string): Promise<Models.MfaFactors> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -837,7 +837,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
      */
-     getMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes> {
+    getMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -863,7 +863,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
      */
-     updateMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes> {
+    updateMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -889,7 +889,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
      */
-     createMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes> {
+    createMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -916,7 +916,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     updateName<Preferences extends Models.Preferences>(userId: string, name: string): Promise<Models.User<Preferences>> {
+    updateName<Preferences extends Models.Preferences>(userId: string, name: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -949,7 +949,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     updatePassword<Preferences extends Models.Preferences>(userId: string, password: string): Promise<Models.User<Preferences>> {
+    updatePassword<Preferences extends Models.Preferences>(userId: string, password: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -982,7 +982,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     updatePhone<Preferences extends Models.Preferences>(userId: string, number: string): Promise<Models.User<Preferences>> {
+    updatePhone<Preferences extends Models.Preferences>(userId: string, number: string): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1014,7 +1014,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Preferences>}
      */
-     getPrefs<Preferences extends Models.Preferences>(userId: string): Promise<Preferences> {
+    getPrefs<Preferences extends Models.Preferences>(userId: string): Promise<Preferences> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1041,7 +1041,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Preferences>}
      */
-     updatePrefs<Preferences extends Models.Preferences>(userId: string, prefs: object): Promise<Preferences> {
+    updatePrefs<Preferences extends Models.Preferences>(userId: string, prefs: object): Promise<Preferences> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1073,7 +1073,7 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * @throws {AppwriteException}
      * @returns {Promise<Models.SessionList>}
      */
-     listSessions(userId: string): Promise<Models.SessionList> {
+    listSessions(userId: string): Promise<Models.SessionList> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1101,7 +1101,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Session>}
      */
-     createSession(userId: string): Promise<Models.Session> {
+    createSession(userId: string): Promise<Models.Session> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1127,7 +1127,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteSessions(userId: string): Promise<{}> {
+    deleteSessions(userId: string): Promise<{}> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1154,7 +1154,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteSession(userId: string, sessionId: string): Promise<{}> {
+    deleteSession(userId: string, sessionId: string): Promise<{}> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1184,7 +1184,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     updateStatus<Preferences extends Models.Preferences>(userId: string, status: boolean): Promise<Models.User<Preferences>> {
+    updateStatus<Preferences extends Models.Preferences>(userId: string, status: boolean): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1217,7 +1217,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
      * @throws {AppwriteException}
      * @returns {Promise<Models.TargetList>}
      */
-     listTargets(userId: string, queries?: string[]): Promise<Models.TargetList> {
+    listTargets(userId: string, queries?: string[]): Promise<Models.TargetList> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1251,7 +1251,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Target>}
      */
-     createTarget(userId: string, targetId: string, providerType: MessagingProviderType, identifier: string, providerId?: string, name?: string): Promise<Models.Target> {
+    createTarget(userId: string, targetId: string, providerType: MessagingProviderType, identifier: string, providerId?: string, name?: string): Promise<Models.Target> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1302,7 +1302,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Target>}
      */
-     getTarget(userId: string, targetId: string): Promise<Models.Target> {
+    getTarget(userId: string, targetId: string): Promise<Models.Target> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1335,7 +1335,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Target>}
      */
-     updateTarget(userId: string, targetId: string, identifier?: string, providerId?: string, name?: string): Promise<Models.Target> {
+    updateTarget(userId: string, targetId: string, identifier?: string, providerId?: string, name?: string): Promise<Models.Target> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1374,7 +1374,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteTarget(userId: string, targetId: string): Promise<{}> {
+    deleteTarget(userId: string, targetId: string): Promise<{}> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1406,7 +1406,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
      * @throws {AppwriteException}
      * @returns {Promise<Models.Token>}
      */
-     createToken(userId: string, length?: number, expire?: number): Promise<Models.Token> {
+    createToken(userId: string, length?: number, expire?: number): Promise<Models.Token> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1439,7 +1439,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     updateEmailVerification<Preferences extends Models.Preferences>(userId: string, emailVerification: boolean): Promise<Models.User<Preferences>> {
+    updateEmailVerification<Preferences extends Models.Preferences>(userId: string, emailVerification: boolean): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
@@ -1472,7 +1472,7 @@ If you want to generate a token for a custom authentication flow, use the [POST 
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-     updatePhoneVerification<Preferences extends Models.Preferences>(userId: string, phoneVerification: boolean): Promise<Models.User<Preferences>> {
+    updatePhoneVerification<Preferences extends Models.Preferences>(userId: string, phoneVerification: boolean): Promise<Models.User<Preferences>> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }

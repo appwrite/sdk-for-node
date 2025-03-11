@@ -15,7 +15,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthStatus>}
      */
-     get(): Promise<Models.HealthStatus> {
+    get(): Promise<Models.HealthStatus> {
         const apiPath = '/health';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -37,7 +37,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthAntivirus>}
      */
-     getAntivirus(): Promise<Models.HealthAntivirus> {
+    getAntivirus(): Promise<Models.HealthAntivirus> {
         const apiPath = '/health/anti-virus';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -59,7 +59,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthStatus>}
      */
-     getCache(): Promise<Models.HealthStatus> {
+    getCache(): Promise<Models.HealthStatus> {
         const apiPath = '/health/cache';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -82,7 +82,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthCertificate>}
      */
-     getCertificate(domain?: string): Promise<Models.HealthCertificate> {
+    getCertificate(domain?: string): Promise<Models.HealthCertificate> {
         const apiPath = '/health/certificate';
         const payload: Payload = {};
         if (typeof domain !== 'undefined') {
@@ -107,7 +107,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthStatus>}
      */
-     getDB(): Promise<Models.HealthStatus> {
+    getDB(): Promise<Models.HealthStatus> {
         const apiPath = '/health/db';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -129,7 +129,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthStatus>}
      */
-     getPubSub(): Promise<Models.HealthStatus> {
+    getPubSub(): Promise<Models.HealthStatus> {
         const apiPath = '/health/pubsub';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -151,7 +151,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthStatus>}
      */
-     getQueue(): Promise<Models.HealthStatus> {
+    getQueue(): Promise<Models.HealthStatus> {
         const apiPath = '/health/queue';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -174,7 +174,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-     getQueueBuilds(threshold?: number): Promise<Models.HealthQueue> {
+    getQueueBuilds(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/builds';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
@@ -200,7 +200,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-     getQueueCertificates(threshold?: number): Promise<Models.HealthQueue> {
+    getQueueCertificates(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/certificates';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
@@ -227,7 +227,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-     getQueueDatabases(name?: string, threshold?: number): Promise<Models.HealthQueue> {
+    getQueueDatabases(name?: string, threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/databases';
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -256,7 +256,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-     getQueueDeletes(threshold?: number): Promise<Models.HealthQueue> {
+    getQueueDeletes(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/deletes';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
@@ -284,7 +284,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-     getFailedJobs(name: Name, threshold?: number): Promise<Models.HealthQueue> {
+    getFailedJobs(name: Name, threshold?: number): Promise<Models.HealthQueue> {
         if (typeof name === 'undefined') {
             throw new AppwriteException('Missing required parameter: "name"');
         }
@@ -313,7 +313,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-     getQueueFunctions(threshold?: number): Promise<Models.HealthQueue> {
+    getQueueFunctions(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/functions';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
@@ -339,7 +339,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-     getQueueLogs(threshold?: number): Promise<Models.HealthQueue> {
+    getQueueLogs(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/logs';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
@@ -365,7 +365,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-     getQueueMails(threshold?: number): Promise<Models.HealthQueue> {
+    getQueueMails(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/mails';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
@@ -391,7 +391,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-     getQueueMessaging(threshold?: number): Promise<Models.HealthQueue> {
+    getQueueMessaging(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/messaging';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
@@ -417,7 +417,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-     getQueueMigrations(threshold?: number): Promise<Models.HealthQueue> {
+    getQueueMigrations(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/migrations';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
@@ -443,7 +443,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-     getQueueUsage(threshold?: number): Promise<Models.HealthQueue> {
+    getQueueUsage(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/usage';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
@@ -469,7 +469,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-     getQueueUsageDump(threshold?: number): Promise<Models.HealthQueue> {
+    getQueueUsageDump(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/usage-dump';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
@@ -495,7 +495,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-     getQueueWebhooks(threshold?: number): Promise<Models.HealthQueue> {
+    getQueueWebhooks(threshold?: number): Promise<Models.HealthQueue> {
         const apiPath = '/health/queue/webhooks';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
@@ -520,7 +520,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthStatus>}
      */
-     getStorage(): Promise<Models.HealthStatus> {
+    getStorage(): Promise<Models.HealthStatus> {
         const apiPath = '/health/storage';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -542,7 +542,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthStatus>}
      */
-     getStorageLocal(): Promise<Models.HealthStatus> {
+    getStorageLocal(): Promise<Models.HealthStatus> {
         const apiPath = '/health/storage/local';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -564,7 +564,7 @@ export class Health {
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthTime>}
      */
-     getTime(): Promise<Models.HealthTime> {
+    getTime(): Promise<Models.HealthTime> {
         const apiPath = '/health/time';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);

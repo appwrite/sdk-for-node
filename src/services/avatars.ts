@@ -23,7 +23,7 @@ When one dimension is specified and the other is 0, the image is scaled with pre
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-     getBrowser(code: Browser, width?: number, height?: number, quality?: number): Promise<ArrayBuffer> {
+    getBrowser(code: Browser, width?: number, height?: number, quality?: number): Promise<ArrayBuffer> {
         if (typeof code === 'undefined') {
             throw new AppwriteException('Missing required parameter: "code"');
         }
@@ -65,7 +65,7 @@ When one dimension is specified and the other is 0, the image is scaled with pre
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-     getCreditCard(code: CreditCard, width?: number, height?: number, quality?: number): Promise<ArrayBuffer> {
+    getCreditCard(code: CreditCard, width?: number, height?: number, quality?: number): Promise<ArrayBuffer> {
         if (typeof code === 'undefined') {
             throw new AppwriteException('Missing required parameter: "code"');
         }
@@ -103,7 +103,7 @@ This endpoint does not follow HTTP redirects.
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-     getFavicon(url: string): Promise<ArrayBuffer> {
+    getFavicon(url: string): Promise<ArrayBuffer> {
         if (typeof url === 'undefined') {
             throw new AppwriteException('Missing required parameter: "url"');
         }
@@ -139,7 +139,7 @@ When one dimension is specified and the other is 0, the image is scaled with pre
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-     getFlag(code: Flag, width?: number, height?: number, quality?: number): Promise<ArrayBuffer> {
+    getFlag(code: Flag, width?: number, height?: number, quality?: number): Promise<ArrayBuffer> {
         if (typeof code === 'undefined') {
             throw new AppwriteException('Missing required parameter: "code"');
         }
@@ -181,7 +181,7 @@ This endpoint does not follow HTTP redirects.
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-     getImage(url: string, width?: number, height?: number): Promise<ArrayBuffer> {
+    getImage(url: string, width?: number, height?: number): Promise<ArrayBuffer> {
         if (typeof url === 'undefined') {
             throw new AppwriteException('Missing required parameter: "url"');
         }
@@ -225,7 +225,7 @@ When one dimension is specified and the other is 0, the image is scaled with pre
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-     getInitials(name?: string, width?: number, height?: number, background?: string): Promise<ArrayBuffer> {
+    getInitials(name?: string, width?: number, height?: number, background?: string): Promise<ArrayBuffer> {
         const apiPath = '/avatars/initials';
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -265,7 +265,7 @@ When one dimension is specified and the other is 0, the image is scaled with pre
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-     getQR(text: string, size?: number, margin?: number, download?: boolean): Promise<ArrayBuffer> {
+    getQR(text: string, size?: number, margin?: number, download?: boolean): Promise<ArrayBuffer> {
         if (typeof text === 'undefined') {
             throw new AppwriteException('Missing required parameter: "text"');
         }

@@ -18,7 +18,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.FunctionList>}
      */
-     list(queries?: string[], search?: string): Promise<Models.FunctionList> {
+    list(queries?: string[], search?: string): Promise<Models.FunctionList> {
         const apiPath = '/functions';
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -68,7 +68,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
-     create(functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, templateRepository?: string, templateOwner?: string, templateRootDirectory?: string, templateVersion?: string, specification?: string): Promise<Models.Function> {
+    create(functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, templateRepository?: string, templateOwner?: string, templateRootDirectory?: string, templateVersion?: string, specification?: string): Promise<Models.Function> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -165,7 +165,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.RuntimeList>}
      */
-     listRuntimes(): Promise<Models.RuntimeList> {
+    listRuntimes(): Promise<Models.RuntimeList> {
         const apiPath = '/functions/runtimes';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -188,7 +188,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.SpecificationList>}
      */
-     listSpecifications(): Promise<Models.SpecificationList> {
+    listSpecifications(): Promise<Models.SpecificationList> {
         const apiPath = '/functions/specifications';
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -211,7 +211,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
-     get(functionId: string): Promise<Models.Function> {
+    get(functionId: string): Promise<Models.Function> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -254,7 +254,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
-     update(functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string): Promise<Models.Function> {
+    update(functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string): Promise<Models.Function> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -334,7 +334,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     delete(functionId: string): Promise<{}> {
+    delete(functionId: string): Promise<{}> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -362,7 +362,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.DeploymentList>}
      */
-     listDeployments(functionId: string, queries?: string[], search?: string): Promise<Models.DeploymentList> {
+    listDeployments(functionId: string, queries?: string[], search?: string): Promise<Models.DeploymentList> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -402,7 +402,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-     createDeployment(functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string, onProgress = (progress: UploadProgress) => {}): Promise<Models.Deployment> {
+    createDeployment(functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string, onProgress = (progress: UploadProgress) => {}): Promise<Models.Deployment> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -448,7 +448,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-     getDeployment(functionId: string, deploymentId: string): Promise<Models.Deployment> {
+    getDeployment(functionId: string, deploymentId: string): Promise<Models.Deployment> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -478,7 +478,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
-     updateDeployment(functionId: string, deploymentId: string): Promise<Models.Function> {
+    updateDeployment(functionId: string, deploymentId: string): Promise<Models.Function> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -508,7 +508,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteDeployment(functionId: string, deploymentId: string): Promise<{}> {
+    deleteDeployment(functionId: string, deploymentId: string): Promise<{}> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -539,7 +539,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     createBuild(functionId: string, deploymentId: string, buildId?: string): Promise<{}> {
+    createBuild(functionId: string, deploymentId: string, buildId?: string): Promise<{}> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -572,7 +572,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<Models.Build>}
      */
-     updateDeploymentBuild(functionId: string, deploymentId: string): Promise<Models.Build> {
+    updateDeploymentBuild(functionId: string, deploymentId: string): Promise<Models.Build> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -602,7 +602,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-     getDeploymentDownload(functionId: string, deploymentId: string): Promise<ArrayBuffer> {
+    getDeploymentDownload(functionId: string, deploymentId: string): Promise<ArrayBuffer> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -634,7 +634,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<Models.ExecutionList>}
      */
-     listExecutions(functionId: string, queries?: string[], search?: string): Promise<Models.ExecutionList> {
+    listExecutions(functionId: string, queries?: string[], search?: string): Promise<Models.ExecutionList> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -672,7 +672,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<Models.Execution>}
      */
-     createExecution(functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string): Promise<Models.Execution> {
+    createExecution(functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string): Promise<Models.Execution> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -717,7 +717,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<Models.Execution>}
      */
-     getExecution(functionId: string, executionId: string): Promise<Models.Execution> {
+    getExecution(functionId: string, executionId: string): Promise<Models.Execution> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -748,7 +748,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteExecution(functionId: string, executionId: string): Promise<{}> {
+    deleteExecution(functionId: string, executionId: string): Promise<{}> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -777,7 +777,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<Models.VariableList>}
      */
-     listVariables(functionId: string): Promise<Models.VariableList> {
+    listVariables(functionId: string): Promise<Models.VariableList> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -805,7 +805,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-     createVariable(functionId: string, key: string, value: string): Promise<Models.Variable> {
+    createVariable(functionId: string, key: string, value: string): Promise<Models.Variable> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -844,7 +844,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-     getVariable(functionId: string, variableId: string): Promise<Models.Variable> {
+    getVariable(functionId: string, variableId: string): Promise<Models.Variable> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -876,7 +876,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-     updateVariable(functionId: string, variableId: string, key: string, value?: string): Promise<Models.Variable> {
+    updateVariable(functionId: string, variableId: string, key: string, value?: string): Promise<Models.Variable> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -915,7 +915,7 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteVariable(functionId: string, variableId: string): Promise<{}> {
+    deleteVariable(functionId: string, variableId: string): Promise<{}> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }

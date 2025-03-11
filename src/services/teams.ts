@@ -16,7 +16,7 @@ export class Teams {
      * @throws {AppwriteException}
      * @returns {Promise<Models.TeamList<Preferences>>}
      */
-     list<Preferences extends Models.Preferences>(queries?: string[], search?: string): Promise<Models.TeamList<Preferences>> {
+    list<Preferences extends Models.Preferences>(queries?: string[], search?: string): Promise<Models.TeamList<Preferences>> {
         const apiPath = '/teams';
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -47,7 +47,7 @@ export class Teams {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Team<Preferences>>}
      */
-     create<Preferences extends Models.Preferences>(teamId: string, name: string, roles?: string[]): Promise<Models.Team<Preferences>> {
+    create<Preferences extends Models.Preferences>(teamId: string, name: string, roles?: string[]): Promise<Models.Team<Preferences>> {
         if (typeof teamId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
@@ -85,7 +85,7 @@ export class Teams {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Team<Preferences>>}
      */
-     get<Preferences extends Models.Preferences>(teamId: string): Promise<Models.Team<Preferences>> {
+    get<Preferences extends Models.Preferences>(teamId: string): Promise<Models.Team<Preferences>> {
         if (typeof teamId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
@@ -112,7 +112,7 @@ export class Teams {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Team<Preferences>>}
      */
-     updateName<Preferences extends Models.Preferences>(teamId: string, name: string): Promise<Models.Team<Preferences>> {
+    updateName<Preferences extends Models.Preferences>(teamId: string, name: string): Promise<Models.Team<Preferences>> {
         if (typeof teamId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
@@ -144,7 +144,7 @@ export class Teams {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     delete(teamId: string): Promise<{}> {
+    delete(teamId: string): Promise<{}> {
         if (typeof teamId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
@@ -172,7 +172,7 @@ export class Teams {
      * @throws {AppwriteException}
      * @returns {Promise<Models.MembershipList>}
      */
-     listMemberships(teamId: string, queries?: string[], search?: string): Promise<Models.MembershipList> {
+    listMemberships(teamId: string, queries?: string[], search?: string): Promise<Models.MembershipList> {
         if (typeof teamId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
@@ -217,7 +217,7 @@ Please note that to avoid a [Redirect Attack](https://github.com/OWASP/CheatShee
      * @throws {AppwriteException}
      * @returns {Promise<Models.Membership>}
      */
-     createMembership(teamId: string, roles: string[], email?: string, userId?: string, phone?: string, url?: string, name?: string): Promise<Models.Membership> {
+    createMembership(teamId: string, roles: string[], email?: string, userId?: string, phone?: string, url?: string, name?: string): Promise<Models.Membership> {
         if (typeof teamId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
@@ -265,7 +265,7 @@ Please note that to avoid a [Redirect Attack](https://github.com/OWASP/CheatShee
      * @throws {AppwriteException}
      * @returns {Promise<Models.Membership>}
      */
-     getMembership(teamId: string, membershipId: string): Promise<Models.Membership> {
+    getMembership(teamId: string, membershipId: string): Promise<Models.Membership> {
         if (typeof teamId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
@@ -297,7 +297,7 @@ Please note that to avoid a [Redirect Attack](https://github.com/OWASP/CheatShee
      * @throws {AppwriteException}
      * @returns {Promise<Models.Membership>}
      */
-     updateMembership(teamId: string, membershipId: string, roles: string[]): Promise<Models.Membership> {
+    updateMembership(teamId: string, membershipId: string, roles: string[]): Promise<Models.Membership> {
         if (typeof teamId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
@@ -333,7 +333,7 @@ Please note that to avoid a [Redirect Attack](https://github.com/OWASP/CheatShee
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteMembership(teamId: string, membershipId: string): Promise<{}> {
+    deleteMembership(teamId: string, membershipId: string): Promise<{}> {
         if (typeof teamId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
@@ -368,7 +368,7 @@ If the request is successful, a session for the user is automatically created.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Membership>}
      */
-     updateMembershipStatus(teamId: string, membershipId: string, userId: string, secret: string): Promise<Models.Membership> {
+    updateMembershipStatus(teamId: string, membershipId: string, userId: string, secret: string): Promise<Models.Membership> {
         if (typeof teamId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
@@ -409,7 +409,7 @@ If the request is successful, a session for the user is automatically created.
      * @throws {AppwriteException}
      * @returns {Promise<Preferences>}
      */
-     getPrefs<Preferences extends Models.Preferences>(teamId: string): Promise<Preferences> {
+    getPrefs<Preferences extends Models.Preferences>(teamId: string): Promise<Preferences> {
         if (typeof teamId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
@@ -436,7 +436,7 @@ If the request is successful, a session for the user is automatically created.
      * @throws {AppwriteException}
      * @returns {Promise<Preferences>}
      */
-     updatePrefs<Preferences extends Models.Preferences>(teamId: string, prefs: object): Promise<Preferences> {
+    updatePrefs<Preferences extends Models.Preferences>(teamId: string, prefs: object): Promise<Preferences> {
         if (typeof teamId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }

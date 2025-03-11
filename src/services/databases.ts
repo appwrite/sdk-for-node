@@ -19,7 +19,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.DatabaseList>}
      */
-     list(queries?: string[], search?: string): Promise<Models.DatabaseList> {
+    list(queries?: string[], search?: string): Promise<Models.DatabaseList> {
         const apiPath = '/databases';
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -51,7 +51,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      */
-     create(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database> {
+    create(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -89,7 +89,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      */
-     get(databaseId: string): Promise<Models.Database> {
+    get(databaseId: string): Promise<Models.Database> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -117,7 +117,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      */
-     update(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database> {
+    update(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -152,7 +152,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     delete(databaseId: string): Promise<{}> {
+    delete(databaseId: string): Promise<{}> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -180,7 +180,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.CollectionList>}
      */
-     listCollections(databaseId: string, queries?: string[], search?: string): Promise<Models.CollectionList> {
+    listCollections(databaseId: string, queries?: string[], search?: string): Promise<Models.CollectionList> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -217,7 +217,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      */
-     createCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection> {
+    createCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -265,7 +265,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      */
-     getCollection(databaseId: string, collectionId: string): Promise<Models.Collection> {
+    getCollection(databaseId: string, collectionId: string): Promise<Models.Collection> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -299,7 +299,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      */
-     updateCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection> {
+    updateCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -344,7 +344,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteCollection(databaseId: string, collectionId: string): Promise<{}> {
+    deleteCollection(databaseId: string, collectionId: string): Promise<{}> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -375,7 +375,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeList>}
      */
-     listAttributes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.AttributeList> {
+    listAttributes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.AttributeList> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -413,7 +413,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBoolean>}
      */
-     createBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean> {
+    createBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -465,7 +465,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBoolean>}
      */
-     updateBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string): Promise<Models.AttributeBoolean> {
+    updateBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string): Promise<Models.AttributeBoolean> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -517,7 +517,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeDatetime>}
      */
-     createDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeDatetime> {
+    createDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeDatetime> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -569,7 +569,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeDatetime>}
      */
-     updateDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeDatetime> {
+    updateDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeDatetime> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -622,7 +622,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEmail>}
      */
-     createEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail> {
+    createEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -675,7 +675,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEmail>}
      */
-     updateEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeEmail> {
+    updateEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeEmail> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -729,7 +729,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEnum>}
      */
-     createEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum> {
+    createEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -789,7 +789,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEnum>}
      */
-     updateEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeEnum> {
+    updateEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeEnum> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -850,7 +850,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
      */
-     createFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat> {
+    createFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -911,7 +911,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
      */
-     updateFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number, newKey?: string): Promise<Models.AttributeFloat> {
+    updateFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number, newKey?: string): Promise<Models.AttributeFloat> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -978,7 +978,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeInteger>}
      */
-     createIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger> {
+    createIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1039,7 +1039,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeInteger>}
      */
-     updateIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number, newKey?: string): Promise<Models.AttributeInteger> {
+    updateIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number, newKey?: string): Promise<Models.AttributeInteger> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1104,7 +1104,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeIp>}
      */
-     createIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp> {
+    createIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1157,7 +1157,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeIp>}
      */
-     updateIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeIp> {
+    updateIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeIp> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1212,7 +1212,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
      */
-     createRelationshipAttribute(databaseId: string, collectionId: string, relatedCollectionId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate): Promise<Models.AttributeRelationship> {
+    createRelationshipAttribute(databaseId: string, collectionId: string, relatedCollectionId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate): Promise<Models.AttributeRelationship> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1273,7 +1273,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
      */
-     createStringAttribute(databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean): Promise<Models.AttributeString> {
+    createStringAttribute(databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean): Promise<Models.AttributeString> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1336,7 +1336,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
      */
-     updateStringAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string): Promise<Models.AttributeString> {
+    updateStringAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string): Promise<Models.AttributeString> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1392,7 +1392,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeUrl>}
      */
-     createUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl> {
+    createUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1445,7 +1445,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeUrl>}
      */
-     updateUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeUrl> {
+    updateUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeUrl> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1494,7 +1494,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     getAttribute(databaseId: string, collectionId: string, key: string): Promise<{}> {
+    getAttribute(databaseId: string, collectionId: string, key: string): Promise<{}> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1528,7 +1528,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteAttribute(databaseId: string, collectionId: string, key: string): Promise<{}> {
+    deleteAttribute(databaseId: string, collectionId: string, key: string): Promise<{}> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1565,7 +1565,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
      */
-     updateRelationshipAttribute(databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string): Promise<Models.AttributeRelationship> {
+    updateRelationshipAttribute(databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string): Promise<Models.AttributeRelationship> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1605,7 +1605,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
      */
-     listDocuments<Document extends Models.Document>(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.DocumentList<Document>> {
+    listDocuments<Document extends Models.Document>(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.DocumentList<Document>> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1641,7 +1641,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
      */
-     createDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data: Omit<Document, keyof Models.Document>, permissions?: string[]): Promise<Document> {
+    createDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data: Omit<Document, keyof Models.Document>, permissions?: string[]): Promise<Document> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1688,7 +1688,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
      */
-     getDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, queries?: string[]): Promise<Document> {
+    getDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, queries?: string[]): Promise<Document> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1727,7 +1727,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
      */
-     updateDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data?: Partial<Omit<Document, keyof Models.Document>>, permissions?: string[]): Promise<Document> {
+    updateDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data?: Partial<Omit<Document, keyof Models.Document>>, permissions?: string[]): Promise<Document> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1767,7 +1767,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteDocument(databaseId: string, collectionId: string, documentId: string): Promise<{}> {
+    deleteDocument(databaseId: string, collectionId: string, documentId: string): Promise<{}> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1801,7 +1801,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.IndexList>}
      */
-     listIndexes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.IndexList> {
+    listIndexes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.IndexList> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1839,7 +1839,7 @@ Attributes can be `key`, `fulltext`, and `unique`.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
      */
-     createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[]): Promise<Models.Index> {
+    createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[]): Promise<Models.Index> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1891,7 +1891,7 @@ Attributes can be `key`, `fulltext`, and `unique`.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
      */
-     getIndex(databaseId: string, collectionId: string, key: string): Promise<Models.Index> {
+    getIndex(databaseId: string, collectionId: string, key: string): Promise<Models.Index> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1925,7 +1925,7 @@ Attributes can be `key`, `fulltext`, and `unique`.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-     deleteIndex(databaseId: string, collectionId: string, key: string): Promise<{}> {
+    deleteIndex(databaseId: string, collectionId: string, key: string): Promise<{}> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
