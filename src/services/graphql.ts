@@ -9,15 +9,13 @@ export class Graphql {
     }
 
     /**
-     * GraphQL endpoint
-     *
      * Execute a GraphQL mutation.
      *
      * @param {object} query
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async query(query: object): Promise<{}> {
+    query(query: object): Promise<{}> {
         if (typeof query === 'undefined') {
             throw new AppwriteException('Missing required parameter: "query"');
         }
@@ -33,7 +31,7 @@ export class Graphql {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -41,15 +39,13 @@ export class Graphql {
         );
     }
     /**
-     * GraphQL endpoint
-     *
      * Execute a GraphQL mutation.
      *
      * @param {object} query
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async mutation(query: object): Promise<{}> {
+    mutation(query: object): Promise<{}> {
         if (typeof query === 'undefined') {
             throw new AppwriteException('Missing required parameter: "query"');
         }
@@ -65,7 +61,7 @@ export class Graphql {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,

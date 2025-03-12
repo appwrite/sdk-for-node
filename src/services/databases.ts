@@ -12,8 +12,6 @@ export class Databases {
     }
 
     /**
-     * List databases
-     *
      * Get a list of all databases from the current Appwrite project. You can use the search parameter to filter your results.
      *
      * @param {string[]} queries
@@ -21,7 +19,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.DatabaseList>}
      */
-    async list(queries?: string[], search?: string): Promise<Models.DatabaseList> {
+    list(queries?: string[], search?: string): Promise<Models.DatabaseList> {
         const apiPath = '/databases';
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -36,7 +34,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -44,8 +42,6 @@ export class Databases {
         );
     }
     /**
-     * Create database
-     *
      * Create a new Database.
 
      *
@@ -55,7 +51,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      */
-    async create(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database> {
+    create(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -79,7 +75,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -87,15 +83,13 @@ export class Databases {
         );
     }
     /**
-     * Get database
-     *
      * Get a database by its unique ID. This endpoint response returns a JSON object with the database metadata.
      *
      * @param {string} databaseId
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      */
-    async get(databaseId: string): Promise<Models.Database> {
+    get(databaseId: string): Promise<Models.Database> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -107,7 +101,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -115,8 +109,6 @@ export class Databases {
         );
     }
     /**
-     * Update database
-     *
      * Update a database by its unique ID.
      *
      * @param {string} databaseId
@@ -125,7 +117,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      */
-    async update(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database> {
+    update(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -146,7 +138,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'put',
             uri,
             apiHeaders,
@@ -154,15 +146,13 @@ export class Databases {
         );
     }
     /**
-     * Delete database
-     *
      * Delete a database by its unique ID. Only API keys with with databases.write scope can delete a database.
      *
      * @param {string} databaseId
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async delete(databaseId: string): Promise<{}> {
+    delete(databaseId: string): Promise<{}> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -174,7 +164,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'delete',
             uri,
             apiHeaders,
@@ -182,8 +172,6 @@ export class Databases {
         );
     }
     /**
-     * List collections
-     *
      * Get a list of all collections that belong to the provided databaseId. You can use the search parameter to filter your results.
      *
      * @param {string} databaseId
@@ -192,7 +180,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.CollectionList>}
      */
-    async listCollections(databaseId: string, queries?: string[], search?: string): Promise<Models.CollectionList> {
+    listCollections(databaseId: string, queries?: string[], search?: string): Promise<Models.CollectionList> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -210,7 +198,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -218,8 +206,6 @@ export class Databases {
         );
     }
     /**
-     * Create collection
-     *
      * Create a new Collection. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
      *
      * @param {string} databaseId
@@ -231,7 +217,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      */
-    async createCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection> {
+    createCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -264,7 +250,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -272,8 +258,6 @@ export class Databases {
         );
     }
     /**
-     * Get collection
-     *
      * Get a collection by its unique ID. This endpoint response returns a JSON object with the collection metadata.
      *
      * @param {string} databaseId
@@ -281,7 +265,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      */
-    async getCollection(databaseId: string, collectionId: string): Promise<Models.Collection> {
+    getCollection(databaseId: string, collectionId: string): Promise<Models.Collection> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -296,7 +280,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -304,8 +288,6 @@ export class Databases {
         );
     }
     /**
-     * Update collection
-     *
      * Update a collection by its unique ID.
      *
      * @param {string} databaseId
@@ -317,7 +299,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      */
-    async updateCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection> {
+    updateCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -347,7 +329,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'put',
             uri,
             apiHeaders,
@@ -355,8 +337,6 @@ export class Databases {
         );
     }
     /**
-     * Delete collection
-     *
      * Delete a collection by its unique ID. Only users with write permissions have access to delete this resource.
      *
      * @param {string} databaseId
@@ -364,7 +344,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async deleteCollection(databaseId: string, collectionId: string): Promise<{}> {
+    deleteCollection(databaseId: string, collectionId: string): Promise<{}> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -379,7 +359,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'delete',
             uri,
             apiHeaders,
@@ -387,8 +367,6 @@ export class Databases {
         );
     }
     /**
-     * List attributes
-     *
      * List attributes in the collection.
      *
      * @param {string} databaseId
@@ -397,7 +375,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeList>}
      */
-    async listAttributes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.AttributeList> {
+    listAttributes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.AttributeList> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -415,7 +393,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -423,8 +401,6 @@ export class Databases {
         );
     }
     /**
-     * Create boolean attribute
-     *
      * Create a boolean attribute.
 
      *
@@ -437,7 +413,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBoolean>}
      */
-    async createBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean> {
+    createBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -470,7 +446,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -478,8 +454,6 @@ export class Databases {
         );
     }
     /**
-     * Update boolean attribute
-     *
      * Update a boolean attribute. Changing the `default` value will not update already existing documents.
      *
      * @param {string} databaseId
@@ -491,7 +465,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBoolean>}
      */
-    async updateBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string): Promise<Models.AttributeBoolean> {
+    updateBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string): Promise<Models.AttributeBoolean> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -524,7 +498,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -532,8 +506,6 @@ export class Databases {
         );
     }
     /**
-     * Create datetime attribute
-     *
      * Create a date time attribute according to the ISO 8601 standard.
      *
      * @param {string} databaseId
@@ -545,7 +517,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeDatetime>}
      */
-    async createDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeDatetime> {
+    createDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeDatetime> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -578,7 +550,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -586,8 +558,6 @@ export class Databases {
         );
     }
     /**
-     * Update dateTime attribute
-     *
      * Update a date time attribute. Changing the `default` value will not update already existing documents.
      *
      * @param {string} databaseId
@@ -599,7 +569,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeDatetime>}
      */
-    async updateDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeDatetime> {
+    updateDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeDatetime> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -632,7 +602,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -640,8 +610,6 @@ export class Databases {
         );
     }
     /**
-     * Create email attribute
-     *
      * Create an email attribute.
 
      *
@@ -654,7 +622,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEmail>}
      */
-    async createEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail> {
+    createEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -687,7 +655,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -695,8 +663,6 @@ export class Databases {
         );
     }
     /**
-     * Update email attribute
-     *
      * Update an email attribute. Changing the `default` value will not update already existing documents.
 
      *
@@ -709,7 +675,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEmail>}
      */
-    async updateEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeEmail> {
+    updateEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeEmail> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -742,7 +708,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -750,8 +716,6 @@ export class Databases {
         );
     }
     /**
-     * Create enum attribute
-     *
      * Create an enumeration attribute. The `elements` param acts as a white-list of accepted values for this attribute. 
 
      *
@@ -765,7 +729,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEnum>}
      */
-    async createEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum> {
+    createEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -804,7 +768,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -812,8 +776,6 @@ export class Databases {
         );
     }
     /**
-     * Update enum attribute
-     *
      * Update an enum attribute. Changing the `default` value will not update already existing documents.
 
      *
@@ -827,7 +789,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEnum>}
      */
-    async updateEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeEnum> {
+    updateEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeEnum> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -866,7 +828,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -874,8 +836,6 @@ export class Databases {
         );
     }
     /**
-     * Create float attribute
-     *
      * Create a float attribute. Optionally, minimum and maximum values can be provided.
 
      *
@@ -890,7 +850,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
      */
-    async createFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat> {
+    createFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -929,7 +889,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -937,8 +897,6 @@ export class Databases {
         );
     }
     /**
-     * Update float attribute
-     *
      * Update a float attribute. Changing the `default` value will not update already existing documents.
 
      *
@@ -953,7 +911,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
      */
-    async updateFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number, newKey?: string): Promise<Models.AttributeFloat> {
+    updateFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number, newKey?: string): Promise<Models.AttributeFloat> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -998,7 +956,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1006,8 +964,6 @@ export class Databases {
         );
     }
     /**
-     * Create integer attribute
-     *
      * Create an integer attribute. Optionally, minimum and maximum values can be provided.
 
      *
@@ -1022,7 +978,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeInteger>}
      */
-    async createIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger> {
+    createIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1061,7 +1017,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1069,8 +1025,6 @@ export class Databases {
         );
     }
     /**
-     * Update integer attribute
-     *
      * Update an integer attribute. Changing the `default` value will not update already existing documents.
 
      *
@@ -1085,7 +1039,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeInteger>}
      */
-    async updateIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number, newKey?: string): Promise<Models.AttributeInteger> {
+    updateIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number, newKey?: string): Promise<Models.AttributeInteger> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1130,7 +1084,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1138,8 +1092,6 @@ export class Databases {
         );
     }
     /**
-     * Create IP address attribute
-     *
      * Create IP address attribute.
 
      *
@@ -1152,7 +1104,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeIp>}
      */
-    async createIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp> {
+    createIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1185,7 +1137,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1193,8 +1145,6 @@ export class Databases {
         );
     }
     /**
-     * Update IP address attribute
-     *
      * Update an ip attribute. Changing the `default` value will not update already existing documents.
 
      *
@@ -1207,7 +1157,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeIp>}
      */
-    async updateIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeIp> {
+    updateIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeIp> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1240,7 +1190,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1248,8 +1198,6 @@ export class Databases {
         );
     }
     /**
-     * Create relationship attribute
-     *
      * Create relationship attribute. [Learn more about relationship attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
 
      *
@@ -1264,7 +1212,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
      */
-    async createRelationshipAttribute(databaseId: string, collectionId: string, relatedCollectionId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate): Promise<Models.AttributeRelationship> {
+    createRelationshipAttribute(databaseId: string, collectionId: string, relatedCollectionId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate): Promise<Models.AttributeRelationship> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1303,7 +1251,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1311,8 +1259,6 @@ export class Databases {
         );
     }
     /**
-     * Create string attribute
-     *
      * Create a string attribute.
 
      *
@@ -1327,7 +1273,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
      */
-    async createStringAttribute(databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean): Promise<Models.AttributeString> {
+    createStringAttribute(databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean): Promise<Models.AttributeString> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1369,7 +1315,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1377,8 +1323,6 @@ export class Databases {
         );
     }
     /**
-     * Update string attribute
-     *
      * Update a string attribute. Changing the `default` value will not update already existing documents.
 
      *
@@ -1392,7 +1336,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
      */
-    async updateStringAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string): Promise<Models.AttributeString> {
+    updateStringAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string): Promise<Models.AttributeString> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1428,7 +1372,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1436,8 +1380,6 @@ export class Databases {
         );
     }
     /**
-     * Create URL attribute
-     *
      * Create a URL attribute.
 
      *
@@ -1450,7 +1392,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeUrl>}
      */
-    async createUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl> {
+    createUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1483,7 +1425,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1491,8 +1433,6 @@ export class Databases {
         );
     }
     /**
-     * Update URL attribute
-     *
      * Update an url attribute. Changing the `default` value will not update already existing documents.
 
      *
@@ -1505,7 +1445,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeUrl>}
      */
-    async updateUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeUrl> {
+    updateUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeUrl> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1538,7 +1478,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1546,8 +1486,6 @@ export class Databases {
         );
     }
     /**
-     * Get attribute
-     *
      * Get attribute by ID.
      *
      * @param {string} databaseId
@@ -1556,7 +1494,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async getAttribute(databaseId: string, collectionId: string, key: string): Promise<{}> {
+    getAttribute(databaseId: string, collectionId: string, key: string): Promise<{}> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1574,7 +1512,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -1582,8 +1520,6 @@ export class Databases {
         );
     }
     /**
-     * Delete attribute
-     *
      * Deletes an attribute.
      *
      * @param {string} databaseId
@@ -1592,7 +1528,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async deleteAttribute(databaseId: string, collectionId: string, key: string): Promise<{}> {
+    deleteAttribute(databaseId: string, collectionId: string, key: string): Promise<{}> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1610,7 +1546,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'delete',
             uri,
             apiHeaders,
@@ -1618,8 +1554,6 @@ export class Databases {
         );
     }
     /**
-     * Update relationship attribute
-     *
      * Update relationship attribute. [Learn more about relationship attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
 
      *
@@ -1631,7 +1565,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
      */
-    async updateRelationshipAttribute(databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string): Promise<Models.AttributeRelationship> {
+    updateRelationshipAttribute(databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string): Promise<Models.AttributeRelationship> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1655,7 +1589,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1663,8 +1597,6 @@ export class Databases {
         );
     }
     /**
-     * List documents
-     *
      * Get a list of all the user&#039;s documents in a given collection. You can use the query params to filter your results.
      *
      * @param {string} databaseId
@@ -1673,7 +1605,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
      */
-    async listDocuments<Document extends Models.Document>(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.DocumentList<Document>> {
+    listDocuments<Document extends Models.Document>(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.DocumentList<Document>> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1691,7 +1623,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -1699,8 +1631,6 @@ export class Databases {
         );
     }
     /**
-     * Create document
-     *
      * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
      *
      * @param {string} databaseId
@@ -1711,7 +1641,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
      */
-    async createDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data: Omit<Document, keyof Models.Document>, permissions?: string[]): Promise<Document> {
+    createDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data: Omit<Document, keyof Models.Document>, permissions?: string[]): Promise<Document> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1741,7 +1671,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1749,8 +1679,6 @@ export class Databases {
         );
     }
     /**
-     * Get document
-     *
      * Get a document by its unique ID. This endpoint response returns a JSON object with the document data.
      *
      * @param {string} databaseId
@@ -1760,7 +1688,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
      */
-    async getDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, queries?: string[]): Promise<Document> {
+    getDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, queries?: string[]): Promise<Document> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1781,7 +1709,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -1789,8 +1717,6 @@ export class Databases {
         );
     }
     /**
-     * Update document
-     *
      * Update a document by its unique ID. Using the patch method you can pass only specific fields that will get updated.
      *
      * @param {string} databaseId
@@ -1801,7 +1727,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
      */
-    async updateDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data?: Partial<Omit<Document, keyof Models.Document>>, permissions?: string[]): Promise<Document> {
+    updateDocument<Document extends Models.Document>(databaseId: string, collectionId: string, documentId: string, data?: Partial<Omit<Document, keyof Models.Document>>, permissions?: string[]): Promise<Document> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1825,7 +1751,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1833,8 +1759,6 @@ export class Databases {
         );
     }
     /**
-     * Delete document
-     *
      * Delete a document by its unique ID.
      *
      * @param {string} databaseId
@@ -1843,7 +1767,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async deleteDocument(databaseId: string, collectionId: string, documentId: string): Promise<{}> {
+    deleteDocument(databaseId: string, collectionId: string, documentId: string): Promise<{}> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1861,7 +1785,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'delete',
             uri,
             apiHeaders,
@@ -1869,8 +1793,6 @@ export class Databases {
         );
     }
     /**
-     * List indexes
-     *
      * List indexes in the collection.
      *
      * @param {string} databaseId
@@ -1879,7 +1801,7 @@ export class Databases {
      * @throws {AppwriteException}
      * @returns {Promise<Models.IndexList>}
      */
-    async listIndexes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.IndexList> {
+    listIndexes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.IndexList> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1897,7 +1819,7 @@ export class Databases {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -1905,8 +1827,6 @@ export class Databases {
         );
     }
     /**
-     * Create index
-     *
      * Creates an index on the attributes listed. Your index should include all the attributes you will query in a single request.
 Attributes can be `key`, `fulltext`, and `unique`.
      *
@@ -1919,7 +1839,7 @@ Attributes can be `key`, `fulltext`, and `unique`.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
      */
-    async createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[]): Promise<Models.Index> {
+    createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[]): Promise<Models.Index> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1955,7 +1875,7 @@ Attributes can be `key`, `fulltext`, and `unique`.
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1963,8 +1883,6 @@ Attributes can be `key`, `fulltext`, and `unique`.
         );
     }
     /**
-     * Get index
-     *
      * Get index by ID.
      *
      * @param {string} databaseId
@@ -1973,7 +1891,7 @@ Attributes can be `key`, `fulltext`, and `unique`.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
      */
-    async getIndex(databaseId: string, collectionId: string, key: string): Promise<Models.Index> {
+    getIndex(databaseId: string, collectionId: string, key: string): Promise<Models.Index> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1991,7 +1909,7 @@ Attributes can be `key`, `fulltext`, and `unique`.
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -1999,8 +1917,6 @@ Attributes can be `key`, `fulltext`, and `unique`.
         );
     }
     /**
-     * Delete index
-     *
      * Delete an index.
      *
      * @param {string} databaseId
@@ -2009,7 +1925,7 @@ Attributes can be `key`, `fulltext`, and `unique`.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async deleteIndex(databaseId: string, collectionId: string, key: string): Promise<{}> {
+    deleteIndex(databaseId: string, collectionId: string, key: string): Promise<{}> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -2027,7 +1943,7 @@ Attributes can be `key`, `fulltext`, and `unique`.
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'delete',
             uri,
             apiHeaders,

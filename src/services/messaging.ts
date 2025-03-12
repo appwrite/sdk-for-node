@@ -11,8 +11,6 @@ export class Messaging {
     }
 
     /**
-     * List messages
-     *
      * Get a list of all messages from the current Appwrite project.
      *
      * @param {string[]} queries
@@ -20,7 +18,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.MessageList>}
      */
-    async listMessages(queries?: string[], search?: string): Promise<Models.MessageList> {
+    listMessages(queries?: string[], search?: string): Promise<Models.MessageList> {
         const apiPath = '/messaging/messages';
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -35,7 +33,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -43,8 +41,6 @@ export class Messaging {
         );
     }
     /**
-     * Create email
-     *
      * Create a new email message.
      *
      * @param {string} messageId
@@ -62,7 +58,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    async createEmail(messageId: string, subject: string, content: string, topics?: string[], users?: string[], targets?: string[], cc?: string[], bcc?: string[], attachments?: string[], draft?: boolean, html?: boolean, scheduledAt?: string): Promise<Models.Message> {
+    createEmail(messageId: string, subject: string, content: string, topics?: string[], users?: string[], targets?: string[], cc?: string[], bcc?: string[], attachments?: string[], draft?: boolean, html?: boolean, scheduledAt?: string): Promise<Models.Message> {
         if (typeof messageId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
@@ -116,7 +112,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -124,9 +120,7 @@ export class Messaging {
         );
     }
     /**
-     * Update email
-     *
-     * Update an email message by its unique ID.
+     * Update an email message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
 
      *
      * @param {string} messageId
@@ -144,7 +138,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    async updateEmail(messageId: string, topics?: string[], users?: string[], targets?: string[], subject?: string, content?: string, draft?: boolean, html?: boolean, cc?: string[], bcc?: string[], scheduledAt?: string, attachments?: string[]): Promise<Models.Message> {
+    updateEmail(messageId: string, topics?: string[], users?: string[], targets?: string[], subject?: string, content?: string, draft?: boolean, html?: boolean, cc?: string[], bcc?: string[], scheduledAt?: string, attachments?: string[]): Promise<Models.Message> {
         if (typeof messageId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
@@ -189,7 +183,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -197,8 +191,6 @@ export class Messaging {
         );
     }
     /**
-     * Create push notification
-     *
      * Create a new push notification.
      *
      * @param {string} messageId
@@ -223,7 +215,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    async createPush(messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority): Promise<Models.Message> {
+    createPush(messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority): Promise<Models.Message> {
         if (typeof messageId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
@@ -292,7 +284,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -300,9 +292,7 @@ export class Messaging {
         );
     }
     /**
-     * Update push notification
-     *
-     * Update a push notification by its unique ID.
+     * Update a push notification by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
 
      *
      * @param {string} messageId
@@ -327,7 +317,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    async updatePush(messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority): Promise<Models.Message> {
+    updatePush(messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority): Promise<Models.Message> {
         if (typeof messageId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
@@ -393,7 +383,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -401,8 +391,6 @@ export class Messaging {
         );
     }
     /**
-     * Create SMS
-     *
      * Create a new SMS message.
      *
      * @param {string} messageId
@@ -415,7 +403,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    async createSms(messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string): Promise<Models.Message> {
+    createSms(messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string): Promise<Models.Message> {
         if (typeof messageId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
@@ -451,7 +439,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -459,9 +447,7 @@ export class Messaging {
         );
     }
     /**
-     * Update SMS
-     *
-     * Update an SMS message by its unique ID.
+     * Update an SMS message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
 
      *
      * @param {string} messageId
@@ -474,7 +460,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    async updateSms(messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string): Promise<Models.Message> {
+    updateSms(messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string): Promise<Models.Message> {
         if (typeof messageId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
@@ -504,7 +490,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -512,8 +498,6 @@ export class Messaging {
         );
     }
     /**
-     * Get message
-     *
      * Get a message by its unique ID.
 
      *
@@ -521,7 +505,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    async getMessage(messageId: string): Promise<Models.Message> {
+    getMessage(messageId: string): Promise<Models.Message> {
         if (typeof messageId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
@@ -533,7 +517,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -541,15 +525,13 @@ export class Messaging {
         );
     }
     /**
-     * Delete message
-     *
      * Delete a message. If the message is not a draft or scheduled, but has been sent, this will not recall the message.
      *
      * @param {string} messageId
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async delete(messageId: string): Promise<{}> {
+    delete(messageId: string): Promise<{}> {
         if (typeof messageId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
@@ -561,7 +543,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'delete',
             uri,
             apiHeaders,
@@ -569,8 +551,6 @@ export class Messaging {
         );
     }
     /**
-     * List message logs
-     *
      * Get the message activity logs listed by its unique ID.
      *
      * @param {string} messageId
@@ -578,7 +558,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    async listMessageLogs(messageId: string, queries?: string[]): Promise<Models.LogList> {
+    listMessageLogs(messageId: string, queries?: string[]): Promise<Models.LogList> {
         if (typeof messageId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
@@ -593,7 +573,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -601,8 +581,6 @@ export class Messaging {
         );
     }
     /**
-     * List message targets
-     *
      * Get a list of the targets associated with a message.
      *
      * @param {string} messageId
@@ -610,7 +588,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.TargetList>}
      */
-    async listTargets(messageId: string, queries?: string[]): Promise<Models.TargetList> {
+    listTargets(messageId: string, queries?: string[]): Promise<Models.TargetList> {
         if (typeof messageId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "messageId"');
         }
@@ -625,7 +603,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -633,8 +611,6 @@ export class Messaging {
         );
     }
     /**
-     * List providers
-     *
      * Get a list of all providers from the current Appwrite project.
      *
      * @param {string[]} queries
@@ -642,7 +618,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.ProviderList>}
      */
-    async listProviders(queries?: string[], search?: string): Promise<Models.ProviderList> {
+    listProviders(queries?: string[], search?: string): Promise<Models.ProviderList> {
         const apiPath = '/messaging/providers';
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -657,7 +633,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -665,8 +641,6 @@ export class Messaging {
         );
     }
     /**
-     * Create APNS provider
-     *
      * Create a new Apple Push Notification service provider.
      *
      * @param {string} providerId
@@ -680,7 +654,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async createApnsProvider(providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean): Promise<Models.Provider> {
+    createApnsProvider(providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -719,7 +693,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -727,8 +701,6 @@ export class Messaging {
         );
     }
     /**
-     * Update APNS provider
-     *
      * Update a Apple Push Notification service provider by its unique ID.
      *
      * @param {string} providerId
@@ -742,7 +714,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async updateApnsProvider(providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean): Promise<Models.Provider> {
+    updateApnsProvider(providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -775,7 +747,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -783,8 +755,6 @@ export class Messaging {
         );
     }
     /**
-     * Create FCM provider
-     *
      * Create a new Firebase Cloud Messaging provider.
      *
      * @param {string} providerId
@@ -794,7 +764,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async createFcmProvider(providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean): Promise<Models.Provider> {
+    createFcmProvider(providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -821,7 +791,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -829,8 +799,6 @@ export class Messaging {
         );
     }
     /**
-     * Update FCM provider
-     *
      * Update a Firebase Cloud Messaging provider by its unique ID.
      *
      * @param {string} providerId
@@ -840,7 +808,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async updateFcmProvider(providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object): Promise<Models.Provider> {
+    updateFcmProvider(providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -861,7 +829,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -869,8 +837,6 @@ export class Messaging {
         );
     }
     /**
-     * Create Mailgun provider
-     *
      * Create a new Mailgun provider.
      *
      * @param {string} providerId
@@ -886,7 +852,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async createMailgunProvider(providerId: string, name: string, apiKey?: string, domain?: string, isEuRegion?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider> {
+    createMailgunProvider(providerId: string, name: string, apiKey?: string, domain?: string, isEuRegion?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -931,7 +897,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -939,8 +905,6 @@ export class Messaging {
         );
     }
     /**
-     * Update Mailgun provider
-     *
      * Update a Mailgun provider by its unique ID.
      *
      * @param {string} providerId
@@ -956,7 +920,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async updateMailgunProvider(providerId: string, name?: string, apiKey?: string, domain?: string, isEuRegion?: boolean, enabled?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string): Promise<Models.Provider> {
+    updateMailgunProvider(providerId: string, name?: string, apiKey?: string, domain?: string, isEuRegion?: boolean, enabled?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -995,7 +959,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1003,8 +967,6 @@ export class Messaging {
         );
     }
     /**
-     * Create Msg91 provider
-     *
      * Create a new MSG91 provider.
      *
      * @param {string} providerId
@@ -1016,7 +978,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async createMsg91Provider(providerId: string, name: string, templateId?: string, senderId?: string, authKey?: string, enabled?: boolean): Promise<Models.Provider> {
+    createMsg91Provider(providerId: string, name: string, templateId?: string, senderId?: string, authKey?: string, enabled?: boolean): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1049,7 +1011,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1057,8 +1019,6 @@ export class Messaging {
         );
     }
     /**
-     * Update Msg91 provider
-     *
      * Update a MSG91 provider by its unique ID.
      *
      * @param {string} providerId
@@ -1070,7 +1030,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async updateMsg91Provider(providerId: string, name?: string, enabled?: boolean, templateId?: string, senderId?: string, authKey?: string): Promise<Models.Provider> {
+    updateMsg91Provider(providerId: string, name?: string, enabled?: boolean, templateId?: string, senderId?: string, authKey?: string): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1097,7 +1057,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1105,8 +1065,6 @@ export class Messaging {
         );
     }
     /**
-     * Create Sendgrid provider
-     *
      * Create a new Sendgrid provider.
      *
      * @param {string} providerId
@@ -1120,7 +1078,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async createSendgridProvider(providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider> {
+    createSendgridProvider(providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1159,7 +1117,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1167,8 +1125,6 @@ export class Messaging {
         );
     }
     /**
-     * Update Sendgrid provider
-     *
      * Update a Sendgrid provider by its unique ID.
      *
      * @param {string} providerId
@@ -1182,7 +1138,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async updateSendgridProvider(providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string): Promise<Models.Provider> {
+    updateSendgridProvider(providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1215,7 +1171,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1223,8 +1179,6 @@ export class Messaging {
         );
     }
     /**
-     * Create SMTP provider
-     *
      * Create a new SMTP provider.
      *
      * @param {string} providerId
@@ -1244,7 +1198,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async createSmtpProvider(providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider> {
+    createSmtpProvider(providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1304,7 +1258,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1312,8 +1266,6 @@ export class Messaging {
         );
     }
     /**
-     * Update SMTP provider
-     *
      * Update a SMTP provider by its unique ID.
      *
      * @param {string} providerId
@@ -1333,7 +1285,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async updateSmtpProvider(providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider> {
+    updateSmtpProvider(providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1384,7 +1336,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1392,8 +1344,6 @@ export class Messaging {
         );
     }
     /**
-     * Create Telesign provider
-     *
      * Create a new Telesign provider.
      *
      * @param {string} providerId
@@ -1405,7 +1355,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async createTelesignProvider(providerId: string, name: string, from?: string, customerId?: string, apiKey?: string, enabled?: boolean): Promise<Models.Provider> {
+    createTelesignProvider(providerId: string, name: string, from?: string, customerId?: string, apiKey?: string, enabled?: boolean): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1438,7 +1388,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1446,8 +1396,6 @@ export class Messaging {
         );
     }
     /**
-     * Update Telesign provider
-     *
      * Update a Telesign provider by its unique ID.
      *
      * @param {string} providerId
@@ -1459,7 +1407,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async updateTelesignProvider(providerId: string, name?: string, enabled?: boolean, customerId?: string, apiKey?: string, from?: string): Promise<Models.Provider> {
+    updateTelesignProvider(providerId: string, name?: string, enabled?: boolean, customerId?: string, apiKey?: string, from?: string): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1486,7 +1434,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1494,8 +1442,6 @@ export class Messaging {
         );
     }
     /**
-     * Create Textmagic provider
-     *
      * Create a new Textmagic provider.
      *
      * @param {string} providerId
@@ -1507,7 +1453,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async createTextmagicProvider(providerId: string, name: string, from?: string, username?: string, apiKey?: string, enabled?: boolean): Promise<Models.Provider> {
+    createTextmagicProvider(providerId: string, name: string, from?: string, username?: string, apiKey?: string, enabled?: boolean): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1540,7 +1486,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1548,8 +1494,6 @@ export class Messaging {
         );
     }
     /**
-     * Update Textmagic provider
-     *
      * Update a Textmagic provider by its unique ID.
      *
      * @param {string} providerId
@@ -1561,7 +1505,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async updateTextmagicProvider(providerId: string, name?: string, enabled?: boolean, username?: string, apiKey?: string, from?: string): Promise<Models.Provider> {
+    updateTextmagicProvider(providerId: string, name?: string, enabled?: boolean, username?: string, apiKey?: string, from?: string): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1588,7 +1532,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1596,8 +1540,6 @@ export class Messaging {
         );
     }
     /**
-     * Create Twilio provider
-     *
      * Create a new Twilio provider.
      *
      * @param {string} providerId
@@ -1609,7 +1551,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async createTwilioProvider(providerId: string, name: string, from?: string, accountSid?: string, authToken?: string, enabled?: boolean): Promise<Models.Provider> {
+    createTwilioProvider(providerId: string, name: string, from?: string, accountSid?: string, authToken?: string, enabled?: boolean): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1642,7 +1584,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1650,8 +1592,6 @@ export class Messaging {
         );
     }
     /**
-     * Update Twilio provider
-     *
      * Update a Twilio provider by its unique ID.
      *
      * @param {string} providerId
@@ -1663,7 +1603,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async updateTwilioProvider(providerId: string, name?: string, enabled?: boolean, accountSid?: string, authToken?: string, from?: string): Promise<Models.Provider> {
+    updateTwilioProvider(providerId: string, name?: string, enabled?: boolean, accountSid?: string, authToken?: string, from?: string): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1690,7 +1630,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1698,8 +1638,6 @@ export class Messaging {
         );
     }
     /**
-     * Create Vonage provider
-     *
      * Create a new Vonage provider.
      *
      * @param {string} providerId
@@ -1711,7 +1649,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async createVonageProvider(providerId: string, name: string, from?: string, apiKey?: string, apiSecret?: string, enabled?: boolean): Promise<Models.Provider> {
+    createVonageProvider(providerId: string, name: string, from?: string, apiKey?: string, apiSecret?: string, enabled?: boolean): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1744,7 +1682,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1752,8 +1690,6 @@ export class Messaging {
         );
     }
     /**
-     * Update Vonage provider
-     *
      * Update a Vonage provider by its unique ID.
      *
      * @param {string} providerId
@@ -1765,7 +1701,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async updateVonageProvider(providerId: string, name?: string, enabled?: boolean, apiKey?: string, apiSecret?: string, from?: string): Promise<Models.Provider> {
+    updateVonageProvider(providerId: string, name?: string, enabled?: boolean, apiKey?: string, apiSecret?: string, from?: string): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1792,7 +1728,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -1800,8 +1736,6 @@ export class Messaging {
         );
     }
     /**
-     * Get provider
-     *
      * Get a provider by its unique ID.
 
      *
@@ -1809,7 +1743,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    async getProvider(providerId: string): Promise<Models.Provider> {
+    getProvider(providerId: string): Promise<Models.Provider> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1821,7 +1755,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -1829,15 +1763,13 @@ export class Messaging {
         );
     }
     /**
-     * Delete provider
-     *
      * Delete a provider by its unique ID.
      *
      * @param {string} providerId
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async deleteProvider(providerId: string): Promise<{}> {
+    deleteProvider(providerId: string): Promise<{}> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1849,7 +1781,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'delete',
             uri,
             apiHeaders,
@@ -1857,8 +1789,6 @@ export class Messaging {
         );
     }
     /**
-     * List provider logs
-     *
      * Get the provider activity logs listed by its unique ID.
      *
      * @param {string} providerId
@@ -1866,7 +1796,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    async listProviderLogs(providerId: string, queries?: string[]): Promise<Models.LogList> {
+    listProviderLogs(providerId: string, queries?: string[]): Promise<Models.LogList> {
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
@@ -1881,7 +1811,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -1889,8 +1819,6 @@ export class Messaging {
         );
     }
     /**
-     * List subscriber logs
-     *
      * Get the subscriber activity logs listed by its unique ID.
      *
      * @param {string} subscriberId
@@ -1898,7 +1826,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    async listSubscriberLogs(subscriberId: string, queries?: string[]): Promise<Models.LogList> {
+    listSubscriberLogs(subscriberId: string, queries?: string[]): Promise<Models.LogList> {
         if (typeof subscriberId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "subscriberId"');
         }
@@ -1913,7 +1841,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -1921,8 +1849,6 @@ export class Messaging {
         );
     }
     /**
-     * List topics
-     *
      * Get a list of all topics from the current Appwrite project.
      *
      * @param {string[]} queries
@@ -1930,7 +1856,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.TopicList>}
      */
-    async listTopics(queries?: string[], search?: string): Promise<Models.TopicList> {
+    listTopics(queries?: string[], search?: string): Promise<Models.TopicList> {
         const apiPath = '/messaging/topics';
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -1945,7 +1871,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -1953,8 +1879,6 @@ export class Messaging {
         );
     }
     /**
-     * Create topic
-     *
      * Create a new topic.
      *
      * @param {string} topicId
@@ -1963,7 +1887,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      */
-    async createTopic(topicId: string, name: string, subscribe?: string[]): Promise<Models.Topic> {
+    createTopic(topicId: string, name: string, subscribe?: string[]): Promise<Models.Topic> {
         if (typeof topicId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
@@ -1987,7 +1911,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -1995,8 +1919,6 @@ export class Messaging {
         );
     }
     /**
-     * Get topic
-     *
      * Get a topic by its unique ID.
 
      *
@@ -2004,7 +1926,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      */
-    async getTopic(topicId: string): Promise<Models.Topic> {
+    getTopic(topicId: string): Promise<Models.Topic> {
         if (typeof topicId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
@@ -2016,7 +1938,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -2024,8 +1946,6 @@ export class Messaging {
         );
     }
     /**
-     * Update topic
-     *
      * Update a topic by its unique ID.
 
      *
@@ -2035,7 +1955,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      */
-    async updateTopic(topicId: string, name?: string, subscribe?: string[]): Promise<Models.Topic> {
+    updateTopic(topicId: string, name?: string, subscribe?: string[]): Promise<Models.Topic> {
         if (typeof topicId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
@@ -2053,7 +1973,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'patch',
             uri,
             apiHeaders,
@@ -2061,15 +1981,13 @@ export class Messaging {
         );
     }
     /**
-     * Delete topic
-     *
      * Delete a topic by its unique ID.
      *
      * @param {string} topicId
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async deleteTopic(topicId: string): Promise<{}> {
+    deleteTopic(topicId: string): Promise<{}> {
         if (typeof topicId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
@@ -2081,7 +1999,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'delete',
             uri,
             apiHeaders,
@@ -2089,8 +2007,6 @@ export class Messaging {
         );
     }
     /**
-     * List topic logs
-     *
      * Get the topic activity logs listed by its unique ID.
      *
      * @param {string} topicId
@@ -2098,7 +2014,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    async listTopicLogs(topicId: string, queries?: string[]): Promise<Models.LogList> {
+    listTopicLogs(topicId: string, queries?: string[]): Promise<Models.LogList> {
         if (typeof topicId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
@@ -2113,7 +2029,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -2121,8 +2037,6 @@ export class Messaging {
         );
     }
     /**
-     * List subscribers
-     *
      * Get a list of all subscribers from the current Appwrite project.
      *
      * @param {string} topicId
@@ -2131,7 +2045,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.SubscriberList>}
      */
-    async listSubscribers(topicId: string, queries?: string[], search?: string): Promise<Models.SubscriberList> {
+    listSubscribers(topicId: string, queries?: string[], search?: string): Promise<Models.SubscriberList> {
         if (typeof topicId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
@@ -2149,7 +2063,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -2157,8 +2071,6 @@ export class Messaging {
         );
     }
     /**
-     * Create subscriber
-     *
      * Create a new subscriber.
      *
      * @param {string} topicId
@@ -2167,7 +2079,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Subscriber>}
      */
-    async createSubscriber(topicId: string, subscriberId: string, targetId: string): Promise<Models.Subscriber> {
+    createSubscriber(topicId: string, subscriberId: string, targetId: string): Promise<Models.Subscriber> {
         if (typeof topicId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
@@ -2191,7 +2103,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'post',
             uri,
             apiHeaders,
@@ -2199,8 +2111,6 @@ export class Messaging {
         );
     }
     /**
-     * Get subscriber
-     *
      * Get a subscriber by its unique ID.
 
      *
@@ -2209,7 +2119,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Subscriber>}
      */
-    async getSubscriber(topicId: string, subscriberId: string): Promise<Models.Subscriber> {
+    getSubscriber(topicId: string, subscriberId: string): Promise<Models.Subscriber> {
         if (typeof topicId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
@@ -2224,7 +2134,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'get',
             uri,
             apiHeaders,
@@ -2232,8 +2142,6 @@ export class Messaging {
         );
     }
     /**
-     * Delete subscriber
-     *
      * Delete a subscriber by its unique ID.
      *
      * @param {string} topicId
@@ -2241,7 +2149,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    async deleteSubscriber(topicId: string, subscriberId: string): Promise<{}> {
+    deleteSubscriber(topicId: string, subscriberId: string): Promise<{}> {
         if (typeof topicId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "topicId"');
         }
@@ -2256,7 +2164,7 @@ export class Messaging {
             'content-type': 'application/json',
         }
 
-        return await this.client.call(
+        return this.client.call(
             'delete',
             uri,
             apiHeaders,
