@@ -33,7 +33,7 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/15.0.1';
+    let ua = 'AppwriteNodeJSSDK/15.0.2';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
@@ -82,7 +82,7 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '15.0.1',
+        'x-sdk-version': '15.0.2',
         'user-agent' : getUserAgent(),
         'X-Appwrite-Response-Format': '1.6.0',
     };
@@ -97,8 +97,11 @@ class Client {
      * @returns {this}
      */
     setEndpoint(endpoint: string): this {
-        this.config.endpoint = endpoint;
+        if (!endpoint.startsWith('http://') && !endpoint.startsWith('https://')) {
+            throw new AppwriteException('Invalid endpoint URL: ' + endpoint);
+        }
 
+        this.config.endpoint = endpoint;
         return this;
     }
 
@@ -265,6 +268,10 @@ class Client {
     async chunkedUpload(method: string, url: URL, headers: Headers = {}, originalPayload: Payload = {}, onProgress: (progress: UploadProgress) => void) {
         const file = Object.values(originalPayload).find((value) => value instanceof File);
 
+        if (!file) {
+            throw new Error('File not found in payload');
+        }
+
         if (file.size <= Client.CHUNK_SIZE) {
             return await this.call(method, url, headers, originalPayload);
         }
@@ -328,7 +335,6 @@ class Client {
         const { uri, options } = this.prepareRequest(method, url, headers, params);
 
         let data: any = null;
-        let text: string = '';
 
         const response = await fetch(uri, options);
 
@@ -339,18 +345,22 @@ class Client {
 
         if (response.headers.get('content-type')?.includes('application/json')) {
             data = await response.json();
-            text = JSON.stringify(data);
         } else if (responseType === 'arrayBuffer') {
             data = await response.arrayBuffer();
         } else {
-            text = await response.text();
             data = {
-                message: text
+                message: await response.text()
             };
         }
 
         if (400 <= response.status) {
-            throw new AppwriteException(data?.message, response.status, data?.type, text);
+            let responseText = '';
+            if (response.headers.get('content-type')?.includes('application/json') || responseType === 'arrayBuffer') {
+                responseText = JSON.stringify(data);
+            } else {
+                responseText = data?.message;
+            }
+            throw new AppwriteException(data?.message, response.status, data?.type, responseText);
         }
 
         return data;

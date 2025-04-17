@@ -21,7 +21,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -43,7 +42,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -65,7 +63,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -91,7 +88,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -113,7 +109,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -135,29 +130,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
-        }
-
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
-    }
-    /**
-     * Check the Appwrite queue messaging servers are up and connection is successful.
-     *
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.HealthStatus>}
-     */
-    getQueue(): Promise<Models.HealthStatus> {
-        const apiPath = '/health/queue';
-        const payload: Payload = {};
-        const uri = new URL(this.client.config.endpoint + apiPath);
-
-        const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -183,7 +155,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -209,7 +180,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -239,7 +209,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -265,7 +234,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -296,7 +264,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -322,7 +289,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -348,7 +314,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -374,7 +339,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -400,7 +364,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -426,7 +389,31 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+    /**
+     * Get the number of metrics that are waiting to be processed in the Appwrite stats resources queue.
+     *
+     * @param {number} threshold
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     */
+    getQueueStatsResources(threshold?: number): Promise<Models.HealthQueue> {
+        const apiPath = '/health/queue/stats-resources';
+        const payload: Payload = {};
+        if (typeof threshold !== 'undefined') {
+            payload['threshold'] = threshold;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
         }
 
         return this.client.call(
@@ -444,7 +431,7 @@ export class Health {
      * @returns {Promise<Models.HealthQueue>}
      */
     getQueueUsage(threshold?: number): Promise<Models.HealthQueue> {
-        const apiPath = '/health/queue/usage';
+        const apiPath = '/health/queue/stats-usage';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
@@ -452,33 +439,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
-        }
-
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
-    }
-    /**
-     * Get the number of projects containing metrics that are waiting to be processed in the Appwrite internal queue server.
-     *
-     * @param {number} threshold
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.HealthQueue>}
-     */
-    getQueueUsageDump(threshold?: number): Promise<Models.HealthQueue> {
-        const apiPath = '/health/queue/usage-dump';
-        const payload: Payload = {};
-        if (typeof threshold !== 'undefined') {
-            payload['threshold'] = threshold;
-        }
-        const uri = new URL(this.client.config.endpoint + apiPath);
-
-        const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -504,7 +464,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -526,7 +485,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -548,7 +506,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -570,7 +527,6 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(

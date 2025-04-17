@@ -23,7 +23,6 @@ export class Account {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -134,7 +133,6 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -208,7 +206,6 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -409,7 +406,6 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -431,7 +427,6 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -595,7 +590,6 @@ This endpoint can also be used to convert an anonymous account to a normal one, 
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -727,7 +721,6 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -943,7 +936,6 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -1148,7 +1140,6 @@ A user is limited to 10 active sessions at a time by default. [Learn more about 
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.redirect(
