@@ -31,7 +31,6 @@ export class Databases {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -98,7 +97,6 @@ export class Databases {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -195,7 +193,6 @@ export class Databases {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -277,7 +274,6 @@ export class Databases {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -390,7 +386,6 @@ export class Databases {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -904,14 +899,14 @@ export class Databases {
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
+     * @param {number} xdefault
      * @param {number} min
      * @param {number} max
-     * @param {number} xdefault
      * @param {string} newKey
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
      */
-    updateFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number, newKey?: string): Promise<Models.AttributeFloat> {
+    updateFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string): Promise<Models.AttributeFloat> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -923,12 +918,6 @@ export class Databases {
         }
         if (typeof required === 'undefined') {
             throw new AppwriteException('Missing required parameter: "required"');
-        }
-        if (typeof min === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "min"');
-        }
-        if (typeof max === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "max"');
         }
         if (typeof xdefault === 'undefined') {
             throw new AppwriteException('Missing required parameter: "xdefault"');
@@ -1032,14 +1021,14 @@ export class Databases {
      * @param {string} collectionId
      * @param {string} key
      * @param {boolean} required
+     * @param {number} xdefault
      * @param {number} min
      * @param {number} max
-     * @param {number} xdefault
      * @param {string} newKey
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeInteger>}
      */
-    updateIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min: number, max: number, xdefault?: number, newKey?: string): Promise<Models.AttributeInteger> {
+    updateIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string): Promise<Models.AttributeInteger> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1051,12 +1040,6 @@ export class Databases {
         }
         if (typeof required === 'undefined') {
             throw new AppwriteException('Missing required parameter: "required"');
-        }
-        if (typeof min === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "min"');
-        }
-        if (typeof max === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "max"');
         }
         if (typeof xdefault === 'undefined') {
             throw new AppwriteException('Missing required parameter: "xdefault"');
@@ -1509,7 +1492,6 @@ export class Databases {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -1620,7 +1602,6 @@ export class Databases {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -1632,6 +1613,7 @@ export class Databases {
     }
     /**
      * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -1706,7 +1688,6 @@ export class Databases {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -1816,7 +1797,6 @@ export class Databases {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -1906,7 +1886,6 @@ Attributes can be `key`, `fulltext`, and `unique`.
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(

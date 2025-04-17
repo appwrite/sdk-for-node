@@ -41,7 +41,6 @@ When one dimension is specified and the other is 0, the image is scaled with pre
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -83,7 +82,6 @@ When one dimension is specified and the other is 0, the image is scaled with pre
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -115,7 +113,6 @@ This endpoint does not follow HTTP redirects.
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -157,7 +154,6 @@ When one dimension is specified and the other is 0, the image is scaled with pre
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -199,7 +195,6 @@ This endpoint does not follow HTTP redirects.
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -243,7 +238,6 @@ When one dimension is specified and the other is 0, the image is scaled with pre
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
@@ -286,7 +280,6 @@ When one dimension is specified and the other is 0, the image is scaled with pre
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
