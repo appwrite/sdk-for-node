@@ -1661,7 +1661,6 @@ export class Databases {
     }
     /**
      * Create new Documents. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
-
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -1960,10 +1959,11 @@ Attributes can be `key`, `fulltext`, and `unique`.
      * @param {IndexType} type
      * @param {string[]} attributes
      * @param {string[]} orders
+     * @param {number[]} lengths
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
      */
-    createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[]): Promise<Models.Index> {
+    createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number[]): Promise<Models.Index> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1992,6 +1992,9 @@ Attributes can be `key`, `fulltext`, and `unique`.
         }
         if (typeof orders !== 'undefined') {
             payload['orders'] = orders;
+        }
+        if (typeof lengths !== 'undefined') {
+            payload['lengths'] = lengths;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

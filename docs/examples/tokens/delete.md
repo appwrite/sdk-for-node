@@ -5,10 +5,8 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const functions = new sdk.Functions(client);
+const tokens = new sdk.Tokens(client);
 
-const result = await functions.createBuild(
-    '<FUNCTION_ID>', // functionId
-    '<DEPLOYMENT_ID>', // deploymentId
-    '<BUILD_ID>' // buildId (optional)
+const result = await tokens.delete(
+    '<TOKEN_ID>' // tokenId
 );

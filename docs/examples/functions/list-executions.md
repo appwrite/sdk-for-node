@@ -9,6 +9,5 @@ const functions = new sdk.Functions(client);
 
 const result = await functions.listExecutions(
     '<FUNCTION_ID>', // functionId
-    [], // queries (optional)
-    '<SEARCH>' // search (optional)
+    [] // queries (optional)
 );

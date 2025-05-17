@@ -11,5 +11,6 @@ const result = await functions.updateVariable(
     '<FUNCTION_ID>', // functionId
     '<VARIABLE_ID>', // variableId
     '<KEY>', // key
-    '<VALUE>' // value (optional)
+    '<VALUE>', // value (optional)
+    false // secret (optional)
 );

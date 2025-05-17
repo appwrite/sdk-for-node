@@ -5,9 +5,6 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const functions = new sdk.Functions(client);
+const sites = new sdk.Sites(client);
 
-const result = await functions.updateDeploymentBuild(
-    '<FUNCTION_ID>', // functionId
-    '<DEPLOYMENT_ID>' // deploymentId
-);
+const result = await sites.listFrameworks();
