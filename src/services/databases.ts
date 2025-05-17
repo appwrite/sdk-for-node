@@ -1613,7 +1613,6 @@ export class Databases {
     }
     /**
      * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
-
      *
      * @param {string} databaseId
      * @param {string} collectionId
@@ -1655,6 +1654,150 @@ export class Databases {
 
         return this.client.call(
             'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+    /**
+     * Create new Documents. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {object[]} documents
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DocumentList<Document>>}
+     */
+    createDocuments<Document extends Models.Document>(databaseId: string, collectionId: string, documents: object[]): Promise<Models.DocumentList<Document>> {
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        if (typeof documents === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "documents"');
+        }
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const payload: Payload = {};
+        if (typeof documents !== 'undefined') {
+            payload['documents'] = documents;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+    /**
+     * Create or update Documents. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {object[]} documents
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DocumentList<Document>>}
+     */
+    upsertDocuments<Document extends Models.Document>(databaseId: string, collectionId: string, documents?: object[]): Promise<Models.DocumentList<Document>> {
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const payload: Payload = {};
+        if (typeof documents !== 'undefined') {
+            payload['documents'] = documents;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'put',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+    /**
+     * Update all documents that match your queries, if no queries are submitted then all documents are updated. You can pass only specific fields to be updated.
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {object} data
+     * @param {string[]} queries
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DocumentList<Document>>}
+     */
+    updateDocuments<Document extends Models.Document>(databaseId: string, collectionId: string, data?: object, queries?: string[]): Promise<Models.DocumentList<Document>> {
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const payload: Payload = {};
+        if (typeof data !== 'undefined') {
+            payload['data'] = data;
+        }
+        if (typeof queries !== 'undefined') {
+            payload['queries'] = queries;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+    /**
+     * Bulk delete documents using queries, if no queries are passed then all documents are deleted.
+     *
+     * @param {string} databaseId
+     * @param {string} collectionId
+     * @param {string[]} queries
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DocumentList<Document>>}
+     */
+    deleteDocuments<Document extends Models.Document>(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.DocumentList<Document>> {
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const payload: Payload = {};
+        if (typeof queries !== 'undefined') {
+            payload['queries'] = queries;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'delete',
             uri,
             apiHeaders,
             payload,
@@ -1816,10 +1959,11 @@ Attributes can be `key`, `fulltext`, and `unique`.
      * @param {IndexType} type
      * @param {string[]} attributes
      * @param {string[]} orders
+     * @param {number[]} lengths
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
      */
-    createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[]): Promise<Models.Index> {
+    createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number[]): Promise<Models.Index> {
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
@@ -1848,6 +1992,9 @@ Attributes can be `key`, `fulltext`, and `unique`.
         }
         if (typeof orders !== 'undefined') {
             payload['orders'] = orders;
+        }
+        if (typeof lengths !== 'undefined') {
+            payload['lengths'] = lengths;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

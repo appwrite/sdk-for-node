@@ -1,6 +1,8 @@
 import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
 import type { Models } from '../models';
 import { Runtime } from '../enums/runtime';
+import { VCSDeploymentType } from '../enums/v-c-s-deployment-type';
+import { DeploymentDownloadType } from '../enums/deployment-download-type';
 import { ExecutionMethod } from '../enums/execution-method';
 
 export class Functions {
@@ -59,15 +61,11 @@ export class Functions {
      * @param {string} providerBranch
      * @param {boolean} providerSilentMode
      * @param {string} providerRootDirectory
-     * @param {string} templateRepository
-     * @param {string} templateOwner
-     * @param {string} templateRootDirectory
-     * @param {string} templateVersion
      * @param {string} specification
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
-    create(functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, templateRepository?: string, templateOwner?: string, templateRootDirectory?: string, templateVersion?: string, specification?: string): Promise<Models.Function> {
+    create(functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string): Promise<Models.Function> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -130,18 +128,6 @@ export class Functions {
         if (typeof providerRootDirectory !== 'undefined') {
             payload['providerRootDirectory'] = providerRootDirectory;
         }
-        if (typeof templateRepository !== 'undefined') {
-            payload['templateRepository'] = templateRepository;
-        }
-        if (typeof templateOwner !== 'undefined') {
-            payload['templateOwner'] = templateOwner;
-        }
-        if (typeof templateRootDirectory !== 'undefined') {
-            payload['templateRootDirectory'] = templateRootDirectory;
-        }
-        if (typeof templateVersion !== 'undefined') {
-            payload['templateVersion'] = templateVersion;
-        }
         if (typeof specification !== 'undefined') {
             payload['specification'] = specification;
         }
@@ -181,7 +167,6 @@ export class Functions {
     }
     /**
      * List allowed function specifications for this instance.
-
      *
      * @throws {AppwriteException}
      * @returns {Promise<Models.SpecificationList>}
@@ -350,7 +335,40 @@ export class Functions {
         );
     }
     /**
-     * Get a list of all the project&#039;s code deployments. You can use the query params to filter your results.
+     * Update the function active deployment. Use this endpoint to switch the code deployment that should be used when visitor opens your function.
+     *
+     * @param {string} functionId
+     * @param {string} deploymentId
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Function>}
+     */
+    updateFunctionDeployment(functionId: string, deploymentId: string): Promise<Models.Function> {
+        if (typeof functionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+        if (typeof deploymentId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "deploymentId"');
+        }
+        const apiPath = '/functions/{functionId}/deployment'.replace('{functionId}', functionId);
+        const payload: Payload = {};
+        if (typeof deploymentId !== 'undefined') {
+            payload['deploymentId'] = deploymentId;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+    /**
+     * Get a list of all the function&#039;s code deployments. You can use the query params to filter your results.
      *
      * @param {string} functionId
      * @param {string[]} queries
@@ -436,7 +454,150 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Get a code deployment by its unique ID.
+     * Create a new build for an existing function deployment. This endpoint allows you to rebuild a deployment with the updated function configuration, including its entrypoint and build commands if they have been modified. The build process will be queued and executed asynchronously. The original deployment&#039;s code will be preserved and used for the new build.
+     *
+     * @param {string} functionId
+     * @param {string} deploymentId
+     * @param {string} buildId
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Deployment>}
+     */
+    createDuplicateDeployment(functionId: string, deploymentId: string, buildId?: string): Promise<Models.Deployment> {
+        if (typeof functionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+        if (typeof deploymentId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "deploymentId"');
+        }
+        const apiPath = '/functions/{functionId}/deployments/duplicate'.replace('{functionId}', functionId);
+        const payload: Payload = {};
+        if (typeof deploymentId !== 'undefined') {
+            payload['deploymentId'] = deploymentId;
+        }
+        if (typeof buildId !== 'undefined') {
+            payload['buildId'] = buildId;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+    /**
+     * Create a deployment based on a template.
+
+Use this endpoint with combination of [listTemplates](https://appwrite.io/docs/server/functions#listTemplates) to find the template details.
+     *
+     * @param {string} functionId
+     * @param {string} repository
+     * @param {string} owner
+     * @param {string} rootDirectory
+     * @param {string} version
+     * @param {boolean} activate
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Deployment>}
+     */
+    createTemplateDeployment(functionId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean): Promise<Models.Deployment> {
+        if (typeof functionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+        if (typeof repository === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "repository"');
+        }
+        if (typeof owner === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "owner"');
+        }
+        if (typeof rootDirectory === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "rootDirectory"');
+        }
+        if (typeof version === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "version"');
+        }
+        const apiPath = '/functions/{functionId}/deployments/template'.replace('{functionId}', functionId);
+        const payload: Payload = {};
+        if (typeof repository !== 'undefined') {
+            payload['repository'] = repository;
+        }
+        if (typeof owner !== 'undefined') {
+            payload['owner'] = owner;
+        }
+        if (typeof rootDirectory !== 'undefined') {
+            payload['rootDirectory'] = rootDirectory;
+        }
+        if (typeof version !== 'undefined') {
+            payload['version'] = version;
+        }
+        if (typeof activate !== 'undefined') {
+            payload['activate'] = activate;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+    /**
+     * Create a deployment when a function is connected to VCS.
+
+This endpoint lets you create deployment from a branch, commit, or a tag.
+     *
+     * @param {string} functionId
+     * @param {VCSDeploymentType} type
+     * @param {string} reference
+     * @param {boolean} activate
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Deployment>}
+     */
+    createVcsDeployment(functionId: string, type: VCSDeploymentType, reference: string, activate?: boolean): Promise<Models.Deployment> {
+        if (typeof functionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+        if (typeof type === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "type"');
+        }
+        if (typeof reference === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "reference"');
+        }
+        const apiPath = '/functions/{functionId}/deployments/vcs'.replace('{functionId}', functionId);
+        const payload: Payload = {};
+        if (typeof type !== 'undefined') {
+            payload['type'] = type;
+        }
+        if (typeof reference !== 'undefined') {
+            payload['reference'] = reference;
+        }
+        if (typeof activate !== 'undefined') {
+            payload['activate'] = activate;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+    /**
+     * Get a function deployment by its unique ID.
      *
      * @param {string} functionId
      * @param {string} deploymentId
@@ -459,36 +620,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
 
         return this.client.call(
             'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
-    }
-    /**
-     * Update the function code deployment ID using the unique function ID. Use this endpoint to switch the code deployment that should be executed by the execution endpoint.
-     *
-     * @param {string} functionId
-     * @param {string} deploymentId
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.Function>}
-     */
-    updateDeployment(functionId: string, deploymentId: string): Promise<Models.Function> {
-        if (typeof functionId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "functionId"');
-        }
-        if (typeof deploymentId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "deploymentId"');
-        }
-        const apiPath = '/functions/{functionId}/deployments/{deploymentId}'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
-        const payload: Payload = {};
-        const uri = new URL(this.client.config.endpoint + apiPath);
-
-        const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
-        }
-
-        return this.client.call(
-            'patch',
             uri,
             apiHeaders,
             payload,
@@ -525,37 +656,37 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Create a new build for an existing function deployment. This endpoint allows you to rebuild a deployment with the updated function configuration, including its entrypoint and build commands if they have been modified The build process will be queued and executed asynchronously. The original deployment&#039;s code will be preserved and used for the new build.
+     * Get a function deployment content by its unique ID. The endpoint response return with a &#039;Content-Disposition: attachment&#039; header that tells the browser to start downloading the file to user downloads directory.
      *
      * @param {string} functionId
      * @param {string} deploymentId
-     * @param {string} buildId
+     * @param {DeploymentDownloadType} type
      * @throws {AppwriteException}
-     * @returns {Promise<{}>}
+     * @returns {Promise<ArrayBuffer>}
      */
-    createBuild(functionId: string, deploymentId: string, buildId?: string): Promise<{}> {
+    getDeploymentDownload(functionId: string, deploymentId: string, type?: DeploymentDownloadType): Promise<ArrayBuffer> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
         if (typeof deploymentId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
-        const apiPath = '/functions/{functionId}/deployments/{deploymentId}/build'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
+        const apiPath = '/functions/{functionId}/deployments/{deploymentId}/download'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
         const payload: Payload = {};
-        if (typeof buildId !== 'undefined') {
-            payload['buildId'] = buildId;
+        if (typeof type !== 'undefined') {
+            payload['type'] = type;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
         }
 
         return this.client.call(
-            'post',
+            'get',
             uri,
             apiHeaders,
             payload,
+            'arrayBuffer'
         );
     }
     /**
@@ -564,16 +695,16 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @param {string} functionId
      * @param {string} deploymentId
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Build>}
+     * @returns {Promise<Models.Deployment>}
      */
-    updateDeploymentBuild(functionId: string, deploymentId: string): Promise<Models.Build> {
+    updateDeploymentStatus(functionId: string, deploymentId: string): Promise<Models.Deployment> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
         if (typeof deploymentId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
-        const apiPath = '/functions/{functionId}/deployments/{deploymentId}/build'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
+        const apiPath = '/functions/{functionId}/deployments/{deploymentId}/status'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -589,45 +720,14 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         );
     }
     /**
-     * Get a Deployment&#039;s contents by its unique ID. This endpoint supports range requests for partial or streaming file download.
-     *
-     * @param {string} functionId
-     * @param {string} deploymentId
-     * @throws {AppwriteException}
-     * @returns {Promise<ArrayBuffer>}
-     */
-    getDeploymentDownload(functionId: string, deploymentId: string): Promise<ArrayBuffer> {
-        if (typeof functionId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "functionId"');
-        }
-        if (typeof deploymentId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "deploymentId"');
-        }
-        const apiPath = '/functions/{functionId}/deployments/{deploymentId}/download'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
-        const payload: Payload = {};
-        const uri = new URL(this.client.config.endpoint + apiPath);
-
-        const apiHeaders: { [header: string]: string } = {
-        }
-
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-            'arrayBuffer'
-        );
-    }
-    /**
      * Get a list of all the current user function execution logs. You can use the query params to filter your results.
      *
      * @param {string} functionId
      * @param {string[]} queries
-     * @param {string} search
      * @throws {AppwriteException}
      * @returns {Promise<Models.ExecutionList>}
      */
-    listExecutions(functionId: string, queries?: string[], search?: string): Promise<Models.ExecutionList> {
+    listExecutions(functionId: string, queries?: string[]): Promise<Models.ExecutionList> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -635,9 +735,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
-        }
-        if (typeof search !== 'undefined') {
-            payload['search'] = search;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -732,7 +829,6 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
     }
     /**
      * Delete a function execution by its unique ID.
-
      *
      * @param {string} functionId
      * @param {string} executionId
@@ -792,10 +888,11 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @param {string} functionId
      * @param {string} key
      * @param {string} value
+     * @param {boolean} secret
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-    createVariable(functionId: string, key: string, value: string): Promise<Models.Variable> {
+    createVariable(functionId: string, key: string, value: string, secret?: boolean): Promise<Models.Variable> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -812,6 +909,9 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         }
         if (typeof value !== 'undefined') {
             payload['value'] = value;
+        }
+        if (typeof secret !== 'undefined') {
+            payload['secret'] = secret;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -862,10 +962,11 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
      * @param {string} variableId
      * @param {string} key
      * @param {string} value
+     * @param {boolean} secret
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-    updateVariable(functionId: string, variableId: string, key: string, value?: string): Promise<Models.Variable> {
+    updateVariable(functionId: string, variableId: string, key: string, value?: string, secret?: boolean): Promise<Models.Variable> {
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
@@ -882,6 +983,9 @@ Use the &quot;command&quot; param to set the entrypoint used to execute your cod
         }
         if (typeof value !== 'undefined') {
             payload['value'] = value;
+        }
+        if (typeof secret !== 'undefined') {
+            payload['secret'] = secret;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

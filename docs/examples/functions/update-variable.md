@@ -1,7 +1,7 @@
 const sdk = require('node-appwrite');
 
 const client = new sdk.Client()
-    .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
+    .setEndpoint('https://<REGION>.cloud.appwrite.io/v1') // Your API Endpoint
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
@@ -11,5 +11,6 @@ const result = await functions.updateVariable(
     '<FUNCTION_ID>', // functionId
     '<VARIABLE_ID>', // variableId
     '<KEY>', // key
-    '<VALUE>' // value (optional)
+    '<VALUE>', // value (optional)
+    false // secret (optional)
 );

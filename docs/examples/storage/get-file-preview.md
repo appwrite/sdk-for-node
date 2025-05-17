@@ -1,7 +1,7 @@
 const sdk = require('node-appwrite');
 
 const client = new sdk.Client()
-    .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
+    .setEndpoint('https://<REGION>.cloud.appwrite.io/v1') // Your API Endpoint
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setSession(''); // The user session to authenticate with
 
@@ -13,12 +13,13 @@ const result = await storage.getFilePreview(
     0, // width (optional)
     0, // height (optional)
     sdk.ImageGravity.Center, // gravity (optional)
-    0, // quality (optional)
+    -1, // quality (optional)
     0, // borderWidth (optional)
     '', // borderColor (optional)
     0, // borderRadius (optional)
     0, // opacity (optional)
     -360, // rotation (optional)
     '', // background (optional)
-    sdk.ImageFormat.Jpg // output (optional)
+    sdk.ImageFormat.Jpg, // output (optional)
+    '<TOKEN>' // token (optional)
 );
