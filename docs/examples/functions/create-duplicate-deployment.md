@@ -1,13 +1,14 @@
 const sdk = require('node-appwrite');
 
 const client = new sdk.Client()
-    .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
+    .setEndpoint('https://<REGION>.cloud.appwrite.io/v1') // Your API Endpoint
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
 const functions = new sdk.Functions(client);
 
-const result = await functions.updateDeployment(
+const result = await functions.createDuplicateDeployment(
     '<FUNCTION_ID>', // functionId
-    '<DEPLOYMENT_ID>' // deploymentId
+    '<DEPLOYMENT_ID>', // deploymentId
+    '<BUILD_ID>' // buildId (optional)
 );

@@ -715,15 +715,23 @@ Labels can be used to grant access to resources. While teams are a way for user&
      * Get the user membership list by its unique ID.
      *
      * @param {string} userId
+     * @param {string[]} queries
+     * @param {string} search
      * @throws {AppwriteException}
      * @returns {Promise<Models.MembershipList>}
      */
-    listMemberships(userId: string): Promise<Models.MembershipList> {
+    listMemberships(userId: string, queries?: string[], search?: string): Promise<Models.MembershipList> {
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/memberships'.replace('{userId}', userId);
         const payload: Payload = {};
+        if (typeof queries !== 'undefined') {
+            payload['queries'] = queries;
+        }
+        if (typeof search !== 'undefined') {
+            payload['search'] = search;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {

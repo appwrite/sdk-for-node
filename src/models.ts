@@ -133,6 +133,19 @@ export namespace Models {
         buckets: Bucket[];
     }
     /**
+     * Resource Tokens List
+     */
+    export type ResourceTokenList = {
+        /**
+         * Total number of tokens documents that matched your query.
+         */
+        total: number;
+        /**
+         * List of tokens.
+         */
+        tokens: ResourceToken[];
+    }
+    /**
      * Teams List
      */
     export type TeamList<Preferences extends Models.Preferences> = {
@@ -159,6 +172,19 @@ export namespace Models {
         memberships: Membership[];
     }
     /**
+     * Sites List
+     */
+    export type SiteList = {
+        /**
+         * Total number of sites documents that matched your query.
+         */
+        total: number;
+        /**
+         * List of sites.
+         */
+        sites: Site[];
+    }
+    /**
      * Functions List
      */
     export type FunctionList = {
@@ -170,6 +196,19 @@ export namespace Models {
          * List of functions.
          */
         functions: Function[];
+    }
+    /**
+     * Frameworks List
+     */
+    export type FrameworkList = {
+        /**
+         * Total number of frameworks documents that matched your query.
+         */
+        total: number;
+        /**
+         * List of frameworks.
+         */
+        frameworks: Framework[];
     }
     /**
      * Runtimes List
@@ -961,6 +1000,10 @@ export namespace Models {
          */
         attributes: string[];
         /**
+         * Index attributes length.
+         */
+        lengths: number[];
+        /**
          * Index orders.
          */
         orders?: string[];
@@ -1635,6 +1678,39 @@ export namespace Models {
         antivirus: boolean;
     }
     /**
+     * ResourceToken
+     */
+    export type ResourceToken = {
+        /**
+         * Token ID.
+         */
+        $id: string;
+        /**
+         * Token creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Resource ID.
+         */
+        resourceId: string;
+        /**
+         * Resource type.
+         */
+        resourceType: string;
+        /**
+         * Token expiration date in ISO 8601 format.
+         */
+        expire: string;
+        /**
+         * JWT encoded string.
+         */
+        secret: string;
+        /**
+         * Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
+         */
+        accessedAt: string;
+    }
+    /**
      * Team
      */
     export type Team<Preferences extends Models.Preferences> = {
@@ -1721,6 +1797,127 @@ export namespace Models {
         roles: string[];
     }
     /**
+     * Site
+     */
+    export type Site = {
+        /**
+         * Site ID.
+         */
+        $id: string;
+        /**
+         * Site creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Site update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Site name.
+         */
+        name: string;
+        /**
+         * Site enabled.
+         */
+        enabled: boolean;
+        /**
+         * Is the site deployed with the latest configuration? This is set to false if you&#039;ve changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the site to update it with the latest configuration.
+         */
+        live: boolean;
+        /**
+         * When disabled, request logs will exclude logs and errors, and site responses will be slightly faster.
+         */
+        logging: boolean;
+        /**
+         * Site framework.
+         */
+        framework: string;
+        /**
+         * Site&#039;s active deployment ID.
+         */
+        deploymentId: string;
+        /**
+         * Active deployment creation date in ISO 8601 format.
+         */
+        deploymentCreatedAt: string;
+        /**
+         * Screenshot of active deployment with light theme preference file ID.
+         */
+        deploymentScreenshotLight: string;
+        /**
+         * Screenshot of active deployment with dark theme preference file ID.
+         */
+        deploymentScreenshotDark: string;
+        /**
+         * Site&#039;s latest deployment ID.
+         */
+        latestDeploymentId: string;
+        /**
+         * Latest deployment creation date in ISO 8601 format.
+         */
+        latestDeploymentCreatedAt: string;
+        /**
+         * Status of latest deployment. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
+         */
+        latestDeploymentStatus: string;
+        /**
+         * Site variables.
+         */
+        vars: Variable[];
+        /**
+         * Site request timeout in seconds.
+         */
+        timeout: number;
+        /**
+         * The install command used to install the site dependencies.
+         */
+        installCommand: string;
+        /**
+         * The build command used to build the site.
+         */
+        buildCommand: string;
+        /**
+         * The directory where the site build output is located.
+         */
+        outputDirectory: string;
+        /**
+         * Site VCS (Version Control System) installation id.
+         */
+        installationId: string;
+        /**
+         * VCS (Version Control System) Repository ID
+         */
+        providerRepositoryId: string;
+        /**
+         * VCS (Version Control System) branch name
+         */
+        providerBranch: string;
+        /**
+         * Path to site in VCS (Version Control System) repository
+         */
+        providerRootDirectory: string;
+        /**
+         * Is VCS (Version Control System) connection is in silent mode? When in silence mode, no comments will be posted on the repository pull or merge requests
+         */
+        providerSilentMode: boolean;
+        /**
+         * Machine specification for builds and executions.
+         */
+        specification: string;
+        /**
+         * Site build runtime.
+         */
+        buildRuntime: string;
+        /**
+         * Site framework adapter.
+         */
+        adapter: string;
+        /**
+         * Name of fallback file to use instead of 404 page. If null, Appwrite 404 page will be displayed.
+         */
+        fallbackFile: string;
+    }
+    /**
      * Function
      */
     export type Function = {
@@ -1753,17 +1950,33 @@ export namespace Models {
          */
         live: boolean;
         /**
-         * Whether executions will be logged. When set to false, executions will not be logged, but will reduce resource used by your Appwrite project.
+         * When disabled, executions will exclude logs and errors, and will be slightly faster.
          */
         logging: boolean;
         /**
-         * Function execution runtime.
+         * Function execution and build runtime.
          */
         runtime: string;
         /**
          * Function&#039;s active deployment ID.
          */
-        deployment: string;
+        deploymentId: string;
+        /**
+         * Active deployment creation date in ISO 8601 format.
+         */
+        deploymentCreatedAt: string;
+        /**
+         * Function&#039;s latest deployment ID.
+         */
+        latestDeploymentId: string;
+        /**
+         * Latest deployment creation date in ISO 8601 format.
+         */
+        latestDeploymentCreatedAt: string;
+        /**
+         * Status of latest deployment. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
+         */
+        latestDeploymentStatus: string;
         /**
          * Allowed permission scopes.
          */
@@ -1859,6 +2072,56 @@ export namespace Models {
         supports: string[];
     }
     /**
+     * Framework
+     */
+    export type Framework = {
+        /**
+         * Framework key.
+         */
+        key: string;
+        /**
+         * Framework Name.
+         */
+        name: string;
+        /**
+         * Default runtime version.
+         */
+        buildRuntime: string;
+        /**
+         * List of supported runtime versions.
+         */
+        runtimes: string[];
+        /**
+         * List of supported adapters.
+         */
+        adapters: FrameworkAdapter[];
+    }
+    /**
+     * Framework Adapter
+     */
+    export type FrameworkAdapter = {
+        /**
+         * Adapter key.
+         */
+        key: string;
+        /**
+         * Default command to download dependencies.
+         */
+        installCommand: string;
+        /**
+         * Default command to build site into output directory.
+         */
+        buildCommand: string;
+        /**
+         * Default output directory of build.
+         */
+        outputDirectory: string;
+        /**
+         * Name of fallback file to use instead of 404 page. If null, Appwrite 404 page will be displayed.
+         */
+        fallbackFile: string;
+    }
+    /**
      * Deployment
      */
     export type Deployment = {
@@ -1893,11 +2156,15 @@ export namespace Models {
         /**
          * The code size in bytes.
          */
-        size: number;
+        sourceSize: number;
         /**
          * The build output size in bytes.
          */
         buildSize: number;
+        /**
+         * The total size in bytes (source and build output).
+         */
+        totalSize: number;
         /**
          * The current build ID.
          */
@@ -1907,7 +2174,15 @@ export namespace Models {
          */
         activate: boolean;
         /**
-         * The deployment status. Possible values are &quot;processing&quot;, &quot;building&quot;, &quot;waiting&quot;, &quot;ready&quot;, and &quot;failed&quot;.
+         * Screenshot with light theme preference file ID.
+         */
+        screenshotLight: string;
+        /**
+         * Screenshot with dark theme preference file ID.
+         */
+        screenshotDark: string;
+        /**
+         * The deployment status. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
          */
         status: string;
         /**
@@ -1917,7 +2192,7 @@ export namespace Models {
         /**
          * The current build time in seconds.
          */
-        buildTime: number;
+        buildDuration: number;
         /**
          * The name of the vcs provider repository
          */
@@ -2024,54 +2299,13 @@ export namespace Models {
          */
         errors: string;
         /**
-         * Function execution duration in seconds.
+         * Resource(function/site) execution duration in seconds.
          */
         duration: number;
         /**
          * The scheduled time for execution. If left empty, execution will be queued immediately.
          */
         scheduledAt?: string;
-    }
-    /**
-     * Build
-     */
-    export type Build = {
-        /**
-         * Build ID.
-         */
-        $id: string;
-        /**
-         * The deployment that created this build.
-         */
-        deploymentId: string;
-        /**
-         * The build status. There are a few different types and each one means something different. \nFailed - The deployment build has failed. More details can usually be found in buildStderr\nReady - The deployment build was successful and the deployment is ready to be deployed\nProcessing - The deployment is currently waiting to have a build triggered\nBuilding - The deployment is currently being built
-         */
-        status: string;
-        /**
-         * The stdout of the build.
-         */
-        stdout: string;
-        /**
-         * The stderr of the build.
-         */
-        stderr: string;
-        /**
-         * The deployment creation date in ISO 8601 format.
-         */
-        startTime: string;
-        /**
-         * The time the build was finished in ISO 8601 format.
-         */
-        endTime: string;
-        /**
-         * The build duration in seconds.
-         */
-        duration: number;
-        /**
-         * The code size in bytes.
-         */
-        size: number;
     }
     /**
      * Variable
@@ -2097,6 +2331,10 @@ export namespace Models {
          * Variable value.
          */
         value: string;
+        /**
+         * Variable secret flag. Secret variables can only be updated or deleted, but never read.
+         */
+        secret: boolean;
         /**
          * Service to which the variable belongs. Possible values are &quot;project&quot;, &quot;function&quot;
          */
