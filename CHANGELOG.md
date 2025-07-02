@@ -60,8 +60,9 @@
 * Add `updateDeploymentBuild()`: Enables cancelling a deployment
 * Add `scheduledAt` parameter to `createExecution()`: Enables creating a delayed execution
 * Breaking changes
-    &gt; You can find the new syntax for breaking changes in the [Appwrite API references](https://appwrite.io/docs/references). Select version `1.6.x`.
     * Remove `otp` parameter from `deleteMFAAuthenticator`.
     * Add `scopes` parameter for create/update function.
     * Rename `templateBranch` to `templateVersion`  in `createFunction()`.
     * Rename `downloadDeployment()` to `getDeploymentDownload()`
+
+&gt; You can find the new syntax for breaking changes in the [Appwrite API references](https://appwrite.io/docs/references). Select version `1.6.x`.
