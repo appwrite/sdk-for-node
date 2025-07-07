@@ -42,7 +42,7 @@ export class Tokens {
         );
     }
     /**
-     * Create a new token. A token is linked to a file. Token can be passed as a header or request get parameter.
+     * Create a new token. A token is linked to a file. Token can be passed as a request URL search parameter.
      *
      * @param {string} bucketId
      * @param {string} fileId

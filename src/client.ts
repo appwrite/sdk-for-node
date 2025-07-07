@@ -33,7 +33,7 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/17.0.0';
+    let ua = 'AppwriteNodeJSSDK/17.1.0';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
@@ -82,7 +82,7 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '17.0.0',
+        'x-sdk-version': '17.1.0',
         'user-agent' : getUserAgent(),
         'X-Appwrite-Response-Format': '1.7.0',
     };
@@ -266,9 +266,9 @@ class Client {
     }
 
     async chunkedUpload(method: string, url: URL, headers: Headers = {}, originalPayload: Payload = {}, onProgress: (progress: UploadProgress) => void) {
-        const file = Object.values(originalPayload).find((value) => value instanceof File);
+        const [fileParam, file] = Object.entries(originalPayload).find(([_, value]) => value instanceof File) ?? [];
 
-        if (!file) {
+        if (!file || !fileParam) {
             throw new Error('File not found in payload');
         }
 
@@ -288,7 +288,8 @@ class Client {
             headers['content-range'] = `bytes ${start}-${end-1}/${file.size}`;
             const chunk = file.slice(start, end);
 
-            let payload = { ...originalPayload, file: new File([chunk], file.name)};
+            let payload = { ...originalPayload };
+            payload[fileParam] = new File([chunk], file.name);
 
             response = await this.call(method, url, headers, payload);
 
