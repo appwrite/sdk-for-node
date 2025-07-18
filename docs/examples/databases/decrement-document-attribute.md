@@ -2,17 +2,16 @@ const sdk = require('node-appwrite');
 
 const client = new sdk.Client()
     .setEndpoint('https://<REGION>.cloud.appwrite.io/v1') // Your API Endpoint
-    .setAdmin('') // 
-    .setSession('') // The user session to authenticate with
-    .setKey('<YOUR_API_KEY>') // Your secret API key
-    .setJWT('<YOUR_JWT>'); // Your secret JSON Web Token
+    .setProject('<YOUR_PROJECT_ID>') // Your project ID
+    .setKey('<YOUR_API_KEY>'); // Your secret API key
 
 const databases = new sdk.Databases(client);
 
-const result = await databases.createDocument(
+const result = await databases.decrementDocumentAttribute(
     '<DATABASE_ID>', // databaseId
     '<COLLECTION_ID>', // collectionId
     '<DOCUMENT_ID>', // documentId
-    {}, // data
-    ["read("any")"] // permissions (optional)
+    '', // attribute
+    null, // value (optional)
+    null // min (optional)
 );
