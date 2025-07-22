@@ -38,6 +38,7 @@ export class Graphql {
             payload,
         );
     }
+
     /**
      * Execute a GraphQL mutation.
      *
