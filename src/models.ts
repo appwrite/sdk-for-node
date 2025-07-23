@@ -6,25 +6,11 @@ export namespace Models {
     declare const __default: unique symbol;
 
     /**
-     * Rows List
-     */
-    export type RowList<Row extends Models.Row = Models.DefaultRow> = {
-        /**
-         * Total number of rows rows that matched your query.
-         */
-        total: number;
-        /**
-         * List of rows.
-         */
-        rows: Row[];
-    }
-
-    /**
      * Documents List
      */
     export type DocumentList<Document extends Models.Document = Models.DefaultDocument> = {
         /**
-         * Total number of documents rows that matched your query.
+         * Total number of documents documents that matched your query.
          */
         total: number;
         /**
@@ -34,25 +20,11 @@ export namespace Models {
     }
 
     /**
-     * Tables List
-     */
-    export type TableList = {
-        /**
-         * Total number of tables rows that matched your query.
-         */
-        total: number;
-        /**
-         * List of tables.
-         */
-        tables: Table[];
-    }
-
-    /**
      * Collections List
      */
     export type CollectionList = {
         /**
-         * Total number of collections rows that matched your query.
+         * Total number of collections documents that matched your query.
          */
         total: number;
         /**
@@ -66,7 +38,7 @@ export namespace Models {
      */
     export type DatabaseList = {
         /**
-         * Total number of databases rows that matched your query.
+         * Total number of databases documents that matched your query.
          */
         total: number;
         /**
@@ -80,7 +52,7 @@ export namespace Models {
      */
     export type IndexList = {
         /**
-         * Total number of indexes rows that matched your query.
+         * Total number of indexes documents that matched your query.
          */
         total: number;
         /**
@@ -90,25 +62,11 @@ export namespace Models {
     }
 
     /**
-     * Column Indexes List
-     */
-    export type ColumnIndexList = {
-        /**
-         * Total number of indexes rows that matched your query.
-         */
-        total: number;
-        /**
-         * List of indexes.
-         */
-        indexes: ColumnIndex[];
-    }
-
-    /**
      * Users List
      */
     export type UserList<Preferences extends Models.Preferences = Models.DefaultPreferences> = {
         /**
-         * Total number of users rows that matched your query.
+         * Total number of users documents that matched your query.
          */
         total: number;
         /**
@@ -122,7 +80,7 @@ export namespace Models {
      */
     export type SessionList = {
         /**
-         * Total number of sessions rows that matched your query.
+         * Total number of sessions documents that matched your query.
          */
         total: number;
         /**
@@ -136,7 +94,7 @@ export namespace Models {
      */
     export type IdentityList = {
         /**
-         * Total number of identities rows that matched your query.
+         * Total number of identities documents that matched your query.
          */
         total: number;
         /**
@@ -150,7 +108,7 @@ export namespace Models {
      */
     export type LogList = {
         /**
-         * Total number of logs rows that matched your query.
+         * Total number of logs documents that matched your query.
          */
         total: number;
         /**
@@ -164,7 +122,7 @@ export namespace Models {
      */
     export type FileList = {
         /**
-         * Total number of files rows that matched your query.
+         * Total number of files documents that matched your query.
          */
         total: number;
         /**
@@ -178,7 +136,7 @@ export namespace Models {
      */
     export type BucketList = {
         /**
-         * Total number of buckets rows that matched your query.
+         * Total number of buckets documents that matched your query.
          */
         total: number;
         /**
@@ -192,7 +150,7 @@ export namespace Models {
      */
     export type ResourceTokenList = {
         /**
-         * Total number of tokens rows that matched your query.
+         * Total number of tokens documents that matched your query.
          */
         total: number;
         /**
@@ -206,7 +164,7 @@ export namespace Models {
      */
     export type TeamList<Preferences extends Models.Preferences = Models.DefaultPreferences> = {
         /**
-         * Total number of teams rows that matched your query.
+         * Total number of teams documents that matched your query.
          */
         total: number;
         /**
@@ -220,7 +178,7 @@ export namespace Models {
      */
     export type MembershipList = {
         /**
-         * Total number of memberships rows that matched your query.
+         * Total number of memberships documents that matched your query.
          */
         total: number;
         /**
@@ -234,7 +192,7 @@ export namespace Models {
      */
     export type SiteList = {
         /**
-         * Total number of sites rows that matched your query.
+         * Total number of sites documents that matched your query.
          */
         total: number;
         /**
@@ -248,7 +206,7 @@ export namespace Models {
      */
     export type FunctionList = {
         /**
-         * Total number of functions rows that matched your query.
+         * Total number of functions documents that matched your query.
          */
         total: number;
         /**
@@ -262,7 +220,7 @@ export namespace Models {
      */
     export type FrameworkList = {
         /**
-         * Total number of frameworks rows that matched your query.
+         * Total number of frameworks documents that matched your query.
          */
         total: number;
         /**
@@ -276,7 +234,7 @@ export namespace Models {
      */
     export type RuntimeList = {
         /**
-         * Total number of runtimes rows that matched your query.
+         * Total number of runtimes documents that matched your query.
          */
         total: number;
         /**
@@ -290,7 +248,7 @@ export namespace Models {
      */
     export type DeploymentList = {
         /**
-         * Total number of deployments rows that matched your query.
+         * Total number of deployments documents that matched your query.
          */
         total: number;
         /**
@@ -304,7 +262,7 @@ export namespace Models {
      */
     export type ExecutionList = {
         /**
-         * Total number of executions rows that matched your query.
+         * Total number of executions documents that matched your query.
          */
         total: number;
         /**
@@ -318,7 +276,7 @@ export namespace Models {
      */
     export type CountryList = {
         /**
-         * Total number of countries rows that matched your query.
+         * Total number of countries documents that matched your query.
          */
         total: number;
         /**
@@ -332,7 +290,7 @@ export namespace Models {
      */
     export type ContinentList = {
         /**
-         * Total number of continents rows that matched your query.
+         * Total number of continents documents that matched your query.
          */
         total: number;
         /**
@@ -346,7 +304,7 @@ export namespace Models {
      */
     export type LanguageList = {
         /**
-         * Total number of languages rows that matched your query.
+         * Total number of languages documents that matched your query.
          */
         total: number;
         /**
@@ -360,7 +318,7 @@ export namespace Models {
      */
     export type CurrencyList = {
         /**
-         * Total number of currencies rows that matched your query.
+         * Total number of currencies documents that matched your query.
          */
         total: number;
         /**
@@ -374,7 +332,7 @@ export namespace Models {
      */
     export type PhoneList = {
         /**
-         * Total number of phones rows that matched your query.
+         * Total number of phones documents that matched your query.
          */
         total: number;
         /**
@@ -388,7 +346,7 @@ export namespace Models {
      */
     export type VariableList = {
         /**
-         * Total number of variables rows that matched your query.
+         * Total number of variables documents that matched your query.
          */
         total: number;
         /**
@@ -402,7 +360,7 @@ export namespace Models {
      */
     export type LocaleCodeList = {
         /**
-         * Total number of localeCodes rows that matched your query.
+         * Total number of localeCodes documents that matched your query.
          */
         total: number;
         /**
@@ -416,7 +374,7 @@ export namespace Models {
      */
     export type ProviderList = {
         /**
-         * Total number of providers rows that matched your query.
+         * Total number of providers documents that matched your query.
          */
         total: number;
         /**
@@ -430,7 +388,7 @@ export namespace Models {
      */
     export type MessageList = {
         /**
-         * Total number of messages rows that matched your query.
+         * Total number of messages documents that matched your query.
          */
         total: number;
         /**
@@ -444,7 +402,7 @@ export namespace Models {
      */
     export type TopicList = {
         /**
-         * Total number of topics rows that matched your query.
+         * Total number of topics documents that matched your query.
          */
         total: number;
         /**
@@ -458,7 +416,7 @@ export namespace Models {
      */
     export type SubscriberList = {
         /**
-         * Total number of subscribers rows that matched your query.
+         * Total number of subscribers documents that matched your query.
          */
         total: number;
         /**
@@ -472,7 +430,7 @@ export namespace Models {
      */
     export type TargetList = {
         /**
-         * Total number of targets rows that matched your query.
+         * Total number of targets documents that matched your query.
          */
         total: number;
         /**
@@ -486,7 +444,7 @@ export namespace Models {
      */
     export type SpecificationList = {
         /**
-         * Total number of specifications rows that matched your query.
+         * Total number of specifications documents that matched your query.
          */
         total: number;
         /**
@@ -1070,554 +1028,6 @@ export namespace Models {
     }
 
     /**
-     * Table
-     */
-    export type Table = {
-        /**
-         * Table ID.
-         */
-        $id: string;
-        /**
-         * Table creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Table update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * Table permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
-         */
-        $permissions: string[];
-        /**
-         * Database ID.
-         */
-        databaseId: string;
-        /**
-         * Table name.
-         */
-        name: string;
-        /**
-         * Table enabled. Can be &#039;enabled&#039; or &#039;disabled&#039;. When disabled, the table is inaccessible to users, but remains accessible to Server SDKs using API keys.
-         */
-        enabled: boolean;
-        /**
-         * Whether row-level permissions are enabled. [Learn more about permissions](https://appwrite.io/docs/permissions).
-         */
-        rowSecurity: boolean;
-        /**
-         * Table columns.
-         */
-        columns: (Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnString)[];
-        /**
-         * Table indexes.
-         */
-        indexes: ColumnIndex[];
-    }
-
-    /**
-     * Columns List
-     */
-    export type ColumnList = {
-        /**
-         * Total number of columns in the given table.
-         */
-        total: number;
-        /**
-         * List of columns.
-         */
-        columns: (Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnString)[];
-    }
-
-    /**
-     * ColumnString
-     */
-    export type ColumnString = {
-        /**
-         * Column Key.
-         */
-        key: string;
-        /**
-         * Column type.
-         */
-        type: string;
-        /**
-         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-         */
-        status: string;
-        /**
-         * Error message. Displays error generated on failure of creating or deleting an column.
-         */
-        error: string;
-        /**
-         * Is column required?
-         */
-        required: boolean;
-        /**
-         * Is column an array?
-         */
-        array?: boolean;
-        /**
-         * Column creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Column update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * Column size.
-         */
-        size: number;
-        /**
-         * Default value for column when not provided. Cannot be set when column is required.
-         */
-        default?: string;
-        /**
-         * Defines whether this column is encrypted or not.
-         */
-        encrypt?: boolean;
-    }
-
-    /**
-     * ColumnInteger
-     */
-    export type ColumnInteger = {
-        /**
-         * Column Key.
-         */
-        key: string;
-        /**
-         * Column type.
-         */
-        type: string;
-        /**
-         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-         */
-        status: string;
-        /**
-         * Error message. Displays error generated on failure of creating or deleting an column.
-         */
-        error: string;
-        /**
-         * Is column required?
-         */
-        required: boolean;
-        /**
-         * Is column an array?
-         */
-        array?: boolean;
-        /**
-         * Column creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Column update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * Minimum value to enforce for new documents.
-         */
-        min?: number;
-        /**
-         * Maximum value to enforce for new documents.
-         */
-        max?: number;
-        /**
-         * Default value for attribute when not provided. Cannot be set when attribute is required.
-         */
-        default?: number;
-    }
-
-    /**
-     * ColumnFloat
-     */
-    export type ColumnFloat = {
-        /**
-         * Column Key.
-         */
-        key: string;
-        /**
-         * Column type.
-         */
-        type: string;
-        /**
-         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-         */
-        status: string;
-        /**
-         * Error message. Displays error generated on failure of creating or deleting an column.
-         */
-        error: string;
-        /**
-         * Is column required?
-         */
-        required: boolean;
-        /**
-         * Is column an array?
-         */
-        array?: boolean;
-        /**
-         * Column creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Column update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * Minimum value to enforce for new documents.
-         */
-        min?: number;
-        /**
-         * Maximum value to enforce for new documents.
-         */
-        max?: number;
-        /**
-         * Default value for attribute when not provided. Cannot be set when attribute is required.
-         */
-        default?: number;
-    }
-
-    /**
-     * ColumnBoolean
-     */
-    export type ColumnBoolean = {
-        /**
-         * Column Key.
-         */
-        key: string;
-        /**
-         * Column type.
-         */
-        type: string;
-        /**
-         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-         */
-        status: string;
-        /**
-         * Error message. Displays error generated on failure of creating or deleting an column.
-         */
-        error: string;
-        /**
-         * Is column required?
-         */
-        required: boolean;
-        /**
-         * Is column an array?
-         */
-        array?: boolean;
-        /**
-         * Column creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Column update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * Default value for attribute when not provided. Cannot be set when attribute is required.
-         */
-        default?: boolean;
-    }
-
-    /**
-     * ColumnEmail
-     */
-    export type ColumnEmail = {
-        /**
-         * Column Key.
-         */
-        key: string;
-        /**
-         * Column type.
-         */
-        type: string;
-        /**
-         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-         */
-        status: string;
-        /**
-         * Error message. Displays error generated on failure of creating or deleting an column.
-         */
-        error: string;
-        /**
-         * Is column required?
-         */
-        required: boolean;
-        /**
-         * Is column an array?
-         */
-        array?: boolean;
-        /**
-         * Column creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Column update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * String format.
-         */
-        format: string;
-        /**
-         * Default value for attribute when not provided. Cannot be set when attribute is required.
-         */
-        default?: string;
-    }
-
-    /**
-     * ColumnEnum
-     */
-    export type ColumnEnum = {
-        /**
-         * Column Key.
-         */
-        key: string;
-        /**
-         * Column type.
-         */
-        type: string;
-        /**
-         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-         */
-        status: string;
-        /**
-         * Error message. Displays error generated on failure of creating or deleting an column.
-         */
-        error: string;
-        /**
-         * Is column required?
-         */
-        required: boolean;
-        /**
-         * Is column an array?
-         */
-        array?: boolean;
-        /**
-         * Column creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Column update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * Array of elements in enumerated type.
-         */
-        elements: string[];
-        /**
-         * String format.
-         */
-        format: string;
-        /**
-         * Default value for attribute when not provided. Cannot be set when attribute is required.
-         */
-        default?: string;
-    }
-
-    /**
-     * ColumnIP
-     */
-    export type ColumnIp = {
-        /**
-         * Column Key.
-         */
-        key: string;
-        /**
-         * Column type.
-         */
-        type: string;
-        /**
-         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-         */
-        status: string;
-        /**
-         * Error message. Displays error generated on failure of creating or deleting an column.
-         */
-        error: string;
-        /**
-         * Is column required?
-         */
-        required: boolean;
-        /**
-         * Is column an array?
-         */
-        array?: boolean;
-        /**
-         * Column creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Column update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * String format.
-         */
-        format: string;
-        /**
-         * Default value for attribute when not provided. Cannot be set when attribute is required.
-         */
-        default?: string;
-    }
-
-    /**
-     * ColumnURL
-     */
-    export type ColumnUrl = {
-        /**
-         * Column Key.
-         */
-        key: string;
-        /**
-         * Column type.
-         */
-        type: string;
-        /**
-         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-         */
-        status: string;
-        /**
-         * Error message. Displays error generated on failure of creating or deleting an column.
-         */
-        error: string;
-        /**
-         * Is column required?
-         */
-        required: boolean;
-        /**
-         * Is column an array?
-         */
-        array?: boolean;
-        /**
-         * Column creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Column update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * String format.
-         */
-        format: string;
-        /**
-         * Default value for column when not provided. Cannot be set when column is required.
-         */
-        default?: string;
-    }
-
-    /**
-     * ColumnDatetime
-     */
-    export type ColumnDatetime = {
-        /**
-         * Column Key.
-         */
-        key: string;
-        /**
-         * Column type.
-         */
-        type: string;
-        /**
-         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-         */
-        status: string;
-        /**
-         * Error message. Displays error generated on failure of creating or deleting an column.
-         */
-        error: string;
-        /**
-         * Is column required?
-         */
-        required: boolean;
-        /**
-         * Is column an array?
-         */
-        array?: boolean;
-        /**
-         * Column creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Column update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * ISO 8601 format.
-         */
-        format: string;
-        /**
-         * Default value for attribute when not provided. Only null is optional
-         */
-        default?: string;
-    }
-
-    /**
-     * ColumnRelationship
-     */
-    export type ColumnRelationship = {
-        /**
-         * Column Key.
-         */
-        key: string;
-        /**
-         * Column type.
-         */
-        type: string;
-        /**
-         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-         */
-        status: string;
-        /**
-         * Error message. Displays error generated on failure of creating or deleting an column.
-         */
-        error: string;
-        /**
-         * Is column required?
-         */
-        required: boolean;
-        /**
-         * Is column an array?
-         */
-        array?: boolean;
-        /**
-         * Column creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Column update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * The ID of the related table.
-         */
-        relatedTable: string;
-        /**
-         * The type of the relationship.
-         */
-        relationType: string;
-        /**
-         * Is the relationship two-way?
-         */
-        twoWay: boolean;
-        /**
-         * The key of the two-way relationship.
-         */
-        twoWayKey: string;
-        /**
-         * How deleting the parent document will propagate to child documents.
-         */
-        onDelete: string;
-        /**
-         * Whether this is the parent or child side of the relationship
-         */
-        side: string;
-    }
-
-    /**
      * Index
      */
     export type Index = {
@@ -1658,93 +1068,6 @@ export namespace Models {
          */
         $updatedAt: string;
     }
-
-    /**
-     * Index
-     */
-    export type ColumnIndex = {
-        /**
-         * Index Key.
-         */
-        key: string;
-        /**
-         * Index type.
-         */
-        type: string;
-        /**
-         * Index status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-         */
-        status: string;
-        /**
-         * Error message. Displays error generated on failure of creating or deleting an index.
-         */
-        error: string;
-        /**
-         * Index columns.
-         */
-        columns: string[];
-        /**
-         * Index columns length.
-         */
-        lengths: number[];
-        /**
-         * Index orders.
-         */
-        orders?: string[];
-        /**
-         * Index creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Index update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-    }
-
-    /**
-     * Row
-     */
-    export type Row = {
-        /**
-         * Row ID.
-         */
-        $id: string;
-        /**
-         * Row automatically incrementing ID.
-         */
-        $sequence: number;
-        /**
-         * Table ID.
-         */
-        $tableId: string;
-        /**
-         * Database ID.
-         */
-        $databaseId: string;
-        /**
-         * Row creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Row update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * Row permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
-         */
-        $permissions: string[];
-    }
-
-    export type DefaultRow = Row & {
-        [key: string]: any;
-        [__default]: true;
-    };
-
-    export type DataWithoutRowKeys = {
-        [K in string]: any;
-    } & {
-        [K in keyof Row]?: never;
-    };
 
     /**
      * Document
