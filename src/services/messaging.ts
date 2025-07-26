@@ -39,6 +39,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new email message.
      *
@@ -118,9 +119,10 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update an email message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
-
+     * 
      *
      * @param {string} messageId
      * @param {string[]} topics
@@ -189,6 +191,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new push notification.
      *
@@ -290,9 +293,10 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update a push notification by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
-
+     * 
      *
      * @param {string} messageId
      * @param {string[]} topics
@@ -389,6 +393,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new SMS message.
      *
@@ -445,9 +450,10 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update an SMS message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
-
+     * 
      *
      * @param {string} messageId
      * @param {string[]} topics
@@ -496,9 +502,10 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Get a message by its unique ID.
-
+     * 
      *
      * @param {string} messageId
      * @throws {AppwriteException}
@@ -522,6 +529,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Delete a message. If the message is not a draft or scheduled, but has been sent, this will not recall the message.
      *
@@ -548,6 +556,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Get the message activity logs listed by its unique ID.
      *
@@ -577,6 +586,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Get a list of the targets associated with a message.
      *
@@ -606,6 +616,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Get a list of all providers from the current Appwrite project.
      *
@@ -635,6 +646,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new Apple Push Notification service provider.
      *
@@ -695,6 +707,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update a Apple Push Notification service provider by its unique ID.
      *
@@ -749,6 +762,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new Firebase Cloud Messaging provider.
      *
@@ -793,6 +807,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update a Firebase Cloud Messaging provider by its unique ID.
      *
@@ -831,6 +846,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new Mailgun provider.
      *
@@ -899,6 +915,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update a Mailgun provider by its unique ID.
      *
@@ -961,6 +978,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new MSG91 provider.
      *
@@ -1013,6 +1031,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update a MSG91 provider by its unique ID.
      *
@@ -1059,6 +1078,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new Sendgrid provider.
      *
@@ -1119,6 +1139,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update a Sendgrid provider by its unique ID.
      *
@@ -1173,6 +1194,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new SMTP provider.
      *
@@ -1260,6 +1282,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update a SMTP provider by its unique ID.
      *
@@ -1338,6 +1361,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new Telesign provider.
      *
@@ -1390,6 +1414,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update a Telesign provider by its unique ID.
      *
@@ -1436,6 +1461,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new Textmagic provider.
      *
@@ -1488,6 +1514,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update a Textmagic provider by its unique ID.
      *
@@ -1534,6 +1561,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new Twilio provider.
      *
@@ -1586,6 +1614,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update a Twilio provider by its unique ID.
      *
@@ -1632,6 +1661,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new Vonage provider.
      *
@@ -1684,6 +1714,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update a Vonage provider by its unique ID.
      *
@@ -1730,9 +1761,10 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Get a provider by its unique ID.
-
+     * 
      *
      * @param {string} providerId
      * @throws {AppwriteException}
@@ -1756,6 +1788,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Delete a provider by its unique ID.
      *
@@ -1782,6 +1815,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Get the provider activity logs listed by its unique ID.
      *
@@ -1811,6 +1845,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Get the subscriber activity logs listed by its unique ID.
      *
@@ -1840,6 +1875,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Get a list of all topics from the current Appwrite project.
      *
@@ -1869,6 +1905,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new topic.
      *
@@ -1909,9 +1946,10 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Get a topic by its unique ID.
-
+     * 
      *
      * @param {string} topicId
      * @throws {AppwriteException}
@@ -1935,9 +1973,10 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Update a topic by its unique ID.
-
+     * 
      *
      * @param {string} topicId
      * @param {string} name
@@ -1970,6 +2009,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Delete a topic by its unique ID.
      *
@@ -1996,6 +2036,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Get the topic activity logs listed by its unique ID.
      *
@@ -2025,6 +2066,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Get a list of all subscribers from the current Appwrite project.
      *
@@ -2058,6 +2100,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Create a new subscriber.
      *
@@ -2098,9 +2141,10 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Get a subscriber by its unique ID.
-
+     * 
      *
      * @param {string} topicId
      * @param {string} subscriberId
@@ -2128,6 +2172,7 @@ export class Messaging {
             payload,
         );
     }
+
     /**
      * Delete a subscriber by its unique ID.
      *

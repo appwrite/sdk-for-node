@@ -1,5 +1,10 @@
 # Change Log
 
+## 17.2.0
+
+* Add `incrementDocumentAttribute` and `decrementDocumentAttribute` support to `Databases` service
+* Fix autocompletion not working for `Document` model even when generic is passed
+
 ## 17.1.0
 
 * Add `upsertDocument` method
@@ -28,13 +33,13 @@
 ## 15.0.1
 
 * Remove titles from all function descriptions
-* Fix typing for collection &quot;attribute&quot; key
+* Fix typing for collection "attribute" key
 * Remove unnecessary awaits and asyncs
 * Ensure `AppwriteException` response is always string
 
 ## 15.0.0
 
-* Fix: pong response &amp; chunked upload
+* Fix: pong response & chunked upload
 
 ## 14.2.0
 
@@ -65,4 +70,4 @@
     * Rename `templateBranch` to `templateVersion`  in `createFunction()`.
     * Rename `downloadDeployment()` to `getDeploymentDownload()`
 
-&gt; You can find the new syntax for breaking changes in the [Appwrite API references](https://appwrite.io/docs/references). Select version `1.6.x`.
+> You can find the new syntax for breaking changes in the [Appwrite API references](https://appwrite.io/docs/references). Select version `1.6.x`.
