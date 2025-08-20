@@ -12,16 +12,23 @@ export class Tokens {
     /**
      * List all the tokens created for a specific file or bucket. You can use the query params to filter your results.
      *
-     * @param {string} bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
-     * @param {string} fileId - File unique ID.
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: expire
+     * @param {string} params.bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
+     * @param {string} params.fileId - File unique ID.
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: expire
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceTokenList>}
      */
     list(params: { bucketId: string, fileId: string, queries?: string[]  }): Promise<Models.ResourceTokenList>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * List all the tokens created for a specific file or bucket. You can use the query params to filter your results.
+     *
+     * @param {string} bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
+     * @param {string} fileId - File unique ID.
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: expire
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ResourceTokenList>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -37,8 +44,8 @@ export class Tokens {
     ): Promise<Models.ResourceTokenList> {
         let params: { bucketId: string, fileId: string, queries?: string[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { bucketId: string, fileId: string, queries?: string[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, queries?: string[] };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
@@ -79,16 +86,23 @@ export class Tokens {
     /**
      * Create a new token. A token is linked to a file. Token can be passed as a request URL search parameter.
      *
-     * @param {string} bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
-     * @param {string} fileId - File unique ID.
-     * @param {string} expire - Token expiry date
+     * @param {string} params.bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
+     * @param {string} params.fileId - File unique ID.
+     * @param {string} params.expire - Token expiry date
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceToken>}
      */
     createFileToken(params: { bucketId: string, fileId: string, expire?: string  }): Promise<Models.ResourceToken>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Create a new token. A token is linked to a file. Token can be passed as a request URL search parameter.
+     *
+     * @param {string} bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
+     * @param {string} fileId - File unique ID.
+     * @param {string} expire - Token expiry date
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ResourceToken>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -104,8 +118,8 @@ export class Tokens {
     ): Promise<Models.ResourceToken> {
         let params: { bucketId: string, fileId: string, expire?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { bucketId: string, fileId: string, expire?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, expire?: string };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
@@ -147,14 +161,19 @@ export class Tokens {
     /**
      * Get a token by its unique ID.
      *
-     * @param {string} tokenId - Token ID.
+     * @param {string} params.tokenId - Token ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceToken>}
      */
     get(params: { tokenId: string  }): Promise<Models.ResourceToken>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a token by its unique ID.
+     *
+     * @param {string} tokenId - Token ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ResourceToken>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -169,8 +188,8 @@ export class Tokens {
     ): Promise<Models.ResourceToken> {
         let params: { tokenId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { tokenId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { tokenId: string };
         } else {
             params = {
                 tokenId: paramsOrFirst as string            
@@ -201,15 +220,21 @@ export class Tokens {
     /**
      * Update a token by its unique ID. Use this endpoint to update a token's expiry date.
      *
-     * @param {string} tokenId - Token unique ID.
-     * @param {string} expire - File token expiry date
+     * @param {string} params.tokenId - Token unique ID.
+     * @param {string} params.expire - File token expiry date
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceToken>}
      */
     update(params: { tokenId: string, expire?: string  }): Promise<Models.ResourceToken>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Update a token by its unique ID. Use this endpoint to update a token's expiry date.
+     *
+     * @param {string} tokenId - Token unique ID.
+     * @param {string} expire - File token expiry date
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ResourceToken>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -225,8 +250,8 @@ export class Tokens {
     ): Promise<Models.ResourceToken> {
         let params: { tokenId: string, expire?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { tokenId: string, expire?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { tokenId: string, expire?: string };
         } else {
             params = {
                 tokenId: paramsOrFirst as string,
@@ -263,14 +288,19 @@ export class Tokens {
     /**
      * Delete a token by its unique ID.
      *
-     * @param {string} tokenId - Token ID.
+     * @param {string} params.tokenId - Token ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
     delete(params: { tokenId: string  }): Promise<{}>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Delete a token by its unique ID.
+     *
+     * @param {string} tokenId - Token ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -285,8 +315,8 @@ export class Tokens {
     ): Promise<{}> {
         let params: { tokenId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { tokenId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { tokenId: string };
         } else {
             params = {
                 tokenId: paramsOrFirst as string            

@@ -16,15 +16,21 @@ export class Functions {
     /**
      * Get a list of all the project's functions. You can use the query params to filter your results.
      *
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, enabled, runtime, deploymentId, schedule, scheduleNext, schedulePrevious, timeout, entrypoint, commands, installationId
-     * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, enabled, runtime, deploymentId, schedule, scheduleNext, schedulePrevious, timeout, entrypoint, commands, installationId
+     * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.FunctionList>}
      */
     list(params: { queries?: string[], search?: string  }): Promise<Models.FunctionList>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a list of all the project's functions. You can use the query params to filter your results.
+     *
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, enabled, runtime, deploymentId, schedule, scheduleNext, schedulePrevious, timeout, entrypoint, commands, installationId
+     * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.FunctionList>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -40,8 +46,8 @@ export class Functions {
     ): Promise<Models.FunctionList> {
         let params: { queries?: string[], search?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { queries?: string[], search?: string };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { queries?: string[], search?: string };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
@@ -77,6 +83,31 @@ export class Functions {
     /**
      * Create a new function. You can pass a list of [permissions](https://appwrite.io/docs/permissions) to allow different project users or team with access to execute the function using the client API.
      *
+     * @param {string} params.functionId - Function ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Function name. Max length: 128 chars.
+     * @param {Runtime} params.runtime - Execution runtime.
+     * @param {string[]} params.execute - An array of role strings with execution permissions. By default no user is granted with any execute permissions. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
+     * @param {string[]} params.events - Events list. Maximum of 100 events are allowed.
+     * @param {string} params.schedule - Schedule CRON syntax.
+     * @param {number} params.timeout - Function maximum execution time in seconds.
+     * @param {boolean} params.enabled - Is function enabled? When set to 'disabled', users cannot access the function but Server SDKs with and API key can still access the function. No data is lost when this is toggled.
+     * @param {boolean} params.logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
+     * @param {string} params.entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
+     * @param {string} params.commands - Build Commands.
+     * @param {string[]} params.scopes - List of scopes allowed for API key auto-generated for every execution. Maximum of 100 scopes are allowed.
+     * @param {string} params.installationId - Appwrite Installation ID for VCS (Version Control System) deployment.
+     * @param {string} params.providerRepositoryId - Repository ID of the repo linked to the function.
+     * @param {string} params.providerBranch - Production branch for the repo linked to the function.
+     * @param {boolean} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
+     * @param {string} params.providerRootDirectory - Path to function code in the linked repo.
+     * @param {string} params.specification - Runtime specification for the function and builds.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Function>}
+     */
+    create(params: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string  }): Promise<Models.Function>;
+    /**
+     * Create a new function. You can pass a list of [permissions](https://appwrite.io/docs/permissions) to allow different project users or team with access to execute the function using the client API.
+     *
      * @param {string} functionId - Function ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Function name. Max length: 128 chars.
      * @param {Runtime} runtime - Execution runtime.
@@ -97,11 +128,8 @@ export class Functions {
      * @param {string} specification - Runtime specification for the function and builds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
-     */
-    create(params: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string  }): Promise<Models.Function>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -117,8 +145,8 @@ export class Functions {
     ): Promise<Models.Function> {
         let params: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -290,14 +318,19 @@ export class Functions {
     /**
      * Get a function by its unique ID.
      *
-     * @param {string} functionId - Function ID.
+     * @param {string} params.functionId - Function ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
     get(params: { functionId: string  }): Promise<Models.Function>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a function by its unique ID.
+     *
+     * @param {string} functionId - Function ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Function>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -312,8 +345,8 @@ export class Functions {
     ): Promise<Models.Function> {
         let params: { functionId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string            
@@ -344,6 +377,31 @@ export class Functions {
     /**
      * Update function by its unique ID.
      *
+     * @param {string} params.functionId - Function ID.
+     * @param {string} params.name - Function name. Max length: 128 chars.
+     * @param {Runtime} params.runtime - Execution runtime.
+     * @param {string[]} params.execute - An array of role strings with execution permissions. By default no user is granted with any execute permissions. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
+     * @param {string[]} params.events - Events list. Maximum of 100 events are allowed.
+     * @param {string} params.schedule - Schedule CRON syntax.
+     * @param {number} params.timeout - Maximum execution time in seconds.
+     * @param {boolean} params.enabled - Is function enabled? When set to 'disabled', users cannot access the function but Server SDKs with and API key can still access the function. No data is lost when this is toggled.
+     * @param {boolean} params.logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
+     * @param {string} params.entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
+     * @param {string} params.commands - Build Commands.
+     * @param {string[]} params.scopes - List of scopes allowed for API Key auto-generated for every execution. Maximum of 100 scopes are allowed.
+     * @param {string} params.installationId - Appwrite Installation ID for VCS (Version Controle System) deployment.
+     * @param {string} params.providerRepositoryId - Repository ID of the repo linked to the function
+     * @param {string} params.providerBranch - Production branch for the repo linked to the function
+     * @param {boolean} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
+     * @param {string} params.providerRootDirectory - Path to function code in the linked repo.
+     * @param {string} params.specification - Runtime specification for the function and builds.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Function>}
+     */
+    update(params: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string  }): Promise<Models.Function>;
+    /**
+     * Update function by its unique ID.
+     *
      * @param {string} functionId - Function ID.
      * @param {string} name - Function name. Max length: 128 chars.
      * @param {Runtime} runtime - Execution runtime.
@@ -364,11 +422,8 @@ export class Functions {
      * @param {string} specification - Runtime specification for the function and builds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
-     */
-    update(params: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string  }): Promise<Models.Function>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -384,8 +439,8 @@ export class Functions {
     ): Promise<Models.Function> {
         let params: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -505,14 +560,19 @@ export class Functions {
     /**
      * Delete a function by its unique ID.
      *
-     * @param {string} functionId - Function ID.
+     * @param {string} params.functionId - Function ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
     delete(params: { functionId: string  }): Promise<{}>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Delete a function by its unique ID.
+     *
+     * @param {string} functionId - Function ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -527,8 +587,8 @@ export class Functions {
     ): Promise<{}> {
         let params: { functionId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string            
@@ -560,15 +620,21 @@ export class Functions {
     /**
      * Update the function active deployment. Use this endpoint to switch the code deployment that should be used when visitor opens your function.
      *
-     * @param {string} functionId - Function ID.
-     * @param {string} deploymentId - Deployment ID.
+     * @param {string} params.functionId - Function ID.
+     * @param {string} params.deploymentId - Deployment ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
     updateFunctionDeployment(params: { functionId: string, deploymentId: string  }): Promise<Models.Function>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Update the function active deployment. Use this endpoint to switch the code deployment that should be used when visitor opens your function.
+     *
+     * @param {string} functionId - Function ID.
+     * @param {string} deploymentId - Deployment ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Function>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -584,8 +650,8 @@ export class Functions {
     ): Promise<Models.Function> {
         let params: { functionId: string, deploymentId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, deploymentId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, deploymentId: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -625,16 +691,23 @@ export class Functions {
     /**
      * Get a list of all the function's code deployments. You can use the query params to filter your results.
      *
-     * @param {string} functionId - Function ID.
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: buildSize, sourceSize, totalSize, buildDuration, status, activate, type
-     * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {string} params.functionId - Function ID.
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: buildSize, sourceSize, totalSize, buildDuration, status, activate, type
+     * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DeploymentList>}
      */
     listDeployments(params: { functionId: string, queries?: string[], search?: string  }): Promise<Models.DeploymentList>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a list of all the function's code deployments. You can use the query params to filter your results.
+     *
+     * @param {string} functionId - Function ID.
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: buildSize, sourceSize, totalSize, buildDuration, status, activate, type
+     * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DeploymentList>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -650,8 +723,8 @@ export class Functions {
     ): Promise<Models.DeploymentList> {
         let params: { functionId: string, queries?: string[], search?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, queries?: string[], search?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, queries?: string[], search?: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -696,6 +769,22 @@ export class Functions {
      * 
      * Use the "command" param to set the entrypoint used to execute your code.
      *
+     * @param {string} params.functionId - Function ID.
+     * @param {File} params.code - Gzip file with your code package. When used with the Appwrite CLI, pass the path to your code directory, and the CLI will automatically package your code. Use a path that is within the current directory.
+     * @param {boolean} params.activate - Automatically activate the deployment when it is finished building.
+     * @param {string} params.entrypoint - Entrypoint File.
+     * @param {string} params.commands - Build Commands.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Deployment>}
+     */
+    createDeployment(params: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string , onProgress?: (progress: UploadProgress) => {} }): Promise<Models.Deployment>;
+    /**
+     * Create a new function code deployment. Use this endpoint to upload a new version of your code function. To execute your newly uploaded code, you'll need to update the function's deployment to use your new deployment UID.
+     * 
+     * This endpoint accepts a tar.gz file compressed with your code. Make sure to include any dependencies your code has within the compressed file. You can learn more about code packaging in the [Appwrite Cloud Functions tutorial](https://appwrite.io/docs/functions).
+     * 
+     * Use the "command" param to set the entrypoint used to execute your code.
+     *
      * @param {string} functionId - Function ID.
      * @param {File} code - Gzip file with your code package. When used with the Appwrite CLI, pass the path to your code directory, and the CLI will automatically package your code. Use a path that is within the current directory.
      * @param {boolean} activate - Automatically activate the deployment when it is finished building.
@@ -703,11 +792,8 @@ export class Functions {
      * @param {string} commands - Build Commands.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
-     */
-    createDeployment(params: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string , onProgress?: (progress: UploadProgress) => {} }): Promise<Models.Deployment>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -724,9 +810,9 @@ export class Functions {
         let params: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string };
         let onProgress: ((progress: UploadProgress) => {});
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string };
-            onProgress = paramsOrFirst.onProgress as ((progress: UploadProgress) => {});
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string };
+            onProgress = paramsOrFirst?.onProgress as ((progress: UploadProgress) => {});
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -786,16 +872,23 @@ export class Functions {
     /**
      * Create a new build for an existing function deployment. This endpoint allows you to rebuild a deployment with the updated function configuration, including its entrypoint and build commands if they have been modified. The build process will be queued and executed asynchronously. The original deployment's code will be preserved and used for the new build.
      *
-     * @param {string} functionId - Function ID.
-     * @param {string} deploymentId - Deployment ID.
-     * @param {string} buildId - Build unique ID.
+     * @param {string} params.functionId - Function ID.
+     * @param {string} params.deploymentId - Deployment ID.
+     * @param {string} params.buildId - Build unique ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
     createDuplicateDeployment(params: { functionId: string, deploymentId: string, buildId?: string  }): Promise<Models.Deployment>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Create a new build for an existing function deployment. This endpoint allows you to rebuild a deployment with the updated function configuration, including its entrypoint and build commands if they have been modified. The build process will be queued and executed asynchronously. The original deployment's code will be preserved and used for the new build.
+     *
+     * @param {string} functionId - Function ID.
+     * @param {string} deploymentId - Deployment ID.
+     * @param {string} buildId - Build unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Deployment>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -811,8 +904,8 @@ export class Functions {
     ): Promise<Models.Deployment> {
         let params: { functionId: string, deploymentId: string, buildId?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, deploymentId: string, buildId?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, deploymentId: string, buildId?: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -859,6 +952,21 @@ export class Functions {
      * 
      * Use this endpoint with combination of [listTemplates](https://appwrite.io/docs/server/functions#listTemplates) to find the template details.
      *
+     * @param {string} params.functionId - Function ID.
+     * @param {string} params.repository - Repository name of the template.
+     * @param {string} params.owner - The name of the owner of the template.
+     * @param {string} params.rootDirectory - Path to function code in the template repo.
+     * @param {string} params.version - Version (tag) for the repo linked to the function template.
+     * @param {boolean} params.activate - Automatically activate the deployment when it is finished building.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Deployment>}
+     */
+    createTemplateDeployment(params: { functionId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean  }): Promise<Models.Deployment>;
+    /**
+     * Create a deployment based on a template.
+     * 
+     * Use this endpoint with combination of [listTemplates](https://appwrite.io/docs/server/functions#listTemplates) to find the template details.
+     *
      * @param {string} functionId - Function ID.
      * @param {string} repository - Repository name of the template.
      * @param {string} owner - The name of the owner of the template.
@@ -867,11 +975,8 @@ export class Functions {
      * @param {boolean} activate - Automatically activate the deployment when it is finished building.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
-     */
-    createTemplateDeployment(params: { functionId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean  }): Promise<Models.Deployment>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -887,8 +992,8 @@ export class Functions {
     ): Promise<Models.Deployment> {
         let params: { functionId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -959,17 +1064,27 @@ export class Functions {
      * 
      * This endpoint lets you create deployment from a branch, commit, or a tag.
      *
+     * @param {string} params.functionId - Function ID.
+     * @param {VCSDeploymentType} params.type - Type of reference passed. Allowed values are: branch, commit
+     * @param {string} params.reference - VCS reference to create deployment from. Depending on type this can be: branch name, commit hash
+     * @param {boolean} params.activate - Automatically activate the deployment when it is finished building.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Deployment>}
+     */
+    createVcsDeployment(params: { functionId: string, type: VCSDeploymentType, reference: string, activate?: boolean  }): Promise<Models.Deployment>;
+    /**
+     * Create a deployment when a function is connected to VCS.
+     * 
+     * This endpoint lets you create deployment from a branch, commit, or a tag.
+     *
      * @param {string} functionId - Function ID.
      * @param {VCSDeploymentType} type - Type of reference passed. Allowed values are: branch, commit
      * @param {string} reference - VCS reference to create deployment from. Depending on type this can be: branch name, commit hash
      * @param {boolean} activate - Automatically activate the deployment when it is finished building.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
-     */
-    createVcsDeployment(params: { functionId: string, type: VCSDeploymentType, reference: string, activate?: boolean  }): Promise<Models.Deployment>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -985,8 +1100,8 @@ export class Functions {
     ): Promise<Models.Deployment> {
         let params: { functionId: string, type: VCSDeploymentType, reference: string, activate?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, type: VCSDeploymentType, reference: string, activate?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, type: VCSDeploymentType, reference: string, activate?: boolean };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -1039,15 +1154,21 @@ export class Functions {
     /**
      * Get a function deployment by its unique ID.
      *
-     * @param {string} functionId - Function ID.
-     * @param {string} deploymentId - Deployment ID.
+     * @param {string} params.functionId - Function ID.
+     * @param {string} params.deploymentId - Deployment ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
     getDeployment(params: { functionId: string, deploymentId: string  }): Promise<Models.Deployment>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a function deployment by its unique ID.
+     *
+     * @param {string} functionId - Function ID.
+     * @param {string} deploymentId - Deployment ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Deployment>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1063,8 +1184,8 @@ export class Functions {
     ): Promise<Models.Deployment> {
         let params: { functionId: string, deploymentId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, deploymentId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, deploymentId: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -1100,15 +1221,21 @@ export class Functions {
     /**
      * Delete a code deployment by its unique ID.
      *
-     * @param {string} functionId - Function ID.
-     * @param {string} deploymentId - Deployment ID.
+     * @param {string} params.functionId - Function ID.
+     * @param {string} params.deploymentId - Deployment ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
     deleteDeployment(params: { functionId: string, deploymentId: string  }): Promise<{}>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Delete a code deployment by its unique ID.
+     *
+     * @param {string} functionId - Function ID.
+     * @param {string} deploymentId - Deployment ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1124,8 +1251,8 @@ export class Functions {
     ): Promise<{}> {
         let params: { functionId: string, deploymentId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, deploymentId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, deploymentId: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -1162,16 +1289,23 @@ export class Functions {
     /**
      * Get a function deployment content by its unique ID. The endpoint response return with a 'Content-Disposition: attachment' header that tells the browser to start downloading the file to user downloads directory.
      *
-     * @param {string} functionId - Function ID.
-     * @param {string} deploymentId - Deployment ID.
-     * @param {DeploymentDownloadType} type - Deployment file to download. Can be: "source", "output".
+     * @param {string} params.functionId - Function ID.
+     * @param {string} params.deploymentId - Deployment ID.
+     * @param {DeploymentDownloadType} params.type - Deployment file to download. Can be: "source", "output".
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
     getDeploymentDownload(params: { functionId: string, deploymentId: string, type?: DeploymentDownloadType  }): Promise<ArrayBuffer>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a function deployment content by its unique ID. The endpoint response return with a 'Content-Disposition: attachment' header that tells the browser to start downloading the file to user downloads directory.
+     *
+     * @param {string} functionId - Function ID.
+     * @param {string} deploymentId - Deployment ID.
+     * @param {DeploymentDownloadType} type - Deployment file to download. Can be: "source", "output".
+     * @throws {AppwriteException}
+     * @returns {Promise<ArrayBuffer>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1187,8 +1321,8 @@ export class Functions {
     ): Promise<ArrayBuffer> {
         let params: { functionId: string, deploymentId: string, type?: DeploymentDownloadType };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, deploymentId: string, type?: DeploymentDownloadType };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, deploymentId: string, type?: DeploymentDownloadType };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -1230,15 +1364,21 @@ export class Functions {
     /**
      * Cancel an ongoing function deployment build. If the build is already in progress, it will be stopped and marked as canceled. If the build hasn't started yet, it will be marked as canceled without executing. You cannot cancel builds that have already completed (status 'ready') or failed. The response includes the final build status and details.
      *
-     * @param {string} functionId - Function ID.
-     * @param {string} deploymentId - Deployment ID.
+     * @param {string} params.functionId - Function ID.
+     * @param {string} params.deploymentId - Deployment ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
     updateDeploymentStatus(params: { functionId: string, deploymentId: string  }): Promise<Models.Deployment>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Cancel an ongoing function deployment build. If the build is already in progress, it will be stopped and marked as canceled. If the build hasn't started yet, it will be marked as canceled without executing. You cannot cancel builds that have already completed (status 'ready') or failed. The response includes the final build status and details.
+     *
+     * @param {string} functionId - Function ID.
+     * @param {string} deploymentId - Deployment ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Deployment>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1254,8 +1394,8 @@ export class Functions {
     ): Promise<Models.Deployment> {
         let params: { functionId: string, deploymentId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, deploymentId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, deploymentId: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -1292,15 +1432,21 @@ export class Functions {
     /**
      * Get a list of all the current user function execution logs. You can use the query params to filter your results.
      *
-     * @param {string} functionId - Function ID.
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, responseStatusCode, duration, requestMethod, requestPath, deploymentId
+     * @param {string} params.functionId - Function ID.
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, responseStatusCode, duration, requestMethod, requestPath, deploymentId
      * @throws {AppwriteException}
      * @returns {Promise<Models.ExecutionList>}
      */
     listExecutions(params: { functionId: string, queries?: string[]  }): Promise<Models.ExecutionList>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a list of all the current user function execution logs. You can use the query params to filter your results.
+     *
+     * @param {string} functionId - Function ID.
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, responseStatusCode, duration, requestMethod, requestPath, deploymentId
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ExecutionList>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1316,8 +1462,8 @@ export class Functions {
     ): Promise<Models.ExecutionList> {
         let params: { functionId: string, queries?: string[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, queries?: string[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, queries?: string[] };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -1353,6 +1499,20 @@ export class Functions {
     /**
      * Trigger a function execution. The returned object will return you the current execution status. You can ping the `Get Execution` endpoint to get updates on the current execution status. Once this endpoint is called, your function execution process will start asynchronously.
      *
+     * @param {string} params.functionId - Function ID.
+     * @param {string} params.body - HTTP body of execution. Default value is empty string.
+     * @param {boolean} params.async - Execute code in the background. Default value is false.
+     * @param {string} params.xpath - HTTP path of execution. Path can include query params. Default value is /
+     * @param {ExecutionMethod} params.method - HTTP method of execution. Default value is GET.
+     * @param {object} params.headers - HTTP headers of execution. Defaults to empty.
+     * @param {string} params.scheduledAt - Scheduled execution time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future with precision in minutes.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Execution>}
+     */
+    createExecution(params: { functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string  }): Promise<Models.Execution>;
+    /**
+     * Trigger a function execution. The returned object will return you the current execution status. You can ping the `Get Execution` endpoint to get updates on the current execution status. Once this endpoint is called, your function execution process will start asynchronously.
+     *
      * @param {string} functionId - Function ID.
      * @param {string} body - HTTP body of execution. Default value is empty string.
      * @param {boolean} async - Execute code in the background. Default value is false.
@@ -1362,11 +1522,8 @@ export class Functions {
      * @param {string} scheduledAt - Scheduled execution time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future with precision in minutes.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Execution>}
-     */
-    createExecution(params: { functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string  }): Promise<Models.Execution>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1382,8 +1539,8 @@ export class Functions {
     ): Promise<Models.Execution> {
         let params: { functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -1445,15 +1602,21 @@ export class Functions {
     /**
      * Get a function execution log by its unique ID.
      *
-     * @param {string} functionId - Function ID.
-     * @param {string} executionId - Execution ID.
+     * @param {string} params.functionId - Function ID.
+     * @param {string} params.executionId - Execution ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Execution>}
      */
     getExecution(params: { functionId: string, executionId: string  }): Promise<Models.Execution>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a function execution log by its unique ID.
+     *
+     * @param {string} functionId - Function ID.
+     * @param {string} executionId - Execution ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Execution>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1469,8 +1632,8 @@ export class Functions {
     ): Promise<Models.Execution> {
         let params: { functionId: string, executionId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, executionId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, executionId: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -1506,15 +1669,21 @@ export class Functions {
     /**
      * Delete a function execution by its unique ID.
      *
-     * @param {string} functionId - Function ID.
-     * @param {string} executionId - Execution ID.
+     * @param {string} params.functionId - Function ID.
+     * @param {string} params.executionId - Execution ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
     deleteExecution(params: { functionId: string, executionId: string  }): Promise<{}>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Delete a function execution by its unique ID.
+     *
+     * @param {string} functionId - Function ID.
+     * @param {string} executionId - Execution ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1530,8 +1699,8 @@ export class Functions {
     ): Promise<{}> {
         let params: { functionId: string, executionId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, executionId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, executionId: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -1568,14 +1737,19 @@ export class Functions {
     /**
      * Get a list of all variables of a specific function.
      *
-     * @param {string} functionId - Function unique ID.
+     * @param {string} params.functionId - Function unique ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.VariableList>}
      */
     listVariables(params: { functionId: string  }): Promise<Models.VariableList>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a list of all variables of a specific function.
+     *
+     * @param {string} functionId - Function unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.VariableList>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1590,8 +1764,8 @@ export class Functions {
     ): Promise<Models.VariableList> {
         let params: { functionId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string            
@@ -1622,17 +1796,25 @@ export class Functions {
     /**
      * Create a new function environment variable. These variables can be accessed in the function at runtime as environment variables.
      *
+     * @param {string} params.functionId - Function unique ID.
+     * @param {string} params.key - Variable key. Max length: 255 chars.
+     * @param {string} params.value - Variable value. Max length: 8192 chars.
+     * @param {boolean} params.secret - Secret variables can be updated or deleted, but only functions can read them during build and runtime.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Variable>}
+     */
+    createVariable(params: { functionId: string, key: string, value: string, secret?: boolean  }): Promise<Models.Variable>;
+    /**
+     * Create a new function environment variable. These variables can be accessed in the function at runtime as environment variables.
+     *
      * @param {string} functionId - Function unique ID.
      * @param {string} key - Variable key. Max length: 255 chars.
      * @param {string} value - Variable value. Max length: 8192 chars.
      * @param {boolean} secret - Secret variables can be updated or deleted, but only functions can read them during build and runtime.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
-     */
-    createVariable(params: { functionId: string, key: string, value: string, secret?: boolean  }): Promise<Models.Variable>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1648,8 +1830,8 @@ export class Functions {
     ): Promise<Models.Variable> {
         let params: { functionId: string, key: string, value: string, secret?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, key: string, value: string, secret?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, key: string, value: string, secret?: boolean };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -1702,15 +1884,21 @@ export class Functions {
     /**
      * Get a variable by its unique ID.
      *
-     * @param {string} functionId - Function unique ID.
-     * @param {string} variableId - Variable unique ID.
+     * @param {string} params.functionId - Function unique ID.
+     * @param {string} params.variableId - Variable unique ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
     getVariable(params: { functionId: string, variableId: string  }): Promise<Models.Variable>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a variable by its unique ID.
+     *
+     * @param {string} functionId - Function unique ID.
+     * @param {string} variableId - Variable unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Variable>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1726,8 +1914,8 @@ export class Functions {
     ): Promise<Models.Variable> {
         let params: { functionId: string, variableId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, variableId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, variableId: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -1763,6 +1951,18 @@ export class Functions {
     /**
      * Update variable by its unique ID.
      *
+     * @param {string} params.functionId - Function unique ID.
+     * @param {string} params.variableId - Variable unique ID.
+     * @param {string} params.key - Variable key. Max length: 255 chars.
+     * @param {string} params.value - Variable value. Max length: 8192 chars.
+     * @param {boolean} params.secret - Secret variables can be updated or deleted, but only functions can read them during build and runtime.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Variable>}
+     */
+    updateVariable(params: { functionId: string, variableId: string, key: string, value?: string, secret?: boolean  }): Promise<Models.Variable>;
+    /**
+     * Update variable by its unique ID.
+     *
      * @param {string} functionId - Function unique ID.
      * @param {string} variableId - Variable unique ID.
      * @param {string} key - Variable key. Max length: 255 chars.
@@ -1770,11 +1970,8 @@ export class Functions {
      * @param {boolean} secret - Secret variables can be updated or deleted, but only functions can read them during build and runtime.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
-     */
-    updateVariable(params: { functionId: string, variableId: string, key: string, value?: string, secret?: boolean  }): Promise<Models.Variable>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1790,8 +1987,8 @@ export class Functions {
     ): Promise<Models.Variable> {
         let params: { functionId: string, variableId: string, key: string, value?: string, secret?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, variableId: string, key: string, value?: string, secret?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, variableId: string, key: string, value?: string, secret?: boolean };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -1846,15 +2043,21 @@ export class Functions {
     /**
      * Delete a variable by its unique ID.
      *
-     * @param {string} functionId - Function unique ID.
-     * @param {string} variableId - Variable unique ID.
+     * @param {string} params.functionId - Function unique ID.
+     * @param {string} params.variableId - Variable unique ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
     deleteVariable(params: { functionId: string, variableId: string  }): Promise<{}>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Delete a variable by its unique ID.
+     *
+     * @param {string} functionId - Function unique ID.
+     * @param {string} variableId - Variable unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1870,8 +2073,8 @@ export class Functions {
     ): Promise<{}> {
         let params: { functionId: string, variableId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { functionId: string, variableId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { functionId: string, variableId: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,

@@ -82,14 +82,19 @@ export class Health {
     /**
      * Get the SSL certificate for a domain
      *
-     * @param {string} domain - string
+     * @param {string} params.domain - string
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthCertificate>}
      */
     getCertificate(params: { domain?: string  }): Promise<Models.HealthCertificate>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get the SSL certificate for a domain
+     *
+     * @param {string} domain - string
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthCertificate>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -104,8 +109,8 @@ export class Health {
     ): Promise<Models.HealthCertificate> {
         let params: { domain?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { domain?: string };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { domain?: string };
         } else {
             params = {
                 domain: paramsOrFirst as string            
@@ -182,14 +187,19 @@ export class Health {
     /**
      * Get the number of builds that are waiting to be processed in the Appwrite internal queue server.
      *
-     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
     getQueueBuilds(params: { threshold?: number  }): Promise<Models.HealthQueue>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get the number of builds that are waiting to be processed in the Appwrite internal queue server.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -204,8 +214,8 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { threshold?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { threshold?: number };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
         } else {
             params = {
                 threshold: paramsOrFirst as number            
@@ -236,14 +246,19 @@ export class Health {
     /**
      * Get the number of certificates that are waiting to be issued against [Letsencrypt](https://letsencrypt.org/) in the Appwrite internal queue server.
      *
-     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
     getQueueCertificates(params: { threshold?: number  }): Promise<Models.HealthQueue>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get the number of certificates that are waiting to be issued against [Letsencrypt](https://letsencrypt.org/) in the Appwrite internal queue server.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -258,8 +273,8 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { threshold?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { threshold?: number };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
         } else {
             params = {
                 threshold: paramsOrFirst as number            
@@ -290,15 +305,21 @@ export class Health {
     /**
      * Get the number of database changes that are waiting to be processed in the Appwrite internal queue server.
      *
-     * @param {string} name - Queue name for which to check the queue size
-     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @param {string} params.name - Queue name for which to check the queue size
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
     getQueueDatabases(params: { name?: string, threshold?: number  }): Promise<Models.HealthQueue>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get the number of database changes that are waiting to be processed in the Appwrite internal queue server.
+     *
+     * @param {string} name - Queue name for which to check the queue size
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -314,8 +335,8 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { name?: string, threshold?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { name?: string, threshold?: number };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { name?: string, threshold?: number };
         } else {
             params = {
                 name: paramsOrFirst as string,
@@ -351,14 +372,19 @@ export class Health {
     /**
      * Get the number of background destructive changes that are waiting to be processed in the Appwrite internal queue server.
      *
-     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
     getQueueDeletes(params: { threshold?: number  }): Promise<Models.HealthQueue>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get the number of background destructive changes that are waiting to be processed in the Appwrite internal queue server.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -373,8 +399,8 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { threshold?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { threshold?: number };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
         } else {
             params = {
                 threshold: paramsOrFirst as number            
@@ -406,15 +432,22 @@ export class Health {
      * Returns the amount of failed jobs in a given queue.
      * 
      *
-     * @param {Name} name - The name of the queue
-     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @param {Name} params.name - The name of the queue
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
     getFailedJobs(params: { name: Name, threshold?: number  }): Promise<Models.HealthQueue>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Returns the amount of failed jobs in a given queue.
+     * 
+     *
+     * @param {Name} name - The name of the queue
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -430,8 +463,8 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { name: Name, threshold?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && 'name' in paramsOrFirst) {
-            params = paramsOrFirst as { name: Name, threshold?: number };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && 'name' in paramsOrFirst)) {
+            params = (paramsOrFirst || {}) as { name: Name, threshold?: number };
         } else {
             params = {
                 name: paramsOrFirst as Name,
@@ -467,14 +500,19 @@ export class Health {
     /**
      * Get the number of function executions that are waiting to be processed in the Appwrite internal queue server.
      *
-     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
     getQueueFunctions(params: { threshold?: number  }): Promise<Models.HealthQueue>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get the number of function executions that are waiting to be processed in the Appwrite internal queue server.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -489,8 +527,8 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { threshold?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { threshold?: number };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
         } else {
             params = {
                 threshold: paramsOrFirst as number            
@@ -521,14 +559,19 @@ export class Health {
     /**
      * Get the number of logs that are waiting to be processed in the Appwrite internal queue server.
      *
-     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
     getQueueLogs(params: { threshold?: number  }): Promise<Models.HealthQueue>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get the number of logs that are waiting to be processed in the Appwrite internal queue server.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -543,8 +586,8 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { threshold?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { threshold?: number };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
         } else {
             params = {
                 threshold: paramsOrFirst as number            
@@ -575,14 +618,19 @@ export class Health {
     /**
      * Get the number of mails that are waiting to be processed in the Appwrite internal queue server.
      *
-     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
     getQueueMails(params: { threshold?: number  }): Promise<Models.HealthQueue>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get the number of mails that are waiting to be processed in the Appwrite internal queue server.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -597,8 +645,8 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { threshold?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { threshold?: number };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
         } else {
             params = {
                 threshold: paramsOrFirst as number            
@@ -629,14 +677,19 @@ export class Health {
     /**
      * Get the number of messages that are waiting to be processed in the Appwrite internal queue server.
      *
-     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
     getQueueMessaging(params: { threshold?: number  }): Promise<Models.HealthQueue>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get the number of messages that are waiting to be processed in the Appwrite internal queue server.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -651,8 +704,8 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { threshold?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { threshold?: number };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
         } else {
             params = {
                 threshold: paramsOrFirst as number            
@@ -683,14 +736,19 @@ export class Health {
     /**
      * Get the number of migrations that are waiting to be processed in the Appwrite internal queue server.
      *
-     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
     getQueueMigrations(params: { threshold?: number  }): Promise<Models.HealthQueue>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get the number of migrations that are waiting to be processed in the Appwrite internal queue server.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -705,8 +763,8 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { threshold?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { threshold?: number };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
         } else {
             params = {
                 threshold: paramsOrFirst as number            
@@ -737,14 +795,19 @@ export class Health {
     /**
      * Get the number of metrics that are waiting to be processed in the Appwrite stats resources queue.
      *
-     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
     getQueueStatsResources(params: { threshold?: number  }): Promise<Models.HealthQueue>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get the number of metrics that are waiting to be processed in the Appwrite stats resources queue.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -759,8 +822,8 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { threshold?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { threshold?: number };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
         } else {
             params = {
                 threshold: paramsOrFirst as number            
@@ -791,14 +854,19 @@ export class Health {
     /**
      * Get the number of metrics that are waiting to be processed in the Appwrite internal queue server.
      *
-     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
     getQueueUsage(params: { threshold?: number  }): Promise<Models.HealthQueue>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get the number of metrics that are waiting to be processed in the Appwrite internal queue server.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -813,8 +881,8 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { threshold?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { threshold?: number };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
         } else {
             params = {
                 threshold: paramsOrFirst as number            
@@ -845,14 +913,19 @@ export class Health {
     /**
      * Get the number of webhooks that are waiting to be processed in the Appwrite internal queue server.
      *
-     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
     getQueueWebhooks(params: { threshold?: number  }): Promise<Models.HealthQueue>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get the number of webhooks that are waiting to be processed in the Appwrite internal queue server.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -867,8 +940,8 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { threshold?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { threshold?: number };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
         } else {
             params = {
                 threshold: paramsOrFirst as number            

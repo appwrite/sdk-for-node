@@ -15,15 +15,21 @@ export class TablesDb {
     /**
      * Get a list of all databases from the current Appwrite project. You can use the search parameter to filter your results.
      *
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name
-     * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name
+     * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DatabaseList>}
      */
     list(params: { queries?: string[], search?: string  }): Promise<Models.DatabaseList>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a list of all databases from the current Appwrite project. You can use the search parameter to filter your results.
+     *
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name
+     * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DatabaseList>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -39,8 +45,8 @@ export class TablesDb {
     ): Promise<Models.DatabaseList> {
         let params: { queries?: string[], search?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { queries?: string[], search?: string };
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { queries?: string[], search?: string };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
@@ -77,16 +83,24 @@ export class TablesDb {
      * Create a new Database.
      * 
      *
-     * @param {string} databaseId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
-     * @param {string} name - Database name. Max length: 128 chars.
-     * @param {boolean} enabled - Is the database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @param {string} params.databaseId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Database name. Max length: 128 chars.
+     * @param {boolean} params.enabled - Is the database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      */
     create(params: { databaseId: string, name: string, enabled?: boolean  }): Promise<Models.Database>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Create a new Database.
+     * 
+     *
+     * @param {string} databaseId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} name - Database name. Max length: 128 chars.
+     * @param {boolean} enabled - Is the database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Database>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -102,8 +116,8 @@ export class TablesDb {
     ): Promise<Models.Database> {
         let params: { databaseId: string, name: string, enabled?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, name: string, enabled?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, name: string, enabled?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -151,14 +165,19 @@ export class TablesDb {
     /**
      * Get a database by its unique ID. This endpoint response returns a JSON object with the database metadata.
      *
-     * @param {string} databaseId - Database ID.
+     * @param {string} params.databaseId - Database ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      */
     get(params: { databaseId: string  }): Promise<Models.Database>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a database by its unique ID. This endpoint response returns a JSON object with the database metadata.
+     *
+     * @param {string} databaseId - Database ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Database>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -173,8 +192,8 @@ export class TablesDb {
     ): Promise<Models.Database> {
         let params: { databaseId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string            
@@ -205,16 +224,23 @@ export class TablesDb {
     /**
      * Update a database by its unique ID.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} name - Database name. Max length: 128 chars.
-     * @param {boolean} enabled - Is database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.name - Database name. Max length: 128 chars.
+     * @param {boolean} params.enabled - Is database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      */
     update(params: { databaseId: string, name: string, enabled?: boolean  }): Promise<Models.Database>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Update a database by its unique ID.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} name - Database name. Max length: 128 chars.
+     * @param {boolean} enabled - Is database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Database>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -230,8 +256,8 @@ export class TablesDb {
     ): Promise<Models.Database> {
         let params: { databaseId: string, name: string, enabled?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, name: string, enabled?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, name: string, enabled?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -276,14 +302,19 @@ export class TablesDb {
     /**
      * Delete a database by its unique ID. Only API keys with with databases.write scope can delete a database.
      *
-     * @param {string} databaseId - Database ID.
+     * @param {string} params.databaseId - Database ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
     delete(params: { databaseId: string  }): Promise<{}>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Delete a database by its unique ID. Only API keys with with databases.write scope can delete a database.
+     *
+     * @param {string} databaseId - Database ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -298,8 +329,8 @@ export class TablesDb {
     ): Promise<{}> {
         let params: { databaseId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string            
@@ -331,16 +362,23 @@ export class TablesDb {
     /**
      * Get a list of all tables that belong to the provided databaseId. You can use the search parameter to filter your results.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, enabled, rowSecurity
-     * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {string} params.databaseId - Database ID.
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, enabled, rowSecurity
+     * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.TableList>}
      */
     listTables(params: { databaseId: string, queries?: string[], search?: string  }): Promise<Models.TableList>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a list of all tables that belong to the provided databaseId. You can use the search parameter to filter your results.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, enabled, rowSecurity
+     * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.TableList>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -356,8 +394,8 @@ export class TablesDb {
     ): Promise<Models.TableList> {
         let params: { databaseId: string, queries?: string[], search?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, queries?: string[], search?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, queries?: string[], search?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -398,6 +436,19 @@ export class TablesDb {
     /**
      * Create a new Table. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Table name. Max length: 128 chars.
+     * @param {string[]} params.permissions - An array of permissions strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {boolean} params.rowSecurity - Enables configuring permissions for individual rows. A user needs one of row or table level permissions to access a row. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {boolean} params.enabled - Is table enabled? When set to 'disabled', users cannot access the table but Server SDKs with and API key can still read and write to the table. No data is lost when this is toggled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Table>}
+     */
+    createTable(params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean  }): Promise<Models.Table>;
+    /**
+     * Create a new Table. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Table name. Max length: 128 chars.
@@ -406,11 +457,8 @@ export class TablesDb {
      * @param {boolean} enabled - Is table enabled? When set to 'disabled', users cannot access the table but Server SDKs with and API key can still read and write to the table. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Table>}
-     */
-    createTable(params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean  }): Promise<Models.Table>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -426,8 +474,8 @@ export class TablesDb {
     ): Promise<Models.Table> {
         let params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -490,15 +538,21 @@ export class TablesDb {
     /**
      * Get a table by its unique ID. This endpoint response returns a JSON object with the table metadata.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID.
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Table>}
      */
     getTable(params: { databaseId: string, tableId: string  }): Promise<Models.Table>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a table by its unique ID. This endpoint response returns a JSON object with the table metadata.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Table>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -514,8 +568,8 @@ export class TablesDb {
     ): Promise<Models.Table> {
         let params: { databaseId: string, tableId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -551,6 +605,19 @@ export class TablesDb {
     /**
      * Update a table by its unique ID.
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.name - Table name. Max length: 128 chars.
+     * @param {string[]} params.permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {boolean} params.rowSecurity - Enables configuring permissions for individual rows. A user needs one of row or table level permissions to access a document. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {boolean} params.enabled - Is table enabled? When set to 'disabled', users cannot access the table but Server SDKs with and API key can still read and write to the table. No data is lost when this is toggled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Table>}
+     */
+    updateTable(params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean  }): Promise<Models.Table>;
+    /**
+     * Update a table by its unique ID.
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} name - Table name. Max length: 128 chars.
@@ -559,11 +626,8 @@ export class TablesDb {
      * @param {boolean} enabled - Is table enabled? When set to 'disabled', users cannot access the table but Server SDKs with and API key can still read and write to the table. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Table>}
-     */
-    updateTable(params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean  }): Promise<Models.Table>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -579,8 +643,8 @@ export class TablesDb {
     ): Promise<Models.Table> {
         let params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -640,15 +704,21 @@ export class TablesDb {
     /**
      * Delete a table by its unique ID. Only users with write permissions have access to delete this resource.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID.
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
     deleteTable(params: { databaseId: string, tableId: string  }): Promise<{}>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Delete a table by its unique ID. Only users with write permissions have access to delete this resource.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -664,8 +734,8 @@ export class TablesDb {
     ): Promise<{}> {
         let params: { databaseId: string, tableId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -702,16 +772,23 @@ export class TablesDb {
     /**
      * List columns in the table.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID.
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, type, size, required, array, status, error
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, type, size, required, array, status, error
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnList>}
      */
     listColumns(params: { databaseId: string, tableId: string, queries?: string[]  }): Promise<Models.ColumnList>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * List columns in the table.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID.
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, type, size, required, array, status, error
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnList>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -727,8 +804,8 @@ export class TablesDb {
     ): Promise<Models.ColumnList> {
         let params: { databaseId: string, tableId: string, queries?: string[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, queries?: string[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, queries?: string[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -770,6 +847,20 @@ export class TablesDb {
      * Create a boolean column.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {boolean} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {boolean} params.array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnBoolean>}
+     */
+    createBooleanColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean  }): Promise<Models.ColumnBoolean>;
+    /**
+     * Create a boolean column.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
      * @param {string} key - Column Key.
@@ -778,11 +869,8 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnBoolean>}
-     */
-    createBooleanColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean  }): Promise<Models.ColumnBoolean>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -798,8 +886,8 @@ export class TablesDb {
     ): Promise<Models.ColumnBoolean> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -862,6 +950,19 @@ export class TablesDb {
     /**
      * Update a boolean column. Changing the `default` value will not update already existing rows.
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {boolean} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnBoolean>}
+     */
+    updateBooleanColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string  }): Promise<Models.ColumnBoolean>;
+    /**
+     * Update a boolean column. Changing the `default` value will not update already existing rows.
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
      * @param {string} key - Column Key.
@@ -870,11 +971,8 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnBoolean>}
-     */
-    updateBooleanColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string  }): Promise<Models.ColumnBoolean>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -890,8 +988,8 @@ export class TablesDb {
     ): Promise<Models.ColumnBoolean> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -954,6 +1052,19 @@ export class TablesDb {
     /**
      * Create a date time column according to the ISO 8601 standard.
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for the column in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Cannot be set when column is required.
+     * @param {boolean} params.array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnDatetime>}
+     */
+    createDatetimeColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnDatetime>;
+    /**
+     * Create a date time column according to the ISO 8601 standard.
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -962,11 +1073,8 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnDatetime>}
-     */
-    createDatetimeColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnDatetime>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -982,8 +1090,8 @@ export class TablesDb {
     ): Promise<Models.ColumnDatetime> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -1046,6 +1154,19 @@ export class TablesDb {
     /**
      * Update a date time column. Changing the `default` value will not update already existing rows.
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnDatetime>}
+     */
+    updateDatetimeColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnDatetime>;
+    /**
+     * Update a date time column. Changing the `default` value will not update already existing rows.
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -1054,11 +1175,8 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnDatetime>}
-     */
-    updateDatetimeColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnDatetime>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1074,8 +1192,8 @@ export class TablesDb {
     ): Promise<Models.ColumnDatetime> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -1139,6 +1257,20 @@ export class TablesDb {
      * Create an email column.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {boolean} params.array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnEmail>}
+     */
+    createEmailColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnEmail>;
+    /**
+     * Create an email column.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -1147,11 +1279,8 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnEmail>}
-     */
-    createEmailColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnEmail>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1167,8 +1296,8 @@ export class TablesDb {
     ): Promise<Models.ColumnEmail> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -1232,6 +1361,20 @@ export class TablesDb {
      * Update an email column. Changing the `default` value will not update already existing rows.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnEmail>}
+     */
+    updateEmailColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnEmail>;
+    /**
+     * Update an email column. Changing the `default` value will not update already existing rows.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -1240,11 +1383,8 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnEmail>}
-     */
-    updateEmailColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnEmail>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1260,8 +1400,8 @@ export class TablesDb {
     ): Promise<Models.ColumnEmail> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -1324,6 +1464,20 @@ export class TablesDb {
     /**
      * Create an enumeration column. The `elements` param acts as a white-list of accepted values for this column.
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {string[]} params.elements - Array of enum values.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {boolean} params.array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnEnum>}
+     */
+    createEnumColumn(params: { databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnEnum>;
+    /**
+     * Create an enumeration column. The `elements` param acts as a white-list of accepted values for this column.
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -1333,11 +1487,8 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnEnum>}
-     */
-    createEnumColumn(params: { databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnEnum>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1353,8 +1504,8 @@ export class TablesDb {
     ): Promise<Models.ColumnEnum> {
         let params: { databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -1426,6 +1577,21 @@ export class TablesDb {
      * Update an enum column. Changing the `default` value will not update already existing rows.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {string[]} params.elements - Updated list of enum values.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnEnum>}
+     */
+    updateEnumColumn(params: { databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnEnum>;
+    /**
+     * Update an enum column. Changing the `default` value will not update already existing rows.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -1435,11 +1601,8 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnEnum>}
-     */
-    updateEnumColumn(params: { databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnEnum>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1455,8 +1618,8 @@ export class TablesDb {
     ): Promise<Models.ColumnEnum> {
         let params: { databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -1528,6 +1691,22 @@ export class TablesDb {
      * Create a float column. Optionally, minimum and maximum values can be provided.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {number} params.min - Minimum value
+     * @param {number} params.max - Maximum value
+     * @param {number} params.xdefault - Default value. Cannot be set when required.
+     * @param {boolean} params.array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnFloat>}
+     */
+    createFloatColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean  }): Promise<Models.ColumnFloat>;
+    /**
+     * Create a float column. Optionally, minimum and maximum values can be provided.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -1538,11 +1717,8 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnFloat>}
-     */
-    createFloatColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean  }): Promise<Models.ColumnFloat>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1558,8 +1734,8 @@ export class TablesDb {
     ): Promise<Models.ColumnFloat> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -1633,6 +1809,22 @@ export class TablesDb {
      * Update a float column. Changing the `default` value will not update already existing rows.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {number} params.xdefault - Default value. Cannot be set when required.
+     * @param {number} params.min - Minimum value
+     * @param {number} params.max - Maximum value
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnFloat>}
+     */
+    updateFloatColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string  }): Promise<Models.ColumnFloat>;
+    /**
+     * Update a float column. Changing the `default` value will not update already existing rows.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -1643,11 +1835,8 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnFloat>}
-     */
-    updateFloatColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string  }): Promise<Models.ColumnFloat>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1663,8 +1852,8 @@ export class TablesDb {
     ): Promise<Models.ColumnFloat> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -1738,6 +1927,22 @@ export class TablesDb {
      * Create an integer column. Optionally, minimum and maximum values can be provided.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {number} params.min - Minimum value
+     * @param {number} params.max - Maximum value
+     * @param {number} params.xdefault - Default value. Cannot be set when column is required.
+     * @param {boolean} params.array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnInteger>}
+     */
+    createIntegerColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean  }): Promise<Models.ColumnInteger>;
+    /**
+     * Create an integer column. Optionally, minimum and maximum values can be provided.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -1748,11 +1953,8 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnInteger>}
-     */
-    createIntegerColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean  }): Promise<Models.ColumnInteger>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1768,8 +1970,8 @@ export class TablesDb {
     ): Promise<Models.ColumnInteger> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -1843,6 +2045,22 @@ export class TablesDb {
      * Update an integer column. Changing the `default` value will not update already existing rows.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {number} params.xdefault - Default value. Cannot be set when column is required.
+     * @param {number} params.min - Minimum value
+     * @param {number} params.max - Maximum value
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnInteger>}
+     */
+    updateIntegerColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string  }): Promise<Models.ColumnInteger>;
+    /**
+     * Update an integer column. Changing the `default` value will not update already existing rows.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -1853,11 +2071,8 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnInteger>}
-     */
-    updateIntegerColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string  }): Promise<Models.ColumnInteger>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1873,8 +2088,8 @@ export class TablesDb {
     ): Promise<Models.ColumnInteger> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -1948,6 +2163,20 @@ export class TablesDb {
      * Create IP address column.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value. Cannot be set when column is required.
+     * @param {boolean} params.array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnIp>}
+     */
+    createIpColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnIp>;
+    /**
+     * Create IP address column.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -1956,11 +2185,8 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIp>}
-     */
-    createIpColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnIp>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -1976,8 +2202,8 @@ export class TablesDb {
     ): Promise<Models.ColumnIp> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -2041,6 +2267,20 @@ export class TablesDb {
      * Update an ip column. Changing the `default` value will not update already existing rows.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value. Cannot be set when column is required.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnIp>}
+     */
+    updateIpColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnIp>;
+    /**
+     * Update an ip column. Changing the `default` value will not update already existing rows.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -2049,11 +2289,8 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIp>}
-     */
-    updateIpColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnIp>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -2069,8 +2306,8 @@ export class TablesDb {
     ): Promise<Models.ColumnIp> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -2134,6 +2371,22 @@ export class TablesDb {
      * Create relationship column. [Learn more about relationship columns](https://appwrite.io/docs/databases-relationships#relationship-columns).
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.relatedTableId - Related Table ID.
+     * @param {RelationshipType} params.type - Relation type
+     * @param {boolean} params.twoWay - Is Two Way?
+     * @param {string} params.key - Column Key.
+     * @param {string} params.twoWayKey - Two Way Column Key.
+     * @param {RelationMutate} params.onDelete - Constraints option
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnRelationship>}
+     */
+    createRelationshipColumn(params: { databaseId: string, tableId: string, relatedTableId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate  }): Promise<Models.ColumnRelationship>;
+    /**
+     * Create relationship column. [Learn more about relationship columns](https://appwrite.io/docs/databases-relationships#relationship-columns).
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} relatedTableId - Related Table ID.
@@ -2144,11 +2397,8 @@ export class TablesDb {
      * @param {RelationMutate} onDelete - Constraints option
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnRelationship>}
-     */
-    createRelationshipColumn(params: { databaseId: string, tableId: string, relatedTableId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate  }): Promise<Models.ColumnRelationship>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -2164,8 +2414,8 @@ export class TablesDb {
     ): Promise<Models.ColumnRelationship> {
         let params: { databaseId: string, tableId: string, relatedTableId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, relatedTableId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, relatedTableId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -2239,6 +2489,22 @@ export class TablesDb {
      * Create a string column.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.key - Column Key.
+     * @param {number} params.size - Attribute size for text attributes, in number of characters.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {boolean} params.array - Is column an array?
+     * @param {boolean} params.encrypt - Toggle encryption for the column. Encryption enhances security by not storing any plain text values in the database. However, encrypted columns cannot be queried.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnString>}
+     */
+    createStringColumn(params: { databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean  }): Promise<Models.ColumnString>;
+    /**
+     * Create a string column.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
      * @param {string} key - Column Key.
@@ -2249,11 +2515,8 @@ export class TablesDb {
      * @param {boolean} encrypt - Toggle encryption for the column. Encryption enhances security by not storing any plain text values in the database. However, encrypted columns cannot be queried.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnString>}
-     */
-    createStringColumn(params: { databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean  }): Promise<Models.ColumnString>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -2269,8 +2532,8 @@ export class TablesDb {
     ): Promise<Models.ColumnString> {
         let params: { databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -2347,6 +2610,21 @@ export class TablesDb {
      * Update a string column. Changing the `default` value will not update already existing rows.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {number} params.size - Maximum size of the string column.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnString>}
+     */
+    updateStringColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string  }): Promise<Models.ColumnString>;
+    /**
+     * Update a string column. Changing the `default` value will not update already existing rows.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
      * @param {string} key - Column Key.
@@ -2356,11 +2634,8 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnString>}
-     */
-    updateStringColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string  }): Promise<Models.ColumnString>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -2376,8 +2651,8 @@ export class TablesDb {
     ): Promise<Models.ColumnString> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -2446,6 +2721,20 @@ export class TablesDb {
      * Create a URL column.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {boolean} params.array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnUrl>}
+     */
+    createUrlColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnUrl>;
+    /**
+     * Create a URL column.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -2454,11 +2743,8 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnUrl>}
-     */
-    createUrlColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnUrl>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -2474,8 +2760,8 @@ export class TablesDb {
     ): Promise<Models.ColumnUrl> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -2539,6 +2825,20 @@ export class TablesDb {
      * Update an url column. Changing the `default` value will not update already existing rows.
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnUrl>}
+     */
+    updateUrlColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnUrl>;
+    /**
+     * Update an url column. Changing the `default` value will not update already existing rows.
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -2547,11 +2847,8 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnUrl>}
-     */
-    updateUrlColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnUrl>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -2567,8 +2864,8 @@ export class TablesDb {
     ): Promise<Models.ColumnUrl> {
         let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -2631,16 +2928,23 @@ export class TablesDb {
     /**
      * Get column by ID.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID.
-     * @param {string} key - Column Key.
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
     getColumn(params: { databaseId: string, tableId: string, key: string  }): Promise<{}>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get column by ID.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID.
+     * @param {string} key - Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -2656,8 +2960,8 @@ export class TablesDb {
     ): Promise<{}> {
         let params: { databaseId: string, tableId: string, key: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -2698,16 +3002,23 @@ export class TablesDb {
     /**
      * Deletes a column.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID.
-     * @param {string} key - Column Key.
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
     deleteColumn(params: { databaseId: string, tableId: string, key: string  }): Promise<{}>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Deletes a column.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID.
+     * @param {string} key - Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -2723,8 +3034,8 @@ export class TablesDb {
     ): Promise<{}> {
         let params: { databaseId: string, tableId: string, key: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -2767,6 +3078,19 @@ export class TablesDb {
      * Update relationship column. [Learn more about relationship columns](https://appwrite.io/docs/databases-relationships#relationship-columns).
      * 
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {RelationMutate} params.onDelete - Constraints option
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnRelationship>}
+     */
+    updateRelationshipColumn(params: { databaseId: string, tableId: string, key: string, onDelete?: RelationMutate, newKey?: string  }): Promise<Models.ColumnRelationship>;
+    /**
+     * Update relationship column. [Learn more about relationship columns](https://appwrite.io/docs/databases-relationships#relationship-columns).
+     * 
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
@@ -2774,11 +3098,8 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnRelationship>}
-     */
-    updateRelationshipColumn(params: { databaseId: string, tableId: string, key: string, onDelete?: RelationMutate, newKey?: string  }): Promise<Models.ColumnRelationship>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -2794,8 +3115,8 @@ export class TablesDb {
     ): Promise<Models.ColumnRelationship> {
         let params: { databaseId: string, tableId: string, key: string, onDelete?: RelationMutate, newKey?: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, onDelete?: RelationMutate, newKey?: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, onDelete?: RelationMutate, newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -2847,16 +3168,23 @@ export class TablesDb {
     /**
      * List indexes on the table.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, type, status, attributes, error
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, type, status, attributes, error
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndexList>}
      */
     listIndexes(params: { databaseId: string, tableId: string, queries?: string[]  }): Promise<Models.ColumnIndexList>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * List indexes on the table.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, type, status, attributes, error
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnIndexList>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -2872,8 +3200,8 @@ export class TablesDb {
     ): Promise<Models.ColumnIndexList> {
         let params: { databaseId: string, tableId: string, queries?: string[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, queries?: string[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, queries?: string[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -2915,6 +3243,21 @@ export class TablesDb {
      * Creates an index on the columns listed. Your index should include all the columns you will query in a single request.
      * Type can be `key`, `fulltext`, or `unique`.
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.key - Index Key.
+     * @param {IndexType} params.type - Index type.
+     * @param {string[]} params.columns - Array of columns to index. Maximum of 100 columns are allowed, each 32 characters long.
+     * @param {string[]} params.orders - Array of index orders. Maximum of 100 orders are allowed.
+     * @param {number[]} params.lengths - Length of index. Maximum of 100
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnIndex>}
+     */
+    createIndex(params: { databaseId: string, tableId: string, key: string, type: IndexType, columns: string[], orders?: string[], lengths?: number[]  }): Promise<Models.ColumnIndex>;
+    /**
+     * Creates an index on the columns listed. Your index should include all the columns you will query in a single request.
+     * Type can be `key`, `fulltext`, or `unique`.
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
      * @param {string} key - Index Key.
@@ -2924,11 +3267,8 @@ export class TablesDb {
      * @param {number[]} lengths - Length of index. Maximum of 100
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndex>}
-     */
-    createIndex(params: { databaseId: string, tableId: string, key: string, type: IndexType, columns: string[], orders?: string[], lengths?: number[]  }): Promise<Models.ColumnIndex>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -2944,8 +3284,8 @@ export class TablesDb {
     ): Promise<Models.ColumnIndex> {
         let params: { databaseId: string, tableId: string, key: string, type: IndexType, columns: string[], orders?: string[], lengths?: number[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string, type: IndexType, columns: string[], orders?: string[], lengths?: number[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, type: IndexType, columns: string[], orders?: string[], lengths?: number[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -3016,16 +3356,23 @@ export class TablesDb {
     /**
      * Get index by ID.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
-     * @param {string} key - Index Key.
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndex>}
      */
     getIndex(params: { databaseId: string, tableId: string, key: string  }): Promise<Models.ColumnIndex>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get index by ID.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} key - Index Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnIndex>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -3041,8 +3388,8 @@ export class TablesDb {
     ): Promise<Models.ColumnIndex> {
         let params: { databaseId: string, tableId: string, key: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -3083,16 +3430,23 @@ export class TablesDb {
     /**
      * Delete an index.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
-     * @param {string} key - Index Key.
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
     deleteIndex(params: { databaseId: string, tableId: string, key: string  }): Promise<{}>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Delete an index.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} key - Index Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -3108,8 +3462,8 @@ export class TablesDb {
     ): Promise<{}> {
         let params: { databaseId: string, tableId: string, key: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, key: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -3151,16 +3505,23 @@ export class TablesDb {
     /**
      * Get a list of all the user's rows in a given table. You can use the query params to filter your results.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
      */
     listRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, queries?: string[]  }): Promise<Models.RowList<Row>>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Get a list of all the user's rows in a given table. You can use the query params to filter your results.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.RowList<Row>>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -3176,8 +3537,8 @@ export class TablesDb {
     ): Promise<Models.RowList<Row>> {
         let params: { databaseId: string, tableId: string, queries?: string[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, queries?: string[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, queries?: string[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -3218,41 +3579,50 @@ export class TablesDb {
     /**
      * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate). Make sure to define columns before creating rows.
-     * @param {string} rowId - Row ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
-     * @param {object} data - Row data as JSON object.
-     * @param {string[]} permissions - An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate). Make sure to define columns before creating rows.
+     * @param {string} params.rowId - Row ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>} params.data - Row data as JSON object.
+     * @param {string[]} params.permissions - An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Row>}
      */
-    createRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data: object, permissions?: string[]  }): Promise<Row>;
+    createRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>, permissions?: string[]  }): Promise<Row>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate). Make sure to define columns before creating rows.
+     * @param {string} rowId - Row ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>} data - Row data as JSON object.
+     * @param {string[]} permissions - An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @throws {AppwriteException}
+     * @returns {Promise<Row>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
-     * createRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data: object, permissions?: string[]): Promise<Row>;
+     * createRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>, permissions?: string[]): Promise<Row>;
      *
      * // New (object based)
-     * createRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data: object, permissions?: string[]  }): Promise<Row>;
+     * createRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>, permissions?: string[]  }): Promise<Row>;
      */
-    createRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data: object, permissions?: string[]): Promise<Row>;
+    createRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>, permissions?: string[]): Promise<Row>;
     createRow<Row extends Models.Row = Models.DefaultRow>(
-        paramsOrFirst: { databaseId: string, tableId: string, rowId: string, data: object, permissions?: string[] } | string,
-        ...rest: [(string)?, (string)?, (object)?, (string[])?]    
+        paramsOrFirst: { databaseId: string, tableId: string, rowId: string, data: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>, permissions?: string[] } | string,
+        ...rest: [(string)?, (string)?, (Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>)?, (string[])?]    
     ): Promise<Row> {
-        let params: { databaseId: string, tableId: string, rowId: string, data: object, permissions?: string[] };
+        let params: { databaseId: string, tableId: string, rowId: string, data: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>, permissions?: string[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, rowId: string, data: object, permissions?: string[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, rowId: string, data: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>, permissions?: string[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 tableId: rest[0] as string,
                 rowId: rest[1] as string,
-                data: rest[2] as object,
+                data: rest[2] as Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>,
                 permissions: rest[3] as string[]            
             };
         }
@@ -3304,16 +3674,23 @@ export class TablesDb {
     /**
      * Create new Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate). Make sure to define columns before creating rows.
-     * @param {object[]} rows - Array of documents data as JSON objects.
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate). Make sure to define columns before creating rows.
+     * @param {object[]} params.rows - Array of documents data as JSON objects.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
      */
     createRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rows: object[]  }): Promise<Models.RowList<Row>>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Create new Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate). Make sure to define columns before creating rows.
+     * @param {object[]} rows - Array of documents data as JSON objects.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.RowList<Row>>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -3329,8 +3706,8 @@ export class TablesDb {
     ): Promise<Models.RowList<Row>> {
         let params: { databaseId: string, tableId: string, rows: object[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, rows: object[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, rows: object[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -3376,16 +3753,24 @@ export class TablesDb {
      * Create or update Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
      * 
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID.
-     * @param {object[]} rows - Array of row data as JSON objects. May contain partial rows.
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {object[]} params.rows - Array of row data as JSON objects. May contain partial rows.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
      */
     upsertRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rows: object[]  }): Promise<Models.RowList<Row>>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Create or update Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID.
+     * @param {object[]} rows - Array of row data as JSON objects. May contain partial rows.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.RowList<Row>>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -3401,8 +3786,8 @@ export class TablesDb {
     ): Promise<Models.RowList<Row>> {
         let params: { databaseId: string, tableId: string, rows: object[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, rows: object[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, rows: object[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -3447,17 +3832,25 @@ export class TablesDb {
     /**
      * Update all rows that match your queries, if no queries are submitted then all rows are updated. You can pass only specific fields to be updated.
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {object} params.data - Row data as JSON object. Include only column and value pairs to be updated.
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.RowList<Row>>}
+     */
+    updateRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, data?: object, queries?: string[]  }): Promise<Models.RowList<Row>>;
+    /**
+     * Update all rows that match your queries, if no queries are submitted then all rows are updated. You can pass only specific fields to be updated.
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {object} data - Row data as JSON object. Include only column and value pairs to be updated.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
-     */
-    updateRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, data?: object, queries?: string[]  }): Promise<Models.RowList<Row>>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -3473,8 +3866,8 @@ export class TablesDb {
     ): Promise<Models.RowList<Row>> {
         let params: { databaseId: string, tableId: string, data?: object, queries?: string[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, data?: object, queries?: string[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, data?: object, queries?: string[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -3521,16 +3914,23 @@ export class TablesDb {
     /**
      * Bulk delete rows using queries, if no queries are passed then all rows are deleted.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
      */
     deleteRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, queries?: string[]  }): Promise<Models.RowList<Row>>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Bulk delete rows using queries, if no queries are passed then all rows are deleted.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.RowList<Row>>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -3546,8 +3946,8 @@ export class TablesDb {
     ): Promise<Models.RowList<Row>> {
         let params: { databaseId: string, tableId: string, queries?: string[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, queries?: string[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, queries?: string[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -3589,17 +3989,25 @@ export class TablesDb {
     /**
      * Get a row by its unique ID. This endpoint response returns a JSON object with the row data.
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.rowId - Row ID.
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @throws {AppwriteException}
+     * @returns {Promise<Row>}
+     */
+    getRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, queries?: string[]  }): Promise<Row>;
+    /**
+     * Get a row by its unique ID. This endpoint response returns a JSON object with the row data.
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
      * @param {string} rowId - Row ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Row>}
-     */
-    getRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, queries?: string[]  }): Promise<Row>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -3615,8 +4023,8 @@ export class TablesDb {
     ): Promise<Row> {
         let params: { databaseId: string, tableId: string, rowId: string, queries?: string[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, rowId: string, queries?: string[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, rowId: string, queries?: string[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -3662,41 +4070,50 @@ export class TablesDb {
     /**
      * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID.
-     * @param {string} rowId - Row ID.
-     * @param {object} data - Row data as JSON object. Include all required columns of the row to be created or updated.
-     * @param {string[]} permissions - An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.rowId - Row ID.
+     * @param {Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>} params.data - Row data as JSON object. Include all required columns of the row to be created or updated.
+     * @param {string[]} params.permissions - An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Row>}
      */
-    upsertRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[]  }): Promise<Row>;
+    upsertRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]  }): Promise<Row>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID.
+     * @param {string} rowId - Row ID.
+     * @param {Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>} data - Row data as JSON object. Include all required columns of the row to be created or updated.
+     * @param {string[]} permissions - An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @throws {AppwriteException}
+     * @returns {Promise<Row>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
-     * upsertRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[]): Promise<Row>;
+     * upsertRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]): Promise<Row>;
      *
      * // New (object based)
-     * upsertRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[]  }): Promise<Row>;
+     * upsertRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]  }): Promise<Row>;
      */
-    upsertRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[]): Promise<Row>;
+    upsertRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]): Promise<Row>;
     upsertRow<Row extends Models.Row = Models.DefaultRow>(
-        paramsOrFirst: { databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[] } | string,
-        ...rest: [(string)?, (string)?, (object)?, (string[])?]    
+        paramsOrFirst: { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[] } | string,
+        ...rest: [(string)?, (string)?, (Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>)?, (string[])?]    
     ): Promise<Row> {
-        let params: { databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[] };
+        let params: { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 tableId: rest[0] as string,
                 rowId: rest[1] as string,
-                data: rest[2] as object,
+                data: rest[2] as Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>,
                 permissions: rest[3] as string[]            
             };
         }
@@ -3742,41 +4159,50 @@ export class TablesDb {
     /**
      * Update a row by its unique ID. Using the patch method you can pass only specific fields that will get updated.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID.
-     * @param {string} rowId - Row ID.
-     * @param {object} data - Row data as JSON object. Include only columns and value pairs to be updated.
-     * @param {string[]} permissions - An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.rowId - Row ID.
+     * @param {Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>} params.data - Row data as JSON object. Include only columns and value pairs to be updated.
+     * @param {string[]} params.permissions - An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Row>}
      */
-    updateRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[]  }): Promise<Row>;
+    updateRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]  }): Promise<Row>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Update a row by its unique ID. Using the patch method you can pass only specific fields that will get updated.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID.
+     * @param {string} rowId - Row ID.
+     * @param {Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>} data - Row data as JSON object. Include only columns and value pairs to be updated.
+     * @param {string[]} permissions - An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @throws {AppwriteException}
+     * @returns {Promise<Row>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
-     * updateRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[]): Promise<Row>;
+     * updateRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]): Promise<Row>;
      *
      * // New (object based)
-     * updateRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[]  }): Promise<Row>;
+     * updateRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]  }): Promise<Row>;
      */
-    updateRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[]): Promise<Row>;
+    updateRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]): Promise<Row>;
     updateRow<Row extends Models.Row = Models.DefaultRow>(
-        paramsOrFirst: { databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[] } | string,
-        ...rest: [(string)?, (string)?, (object)?, (string[])?]    
+        paramsOrFirst: { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[] } | string,
+        ...rest: [(string)?, (string)?, (Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>)?, (string[])?]    
     ): Promise<Row> {
-        let params: { databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[] };
+        let params: { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[] };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, rowId: string, data?: object, permissions?: string[] };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 tableId: rest[0] as string,
                 rowId: rest[1] as string,
-                data: rest[2] as object,
+                data: rest[2] as Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>,
                 permissions: rest[3] as string[]            
             };
         }
@@ -3822,16 +4248,23 @@ export class TablesDb {
     /**
      * Delete a row by its unique ID.
      *
-     * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
-     * @param {string} rowId - Row ID.
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.rowId - Row ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
     deleteRow(params: { databaseId: string, tableId: string, rowId: string  }): Promise<{}>;
     /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * Delete a row by its unique ID.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} rowId - Row ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -3847,8 +4280,8 @@ export class TablesDb {
     ): Promise<{}> {
         let params: { databaseId: string, tableId: string, rowId: string };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, rowId: string };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, rowId: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -3890,6 +4323,19 @@ export class TablesDb {
     /**
      * Decrement a specific column of a row by a given value.
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.rowId - Row ID.
+     * @param {string} params.column - Column key.
+     * @param {number} params.value - Value to increment the column by. The value must be a number.
+     * @param {number} params.min - Minimum value for the column. If the current value is lesser than this value, an exception will be thrown.
+     * @throws {AppwriteException}
+     * @returns {Promise<Row>}
+     */
+    decrementRowColumn<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, column: string, value?: number, min?: number  }): Promise<Row>;
+    /**
+     * Decrement a specific column of a row by a given value.
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} rowId - Row ID.
@@ -3898,11 +4344,8 @@ export class TablesDb {
      * @param {number} min - Minimum value for the column. If the current value is lesser than this value, an exception will be thrown.
      * @throws {AppwriteException}
      * @returns {Promise<Row>}
-     */
-    decrementRowColumn<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, column: string, value?: number, min?: number  }): Promise<Row>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -3918,8 +4361,8 @@ export class TablesDb {
     ): Promise<Row> {
         let params: { databaseId: string, tableId: string, rowId: string, column: string, value?: number, min?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, rowId: string, column: string, value?: number, min?: number };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, rowId: string, column: string, value?: number, min?: number };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -3976,6 +4419,19 @@ export class TablesDb {
     /**
      * Increment a specific column of a row by a given value.
      *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.rowId - Row ID.
+     * @param {string} params.column - Column key.
+     * @param {number} params.value - Value to increment the column by. The value must be a number.
+     * @param {number} params.max - Maximum value for the column. If the current value is greater than this value, an error will be thrown.
+     * @throws {AppwriteException}
+     * @returns {Promise<Row>}
+     */
+    incrementRowColumn<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, column: string, value?: number, max?: number  }): Promise<Row>;
+    /**
+     * Increment a specific column of a row by a given value.
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} rowId - Row ID.
@@ -3984,11 +4440,8 @@ export class TablesDb {
      * @param {number} max - Maximum value for the column. If the current value is greater than this value, an error will be thrown.
      * @throws {AppwriteException}
      * @returns {Promise<Row>}
-     */
-    incrementRowColumn<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, column: string, value?: number, max?: number  }): Promise<Row>;
-    /**
-     * @deprecated Parameter-based methods will be removed in the upcoming version.
-     * Please use the object based method instead for better developer experience.
+     * @deprecated Flat parameter style methods will be removed in a future version.
+     * Please use the object parameter style method instead for a better developer experience.
      *
      * @example
      * // Old (deprecated)
@@ -4004,8 +4457,8 @@ export class TablesDb {
     ): Promise<Row> {
         let params: { databaseId: string, tableId: string, rowId: string, column: string, value?: number, max?: number };
         
-        if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, tableId: string, rowId: string, column: string, value?: number, max?: number };
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, rowId: string, column: string, value?: number, max?: number };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
