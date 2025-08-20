@@ -24,7 +24,6 @@ export { OAuthProvider } from './enums/o-auth-provider';
 export { Browser } from './enums/browser';
 export { CreditCard } from './enums/credit-card';
 export { Flag } from './enums/flag';
-export { Type } from './enums/type';
 export { RelationshipType } from './enums/relationship-type';
 export { RelationMutate } from './enums/relation-mutate';
 export { IndexType } from './enums/index-type';

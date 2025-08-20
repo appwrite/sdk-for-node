@@ -1,7 +1,6 @@
 import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
 import type { Models } from '../models';
 
-import { Type } from '../enums/type';
 import { RelationshipType } from '../enums/relationship-type';
 import { RelationMutate } from '../enums/relation-mutate';
 import { IndexType } from '../enums/index-type';
@@ -81,44 +80,41 @@ export class TablesDb {
      * @param {string} databaseId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Database name. Max length: 128 chars.
      * @param {boolean} enabled - Is the database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
-     * @param {Type} type - Database type.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      */
-    create(params: { databaseId: string, name: string, enabled?: boolean, type?: Type  }): Promise<Models.Database>;
+    create(params: { databaseId: string, name: string, enabled?: boolean  }): Promise<Models.Database>;
     /**
      * @deprecated Parameter-based methods will be removed in the upcoming version.
      * Please use the object based method instead for better developer experience.
      *
      * @example
      * // Old (deprecated)
-     * create(databaseId: string, name: string, enabled?: boolean, type?: Type): Promise<Models.Database>;
+     * create(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database>;
      *
      * // New (object based)
-     * create(params: { databaseId: string, name: string, enabled?: boolean, type?: Type  }): Promise<Models.Database>;
+     * create(params: { databaseId: string, name: string, enabled?: boolean  }): Promise<Models.Database>;
      */
-    create(databaseId: string, name: string, enabled?: boolean, type?: Type): Promise<Models.Database>;
+    create(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database>;
     create(
-        paramsOrFirst: { databaseId: string, name: string, enabled?: boolean, type?: Type } | string,
-        ...rest: [(string)?, (boolean)?, (Type)?]    
+        paramsOrFirst: { databaseId: string, name: string, enabled?: boolean } | string,
+        ...rest: [(string)?, (boolean)?]    
     ): Promise<Models.Database> {
-        let params: { databaseId: string, name: string, enabled?: boolean, type?: Type };
+        let params: { databaseId: string, name: string, enabled?: boolean };
         
         if (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst)) {
-            params = paramsOrFirst as { databaseId: string, name: string, enabled?: boolean, type?: Type };
+            params = paramsOrFirst as { databaseId: string, name: string, enabled?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
-                type: rest[2] as Type            
+                enabled: rest[1] as boolean            
             };
         }
         
         const databaseId = params.databaseId;
         const name = params.name;
         const enabled = params.enabled;
-        const type = params.type;
 
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
@@ -137,9 +133,6 @@ export class TablesDb {
         }
         if (typeof enabled !== 'undefined') {
             payload['enabled'] = enabled;
-        }
-        if (typeof type !== 'undefined') {
-            payload['type'] = type;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2852,7 +2845,7 @@ export class TablesDb {
     }
 
     /**
-     * List indexes in the collection.
+     * List indexes on the table.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
@@ -2920,7 +2913,7 @@ export class TablesDb {
 
     /**
      * Creates an index on the columns listed. Your index should include all the columns you will query in a single request.
-     * Attributes can be `key`, `fulltext`, and `unique`.
+     * Type can be `key`, `fulltext`, or `unique`.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).

@@ -10,6 +10,5 @@ const tablesDb = new sdk.TablesDb(client);
 const result = await tablesDb.create(
     '<DATABASE_ID>', // databaseId
     '<NAME>', // name
-    false, // enabled (optional)
-    sdk..Tablesdb // type (optional)
+    false // enabled (optional)
 );
