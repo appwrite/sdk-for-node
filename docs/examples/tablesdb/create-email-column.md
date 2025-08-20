@@ -7,11 +7,11 @@ const client = new sdk.Client()
 
 const tablesDb = new sdk.TablesDb(client);
 
-const result = await tablesDb.createEmailColumn(
-    '<DATABASE_ID>', // databaseId
-    '<TABLE_ID>', // tableId
-    '', // key
-    false, // required
-    'email@example.com', // default (optional)
-    false // array (optional)
-);
+const result = await tablesDb.createEmailColumn({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    key: '',
+    required: false,
+    default: 'email@example.com',
+    array: false
+});

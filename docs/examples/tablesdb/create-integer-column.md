@@ -7,13 +7,13 @@ const client = new sdk.Client()
 
 const tablesDb = new sdk.TablesDb(client);
 
-const result = await tablesDb.createIntegerColumn(
-    '<DATABASE_ID>', // databaseId
-    '<TABLE_ID>', // tableId
-    '', // key
-    false, // required
-    null, // min (optional)
-    null, // max (optional)
-    null, // default (optional)
-    false // array (optional)
-);
+const result = await tablesDb.createIntegerColumn({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    key: '',
+    required: false,
+    min: null,
+    max: null,
+    default: null,
+    array: false
+});

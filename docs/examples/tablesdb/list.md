@@ -7,7 +7,7 @@ const client = new sdk.Client()
 
 const tablesDb = new sdk.TablesDb(client);
 
-const result = await tablesDb.list(
-    [], // queries (optional)
-    '<SEARCH>' // search (optional)
-);
+const result = await tablesDb.list({
+    queries: [],
+    search: '<SEARCH>'
+});

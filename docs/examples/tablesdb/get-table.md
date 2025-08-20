@@ -7,7 +7,7 @@ const client = new sdk.Client()
 
 const tablesDb = new sdk.TablesDb(client);
 
-const result = await tablesDb.getTable(
-    '<DATABASE_ID>', // databaseId
-    '<TABLE_ID>' // tableId
-);
+const result = await tablesDb.getTable({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>'
+});

@@ -7,11 +7,11 @@ const client = new sdk.Client()
 
 const tablesDb = new sdk.TablesDb(client);
 
-const result = await tablesDb.createUrlColumn(
-    '<DATABASE_ID>', // databaseId
-    '<TABLE_ID>', // tableId
-    '', // key
-    false, // required
-    'https://example.com', // default (optional)
-    false // array (optional)
-);
+const result = await tablesDb.createUrlColumn({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    key: '',
+    required: false,
+    default: 'https://example.com',
+    array: false
+});

@@ -7,8 +7,8 @@ const client = new sdk.Client()
 
 const tablesDb = new sdk.TablesDb(client);
 
-const result = await tablesDb.createRows(
-    '<DATABASE_ID>', // databaseId
-    '<TABLE_ID>', // tableId
-    [] // rows
-);
+const result = await tablesDb.createRows({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    rows: []
+});

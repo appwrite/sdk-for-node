@@ -3,15 +3,15 @@ const sdk = require('node-appwrite');
 const client = new sdk.Client()
     .setEndpoint('https://<REGION>.cloud.appwrite.io/v1') // Your API Endpoint
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
-    .setKey('<YOUR_API_KEY>'); // Your secret API key
+    .setSession(''); // The user session to authenticate with
 
 const tablesDb = new sdk.TablesDb(client);
 
-const result = await tablesDb.incrementRowColumn(
-    '<DATABASE_ID>', // databaseId
-    '<TABLE_ID>', // tableId
-    '<ROW_ID>', // rowId
-    '', // column
-    null, // value (optional)
-    null // max (optional)
-);
+const result = await tablesDb.incrementRowColumn({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    rowId: '<ROW_ID>',
+    column: '',
+    value: null,
+    max: null
+});

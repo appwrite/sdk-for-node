@@ -7,11 +7,11 @@ const client = new sdk.Client()
 
 const tablesDb = new sdk.TablesDb(client);
 
-const result = await tablesDb.updateTable(
-    '<DATABASE_ID>', // databaseId
-    '<TABLE_ID>', // tableId
-    '<NAME>', // name
-    ["read("any")"], // permissions (optional)
-    false, // rowSecurity (optional)
-    false // enabled (optional)
-);
+const result = await tablesDb.updateTable({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    name: '<NAME>',
+    permissions: ["read("any")"],
+    rowSecurity: false,
+    enabled: false
+});

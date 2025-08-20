@@ -7,8 +7,8 @@ const client = new sdk.Client()
 
 const tablesDb = new sdk.TablesDb(client);
 
-const result = await tablesDb.deleteRow(
-    '<DATABASE_ID>', // databaseId
-    '<TABLE_ID>', // tableId
-    '<ROW_ID>' // rowId
-);
+const result = await tablesDb.deleteRow({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    rowId: '<ROW_ID>'
+});

@@ -7,12 +7,12 @@ const client = new sdk.Client()
 
 const tablesDb = new sdk.TablesDb(client);
 
-const result = await tablesDb.createIndex(
-    '<DATABASE_ID>', // databaseId
-    '<TABLE_ID>', // tableId
-    '', // key
-    sdk.IndexType.Key, // type
-    [], // columns
-    [], // orders (optional)
-    [] // lengths (optional)
-);
+const result = await tablesDb.createIndex({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    key: '',
+    type: sdk.IndexType.Key,
+    columns: [],
+    orders: [],
+    lengths: []
+});

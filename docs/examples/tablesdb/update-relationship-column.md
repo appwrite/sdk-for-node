@@ -7,10 +7,10 @@ const client = new sdk.Client()
 
 const tablesDb = new sdk.TablesDb(client);
 
-const result = await tablesDb.updateRelationshipColumn(
-    '<DATABASE_ID>', // databaseId
-    '<TABLE_ID>', // tableId
-    '', // key
-    sdk.RelationMutate.Cascade, // onDelete (optional)
-    '' // newKey (optional)
-);
+const result = await tablesDb.updateRelationshipColumn({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    key: '',
+    onDelete: sdk.RelationMutate.Cascade,
+    newKey: ''
+});

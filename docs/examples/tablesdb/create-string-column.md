@@ -7,13 +7,13 @@ const client = new sdk.Client()
 
 const tablesDb = new sdk.TablesDb(client);
 
-const result = await tablesDb.createStringColumn(
-    '<DATABASE_ID>', // databaseId
-    '<TABLE_ID>', // tableId
-    '', // key
-    1, // size
-    false, // required
-    '<DEFAULT>', // default (optional)
-    false, // array (optional)
-    false // encrypt (optional)
-);
+const result = await tablesDb.createStringColumn({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    key: '',
+    size: 1,
+    required: false,
+    default: '<DEFAULT>',
+    array: false,
+    encrypt: false
+});
