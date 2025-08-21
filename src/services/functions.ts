@@ -29,15 +29,7 @@ export class Functions {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.FunctionList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * list(queries?: string[], search?: string): Promise<Models.FunctionList>;
-     *
-     * // New (object based)
-     * list(params: { queries?: string[], search?: string  }): Promise<Models.FunctionList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     list(queries?: string[], search?: string): Promise<Models.FunctionList>;
     list(
@@ -128,15 +120,7 @@ export class Functions {
      * @param {string} specification - Runtime specification for the function and builds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * create(functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string): Promise<Models.Function>;
-     *
-     * // New (object based)
-     * create(params: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string  }): Promise<Models.Function>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     create(functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string): Promise<Models.Function>;
     create(
@@ -329,15 +313,7 @@ export class Functions {
      * @param {string} functionId - Function ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * get(functionId: string): Promise<Models.Function>;
-     *
-     * // New (object based)
-     * get(params: { functionId: string  }): Promise<Models.Function>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     get(functionId: string): Promise<Models.Function>;
     get(
@@ -422,15 +398,7 @@ export class Functions {
      * @param {string} specification - Runtime specification for the function and builds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * update(functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string): Promise<Models.Function>;
-     *
-     * // New (object based)
-     * update(params: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string  }): Promise<Models.Function>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     update(functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string): Promise<Models.Function>;
     update(
@@ -571,15 +539,7 @@ export class Functions {
      * @param {string} functionId - Function ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * delete(functionId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * delete(params: { functionId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     delete(functionId: string): Promise<{}>;
     delete(
@@ -633,15 +593,7 @@ export class Functions {
      * @param {string} deploymentId - Deployment ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateFunctionDeployment(functionId: string, deploymentId: string): Promise<Models.Function>;
-     *
-     * // New (object based)
-     * updateFunctionDeployment(params: { functionId: string, deploymentId: string  }): Promise<Models.Function>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateFunctionDeployment(functionId: string, deploymentId: string): Promise<Models.Function>;
     updateFunctionDeployment(
@@ -706,15 +658,7 @@ export class Functions {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DeploymentList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listDeployments(functionId: string, queries?: string[], search?: string): Promise<Models.DeploymentList>;
-     *
-     * // New (object based)
-     * listDeployments(params: { functionId: string, queries?: string[], search?: string  }): Promise<Models.DeploymentList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listDeployments(functionId: string, queries?: string[], search?: string): Promise<Models.DeploymentList>;
     listDeployments(
@@ -792,15 +736,7 @@ export class Functions {
      * @param {string} commands - Build Commands.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createDeployment(functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string, onProgress?: (progress: UploadProgress) => {}): Promise<Models.Deployment>;
-     *
-     * // New (object based)
-     * createDeployment(params: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string , onProgress?: (progress: UploadProgress) => {} }): Promise<Models.Deployment>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createDeployment(functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string, onProgress?: (progress: UploadProgress) => {}): Promise<Models.Deployment>;
     createDeployment(
@@ -887,15 +823,7 @@ export class Functions {
      * @param {string} buildId - Build unique ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createDuplicateDeployment(functionId: string, deploymentId: string, buildId?: string): Promise<Models.Deployment>;
-     *
-     * // New (object based)
-     * createDuplicateDeployment(params: { functionId: string, deploymentId: string, buildId?: string  }): Promise<Models.Deployment>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createDuplicateDeployment(functionId: string, deploymentId: string, buildId?: string): Promise<Models.Deployment>;
     createDuplicateDeployment(
@@ -975,15 +903,7 @@ export class Functions {
      * @param {boolean} activate - Automatically activate the deployment when it is finished building.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createTemplateDeployment(functionId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean): Promise<Models.Deployment>;
-     *
-     * // New (object based)
-     * createTemplateDeployment(params: { functionId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean  }): Promise<Models.Deployment>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createTemplateDeployment(functionId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean): Promise<Models.Deployment>;
     createTemplateDeployment(
@@ -1083,15 +1003,7 @@ export class Functions {
      * @param {boolean} activate - Automatically activate the deployment when it is finished building.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createVcsDeployment(functionId: string, type: VCSDeploymentType, reference: string, activate?: boolean): Promise<Models.Deployment>;
-     *
-     * // New (object based)
-     * createVcsDeployment(params: { functionId: string, type: VCSDeploymentType, reference: string, activate?: boolean  }): Promise<Models.Deployment>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createVcsDeployment(functionId: string, type: VCSDeploymentType, reference: string, activate?: boolean): Promise<Models.Deployment>;
     createVcsDeployment(
@@ -1167,15 +1079,7 @@ export class Functions {
      * @param {string} deploymentId - Deployment ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getDeployment(functionId: string, deploymentId: string): Promise<Models.Deployment>;
-     *
-     * // New (object based)
-     * getDeployment(params: { functionId: string, deploymentId: string  }): Promise<Models.Deployment>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getDeployment(functionId: string, deploymentId: string): Promise<Models.Deployment>;
     getDeployment(
@@ -1234,15 +1138,7 @@ export class Functions {
      * @param {string} deploymentId - Deployment ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteDeployment(functionId: string, deploymentId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteDeployment(params: { functionId: string, deploymentId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteDeployment(functionId: string, deploymentId: string): Promise<{}>;
     deleteDeployment(
@@ -1304,15 +1200,7 @@ export class Functions {
      * @param {DeploymentDownloadType} type - Deployment file to download. Can be: "source", "output".
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getDeploymentDownload(functionId: string, deploymentId: string, type?: DeploymentDownloadType): Promise<ArrayBuffer>;
-     *
-     * // New (object based)
-     * getDeploymentDownload(params: { functionId: string, deploymentId: string, type?: DeploymentDownloadType  }): Promise<ArrayBuffer>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getDeploymentDownload(functionId: string, deploymentId: string, type?: DeploymentDownloadType): Promise<ArrayBuffer>;
     getDeploymentDownload(
@@ -1377,15 +1265,7 @@ export class Functions {
      * @param {string} deploymentId - Deployment ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateDeploymentStatus(functionId: string, deploymentId: string): Promise<Models.Deployment>;
-     *
-     * // New (object based)
-     * updateDeploymentStatus(params: { functionId: string, deploymentId: string  }): Promise<Models.Deployment>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateDeploymentStatus(functionId: string, deploymentId: string): Promise<Models.Deployment>;
     updateDeploymentStatus(
@@ -1445,15 +1325,7 @@ export class Functions {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, responseStatusCode, duration, requestMethod, requestPath, deploymentId
      * @throws {AppwriteException}
      * @returns {Promise<Models.ExecutionList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listExecutions(functionId: string, queries?: string[]): Promise<Models.ExecutionList>;
-     *
-     * // New (object based)
-     * listExecutions(params: { functionId: string, queries?: string[]  }): Promise<Models.ExecutionList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listExecutions(functionId: string, queries?: string[]): Promise<Models.ExecutionList>;
     listExecutions(
@@ -1522,15 +1394,7 @@ export class Functions {
      * @param {string} scheduledAt - Scheduled execution time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future with precision in minutes.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Execution>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createExecution(functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string): Promise<Models.Execution>;
-     *
-     * // New (object based)
-     * createExecution(params: { functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string  }): Promise<Models.Execution>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createExecution(functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string): Promise<Models.Execution>;
     createExecution(
@@ -1615,15 +1479,7 @@ export class Functions {
      * @param {string} executionId - Execution ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Execution>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getExecution(functionId: string, executionId: string): Promise<Models.Execution>;
-     *
-     * // New (object based)
-     * getExecution(params: { functionId: string, executionId: string  }): Promise<Models.Execution>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getExecution(functionId: string, executionId: string): Promise<Models.Execution>;
     getExecution(
@@ -1682,15 +1538,7 @@ export class Functions {
      * @param {string} executionId - Execution ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteExecution(functionId: string, executionId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteExecution(params: { functionId: string, executionId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteExecution(functionId: string, executionId: string): Promise<{}>;
     deleteExecution(
@@ -1748,15 +1596,7 @@ export class Functions {
      * @param {string} functionId - Function unique ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.VariableList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listVariables(functionId: string): Promise<Models.VariableList>;
-     *
-     * // New (object based)
-     * listVariables(params: { functionId: string  }): Promise<Models.VariableList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listVariables(functionId: string): Promise<Models.VariableList>;
     listVariables(
@@ -1813,15 +1653,7 @@ export class Functions {
      * @param {boolean} secret - Secret variables can be updated or deleted, but only functions can read them during build and runtime.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createVariable(functionId: string, key: string, value: string, secret?: boolean): Promise<Models.Variable>;
-     *
-     * // New (object based)
-     * createVariable(params: { functionId: string, key: string, value: string, secret?: boolean  }): Promise<Models.Variable>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createVariable(functionId: string, key: string, value: string, secret?: boolean): Promise<Models.Variable>;
     createVariable(
@@ -1897,15 +1729,7 @@ export class Functions {
      * @param {string} variableId - Variable unique ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getVariable(functionId: string, variableId: string): Promise<Models.Variable>;
-     *
-     * // New (object based)
-     * getVariable(params: { functionId: string, variableId: string  }): Promise<Models.Variable>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getVariable(functionId: string, variableId: string): Promise<Models.Variable>;
     getVariable(
@@ -1970,15 +1794,7 @@ export class Functions {
      * @param {boolean} secret - Secret variables can be updated or deleted, but only functions can read them during build and runtime.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateVariable(functionId: string, variableId: string, key: string, value?: string, secret?: boolean): Promise<Models.Variable>;
-     *
-     * // New (object based)
-     * updateVariable(params: { functionId: string, variableId: string, key: string, value?: string, secret?: boolean  }): Promise<Models.Variable>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateVariable(functionId: string, variableId: string, key: string, value?: string, secret?: boolean): Promise<Models.Variable>;
     updateVariable(
@@ -2056,15 +1872,7 @@ export class Functions {
      * @param {string} variableId - Variable unique ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteVariable(functionId: string, variableId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteVariable(params: { functionId: string, variableId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteVariable(functionId: string, variableId: string): Promise<{}>;
     deleteVariable(

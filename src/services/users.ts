@@ -28,15 +28,7 @@ export class Users {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.UserList<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * list<Preferences extends Models.Preferences = Models.DefaultPreferences>(queries?: string[], search?: string): Promise<Models.UserList<Preferences>>;
-     *
-     * // New (object based)
-     * list<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { queries?: string[], search?: string  }): Promise<Models.UserList<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     list<Preferences extends Models.Preferences = Models.DefaultPreferences>(queries?: string[], search?: string): Promise<Models.UserList<Preferences>>;
     list<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -101,15 +93,7 @@ export class Users {
      * @param {string} name - User name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * create<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email?: string, phone?: string, password?: string, name?: string): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * create<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, email?: string, phone?: string, password?: string, name?: string  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     create<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email?: string, phone?: string, password?: string, name?: string): Promise<Models.User<Preferences>>;
     create<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -191,15 +175,7 @@ export class Users {
      * @param {string} name - User name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createArgon2User<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * createArgon2User<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, email: string, password: string, name?: string  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createArgon2User<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
     createArgon2User<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -282,15 +258,7 @@ export class Users {
      * @param {string} name - User name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createBcryptUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * createBcryptUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, email: string, password: string, name?: string  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createBcryptUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
     createBcryptUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -369,15 +337,7 @@ export class Users {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.IdentityList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listIdentities(queries?: string[], search?: string): Promise<Models.IdentityList>;
-     *
-     * // New (object based)
-     * listIdentities(params: { queries?: string[], search?: string  }): Promise<Models.IdentityList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listIdentities(queries?: string[], search?: string): Promise<Models.IdentityList>;
     listIdentities(
@@ -434,15 +394,7 @@ export class Users {
      * @param {string} identityId - Identity ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteIdentity(identityId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteIdentity(params: { identityId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteIdentity(identityId: string): Promise<{}>;
     deleteIdentity(
@@ -500,15 +452,7 @@ export class Users {
      * @param {string} name - User name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createMD5User<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * createMD5User<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, email: string, password: string, name?: string  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createMD5User<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
     createMD5User<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -591,15 +535,7 @@ export class Users {
      * @param {string} name - User name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createPHPassUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * createPHPassUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, email: string, password: string, name?: string  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createPHPassUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, name?: string): Promise<Models.User<Preferences>>;
     createPHPassUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -692,15 +628,7 @@ export class Users {
      * @param {string} name - User name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createScryptUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number, passwordMemory: number, passwordParallel: number, passwordLength: number, name?: string): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * createScryptUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number, passwordMemory: number, passwordParallel: number, passwordLength: number, name?: string  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createScryptUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number, passwordMemory: number, passwordParallel: number, passwordLength: number, name?: string): Promise<Models.User<Preferences>>;
     createScryptUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -829,15 +757,7 @@ export class Users {
      * @param {string} name - User name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createScryptModifiedUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, passwordSalt: string, passwordSaltSeparator: string, passwordSignerKey: string, name?: string): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * createScryptModifiedUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, email: string, password: string, passwordSalt: string, passwordSaltSeparator: string, passwordSignerKey: string, name?: string  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createScryptModifiedUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, passwordSalt: string, passwordSaltSeparator: string, passwordSignerKey: string, name?: string): Promise<Models.User<Preferences>>;
     createScryptModifiedUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -946,15 +866,7 @@ export class Users {
      * @param {string} name - User name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createSHAUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, passwordVersion?: PasswordHash, name?: string): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * createSHAUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, email: string, password: string, passwordVersion?: PasswordHash, name?: string  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createSHAUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, passwordVersion?: PasswordHash, name?: string): Promise<Models.User<Preferences>>;
     createSHAUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -1036,15 +948,7 @@ export class Users {
      * @param {string} userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * get<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * get<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     get<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string): Promise<Models.User<Preferences>>;
     get<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -1095,15 +999,7 @@ export class Users {
      * @param {string} userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * delete(userId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * delete(params: { userId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     delete(userId: string): Promise<{}>;
     delete(
@@ -1157,15 +1053,7 @@ export class Users {
      * @param {string} email - User email.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateEmail<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * updateEmail<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, email: string  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateEmail<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string): Promise<Models.User<Preferences>>;
     updateEmail<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -1230,15 +1118,7 @@ export class Users {
      * @param {number} duration - Time in seconds before JWT expires. Default duration is 900 seconds, and maximum is 3600 seconds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Jwt>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createJWT(userId: string, sessionId?: string, duration?: number): Promise<Models.Jwt>;
-     *
-     * // New (object based)
-     * createJWT(params: { userId: string, sessionId?: string, duration?: number  }): Promise<Models.Jwt>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createJWT(userId: string, sessionId?: string, duration?: number): Promise<Models.Jwt>;
     createJWT(
@@ -1307,15 +1187,7 @@ export class Users {
      * @param {string[]} labels - Array of user labels. Replaces the previous labels. Maximum of 1000 labels are allowed, each up to 36 alphanumeric characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateLabels<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, labels: string[]): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * updateLabels<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, labels: string[]  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateLabels<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, labels: string[]): Promise<Models.User<Preferences>>;
     updateLabels<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -1378,15 +1250,7 @@ export class Users {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listLogs(userId: string, queries?: string[]): Promise<Models.LogList>;
-     *
-     * // New (object based)
-     * listLogs(params: { userId: string, queries?: string[]  }): Promise<Models.LogList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listLogs(userId: string, queries?: string[]): Promise<Models.LogList>;
     listLogs(
@@ -1447,15 +1311,7 @@ export class Users {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MembershipList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listMemberships(userId: string, queries?: string[], search?: string): Promise<Models.MembershipList>;
-     *
-     * // New (object based)
-     * listMemberships(params: { userId: string, queries?: string[], search?: string  }): Promise<Models.MembershipList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listMemberships(userId: string, queries?: string[], search?: string): Promise<Models.MembershipList>;
     listMemberships(
@@ -1510,6 +1366,7 @@ export class Users {
      * @param {boolean} params.mfa - Enable or disable MFA.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `UpdateMFA` instead.
      */
     updateMfa<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, mfa: boolean  }): Promise<Models.User<Preferences>>;
     /**
@@ -1519,18 +1376,73 @@ export class Users {
      * @param {boolean} mfa - Enable or disable MFA.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateMfa<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, mfa: boolean): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * updateMfa<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, mfa: boolean  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateMfa<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, mfa: boolean): Promise<Models.User<Preferences>>;
     updateMfa<Preferences extends Models.Preferences = Models.DefaultPreferences>(
+        paramsOrFirst: { userId: string, mfa: boolean } | string,
+        ...rest: [(boolean)?]    
+    ): Promise<Models.User<Preferences>> {
+        let params: { userId: string, mfa: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { userId: string, mfa: boolean };
+        } else {
+            params = {
+                userId: paramsOrFirst as string,
+                mfa: rest[0] as boolean            
+            };
+        }
+        
+        const userId = params.userId;
+        const mfa = params.mfa;
+
+        if (typeof userId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+        if (typeof mfa === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "mfa"');
+        }
+
+        const apiPath = '/users/{userId}/mfa'.replace('{userId}', userId);
+        const payload: Payload = {};
+        if (typeof mfa !== 'undefined') {
+            payload['mfa'] = mfa;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Enable or disable MFA on a user account.
+     *
+     * @param {string} params.userId - User ID.
+     * @param {boolean} params.mfa - Enable or disable MFA.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.User<Preferences>>}
+     */
+    updateMFA<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, mfa: boolean  }): Promise<Models.User<Preferences>>;
+    /**
+     * Enable or disable MFA on a user account.
+     *
+     * @param {string} userId - User ID.
+     * @param {boolean} mfa - Enable or disable MFA.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.User<Preferences>>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateMFA<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, mfa: boolean): Promise<Models.User<Preferences>>;
+    updateMFA<Preferences extends Models.Preferences = Models.DefaultPreferences>(
         paramsOrFirst: { userId: string, mfa: boolean } | string,
         ...rest: [(boolean)?]    
     ): Promise<Models.User<Preferences>> {
@@ -1581,6 +1493,7 @@ export class Users {
      * @param {AuthenticatorType} params.type - Type of authenticator.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `DeleteMFAAuthenticator` instead.
      */
     deleteMfaAuthenticator(params: { userId: string, type: AuthenticatorType  }): Promise<{}>;
     /**
@@ -1590,18 +1503,70 @@ export class Users {
      * @param {AuthenticatorType} type - Type of authenticator.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteMfaAuthenticator(userId: string, type: AuthenticatorType): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteMfaAuthenticator(params: { userId: string, type: AuthenticatorType  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteMfaAuthenticator(userId: string, type: AuthenticatorType): Promise<{}>;
     deleteMfaAuthenticator(
+        paramsOrFirst: { userId: string, type: AuthenticatorType } | string,
+        ...rest: [(AuthenticatorType)?]    
+    ): Promise<{}> {
+        let params: { userId: string, type: AuthenticatorType };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { userId: string, type: AuthenticatorType };
+        } else {
+            params = {
+                userId: paramsOrFirst as string,
+                type: rest[0] as AuthenticatorType            
+            };
+        }
+        
+        const userId = params.userId;
+        const type = params.type;
+
+        if (typeof userId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+        if (typeof type === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "type"');
+        }
+
+        const apiPath = '/users/{userId}/mfa/authenticators/{type}'.replace('{userId}', userId).replace('{type}', type);
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'delete',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Delete an authenticator app.
+     *
+     * @param {string} params.userId - User ID.
+     * @param {AuthenticatorType} params.type - Type of authenticator.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deleteMFAAuthenticator(params: { userId: string, type: AuthenticatorType  }): Promise<{}>;
+    /**
+     * Delete an authenticator app.
+     *
+     * @param {string} userId - User ID.
+     * @param {AuthenticatorType} type - Type of authenticator.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    deleteMFAAuthenticator(userId: string, type: AuthenticatorType): Promise<{}>;
+    deleteMFAAuthenticator(
         paramsOrFirst: { userId: string, type: AuthenticatorType } | string,
         ...rest: [(AuthenticatorType)?]    
     ): Promise<{}> {
@@ -1648,6 +1613,7 @@ export class Users {
      * @param {string} params.userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaFactors>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `ListMFAFactors` instead.
      */
     listMfaFactors(params: { userId: string  }): Promise<Models.MfaFactors>;
     /**
@@ -1656,18 +1622,61 @@ export class Users {
      * @param {string} userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaFactors>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listMfaFactors(userId: string): Promise<Models.MfaFactors>;
-     *
-     * // New (object based)
-     * listMfaFactors(params: { userId: string  }): Promise<Models.MfaFactors>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listMfaFactors(userId: string): Promise<Models.MfaFactors>;
     listMfaFactors(
+        paramsOrFirst: { userId: string } | string    
+    ): Promise<Models.MfaFactors> {
+        let params: { userId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { userId: string };
+        } else {
+            params = {
+                userId: paramsOrFirst as string            
+            };
+        }
+        
+        const userId = params.userId;
+
+        if (typeof userId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+
+        const apiPath = '/users/{userId}/mfa/factors'.replace('{userId}', userId);
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * List the factors available on the account to be used as a MFA challange.
+     *
+     * @param {string} params.userId - User ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.MfaFactors>}
+     */
+    listMFAFactors(params: { userId: string  }): Promise<Models.MfaFactors>;
+    /**
+     * List the factors available on the account to be used as a MFA challange.
+     *
+     * @param {string} userId - User ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.MfaFactors>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    listMFAFactors(userId: string): Promise<Models.MfaFactors>;
+    listMFAFactors(
         paramsOrFirst: { userId: string } | string    
     ): Promise<Models.MfaFactors> {
         let params: { userId: string };
@@ -1707,6 +1716,7 @@ export class Users {
      * @param {string} params.userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `GetMFARecoveryCodes` instead.
      */
     getMfaRecoveryCodes(params: { userId: string  }): Promise<Models.MfaRecoveryCodes>;
     /**
@@ -1715,18 +1725,61 @@ export class Users {
      * @param {string} userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes>;
-     *
-     * // New (object based)
-     * getMfaRecoveryCodes(params: { userId: string  }): Promise<Models.MfaRecoveryCodes>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes>;
     getMfaRecoveryCodes(
+        paramsOrFirst: { userId: string } | string    
+    ): Promise<Models.MfaRecoveryCodes> {
+        let params: { userId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { userId: string };
+        } else {
+            params = {
+                userId: paramsOrFirst as string            
+            };
+        }
+        
+        const userId = params.userId;
+
+        if (typeof userId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+
+        const apiPath = '/users/{userId}/mfa/recovery-codes'.replace('{userId}', userId);
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Get recovery codes that can be used as backup for MFA flow by User ID. Before getting codes, they must be generated using [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes) method.
+     *
+     * @param {string} params.userId - User ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.MfaRecoveryCodes>}
+     */
+    getMFARecoveryCodes(params: { userId: string  }): Promise<Models.MfaRecoveryCodes>;
+    /**
+     * Get recovery codes that can be used as backup for MFA flow by User ID. Before getting codes, they must be generated using [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes) method.
+     *
+     * @param {string} userId - User ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.MfaRecoveryCodes>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getMFARecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes>;
+    getMFARecoveryCodes(
         paramsOrFirst: { userId: string } | string    
     ): Promise<Models.MfaRecoveryCodes> {
         let params: { userId: string };
@@ -1766,6 +1819,7 @@ export class Users {
      * @param {string} params.userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `UpdateMFARecoveryCodes` instead.
      */
     updateMfaRecoveryCodes(params: { userId: string  }): Promise<Models.MfaRecoveryCodes>;
     /**
@@ -1774,18 +1828,62 @@ export class Users {
      * @param {string} userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes>;
-     *
-     * // New (object based)
-     * updateMfaRecoveryCodes(params: { userId: string  }): Promise<Models.MfaRecoveryCodes>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes>;
     updateMfaRecoveryCodes(
+        paramsOrFirst: { userId: string } | string    
+    ): Promise<Models.MfaRecoveryCodes> {
+        let params: { userId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { userId: string };
+        } else {
+            params = {
+                userId: paramsOrFirst as string            
+            };
+        }
+        
+        const userId = params.userId;
+
+        if (typeof userId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+
+        const apiPath = '/users/{userId}/mfa/recovery-codes'.replace('{userId}', userId);
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'put',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Regenerate recovery codes that can be used as backup for MFA flow by User ID. Before regenerating codes, they must be first generated using [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes) method.
+     *
+     * @param {string} params.userId - User ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.MfaRecoveryCodes>}
+     */
+    updateMFARecoveryCodes(params: { userId: string  }): Promise<Models.MfaRecoveryCodes>;
+    /**
+     * Regenerate recovery codes that can be used as backup for MFA flow by User ID. Before regenerating codes, they must be first generated using [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes) method.
+     *
+     * @param {string} userId - User ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.MfaRecoveryCodes>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateMFARecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes>;
+    updateMFARecoveryCodes(
         paramsOrFirst: { userId: string } | string    
     ): Promise<Models.MfaRecoveryCodes> {
         let params: { userId: string };
@@ -1826,6 +1924,7 @@ export class Users {
      * @param {string} params.userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `CreateMFARecoveryCodes` instead.
      */
     createMfaRecoveryCodes(params: { userId: string  }): Promise<Models.MfaRecoveryCodes>;
     /**
@@ -1834,18 +1933,62 @@ export class Users {
      * @param {string} userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes>;
-     *
-     * // New (object based)
-     * createMfaRecoveryCodes(params: { userId: string  }): Promise<Models.MfaRecoveryCodes>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createMfaRecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes>;
     createMfaRecoveryCodes(
+        paramsOrFirst: { userId: string } | string    
+    ): Promise<Models.MfaRecoveryCodes> {
+        let params: { userId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { userId: string };
+        } else {
+            params = {
+                userId: paramsOrFirst as string            
+            };
+        }
+        
+        const userId = params.userId;
+
+        if (typeof userId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+
+        const apiPath = '/users/{userId}/mfa/recovery-codes'.replace('{userId}', userId);
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Generate recovery codes used as backup for MFA flow for User ID. Recovery codes can be used as a MFA verification type in [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge) method by client SDK.
+     *
+     * @param {string} params.userId - User ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.MfaRecoveryCodes>}
+     */
+    createMFARecoveryCodes(params: { userId: string  }): Promise<Models.MfaRecoveryCodes>;
+    /**
+     * Generate recovery codes used as backup for MFA flow for User ID. Recovery codes can be used as a MFA verification type in [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge) method by client SDK.
+     *
+     * @param {string} userId - User ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.MfaRecoveryCodes>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createMFARecoveryCodes(userId: string): Promise<Models.MfaRecoveryCodes>;
+    createMFARecoveryCodes(
         paramsOrFirst: { userId: string } | string    
     ): Promise<Models.MfaRecoveryCodes> {
         let params: { userId: string };
@@ -1896,15 +2039,7 @@ export class Users {
      * @param {string} name - User name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateName<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, name: string): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * updateName<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, name: string  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateName<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, name: string): Promise<Models.User<Preferences>>;
     updateName<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -1967,15 +2102,7 @@ export class Users {
      * @param {string} password - New user password. Must be at least 8 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updatePassword<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, password: string): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * updatePassword<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, password: string  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updatePassword<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, password: string): Promise<Models.User<Preferences>>;
     updatePassword<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -2038,15 +2165,7 @@ export class Users {
      * @param {string} number - User phone number.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updatePhone<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, number: string): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * updatePhone<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, number: string  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updatePhone<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, number: string): Promise<Models.User<Preferences>>;
     updatePhone<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -2107,15 +2226,7 @@ export class Users {
      * @param {string} userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Preferences>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getPrefs<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string): Promise<Preferences>;
-     *
-     * // New (object based)
-     * getPrefs<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string  }): Promise<Preferences>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getPrefs<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string): Promise<Preferences>;
     getPrefs<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -2168,15 +2279,7 @@ export class Users {
      * @param {object} prefs - Prefs key-value JSON object.
      * @throws {AppwriteException}
      * @returns {Promise<Preferences>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updatePrefs<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, prefs: object): Promise<Preferences>;
-     *
-     * // New (object based)
-     * updatePrefs<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, prefs: object  }): Promise<Preferences>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updatePrefs<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, prefs: object): Promise<Preferences>;
     updatePrefs<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -2237,15 +2340,7 @@ export class Users {
      * @param {string} userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SessionList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listSessions(userId: string): Promise<Models.SessionList>;
-     *
-     * // New (object based)
-     * listSessions(params: { userId: string  }): Promise<Models.SessionList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listSessions(userId: string): Promise<Models.SessionList>;
     listSessions(
@@ -2300,15 +2395,7 @@ export class Users {
      * @param {string} userId - User ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Session>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createSession(userId: string): Promise<Models.Session>;
-     *
-     * // New (object based)
-     * createSession(params: { userId: string  }): Promise<Models.Session>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createSession(userId: string): Promise<Models.Session>;
     createSession(
@@ -2360,15 +2447,7 @@ export class Users {
      * @param {string} userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteSessions(userId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteSessions(params: { userId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteSessions(userId: string): Promise<{}>;
     deleteSessions(
@@ -2422,15 +2501,7 @@ export class Users {
      * @param {string} sessionId - Session ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteSession(userId: string, sessionId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteSession(params: { userId: string, sessionId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteSession(userId: string, sessionId: string): Promise<{}>;
     deleteSession(
@@ -2490,15 +2561,7 @@ export class Users {
      * @param {boolean} status - User Status. To activate the user pass `true` and to block the user pass `false`.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateStatus<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, status: boolean): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * updateStatus<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, status: boolean  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateStatus<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, status: boolean): Promise<Models.User<Preferences>>;
     updateStatus<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -2561,15 +2624,7 @@ export class Users {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, providerId, identifier, providerType
      * @throws {AppwriteException}
      * @returns {Promise<Models.TargetList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listTargets(userId: string, queries?: string[]): Promise<Models.TargetList>;
-     *
-     * // New (object based)
-     * listTargets(params: { userId: string, queries?: string[]  }): Promise<Models.TargetList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listTargets(userId: string, queries?: string[]): Promise<Models.TargetList>;
     listTargets(
@@ -2636,15 +2691,7 @@ export class Users {
      * @param {string} name - Target name. Max length: 128 chars. For example: My Awesome App Galaxy S23.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Target>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createTarget(userId: string, targetId: string, providerType: MessagingProviderType, identifier: string, providerId?: string, name?: string): Promise<Models.Target>;
-     *
-     * // New (object based)
-     * createTarget(params: { userId: string, targetId: string, providerType: MessagingProviderType, identifier: string, providerId?: string, name?: string  }): Promise<Models.Target>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createTarget(userId: string, targetId: string, providerType: MessagingProviderType, identifier: string, providerId?: string, name?: string): Promise<Models.Target>;
     createTarget(
@@ -2733,15 +2780,7 @@ export class Users {
      * @param {string} targetId - Target ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Target>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getTarget(userId: string, targetId: string): Promise<Models.Target>;
-     *
-     * // New (object based)
-     * getTarget(params: { userId: string, targetId: string  }): Promise<Models.Target>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getTarget(userId: string, targetId: string): Promise<Models.Target>;
     getTarget(
@@ -2806,15 +2845,7 @@ export class Users {
      * @param {string} name - Target name. Max length: 128 chars. For example: My Awesome App Galaxy S23.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Target>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateTarget(userId: string, targetId: string, identifier?: string, providerId?: string, name?: string): Promise<Models.Target>;
-     *
-     * // New (object based)
-     * updateTarget(params: { userId: string, targetId: string, identifier?: string, providerId?: string, name?: string  }): Promise<Models.Target>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateTarget(userId: string, targetId: string, identifier?: string, providerId?: string, name?: string): Promise<Models.Target>;
     updateTarget(
@@ -2889,15 +2920,7 @@ export class Users {
      * @param {string} targetId - Target ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteTarget(userId: string, targetId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteTarget(params: { userId: string, targetId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteTarget(userId: string, targetId: string): Promise<{}>;
     deleteTarget(
@@ -2961,15 +2984,7 @@ export class Users {
      * @param {number} expire - Token expiration period in seconds. The default expiration is 15 minutes.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Token>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createToken(userId: string, length?: number, expire?: number): Promise<Models.Token>;
-     *
-     * // New (object based)
-     * createToken(params: { userId: string, length?: number, expire?: number  }): Promise<Models.Token>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createToken(userId: string, length?: number, expire?: number): Promise<Models.Token>;
     createToken(
@@ -3034,15 +3049,7 @@ export class Users {
      * @param {boolean} emailVerification - User email verification status.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateEmailVerification<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, emailVerification: boolean): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * updateEmailVerification<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, emailVerification: boolean  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateEmailVerification<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, emailVerification: boolean): Promise<Models.User<Preferences>>;
     updateEmailVerification<Preferences extends Models.Preferences = Models.DefaultPreferences>(
@@ -3105,15 +3112,7 @@ export class Users {
      * @param {boolean} phoneVerification - User phone verification status.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updatePhoneVerification<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, phoneVerification: boolean): Promise<Models.User<Preferences>>;
-     *
-     * // New (object based)
-     * updatePhoneVerification<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, phoneVerification: boolean  }): Promise<Models.User<Preferences>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updatePhoneVerification<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, phoneVerification: boolean): Promise<Models.User<Preferences>>;
     updatePhoneVerification<Preferences extends Models.Preferences = Models.DefaultPreferences>(

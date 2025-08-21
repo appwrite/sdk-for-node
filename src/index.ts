@@ -9,7 +9,7 @@ export { Locale } from './services/locale';
 export { Messaging } from './services/messaging';
 export { Sites } from './services/sites';
 export { Storage } from './services/storage';
-export { TablesDb } from './services/tables-db';
+export { TablesDB } from './services/tables-d-b';
 export { Teams } from './services/teams';
 export { Tokens } from './services/tokens';
 export { Users } from './services/users';

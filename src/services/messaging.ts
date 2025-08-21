@@ -27,15 +27,7 @@ export class Messaging {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MessageList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listMessages(queries?: string[], search?: string): Promise<Models.MessageList>;
-     *
-     * // New (object based)
-     * listMessages(params: { queries?: string[], search?: string  }): Promise<Models.MessageList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listMessages(queries?: string[], search?: string): Promise<Models.MessageList>;
     listMessages(
@@ -114,15 +106,7 @@ export class Messaging {
      * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createEmail(messageId: string, subject: string, content: string, topics?: string[], users?: string[], targets?: string[], cc?: string[], bcc?: string[], attachments?: string[], draft?: boolean, html?: boolean, scheduledAt?: string): Promise<Models.Message>;
-     *
-     * // New (object based)
-     * createEmail(params: { messageId: string, subject: string, content: string, topics?: string[], users?: string[], targets?: string[], cc?: string[], bcc?: string[], attachments?: string[], draft?: boolean, html?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createEmail(messageId: string, subject: string, content: string, topics?: string[], users?: string[], targets?: string[], cc?: string[], bcc?: string[], attachments?: string[], draft?: boolean, html?: boolean, scheduledAt?: string): Promise<Models.Message>;
     createEmail(
@@ -263,15 +247,7 @@ export class Messaging {
      * @param {string[]} attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateEmail(messageId: string, topics?: string[], users?: string[], targets?: string[], subject?: string, content?: string, draft?: boolean, html?: boolean, cc?: string[], bcc?: string[], scheduledAt?: string, attachments?: string[]): Promise<Models.Message>;
-     *
-     * // New (object based)
-     * updateEmail(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], subject?: string, content?: string, draft?: boolean, html?: boolean, cc?: string[], bcc?: string[], scheduledAt?: string, attachments?: string[]  }): Promise<Models.Message>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateEmail(messageId: string, topics?: string[], users?: string[], targets?: string[], subject?: string, content?: string, draft?: boolean, html?: boolean, cc?: string[], bcc?: string[], scheduledAt?: string, attachments?: string[]): Promise<Models.Message>;
     updateEmail(
@@ -415,15 +391,7 @@ export class Messaging {
      * @param {MessagePriority} priority - Set the notification priority. "normal" will consider device state and may not deliver notifications immediately. "high" will always attempt to immediately deliver the notification.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createPush(messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority): Promise<Models.Message>;
-     *
-     * // New (object based)
-     * createPush(params: { messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority  }): Promise<Models.Message>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createPush(messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority): Promise<Models.Message>;
     createPush(
@@ -607,15 +575,7 @@ export class Messaging {
      * @param {MessagePriority} priority - Set the notification priority. "normal" will consider device battery state and may send notifications later. "high" will always attempt to immediately deliver the notification.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updatePush(messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority): Promise<Models.Message>;
-     *
-     * // New (object based)
-     * updatePush(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority  }): Promise<Models.Message>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updatePush(messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority): Promise<Models.Message>;
     updatePush(
@@ -756,6 +716,7 @@ export class Messaging {
      * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `CreateSMS` instead.
      */
     createSms(params: { messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
     /**
@@ -770,18 +731,111 @@ export class Messaging {
      * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createSms(messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string): Promise<Models.Message>;
-     *
-     * // New (object based)
-     * createSms(params: { messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createSms(messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string): Promise<Models.Message>;
     createSms(
+        paramsOrFirst: { messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string } | string,
+        ...rest: [(string)?, (string[])?, (string[])?, (string[])?, (boolean)?, (string)?]    
+    ): Promise<Models.Message> {
+        let params: { messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string };
+        } else {
+            params = {
+                messageId: paramsOrFirst as string,
+                content: rest[0] as string,
+                topics: rest[1] as string[],
+                users: rest[2] as string[],
+                targets: rest[3] as string[],
+                draft: rest[4] as boolean,
+                scheduledAt: rest[5] as string            
+            };
+        }
+        
+        const messageId = params.messageId;
+        const content = params.content;
+        const topics = params.topics;
+        const users = params.users;
+        const targets = params.targets;
+        const draft = params.draft;
+        const scheduledAt = params.scheduledAt;
+
+        if (typeof messageId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "messageId"');
+        }
+        if (typeof content === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "content"');
+        }
+
+        const apiPath = '/messaging/messages/sms';
+        const payload: Payload = {};
+        if (typeof messageId !== 'undefined') {
+            payload['messageId'] = messageId;
+        }
+        if (typeof content !== 'undefined') {
+            payload['content'] = content;
+        }
+        if (typeof topics !== 'undefined') {
+            payload['topics'] = topics;
+        }
+        if (typeof users !== 'undefined') {
+            payload['users'] = users;
+        }
+        if (typeof targets !== 'undefined') {
+            payload['targets'] = targets;
+        }
+        if (typeof draft !== 'undefined') {
+            payload['draft'] = draft;
+        }
+        if (typeof scheduledAt !== 'undefined') {
+            payload['scheduledAt'] = scheduledAt;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a new SMS message.
+     *
+     * @param {string} params.messageId - Message ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.content - SMS Content.
+     * @param {string[]} params.topics - List of Topic IDs.
+     * @param {string[]} params.users - List of User IDs.
+     * @param {string[]} params.targets - List of Targets IDs.
+     * @param {boolean} params.draft - Is message a draft
+     * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Message>}
+     */
+    createSMS(params: { messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
+    /**
+     * Create a new SMS message.
+     *
+     * @param {string} messageId - Message ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} content - SMS Content.
+     * @param {string[]} topics - List of Topic IDs.
+     * @param {string[]} users - List of User IDs.
+     * @param {string[]} targets - List of Targets IDs.
+     * @param {boolean} draft - Is message a draft
+     * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Message>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createSMS(messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string): Promise<Models.Message>;
+    createSMS(
         paramsOrFirst: { messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string } | string,
         ...rest: [(string)?, (string[])?, (string[])?, (string[])?, (boolean)?, (string)?]    
     ): Promise<Models.Message> {
@@ -866,6 +920,7 @@ export class Messaging {
      * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `UpdateSMS` instead.
      */
     updateSms(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
     /**
@@ -881,18 +936,107 @@ export class Messaging {
      * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateSms(messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string): Promise<Models.Message>;
-     *
-     * // New (object based)
-     * updateSms(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateSms(messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string): Promise<Models.Message>;
     updateSms(
+        paramsOrFirst: { messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string } | string,
+        ...rest: [(string[])?, (string[])?, (string[])?, (string)?, (boolean)?, (string)?]    
+    ): Promise<Models.Message> {
+        let params: { messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string };
+        } else {
+            params = {
+                messageId: paramsOrFirst as string,
+                topics: rest[0] as string[],
+                users: rest[1] as string[],
+                targets: rest[2] as string[],
+                content: rest[3] as string,
+                draft: rest[4] as boolean,
+                scheduledAt: rest[5] as string            
+            };
+        }
+        
+        const messageId = params.messageId;
+        const topics = params.topics;
+        const users = params.users;
+        const targets = params.targets;
+        const content = params.content;
+        const draft = params.draft;
+        const scheduledAt = params.scheduledAt;
+
+        if (typeof messageId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "messageId"');
+        }
+
+        const apiPath = '/messaging/messages/sms/{messageId}'.replace('{messageId}', messageId);
+        const payload: Payload = {};
+        if (typeof topics !== 'undefined') {
+            payload['topics'] = topics;
+        }
+        if (typeof users !== 'undefined') {
+            payload['users'] = users;
+        }
+        if (typeof targets !== 'undefined') {
+            payload['targets'] = targets;
+        }
+        if (typeof content !== 'undefined') {
+            payload['content'] = content;
+        }
+        if (typeof draft !== 'undefined') {
+            payload['draft'] = draft;
+        }
+        if (typeof scheduledAt !== 'undefined') {
+            payload['scheduledAt'] = scheduledAt;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update an SMS message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
+     * 
+     *
+     * @param {string} params.messageId - Message ID.
+     * @param {string[]} params.topics - List of Topic IDs.
+     * @param {string[]} params.users - List of User IDs.
+     * @param {string[]} params.targets - List of Targets IDs.
+     * @param {string} params.content - Email Content.
+     * @param {boolean} params.draft - Is message a draft
+     * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Message>}
+     */
+    updateSMS(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
+    /**
+     * Update an SMS message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
+     * 
+     *
+     * @param {string} messageId - Message ID.
+     * @param {string[]} topics - List of Topic IDs.
+     * @param {string[]} users - List of User IDs.
+     * @param {string[]} targets - List of Targets IDs.
+     * @param {string} content - Email Content.
+     * @param {boolean} draft - Is message a draft
+     * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Message>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateSMS(messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string): Promise<Models.Message>;
+    updateSMS(
         paramsOrFirst: { messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string } | string,
         ...rest: [(string[])?, (string[])?, (string[])?, (string)?, (boolean)?, (string)?]    
     ): Promise<Models.Message> {
@@ -974,15 +1118,7 @@ export class Messaging {
      * @param {string} messageId - Message ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getMessage(messageId: string): Promise<Models.Message>;
-     *
-     * // New (object based)
-     * getMessage(params: { messageId: string  }): Promise<Models.Message>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getMessage(messageId: string): Promise<Models.Message>;
     getMessage(
@@ -1033,15 +1169,7 @@ export class Messaging {
      * @param {string} messageId - Message ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * delete(messageId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * delete(params: { messageId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     delete(messageId: string): Promise<{}>;
     delete(
@@ -1095,15 +1223,7 @@ export class Messaging {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listMessageLogs(messageId: string, queries?: string[]): Promise<Models.LogList>;
-     *
-     * // New (object based)
-     * listMessageLogs(params: { messageId: string, queries?: string[]  }): Promise<Models.LogList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listMessageLogs(messageId: string, queries?: string[]): Promise<Models.LogList>;
     listMessageLogs(
@@ -1162,15 +1282,7 @@ export class Messaging {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, providerId, identifier, providerType
      * @throws {AppwriteException}
      * @returns {Promise<Models.TargetList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listTargets(messageId: string, queries?: string[]): Promise<Models.TargetList>;
-     *
-     * // New (object based)
-     * listTargets(params: { messageId: string, queries?: string[]  }): Promise<Models.TargetList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listTargets(messageId: string, queries?: string[]): Promise<Models.TargetList>;
     listTargets(
@@ -1229,15 +1341,7 @@ export class Messaging {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ProviderList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listProviders(queries?: string[], search?: string): Promise<Models.ProviderList>;
-     *
-     * // New (object based)
-     * listProviders(params: { queries?: string[], search?: string  }): Promise<Models.ProviderList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listProviders(queries?: string[], search?: string): Promise<Models.ProviderList>;
     listProviders(
@@ -1293,6 +1397,7 @@ export class Messaging {
      * @param {boolean} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `CreateAPNSProvider` instead.
      */
     createApnsProvider(params: { providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean  }): Promise<Models.Provider>;
     /**
@@ -1308,18 +1413,118 @@ export class Messaging {
      * @param {boolean} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createApnsProvider(providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * createApnsProvider(params: { providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createApnsProvider(providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean): Promise<Models.Provider>;
     createApnsProvider(
+        paramsOrFirst: { providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean } | string,
+        ...rest: [(string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?, (boolean)?]    
+    ): Promise<Models.Provider> {
+        let params: { providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                authKey: rest[1] as string,
+                authKeyId: rest[2] as string,
+                teamId: rest[3] as string,
+                bundleId: rest[4] as string,
+                sandbox: rest[5] as boolean,
+                enabled: rest[6] as boolean            
+            };
+        }
+        
+        const providerId = params.providerId;
+        const name = params.name;
+        const authKey = params.authKey;
+        const authKeyId = params.authKeyId;
+        const teamId = params.teamId;
+        const bundleId = params.bundleId;
+        const sandbox = params.sandbox;
+        const enabled = params.enabled;
+
+        if (typeof providerId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "providerId"');
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+
+        const apiPath = '/messaging/providers/apns';
+        const payload: Payload = {};
+        if (typeof providerId !== 'undefined') {
+            payload['providerId'] = providerId;
+        }
+        if (typeof name !== 'undefined') {
+            payload['name'] = name;
+        }
+        if (typeof authKey !== 'undefined') {
+            payload['authKey'] = authKey;
+        }
+        if (typeof authKeyId !== 'undefined') {
+            payload['authKeyId'] = authKeyId;
+        }
+        if (typeof teamId !== 'undefined') {
+            payload['teamId'] = teamId;
+        }
+        if (typeof bundleId !== 'undefined') {
+            payload['bundleId'] = bundleId;
+        }
+        if (typeof sandbox !== 'undefined') {
+            payload['sandbox'] = sandbox;
+        }
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a new Apple Push Notification service provider.
+     *
+     * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Provider name.
+     * @param {string} params.authKey - APNS authentication key.
+     * @param {string} params.authKeyId - APNS authentication key ID.
+     * @param {string} params.teamId - APNS team ID.
+     * @param {string} params.bundleId - APNS bundle ID.
+     * @param {boolean} params.sandbox - Use APNS sandbox environment.
+     * @param {boolean} params.enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    createAPNSProvider(params: { providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean  }): Promise<Models.Provider>;
+    /**
+     * Create a new Apple Push Notification service provider.
+     *
+     * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} name - Provider name.
+     * @param {string} authKey - APNS authentication key.
+     * @param {string} authKeyId - APNS authentication key ID.
+     * @param {string} teamId - APNS team ID.
+     * @param {string} bundleId - APNS bundle ID.
+     * @param {boolean} sandbox - Use APNS sandbox environment.
+     * @param {boolean} enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createAPNSProvider(providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean): Promise<Models.Provider>;
+    createAPNSProvider(
         paramsOrFirst: { providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean } | string,
         ...rest: [(string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?, (boolean)?]    
     ): Promise<Models.Provider> {
@@ -1409,6 +1614,7 @@ export class Messaging {
      * @param {boolean} params.sandbox - Use APNS sandbox environment.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `UpdateAPNSProvider` instead.
      */
     updateApnsProvider(params: { providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean  }): Promise<Models.Provider>;
     /**
@@ -1424,18 +1630,112 @@ export class Messaging {
      * @param {boolean} sandbox - Use APNS sandbox environment.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateApnsProvider(providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * updateApnsProvider(params: { providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateApnsProvider(providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean): Promise<Models.Provider>;
     updateApnsProvider(
+        paramsOrFirst: { providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean } | string,
+        ...rest: [(string)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
+    ): Promise<Models.Provider> {
+        let params: { providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                enabled: rest[1] as boolean,
+                authKey: rest[2] as string,
+                authKeyId: rest[3] as string,
+                teamId: rest[4] as string,
+                bundleId: rest[5] as string,
+                sandbox: rest[6] as boolean            
+            };
+        }
+        
+        const providerId = params.providerId;
+        const name = params.name;
+        const enabled = params.enabled;
+        const authKey = params.authKey;
+        const authKeyId = params.authKeyId;
+        const teamId = params.teamId;
+        const bundleId = params.bundleId;
+        const sandbox = params.sandbox;
+
+        if (typeof providerId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "providerId"');
+        }
+
+        const apiPath = '/messaging/providers/apns/{providerId}'.replace('{providerId}', providerId);
+        const payload: Payload = {};
+        if (typeof name !== 'undefined') {
+            payload['name'] = name;
+        }
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        if (typeof authKey !== 'undefined') {
+            payload['authKey'] = authKey;
+        }
+        if (typeof authKeyId !== 'undefined') {
+            payload['authKeyId'] = authKeyId;
+        }
+        if (typeof teamId !== 'undefined') {
+            payload['teamId'] = teamId;
+        }
+        if (typeof bundleId !== 'undefined') {
+            payload['bundleId'] = bundleId;
+        }
+        if (typeof sandbox !== 'undefined') {
+            payload['sandbox'] = sandbox;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a Apple Push Notification service provider by its unique ID.
+     *
+     * @param {string} params.providerId - Provider ID.
+     * @param {string} params.name - Provider name.
+     * @param {boolean} params.enabled - Set as enabled.
+     * @param {string} params.authKey - APNS authentication key.
+     * @param {string} params.authKeyId - APNS authentication key ID.
+     * @param {string} params.teamId - APNS team ID.
+     * @param {string} params.bundleId - APNS bundle ID.
+     * @param {boolean} params.sandbox - Use APNS sandbox environment.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    updateAPNSProvider(params: { providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean  }): Promise<Models.Provider>;
+    /**
+     * Update a Apple Push Notification service provider by its unique ID.
+     *
+     * @param {string} providerId - Provider ID.
+     * @param {string} name - Provider name.
+     * @param {boolean} enabled - Set as enabled.
+     * @param {string} authKey - APNS authentication key.
+     * @param {string} authKeyId - APNS authentication key ID.
+     * @param {string} teamId - APNS team ID.
+     * @param {string} bundleId - APNS bundle ID.
+     * @param {boolean} sandbox - Use APNS sandbox environment.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateAPNSProvider(providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean): Promise<Models.Provider>;
+    updateAPNSProvider(
         paramsOrFirst: { providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean } | string,
         ...rest: [(string)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
     ): Promise<Models.Provider> {
@@ -1515,6 +1815,7 @@ export class Messaging {
      * @param {boolean} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `CreateFCMProvider` instead.
      */
     createFcmProvider(params: { providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean  }): Promise<Models.Provider>;
     /**
@@ -1526,18 +1827,90 @@ export class Messaging {
      * @param {boolean} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createFcmProvider(providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * createFcmProvider(params: { providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createFcmProvider(providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean): Promise<Models.Provider>;
     createFcmProvider(
+        paramsOrFirst: { providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean } | string,
+        ...rest: [(string)?, (object)?, (boolean)?]    
+    ): Promise<Models.Provider> {
+        let params: { providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                serviceAccountJSON: rest[1] as object,
+                enabled: rest[2] as boolean            
+            };
+        }
+        
+        const providerId = params.providerId;
+        const name = params.name;
+        const serviceAccountJSON = params.serviceAccountJSON;
+        const enabled = params.enabled;
+
+        if (typeof providerId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "providerId"');
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+
+        const apiPath = '/messaging/providers/fcm';
+        const payload: Payload = {};
+        if (typeof providerId !== 'undefined') {
+            payload['providerId'] = providerId;
+        }
+        if (typeof name !== 'undefined') {
+            payload['name'] = name;
+        }
+        if (typeof serviceAccountJSON !== 'undefined') {
+            payload['serviceAccountJSON'] = serviceAccountJSON;
+        }
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a new Firebase Cloud Messaging provider.
+     *
+     * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Provider name.
+     * @param {object} params.serviceAccountJSON - FCM service account JSON.
+     * @param {boolean} params.enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    createFCMProvider(params: { providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean  }): Promise<Models.Provider>;
+    /**
+     * Create a new Firebase Cloud Messaging provider.
+     *
+     * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} name - Provider name.
+     * @param {object} serviceAccountJSON - FCM service account JSON.
+     * @param {boolean} enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createFCMProvider(providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean): Promise<Models.Provider>;
+    createFCMProvider(
         paramsOrFirst: { providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean } | string,
         ...rest: [(string)?, (object)?, (boolean)?]    
     ): Promise<Models.Provider> {
@@ -1603,6 +1976,7 @@ export class Messaging {
      * @param {object} params.serviceAccountJSON - FCM service account JSON.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `UpdateFCMProvider` instead.
      */
     updateFcmProvider(params: { providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object  }): Promise<Models.Provider>;
     /**
@@ -1614,18 +1988,84 @@ export class Messaging {
      * @param {object} serviceAccountJSON - FCM service account JSON.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateFcmProvider(providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * updateFcmProvider(params: { providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateFcmProvider(providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object): Promise<Models.Provider>;
     updateFcmProvider(
+        paramsOrFirst: { providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object } | string,
+        ...rest: [(string)?, (boolean)?, (object)?]    
+    ): Promise<Models.Provider> {
+        let params: { providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                enabled: rest[1] as boolean,
+                serviceAccountJSON: rest[2] as object            
+            };
+        }
+        
+        const providerId = params.providerId;
+        const name = params.name;
+        const enabled = params.enabled;
+        const serviceAccountJSON = params.serviceAccountJSON;
+
+        if (typeof providerId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "providerId"');
+        }
+
+        const apiPath = '/messaging/providers/fcm/{providerId}'.replace('{providerId}', providerId);
+        const payload: Payload = {};
+        if (typeof name !== 'undefined') {
+            payload['name'] = name;
+        }
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        if (typeof serviceAccountJSON !== 'undefined') {
+            payload['serviceAccountJSON'] = serviceAccountJSON;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a Firebase Cloud Messaging provider by its unique ID.
+     *
+     * @param {string} params.providerId - Provider ID.
+     * @param {string} params.name - Provider name.
+     * @param {boolean} params.enabled - Set as enabled.
+     * @param {object} params.serviceAccountJSON - FCM service account JSON.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    updateFCMProvider(params: { providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object  }): Promise<Models.Provider>;
+    /**
+     * Update a Firebase Cloud Messaging provider by its unique ID.
+     *
+     * @param {string} providerId - Provider ID.
+     * @param {string} name - Provider name.
+     * @param {boolean} enabled - Set as enabled.
+     * @param {object} serviceAccountJSON - FCM service account JSON.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateFCMProvider(providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object): Promise<Models.Provider>;
+    updateFCMProvider(
         paramsOrFirst: { providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object } | string,
         ...rest: [(string)?, (boolean)?, (object)?]    
     ): Promise<Models.Provider> {
@@ -1708,15 +2148,7 @@ export class Messaging {
      * @param {boolean} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createMailgunProvider(providerId: string, name: string, apiKey?: string, domain?: string, isEuRegion?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * createMailgunProvider(params: { providerId: string, name: string, apiKey?: string, domain?: string, isEuRegion?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createMailgunProvider(providerId: string, name: string, apiKey?: string, domain?: string, isEuRegion?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
     createMailgunProvider(
@@ -1838,15 +2270,7 @@ export class Messaging {
      * @param {string} replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateMailgunProvider(providerId: string, name?: string, apiKey?: string, domain?: string, isEuRegion?: boolean, enabled?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * updateMailgunProvider(params: { providerId: string, name?: string, apiKey?: string, domain?: string, isEuRegion?: boolean, enabled?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateMailgunProvider(providerId: string, name?: string, apiKey?: string, domain?: string, isEuRegion?: boolean, enabled?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string): Promise<Models.Provider>;
     updateMailgunProvider(
@@ -1954,15 +2378,7 @@ export class Messaging {
      * @param {boolean} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createMsg91Provider(providerId: string, name: string, templateId?: string, senderId?: string, authKey?: string, enabled?: boolean): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * createMsg91Provider(params: { providerId: string, name: string, templateId?: string, senderId?: string, authKey?: string, enabled?: boolean  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createMsg91Provider(providerId: string, name: string, templateId?: string, senderId?: string, authKey?: string, enabled?: boolean): Promise<Models.Provider>;
     createMsg91Provider(
@@ -2056,15 +2472,7 @@ export class Messaging {
      * @param {string} authKey - Msg91 auth key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateMsg91Provider(providerId: string, name?: string, enabled?: boolean, templateId?: string, senderId?: string, authKey?: string): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * updateMsg91Provider(params: { providerId: string, name?: string, enabled?: boolean, templateId?: string, senderId?: string, authKey?: string  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateMsg91Provider(providerId: string, name?: string, enabled?: boolean, templateId?: string, senderId?: string, authKey?: string): Promise<Models.Provider>;
     updateMsg91Provider(
@@ -2156,15 +2564,7 @@ export class Messaging {
      * @param {boolean} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createSendgridProvider(providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * createSendgridProvider(params: { providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createSendgridProvider(providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
     createSendgridProvider(
@@ -2272,15 +2672,7 @@ export class Messaging {
      * @param {string} replyToEmail - Email set in the Reply To field for the mail. Default value is Sender Email.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateSendgridProvider(providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * updateSendgridProvider(params: { providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateSendgridProvider(providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string): Promise<Models.Provider>;
     updateSendgridProvider(
@@ -2373,6 +2765,7 @@ export class Messaging {
      * @param {boolean} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `CreateSMTPProvider` instead.
      */
     createSmtpProvider(params: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
     /**
@@ -2394,18 +2787,163 @@ export class Messaging {
      * @param {boolean} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createSmtpProvider(providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * createSmtpProvider(params: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createSmtpProvider(providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
     createSmtpProvider(
+        paramsOrFirst: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
+        ...rest: [(string)?, (string)?, (number)?, (string)?, (string)?, (SmtpEncryption)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
+    ): Promise<Models.Provider> {
+        let params: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                host: rest[1] as string,
+                port: rest[2] as number,
+                username: rest[3] as string,
+                password: rest[4] as string,
+                encryption: rest[5] as SmtpEncryption,
+                autoTLS: rest[6] as boolean,
+                mailer: rest[7] as string,
+                fromName: rest[8] as string,
+                fromEmail: rest[9] as string,
+                replyToName: rest[10] as string,
+                replyToEmail: rest[11] as string,
+                enabled: rest[12] as boolean            
+            };
+        }
+        
+        const providerId = params.providerId;
+        const name = params.name;
+        const host = params.host;
+        const port = params.port;
+        const username = params.username;
+        const password = params.password;
+        const encryption = params.encryption;
+        const autoTLS = params.autoTLS;
+        const mailer = params.mailer;
+        const fromName = params.fromName;
+        const fromEmail = params.fromEmail;
+        const replyToName = params.replyToName;
+        const replyToEmail = params.replyToEmail;
+        const enabled = params.enabled;
+
+        if (typeof providerId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "providerId"');
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+        if (typeof host === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "host"');
+        }
+
+        const apiPath = '/messaging/providers/smtp';
+        const payload: Payload = {};
+        if (typeof providerId !== 'undefined') {
+            payload['providerId'] = providerId;
+        }
+        if (typeof name !== 'undefined') {
+            payload['name'] = name;
+        }
+        if (typeof host !== 'undefined') {
+            payload['host'] = host;
+        }
+        if (typeof port !== 'undefined') {
+            payload['port'] = port;
+        }
+        if (typeof username !== 'undefined') {
+            payload['username'] = username;
+        }
+        if (typeof password !== 'undefined') {
+            payload['password'] = password;
+        }
+        if (typeof encryption !== 'undefined') {
+            payload['encryption'] = encryption;
+        }
+        if (typeof autoTLS !== 'undefined') {
+            payload['autoTLS'] = autoTLS;
+        }
+        if (typeof mailer !== 'undefined') {
+            payload['mailer'] = mailer;
+        }
+        if (typeof fromName !== 'undefined') {
+            payload['fromName'] = fromName;
+        }
+        if (typeof fromEmail !== 'undefined') {
+            payload['fromEmail'] = fromEmail;
+        }
+        if (typeof replyToName !== 'undefined') {
+            payload['replyToName'] = replyToName;
+        }
+        if (typeof replyToEmail !== 'undefined') {
+            payload['replyToEmail'] = replyToEmail;
+        }
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a new SMTP provider.
+     *
+     * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Provider name.
+     * @param {string} params.host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
+     * @param {number} params.port - The default SMTP server port.
+     * @param {string} params.username - Authentication username.
+     * @param {string} params.password - Authentication password.
+     * @param {SmtpEncryption} params.encryption - Encryption type. Can be omitted, 'ssl', or 'tls'
+     * @param {boolean} params.autoTLS - Enable SMTP AutoTLS feature.
+     * @param {string} params.mailer - The value to use for the X-Mailer header.
+     * @param {string} params.fromName - Sender Name.
+     * @param {string} params.fromEmail - Sender email address.
+     * @param {string} params.replyToName - Name set in the reply to field for the mail. Default value is sender name.
+     * @param {string} params.replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
+     * @param {boolean} params.enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    createSMTPProvider(params: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    /**
+     * Create a new SMTP provider.
+     *
+     * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} name - Provider name.
+     * @param {string} host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
+     * @param {number} port - The default SMTP server port.
+     * @param {string} username - Authentication username.
+     * @param {string} password - Authentication password.
+     * @param {SmtpEncryption} encryption - Encryption type. Can be omitted, 'ssl', or 'tls'
+     * @param {boolean} autoTLS - Enable SMTP AutoTLS feature.
+     * @param {string} mailer - The value to use for the X-Mailer header.
+     * @param {string} fromName - Sender Name.
+     * @param {string} fromEmail - Sender email address.
+     * @param {string} replyToName - Name set in the reply to field for the mail. Default value is sender name.
+     * @param {string} replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
+     * @param {boolean} enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createSMTPProvider(providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    createSMTPProvider(
         paramsOrFirst: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
         ...rest: [(string)?, (string)?, (number)?, (string)?, (string)?, (SmtpEncryption)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
     ): Promise<Models.Provider> {
@@ -2534,6 +3072,7 @@ export class Messaging {
      * @param {boolean} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `UpdateSMTPProvider` instead.
      */
     updateSmtpProvider(params: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
     /**
@@ -2555,18 +3094,154 @@ export class Messaging {
      * @param {boolean} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateSmtpProvider(providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * updateSmtpProvider(params: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateSmtpProvider(providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
     updateSmtpProvider(
+        paramsOrFirst: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
+        ...rest: [(string)?, (string)?, (number)?, (string)?, (string)?, (SmtpEncryption)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
+    ): Promise<Models.Provider> {
+        let params: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                host: rest[1] as string,
+                port: rest[2] as number,
+                username: rest[3] as string,
+                password: rest[4] as string,
+                encryption: rest[5] as SmtpEncryption,
+                autoTLS: rest[6] as boolean,
+                mailer: rest[7] as string,
+                fromName: rest[8] as string,
+                fromEmail: rest[9] as string,
+                replyToName: rest[10] as string,
+                replyToEmail: rest[11] as string,
+                enabled: rest[12] as boolean            
+            };
+        }
+        
+        const providerId = params.providerId;
+        const name = params.name;
+        const host = params.host;
+        const port = params.port;
+        const username = params.username;
+        const password = params.password;
+        const encryption = params.encryption;
+        const autoTLS = params.autoTLS;
+        const mailer = params.mailer;
+        const fromName = params.fromName;
+        const fromEmail = params.fromEmail;
+        const replyToName = params.replyToName;
+        const replyToEmail = params.replyToEmail;
+        const enabled = params.enabled;
+
+        if (typeof providerId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "providerId"');
+        }
+
+        const apiPath = '/messaging/providers/smtp/{providerId}'.replace('{providerId}', providerId);
+        const payload: Payload = {};
+        if (typeof name !== 'undefined') {
+            payload['name'] = name;
+        }
+        if (typeof host !== 'undefined') {
+            payload['host'] = host;
+        }
+        if (typeof port !== 'undefined') {
+            payload['port'] = port;
+        }
+        if (typeof username !== 'undefined') {
+            payload['username'] = username;
+        }
+        if (typeof password !== 'undefined') {
+            payload['password'] = password;
+        }
+        if (typeof encryption !== 'undefined') {
+            payload['encryption'] = encryption;
+        }
+        if (typeof autoTLS !== 'undefined') {
+            payload['autoTLS'] = autoTLS;
+        }
+        if (typeof mailer !== 'undefined') {
+            payload['mailer'] = mailer;
+        }
+        if (typeof fromName !== 'undefined') {
+            payload['fromName'] = fromName;
+        }
+        if (typeof fromEmail !== 'undefined') {
+            payload['fromEmail'] = fromEmail;
+        }
+        if (typeof replyToName !== 'undefined') {
+            payload['replyToName'] = replyToName;
+        }
+        if (typeof replyToEmail !== 'undefined') {
+            payload['replyToEmail'] = replyToEmail;
+        }
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a SMTP provider by its unique ID.
+     *
+     * @param {string} params.providerId - Provider ID.
+     * @param {string} params.name - Provider name.
+     * @param {string} params.host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
+     * @param {number} params.port - SMTP port.
+     * @param {string} params.username - Authentication username.
+     * @param {string} params.password - Authentication password.
+     * @param {SmtpEncryption} params.encryption - Encryption type. Can be 'ssl' or 'tls'
+     * @param {boolean} params.autoTLS - Enable SMTP AutoTLS feature.
+     * @param {string} params.mailer - The value to use for the X-Mailer header.
+     * @param {string} params.fromName - Sender Name.
+     * @param {string} params.fromEmail - Sender email address.
+     * @param {string} params.replyToName - Name set in the Reply To field for the mail. Default value is Sender Name.
+     * @param {string} params.replyToEmail - Email set in the Reply To field for the mail. Default value is Sender Email.
+     * @param {boolean} params.enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    updateSMTPProvider(params: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    /**
+     * Update a SMTP provider by its unique ID.
+     *
+     * @param {string} providerId - Provider ID.
+     * @param {string} name - Provider name.
+     * @param {string} host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
+     * @param {number} port - SMTP port.
+     * @param {string} username - Authentication username.
+     * @param {string} password - Authentication password.
+     * @param {SmtpEncryption} encryption - Encryption type. Can be 'ssl' or 'tls'
+     * @param {boolean} autoTLS - Enable SMTP AutoTLS feature.
+     * @param {string} mailer - The value to use for the X-Mailer header.
+     * @param {string} fromName - Sender Name.
+     * @param {string} fromEmail - Sender email address.
+     * @param {string} replyToName - Name set in the Reply To field for the mail. Default value is Sender Name.
+     * @param {string} replyToEmail - Email set in the Reply To field for the mail. Default value is Sender Email.
+     * @param {boolean} enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateSMTPProvider(providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    updateSMTPProvider(
         paramsOrFirst: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
         ...rest: [(string)?, (string)?, (number)?, (string)?, (string)?, (SmtpEncryption)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
     ): Promise<Models.Provider> {
@@ -2691,15 +3366,7 @@ export class Messaging {
      * @param {boolean} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createTelesignProvider(providerId: string, name: string, from?: string, customerId?: string, apiKey?: string, enabled?: boolean): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * createTelesignProvider(params: { providerId: string, name: string, from?: string, customerId?: string, apiKey?: string, enabled?: boolean  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createTelesignProvider(providerId: string, name: string, from?: string, customerId?: string, apiKey?: string, enabled?: boolean): Promise<Models.Provider>;
     createTelesignProvider(
@@ -2793,15 +3460,7 @@ export class Messaging {
      * @param {string} from - Sender number.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateTelesignProvider(providerId: string, name?: string, enabled?: boolean, customerId?: string, apiKey?: string, from?: string): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * updateTelesignProvider(params: { providerId: string, name?: string, enabled?: boolean, customerId?: string, apiKey?: string, from?: string  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateTelesignProvider(providerId: string, name?: string, enabled?: boolean, customerId?: string, apiKey?: string, from?: string): Promise<Models.Provider>;
     updateTelesignProvider(
@@ -2889,15 +3548,7 @@ export class Messaging {
      * @param {boolean} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createTextmagicProvider(providerId: string, name: string, from?: string, username?: string, apiKey?: string, enabled?: boolean): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * createTextmagicProvider(params: { providerId: string, name: string, from?: string, username?: string, apiKey?: string, enabled?: boolean  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createTextmagicProvider(providerId: string, name: string, from?: string, username?: string, apiKey?: string, enabled?: boolean): Promise<Models.Provider>;
     createTextmagicProvider(
@@ -2991,15 +3642,7 @@ export class Messaging {
      * @param {string} from - Sender number.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateTextmagicProvider(providerId: string, name?: string, enabled?: boolean, username?: string, apiKey?: string, from?: string): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * updateTextmagicProvider(params: { providerId: string, name?: string, enabled?: boolean, username?: string, apiKey?: string, from?: string  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateTextmagicProvider(providerId: string, name?: string, enabled?: boolean, username?: string, apiKey?: string, from?: string): Promise<Models.Provider>;
     updateTextmagicProvider(
@@ -3087,15 +3730,7 @@ export class Messaging {
      * @param {boolean} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createTwilioProvider(providerId: string, name: string, from?: string, accountSid?: string, authToken?: string, enabled?: boolean): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * createTwilioProvider(params: { providerId: string, name: string, from?: string, accountSid?: string, authToken?: string, enabled?: boolean  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createTwilioProvider(providerId: string, name: string, from?: string, accountSid?: string, authToken?: string, enabled?: boolean): Promise<Models.Provider>;
     createTwilioProvider(
@@ -3189,15 +3824,7 @@ export class Messaging {
      * @param {string} from - Sender number.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateTwilioProvider(providerId: string, name?: string, enabled?: boolean, accountSid?: string, authToken?: string, from?: string): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * updateTwilioProvider(params: { providerId: string, name?: string, enabled?: boolean, accountSid?: string, authToken?: string, from?: string  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateTwilioProvider(providerId: string, name?: string, enabled?: boolean, accountSid?: string, authToken?: string, from?: string): Promise<Models.Provider>;
     updateTwilioProvider(
@@ -3285,15 +3912,7 @@ export class Messaging {
      * @param {boolean} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createVonageProvider(providerId: string, name: string, from?: string, apiKey?: string, apiSecret?: string, enabled?: boolean): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * createVonageProvider(params: { providerId: string, name: string, from?: string, apiKey?: string, apiSecret?: string, enabled?: boolean  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createVonageProvider(providerId: string, name: string, from?: string, apiKey?: string, apiSecret?: string, enabled?: boolean): Promise<Models.Provider>;
     createVonageProvider(
@@ -3387,15 +4006,7 @@ export class Messaging {
      * @param {string} from - Sender number.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateVonageProvider(providerId: string, name?: string, enabled?: boolean, apiKey?: string, apiSecret?: string, from?: string): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * updateVonageProvider(params: { providerId: string, name?: string, enabled?: boolean, apiKey?: string, apiSecret?: string, from?: string  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateVonageProvider(providerId: string, name?: string, enabled?: boolean, apiKey?: string, apiSecret?: string, from?: string): Promise<Models.Provider>;
     updateVonageProvider(
@@ -3475,15 +4086,7 @@ export class Messaging {
      * @param {string} providerId - Provider ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getProvider(providerId: string): Promise<Models.Provider>;
-     *
-     * // New (object based)
-     * getProvider(params: { providerId: string  }): Promise<Models.Provider>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getProvider(providerId: string): Promise<Models.Provider>;
     getProvider(
@@ -3534,15 +4137,7 @@ export class Messaging {
      * @param {string} providerId - Provider ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteProvider(providerId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteProvider(params: { providerId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteProvider(providerId: string): Promise<{}>;
     deleteProvider(
@@ -3596,15 +4191,7 @@ export class Messaging {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listProviderLogs(providerId: string, queries?: string[]): Promise<Models.LogList>;
-     *
-     * // New (object based)
-     * listProviderLogs(params: { providerId: string, queries?: string[]  }): Promise<Models.LogList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listProviderLogs(providerId: string, queries?: string[]): Promise<Models.LogList>;
     listProviderLogs(
@@ -3663,15 +4250,7 @@ export class Messaging {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listSubscriberLogs(subscriberId: string, queries?: string[]): Promise<Models.LogList>;
-     *
-     * // New (object based)
-     * listSubscriberLogs(params: { subscriberId: string, queries?: string[]  }): Promise<Models.LogList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listSubscriberLogs(subscriberId: string, queries?: string[]): Promise<Models.LogList>;
     listSubscriberLogs(
@@ -3730,15 +4309,7 @@ export class Messaging {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.TopicList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listTopics(queries?: string[], search?: string): Promise<Models.TopicList>;
-     *
-     * // New (object based)
-     * listTopics(params: { queries?: string[], search?: string  }): Promise<Models.TopicList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listTopics(queries?: string[], search?: string): Promise<Models.TopicList>;
     listTopics(
@@ -3799,15 +4370,7 @@ export class Messaging {
      * @param {string[]} subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createTopic(topicId: string, name: string, subscribe?: string[]): Promise<Models.Topic>;
-     *
-     * // New (object based)
-     * createTopic(params: { topicId: string, name: string, subscribe?: string[]  }): Promise<Models.Topic>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createTopic(topicId: string, name: string, subscribe?: string[]): Promise<Models.Topic>;
     createTopic(
@@ -3878,15 +4441,7 @@ export class Messaging {
      * @param {string} topicId - Topic ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getTopic(topicId: string): Promise<Models.Topic>;
-     *
-     * // New (object based)
-     * getTopic(params: { topicId: string  }): Promise<Models.Topic>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getTopic(topicId: string): Promise<Models.Topic>;
     getTopic(
@@ -3943,15 +4498,7 @@ export class Messaging {
      * @param {string[]} subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateTopic(topicId: string, name?: string, subscribe?: string[]): Promise<Models.Topic>;
-     *
-     * // New (object based)
-     * updateTopic(params: { topicId: string, name?: string, subscribe?: string[]  }): Promise<Models.Topic>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateTopic(topicId: string, name?: string, subscribe?: string[]): Promise<Models.Topic>;
     updateTopic(
@@ -4014,15 +4561,7 @@ export class Messaging {
      * @param {string} topicId - Topic ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteTopic(topicId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteTopic(params: { topicId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteTopic(topicId: string): Promise<{}>;
     deleteTopic(
@@ -4076,15 +4615,7 @@ export class Messaging {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listTopicLogs(topicId: string, queries?: string[]): Promise<Models.LogList>;
-     *
-     * // New (object based)
-     * listTopicLogs(params: { topicId: string, queries?: string[]  }): Promise<Models.LogList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listTopicLogs(topicId: string, queries?: string[]): Promise<Models.LogList>;
     listTopicLogs(
@@ -4145,15 +4676,7 @@ export class Messaging {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SubscriberList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listSubscribers(topicId: string, queries?: string[], search?: string): Promise<Models.SubscriberList>;
-     *
-     * // New (object based)
-     * listSubscribers(params: { topicId: string, queries?: string[], search?: string  }): Promise<Models.SubscriberList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listSubscribers(topicId: string, queries?: string[], search?: string): Promise<Models.SubscriberList>;
     listSubscribers(
@@ -4219,15 +4742,7 @@ export class Messaging {
      * @param {string} targetId - Target ID. The target ID to link to the specified Topic ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Subscriber>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createSubscriber(topicId: string, subscriberId: string, targetId: string): Promise<Models.Subscriber>;
-     *
-     * // New (object based)
-     * createSubscriber(params: { topicId: string, subscriberId: string, targetId: string  }): Promise<Models.Subscriber>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createSubscriber(topicId: string, subscriberId: string, targetId: string): Promise<Models.Subscriber>;
     createSubscriber(
@@ -4300,15 +4815,7 @@ export class Messaging {
      * @param {string} subscriberId - Subscriber ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Subscriber>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getSubscriber(topicId: string, subscriberId: string): Promise<Models.Subscriber>;
-     *
-     * // New (object based)
-     * getSubscriber(params: { topicId: string, subscriberId: string  }): Promise<Models.Subscriber>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getSubscriber(topicId: string, subscriberId: string): Promise<Models.Subscriber>;
     getSubscriber(
@@ -4367,15 +4874,7 @@ export class Messaging {
      * @param {string} subscriberId - Subscriber ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteSubscriber(topicId: string, subscriberId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteSubscriber(params: { topicId: string, subscriberId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteSubscriber(topicId: string, subscriberId: string): Promise<{}>;
     deleteSubscriber(

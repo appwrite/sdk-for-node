@@ -19,7 +19,7 @@ export class Databases {
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DatabaseList>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.list` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.list` instead.
      */
     list(params: { queries?: string[], search?: string  }): Promise<Models.DatabaseList>;
     /**
@@ -29,15 +29,7 @@ export class Databases {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DatabaseList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * list(queries?: string[], search?: string): Promise<Models.DatabaseList>;
-     *
-     * // New (object based)
-     * list(params: { queries?: string[], search?: string  }): Promise<Models.DatabaseList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     list(queries?: string[], search?: string): Promise<Models.DatabaseList>;
     list(
@@ -89,7 +81,7 @@ export class Databases {
      * @param {boolean} params.enabled - Is the database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createDatabase` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createDatabase` instead.
      */
     create(params: { databaseId: string, name: string, enabled?: boolean  }): Promise<Models.Database>;
     /**
@@ -101,15 +93,7 @@ export class Databases {
      * @param {boolean} enabled - Is the database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * create(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database>;
-     *
-     * // New (object based)
-     * create(params: { databaseId: string, name: string, enabled?: boolean  }): Promise<Models.Database>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     create(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database>;
     create(
@@ -170,7 +154,7 @@ export class Databases {
      * @param {string} params.databaseId - Database ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.get` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.get` instead.
      */
     get(params: { databaseId: string  }): Promise<Models.Database>;
     /**
@@ -179,15 +163,7 @@ export class Databases {
      * @param {string} databaseId - Database ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * get(databaseId: string): Promise<Models.Database>;
-     *
-     * // New (object based)
-     * get(params: { databaseId: string  }): Promise<Models.Database>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     get(databaseId: string): Promise<Models.Database>;
     get(
@@ -232,7 +208,7 @@ export class Databases {
      * @param {boolean} params.enabled - Is database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.update` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.update` instead.
      */
     update(params: { databaseId: string, name: string, enabled?: boolean  }): Promise<Models.Database>;
     /**
@@ -243,15 +219,7 @@ export class Databases {
      * @param {boolean} enabled - Is database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * update(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database>;
-     *
-     * // New (object based)
-     * update(params: { databaseId: string, name: string, enabled?: boolean  }): Promise<Models.Database>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     update(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database>;
     update(
@@ -309,7 +277,7 @@ export class Databases {
      * @param {string} params.databaseId - Database ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.delete` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.delete` instead.
      */
     delete(params: { databaseId: string  }): Promise<{}>;
     /**
@@ -318,15 +286,7 @@ export class Databases {
      * @param {string} databaseId - Database ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * delete(databaseId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * delete(params: { databaseId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     delete(databaseId: string): Promise<{}>;
     delete(
@@ -372,7 +332,7 @@ export class Databases {
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.CollectionList>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.listTables` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.listTables` instead.
      */
     listCollections(params: { databaseId: string, queries?: string[], search?: string  }): Promise<Models.CollectionList>;
     /**
@@ -383,15 +343,7 @@ export class Databases {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.CollectionList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listCollections(databaseId: string, queries?: string[], search?: string): Promise<Models.CollectionList>;
-     *
-     * // New (object based)
-     * listCollections(params: { databaseId: string, queries?: string[], search?: string  }): Promise<Models.CollectionList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listCollections(databaseId: string, queries?: string[], search?: string): Promise<Models.CollectionList>;
     listCollections(
@@ -450,7 +402,7 @@ export class Databases {
      * @param {boolean} params.enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createTable` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createTable` instead.
      */
     createCollection(params: { databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean  }): Promise<Models.Collection>;
     /**
@@ -464,15 +416,7 @@ export class Databases {
      * @param {boolean} enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection>;
-     *
-     * // New (object based)
-     * createCollection(params: { databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean  }): Promise<Models.Collection>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection>;
     createCollection(
@@ -549,7 +493,7 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.getTable` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.getTable` instead.
      */
     getCollection(params: { databaseId: string, collectionId: string  }): Promise<Models.Collection>;
     /**
@@ -559,15 +503,7 @@ export class Databases {
      * @param {string} collectionId - Collection ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getCollection(databaseId: string, collectionId: string): Promise<Models.Collection>;
-     *
-     * // New (object based)
-     * getCollection(params: { databaseId: string, collectionId: string  }): Promise<Models.Collection>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getCollection(databaseId: string, collectionId: string): Promise<Models.Collection>;
     getCollection(
@@ -621,7 +557,7 @@ export class Databases {
      * @param {boolean} params.enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.updateTable` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateTable` instead.
      */
     updateCollection(params: { databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean  }): Promise<Models.Collection>;
     /**
@@ -635,15 +571,7 @@ export class Databases {
      * @param {boolean} enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection>;
-     *
-     * // New (object based)
-     * updateCollection(params: { databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean  }): Promise<Models.Collection>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateCollection(databaseId: string, collectionId: string, name: string, permissions?: string[], documentSecurity?: boolean, enabled?: boolean): Promise<Models.Collection>;
     updateCollection(
@@ -717,7 +645,7 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.deleteTable` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.deleteTable` instead.
      */
     deleteCollection(params: { databaseId: string, collectionId: string  }): Promise<{}>;
     /**
@@ -727,15 +655,7 @@ export class Databases {
      * @param {string} collectionId - Collection ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteCollection(databaseId: string, collectionId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteCollection(params: { databaseId: string, collectionId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteCollection(databaseId: string, collectionId: string): Promise<{}>;
     deleteCollection(
@@ -787,7 +707,7 @@ export class Databases {
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, type, size, required, array, status, error
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeList>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.listColumns` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.listColumns` instead.
      */
     listAttributes(params: { databaseId: string, collectionId: string, queries?: string[]  }): Promise<Models.AttributeList>;
     /**
@@ -798,15 +718,7 @@ export class Databases {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, type, size, required, array, status, error
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listAttributes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.AttributeList>;
-     *
-     * // New (object based)
-     * listAttributes(params: { databaseId: string, collectionId: string, queries?: string[]  }): Promise<Models.AttributeList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listAttributes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.AttributeList>;
     listAttributes(
@@ -866,7 +778,7 @@ export class Databases {
      * @param {boolean} params.array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBoolean>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createBooleanColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createBooleanColumn` instead.
      */
     createBooleanAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean  }): Promise<Models.AttributeBoolean>;
     /**
@@ -881,15 +793,7 @@ export class Databases {
      * @param {boolean} array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBoolean>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean>;
-     *
-     * // New (object based)
-     * createBooleanAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean  }): Promise<Models.AttributeBoolean>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.AttributeBoolean>;
     createBooleanAttribute(
@@ -970,7 +874,7 @@ export class Databases {
      * @param {string} params.newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBoolean>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.updateBooleanColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateBooleanColumn` instead.
      */
     updateBooleanAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string  }): Promise<Models.AttributeBoolean>;
     /**
@@ -984,15 +888,7 @@ export class Databases {
      * @param {string} newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBoolean>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string): Promise<Models.AttributeBoolean>;
-     *
-     * // New (object based)
-     * updateBooleanAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string  }): Promise<Models.AttributeBoolean>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateBooleanAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string): Promise<Models.AttributeBoolean>;
     updateBooleanAttribute(
@@ -1073,7 +969,7 @@ export class Databases {
      * @param {boolean} params.array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeDatetime>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createDatetimeColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createDatetimeColumn` instead.
      */
     createDatetimeAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.AttributeDatetime>;
     /**
@@ -1087,15 +983,7 @@ export class Databases {
      * @param {boolean} array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeDatetime>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeDatetime>;
-     *
-     * // New (object based)
-     * createDatetimeAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.AttributeDatetime>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeDatetime>;
     createDatetimeAttribute(
@@ -1176,7 +1064,7 @@ export class Databases {
      * @param {string} params.newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeDatetime>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.updateDatetimeColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateDatetimeColumn` instead.
      */
     updateDatetimeAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.AttributeDatetime>;
     /**
@@ -1190,15 +1078,7 @@ export class Databases {
      * @param {string} newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeDatetime>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeDatetime>;
-     *
-     * // New (object based)
-     * updateDatetimeAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.AttributeDatetime>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateDatetimeAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeDatetime>;
     updateDatetimeAttribute(
@@ -1280,7 +1160,7 @@ export class Databases {
      * @param {boolean} params.array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEmail>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createEmailColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createEmailColumn` instead.
      */
     createEmailAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.AttributeEmail>;
     /**
@@ -1295,15 +1175,7 @@ export class Databases {
      * @param {boolean} array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEmail>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail>;
-     *
-     * // New (object based)
-     * createEmailAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.AttributeEmail>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEmail>;
     createEmailAttribute(
@@ -1385,7 +1257,7 @@ export class Databases {
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEmail>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.updateEmailColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateEmailColumn` instead.
      */
     updateEmailAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.AttributeEmail>;
     /**
@@ -1400,15 +1272,7 @@ export class Databases {
      * @param {string} newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEmail>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeEmail>;
-     *
-     * // New (object based)
-     * updateEmailAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.AttributeEmail>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateEmailAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeEmail>;
     updateEmailAttribute(
@@ -1491,7 +1355,7 @@ export class Databases {
      * @param {boolean} params.array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEnum>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createEnumColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createEnumColumn` instead.
      */
     createEnumAttribute(params: { databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.AttributeEnum>;
     /**
@@ -1507,15 +1371,7 @@ export class Databases {
      * @param {boolean} array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEnum>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum>;
-     *
-     * // New (object based)
-     * createEnumAttribute(params: { databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.AttributeEnum>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeEnum>;
     createEnumAttribute(
@@ -1606,7 +1462,7 @@ export class Databases {
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEnum>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.updateEnumColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateEnumColumn` instead.
      */
     updateEnumAttribute(params: { databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.AttributeEnum>;
     /**
@@ -1622,15 +1478,7 @@ export class Databases {
      * @param {string} newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEnum>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeEnum>;
-     *
-     * // New (object based)
-     * updateEnumAttribute(params: { databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.AttributeEnum>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateEnumAttribute(databaseId: string, collectionId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeEnum>;
     updateEnumAttribute(
@@ -1722,7 +1570,7 @@ export class Databases {
      * @param {boolean} params.array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createFloatColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createFloatColumn` instead.
      */
     createFloatAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean  }): Promise<Models.AttributeFloat>;
     /**
@@ -1739,15 +1587,7 @@ export class Databases {
      * @param {boolean} array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat>;
-     *
-     * // New (object based)
-     * createFloatAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean  }): Promise<Models.AttributeFloat>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat>;
     createFloatAttribute(
@@ -1841,7 +1681,7 @@ export class Databases {
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.updateFloatColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateFloatColumn` instead.
      */
     updateFloatAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string  }): Promise<Models.AttributeFloat>;
     /**
@@ -1858,15 +1698,7 @@ export class Databases {
      * @param {string} newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string): Promise<Models.AttributeFloat>;
-     *
-     * // New (object based)
-     * updateFloatAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string  }): Promise<Models.AttributeFloat>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string): Promise<Models.AttributeFloat>;
     updateFloatAttribute(
@@ -1960,7 +1792,7 @@ export class Databases {
      * @param {boolean} params.array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeInteger>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createIntegerColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createIntegerColumn` instead.
      */
     createIntegerAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean  }): Promise<Models.AttributeInteger>;
     /**
@@ -1977,15 +1809,7 @@ export class Databases {
      * @param {boolean} array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeInteger>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger>;
-     *
-     * // New (object based)
-     * createIntegerAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean  }): Promise<Models.AttributeInteger>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeInteger>;
     createIntegerAttribute(
@@ -2079,7 +1903,7 @@ export class Databases {
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeInteger>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.updateIntegerColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateIntegerColumn` instead.
      */
     updateIntegerAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string  }): Promise<Models.AttributeInteger>;
     /**
@@ -2096,15 +1920,7 @@ export class Databases {
      * @param {string} newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeInteger>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string): Promise<Models.AttributeInteger>;
-     *
-     * // New (object based)
-     * updateIntegerAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string  }): Promise<Models.AttributeInteger>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateIntegerAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string): Promise<Models.AttributeInteger>;
     updateIntegerAttribute(
@@ -2196,7 +2012,7 @@ export class Databases {
      * @param {boolean} params.array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeIp>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createIpColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createIpColumn` instead.
      */
     createIpAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.AttributeIp>;
     /**
@@ -2211,15 +2027,7 @@ export class Databases {
      * @param {boolean} array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeIp>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp>;
-     *
-     * // New (object based)
-     * createIpAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.AttributeIp>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeIp>;
     createIpAttribute(
@@ -2301,7 +2109,7 @@ export class Databases {
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeIp>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.updateIpColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateIpColumn` instead.
      */
     updateIpAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.AttributeIp>;
     /**
@@ -2316,15 +2124,7 @@ export class Databases {
      * @param {string} newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeIp>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeIp>;
-     *
-     * // New (object based)
-     * updateIpAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.AttributeIp>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateIpAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeIp>;
     updateIpAttribute(
@@ -2408,7 +2208,7 @@ export class Databases {
      * @param {RelationMutate} params.onDelete - Constraints option
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createRelationshipColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createRelationshipColumn` instead.
      */
     createRelationshipAttribute(params: { databaseId: string, collectionId: string, relatedCollectionId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate  }): Promise<Models.AttributeRelationship>;
     /**
@@ -2425,15 +2225,7 @@ export class Databases {
      * @param {RelationMutate} onDelete - Constraints option
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createRelationshipAttribute(databaseId: string, collectionId: string, relatedCollectionId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate): Promise<Models.AttributeRelationship>;
-     *
-     * // New (object based)
-     * createRelationshipAttribute(params: { databaseId: string, collectionId: string, relatedCollectionId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate  }): Promise<Models.AttributeRelationship>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createRelationshipAttribute(databaseId: string, collectionId: string, relatedCollectionId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate): Promise<Models.AttributeRelationship>;
     createRelationshipAttribute(
@@ -2527,7 +2319,7 @@ export class Databases {
      * @param {boolean} params.encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createStringColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createStringColumn` instead.
      */
     createStringAttribute(params: { databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean  }): Promise<Models.AttributeString>;
     /**
@@ -2544,15 +2336,7 @@ export class Databases {
      * @param {boolean} encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createStringAttribute(databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean): Promise<Models.AttributeString>;
-     *
-     * // New (object based)
-     * createStringAttribute(params: { databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean  }): Promise<Models.AttributeString>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createStringAttribute(databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean): Promise<Models.AttributeString>;
     createStringAttribute(
@@ -2648,7 +2432,7 @@ export class Databases {
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.updateStringColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateStringColumn` instead.
      */
     updateStringAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string  }): Promise<Models.AttributeString>;
     /**
@@ -2664,15 +2448,7 @@ export class Databases {
      * @param {string} newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateStringAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string): Promise<Models.AttributeString>;
-     *
-     * // New (object based)
-     * updateStringAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string  }): Promise<Models.AttributeString>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateStringAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string): Promise<Models.AttributeString>;
     updateStringAttribute(
@@ -2759,7 +2535,7 @@ export class Databases {
      * @param {boolean} params.array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeUrl>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createUrlColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createUrlColumn` instead.
      */
     createUrlAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.AttributeUrl>;
     /**
@@ -2774,15 +2550,7 @@ export class Databases {
      * @param {boolean} array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeUrl>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl>;
-     *
-     * // New (object based)
-     * createUrlAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.AttributeUrl>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeUrl>;
     createUrlAttribute(
@@ -2864,7 +2632,7 @@ export class Databases {
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeUrl>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.updateUrlColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateUrlColumn` instead.
      */
     updateUrlAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.AttributeUrl>;
     /**
@@ -2879,15 +2647,7 @@ export class Databases {
      * @param {string} newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeUrl>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeUrl>;
-     *
-     * // New (object based)
-     * updateUrlAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.AttributeUrl>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateUrlAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeUrl>;
     updateUrlAttribute(
@@ -2965,7 +2725,7 @@ export class Databases {
      * @param {string} params.key - Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.getColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.getColumn` instead.
      */
     getAttribute(params: { databaseId: string, collectionId: string, key: string  }): Promise<{}>;
     /**
@@ -2976,15 +2736,7 @@ export class Databases {
      * @param {string} key - Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getAttribute(databaseId: string, collectionId: string, key: string): Promise<{}>;
-     *
-     * // New (object based)
-     * getAttribute(params: { databaseId: string, collectionId: string, key: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getAttribute(databaseId: string, collectionId: string, key: string): Promise<{}>;
     getAttribute(
@@ -3040,7 +2792,7 @@ export class Databases {
      * @param {string} params.key - Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.deleteColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.deleteColumn` instead.
      */
     deleteAttribute(params: { databaseId: string, collectionId: string, key: string  }): Promise<{}>;
     /**
@@ -3051,15 +2803,7 @@ export class Databases {
      * @param {string} key - Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteAttribute(databaseId: string, collectionId: string, key: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteAttribute(params: { databaseId: string, collectionId: string, key: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteAttribute(databaseId: string, collectionId: string, key: string): Promise<{}>;
     deleteAttribute(
@@ -3119,7 +2863,7 @@ export class Databases {
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.updateRelationshipColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateRelationshipColumn` instead.
      */
     updateRelationshipAttribute(params: { databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string  }): Promise<Models.AttributeRelationship>;
     /**
@@ -3133,15 +2877,7 @@ export class Databases {
      * @param {string} newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateRelationshipAttribute(databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string): Promise<Models.AttributeRelationship>;
-     *
-     * // New (object based)
-     * updateRelationshipAttribute(params: { databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string  }): Promise<Models.AttributeRelationship>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateRelationshipAttribute(databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string): Promise<Models.AttributeRelationship>;
     updateRelationshipAttribute(
@@ -3208,7 +2944,7 @@ export class Databases {
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.listRows` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.listRows` instead.
      */
     listDocuments<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, queries?: string[]  }): Promise<Models.DocumentList<Document>>;
     /**
@@ -3219,15 +2955,7 @@ export class Databases {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listDocuments<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.DocumentList<Document>>;
-     *
-     * // New (object based)
-     * listDocuments<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, queries?: string[]  }): Promise<Models.DocumentList<Document>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listDocuments<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.DocumentList<Document>>;
     listDocuments<Document extends Models.Document = Models.DefaultDocument>(
@@ -3285,7 +3013,7 @@ export class Databases {
      * @param {string[]} params.permissions - An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createRow` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createRow` instead.
      */
     createDocument<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, data: Document extends Models.DefaultDocument ? Partial<Models.Document> & Record<string, any> : Partial<Models.Document> & Omit<Document, keyof Models.Document>, permissions?: string[]  }): Promise<Document>;
     /**
@@ -3298,15 +3026,7 @@ export class Databases {
      * @param {string[]} permissions - An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createDocument<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, data: Document extends Models.DefaultDocument ? Partial<Models.Document> & Record<string, any> : Partial<Models.Document> & Omit<Document, keyof Models.Document>, permissions?: string[]): Promise<Document>;
-     *
-     * // New (object based)
-     * createDocument<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, data: Document extends Models.DefaultDocument ? Partial<Models.Document> & Record<string, any> : Partial<Models.Document> & Omit<Document, keyof Models.Document>, permissions?: string[]  }): Promise<Document>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createDocument<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, data: Document extends Models.DefaultDocument ? Partial<Models.Document> & Record<string, any> : Partial<Models.Document> & Omit<Document, keyof Models.Document>, permissions?: string[]): Promise<Document>;
     createDocument<Document extends Models.Document = Models.DefaultDocument>(
@@ -3382,7 +3102,7 @@ export class Databases {
      * @param {object[]} params.documents - Array of documents data as JSON objects.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createRows` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createRows` instead.
      */
     createDocuments<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documents: object[]  }): Promise<Models.DocumentList<Document>>;
     /**
@@ -3393,15 +3113,7 @@ export class Databases {
      * @param {object[]} documents - Array of documents data as JSON objects.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createDocuments<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documents: object[]): Promise<Models.DocumentList<Document>>;
-     *
-     * // New (object based)
-     * createDocuments<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documents: object[]  }): Promise<Models.DocumentList<Document>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createDocuments<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documents: object[]): Promise<Models.DocumentList<Document>>;
     createDocuments<Document extends Models.Document = Models.DefaultDocument>(
@@ -3462,7 +3174,7 @@ export class Databases {
      * @param {object[]} params.documents - Array of document data as JSON objects. May contain partial documents.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.upsertRows` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.upsertRows` instead.
      */
     upsertDocuments<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documents: object[]  }): Promise<Models.DocumentList<Document>>;
     /**
@@ -3474,15 +3186,7 @@ export class Databases {
      * @param {object[]} documents - Array of document data as JSON objects. May contain partial documents.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * upsertDocuments<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documents: object[]): Promise<Models.DocumentList<Document>>;
-     *
-     * // New (object based)
-     * upsertDocuments<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documents: object[]  }): Promise<Models.DocumentList<Document>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     upsertDocuments<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documents: object[]): Promise<Models.DocumentList<Document>>;
     upsertDocuments<Document extends Models.Document = Models.DefaultDocument>(
@@ -3543,7 +3247,7 @@ export class Databases {
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.updateRows` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateRows` instead.
      */
     updateDocuments<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, data?: object, queries?: string[]  }): Promise<Models.DocumentList<Document>>;
     /**
@@ -3555,15 +3259,7 @@ export class Databases {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateDocuments<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, data?: object, queries?: string[]): Promise<Models.DocumentList<Document>>;
-     *
-     * // New (object based)
-     * updateDocuments<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, data?: object, queries?: string[]  }): Promise<Models.DocumentList<Document>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateDocuments<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, data?: object, queries?: string[]): Promise<Models.DocumentList<Document>>;
     updateDocuments<Document extends Models.Document = Models.DefaultDocument>(
@@ -3625,7 +3321,7 @@ export class Databases {
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.deleteRows` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.deleteRows` instead.
      */
     deleteDocuments<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, queries?: string[]  }): Promise<Models.DocumentList<Document>>;
     /**
@@ -3636,15 +3332,7 @@ export class Databases {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteDocuments<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.DocumentList<Document>>;
-     *
-     * // New (object based)
-     * deleteDocuments<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, queries?: string[]  }): Promise<Models.DocumentList<Document>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteDocuments<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.DocumentList<Document>>;
     deleteDocuments<Document extends Models.Document = Models.DefaultDocument>(
@@ -3702,7 +3390,7 @@ export class Databases {
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.getRow` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.getRow` instead.
      */
     getDocument<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, queries?: string[]  }): Promise<Document>;
     /**
@@ -3714,15 +3402,7 @@ export class Databases {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getDocument<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, queries?: string[]): Promise<Document>;
-     *
-     * // New (object based)
-     * getDocument<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, queries?: string[]  }): Promise<Document>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getDocument<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, queries?: string[]): Promise<Document>;
     getDocument<Document extends Models.Document = Models.DefaultDocument>(
@@ -3785,7 +3465,7 @@ export class Databases {
      * @param {string[]} params.permissions - An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.upsertRow` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.upsertRow` instead.
      */
     upsertDocument<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, data: object, permissions?: string[]  }): Promise<Document>;
     /**
@@ -3798,15 +3478,7 @@ export class Databases {
      * @param {string[]} permissions - An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * upsertDocument<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, data: object, permissions?: string[]): Promise<Document>;
-     *
-     * // New (object based)
-     * upsertDocument<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, data: object, permissions?: string[]  }): Promise<Document>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     upsertDocument<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, data: object, permissions?: string[]): Promise<Document>;
     upsertDocument<Document extends Models.Document = Models.DefaultDocument>(
@@ -3881,7 +3553,7 @@ export class Databases {
      * @param {string[]} params.permissions - An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.updateRow` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateRow` instead.
      */
     updateDocument<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, data?: Document extends Models.DefaultDocument ? Partial<Models.Document> & Record<string, any> : Partial<Models.Document> & Partial<Omit<Document, keyof Models.Document>>, permissions?: string[]  }): Promise<Document>;
     /**
@@ -3894,15 +3566,7 @@ export class Databases {
      * @param {string[]} permissions - An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateDocument<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, data?: Document extends Models.DefaultDocument ? Partial<Models.Document> & Record<string, any> : Partial<Models.Document> & Partial<Omit<Document, keyof Models.Document>>, permissions?: string[]): Promise<Document>;
-     *
-     * // New (object based)
-     * updateDocument<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, data?: Document extends Models.DefaultDocument ? Partial<Models.Document> & Record<string, any> : Partial<Models.Document> & Partial<Omit<Document, keyof Models.Document>>, permissions?: string[]  }): Promise<Document>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateDocument<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, data?: Document extends Models.DefaultDocument ? Partial<Models.Document> & Record<string, any> : Partial<Models.Document> & Partial<Omit<Document, keyof Models.Document>>, permissions?: string[]): Promise<Document>;
     updateDocument<Document extends Models.Document = Models.DefaultDocument>(
@@ -3972,7 +3636,7 @@ export class Databases {
      * @param {string} params.documentId - Document ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.deleteRow` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.deleteRow` instead.
      */
     deleteDocument(params: { databaseId: string, collectionId: string, documentId: string  }): Promise<{}>;
     /**
@@ -3983,15 +3647,7 @@ export class Databases {
      * @param {string} documentId - Document ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteDocument(databaseId: string, collectionId: string, documentId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteDocument(params: { databaseId: string, collectionId: string, documentId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteDocument(databaseId: string, collectionId: string, documentId: string): Promise<{}>;
     deleteDocument(
@@ -4051,7 +3707,7 @@ export class Databases {
      * @param {number} params.min - Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.decrementRowColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.decrementRowColumn` instead.
      */
     decrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, min?: number  }): Promise<Document>;
     /**
@@ -4065,15 +3721,7 @@ export class Databases {
      * @param {number} min - Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * decrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, min?: number): Promise<Document>;
-     *
-     * // New (object based)
-     * decrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, min?: number  }): Promise<Document>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     decrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, min?: number): Promise<Document>;
     decrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(
@@ -4148,7 +3796,7 @@ export class Databases {
      * @param {number} params.max - Maximum value for the attribute. If the current value is greater than this value, an error will be thrown.
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.incrementRowColumn` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.incrementRowColumn` instead.
      */
     incrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, max?: number  }): Promise<Document>;
     /**
@@ -4162,15 +3810,7 @@ export class Databases {
      * @param {number} max - Maximum value for the attribute. If the current value is greater than this value, an error will be thrown.
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * incrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, max?: number): Promise<Document>;
-     *
-     * // New (object based)
-     * incrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, max?: number  }): Promise<Document>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     incrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, max?: number): Promise<Document>;
     incrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(
@@ -4242,7 +3882,7 @@ export class Databases {
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, type, status, attributes, error
      * @throws {AppwriteException}
      * @returns {Promise<Models.IndexList>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.listIndexes` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.listIndexes` instead.
      */
     listIndexes(params: { databaseId: string, collectionId: string, queries?: string[]  }): Promise<Models.IndexList>;
     /**
@@ -4253,15 +3893,7 @@ export class Databases {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, type, status, attributes, error
      * @throws {AppwriteException}
      * @returns {Promise<Models.IndexList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listIndexes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.IndexList>;
-     *
-     * // New (object based)
-     * listIndexes(params: { databaseId: string, collectionId: string, queries?: string[]  }): Promise<Models.IndexList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listIndexes(databaseId: string, collectionId: string, queries?: string[]): Promise<Models.IndexList>;
     listIndexes(
@@ -4322,7 +3954,7 @@ export class Databases {
      * @param {number[]} params.lengths - Length of index. Maximum of 100
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.createIndex` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createIndex` instead.
      */
     createIndex(params: { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number[]  }): Promise<Models.Index>;
     /**
@@ -4338,15 +3970,7 @@ export class Databases {
      * @param {number[]} lengths - Length of index. Maximum of 100
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number[]): Promise<Models.Index>;
-     *
-     * // New (object based)
-     * createIndex(params: { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number[]  }): Promise<Models.Index>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number[]): Promise<Models.Index>;
     createIndex(
@@ -4432,7 +4056,7 @@ export class Databases {
      * @param {string} params.key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.getIndex` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.getIndex` instead.
      */
     getIndex(params: { databaseId: string, collectionId: string, key: string  }): Promise<Models.Index>;
     /**
@@ -4443,15 +4067,7 @@ export class Databases {
      * @param {string} key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getIndex(databaseId: string, collectionId: string, key: string): Promise<Models.Index>;
-     *
-     * // New (object based)
-     * getIndex(params: { databaseId: string, collectionId: string, key: string  }): Promise<Models.Index>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getIndex(databaseId: string, collectionId: string, key: string): Promise<Models.Index>;
     getIndex(
@@ -4507,7 +4123,7 @@ export class Databases {
      * @param {string} params.key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDb.deleteIndex` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.deleteIndex` instead.
      */
     deleteIndex(params: { databaseId: string, collectionId: string, key: string  }): Promise<{}>;
     /**
@@ -4518,15 +4134,7 @@ export class Databases {
      * @param {string} key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteIndex(databaseId: string, collectionId: string, key: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteIndex(params: { databaseId: string, collectionId: string, key: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteIndex(databaseId: string, collectionId: string, key: string): Promise<{}>;
     deleteIndex(

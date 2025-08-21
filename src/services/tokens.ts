@@ -27,15 +27,7 @@ export class Tokens {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: expire
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceTokenList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * list(bucketId: string, fileId: string, queries?: string[]): Promise<Models.ResourceTokenList>;
-     *
-     * // New (object based)
-     * list(params: { bucketId: string, fileId: string, queries?: string[]  }): Promise<Models.ResourceTokenList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     list(bucketId: string, fileId: string, queries?: string[]): Promise<Models.ResourceTokenList>;
     list(
@@ -101,15 +93,7 @@ export class Tokens {
      * @param {string} expire - Token expiry date
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceToken>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createFileToken(bucketId: string, fileId: string, expire?: string): Promise<Models.ResourceToken>;
-     *
-     * // New (object based)
-     * createFileToken(params: { bucketId: string, fileId: string, expire?: string  }): Promise<Models.ResourceToken>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createFileToken(bucketId: string, fileId: string, expire?: string): Promise<Models.ResourceToken>;
     createFileToken(
@@ -172,15 +156,7 @@ export class Tokens {
      * @param {string} tokenId - Token ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceToken>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * get(tokenId: string): Promise<Models.ResourceToken>;
-     *
-     * // New (object based)
-     * get(params: { tokenId: string  }): Promise<Models.ResourceToken>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     get(tokenId: string): Promise<Models.ResourceToken>;
     get(
@@ -233,15 +209,7 @@ export class Tokens {
      * @param {string} expire - File token expiry date
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceToken>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * update(tokenId: string, expire?: string): Promise<Models.ResourceToken>;
-     *
-     * // New (object based)
-     * update(params: { tokenId: string, expire?: string  }): Promise<Models.ResourceToken>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     update(tokenId: string, expire?: string): Promise<Models.ResourceToken>;
     update(
@@ -299,15 +267,7 @@ export class Tokens {
      * @param {string} tokenId - Token ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * delete(tokenId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * delete(params: { tokenId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     delete(tokenId: string): Promise<{}>;
     delete(

@@ -10,7 +10,7 @@ export namespace Models {
      */
     export type RowList<Row extends Models.Row = Models.DefaultRow> = {
         /**
-         * Total number of rows rows that matched your query.
+         * Total number of rows that matched your query.
          */
         total: number;
         /**
@@ -24,7 +24,7 @@ export namespace Models {
      */
     export type DocumentList<Document extends Models.Document = Models.DefaultDocument> = {
         /**
-         * Total number of documents rows that matched your query.
+         * Total number of documents that matched your query.
          */
         total: number;
         /**
@@ -38,7 +38,7 @@ export namespace Models {
      */
     export type TableList = {
         /**
-         * Total number of tables rows that matched your query.
+         * Total number of tables that matched your query.
          */
         total: number;
         /**
@@ -52,7 +52,7 @@ export namespace Models {
      */
     export type CollectionList = {
         /**
-         * Total number of collections rows that matched your query.
+         * Total number of collections that matched your query.
          */
         total: number;
         /**
@@ -66,7 +66,7 @@ export namespace Models {
      */
     export type DatabaseList = {
         /**
-         * Total number of databases rows that matched your query.
+         * Total number of databases that matched your query.
          */
         total: number;
         /**
@@ -80,7 +80,7 @@ export namespace Models {
      */
     export type IndexList = {
         /**
-         * Total number of indexes rows that matched your query.
+         * Total number of indexes that matched your query.
          */
         total: number;
         /**
@@ -94,7 +94,7 @@ export namespace Models {
      */
     export type ColumnIndexList = {
         /**
-         * Total number of indexes rows that matched your query.
+         * Total number of indexes that matched your query.
          */
         total: number;
         /**
@@ -108,7 +108,7 @@ export namespace Models {
      */
     export type UserList<Preferences extends Models.Preferences = Models.DefaultPreferences> = {
         /**
-         * Total number of users rows that matched your query.
+         * Total number of users that matched your query.
          */
         total: number;
         /**
@@ -122,7 +122,7 @@ export namespace Models {
      */
     export type SessionList = {
         /**
-         * Total number of sessions rows that matched your query.
+         * Total number of sessions that matched your query.
          */
         total: number;
         /**
@@ -136,7 +136,7 @@ export namespace Models {
      */
     export type IdentityList = {
         /**
-         * Total number of identities rows that matched your query.
+         * Total number of identities that matched your query.
          */
         total: number;
         /**
@@ -150,7 +150,7 @@ export namespace Models {
      */
     export type LogList = {
         /**
-         * Total number of logs rows that matched your query.
+         * Total number of logs that matched your query.
          */
         total: number;
         /**
@@ -164,7 +164,7 @@ export namespace Models {
      */
     export type FileList = {
         /**
-         * Total number of files rows that matched your query.
+         * Total number of files that matched your query.
          */
         total: number;
         /**
@@ -178,7 +178,7 @@ export namespace Models {
      */
     export type BucketList = {
         /**
-         * Total number of buckets rows that matched your query.
+         * Total number of buckets that matched your query.
          */
         total: number;
         /**
@@ -192,7 +192,7 @@ export namespace Models {
      */
     export type ResourceTokenList = {
         /**
-         * Total number of tokens rows that matched your query.
+         * Total number of tokens that matched your query.
          */
         total: number;
         /**
@@ -206,7 +206,7 @@ export namespace Models {
      */
     export type TeamList<Preferences extends Models.Preferences = Models.DefaultPreferences> = {
         /**
-         * Total number of teams rows that matched your query.
+         * Total number of teams that matched your query.
          */
         total: number;
         /**
@@ -220,7 +220,7 @@ export namespace Models {
      */
     export type MembershipList = {
         /**
-         * Total number of memberships rows that matched your query.
+         * Total number of memberships that matched your query.
          */
         total: number;
         /**
@@ -234,7 +234,7 @@ export namespace Models {
      */
     export type SiteList = {
         /**
-         * Total number of sites rows that matched your query.
+         * Total number of sites that matched your query.
          */
         total: number;
         /**
@@ -248,7 +248,7 @@ export namespace Models {
      */
     export type FunctionList = {
         /**
-         * Total number of functions rows that matched your query.
+         * Total number of functions that matched your query.
          */
         total: number;
         /**
@@ -262,7 +262,7 @@ export namespace Models {
      */
     export type FrameworkList = {
         /**
-         * Total number of frameworks rows that matched your query.
+         * Total number of frameworks that matched your query.
          */
         total: number;
         /**
@@ -276,7 +276,7 @@ export namespace Models {
      */
     export type RuntimeList = {
         /**
-         * Total number of runtimes rows that matched your query.
+         * Total number of runtimes that matched your query.
          */
         total: number;
         /**
@@ -290,7 +290,7 @@ export namespace Models {
      */
     export type DeploymentList = {
         /**
-         * Total number of deployments rows that matched your query.
+         * Total number of deployments that matched your query.
          */
         total: number;
         /**
@@ -304,7 +304,7 @@ export namespace Models {
      */
     export type ExecutionList = {
         /**
-         * Total number of executions rows that matched your query.
+         * Total number of executions that matched your query.
          */
         total: number;
         /**
@@ -318,7 +318,7 @@ export namespace Models {
      */
     export type CountryList = {
         /**
-         * Total number of countries rows that matched your query.
+         * Total number of countries that matched your query.
          */
         total: number;
         /**
@@ -332,7 +332,7 @@ export namespace Models {
      */
     export type ContinentList = {
         /**
-         * Total number of continents rows that matched your query.
+         * Total number of continents that matched your query.
          */
         total: number;
         /**
@@ -346,7 +346,7 @@ export namespace Models {
      */
     export type LanguageList = {
         /**
-         * Total number of languages rows that matched your query.
+         * Total number of languages that matched your query.
          */
         total: number;
         /**
@@ -360,7 +360,7 @@ export namespace Models {
      */
     export type CurrencyList = {
         /**
-         * Total number of currencies rows that matched your query.
+         * Total number of currencies that matched your query.
          */
         total: number;
         /**
@@ -374,7 +374,7 @@ export namespace Models {
      */
     export type PhoneList = {
         /**
-         * Total number of phones rows that matched your query.
+         * Total number of phones that matched your query.
          */
         total: number;
         /**
@@ -388,7 +388,7 @@ export namespace Models {
      */
     export type VariableList = {
         /**
-         * Total number of variables rows that matched your query.
+         * Total number of variables that matched your query.
          */
         total: number;
         /**
@@ -402,7 +402,7 @@ export namespace Models {
      */
     export type LocaleCodeList = {
         /**
-         * Total number of localeCodes rows that matched your query.
+         * Total number of localeCodes that matched your query.
          */
         total: number;
         /**
@@ -416,7 +416,7 @@ export namespace Models {
      */
     export type ProviderList = {
         /**
-         * Total number of providers rows that matched your query.
+         * Total number of providers that matched your query.
          */
         total: number;
         /**
@@ -430,7 +430,7 @@ export namespace Models {
      */
     export type MessageList = {
         /**
-         * Total number of messages rows that matched your query.
+         * Total number of messages that matched your query.
          */
         total: number;
         /**
@@ -444,7 +444,7 @@ export namespace Models {
      */
     export type TopicList = {
         /**
-         * Total number of topics rows that matched your query.
+         * Total number of topics that matched your query.
          */
         total: number;
         /**
@@ -458,7 +458,7 @@ export namespace Models {
      */
     export type SubscriberList = {
         /**
-         * Total number of subscribers rows that matched your query.
+         * Total number of subscribers that matched your query.
          */
         total: number;
         /**
@@ -472,7 +472,7 @@ export namespace Models {
      */
     export type TargetList = {
         /**
-         * Total number of targets rows that matched your query.
+         * Total number of targets that matched your query.
          */
         total: number;
         /**
@@ -486,7 +486,7 @@ export namespace Models {
      */
     export type SpecificationList = {
         /**
-         * Total number of specifications rows that matched your query.
+         * Total number of specifications that matched your query.
          */
         total: number;
         /**

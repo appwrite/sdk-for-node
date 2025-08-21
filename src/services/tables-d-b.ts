@@ -5,7 +5,7 @@ import { RelationshipType } from '../enums/relationship-type';
 import { RelationMutate } from '../enums/relation-mutate';
 import { IndexType } from '../enums/index-type';
 
-export class TablesDb {
+export class TablesDB {
     client: Client;
 
     constructor(client: Client) {
@@ -28,15 +28,7 @@ export class TablesDb {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DatabaseList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * list(queries?: string[], search?: string): Promise<Models.DatabaseList>;
-     *
-     * // New (object based)
-     * list(params: { queries?: string[], search?: string  }): Promise<Models.DatabaseList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     list(queries?: string[], search?: string): Promise<Models.DatabaseList>;
     list(
@@ -99,15 +91,7 @@ export class TablesDb {
      * @param {boolean} enabled - Is the database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * create(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database>;
-     *
-     * // New (object based)
-     * create(params: { databaseId: string, name: string, enabled?: boolean  }): Promise<Models.Database>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     create(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database>;
     create(
@@ -176,15 +160,7 @@ export class TablesDb {
      * @param {string} databaseId - Database ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * get(databaseId: string): Promise<Models.Database>;
-     *
-     * // New (object based)
-     * get(params: { databaseId: string  }): Promise<Models.Database>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     get(databaseId: string): Promise<Models.Database>;
     get(
@@ -239,15 +215,7 @@ export class TablesDb {
      * @param {boolean} enabled - Is database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * update(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database>;
-     *
-     * // New (object based)
-     * update(params: { databaseId: string, name: string, enabled?: boolean  }): Promise<Models.Database>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     update(databaseId: string, name: string, enabled?: boolean): Promise<Models.Database>;
     update(
@@ -313,15 +281,7 @@ export class TablesDb {
      * @param {string} databaseId - Database ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * delete(databaseId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * delete(params: { databaseId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     delete(databaseId: string): Promise<{}>;
     delete(
@@ -377,15 +337,7 @@ export class TablesDb {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.TableList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listTables(databaseId: string, queries?: string[], search?: string): Promise<Models.TableList>;
-     *
-     * // New (object based)
-     * listTables(params: { databaseId: string, queries?: string[], search?: string  }): Promise<Models.TableList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listTables(databaseId: string, queries?: string[], search?: string): Promise<Models.TableList>;
     listTables(
@@ -434,7 +386,7 @@ export class TablesDb {
     }
 
     /**
-     * Create a new Table. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     * Create a new Table. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
@@ -447,7 +399,7 @@ export class TablesDb {
      */
     createTable(params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean  }): Promise<Models.Table>;
     /**
-     * Create a new Table. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     * Create a new Table. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
@@ -457,15 +409,7 @@ export class TablesDb {
      * @param {boolean} enabled - Is table enabled? When set to 'disabled', users cannot access the table but Server SDKs with and API key can still read and write to the table. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Table>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createTable(databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean): Promise<Models.Table>;
-     *
-     * // New (object based)
-     * createTable(params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean  }): Promise<Models.Table>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createTable(databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean): Promise<Models.Table>;
     createTable(
@@ -551,15 +495,7 @@ export class TablesDb {
      * @param {string} tableId - Table ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Table>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getTable(databaseId: string, tableId: string): Promise<Models.Table>;
-     *
-     * // New (object based)
-     * getTable(params: { databaseId: string, tableId: string  }): Promise<Models.Table>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getTable(databaseId: string, tableId: string): Promise<Models.Table>;
     getTable(
@@ -626,15 +562,7 @@ export class TablesDb {
      * @param {boolean} enabled - Is table enabled? When set to 'disabled', users cannot access the table but Server SDKs with and API key can still read and write to the table. No data is lost when this is toggled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Table>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateTable(databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean): Promise<Models.Table>;
-     *
-     * // New (object based)
-     * updateTable(params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean  }): Promise<Models.Table>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateTable(databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean): Promise<Models.Table>;
     updateTable(
@@ -717,15 +645,7 @@ export class TablesDb {
      * @param {string} tableId - Table ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteTable(databaseId: string, tableId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteTable(params: { databaseId: string, tableId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteTable(databaseId: string, tableId: string): Promise<{}>;
     deleteTable(
@@ -787,15 +707,7 @@ export class TablesDb {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, type, size, required, array, status, error
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listColumns(databaseId: string, tableId: string, queries?: string[]): Promise<Models.ColumnList>;
-     *
-     * // New (object based)
-     * listColumns(params: { databaseId: string, tableId: string, queries?: string[]  }): Promise<Models.ColumnList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listColumns(databaseId: string, tableId: string, queries?: string[]): Promise<Models.ColumnList>;
     listColumns(
@@ -848,7 +760,7 @@ export class TablesDb {
      * 
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
      * @param {boolean} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
@@ -862,22 +774,14 @@ export class TablesDb {
      * 
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
      * @param {boolean} xdefault - Default value for column when not provided. Cannot be set when column is required.
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnBoolean>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createBooleanColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.ColumnBoolean>;
-     *
-     * // New (object based)
-     * createBooleanColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean  }): Promise<Models.ColumnBoolean>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createBooleanColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, array?: boolean): Promise<Models.ColumnBoolean>;
     createBooleanColumn(
@@ -951,7 +855,7 @@ export class TablesDb {
      * Update a boolean column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
      * @param {boolean} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
@@ -964,22 +868,14 @@ export class TablesDb {
      * Update a boolean column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
      * @param {boolean} xdefault - Default value for column when not provided. Cannot be set when column is required.
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnBoolean>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateBooleanColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string): Promise<Models.ColumnBoolean>;
-     *
-     * // New (object based)
-     * updateBooleanColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string  }): Promise<Models.ColumnBoolean>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateBooleanColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: boolean, newKey?: string): Promise<Models.ColumnBoolean>;
     updateBooleanColumn(
@@ -1073,15 +969,7 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnDatetime>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createDatetimeColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnDatetime>;
-     *
-     * // New (object based)
-     * createDatetimeColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnDatetime>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createDatetimeColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnDatetime>;
     createDatetimeColumn(
@@ -1175,15 +1063,7 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnDatetime>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateDatetimeColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.ColumnDatetime>;
-     *
-     * // New (object based)
-     * updateDatetimeColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnDatetime>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateDatetimeColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.ColumnDatetime>;
     updateDatetimeColumn(
@@ -1279,15 +1159,7 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnEmail>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createEmailColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnEmail>;
-     *
-     * // New (object based)
-     * createEmailColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnEmail>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createEmailColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnEmail>;
     createEmailColumn(
@@ -1383,15 +1255,7 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnEmail>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateEmailColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.ColumnEmail>;
-     *
-     * // New (object based)
-     * updateEmailColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnEmail>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateEmailColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.ColumnEmail>;
     updateEmailColumn(
@@ -1487,15 +1351,7 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnEnum>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createEnumColumn(databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnEnum>;
-     *
-     * // New (object based)
-     * createEnumColumn(params: { databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnEnum>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createEnumColumn(databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnEnum>;
     createEnumColumn(
@@ -1601,15 +1457,7 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnEnum>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateEnumColumn(databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string): Promise<Models.ColumnEnum>;
-     *
-     * // New (object based)
-     * updateEnumColumn(params: { databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnEnum>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateEnumColumn(databaseId: string, tableId: string, key: string, elements: string[], required: boolean, xdefault?: string, newKey?: string): Promise<Models.ColumnEnum>;
     updateEnumColumn(
@@ -1717,15 +1565,7 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnFloat>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createFloatColumn(databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.ColumnFloat>;
-     *
-     * // New (object based)
-     * createFloatColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean  }): Promise<Models.ColumnFloat>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createFloatColumn(databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.ColumnFloat>;
     createFloatColumn(
@@ -1835,15 +1675,7 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnFloat>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateFloatColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string): Promise<Models.ColumnFloat>;
-     *
-     * // New (object based)
-     * updateFloatColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string  }): Promise<Models.ColumnFloat>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateFloatColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string): Promise<Models.ColumnFloat>;
     updateFloatColumn(
@@ -1953,15 +1785,7 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnInteger>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createIntegerColumn(databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.ColumnInteger>;
-     *
-     * // New (object based)
-     * createIntegerColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean  }): Promise<Models.ColumnInteger>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createIntegerColumn(databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.ColumnInteger>;
     createIntegerColumn(
@@ -2071,15 +1895,7 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnInteger>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateIntegerColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string): Promise<Models.ColumnInteger>;
-     *
-     * // New (object based)
-     * updateIntegerColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string  }): Promise<Models.ColumnInteger>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateIntegerColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string): Promise<Models.ColumnInteger>;
     updateIntegerColumn(
@@ -2185,15 +2001,7 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIp>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createIpColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnIp>;
-     *
-     * // New (object based)
-     * createIpColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnIp>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createIpColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnIp>;
     createIpColumn(
@@ -2289,15 +2097,7 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIp>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateIpColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.ColumnIp>;
-     *
-     * // New (object based)
-     * updateIpColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnIp>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateIpColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.ColumnIp>;
     updateIpColumn(
@@ -2397,15 +2197,7 @@ export class TablesDb {
      * @param {RelationMutate} onDelete - Constraints option
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnRelationship>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createRelationshipColumn(databaseId: string, tableId: string, relatedTableId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate): Promise<Models.ColumnRelationship>;
-     *
-     * // New (object based)
-     * createRelationshipColumn(params: { databaseId: string, tableId: string, relatedTableId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate  }): Promise<Models.ColumnRelationship>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createRelationshipColumn(databaseId: string, tableId: string, relatedTableId: string, type: RelationshipType, twoWay?: boolean, key?: string, twoWayKey?: string, onDelete?: RelationMutate): Promise<Models.ColumnRelationship>;
     createRelationshipColumn(
@@ -2490,7 +2282,7 @@ export class TablesDb {
      * 
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} params.key - Column Key.
      * @param {number} params.size - Attribute size for text attributes, in number of characters.
      * @param {boolean} params.required - Is column required?
@@ -2506,7 +2298,7 @@ export class TablesDb {
      * 
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} key - Column Key.
      * @param {number} size - Attribute size for text attributes, in number of characters.
      * @param {boolean} required - Is column required?
@@ -2515,15 +2307,7 @@ export class TablesDb {
      * @param {boolean} encrypt - Toggle encryption for the column. Encryption enhances security by not storing any plain text values in the database. However, encrypted columns cannot be queried.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnString>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createStringColumn(databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean): Promise<Models.ColumnString>;
-     *
-     * // New (object based)
-     * createStringColumn(params: { databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean  }): Promise<Models.ColumnString>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createStringColumn(databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean): Promise<Models.ColumnString>;
     createStringColumn(
@@ -2611,7 +2395,7 @@ export class TablesDb {
      * 
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
      * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
@@ -2626,7 +2410,7 @@ export class TablesDb {
      * 
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
      * @param {string} xdefault - Default value for column when not provided. Cannot be set when column is required.
@@ -2634,15 +2418,7 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnString>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateStringColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string): Promise<Models.ColumnString>;
-     *
-     * // New (object based)
-     * updateStringColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string  }): Promise<Models.ColumnString>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateStringColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string): Promise<Models.ColumnString>;
     updateStringColumn(
@@ -2743,15 +2519,7 @@ export class TablesDb {
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnUrl>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createUrlColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnUrl>;
-     *
-     * // New (object based)
-     * createUrlColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean  }): Promise<Models.ColumnUrl>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createUrlColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnUrl>;
     createUrlColumn(
@@ -2847,15 +2615,7 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnUrl>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateUrlColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.ColumnUrl>;
-     *
-     * // New (object based)
-     * updateUrlColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnUrl>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateUrlColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.ColumnUrl>;
     updateUrlColumn(
@@ -2943,15 +2703,7 @@ export class TablesDb {
      * @param {string} key - Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getColumn(databaseId: string, tableId: string, key: string): Promise<{}>;
-     *
-     * // New (object based)
-     * getColumn(params: { databaseId: string, tableId: string, key: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getColumn(databaseId: string, tableId: string, key: string): Promise<{}>;
     getColumn(
@@ -3017,15 +2769,7 @@ export class TablesDb {
      * @param {string} key - Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteColumn(databaseId: string, tableId: string, key: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteColumn(params: { databaseId: string, tableId: string, key: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteColumn(databaseId: string, tableId: string, key: string): Promise<{}>;
     deleteColumn(
@@ -3098,15 +2842,7 @@ export class TablesDb {
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnRelationship>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateRelationshipColumn(databaseId: string, tableId: string, key: string, onDelete?: RelationMutate, newKey?: string): Promise<Models.ColumnRelationship>;
-     *
-     * // New (object based)
-     * updateRelationshipColumn(params: { databaseId: string, tableId: string, key: string, onDelete?: RelationMutate, newKey?: string  }): Promise<Models.ColumnRelationship>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateRelationshipColumn(databaseId: string, tableId: string, key: string, onDelete?: RelationMutate, newKey?: string): Promise<Models.ColumnRelationship>;
     updateRelationshipColumn(
@@ -3169,7 +2905,7 @@ export class TablesDb {
      * List indexes on the table.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, type, status, attributes, error
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndexList>}
@@ -3179,19 +2915,11 @@ export class TablesDb {
      * List indexes on the table.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, type, status, attributes, error
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndexList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listIndexes(databaseId: string, tableId: string, queries?: string[]): Promise<Models.ColumnIndexList>;
-     *
-     * // New (object based)
-     * listIndexes(params: { databaseId: string, tableId: string, queries?: string[]  }): Promise<Models.ColumnIndexList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listIndexes(databaseId: string, tableId: string, queries?: string[]): Promise<Models.ColumnIndexList>;
     listIndexes(
@@ -3244,7 +2972,7 @@ export class TablesDb {
      * Type can be `key`, `fulltext`, or `unique`.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} params.key - Index Key.
      * @param {IndexType} params.type - Index type.
      * @param {string[]} params.columns - Array of columns to index. Maximum of 100 columns are allowed, each 32 characters long.
@@ -3259,7 +2987,7 @@ export class TablesDb {
      * Type can be `key`, `fulltext`, or `unique`.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} key - Index Key.
      * @param {IndexType} type - Index type.
      * @param {string[]} columns - Array of columns to index. Maximum of 100 columns are allowed, each 32 characters long.
@@ -3267,15 +2995,7 @@ export class TablesDb {
      * @param {number[]} lengths - Length of index. Maximum of 100
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndex>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createIndex(databaseId: string, tableId: string, key: string, type: IndexType, columns: string[], orders?: string[], lengths?: number[]): Promise<Models.ColumnIndex>;
-     *
-     * // New (object based)
-     * createIndex(params: { databaseId: string, tableId: string, key: string, type: IndexType, columns: string[], orders?: string[], lengths?: number[]  }): Promise<Models.ColumnIndex>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createIndex(databaseId: string, tableId: string, key: string, type: IndexType, columns: string[], orders?: string[], lengths?: number[]): Promise<Models.ColumnIndex>;
     createIndex(
@@ -3357,7 +3077,7 @@ export class TablesDb {
      * Get index by ID.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} params.key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndex>}
@@ -3367,19 +3087,11 @@ export class TablesDb {
      * Get index by ID.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndex>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getIndex(databaseId: string, tableId: string, key: string): Promise<Models.ColumnIndex>;
-     *
-     * // New (object based)
-     * getIndex(params: { databaseId: string, tableId: string, key: string  }): Promise<Models.ColumnIndex>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getIndex(databaseId: string, tableId: string, key: string): Promise<Models.ColumnIndex>;
     getIndex(
@@ -3431,7 +3143,7 @@ export class TablesDb {
      * Delete an index.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} params.key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
@@ -3441,19 +3153,11 @@ export class TablesDb {
      * Delete an index.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteIndex(databaseId: string, tableId: string, key: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteIndex(params: { databaseId: string, tableId: string, key: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteIndex(databaseId: string, tableId: string, key: string): Promise<{}>;
     deleteIndex(
@@ -3506,7 +3210,7 @@ export class TablesDb {
      * Get a list of all the user's rows in a given table. You can use the query params to filter your results.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the TableDB service [server integration](https://appwrite.io/docs/server/tablesdbdb#tablesdbCreate).
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
@@ -3516,19 +3220,11 @@ export class TablesDb {
      * Get a list of all the user's rows in a given table. You can use the query params to filter your results.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the TableDB service [server integration](https://appwrite.io/docs/server/tablesdbdb#tablesdbCreate).
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listRows<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, queries?: string[]): Promise<Models.RowList<Row>>;
-     *
-     * // New (object based)
-     * listRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, queries?: string[]  }): Promise<Models.RowList<Row>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listRows<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, queries?: string[]): Promise<Models.RowList<Row>>;
     listRows<Row extends Models.Row = Models.DefaultRow>(
@@ -3577,10 +3273,10 @@ export class TablesDb {
     }
 
     /**
-     * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate). Make sure to define columns before creating rows.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate). Make sure to define columns before creating rows.
      * @param {string} params.rowId - Row ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>} params.data - Row data as JSON object.
      * @param {string[]} params.permissions - An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
@@ -3589,24 +3285,16 @@ export class TablesDb {
      */
     createRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>, permissions?: string[]  }): Promise<Row>;
     /**
-     * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate). Make sure to define columns before creating rows.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate). Make sure to define columns before creating rows.
      * @param {string} rowId - Row ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>} data - Row data as JSON object.
      * @param {string[]} permissions - An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Row>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>, permissions?: string[]): Promise<Row>;
-     *
-     * // New (object based)
-     * createRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>, permissions?: string[]  }): Promise<Row>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>, permissions?: string[]): Promise<Row>;
     createRow<Row extends Models.Row = Models.DefaultRow>(
@@ -3672,32 +3360,24 @@ export class TablesDb {
     }
 
     /**
-     * Create new Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     * Create new Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate). Make sure to define columns before creating rows.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate). Make sure to define columns before creating rows.
      * @param {object[]} params.rows - Array of documents data as JSON objects.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
      */
     createRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rows: object[]  }): Promise<Models.RowList<Row>>;
     /**
-     * Create new Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     * Create new Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate). Make sure to define columns before creating rows.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate). Make sure to define columns before creating rows.
      * @param {object[]} rows - Array of documents data as JSON objects.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createRows<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rows: object[]): Promise<Models.RowList<Row>>;
-     *
-     * // New (object based)
-     * createRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rows: object[]  }): Promise<Models.RowList<Row>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createRows<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rows: object[]): Promise<Models.RowList<Row>>;
     createRows<Row extends Models.Row = Models.DefaultRow>(
@@ -3750,7 +3430,7 @@ export class TablesDb {
     }
 
     /**
-     * Create or update Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     * Create or update Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
      * 
      *
      * @param {string} params.databaseId - Database ID.
@@ -3761,7 +3441,7 @@ export class TablesDb {
      */
     upsertRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rows: object[]  }): Promise<Models.RowList<Row>>;
     /**
-     * Create or update Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     * Create or update Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
      * 
      *
      * @param {string} databaseId - Database ID.
@@ -3769,15 +3449,7 @@ export class TablesDb {
      * @param {object[]} rows - Array of row data as JSON objects. May contain partial rows.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * upsertRows<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rows: object[]): Promise<Models.RowList<Row>>;
-     *
-     * // New (object based)
-     * upsertRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rows: object[]  }): Promise<Models.RowList<Row>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     upsertRows<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rows: object[]): Promise<Models.RowList<Row>>;
     upsertRows<Row extends Models.Row = Models.DefaultRow>(
@@ -3849,15 +3521,7 @@ export class TablesDb {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateRows<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, data?: object, queries?: string[]): Promise<Models.RowList<Row>>;
-     *
-     * // New (object based)
-     * updateRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, data?: object, queries?: string[]  }): Promise<Models.RowList<Row>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateRows<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, data?: object, queries?: string[]): Promise<Models.RowList<Row>>;
     updateRows<Row extends Models.Row = Models.DefaultRow>(
@@ -3915,7 +3579,7 @@ export class TablesDb {
      * Bulk delete rows using queries, if no queries are passed then all rows are deleted.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
@@ -3925,19 +3589,11 @@ export class TablesDb {
      * Bulk delete rows using queries, if no queries are passed then all rows are deleted.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteRows<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, queries?: string[]): Promise<Models.RowList<Row>>;
-     *
-     * // New (object based)
-     * deleteRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, queries?: string[]  }): Promise<Models.RowList<Row>>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteRows<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, queries?: string[]): Promise<Models.RowList<Row>>;
     deleteRows<Row extends Models.Row = Models.DefaultRow>(
@@ -3990,7 +3646,7 @@ export class TablesDb {
      * Get a row by its unique ID. This endpoint response returns a JSON object with the row data.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} params.rowId - Row ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
@@ -4001,20 +3657,12 @@ export class TablesDb {
      * Get a row by its unique ID. This endpoint response returns a JSON object with the row data.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} rowId - Row ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Row>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, queries?: string[]): Promise<Row>;
-     *
-     * // New (object based)
-     * getRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, queries?: string[]  }): Promise<Row>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, queries?: string[]): Promise<Row>;
     getRow<Row extends Models.Row = Models.DefaultRow>(
@@ -4068,7 +3716,7 @@ export class TablesDb {
     }
 
     /**
-     * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID.
@@ -4080,7 +3728,7 @@ export class TablesDb {
      */
     upsertRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]  }): Promise<Row>;
     /**
-     * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateTable) API or directly from your database console.
+     * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
@@ -4089,15 +3737,7 @@ export class TablesDb {
      * @param {string[]} permissions - An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Row>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * upsertRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]): Promise<Row>;
-     *
-     * // New (object based)
-     * upsertRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]  }): Promise<Row>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     upsertRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]): Promise<Row>;
     upsertRow<Row extends Models.Row = Models.DefaultRow>(
@@ -4178,15 +3818,7 @@ export class TablesDb {
      * @param {string[]} permissions - An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Row>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]): Promise<Row>;
-     *
-     * // New (object based)
-     * updateRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]  }): Promise<Row>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateRow<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[]): Promise<Row>;
     updateRow<Row extends Models.Row = Models.DefaultRow>(
@@ -4249,7 +3881,7 @@ export class TablesDb {
      * Delete a row by its unique ID.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} params.rowId - Row ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
@@ -4259,19 +3891,11 @@ export class TablesDb {
      * Delete a row by its unique ID.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tables#tablesCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
      * @param {string} rowId - Row ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteRow(databaseId: string, tableId: string, rowId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteRow(params: { databaseId: string, tableId: string, rowId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteRow(databaseId: string, tableId: string, rowId: string): Promise<{}>;
     deleteRow(
@@ -4344,15 +3968,7 @@ export class TablesDb {
      * @param {number} min - Minimum value for the column. If the current value is lesser than this value, an exception will be thrown.
      * @throws {AppwriteException}
      * @returns {Promise<Row>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * decrementRowColumn<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, column: string, value?: number, min?: number): Promise<Row>;
-     *
-     * // New (object based)
-     * decrementRowColumn<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, column: string, value?: number, min?: number  }): Promise<Row>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     decrementRowColumn<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, column: string, value?: number, min?: number): Promise<Row>;
     decrementRowColumn<Row extends Models.Row = Models.DefaultRow>(
@@ -4440,15 +4056,7 @@ export class TablesDb {
      * @param {number} max - Maximum value for the column. If the current value is greater than this value, an error will be thrown.
      * @throws {AppwriteException}
      * @returns {Promise<Row>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * incrementRowColumn<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, column: string, value?: number, max?: number): Promise<Row>;
-     *
-     * // New (object based)
-     * incrementRowColumn<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, column: string, value?: number, max?: number  }): Promise<Row>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     incrementRowColumn<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, rowId: string, column: string, value?: number, max?: number): Promise<Row>;
     incrementRowColumn<Row extends Models.Row = Models.DefaultRow>(

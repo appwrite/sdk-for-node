@@ -28,15 +28,7 @@ export class Storage {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.BucketList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listBuckets(queries?: string[], search?: string): Promise<Models.BucketList>;
-     *
-     * // New (object based)
-     * listBuckets(params: { queries?: string[], search?: string  }): Promise<Models.BucketList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listBuckets(queries?: string[], search?: string): Promise<Models.BucketList>;
     listBuckets(
@@ -111,15 +103,7 @@ export class Storage {
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
-     *
-     * // New (object based)
-     * createBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean  }): Promise<Models.Bucket>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
     createBucket(
@@ -223,15 +207,7 @@ export class Storage {
      * @param {string} bucketId - Bucket unique ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getBucket(bucketId: string): Promise<Models.Bucket>;
-     *
-     * // New (object based)
-     * getBucket(params: { bucketId: string  }): Promise<Models.Bucket>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getBucket(bucketId: string): Promise<Models.Bucket>;
     getBucket(
@@ -300,15 +276,7 @@ export class Storage {
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
-     *
-     * // New (object based)
-     * updateBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean  }): Promise<Models.Bucket>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
     updateBucket(
@@ -409,15 +377,7 @@ export class Storage {
      * @param {string} bucketId - Bucket unique ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteBucket(bucketId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteBucket(params: { bucketId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteBucket(bucketId: string): Promise<{}>;
     deleteBucket(
@@ -473,15 +433,7 @@ export class Storage {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.FileList>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * listFiles(bucketId: string, queries?: string[], search?: string): Promise<Models.FileList>;
-     *
-     * // New (object based)
-     * listFiles(params: { bucketId: string, queries?: string[], search?: string  }): Promise<Models.FileList>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     listFiles(bucketId: string, queries?: string[], search?: string): Promise<Models.FileList>;
     listFiles(
@@ -563,15 +515,7 @@ export class Storage {
      * @param {string[]} permissions - An array of permission strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * createFile(bucketId: string, fileId: string, file: File, permissions?: string[], onProgress?: (progress: UploadProgress) => {}): Promise<Models.File>;
-     *
-     * // New (object based)
-     * createFile(params: { bucketId: string, fileId: string, file: File, permissions?: string[] , onProgress?: (progress: UploadProgress) => {} }): Promise<Models.File>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     createFile(bucketId: string, fileId: string, file: File, permissions?: string[], onProgress?: (progress: UploadProgress) => {}): Promise<Models.File>;
     createFile(
@@ -651,15 +595,7 @@ export class Storage {
      * @param {string} fileId - File ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getFile(bucketId: string, fileId: string): Promise<Models.File>;
-     *
-     * // New (object based)
-     * getFile(params: { bucketId: string, fileId: string  }): Promise<Models.File>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getFile(bucketId: string, fileId: string): Promise<Models.File>;
     getFile(
@@ -722,15 +658,7 @@ export class Storage {
      * @param {string[]} permissions - An array of permission string. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * updateFile(bucketId: string, fileId: string, name?: string, permissions?: string[]): Promise<Models.File>;
-     *
-     * // New (object based)
-     * updateFile(params: { bucketId: string, fileId: string, name?: string, permissions?: string[]  }): Promise<Models.File>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateFile(bucketId: string, fileId: string, name?: string, permissions?: string[]): Promise<Models.File>;
     updateFile(
@@ -800,15 +728,7 @@ export class Storage {
      * @param {string} fileId - File ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * deleteFile(bucketId: string, fileId: string): Promise<{}>;
-     *
-     * // New (object based)
-     * deleteFile(params: { bucketId: string, fileId: string  }): Promise<{}>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteFile(bucketId: string, fileId: string): Promise<{}>;
     deleteFile(
@@ -870,15 +790,7 @@ export class Storage {
      * @param {string} token - File token for accessing this file.
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getFileDownload(bucketId: string, fileId: string, token?: string): Promise<ArrayBuffer>;
-     *
-     * // New (object based)
-     * getFileDownload(params: { bucketId: string, fileId: string, token?: string  }): Promise<ArrayBuffer>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getFileDownload(bucketId: string, fileId: string, token?: string): Promise<ArrayBuffer>;
     getFileDownload(
@@ -967,15 +879,7 @@ export class Storage {
      * @param {string} token - File token for accessing this file.
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getFilePreview(bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string): Promise<ArrayBuffer>;
-     *
-     * // New (object based)
-     * getFilePreview(params: { bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string  }): Promise<ArrayBuffer>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getFilePreview(bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string): Promise<ArrayBuffer>;
     getFilePreview(
@@ -1097,15 +1001,7 @@ export class Storage {
      * @param {string} token - File token for accessing this file.
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getFileView(bucketId: string, fileId: string, token?: string): Promise<ArrayBuffer>;
-     *
-     * // New (object based)
-     * getFileView(params: { bucketId: string, fileId: string, token?: string  }): Promise<ArrayBuffer>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getFileView(bucketId: string, fileId: string, token?: string): Promise<ArrayBuffer>;
     getFileView(

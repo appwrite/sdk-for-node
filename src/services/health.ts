@@ -93,15 +93,7 @@ export class Health {
      * @param {string} domain - string
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthCertificate>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getCertificate(domain?: string): Promise<Models.HealthCertificate>;
-     *
-     * // New (object based)
-     * getCertificate(params: { domain?: string  }): Promise<Models.HealthCertificate>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getCertificate(domain?: string): Promise<Models.HealthCertificate>;
     getCertificate(
@@ -198,15 +190,7 @@ export class Health {
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getQueueBuilds(threshold?: number): Promise<Models.HealthQueue>;
-     *
-     * // New (object based)
-     * getQueueBuilds(params: { threshold?: number  }): Promise<Models.HealthQueue>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getQueueBuilds(threshold?: number): Promise<Models.HealthQueue>;
     getQueueBuilds(
@@ -257,15 +241,7 @@ export class Health {
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getQueueCertificates(threshold?: number): Promise<Models.HealthQueue>;
-     *
-     * // New (object based)
-     * getQueueCertificates(params: { threshold?: number  }): Promise<Models.HealthQueue>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getQueueCertificates(threshold?: number): Promise<Models.HealthQueue>;
     getQueueCertificates(
@@ -318,15 +294,7 @@ export class Health {
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getQueueDatabases(name?: string, threshold?: number): Promise<Models.HealthQueue>;
-     *
-     * // New (object based)
-     * getQueueDatabases(params: { name?: string, threshold?: number  }): Promise<Models.HealthQueue>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getQueueDatabases(name?: string, threshold?: number): Promise<Models.HealthQueue>;
     getQueueDatabases(
@@ -383,15 +351,7 @@ export class Health {
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getQueueDeletes(threshold?: number): Promise<Models.HealthQueue>;
-     *
-     * // New (object based)
-     * getQueueDeletes(params: { threshold?: number  }): Promise<Models.HealthQueue>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getQueueDeletes(threshold?: number): Promise<Models.HealthQueue>;
     getQueueDeletes(
@@ -446,15 +406,7 @@ export class Health {
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getFailedJobs(name: Name, threshold?: number): Promise<Models.HealthQueue>;
-     *
-     * // New (object based)
-     * getFailedJobs(params: { name: Name, threshold?: number  }): Promise<Models.HealthQueue>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getFailedJobs(name: Name, threshold?: number): Promise<Models.HealthQueue>;
     getFailedJobs(
@@ -511,15 +463,7 @@ export class Health {
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getQueueFunctions(threshold?: number): Promise<Models.HealthQueue>;
-     *
-     * // New (object based)
-     * getQueueFunctions(params: { threshold?: number  }): Promise<Models.HealthQueue>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getQueueFunctions(threshold?: number): Promise<Models.HealthQueue>;
     getQueueFunctions(
@@ -570,15 +514,7 @@ export class Health {
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getQueueLogs(threshold?: number): Promise<Models.HealthQueue>;
-     *
-     * // New (object based)
-     * getQueueLogs(params: { threshold?: number  }): Promise<Models.HealthQueue>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getQueueLogs(threshold?: number): Promise<Models.HealthQueue>;
     getQueueLogs(
@@ -629,15 +565,7 @@ export class Health {
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getQueueMails(threshold?: number): Promise<Models.HealthQueue>;
-     *
-     * // New (object based)
-     * getQueueMails(params: { threshold?: number  }): Promise<Models.HealthQueue>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getQueueMails(threshold?: number): Promise<Models.HealthQueue>;
     getQueueMails(
@@ -688,15 +616,7 @@ export class Health {
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getQueueMessaging(threshold?: number): Promise<Models.HealthQueue>;
-     *
-     * // New (object based)
-     * getQueueMessaging(params: { threshold?: number  }): Promise<Models.HealthQueue>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getQueueMessaging(threshold?: number): Promise<Models.HealthQueue>;
     getQueueMessaging(
@@ -747,15 +667,7 @@ export class Health {
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getQueueMigrations(threshold?: number): Promise<Models.HealthQueue>;
-     *
-     * // New (object based)
-     * getQueueMigrations(params: { threshold?: number  }): Promise<Models.HealthQueue>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getQueueMigrations(threshold?: number): Promise<Models.HealthQueue>;
     getQueueMigrations(
@@ -806,15 +718,7 @@ export class Health {
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getQueueStatsResources(threshold?: number): Promise<Models.HealthQueue>;
-     *
-     * // New (object based)
-     * getQueueStatsResources(params: { threshold?: number  }): Promise<Models.HealthQueue>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getQueueStatsResources(threshold?: number): Promise<Models.HealthQueue>;
     getQueueStatsResources(
@@ -865,15 +769,7 @@ export class Health {
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getQueueUsage(threshold?: number): Promise<Models.HealthQueue>;
-     *
-     * // New (object based)
-     * getQueueUsage(params: { threshold?: number  }): Promise<Models.HealthQueue>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getQueueUsage(threshold?: number): Promise<Models.HealthQueue>;
     getQueueUsage(
@@ -924,15 +820,7 @@ export class Health {
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
-     * @deprecated Flat parameter style methods will be removed in a future version.
-     * Please use the object parameter style method instead for a better developer experience.
-     *
-     * @example
-     * // Old (deprecated)
-     * getQueueWebhooks(threshold?: number): Promise<Models.HealthQueue>;
-     *
-     * // New (object based)
-     * getQueueWebhooks(params: { threshold?: number  }): Promise<Models.HealthQueue>;
+     * @deprecated Use the object parameter style method for a better developer experience.
      */
     getQueueWebhooks(threshold?: number): Promise<Models.HealthQueue>;
     getQueueWebhooks(
