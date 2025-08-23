@@ -716,7 +716,7 @@ export class Messaging {
      * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `CreateSMS` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.createSMS` instead.
      */
     createSms(params: { messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
     /**
@@ -920,7 +920,7 @@ export class Messaging {
      * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `UpdateSMS` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.updateSMS` instead.
      */
     updateSms(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
     /**
@@ -1397,7 +1397,7 @@ export class Messaging {
      * @param {boolean} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `CreateAPNSProvider` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.createAPNSProvider` instead.
      */
     createApnsProvider(params: { providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean  }): Promise<Models.Provider>;
     /**
@@ -1614,7 +1614,7 @@ export class Messaging {
      * @param {boolean} params.sandbox - Use APNS sandbox environment.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `UpdateAPNSProvider` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.updateAPNSProvider` instead.
      */
     updateApnsProvider(params: { providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean  }): Promise<Models.Provider>;
     /**
@@ -1815,7 +1815,7 @@ export class Messaging {
      * @param {boolean} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `CreateFCMProvider` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.createFCMProvider` instead.
      */
     createFcmProvider(params: { providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean  }): Promise<Models.Provider>;
     /**
@@ -1976,7 +1976,7 @@ export class Messaging {
      * @param {object} params.serviceAccountJSON - FCM service account JSON.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `UpdateFCMProvider` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.updateFCMProvider` instead.
      */
     updateFcmProvider(params: { providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object  }): Promise<Models.Provider>;
     /**
@@ -2765,7 +2765,7 @@ export class Messaging {
      * @param {boolean} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `CreateSMTPProvider` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.createSMTPProvider` instead.
      */
     createSmtpProvider(params: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
     /**
@@ -3072,7 +3072,7 @@ export class Messaging {
      * @param {boolean} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `UpdateSMTPProvider` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.updateSMTPProvider` instead.
      */
     updateSmtpProvider(params: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
     /**

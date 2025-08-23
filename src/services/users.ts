@@ -1366,7 +1366,7 @@ export class Users {
      * @param {boolean} params.mfa - Enable or disable MFA.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `UpdateMFA` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Users.updateMFA` instead.
      */
     updateMfa<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, mfa: boolean  }): Promise<Models.User<Preferences>>;
     /**
@@ -1493,7 +1493,7 @@ export class Users {
      * @param {AuthenticatorType} params.type - Type of authenticator.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `DeleteMFAAuthenticator` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Users.deleteMFAAuthenticator` instead.
      */
     deleteMfaAuthenticator(params: { userId: string, type: AuthenticatorType  }): Promise<{}>;
     /**
@@ -1613,7 +1613,7 @@ export class Users {
      * @param {string} params.userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaFactors>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `ListMFAFactors` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Users.listMFAFactors` instead.
      */
     listMfaFactors(params: { userId: string  }): Promise<Models.MfaFactors>;
     /**
@@ -1716,7 +1716,7 @@ export class Users {
      * @param {string} params.userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `GetMFARecoveryCodes` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Users.getMFARecoveryCodes` instead.
      */
     getMfaRecoveryCodes(params: { userId: string  }): Promise<Models.MfaRecoveryCodes>;
     /**
@@ -1819,7 +1819,7 @@ export class Users {
      * @param {string} params.userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `UpdateMFARecoveryCodes` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Users.updateMFARecoveryCodes` instead.
      */
     updateMfaRecoveryCodes(params: { userId: string  }): Promise<Models.MfaRecoveryCodes>;
     /**
@@ -1924,7 +1924,7 @@ export class Users {
      * @param {string} params.userId - User ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaRecoveryCodes>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `CreateMFARecoveryCodes` instead.
+     * @deprecated This API has been deprecated since 1.8.0. Please use `Users.createMFARecoveryCodes` instead.
      */
     createMfaRecoveryCodes(params: { userId: string  }): Promise<Models.MfaRecoveryCodes>;
     /**
