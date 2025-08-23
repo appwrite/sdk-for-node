@@ -21,7 +21,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.FunctionList>}
      */
-    list(params: { queries?: string[], search?: string  }): Promise<Models.FunctionList>;
+    list(params?: { queries?: string[], search?: string  }): Promise<Models.FunctionList>;
     /**
      * Get a list of all the project's functions. You can use the query params to filter your results.
      *
@@ -721,7 +721,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createDeployment(params: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string , onProgress?: (progress: UploadProgress) => {} }): Promise<Models.Deployment>;
+    createDeployment(params: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string , onProgress?: (progress: UploadProgress) => void }): Promise<Models.Deployment>;
     /**
      * Create a new function code deployment. Use this endpoint to upload a new version of your code function. To execute your newly uploaded code, you'll need to update the function's deployment to use your new deployment UID.
      * 
@@ -738,17 +738,17 @@ export class Functions {
      * @returns {Promise<Models.Deployment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createDeployment(functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string, onProgress?: (progress: UploadProgress) => {}): Promise<Models.Deployment>;
+    createDeployment(functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string, onProgress?: (progress: UploadProgress) => void): Promise<Models.Deployment>;
     createDeployment(
-        paramsOrFirst: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string, onProgress?: (progress: UploadProgress) => {}  } | string,
-        ...rest: [(File)?, (boolean)?, (string)?, (string)?,((progress: UploadProgress) => {})?]    
+        paramsOrFirst: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string, onProgress?: (progress: UploadProgress) => void  } | string,
+        ...rest: [(File)?, (boolean)?, (string)?, (string)?,((progress: UploadProgress) => void)?]    
     ): Promise<Models.Deployment> {
         let params: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string };
-        let onProgress: ((progress: UploadProgress) => {});
+        let onProgress: ((progress: UploadProgress) => void);
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
             params = (paramsOrFirst || {}) as { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string };
-            onProgress = paramsOrFirst?.onProgress as ((progress: UploadProgress) => {});
+            onProgress = paramsOrFirst?.onProgress as ((progress: UploadProgress) => void);
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -757,7 +757,7 @@ export class Functions {
                 entrypoint: rest[2] as string,
                 commands: rest[3] as string            
             };
-            onProgress = rest[4] as ((progress: UploadProgress) => {});
+            onProgress = rest[4] as ((progress: UploadProgress) => void);
         }
         
         const functionId = params.functionId;

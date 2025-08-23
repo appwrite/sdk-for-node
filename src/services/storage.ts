@@ -20,7 +20,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.BucketList>}
      */
-    listBuckets(params: { queries?: string[], search?: string  }): Promise<Models.BucketList>;
+    listBuckets(params?: { queries?: string[], search?: string  }): Promise<Models.BucketList>;
     /**
      * Get a list of all the storage buckets. You can use the query params to filter your results.
      *
@@ -498,7 +498,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
-    createFile(params: { bucketId: string, fileId: string, file: File, permissions?: string[] , onProgress?: (progress: UploadProgress) => {} }): Promise<Models.File>;
+    createFile(params: { bucketId: string, fileId: string, file: File, permissions?: string[] , onProgress?: (progress: UploadProgress) => void }): Promise<Models.File>;
     /**
      * Create a new file. Before using this route, you should create a new bucket resource using either a [server integration](https://appwrite.io/docs/server/storage#storageCreateBucket) API or directly from your Appwrite console.
      * 
@@ -517,17 +517,17 @@ export class Storage {
      * @returns {Promise<Models.File>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createFile(bucketId: string, fileId: string, file: File, permissions?: string[], onProgress?: (progress: UploadProgress) => {}): Promise<Models.File>;
+    createFile(bucketId: string, fileId: string, file: File, permissions?: string[], onProgress?: (progress: UploadProgress) => void): Promise<Models.File>;
     createFile(
-        paramsOrFirst: { bucketId: string, fileId: string, file: File, permissions?: string[], onProgress?: (progress: UploadProgress) => {}  } | string,
-        ...rest: [(string)?, (File)?, (string[])?,((progress: UploadProgress) => {})?]    
+        paramsOrFirst: { bucketId: string, fileId: string, file: File, permissions?: string[], onProgress?: (progress: UploadProgress) => void  } | string,
+        ...rest: [(string)?, (File)?, (string[])?,((progress: UploadProgress) => void)?]    
     ): Promise<Models.File> {
         let params: { bucketId: string, fileId: string, file: File, permissions?: string[] };
-        let onProgress: ((progress: UploadProgress) => {});
+        let onProgress: ((progress: UploadProgress) => void);
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
             params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, file: File, permissions?: string[] };
-            onProgress = paramsOrFirst?.onProgress as ((progress: UploadProgress) => {});
+            onProgress = paramsOrFirst?.onProgress as ((progress: UploadProgress) => void);
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
@@ -535,7 +535,7 @@ export class Storage {
                 file: rest[1] as File,
                 permissions: rest[2] as string[]            
             };
-            onProgress = rest[3] as ((progress: UploadProgress) => {});
+            onProgress = rest[3] as ((progress: UploadProgress) => void);
         }
         
         const bucketId = params.bucketId;

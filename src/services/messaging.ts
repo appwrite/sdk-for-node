@@ -19,7 +19,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.MessageList>}
      */
-    listMessages(params: { queries?: string[], search?: string  }): Promise<Models.MessageList>;
+    listMessages(params?: { queries?: string[], search?: string  }): Promise<Models.MessageList>;
     /**
      * Get a list of all messages from the current Appwrite project.
      *
@@ -1333,7 +1333,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.ProviderList>}
      */
-    listProviders(params: { queries?: string[], search?: string  }): Promise<Models.ProviderList>;
+    listProviders(params?: { queries?: string[], search?: string  }): Promise<Models.ProviderList>;
     /**
      * Get a list of all providers from the current Appwrite project.
      *
@@ -4301,7 +4301,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.TopicList>}
      */
-    listTopics(params: { queries?: string[], search?: string  }): Promise<Models.TopicList>;
+    listTopics(params?: { queries?: string[], search?: string  }): Promise<Models.TopicList>;
     /**
      * Get a list of all topics from the current Appwrite project.
      *

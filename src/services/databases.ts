@@ -21,7 +21,7 @@ export class Databases {
      * @returns {Promise<Models.DatabaseList>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.list` instead.
      */
-    list(params: { queries?: string[], search?: string  }): Promise<Models.DatabaseList>;
+    list(params?: { queries?: string[], search?: string  }): Promise<Models.DatabaseList>;
     /**
      * Get a list of all databases from the current Appwrite project. You can use the search parameter to filter your results.
      *

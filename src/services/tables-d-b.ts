@@ -20,7 +20,7 @@ export class TablesDB {
      * @throws {AppwriteException}
      * @returns {Promise<Models.DatabaseList>}
      */
-    list(params: { queries?: string[], search?: string  }): Promise<Models.DatabaseList>;
+    list(params?: { queries?: string[], search?: string  }): Promise<Models.DatabaseList>;
     /**
      * Get a list of all databases from the current Appwrite project. You can use the search parameter to filter your results.
      *

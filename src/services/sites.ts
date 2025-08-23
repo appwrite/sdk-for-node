@@ -22,7 +22,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.SiteList>}
      */
-    list(params: { queries?: string[], search?: string  }): Promise<Models.SiteList>;
+    list(params?: { queries?: string[], search?: string  }): Promise<Models.SiteList>;
     /**
      * Get a list of all the project's sites. You can use the query params to filter your results.
      *
@@ -725,7 +725,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createDeployment(params: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string , onProgress?: (progress: UploadProgress) => {} }): Promise<Models.Deployment>;
+    createDeployment(params: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string , onProgress?: (progress: UploadProgress) => void }): Promise<Models.Deployment>;
     /**
      * Create a new site code deployment. Use this endpoint to upload a new version of your site code. To activate your newly uploaded code, you'll need to update the function's deployment to use your new deployment ID.
      *
@@ -739,17 +739,17 @@ export class Sites {
      * @returns {Promise<Models.Deployment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createDeployment(siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string, onProgress?: (progress: UploadProgress) => {}): Promise<Models.Deployment>;
+    createDeployment(siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string, onProgress?: (progress: UploadProgress) => void): Promise<Models.Deployment>;
     createDeployment(
-        paramsOrFirst: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string, onProgress?: (progress: UploadProgress) => {}  } | string,
-        ...rest: [(File)?, (boolean)?, (string)?, (string)?, (string)?,((progress: UploadProgress) => {})?]    
+        paramsOrFirst: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string, onProgress?: (progress: UploadProgress) => void  } | string,
+        ...rest: [(File)?, (boolean)?, (string)?, (string)?, (string)?,((progress: UploadProgress) => void)?]    
     ): Promise<Models.Deployment> {
         let params: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string };
-        let onProgress: ((progress: UploadProgress) => {});
+        let onProgress: ((progress: UploadProgress) => void);
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
             params = (paramsOrFirst || {}) as { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string };
-            onProgress = paramsOrFirst?.onProgress as ((progress: UploadProgress) => {});
+            onProgress = paramsOrFirst?.onProgress as ((progress: UploadProgress) => void);
         } else {
             params = {
                 siteId: paramsOrFirst as string,
@@ -759,7 +759,7 @@ export class Sites {
                 buildCommand: rest[3] as string,
                 outputDirectory: rest[4] as string            
             };
-            onProgress = rest[5] as ((progress: UploadProgress) => {});
+            onProgress = rest[5] as ((progress: UploadProgress) => void);
         }
         
         const siteId = params.siteId;

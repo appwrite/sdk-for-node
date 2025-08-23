@@ -20,7 +20,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.UserList<Preferences>>}
      */
-    list<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { queries?: string[], search?: string  }): Promise<Models.UserList<Preferences>>;
+    list<Preferences extends Models.Preferences = Models.DefaultPreferences>(params?: { queries?: string[], search?: string  }): Promise<Models.UserList<Preferences>>;
     /**
      * Get a list of all the project's users. You can use the query params to filter your results.
      *
@@ -329,7 +329,7 @@ export class Users {
      * @throws {AppwriteException}
      * @returns {Promise<Models.IdentityList>}
      */
-    listIdentities(params: { queries?: string[], search?: string  }): Promise<Models.IdentityList>;
+    listIdentities(params?: { queries?: string[], search?: string  }): Promise<Models.IdentityList>;
     /**
      * Get identities for all users.
      *
