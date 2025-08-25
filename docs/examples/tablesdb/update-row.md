@@ -5,11 +5,12 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setSession(''); // The user session to authenticate with
 
-const avatars = new sdk.Avatars(client);
+const tablesDB = new sdk.TablesDB(client);
 
-const result = await avatars.getQR(
-    '<TEXT>', // text
-    1, // size (optional)
-    0, // margin (optional)
-    false // download (optional)
-);
+const result = await tablesDB.updateRow({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    rowId: '<ROW_ID>',
+    data: {}, // optional
+    permissions: ["read("any")"] // optional
+});

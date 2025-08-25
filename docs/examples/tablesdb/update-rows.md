@@ -5,11 +5,11 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const users = new sdk.Users(client);
+const tablesDB = new sdk.TablesDB(client);
 
-const result = await users.createPHPassUser(
-    '<USER_ID>', // userId
-    'email@example.com', // email
-    'password', // password
-    '<NAME>' // name (optional)
-);
+const result = await tablesDB.updateRows({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    data: {}, // optional
+    queries: [] // optional
+});
