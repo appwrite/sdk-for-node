@@ -7,9 +7,9 @@ const client = new sdk.Client()
 
 const users = new sdk.Users(client);
 
-const result = await users.createPHPassUser({
+const result = await users.createMD5User({
     userId: '<USER_ID>',
     email: 'email@example.com',
     password: 'password',
-    name: '<NAME>'
+    name: '<NAME>' // optional
 });

@@ -7,6 +7,8 @@ const client = new sdk.Client()
 
 const users = new sdk.Users(client);
 
-const result = await users.getMFARecoveryCodes({
-    userId: '<USER_ID>'
+const result = await users.createJWT({
+    userId: '<USER_ID>',
+    sessionId: '<SESSION_ID>', // optional
+    duration: 0 // optional
 });

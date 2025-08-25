@@ -5,13 +5,11 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const messaging = new sdk.Messaging(client);
+const users = new sdk.Users(client);
 
-const result = await messaging.createMsg91Provider({
-    providerId: '<PROVIDER_ID>',
-    name: '<NAME>',
-    templateId: '<TEMPLATE_ID>',
-    senderId: '<SENDER_ID>',
-    authKey: '<AUTH_KEY>',
-    enabled: false
+const result = await users.createPHPassUser({
+    userId: '<USER_ID>',
+    email: 'email@example.com',
+    password: 'password',
+    name: '<NAME>' // optional
 });

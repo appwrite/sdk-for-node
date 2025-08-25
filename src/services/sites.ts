@@ -4,7 +4,7 @@ import type { Models } from '../models';
 import { Framework } from '../enums/framework';
 import { BuildRuntime } from '../enums/build-runtime';
 import { Adapter } from '../enums/adapter';
-import { VCSDeploymentType } from '../enums/v-c-s-deployment-type';
+import { VCSDeploymentType } from '../enums/vcs-deployment-type';
 import { DeploymentDownloadType } from '../enums/deployment-download-type';
 
 export class Sites {

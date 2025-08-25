@@ -516,7 +516,7 @@ export namespace Models {
          */
         $updatedAt: string;
         /**
-         * If database is enabled. Can be &#039;enabled&#039; or &#039;disabled&#039;. When disabled, the database is inaccessible to users, but remains accessible to Server SDKs using API keys.
+         * If database is enabled. Can be 'enabled' or 'disabled'. When disabled, the database is inaccessible to users, but remains accessible to Server SDKs using API keys.
          */
         enabled: boolean;
         /**
@@ -554,7 +554,7 @@ export namespace Models {
          */
         name: string;
         /**
-         * Collection enabled. Can be &#039;enabled&#039; or &#039;disabled&#039;. When disabled, the collection is inaccessible to users, but remains accessible to Server SDKs using API keys.
+         * Collection enabled. Can be 'enabled' or 'disabled'. When disabled, the collection is inaccessible to users, but remains accessible to Server SDKs using API keys.
          */
         enabled: boolean;
         /**
@@ -1102,7 +1102,7 @@ export namespace Models {
          */
         name: string;
         /**
-         * Table enabled. Can be &#039;enabled&#039; or &#039;disabled&#039;. When disabled, the table is inaccessible to users, but remains accessible to Server SDKs using API keys.
+         * Table enabled. Can be 'enabled' or 'disabled'. When disabled, the table is inaccessible to users, but remains accessible to Server SDKs using API keys.
          */
         enabled: boolean;
         /**
@@ -2309,7 +2309,7 @@ export namespace Models {
          */
         country: string;
         /**
-         * Continent code. A two character continent code &quot;AF&quot; for Africa, &quot;AN&quot; for Antarctica, &quot;AS&quot; for Asia, &quot;EU&quot; for Europe, &quot;NA&quot; for North America, &quot;OC&quot; for Oceania, and &quot;SA&quot; for South America.
+         * Continent code. A two character continent code "AF" for Africa, "AN" for Antarctica, "AS" for Asia, "EU" for Europe, "NA" for North America, "OC" for Oceania, and "SA" for South America.
          */
         continentCode: string;
         /**
@@ -2591,7 +2591,7 @@ export namespace Models {
          */
         enabled: boolean;
         /**
-         * Is the site deployed with the latest configuration? This is set to false if you&#039;ve changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the site to update it with the latest configuration.
+         * Is the site deployed with the latest configuration? This is set to false if you've changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the site to update it with the latest configuration.
          */
         live: boolean;
         /**
@@ -2603,7 +2603,7 @@ export namespace Models {
          */
         framework: string;
         /**
-         * Site&#039;s active deployment ID.
+         * Site's active deployment ID.
          */
         deploymentId: string;
         /**
@@ -2619,7 +2619,7 @@ export namespace Models {
          */
         deploymentScreenshotDark: string;
         /**
-         * Site&#039;s latest deployment ID.
+         * Site's latest deployment ID.
          */
         latestDeploymentId: string;
         /**
@@ -2627,7 +2627,7 @@ export namespace Models {
          */
         latestDeploymentCreatedAt: string;
         /**
-         * Status of latest deployment. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
+         * Status of latest deployment. Possible values are "waiting", "processing", "building", "ready", and "failed".
          */
         latestDeploymentStatus: string;
         /**
@@ -2717,7 +2717,7 @@ export namespace Models {
          */
         enabled: boolean;
         /**
-         * Is the function deployed with the latest configuration? This is set to false if you&#039;ve changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the function to update it with the latest configuration.
+         * Is the function deployed with the latest configuration? This is set to false if you've changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the function to update it with the latest configuration.
          */
         live: boolean;
         /**
@@ -2729,7 +2729,7 @@ export namespace Models {
          */
         runtime: string;
         /**
-         * Function&#039;s active deployment ID.
+         * Function's active deployment ID.
          */
         deploymentId: string;
         /**
@@ -2737,7 +2737,7 @@ export namespace Models {
          */
         deploymentCreatedAt: string;
         /**
-         * Function&#039;s latest deployment ID.
+         * Function's latest deployment ID.
          */
         latestDeploymentId: string;
         /**
@@ -2745,7 +2745,7 @@ export namespace Models {
          */
         latestDeploymentCreatedAt: string;
         /**
-         * Status of latest deployment. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
+         * Status of latest deployment. Possible values are "waiting", "processing", "building", "ready", and "failed".
          */
         latestDeploymentStatus: string;
         /**
@@ -2957,7 +2957,7 @@ export namespace Models {
          */
         screenshotDark: string;
         /**
-         * The deployment status. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
+         * The deployment status. Possible values are "waiting", "processing", "building", "ready", and "failed".
          */
         status: string;
         /**
@@ -3035,7 +3035,7 @@ export namespace Models {
          */
         functionId: string;
         /**
-         * Function&#039;s deployment ID used to create the execution.
+         * Function's deployment ID used to create the execution.
          */
         deploymentId: string;
         /**
@@ -3117,11 +3117,11 @@ export namespace Models {
          */
         secret: boolean;
         /**
-         * Service to which the variable belongs. Possible values are &quot;project&quot;, &quot;function&quot;
+         * Service to which the variable belongs. Possible values are "project", "function"
          */
         resourceType: string;
         /**
-         * ID of resource to which the variable belongs. If resourceType is &quot;project&quot;, it is empty. If resourceType is &quot;function&quot;, it is ID of the function.
+         * ID of resource to which the variable belongs. If resourceType is "project", it is empty. If resourceType is "function", it is ID of the function.
          */
         resourceId: string;
     }

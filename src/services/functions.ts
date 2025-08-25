@@ -2,7 +2,7 @@ import { AppwriteException, Client, type Payload, UploadProgress } from '../clie
 import type { Models } from '../models';
 
 import { Runtime } from '../enums/runtime';
-import { VCSDeploymentType } from '../enums/v-c-s-deployment-type';
+import { VCSDeploymentType } from '../enums/vcs-deployment-type';
 import { DeploymentDownloadType } from '../enums/deployment-download-type';
 import { ExecutionMethod } from '../enums/execution-method';
 

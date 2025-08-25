@@ -7,13 +7,11 @@ const client = new sdk.Client()
 
 const messaging = new sdk.Messaging(client);
 
-const result = await messaging.updateAPNSProvider({
+const result = await messaging.createMsg91Provider({
     providerId: '<PROVIDER_ID>',
     name: '<NAME>',
-    enabled: false,
-    authKey: '<AUTH_KEY>',
-    authKeyId: '<AUTH_KEY_ID>',
-    teamId: '<TEAM_ID>',
-    bundleId: '<BUNDLE_ID>',
-    sandbox: false
+    templateId: '<TEMPLATE_ID>', // optional
+    senderId: '<SENDER_ID>', // optional
+    authKey: '<AUTH_KEY>', // optional
+    enabled: false // optional
 });

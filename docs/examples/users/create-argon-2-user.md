@@ -5,14 +5,11 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const messaging = new sdk.Messaging(client);
+const users = new sdk.Users(client);
 
-const result = await messaging.createSMS({
-    messageId: '<MESSAGE_ID>',
-    content: '<CONTENT>',
-    topics: [],
-    users: [],
-    targets: [],
-    draft: false,
-    scheduledAt: ''
+const result = await users.createArgon2User({
+    userId: '<USER_ID>',
+    email: 'email@example.com',
+    password: 'password',
+    name: '<NAME>' // optional
 });

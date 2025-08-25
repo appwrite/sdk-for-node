@@ -7,7 +7,10 @@ const client = new sdk.Client()
 
 const users = new sdk.Users(client);
 
-const result = await users.deleteMFAAuthenticator({
+const result = await users.createSHAUser({
     userId: '<USER_ID>',
-    type: sdk.AuthenticatorType.Totp
+    email: 'email@example.com',
+    password: 'password',
+    passwordVersion: sdk.PasswordHash.Sha1, // optional
+    name: '<NAME>' // optional
 });
