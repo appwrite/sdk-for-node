@@ -6,11 +6,25 @@ export namespace Models {
     declare const __default: unique symbol;
 
     /**
+     * Rows List
+     */
+    export type RowList<Row extends Models.Row = Models.DefaultRow> = {
+        /**
+         * Total number of rows that matched your query.
+         */
+        total: number;
+        /**
+         * List of rows.
+         */
+        rows: Row[];
+    }
+
+    /**
      * Documents List
      */
     export type DocumentList<Document extends Models.Document = Models.DefaultDocument> = {
         /**
-         * Total number of documents documents that matched your query.
+         * Total number of documents that matched your query.
          */
         total: number;
         /**
@@ -20,11 +34,25 @@ export namespace Models {
     }
 
     /**
+     * Tables List
+     */
+    export type TableList = {
+        /**
+         * Total number of tables that matched your query.
+         */
+        total: number;
+        /**
+         * List of tables.
+         */
+        tables: Table[];
+    }
+
+    /**
      * Collections List
      */
     export type CollectionList = {
         /**
-         * Total number of collections documents that matched your query.
+         * Total number of collections that matched your query.
          */
         total: number;
         /**
@@ -38,7 +66,7 @@ export namespace Models {
      */
     export type DatabaseList = {
         /**
-         * Total number of databases documents that matched your query.
+         * Total number of databases that matched your query.
          */
         total: number;
         /**
@@ -52,7 +80,7 @@ export namespace Models {
      */
     export type IndexList = {
         /**
-         * Total number of indexes documents that matched your query.
+         * Total number of indexes that matched your query.
          */
         total: number;
         /**
@@ -62,11 +90,25 @@ export namespace Models {
     }
 
     /**
+     * Column Indexes List
+     */
+    export type ColumnIndexList = {
+        /**
+         * Total number of indexes that matched your query.
+         */
+        total: number;
+        /**
+         * List of indexes.
+         */
+        indexes: ColumnIndex[];
+    }
+
+    /**
      * Users List
      */
     export type UserList<Preferences extends Models.Preferences = Models.DefaultPreferences> = {
         /**
-         * Total number of users documents that matched your query.
+         * Total number of users that matched your query.
          */
         total: number;
         /**
@@ -80,7 +122,7 @@ export namespace Models {
      */
     export type SessionList = {
         /**
-         * Total number of sessions documents that matched your query.
+         * Total number of sessions that matched your query.
          */
         total: number;
         /**
@@ -94,7 +136,7 @@ export namespace Models {
      */
     export type IdentityList = {
         /**
-         * Total number of identities documents that matched your query.
+         * Total number of identities that matched your query.
          */
         total: number;
         /**
@@ -108,7 +150,7 @@ export namespace Models {
      */
     export type LogList = {
         /**
-         * Total number of logs documents that matched your query.
+         * Total number of logs that matched your query.
          */
         total: number;
         /**
@@ -122,7 +164,7 @@ export namespace Models {
      */
     export type FileList = {
         /**
-         * Total number of files documents that matched your query.
+         * Total number of files that matched your query.
          */
         total: number;
         /**
@@ -136,7 +178,7 @@ export namespace Models {
      */
     export type BucketList = {
         /**
-         * Total number of buckets documents that matched your query.
+         * Total number of buckets that matched your query.
          */
         total: number;
         /**
@@ -150,7 +192,7 @@ export namespace Models {
      */
     export type ResourceTokenList = {
         /**
-         * Total number of tokens documents that matched your query.
+         * Total number of tokens that matched your query.
          */
         total: number;
         /**
@@ -164,7 +206,7 @@ export namespace Models {
      */
     export type TeamList<Preferences extends Models.Preferences = Models.DefaultPreferences> = {
         /**
-         * Total number of teams documents that matched your query.
+         * Total number of teams that matched your query.
          */
         total: number;
         /**
@@ -178,7 +220,7 @@ export namespace Models {
      */
     export type MembershipList = {
         /**
-         * Total number of memberships documents that matched your query.
+         * Total number of memberships that matched your query.
          */
         total: number;
         /**
@@ -192,7 +234,7 @@ export namespace Models {
      */
     export type SiteList = {
         /**
-         * Total number of sites documents that matched your query.
+         * Total number of sites that matched your query.
          */
         total: number;
         /**
@@ -206,7 +248,7 @@ export namespace Models {
      */
     export type FunctionList = {
         /**
-         * Total number of functions documents that matched your query.
+         * Total number of functions that matched your query.
          */
         total: number;
         /**
@@ -220,7 +262,7 @@ export namespace Models {
      */
     export type FrameworkList = {
         /**
-         * Total number of frameworks documents that matched your query.
+         * Total number of frameworks that matched your query.
          */
         total: number;
         /**
@@ -234,7 +276,7 @@ export namespace Models {
      */
     export type RuntimeList = {
         /**
-         * Total number of runtimes documents that matched your query.
+         * Total number of runtimes that matched your query.
          */
         total: number;
         /**
@@ -248,7 +290,7 @@ export namespace Models {
      */
     export type DeploymentList = {
         /**
-         * Total number of deployments documents that matched your query.
+         * Total number of deployments that matched your query.
          */
         total: number;
         /**
@@ -262,7 +304,7 @@ export namespace Models {
      */
     export type ExecutionList = {
         /**
-         * Total number of executions documents that matched your query.
+         * Total number of executions that matched your query.
          */
         total: number;
         /**
@@ -276,7 +318,7 @@ export namespace Models {
      */
     export type CountryList = {
         /**
-         * Total number of countries documents that matched your query.
+         * Total number of countries that matched your query.
          */
         total: number;
         /**
@@ -290,7 +332,7 @@ export namespace Models {
      */
     export type ContinentList = {
         /**
-         * Total number of continents documents that matched your query.
+         * Total number of continents that matched your query.
          */
         total: number;
         /**
@@ -304,7 +346,7 @@ export namespace Models {
      */
     export type LanguageList = {
         /**
-         * Total number of languages documents that matched your query.
+         * Total number of languages that matched your query.
          */
         total: number;
         /**
@@ -318,7 +360,7 @@ export namespace Models {
      */
     export type CurrencyList = {
         /**
-         * Total number of currencies documents that matched your query.
+         * Total number of currencies that matched your query.
          */
         total: number;
         /**
@@ -332,7 +374,7 @@ export namespace Models {
      */
     export type PhoneList = {
         /**
-         * Total number of phones documents that matched your query.
+         * Total number of phones that matched your query.
          */
         total: number;
         /**
@@ -346,7 +388,7 @@ export namespace Models {
      */
     export type VariableList = {
         /**
-         * Total number of variables documents that matched your query.
+         * Total number of variables that matched your query.
          */
         total: number;
         /**
@@ -360,7 +402,7 @@ export namespace Models {
      */
     export type LocaleCodeList = {
         /**
-         * Total number of localeCodes documents that matched your query.
+         * Total number of localeCodes that matched your query.
          */
         total: number;
         /**
@@ -374,7 +416,7 @@ export namespace Models {
      */
     export type ProviderList = {
         /**
-         * Total number of providers documents that matched your query.
+         * Total number of providers that matched your query.
          */
         total: number;
         /**
@@ -388,7 +430,7 @@ export namespace Models {
      */
     export type MessageList = {
         /**
-         * Total number of messages documents that matched your query.
+         * Total number of messages that matched your query.
          */
         total: number;
         /**
@@ -402,7 +444,7 @@ export namespace Models {
      */
     export type TopicList = {
         /**
-         * Total number of topics documents that matched your query.
+         * Total number of topics that matched your query.
          */
         total: number;
         /**
@@ -416,7 +458,7 @@ export namespace Models {
      */
     export type SubscriberList = {
         /**
-         * Total number of subscribers documents that matched your query.
+         * Total number of subscribers that matched your query.
          */
         total: number;
         /**
@@ -430,7 +472,7 @@ export namespace Models {
      */
     export type TargetList = {
         /**
-         * Total number of targets documents that matched your query.
+         * Total number of targets that matched your query.
          */
         total: number;
         /**
@@ -444,7 +486,7 @@ export namespace Models {
      */
     export type SpecificationList = {
         /**
-         * Total number of specifications documents that matched your query.
+         * Total number of specifications that matched your query.
          */
         total: number;
         /**
@@ -474,9 +516,13 @@ export namespace Models {
          */
         $updatedAt: string;
         /**
-         * If database is enabled. Can be &#039;enabled&#039; or &#039;disabled&#039;. When disabled, the database is inaccessible to users, but remains accessible to Server SDKs using API keys.
+         * If database is enabled. Can be 'enabled' or 'disabled'. When disabled, the database is inaccessible to users, but remains accessible to Server SDKs using API keys.
          */
         enabled: boolean;
+        /**
+         * Database type.
+         */
+        type: string;
     }
 
     /**
@@ -508,7 +554,7 @@ export namespace Models {
          */
         name: string;
         /**
-         * Collection enabled. Can be &#039;enabled&#039; or &#039;disabled&#039;. When disabled, the collection is inaccessible to users, but remains accessible to Server SDKs using API keys.
+         * Collection enabled. Can be 'enabled' or 'disabled'. When disabled, the collection is inaccessible to users, but remains accessible to Server SDKs using API keys.
          */
         enabled: boolean;
         /**
@@ -1028,11 +1074,571 @@ export namespace Models {
     }
 
     /**
+     * Table
+     */
+    export type Table = {
+        /**
+         * Table ID.
+         */
+        $id: string;
+        /**
+         * Table creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Table update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Table permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+         */
+        $permissions: string[];
+        /**
+         * Database ID.
+         */
+        databaseId: string;
+        /**
+         * Table name.
+         */
+        name: string;
+        /**
+         * Table enabled. Can be 'enabled' or 'disabled'. When disabled, the table is inaccessible to users, but remains accessible to Server SDKs using API keys.
+         */
+        enabled: boolean;
+        /**
+         * Whether row-level permissions are enabled. [Learn more about permissions](https://appwrite.io/docs/permissions).
+         */
+        rowSecurity: boolean;
+        /**
+         * Table columns.
+         */
+        columns: (Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnString)[];
+        /**
+         * Table indexes.
+         */
+        indexes: ColumnIndex[];
+    }
+
+    /**
+     * Columns List
+     */
+    export type ColumnList = {
+        /**
+         * Total number of columns in the given table.
+         */
+        total: number;
+        /**
+         * List of columns.
+         */
+        columns: (Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnString)[];
+    }
+
+    /**
+     * ColumnString
+     */
+    export type ColumnString = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: string;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Column size.
+         */
+        size: number;
+        /**
+         * Default value for column when not provided. Cannot be set when column is required.
+         */
+        default?: string;
+        /**
+         * Defines whether this column is encrypted or not.
+         */
+        encrypt?: boolean;
+    }
+
+    /**
+     * ColumnInteger
+     */
+    export type ColumnInteger = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: string;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Minimum value to enforce for new documents.
+         */
+        min?: number;
+        /**
+         * Maximum value to enforce for new documents.
+         */
+        max?: number;
+        /**
+         * Default value for column when not provided. Cannot be set when column is required.
+         */
+        default?: number;
+    }
+
+    /**
+     * ColumnFloat
+     */
+    export type ColumnFloat = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: string;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Minimum value to enforce for new documents.
+         */
+        min?: number;
+        /**
+         * Maximum value to enforce for new documents.
+         */
+        max?: number;
+        /**
+         * Default value for column when not provided. Cannot be set when column is required.
+         */
+        default?: number;
+    }
+
+    /**
+     * ColumnBoolean
+     */
+    export type ColumnBoolean = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: string;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Default value for column when not provided. Cannot be set when column is required.
+         */
+        default?: boolean;
+    }
+
+    /**
+     * ColumnEmail
+     */
+    export type ColumnEmail = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: string;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * String format.
+         */
+        format: string;
+        /**
+         * Default value for column when not provided. Cannot be set when column is required.
+         */
+        default?: string;
+    }
+
+    /**
+     * ColumnEnum
+     */
+    export type ColumnEnum = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: string;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Array of elements in enumerated type.
+         */
+        elements: string[];
+        /**
+         * String format.
+         */
+        format: string;
+        /**
+         * Default value for column when not provided. Cannot be set when column is required.
+         */
+        default?: string;
+    }
+
+    /**
+     * ColumnIP
+     */
+    export type ColumnIp = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: string;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * String format.
+         */
+        format: string;
+        /**
+         * Default value for column when not provided. Cannot be set when column is required.
+         */
+        default?: string;
+    }
+
+    /**
+     * ColumnURL
+     */
+    export type ColumnUrl = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: string;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * String format.
+         */
+        format: string;
+        /**
+         * Default value for column when not provided. Cannot be set when column is required.
+         */
+        default?: string;
+    }
+
+    /**
+     * ColumnDatetime
+     */
+    export type ColumnDatetime = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: string;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * ISO 8601 format.
+         */
+        format: string;
+        /**
+         * Default value for column when not provided. Only null is optional
+         */
+        default?: string;
+    }
+
+    /**
+     * ColumnRelationship
+     */
+    export type ColumnRelationship = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: string;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * The ID of the related table.
+         */
+        relatedTable: string;
+        /**
+         * The type of the relationship.
+         */
+        relationType: string;
+        /**
+         * Is the relationship two-way?
+         */
+        twoWay: boolean;
+        /**
+         * The key of the two-way relationship.
+         */
+        twoWayKey: string;
+        /**
+         * How deleting the parent document will propagate to child documents.
+         */
+        onDelete: string;
+        /**
+         * Whether this is the parent or child side of the relationship
+         */
+        side: string;
+    }
+
+    /**
      * Index
      */
     export type Index = {
         /**
-         * Index Key.
+         * Index ID.
+         */
+        $id: string;
+        /**
+         * Index creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Index update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Index key.
          */
         key: string;
         /**
@@ -1059,6 +1665,16 @@ export namespace Models {
          * Index orders.
          */
         orders?: string[];
+    }
+
+    /**
+     * Index
+     */
+    export type ColumnIndex = {
+        /**
+         * Index ID.
+         */
+        $id: string;
         /**
          * Index creation date in ISO 8601 format.
          */
@@ -1067,7 +1683,74 @@ export namespace Models {
          * Index update date in ISO 8601 format.
          */
         $updatedAt: string;
+        /**
+         * Index Key.
+         */
+        key: string;
+        /**
+         * Index type.
+         */
+        type: string;
+        /**
+         * Index status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: string;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an index.
+         */
+        error: string;
+        /**
+         * Index columns.
+         */
+        columns: string[];
+        /**
+         * Index columns length.
+         */
+        lengths: number[];
+        /**
+         * Index orders.
+         */
+        orders?: string[];
     }
+
+    /**
+     * Row
+     */
+    export type Row = {
+        /**
+         * Row ID.
+         */
+        $id: string;
+        /**
+         * Row automatically incrementing ID.
+         */
+        $sequence: number;
+        /**
+         * Table ID.
+         */
+        $tableId: string;
+        /**
+         * Database ID.
+         */
+        $databaseId: string;
+        /**
+         * Row creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Row update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Row permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+         */
+        $permissions: string[];
+    }
+
+    export type DefaultRow = Row & {
+        [key: string]: any;
+        [__default]: true;
+    };
 
     /**
      * Document
@@ -1106,12 +1789,6 @@ export namespace Models {
     export type DefaultDocument = Document & {
         [key: string]: any;
         [__default]: true;
-    };
-
-    export type DataWithoutDocumentKeys = {
-        [K in string]: any;
-    } & {
-        [K in keyof Document]?: never;
     };
 
     /**
@@ -1407,12 +2084,6 @@ export namespace Models {
         [__default]: true;
     };
 
-    export type DataWithoutPreferencesKeys = {
-        [K in string]: any;
-    } & {
-        [K in keyof Preferences]?: never;
-    };
-
     /**
      * Session
      */
@@ -1638,7 +2309,7 @@ export namespace Models {
          */
         country: string;
         /**
-         * Continent code. A two character continent code &quot;AF&quot; for Africa, &quot;AN&quot; for Antarctica, &quot;AS&quot; for Asia, &quot;EU&quot; for Europe, &quot;NA&quot; for North America, &quot;OC&quot; for Oceania, and &quot;SA&quot; for South America.
+         * Continent code. A two character continent code "AF" for Africa, "AN" for Antarctica, "AS" for Asia, "EU" for Europe, "NA" for North America, "OC" for Oceania, and "SA" for South America.
          */
         continentCode: string;
         /**
@@ -1920,7 +2591,7 @@ export namespace Models {
          */
         enabled: boolean;
         /**
-         * Is the site deployed with the latest configuration? This is set to false if you&#039;ve changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the site to update it with the latest configuration.
+         * Is the site deployed with the latest configuration? This is set to false if you've changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the site to update it with the latest configuration.
          */
         live: boolean;
         /**
@@ -1932,7 +2603,7 @@ export namespace Models {
          */
         framework: string;
         /**
-         * Site&#039;s active deployment ID.
+         * Site's active deployment ID.
          */
         deploymentId: string;
         /**
@@ -1948,7 +2619,7 @@ export namespace Models {
          */
         deploymentScreenshotDark: string;
         /**
-         * Site&#039;s latest deployment ID.
+         * Site's latest deployment ID.
          */
         latestDeploymentId: string;
         /**
@@ -1956,7 +2627,7 @@ export namespace Models {
          */
         latestDeploymentCreatedAt: string;
         /**
-         * Status of latest deployment. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
+         * Status of latest deployment. Possible values are "waiting", "processing", "building", "ready", and "failed".
          */
         latestDeploymentStatus: string;
         /**
@@ -2046,7 +2717,7 @@ export namespace Models {
          */
         enabled: boolean;
         /**
-         * Is the function deployed with the latest configuration? This is set to false if you&#039;ve changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the function to update it with the latest configuration.
+         * Is the function deployed with the latest configuration? This is set to false if you've changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the function to update it with the latest configuration.
          */
         live: boolean;
         /**
@@ -2058,7 +2729,7 @@ export namespace Models {
          */
         runtime: string;
         /**
-         * Function&#039;s active deployment ID.
+         * Function's active deployment ID.
          */
         deploymentId: string;
         /**
@@ -2066,7 +2737,7 @@ export namespace Models {
          */
         deploymentCreatedAt: string;
         /**
-         * Function&#039;s latest deployment ID.
+         * Function's latest deployment ID.
          */
         latestDeploymentId: string;
         /**
@@ -2074,7 +2745,7 @@ export namespace Models {
          */
         latestDeploymentCreatedAt: string;
         /**
-         * Status of latest deployment. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
+         * Status of latest deployment. Possible values are "waiting", "processing", "building", "ready", and "failed".
          */
         latestDeploymentStatus: string;
         /**
@@ -2286,7 +2957,7 @@ export namespace Models {
          */
         screenshotDark: string;
         /**
-         * The deployment status. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
+         * The deployment status. Possible values are "waiting", "processing", "building", "ready", and "failed".
          */
         status: string;
         /**
@@ -2352,7 +3023,7 @@ export namespace Models {
          */
         $createdAt: string;
         /**
-         * Execution upate date in ISO 8601 format.
+         * Execution update date in ISO 8601 format.
          */
         $updatedAt: string;
         /**
@@ -2363,6 +3034,10 @@ export namespace Models {
          * Function ID.
          */
         functionId: string;
+        /**
+         * Function's deployment ID used to create the execution.
+         */
+        deploymentId: string;
         /**
          * The trigger that caused the function to execute. Possible values can be: `http`, `schedule`, or `event`.
          */
@@ -2442,11 +3117,11 @@ export namespace Models {
          */
         secret: boolean;
         /**
-         * Service to which the variable belongs. Possible values are &quot;project&quot;, &quot;function&quot;
+         * Service to which the variable belongs. Possible values are "project", "function"
          */
         resourceType: string;
         /**
-         * ID of resource to which the variable belongs. If resourceType is &quot;project&quot;, it is empty. If resourceType is &quot;function&quot;, it is ID of the function.
+         * ID of resource to which the variable belongs. If resourceType is "project", it is empty. If resourceType is "function", it is ID of the function.
          */
         resourceId: string;
     }

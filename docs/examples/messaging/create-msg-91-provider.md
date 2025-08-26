@@ -7,11 +7,11 @@ const client = new sdk.Client()
 
 const messaging = new sdk.Messaging(client);
 
-const result = await messaging.updateMsg91Provider(
-    '<PROVIDER_ID>', // providerId
-    '<NAME>', // name (optional)
-    false, // enabled (optional)
-    '<TEMPLATE_ID>', // templateId (optional)
-    '<SENDER_ID>', // senderId (optional)
-    '<AUTH_KEY>' // authKey (optional)
-);
+const result = await messaging.createMsg91Provider({
+    providerId: '<PROVIDER_ID>',
+    name: '<NAME>',
+    templateId: '<TEMPLATE_ID>', // optional
+    senderId: '<SENDER_ID>', // optional
+    authKey: '<AUTH_KEY>', // optional
+    enabled: false // optional
+});

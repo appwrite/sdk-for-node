@@ -5,10 +5,13 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const users = new sdk.Users(client);
+const tablesDB = new sdk.TablesDB(client);
 
-const result = await users.createJWT(
-    '<USER_ID>', // userId
-    '<SESSION_ID>', // sessionId (optional)
-    0 // duration (optional)
-);
+const result = await tablesDB.updateDatetimeColumn({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    key: '',
+    required: false,
+    default: '',
+    newKey: '' // optional
+});

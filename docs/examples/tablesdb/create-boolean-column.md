@@ -5,11 +5,13 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const users = new sdk.Users(client);
+const tablesDB = new sdk.TablesDB(client);
 
-const result = await users.createArgon2User(
-    '<USER_ID>', // userId
-    'email@example.com', // email
-    'password', // password
-    '<NAME>' // name (optional)
-);
+const result = await tablesDB.createBooleanColumn({
+    databaseId: '<DATABASE_ID>',
+    tableId: '<TABLE_ID>',
+    key: '',
+    required: false,
+    default: false, // optional
+    array: false // optional
+});
