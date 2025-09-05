@@ -1976,15 +1976,15 @@ export namespace Models {
         /**
          * Row automatically incrementing ID.
          */
-        readonly $sequence: number;
+        $sequence: number;
         /**
          * Table ID.
          */
-        readonly $tableId: string;
+        $tableId: string;
         /**
          * Database ID.
          */
-        readonly $databaseId: string;
+        $databaseId: string;
         /**
          * Row creation date in ISO 8601 format.
          */
@@ -2015,15 +2015,15 @@ export namespace Models {
         /**
          * Document automatically incrementing ID.
          */
-        readonly $sequence: number;
+        $sequence: number;
         /**
          * Collection ID.
          */
-        readonly $collectionId: string;
+        $collectionId: string;
         /**
          * Database ID.
          */
-        readonly $databaseId: string;
+        $databaseId: string;
         /**
          * Document creation date in ISO 8601 format.
          */
