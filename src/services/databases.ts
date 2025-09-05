@@ -2201,12 +2201,12 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {string} params.xdefault - Default value for attribute when not provided, as JSON string. Cannot be set when attribute is required.
+     * @param {any[]} params.xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLine>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createLineColumn` instead.
      */
-    createLineAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string  }): Promise<Models.AttributeLine>;
+    createLineAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[]  }): Promise<Models.AttributeLine>;
     /**
      * Create a geometric line attribute.
      *
@@ -2214,27 +2214,27 @@ export class Databases {
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {string} xdefault - Default value for attribute when not provided, as JSON string. Cannot be set when attribute is required.
+     * @param {any[]} xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLine>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createLineAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributeLine>;
+    createLineAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[]): Promise<Models.AttributeLine>;
     createLineAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (string)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[])?]    
     ): Promise<Models.AttributeLine> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as string            
+                xdefault: rest[3] as any[]            
             };
         }
         
@@ -2289,13 +2289,13 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#createCollection).
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {string} params.xdefault - Default value for attribute when not provided, as JSON string. Cannot be set when attribute is required.
+     * @param {any[]} params.xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
      * @param {string} params.newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLine>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateLineColumn` instead.
      */
-    updateLineAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.AttributeLine>;
+    updateLineAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string  }): Promise<Models.AttributeLine>;
     /**
      * Update a line attribute. Changing the `default` value will not update already existing documents.
      *
@@ -2303,28 +2303,28 @@ export class Databases {
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#createCollection).
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {string} xdefault - Default value for attribute when not provided, as JSON string. Cannot be set when attribute is required.
+     * @param {any[]} xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
      * @param {string} newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLine>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateLineAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeLine>;
+    updateLineAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string): Promise<Models.AttributeLine>;
     updateLineAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (string)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[])?, (string)?]    
     ): Promise<Models.AttributeLine> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as string,
+                xdefault: rest[3] as any[],
                 newKey: rest[4] as string            
             };
         }
@@ -2381,12 +2381,12 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {string} params.xdefault - Default value for attribute when not provided, as JSON string. Cannot be set when attribute is required.
+     * @param {any[]} params.xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePoint>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createPointColumn` instead.
      */
-    createPointAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string  }): Promise<Models.AttributePoint>;
+    createPointAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[]  }): Promise<Models.AttributePoint>;
     /**
      * Create a geometric point attribute.
      *
@@ -2394,27 +2394,27 @@ export class Databases {
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {string} xdefault - Default value for attribute when not provided, as JSON string. Cannot be set when attribute is required.
+     * @param {any[]} xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePoint>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createPointAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributePoint>;
+    createPointAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[]): Promise<Models.AttributePoint>;
     createPointAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (string)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[])?]    
     ): Promise<Models.AttributePoint> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as string            
+                xdefault: rest[3] as any[]            
             };
         }
         
@@ -2469,13 +2469,13 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#createCollection).
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {string} params.xdefault - Default value for attribute when not provided, as JSON string. Cannot be set when attribute is required.
+     * @param {any[]} params.xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
      * @param {string} params.newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePoint>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updatePointColumn` instead.
      */
-    updatePointAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.AttributePoint>;
+    updatePointAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string  }): Promise<Models.AttributePoint>;
     /**
      * Update a point attribute. Changing the `default` value will not update already existing documents.
      *
@@ -2483,28 +2483,28 @@ export class Databases {
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#createCollection).
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {string} xdefault - Default value for attribute when not provided, as JSON string. Cannot be set when attribute is required.
+     * @param {any[]} xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
      * @param {string} newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePoint>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePointAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributePoint>;
+    updatePointAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string): Promise<Models.AttributePoint>;
     updatePointAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (string)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[])?, (string)?]    
     ): Promise<Models.AttributePoint> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as string,
+                xdefault: rest[3] as any[],
                 newKey: rest[4] as string            
             };
         }
@@ -2561,12 +2561,12 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {string} params.xdefault - Default value for attribute when not provided, as JSON string. Cannot be set when attribute is required.
+     * @param {any[]} params.xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePolygon>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createPolygonColumn` instead.
      */
-    createPolygonAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string  }): Promise<Models.AttributePolygon>;
+    createPolygonAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[]  }): Promise<Models.AttributePolygon>;
     /**
      * Create a geometric polygon attribute.
      *
@@ -2574,27 +2574,27 @@ export class Databases {
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {string} xdefault - Default value for attribute when not provided, as JSON string. Cannot be set when attribute is required.
+     * @param {any[]} xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePolygon>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createPolygonAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string): Promise<Models.AttributePolygon>;
+    createPolygonAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[]): Promise<Models.AttributePolygon>;
     createPolygonAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (string)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[])?]    
     ): Promise<Models.AttributePolygon> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as string            
+                xdefault: rest[3] as any[]            
             };
         }
         
@@ -2649,13 +2649,13 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#createCollection).
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {string} params.xdefault - Default value for attribute when not provided, as JSON string. Cannot be set when attribute is required.
+     * @param {any[]} params.xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
      * @param {string} params.newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePolygon>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updatePolygonColumn` instead.
      */
-    updatePolygonAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.AttributePolygon>;
+    updatePolygonAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string  }): Promise<Models.AttributePolygon>;
     /**
      * Update a polygon attribute. Changing the `default` value will not update already existing documents.
      *
@@ -2663,28 +2663,28 @@ export class Databases {
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#createCollection).
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {string} xdefault - Default value for attribute when not provided, as JSON string. Cannot be set when attribute is required.
+     * @param {any[]} xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
      * @param {string} newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePolygon>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePolygonAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributePolygon>;
+    updatePolygonAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string): Promise<Models.AttributePolygon>;
     updatePolygonAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (string)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[])?, (string)?]    
     ): Promise<Models.AttributePolygon> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as string,
+                xdefault: rest[3] as any[],
                 newKey: rest[4] as string            
             };
         }
