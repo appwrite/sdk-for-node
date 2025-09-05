@@ -2168,7 +2168,7 @@ export class TablesDB {
     }
 
     /**
-     * Create a geometric line attribute.
+     * Create a geometric line column.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
@@ -2180,7 +2180,7 @@ export class TablesDB {
      */
     createLineColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string  }): Promise<Models.ColumnLine>;
     /**
-     * Create a geometric line attribute.
+     * Create a geometric line column.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
@@ -2255,7 +2255,7 @@ export class TablesDB {
     }
 
     /**
-     * Update a line column. Changing the `default` value will not update already existing documents.
+     * Update a line column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
@@ -2268,7 +2268,7 @@ export class TablesDB {
      */
     updateLineColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnLine>;
     /**
-     * Update a line column. Changing the `default` value will not update already existing documents.
+     * Update a line column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
@@ -2346,7 +2346,7 @@ export class TablesDB {
     }
 
     /**
-     * Create a geometric point attribute.
+     * Create a geometric point column.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
@@ -2358,7 +2358,7 @@ export class TablesDB {
      */
     createPointColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string  }): Promise<Models.ColumnPoint>;
     /**
-     * Create a geometric point attribute.
+     * Create a geometric point column.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
@@ -2433,7 +2433,7 @@ export class TablesDB {
     }
 
     /**
-     * Update a point column. Changing the `default` value will not update already existing documents.
+     * Update a point column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
@@ -2446,7 +2446,7 @@ export class TablesDB {
      */
     updatePointColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnPoint>;
     /**
-     * Update a point column. Changing the `default` value will not update already existing documents.
+     * Update a point column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
@@ -2524,7 +2524,7 @@ export class TablesDB {
     }
 
     /**
-     * Create a geometric polygon attribute.
+     * Create a geometric polygon column.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
@@ -2536,7 +2536,7 @@ export class TablesDB {
      */
     createPolygonColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string  }): Promise<Models.ColumnPolygon>;
     /**
-     * Create a geometric polygon attribute.
+     * Create a geometric polygon column.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
@@ -2611,7 +2611,7 @@ export class TablesDB {
     }
 
     /**
-     * Update a polygon column. Changing the `default` value will not update already existing documents.
+     * Update a polygon column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
@@ -2624,7 +2624,7 @@ export class TablesDB {
      */
     updatePolygonColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string  }): Promise<Models.ColumnPolygon>;
     /**
-     * Update a polygon column. Changing the `default` value will not update already existing documents.
+     * Update a polygon column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).

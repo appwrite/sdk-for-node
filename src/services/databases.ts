@@ -2375,7 +2375,7 @@ export class Databases {
     }
 
     /**
-     * Create a geometric 2d point attribute.
+     * Create a geometric point attribute.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
@@ -2388,7 +2388,7 @@ export class Databases {
      */
     createPointAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string  }): Promise<Models.AttributePoint>;
     /**
-     * Create a geometric 2d point attribute.
+     * Create a geometric point attribute.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
