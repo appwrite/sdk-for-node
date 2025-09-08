@@ -2168,6 +2168,540 @@ export class TablesDB {
     }
 
     /**
+     * Create a geometric line column.
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {any[]} params.xdefault - Default value for column when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when column is required.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnLine>}
+     */
+    createLineColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[]  }): Promise<Models.ColumnLine>;
+    /**
+     * Create a geometric line column.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {any[]} xdefault - Default value for column when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when column is required.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnLine>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createLineColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[]): Promise<Models.ColumnLine>;
+    createLineColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[] } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[])?]    
+    ): Promise<Models.ColumnLine> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[] };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[] };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as any[]            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/line'.replace('{databaseId}', databaseId).replace('{tableId}', tableId);
+        const payload: Payload = {};
+        if (typeof key !== 'undefined') {
+            payload['key'] = key;
+        }
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a line column. Changing the `default` value will not update already existing rows.
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {any[]} params.xdefault - Default value for column when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when column is required.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnLine>}
+     */
+    updateLineColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string  }): Promise<Models.ColumnLine>;
+    /**
+     * Update a line column. Changing the `default` value will not update already existing rows.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {any[]} xdefault - Default value for column when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when column is required.
+     * @param {string} newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnLine>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateLineColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string): Promise<Models.ColumnLine>;
+    updateLineColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[])?, (string)?]    
+    ): Promise<Models.ColumnLine> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as any[],
+                newKey: rest[4] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/line/{key}'.replace('{databaseId}', databaseId).replace('{tableId}', tableId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a geometric point column.
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {any[]} params.xdefault - Default value for column when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when column is required.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnPoint>}
+     */
+    createPointColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[]  }): Promise<Models.ColumnPoint>;
+    /**
+     * Create a geometric point column.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {any[]} xdefault - Default value for column when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when column is required.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnPoint>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createPointColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[]): Promise<Models.ColumnPoint>;
+    createPointColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[] } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[])?]    
+    ): Promise<Models.ColumnPoint> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[] };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[] };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as any[]            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/point'.replace('{databaseId}', databaseId).replace('{tableId}', tableId);
+        const payload: Payload = {};
+        if (typeof key !== 'undefined') {
+            payload['key'] = key;
+        }
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a point column. Changing the `default` value will not update already existing rows.
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {any[]} params.xdefault - Default value for column when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when column is required.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnPoint>}
+     */
+    updatePointColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string  }): Promise<Models.ColumnPoint>;
+    /**
+     * Update a point column. Changing the `default` value will not update already existing rows.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {any[]} xdefault - Default value for column when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when column is required.
+     * @param {string} newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnPoint>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updatePointColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string): Promise<Models.ColumnPoint>;
+    updatePointColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[])?, (string)?]    
+    ): Promise<Models.ColumnPoint> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as any[],
+                newKey: rest[4] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/point/{key}'.replace('{databaseId}', databaseId).replace('{tableId}', tableId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a geometric polygon column.
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {any[]} params.xdefault - Default value for column when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when column is required.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnPolygon>}
+     */
+    createPolygonColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[]  }): Promise<Models.ColumnPolygon>;
+    /**
+     * Create a geometric polygon column.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {any[]} xdefault - Default value for column when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when column is required.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnPolygon>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createPolygonColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[]): Promise<Models.ColumnPolygon>;
+    createPolygonColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[] } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[])?]    
+    ): Promise<Models.ColumnPolygon> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[] };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[] };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as any[]            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/polygon'.replace('{databaseId}', databaseId).replace('{tableId}', tableId);
+        const payload: Payload = {};
+        if (typeof key !== 'undefined') {
+            payload['key'] = key;
+        }
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a polygon column. Changing the `default` value will not update already existing rows.
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {any[]} params.xdefault - Default value for column when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when column is required.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnPolygon>}
+     */
+    updatePolygonColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string  }): Promise<Models.ColumnPolygon>;
+    /**
+     * Update a polygon column. Changing the `default` value will not update already existing rows.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {any[]} xdefault - Default value for column when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when column is required.
+     * @param {string} newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnPolygon>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updatePolygonColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string): Promise<Models.ColumnPolygon>;
+    updatePolygonColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[])?, (string)?]    
+    ): Promise<Models.ColumnPolygon> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as any[],
+                newKey: rest[4] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/polygon/{key}'.replace('{databaseId}', databaseId).replace('{tableId}', tableId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Create relationship column. [Learn more about relationship columns](https://appwrite.io/docs/databases-relationships#relationship-columns).
      * 
      *
