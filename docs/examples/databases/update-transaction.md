@@ -7,11 +7,8 @@ const client = new sdk.Client()
 
 const databases = new sdk.Databases(client);
 
-const result = await databases.updatePointAttribute({
-    databaseId: '<DATABASE_ID>',
-    collectionId: '<COLLECTION_ID>',
-    key: '',
-    required: false,
-    default: [1, 2], // optional
-    newKey: '' // optional
+const result = await databases.updateTransaction({
+    transactionId: '<TRANSACTION_ID>',
+    commit: false, // optional
+    rollback: false // optional
 });

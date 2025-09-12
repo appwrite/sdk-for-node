@@ -482,6 +482,20 @@ export namespace Models {
     }
 
     /**
+     * Transaction List
+     */
+    export type TransactionList = {
+        /**
+         * Total number of transactions that matched your query.
+         */
+        total: number;
+        /**
+         * List of transactions.
+         */
+        transactions: Transaction[];
+    }
+
+    /**
      * Specifications List
      */
     export type SpecificationList = {
@@ -3806,6 +3820,36 @@ export namespace Models {
          * Subscribe permissions.
          */
         subscribe: string[];
+    }
+
+    /**
+     * Transaction
+     */
+    export type Transaction = {
+        /**
+         * Transaction ID.
+         */
+        $id: string;
+        /**
+         * Transaction creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Transaction update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Current status of the transaction. One of: pending, committing, committed, rolled_back, failed.
+         */
+        status: string;
+        /**
+         * Number of operations in the transaction.
+         */
+        operations: number;
+        /**
+         * Expiration time in ISO 8601 format.
+         */
+        expiresAt: string;
     }
 
     /**
