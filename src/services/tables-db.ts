@@ -3898,7 +3898,7 @@ export class TablesDB {
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate). Make sure to define columns before creating rows.
-     * @param {object[]} params.rows - Array of documents data as JSON objects.
+     * @param {object[]} params.rows - Array of rows data as JSON objects.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
      */
@@ -3908,7 +3908,7 @@ export class TablesDB {
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate). Make sure to define columns before creating rows.
-     * @param {object[]} rows - Array of documents data as JSON objects.
+     * @param {object[]} rows - Array of rows data as JSON objects.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
      * @deprecated Use the object parameter style method for a better developer experience.
