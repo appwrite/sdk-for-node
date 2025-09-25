@@ -3247,10 +3247,6 @@ export namespace Models {
          */
         providerRepositoryUrl: string;
         /**
-         * The branch of the vcs repository
-         */
-        providerBranch: string;
-        /**
          * The commit hash of the vcs commit
          */
         providerCommitHash: string;
@@ -3270,6 +3266,10 @@ export namespace Models {
          * The url of the vcs commit
          */
         providerCommitUrl: string;
+        /**
+         * The branch of the vcs repository
+         */
+        providerBranch: string;
         /**
          * The branch of the vcs repository
          */
@@ -3321,7 +3321,7 @@ export namespace Models {
          */
         requestPath: string;
         /**
-         * HTTP response headers as a key-value object. This will return only whitelisted headers. All headers are returned if execution is created as synchronous.
+         * HTTP request headers as a key-value object. This will return only whitelisted headers. All headers are returned if execution is created as synchronous.
          */
         requestHeaders: Headers[];
         /**
@@ -3499,7 +3499,7 @@ export namespace Models {
          */
         version: string;
         /**
-         * Antivirus status. Possible values can are: `disabled`, `offline`, `online`
+         * Antivirus status. Possible values are: `disabled`, `offline`, `online`
          */
         status: string;
     }
@@ -3527,7 +3527,7 @@ export namespace Models {
          */
         ping: number;
         /**
-         * Service status. Possible values can are: `pass`, `fail`
+         * Service status. Possible values are: `pass`, `fail`
          */
         status: string;
     }
