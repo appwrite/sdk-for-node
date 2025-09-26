@@ -1,3 +1,12 @@
+import { AttributeStatus } from "./enums/attribute-status"
+import { IndexStatus } from "./enums/index-status"
+import { DeploymentStatus } from "./enums/deployment-status"
+import { ExecutionTrigger } from "./enums/execution-trigger"
+import { ExecutionStatus } from "./enums/execution-status"
+import { HealthAntivirusStatus } from "./enums/health-antivirus-status"
+import { HealthCheckStatus } from "./enums/health-check-status"
+import { MessageStatus } from "./enums/message-status"
+
 /**
  * Appwrite Models
  */
@@ -600,7 +609,7 @@ export namespace Models {
         /**
          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: AttributeStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an attribute.
          */
@@ -650,7 +659,7 @@ export namespace Models {
         /**
          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: AttributeStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an attribute.
          */
@@ -700,7 +709,7 @@ export namespace Models {
         /**
          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: AttributeStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an attribute.
          */
@@ -750,7 +759,7 @@ export namespace Models {
         /**
          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: AttributeStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an attribute.
          */
@@ -792,7 +801,7 @@ export namespace Models {
         /**
          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: AttributeStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an attribute.
          */
@@ -838,7 +847,7 @@ export namespace Models {
         /**
          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: AttributeStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an attribute.
          */
@@ -888,7 +897,7 @@ export namespace Models {
         /**
          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: AttributeStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an attribute.
          */
@@ -934,7 +943,7 @@ export namespace Models {
         /**
          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: AttributeStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an attribute.
          */
@@ -980,7 +989,7 @@ export namespace Models {
         /**
          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: AttributeStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an attribute.
          */
@@ -1026,7 +1035,7 @@ export namespace Models {
         /**
          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: AttributeStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an attribute.
          */
@@ -1088,7 +1097,7 @@ export namespace Models {
         /**
          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: AttributeStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an attribute.
          */
@@ -1130,7 +1139,7 @@ export namespace Models {
         /**
          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: AttributeStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an attribute.
          */
@@ -1172,7 +1181,7 @@ export namespace Models {
         /**
          * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: AttributeStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an attribute.
          */
@@ -1900,7 +1909,7 @@ export namespace Models {
         /**
          * Index status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: IndexStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an index.
          */
@@ -3211,7 +3220,7 @@ export namespace Models {
         /**
          * The deployment status. Possible values are "waiting", "processing", "building", "ready", and "failed".
          */
-        status: string;
+        status: DeploymentStatus;
         /**
          * The build logs.
          */
@@ -3293,11 +3302,11 @@ export namespace Models {
         /**
          * The trigger that caused the function to execute. Possible values can be: `http`, `schedule`, or `event`.
          */
-        trigger: string;
+        trigger: ExecutionTrigger;
         /**
          * The status of the function execution. Possible values can be: `waiting`, `processing`, `completed`, or `failed`.
          */
-        status: string;
+        status: ExecutionStatus;
         /**
          * HTTP request method type.
          */
@@ -3487,7 +3496,7 @@ export namespace Models {
         /**
          * Antivirus status. Possible values are: `disabled`, `offline`, `online`
          */
-        status: string;
+        status: HealthAntivirusStatus;
     }
 
     /**
@@ -3515,7 +3524,7 @@ export namespace Models {
         /**
          * Service status. Possible values are: `pass`, `fail`
          */
-        status: string;
+        status: HealthCheckStatus;
     }
 
     /**
@@ -3767,7 +3776,7 @@ export namespace Models {
         /**
          * Status of delivery.
          */
-        status: string;
+        status: MessageStatus;
     }
 
     /**
