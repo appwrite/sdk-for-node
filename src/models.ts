@@ -1,4 +1,6 @@
+import { DatabaseType } from "./enums/database-type"
 import { AttributeStatus } from "./enums/attribute-status"
+import { ColumnStatus } from "./enums/column-status"
 import { IndexStatus } from "./enums/index-status"
 import { DeploymentStatus } from "./enums/deployment-status"
 import { ExecutionTrigger } from "./enums/execution-trigger"
@@ -531,7 +533,7 @@ export namespace Models {
         /**
          * Database type.
          */
-        type: string;
+        type: DatabaseType;
     }
 
     /**
@@ -1283,7 +1285,7 @@ export namespace Models {
         /**
          * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: ColumnStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an column.
          */
@@ -1333,7 +1335,7 @@ export namespace Models {
         /**
          * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: ColumnStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an column.
          */
@@ -1383,7 +1385,7 @@ export namespace Models {
         /**
          * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: ColumnStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an column.
          */
@@ -1433,7 +1435,7 @@ export namespace Models {
         /**
          * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: ColumnStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an column.
          */
@@ -1475,7 +1477,7 @@ export namespace Models {
         /**
          * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: ColumnStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an column.
          */
@@ -1521,7 +1523,7 @@ export namespace Models {
         /**
          * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: ColumnStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an column.
          */
@@ -1571,7 +1573,7 @@ export namespace Models {
         /**
          * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: ColumnStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an column.
          */
@@ -1617,7 +1619,7 @@ export namespace Models {
         /**
          * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: ColumnStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an column.
          */
@@ -1663,7 +1665,7 @@ export namespace Models {
         /**
          * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: ColumnStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an column.
          */
@@ -1709,7 +1711,7 @@ export namespace Models {
         /**
          * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: ColumnStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an column.
          */
@@ -1771,7 +1773,7 @@ export namespace Models {
         /**
          * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: ColumnStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an column.
          */
@@ -1813,7 +1815,7 @@ export namespace Models {
         /**
          * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: ColumnStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an column.
          */
@@ -1855,7 +1857,7 @@ export namespace Models {
         /**
          * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
          */
-        status: string;
+        status: ColumnStatus;
         /**
          * Error message. Displays error generated on failure of creating or deleting an column.
          */
