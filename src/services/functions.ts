@@ -878,7 +878,7 @@ export class Functions {
     /**
      * Create a deployment based on a template.
      * 
-     * Use this endpoint with combination of [listTemplates](https://appwrite.io/docs/server/functions#listTemplates) to find the template details.
+     * Use this endpoint with combination of [listTemplates](https://appwrite.io/docs/products/functions/templates) to find the template details.
      *
      * @param {string} params.functionId - Function ID.
      * @param {string} params.repository - Repository name of the template.
@@ -893,7 +893,7 @@ export class Functions {
     /**
      * Create a deployment based on a template.
      * 
-     * Use this endpoint with combination of [listTemplates](https://appwrite.io/docs/server/functions#listTemplates) to find the template details.
+     * Use this endpoint with combination of [listTemplates](https://appwrite.io/docs/products/functions/templates) to find the template details.
      *
      * @param {string} functionId - Function ID.
      * @param {string} repository - Repository name of the template.
