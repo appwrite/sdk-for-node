@@ -7,9 +7,6 @@ const client = new sdk.Client()
 
 const databases = new sdk.Databases(client);
 
-const result = await databases.upsertDocuments({
-    databaseId: '<DATABASE_ID>',
-    collectionId: '<COLLECTION_ID>',
-    documents: [],
-    transactionId: '<TRANSACTION_ID>' // optional
+const result = await databases.listTransactions({
+    queries: [] // optional
 });
