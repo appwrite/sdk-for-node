@@ -719,7 +719,7 @@ export class TablesDB {
     }
 
     /**
-     * Create a new Table. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create a new Table. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
@@ -732,7 +732,7 @@ export class TablesDB {
      */
     createTable(params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean  }): Promise<Models.Table>;
     /**
-     * Create a new Table. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create a new Table. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
@@ -1093,7 +1093,7 @@ export class TablesDB {
      * 
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
      * @param {boolean} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
@@ -1107,7 +1107,7 @@ export class TablesDB {
      * 
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
      * @param {boolean} xdefault - Default value for column when not provided. Cannot be set when column is required.
@@ -1188,7 +1188,7 @@ export class TablesDB {
      * Update a boolean column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
      * @param {boolean} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
@@ -1201,7 +1201,7 @@ export class TablesDB {
      * Update a boolean column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
      * @param {boolean} xdefault - Default value for column when not provided. Cannot be set when column is required.
@@ -2504,7 +2504,7 @@ export class TablesDB {
      * Create a geometric line column.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
      * @param {any[]} params.xdefault - Default value for column when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when column is required.
@@ -2516,7 +2516,7 @@ export class TablesDB {
      * Create a geometric line column.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
      * @param {any[]} xdefault - Default value for column when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when column is required.
@@ -2591,7 +2591,7 @@ export class TablesDB {
      * Update a line column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
      * @param {any[]} params.xdefault - Default value for column when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when column is required.
@@ -2604,7 +2604,7 @@ export class TablesDB {
      * Update a line column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
      * @param {any[]} xdefault - Default value for column when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when column is required.
@@ -2682,7 +2682,7 @@ export class TablesDB {
      * Create a geometric point column.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
      * @param {any[]} params.xdefault - Default value for column when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when column is required.
@@ -2694,7 +2694,7 @@ export class TablesDB {
      * Create a geometric point column.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
      * @param {any[]} xdefault - Default value for column when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when column is required.
@@ -2769,7 +2769,7 @@ export class TablesDB {
      * Update a point column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
      * @param {any[]} params.xdefault - Default value for column when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when column is required.
@@ -2782,7 +2782,7 @@ export class TablesDB {
      * Update a point column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
      * @param {any[]} xdefault - Default value for column when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when column is required.
@@ -2860,7 +2860,7 @@ export class TablesDB {
      * Create a geometric polygon column.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
      * @param {any[]} params.xdefault - Default value for column when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when column is required.
@@ -2872,7 +2872,7 @@ export class TablesDB {
      * Create a geometric polygon column.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
      * @param {any[]} xdefault - Default value for column when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when column is required.
@@ -2947,7 +2947,7 @@ export class TablesDB {
      * Update a polygon column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
      * @param {any[]} params.xdefault - Default value for column when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when column is required.
@@ -2960,7 +2960,7 @@ export class TablesDB {
      * Update a polygon column. Changing the `default` value will not update already existing rows.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
      * @param {any[]} xdefault - Default value for column when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when column is required.
@@ -3149,7 +3149,7 @@ export class TablesDB {
      * 
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Column Key.
      * @param {number} params.size - Column size for text columns, in number of characters.
      * @param {boolean} params.required - Is column required?
@@ -3165,7 +3165,7 @@ export class TablesDB {
      * 
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Column Key.
      * @param {number} size - Column size for text columns, in number of characters.
      * @param {boolean} required - Is column required?
@@ -3262,7 +3262,7 @@ export class TablesDB {
      * 
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
      * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
@@ -3277,7 +3277,7 @@ export class TablesDB {
      * 
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
      * @param {string} xdefault - Default value for column when not provided. Cannot be set when column is required.
@@ -3772,7 +3772,7 @@ export class TablesDB {
      * List indexes on the table.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following columns: key, type, status, attributes, error
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndexList>}
@@ -3782,7 +3782,7 @@ export class TablesDB {
      * List indexes on the table.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following columns: key, type, status, attributes, error
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndexList>}
@@ -3839,7 +3839,7 @@ export class TablesDB {
      * Type can be `key`, `fulltext`, or `unique`.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Index Key.
      * @param {IndexType} params.type - Index type.
      * @param {string[]} params.columns - Array of columns to index. Maximum of 100 columns are allowed, each 32 characters long.
@@ -3854,7 +3854,7 @@ export class TablesDB {
      * Type can be `key`, `fulltext`, or `unique`.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Index Key.
      * @param {IndexType} type - Index type.
      * @param {string[]} columns - Array of columns to index. Maximum of 100 columns are allowed, each 32 characters long.
@@ -3944,7 +3944,7 @@ export class TablesDB {
      * Get index by ID.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndex>}
@@ -3954,7 +3954,7 @@ export class TablesDB {
      * Get index by ID.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndex>}
@@ -4010,7 +4010,7 @@ export class TablesDB {
      * Delete an index.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
@@ -4020,7 +4020,7 @@ export class TablesDB {
      * Delete an index.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Index Key.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
@@ -4077,7 +4077,7 @@ export class TablesDB {
      * Get a list of all the user's rows in a given table. You can use the query params to filter your results.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the TableDB service [server integration](https://appwrite.io/docs/server/tablesdbdb#tablesdbCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/products/databases/tables#create-table).
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param {string} params.transactionId - Transaction ID to read uncommitted changes within the transaction.
      * @throws {AppwriteException}
@@ -4088,7 +4088,7 @@ export class TablesDB {
      * Get a list of all the user's rows in a given table. You can use the query params to filter your results.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the TableDB service [server integration](https://appwrite.io/docs/server/tablesdbdb#tablesdbCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/products/databases/tables#create-table).
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param {string} transactionId - Transaction ID to read uncommitted changes within the transaction.
      * @throws {AppwriteException}
@@ -4147,10 +4147,10 @@ export class TablesDB {
     }
 
     /**
-     * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate). Make sure to define columns before creating rows.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable). Make sure to define columns before creating rows.
      * @param {string} params.rowId - Row ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>} params.data - Row data as JSON object.
      * @param {string[]} params.permissions - An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
@@ -4160,10 +4160,10 @@ export class TablesDB {
      */
     createRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>, permissions?: string[], transactionId?: string  }): Promise<Row>;
     /**
-     * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate). Make sure to define columns before creating rows.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable). Make sure to define columns before creating rows.
      * @param {string} rowId - Row ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Omit<Row, keyof Models.Row>} data - Row data as JSON object.
      * @param {string[]} permissions - An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
@@ -4241,10 +4241,10 @@ export class TablesDB {
     }
 
     /**
-     * Create new Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create new Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate). Make sure to define columns before creating rows.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable). Make sure to define columns before creating rows.
      * @param {object[]} params.rows - Array of rows data as JSON objects.
      * @param {string} params.transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
@@ -4252,10 +4252,10 @@ export class TablesDB {
      */
     createRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rows: object[], transactionId?: string  }): Promise<Models.RowList<Row>>;
     /**
-     * Create new Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create new Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate). Make sure to define columns before creating rows.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable). Make sure to define columns before creating rows.
      * @param {object[]} rows - Array of rows data as JSON objects.
      * @param {string} transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
@@ -4318,7 +4318,7 @@ export class TablesDB {
     }
 
     /**
-     * Create or update Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create or update Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      * 
      *
      * @param {string} params.databaseId - Database ID.
@@ -4330,7 +4330,7 @@ export class TablesDB {
      */
     upsertRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rows: object[], transactionId?: string  }): Promise<Models.RowList<Row>>;
     /**
-     * Create or update Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create or update Rows. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      * 
      *
      * @param {string} databaseId - Database ID.
@@ -4481,7 +4481,7 @@ export class TablesDB {
      * Bulk delete rows using queries, if no queries are passed then all rows are deleted.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param {string} params.transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
@@ -4492,7 +4492,7 @@ export class TablesDB {
      * Bulk delete rows using queries, if no queries are passed then all rows are deleted.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param {string} transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
@@ -4555,7 +4555,7 @@ export class TablesDB {
      * Get a row by its unique ID. This endpoint response returns a JSON object with the row data.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.rowId - Row ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param {string} params.transactionId - Transaction ID to read uncommitted changes within the transaction.
@@ -4567,7 +4567,7 @@ export class TablesDB {
      * Get a row by its unique ID. This endpoint response returns a JSON object with the row data.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} rowId - Row ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param {string} transactionId - Transaction ID to read uncommitted changes within the transaction.
@@ -4632,7 +4632,7 @@ export class TablesDB {
     }
 
     /**
-     * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID.
@@ -4645,7 +4645,7 @@ export class TablesDB {
      */
     upsertRow<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, rowId: string, data?: Row extends Models.DefaultRow ? Partial<Models.Row> & Record<string, any> : Partial<Models.Row> & Partial<Omit<Row, keyof Models.Row>>, permissions?: string[], transactionId?: string  }): Promise<Row>;
     /**
-     * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
@@ -4811,7 +4811,7 @@ export class TablesDB {
      * Delete a row by its unique ID.
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.rowId - Row ID.
      * @param {string} params.transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
@@ -4822,7 +4822,7 @@ export class TablesDB {
      * Delete a row by its unique ID.
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} rowId - Row ID.
      * @param {string} transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
