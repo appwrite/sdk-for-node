@@ -17,37 +17,41 @@ export class Storage {
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: enabled, name, fileSecurity, maximumFileSize, encryption, antivirus
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.BucketList>}
      */
-    listBuckets(params?: { queries?: string[], search?: string  }): Promise<Models.BucketList>;
+    listBuckets(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.BucketList>;
     /**
      * Get a list of all the storage buckets. You can use the query params to filter your results.
      *
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: enabled, name, fileSecurity, maximumFileSize, encryption, antivirus
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.BucketList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listBuckets(queries?: string[], search?: string): Promise<Models.BucketList>;
+    listBuckets(queries?: string[], search?: string, total?: boolean): Promise<Models.BucketList>;
     listBuckets(
-        paramsOrFirst?: { queries?: string[], search?: string } | string[],
-        ...rest: [(string)?]    
+        paramsOrFirst?: { queries?: string[], search?: string, total?: boolean } | string[],
+        ...rest: [(string)?, (boolean)?]    
     ): Promise<Models.BucketList> {
-        let params: { queries?: string[], search?: string };
+        let params: { queries?: string[], search?: string, total?: boolean };
         
         if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], search?: string };
+            params = (paramsOrFirst || {}) as { queries?: string[], search?: string, total?: boolean };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
-                search: rest[0] as string            
+                search: rest[0] as string,
+                total: rest[1] as boolean            
             };
         }
         
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
 
 
         const apiPath = '/storage/buckets';
@@ -57,6 +61,9 @@ export class Storage {
         }
         if (typeof search !== 'undefined') {
             payload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -421,40 +428,44 @@ export class Storage {
      * @param {string} params.bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, signature, mimeType, sizeOriginal, chunksTotal, chunksUploaded
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.FileList>}
      */
-    listFiles(params: { bucketId: string, queries?: string[], search?: string  }): Promise<Models.FileList>;
+    listFiles(params: { bucketId: string, queries?: string[], search?: string, total?: boolean  }): Promise<Models.FileList>;
     /**
      * Get a list of all the user files. You can use the query params to filter your results.
      *
      * @param {string} bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, signature, mimeType, sizeOriginal, chunksTotal, chunksUploaded
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.FileList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listFiles(bucketId: string, queries?: string[], search?: string): Promise<Models.FileList>;
+    listFiles(bucketId: string, queries?: string[], search?: string, total?: boolean): Promise<Models.FileList>;
     listFiles(
-        paramsOrFirst: { bucketId: string, queries?: string[], search?: string } | string,
-        ...rest: [(string[])?, (string)?]    
+        paramsOrFirst: { bucketId: string, queries?: string[], search?: string, total?: boolean } | string,
+        ...rest: [(string[])?, (string)?, (boolean)?]    
     ): Promise<Models.FileList> {
-        let params: { bucketId: string, queries?: string[], search?: string };
+        let params: { bucketId: string, queries?: string[], search?: string, total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, queries?: string[], search?: string };
+            params = (paramsOrFirst || {}) as { bucketId: string, queries?: string[], search?: string, total?: boolean };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
                 queries: rest[0] as string[],
-                search: rest[1] as string            
+                search: rest[1] as string,
+                total: rest[2] as boolean            
             };
         }
         
         const bucketId = params.bucketId;
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
 
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
@@ -467,6 +478,9 @@ export class Storage {
         }
         if (typeof search !== 'undefined') {
             payload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

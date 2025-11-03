@@ -19,37 +19,41 @@ export class Sites {
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, enabled, framework, deploymentId, buildCommand, installCommand, outputDirectory, installationId
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SiteList>}
      */
-    list(params?: { queries?: string[], search?: string  }): Promise<Models.SiteList>;
+    list(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.SiteList>;
     /**
      * Get a list of all the project's sites. You can use the query params to filter your results.
      *
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, enabled, framework, deploymentId, buildCommand, installCommand, outputDirectory, installationId
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SiteList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    list(queries?: string[], search?: string): Promise<Models.SiteList>;
+    list(queries?: string[], search?: string, total?: boolean): Promise<Models.SiteList>;
     list(
-        paramsOrFirst?: { queries?: string[], search?: string } | string[],
-        ...rest: [(string)?]    
+        paramsOrFirst?: { queries?: string[], search?: string, total?: boolean } | string[],
+        ...rest: [(string)?, (boolean)?]    
     ): Promise<Models.SiteList> {
-        let params: { queries?: string[], search?: string };
+        let params: { queries?: string[], search?: string, total?: boolean };
         
         if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], search?: string };
+            params = (paramsOrFirst || {}) as { queries?: string[], search?: string, total?: boolean };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
-                search: rest[0] as string            
+                search: rest[0] as string,
+                total: rest[1] as boolean            
             };
         }
         
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
 
 
         const apiPath = '/sites';
@@ -59,6 +63,9 @@ export class Sites {
         }
         if (typeof search !== 'undefined') {
             payload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -653,40 +660,44 @@ export class Sites {
      * @param {string} params.siteId - Site ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: buildSize, sourceSize, totalSize, buildDuration, status, activate, type
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DeploymentList>}
      */
-    listDeployments(params: { siteId: string, queries?: string[], search?: string  }): Promise<Models.DeploymentList>;
+    listDeployments(params: { siteId: string, queries?: string[], search?: string, total?: boolean  }): Promise<Models.DeploymentList>;
     /**
      * Get a list of all the site's code deployments. You can use the query params to filter your results.
      *
      * @param {string} siteId - Site ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: buildSize, sourceSize, totalSize, buildDuration, status, activate, type
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DeploymentList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listDeployments(siteId: string, queries?: string[], search?: string): Promise<Models.DeploymentList>;
+    listDeployments(siteId: string, queries?: string[], search?: string, total?: boolean): Promise<Models.DeploymentList>;
     listDeployments(
-        paramsOrFirst: { siteId: string, queries?: string[], search?: string } | string,
-        ...rest: [(string[])?, (string)?]    
+        paramsOrFirst: { siteId: string, queries?: string[], search?: string, total?: boolean } | string,
+        ...rest: [(string[])?, (string)?, (boolean)?]    
     ): Promise<Models.DeploymentList> {
-        let params: { siteId: string, queries?: string[], search?: string };
+        let params: { siteId: string, queries?: string[], search?: string, total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, queries?: string[], search?: string };
+            params = (paramsOrFirst || {}) as { siteId: string, queries?: string[], search?: string, total?: boolean };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
                 queries: rest[0] as string[],
-                search: rest[1] as string            
+                search: rest[1] as string,
+                total: rest[2] as boolean            
             };
         }
         
         const siteId = params.siteId;
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
 
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
@@ -699,6 +710,9 @@ export class Sites {
         }
         if (typeof search !== 'undefined') {
             payload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1313,37 +1327,41 @@ export class Sites {
      *
      * @param {string} params.siteId - Site ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, responseStatusCode, duration, requestMethod, requestPath, deploymentId
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ExecutionList>}
      */
-    listLogs(params: { siteId: string, queries?: string[]  }): Promise<Models.ExecutionList>;
+    listLogs(params: { siteId: string, queries?: string[], total?: boolean  }): Promise<Models.ExecutionList>;
     /**
      * Get a list of all site logs. You can use the query params to filter your results.
      *
      * @param {string} siteId - Site ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, responseStatusCode, duration, requestMethod, requestPath, deploymentId
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ExecutionList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listLogs(siteId: string, queries?: string[]): Promise<Models.ExecutionList>;
+    listLogs(siteId: string, queries?: string[], total?: boolean): Promise<Models.ExecutionList>;
     listLogs(
-        paramsOrFirst: { siteId: string, queries?: string[] } | string,
-        ...rest: [(string[])?]    
+        paramsOrFirst: { siteId: string, queries?: string[], total?: boolean } | string,
+        ...rest: [(string[])?, (boolean)?]    
     ): Promise<Models.ExecutionList> {
-        let params: { siteId: string, queries?: string[] };
+        let params: { siteId: string, queries?: string[], total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, queries?: string[] };
+            params = (paramsOrFirst || {}) as { siteId: string, queries?: string[], total?: boolean };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
-                queries: rest[0] as string[]            
+                queries: rest[0] as string[],
+                total: rest[1] as boolean            
             };
         }
         
         const siteId = params.siteId;
         const queries = params.queries;
+        const total = params.total;
 
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
@@ -1353,6 +1371,9 @@ export class Sites {
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
