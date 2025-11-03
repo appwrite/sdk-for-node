@@ -17,37 +17,41 @@ export class TablesDB {
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following columns: name
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DatabaseList>}
      */
-    list(params?: { queries?: string[], search?: string  }): Promise<Models.DatabaseList>;
+    list(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.DatabaseList>;
     /**
      * Get a list of all databases from the current Appwrite project. You can use the search parameter to filter your results.
      *
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following columns: name
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DatabaseList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    list(queries?: string[], search?: string): Promise<Models.DatabaseList>;
+    list(queries?: string[], search?: string, total?: boolean): Promise<Models.DatabaseList>;
     list(
-        paramsOrFirst?: { queries?: string[], search?: string } | string[],
-        ...rest: [(string)?]    
+        paramsOrFirst?: { queries?: string[], search?: string, total?: boolean } | string[],
+        ...rest: [(string)?, (boolean)?]    
     ): Promise<Models.DatabaseList> {
-        let params: { queries?: string[], search?: string };
+        let params: { queries?: string[], search?: string, total?: boolean };
         
         if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], search?: string };
+            params = (paramsOrFirst || {}) as { queries?: string[], search?: string, total?: boolean };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
-                search: rest[0] as string            
+                search: rest[0] as string,
+                total: rest[1] as boolean            
             };
         }
         
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
 
 
         const apiPath = '/tablesdb';
@@ -57,6 +61,9 @@ export class TablesDB {
         }
         if (typeof search !== 'undefined') {
             payload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -658,40 +665,44 @@ export class TablesDB {
      * @param {string} params.databaseId - Database ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following columns: name, enabled, rowSecurity
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.TableList>}
      */
-    listTables(params: { databaseId: string, queries?: string[], search?: string  }): Promise<Models.TableList>;
+    listTables(params: { databaseId: string, queries?: string[], search?: string, total?: boolean  }): Promise<Models.TableList>;
     /**
      * Get a list of all tables that belong to the provided databaseId. You can use the search parameter to filter your results.
      *
      * @param {string} databaseId - Database ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following columns: name, enabled, rowSecurity
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.TableList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listTables(databaseId: string, queries?: string[], search?: string): Promise<Models.TableList>;
+    listTables(databaseId: string, queries?: string[], search?: string, total?: boolean): Promise<Models.TableList>;
     listTables(
-        paramsOrFirst: { databaseId: string, queries?: string[], search?: string } | string,
-        ...rest: [(string[])?, (string)?]    
+        paramsOrFirst: { databaseId: string, queries?: string[], search?: string, total?: boolean } | string,
+        ...rest: [(string[])?, (string)?, (boolean)?]    
     ): Promise<Models.TableList> {
-        let params: { databaseId: string, queries?: string[], search?: string };
+        let params: { databaseId: string, queries?: string[], search?: string, total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, queries?: string[], search?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, queries?: string[], search?: string, total?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 queries: rest[0] as string[],
-                search: rest[1] as string            
+                search: rest[1] as string,
+                total: rest[2] as boolean            
             };
         }
         
         const databaseId = params.databaseId;
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
 
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
@@ -704,6 +715,9 @@ export class TablesDB {
         }
         if (typeof search !== 'undefined') {
             payload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1028,40 +1042,44 @@ export class TablesDB {
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following columns: key, type, size, required, array, status, error
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnList>}
      */
-    listColumns(params: { databaseId: string, tableId: string, queries?: string[]  }): Promise<Models.ColumnList>;
+    listColumns(params: { databaseId: string, tableId: string, queries?: string[], total?: boolean  }): Promise<Models.ColumnList>;
     /**
      * List columns in the table.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following columns: key, type, size, required, array, status, error
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listColumns(databaseId: string, tableId: string, queries?: string[]): Promise<Models.ColumnList>;
+    listColumns(databaseId: string, tableId: string, queries?: string[], total?: boolean): Promise<Models.ColumnList>;
     listColumns(
-        paramsOrFirst: { databaseId: string, tableId: string, queries?: string[] } | string,
-        ...rest: [(string)?, (string[])?]    
+        paramsOrFirst: { databaseId: string, tableId: string, queries?: string[], total?: boolean } | string,
+        ...rest: [(string)?, (string[])?, (boolean)?]    
     ): Promise<Models.ColumnList> {
-        let params: { databaseId: string, tableId: string, queries?: string[] };
+        let params: { databaseId: string, tableId: string, queries?: string[], total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, queries?: string[] };
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, queries?: string[], total?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 tableId: rest[0] as string,
-                queries: rest[1] as string[]            
+                queries: rest[1] as string[],
+                total: rest[2] as boolean            
             };
         }
         
         const databaseId = params.databaseId;
         const tableId = params.tableId;
         const queries = params.queries;
+        const total = params.total;
 
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
@@ -1074,6 +1092,9 @@ export class TablesDB {
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -3774,40 +3795,44 @@ export class TablesDB {
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following columns: key, type, status, attributes, error
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndexList>}
      */
-    listIndexes(params: { databaseId: string, tableId: string, queries?: string[]  }): Promise<Models.ColumnIndexList>;
+    listIndexes(params: { databaseId: string, tableId: string, queries?: string[], total?: boolean  }): Promise<Models.ColumnIndexList>;
     /**
      * List indexes on the table.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following columns: key, type, status, attributes, error
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndexList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listIndexes(databaseId: string, tableId: string, queries?: string[]): Promise<Models.ColumnIndexList>;
+    listIndexes(databaseId: string, tableId: string, queries?: string[], total?: boolean): Promise<Models.ColumnIndexList>;
     listIndexes(
-        paramsOrFirst: { databaseId: string, tableId: string, queries?: string[] } | string,
-        ...rest: [(string)?, (string[])?]    
+        paramsOrFirst: { databaseId: string, tableId: string, queries?: string[], total?: boolean } | string,
+        ...rest: [(string)?, (string[])?, (boolean)?]    
     ): Promise<Models.ColumnIndexList> {
-        let params: { databaseId: string, tableId: string, queries?: string[] };
+        let params: { databaseId: string, tableId: string, queries?: string[], total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, queries?: string[] };
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, queries?: string[], total?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 tableId: rest[0] as string,
-                queries: rest[1] as string[]            
+                queries: rest[1] as string[],
+                total: rest[2] as boolean            
             };
         }
         
         const databaseId = params.databaseId;
         const tableId = params.tableId;
         const queries = params.queries;
+        const total = params.total;
 
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
@@ -3820,6 +3845,9 @@ export class TablesDB {
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -4080,10 +4108,11 @@ export class TablesDB {
      * @param {string} params.tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/products/databases/tables#create-table).
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param {string} params.transactionId - Transaction ID to read uncommitted changes within the transaction.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
      */
-    listRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, queries?: string[], transactionId?: string  }): Promise<Models.RowList<Row>>;
+    listRows<Row extends Models.Row = Models.DefaultRow>(params: { databaseId: string, tableId: string, queries?: string[], transactionId?: string, total?: boolean  }): Promise<Models.RowList<Row>>;
     /**
      * Get a list of all the user's rows in a given table. You can use the query params to filter your results.
      *
@@ -4091,25 +4120,27 @@ export class TablesDB {
      * @param {string} tableId - Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/products/databases/tables#create-table).
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param {string} transactionId - Transaction ID to read uncommitted changes within the transaction.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RowList<Row>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listRows<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, queries?: string[], transactionId?: string): Promise<Models.RowList<Row>>;
+    listRows<Row extends Models.Row = Models.DefaultRow>(databaseId: string, tableId: string, queries?: string[], transactionId?: string, total?: boolean): Promise<Models.RowList<Row>>;
     listRows<Row extends Models.Row = Models.DefaultRow>(
-        paramsOrFirst: { databaseId: string, tableId: string, queries?: string[], transactionId?: string } | string,
-        ...rest: [(string)?, (string[])?, (string)?]    
+        paramsOrFirst: { databaseId: string, tableId: string, queries?: string[], transactionId?: string, total?: boolean } | string,
+        ...rest: [(string)?, (string[])?, (string)?, (boolean)?]    
     ): Promise<Models.RowList<Row>> {
-        let params: { databaseId: string, tableId: string, queries?: string[], transactionId?: string };
+        let params: { databaseId: string, tableId: string, queries?: string[], transactionId?: string, total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, queries?: string[], transactionId?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, queries?: string[], transactionId?: string, total?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 tableId: rest[0] as string,
                 queries: rest[1] as string[],
-                transactionId: rest[2] as string            
+                transactionId: rest[2] as string,
+                total: rest[3] as boolean            
             };
         }
         
@@ -4117,6 +4148,7 @@ export class TablesDB {
         const tableId = params.tableId;
         const queries = params.queries;
         const transactionId = params.transactionId;
+        const total = params.total;
 
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
@@ -4132,6 +4164,9 @@ export class TablesDB {
         }
         if (typeof transactionId !== 'undefined') {
             payload['transactionId'] = transactionId;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

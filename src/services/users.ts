@@ -17,37 +17,41 @@ export class Users {
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, email, phone, status, passwordUpdate, registration, emailVerification, phoneVerification, labels
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.UserList<Preferences>>}
      */
-    list<Preferences extends Models.Preferences = Models.DefaultPreferences>(params?: { queries?: string[], search?: string  }): Promise<Models.UserList<Preferences>>;
+    list<Preferences extends Models.Preferences = Models.DefaultPreferences>(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.UserList<Preferences>>;
     /**
      * Get a list of all the project's users. You can use the query params to filter your results.
      *
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, email, phone, status, passwordUpdate, registration, emailVerification, phoneVerification, labels
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.UserList<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    list<Preferences extends Models.Preferences = Models.DefaultPreferences>(queries?: string[], search?: string): Promise<Models.UserList<Preferences>>;
+    list<Preferences extends Models.Preferences = Models.DefaultPreferences>(queries?: string[], search?: string, total?: boolean): Promise<Models.UserList<Preferences>>;
     list<Preferences extends Models.Preferences = Models.DefaultPreferences>(
-        paramsOrFirst?: { queries?: string[], search?: string } | string[],
-        ...rest: [(string)?]    
+        paramsOrFirst?: { queries?: string[], search?: string, total?: boolean } | string[],
+        ...rest: [(string)?, (boolean)?]    
     ): Promise<Models.UserList<Preferences>> {
-        let params: { queries?: string[], search?: string };
+        let params: { queries?: string[], search?: string, total?: boolean };
         
         if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], search?: string };
+            params = (paramsOrFirst || {}) as { queries?: string[], search?: string, total?: boolean };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
-                search: rest[0] as string            
+                search: rest[0] as string,
+                total: rest[1] as boolean            
             };
         }
         
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
 
 
         const apiPath = '/users';
@@ -57,6 +61,9 @@ export class Users {
         }
         if (typeof search !== 'undefined') {
             payload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -326,37 +333,41 @@ export class Users {
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, provider, providerUid, providerEmail, providerAccessTokenExpiry
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.IdentityList>}
      */
-    listIdentities(params?: { queries?: string[], search?: string  }): Promise<Models.IdentityList>;
+    listIdentities(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.IdentityList>;
     /**
      * Get identities for all users.
      *
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, provider, providerUid, providerEmail, providerAccessTokenExpiry
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.IdentityList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listIdentities(queries?: string[], search?: string): Promise<Models.IdentityList>;
+    listIdentities(queries?: string[], search?: string, total?: boolean): Promise<Models.IdentityList>;
     listIdentities(
-        paramsOrFirst?: { queries?: string[], search?: string } | string[],
-        ...rest: [(string)?]    
+        paramsOrFirst?: { queries?: string[], search?: string, total?: boolean } | string[],
+        ...rest: [(string)?, (boolean)?]    
     ): Promise<Models.IdentityList> {
-        let params: { queries?: string[], search?: string };
+        let params: { queries?: string[], search?: string, total?: boolean };
         
         if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], search?: string };
+            params = (paramsOrFirst || {}) as { queries?: string[], search?: string, total?: boolean };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
-                search: rest[0] as string            
+                search: rest[0] as string,
+                total: rest[1] as boolean            
             };
         }
         
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
 
 
         const apiPath = '/users/identities';
@@ -366,6 +377,9 @@ export class Users {
         }
         if (typeof search !== 'undefined') {
             payload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1239,37 +1253,41 @@ export class Users {
      *
      * @param {string} params.userId - User ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    listLogs(params: { userId: string, queries?: string[]  }): Promise<Models.LogList>;
+    listLogs(params: { userId: string, queries?: string[], total?: boolean  }): Promise<Models.LogList>;
     /**
      * Get the user activity logs list by its unique ID.
      *
      * @param {string} userId - User ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listLogs(userId: string, queries?: string[]): Promise<Models.LogList>;
+    listLogs(userId: string, queries?: string[], total?: boolean): Promise<Models.LogList>;
     listLogs(
-        paramsOrFirst: { userId: string, queries?: string[] } | string,
-        ...rest: [(string[])?]    
+        paramsOrFirst: { userId: string, queries?: string[], total?: boolean } | string,
+        ...rest: [(string[])?, (boolean)?]    
     ): Promise<Models.LogList> {
-        let params: { userId: string, queries?: string[] };
+        let params: { userId: string, queries?: string[], total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { userId: string, queries?: string[] };
+            params = (paramsOrFirst || {}) as { userId: string, queries?: string[], total?: boolean };
         } else {
             params = {
                 userId: paramsOrFirst as string,
-                queries: rest[0] as string[]            
+                queries: rest[0] as string[],
+                total: rest[1] as boolean            
             };
         }
         
         const userId = params.userId;
         const queries = params.queries;
+        const total = params.total;
 
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
@@ -1279,6 +1297,9 @@ export class Users {
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1299,40 +1320,44 @@ export class Users {
      * @param {string} params.userId - User ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, teamId, invited, joined, confirm, roles
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MembershipList>}
      */
-    listMemberships(params: { userId: string, queries?: string[], search?: string  }): Promise<Models.MembershipList>;
+    listMemberships(params: { userId: string, queries?: string[], search?: string, total?: boolean  }): Promise<Models.MembershipList>;
     /**
      * Get the user membership list by its unique ID.
      *
      * @param {string} userId - User ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, teamId, invited, joined, confirm, roles
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MembershipList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listMemberships(userId: string, queries?: string[], search?: string): Promise<Models.MembershipList>;
+    listMemberships(userId: string, queries?: string[], search?: string, total?: boolean): Promise<Models.MembershipList>;
     listMemberships(
-        paramsOrFirst: { userId: string, queries?: string[], search?: string } | string,
-        ...rest: [(string[])?, (string)?]    
+        paramsOrFirst: { userId: string, queries?: string[], search?: string, total?: boolean } | string,
+        ...rest: [(string[])?, (string)?, (boolean)?]    
     ): Promise<Models.MembershipList> {
-        let params: { userId: string, queries?: string[], search?: string };
+        let params: { userId: string, queries?: string[], search?: string, total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { userId: string, queries?: string[], search?: string };
+            params = (paramsOrFirst || {}) as { userId: string, queries?: string[], search?: string, total?: boolean };
         } else {
             params = {
                 userId: paramsOrFirst as string,
                 queries: rest[0] as string[],
-                search: rest[1] as string            
+                search: rest[1] as string,
+                total: rest[2] as boolean            
             };
         }
         
         const userId = params.userId;
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
 
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
@@ -1345,6 +1370,9 @@ export class Users {
         }
         if (typeof search !== 'undefined') {
             payload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2330,33 +2358,38 @@ export class Users {
      * Get the user sessions list by its unique ID.
      *
      * @param {string} params.userId - User ID.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SessionList>}
      */
-    listSessions(params: { userId: string  }): Promise<Models.SessionList>;
+    listSessions(params: { userId: string, total?: boolean  }): Promise<Models.SessionList>;
     /**
      * Get the user sessions list by its unique ID.
      *
      * @param {string} userId - User ID.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SessionList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listSessions(userId: string): Promise<Models.SessionList>;
+    listSessions(userId: string, total?: boolean): Promise<Models.SessionList>;
     listSessions(
-        paramsOrFirst: { userId: string } | string    
+        paramsOrFirst: { userId: string, total?: boolean } | string,
+        ...rest: [(boolean)?]    
     ): Promise<Models.SessionList> {
-        let params: { userId: string };
+        let params: { userId: string, total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { userId: string };
+            params = (paramsOrFirst || {}) as { userId: string, total?: boolean };
         } else {
             params = {
-                userId: paramsOrFirst as string            
+                userId: paramsOrFirst as string,
+                total: rest[0] as boolean            
             };
         }
         
         const userId = params.userId;
+        const total = params.total;
 
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
@@ -2364,6 +2397,9 @@ export class Users {
 
         const apiPath = '/users/{userId}/sessions'.replace('{userId}', userId);
         const payload: Payload = {};
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -2613,37 +2649,41 @@ export class Users {
      *
      * @param {string} params.userId - User ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, providerId, identifier, providerType
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.TargetList>}
      */
-    listTargets(params: { userId: string, queries?: string[]  }): Promise<Models.TargetList>;
+    listTargets(params: { userId: string, queries?: string[], total?: boolean  }): Promise<Models.TargetList>;
     /**
      * List the messaging targets that are associated with a user.
      *
      * @param {string} userId - User ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, providerId, identifier, providerType
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.TargetList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listTargets(userId: string, queries?: string[]): Promise<Models.TargetList>;
+    listTargets(userId: string, queries?: string[], total?: boolean): Promise<Models.TargetList>;
     listTargets(
-        paramsOrFirst: { userId: string, queries?: string[] } | string,
-        ...rest: [(string[])?]    
+        paramsOrFirst: { userId: string, queries?: string[], total?: boolean } | string,
+        ...rest: [(string[])?, (boolean)?]    
     ): Promise<Models.TargetList> {
-        let params: { userId: string, queries?: string[] };
+        let params: { userId: string, queries?: string[], total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { userId: string, queries?: string[] };
+            params = (paramsOrFirst || {}) as { userId: string, queries?: string[], total?: boolean };
         } else {
             params = {
                 userId: paramsOrFirst as string,
-                queries: rest[0] as string[]            
+                queries: rest[0] as string[],
+                total: rest[1] as boolean            
             };
         }
         
         const userId = params.userId;
         const queries = params.queries;
+        const total = params.total;
 
         if (typeof userId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "userId"');
@@ -2653,6 +2693,9 @@ export class Users {
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

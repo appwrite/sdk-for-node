@@ -7,6 +7,7 @@ export enum Framework {
     Vue = 'vue',
     Sveltekit = 'sveltekit',
     Astro = 'astro',
+    Tanstackstart = 'tanstack-start',
     Remix = 'remix',
     Lynx = 'lynx',
     Flutter = 'flutter',

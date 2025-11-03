@@ -15,40 +15,44 @@ export class Tokens {
      * @param {string} params.bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param {string} params.fileId - File unique ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: expire
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceTokenList>}
      */
-    list(params: { bucketId: string, fileId: string, queries?: string[]  }): Promise<Models.ResourceTokenList>;
+    list(params: { bucketId: string, fileId: string, queries?: string[], total?: boolean  }): Promise<Models.ResourceTokenList>;
     /**
      * List all the tokens created for a specific file or bucket. You can use the query params to filter your results.
      *
      * @param {string} bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param {string} fileId - File unique ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: expire
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceTokenList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    list(bucketId: string, fileId: string, queries?: string[]): Promise<Models.ResourceTokenList>;
+    list(bucketId: string, fileId: string, queries?: string[], total?: boolean): Promise<Models.ResourceTokenList>;
     list(
-        paramsOrFirst: { bucketId: string, fileId: string, queries?: string[] } | string,
-        ...rest: [(string)?, (string[])?]    
+        paramsOrFirst: { bucketId: string, fileId: string, queries?: string[], total?: boolean } | string,
+        ...rest: [(string)?, (string[])?, (boolean)?]    
     ): Promise<Models.ResourceTokenList> {
-        let params: { bucketId: string, fileId: string, queries?: string[] };
+        let params: { bucketId: string, fileId: string, queries?: string[], total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, queries?: string[] };
+            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, queries?: string[], total?: boolean };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
                 fileId: rest[0] as string,
-                queries: rest[1] as string[]            
+                queries: rest[1] as string[],
+                total: rest[2] as boolean            
             };
         }
         
         const bucketId = params.bucketId;
         const fileId = params.fileId;
         const queries = params.queries;
+        const total = params.total;
 
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
@@ -61,6 +65,9 @@ export class Tokens {
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

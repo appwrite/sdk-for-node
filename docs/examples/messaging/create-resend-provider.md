@@ -7,8 +7,13 @@ const client = new sdk.Client()
 
 const messaging = new sdk.Messaging(client);
 
-const result = await messaging.listProviderLogs({
+const result = await messaging.createResendProvider({
     providerId: '<PROVIDER_ID>',
-    queries: [], // optional
-    total: false // optional
+    name: '<NAME>',
+    apiKey: '<API_KEY>', // optional
+    fromName: '<FROM_NAME>', // optional
+    fromEmail: 'email@example.com', // optional
+    replyToName: '<REPLY_TO_NAME>', // optional
+    replyToEmail: 'email@example.com', // optional
+    enabled: false // optional
 });

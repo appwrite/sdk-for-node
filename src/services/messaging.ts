@@ -16,37 +16,41 @@ export class Messaging {
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: scheduledAt, deliveredAt, deliveredTotal, status, description, providerType
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MessageList>}
      */
-    listMessages(params?: { queries?: string[], search?: string  }): Promise<Models.MessageList>;
+    listMessages(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.MessageList>;
     /**
      * Get a list of all messages from the current Appwrite project.
      *
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: scheduledAt, deliveredAt, deliveredTotal, status, description, providerType
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MessageList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listMessages(queries?: string[], search?: string): Promise<Models.MessageList>;
+    listMessages(queries?: string[], search?: string, total?: boolean): Promise<Models.MessageList>;
     listMessages(
-        paramsOrFirst?: { queries?: string[], search?: string } | string[],
-        ...rest: [(string)?]    
+        paramsOrFirst?: { queries?: string[], search?: string, total?: boolean } | string[],
+        ...rest: [(string)?, (boolean)?]    
     ): Promise<Models.MessageList> {
-        let params: { queries?: string[], search?: string };
+        let params: { queries?: string[], search?: string, total?: boolean };
         
         if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], search?: string };
+            params = (paramsOrFirst || {}) as { queries?: string[], search?: string, total?: boolean };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
-                search: rest[0] as string            
+                search: rest[0] as string,
+                total: rest[1] as boolean            
             };
         }
         
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
 
 
         const apiPath = '/messaging/messages';
@@ -56,6 +60,9 @@ export class Messaging {
         }
         if (typeof search !== 'undefined') {
             payload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1212,37 +1219,41 @@ export class Messaging {
      *
      * @param {string} params.messageId - Message ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    listMessageLogs(params: { messageId: string, queries?: string[]  }): Promise<Models.LogList>;
+    listMessageLogs(params: { messageId: string, queries?: string[], total?: boolean  }): Promise<Models.LogList>;
     /**
      * Get the message activity logs listed by its unique ID.
      *
      * @param {string} messageId - Message ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listMessageLogs(messageId: string, queries?: string[]): Promise<Models.LogList>;
+    listMessageLogs(messageId: string, queries?: string[], total?: boolean): Promise<Models.LogList>;
     listMessageLogs(
-        paramsOrFirst: { messageId: string, queries?: string[] } | string,
-        ...rest: [(string[])?]    
+        paramsOrFirst: { messageId: string, queries?: string[], total?: boolean } | string,
+        ...rest: [(string[])?, (boolean)?]    
     ): Promise<Models.LogList> {
-        let params: { messageId: string, queries?: string[] };
+        let params: { messageId: string, queries?: string[], total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { messageId: string, queries?: string[] };
+            params = (paramsOrFirst || {}) as { messageId: string, queries?: string[], total?: boolean };
         } else {
             params = {
                 messageId: paramsOrFirst as string,
-                queries: rest[0] as string[]            
+                queries: rest[0] as string[],
+                total: rest[1] as boolean            
             };
         }
         
         const messageId = params.messageId;
         const queries = params.queries;
+        const total = params.total;
 
         if (typeof messageId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "messageId"');
@@ -1252,6 +1263,9 @@ export class Messaging {
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1271,37 +1285,41 @@ export class Messaging {
      *
      * @param {string} params.messageId - Message ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, providerId, identifier, providerType
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.TargetList>}
      */
-    listTargets(params: { messageId: string, queries?: string[]  }): Promise<Models.TargetList>;
+    listTargets(params: { messageId: string, queries?: string[], total?: boolean  }): Promise<Models.TargetList>;
     /**
      * Get a list of the targets associated with a message.
      *
      * @param {string} messageId - Message ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, providerId, identifier, providerType
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.TargetList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listTargets(messageId: string, queries?: string[]): Promise<Models.TargetList>;
+    listTargets(messageId: string, queries?: string[], total?: boolean): Promise<Models.TargetList>;
     listTargets(
-        paramsOrFirst: { messageId: string, queries?: string[] } | string,
-        ...rest: [(string[])?]    
+        paramsOrFirst: { messageId: string, queries?: string[], total?: boolean } | string,
+        ...rest: [(string[])?, (boolean)?]    
     ): Promise<Models.TargetList> {
-        let params: { messageId: string, queries?: string[] };
+        let params: { messageId: string, queries?: string[], total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { messageId: string, queries?: string[] };
+            params = (paramsOrFirst || {}) as { messageId: string, queries?: string[], total?: boolean };
         } else {
             params = {
                 messageId: paramsOrFirst as string,
-                queries: rest[0] as string[]            
+                queries: rest[0] as string[],
+                total: rest[1] as boolean            
             };
         }
         
         const messageId = params.messageId;
         const queries = params.queries;
+        const total = params.total;
 
         if (typeof messageId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "messageId"');
@@ -1311,6 +1329,9 @@ export class Messaging {
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1330,37 +1351,41 @@ export class Messaging {
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, provider, type, enabled
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ProviderList>}
      */
-    listProviders(params?: { queries?: string[], search?: string  }): Promise<Models.ProviderList>;
+    listProviders(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.ProviderList>;
     /**
      * Get a list of all providers from the current Appwrite project.
      *
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, provider, type, enabled
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ProviderList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listProviders(queries?: string[], search?: string): Promise<Models.ProviderList>;
+    listProviders(queries?: string[], search?: string, total?: boolean): Promise<Models.ProviderList>;
     listProviders(
-        paramsOrFirst?: { queries?: string[], search?: string } | string[],
-        ...rest: [(string)?]    
+        paramsOrFirst?: { queries?: string[], search?: string, total?: boolean } | string[],
+        ...rest: [(string)?, (boolean)?]    
     ): Promise<Models.ProviderList> {
-        let params: { queries?: string[], search?: string };
+        let params: { queries?: string[], search?: string, total?: boolean };
         
         if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], search?: string };
+            params = (paramsOrFirst || {}) as { queries?: string[], search?: string, total?: boolean };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
-                search: rest[0] as string            
+                search: rest[0] as string,
+                total: rest[1] as boolean            
             };
         }
         
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
 
 
         const apiPath = '/messaging/providers';
@@ -1370,6 +1395,9 @@ export class Messaging {
         }
         if (typeof search !== 'undefined') {
             payload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2521,6 +2549,216 @@ export class Messaging {
         }
         if (typeof authKey !== 'undefined') {
             payload['authKey'] = authKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a new Resend provider.
+     *
+     * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Provider name.
+     * @param {string} params.apiKey - Resend API key.
+     * @param {string} params.fromName - Sender Name.
+     * @param {string} params.fromEmail - Sender email address.
+     * @param {string} params.replyToName - Name set in the reply to field for the mail. Default value is sender name.
+     * @param {string} params.replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
+     * @param {boolean} params.enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    createResendProvider(params: { providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    /**
+     * Create a new Resend provider.
+     *
+     * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} name - Provider name.
+     * @param {string} apiKey - Resend API key.
+     * @param {string} fromName - Sender Name.
+     * @param {string} fromEmail - Sender email address.
+     * @param {string} replyToName - Name set in the reply to field for the mail. Default value is sender name.
+     * @param {string} replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
+     * @param {boolean} enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createResendProvider(providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    createResendProvider(
+        paramsOrFirst: { providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
+        ...rest: [(string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
+    ): Promise<Models.Provider> {
+        let params: { providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                apiKey: rest[1] as string,
+                fromName: rest[2] as string,
+                fromEmail: rest[3] as string,
+                replyToName: rest[4] as string,
+                replyToEmail: rest[5] as string,
+                enabled: rest[6] as boolean            
+            };
+        }
+        
+        const providerId = params.providerId;
+        const name = params.name;
+        const apiKey = params.apiKey;
+        const fromName = params.fromName;
+        const fromEmail = params.fromEmail;
+        const replyToName = params.replyToName;
+        const replyToEmail = params.replyToEmail;
+        const enabled = params.enabled;
+
+        if (typeof providerId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "providerId"');
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+
+        const apiPath = '/messaging/providers/resend';
+        const payload: Payload = {};
+        if (typeof providerId !== 'undefined') {
+            payload['providerId'] = providerId;
+        }
+        if (typeof name !== 'undefined') {
+            payload['name'] = name;
+        }
+        if (typeof apiKey !== 'undefined') {
+            payload['apiKey'] = apiKey;
+        }
+        if (typeof fromName !== 'undefined') {
+            payload['fromName'] = fromName;
+        }
+        if (typeof fromEmail !== 'undefined') {
+            payload['fromEmail'] = fromEmail;
+        }
+        if (typeof replyToName !== 'undefined') {
+            payload['replyToName'] = replyToName;
+        }
+        if (typeof replyToEmail !== 'undefined') {
+            payload['replyToEmail'] = replyToEmail;
+        }
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a Resend provider by its unique ID.
+     *
+     * @param {string} params.providerId - Provider ID.
+     * @param {string} params.name - Provider name.
+     * @param {boolean} params.enabled - Set as enabled.
+     * @param {string} params.apiKey - Resend API key.
+     * @param {string} params.fromName - Sender Name.
+     * @param {string} params.fromEmail - Sender email address.
+     * @param {string} params.replyToName - Name set in the Reply To field for the mail. Default value is Sender Name.
+     * @param {string} params.replyToEmail - Email set in the Reply To field for the mail. Default value is Sender Email.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    updateResendProvider(params: { providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string  }): Promise<Models.Provider>;
+    /**
+     * Update a Resend provider by its unique ID.
+     *
+     * @param {string} providerId - Provider ID.
+     * @param {string} name - Provider name.
+     * @param {boolean} enabled - Set as enabled.
+     * @param {string} apiKey - Resend API key.
+     * @param {string} fromName - Sender Name.
+     * @param {string} fromEmail - Sender email address.
+     * @param {string} replyToName - Name set in the Reply To field for the mail. Default value is Sender Name.
+     * @param {string} replyToEmail - Email set in the Reply To field for the mail. Default value is Sender Email.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateResendProvider(providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string): Promise<Models.Provider>;
+    updateResendProvider(
+        paramsOrFirst: { providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string } | string,
+        ...rest: [(string)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?]    
+    ): Promise<Models.Provider> {
+        let params: { providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                enabled: rest[1] as boolean,
+                apiKey: rest[2] as string,
+                fromName: rest[3] as string,
+                fromEmail: rest[4] as string,
+                replyToName: rest[5] as string,
+                replyToEmail: rest[6] as string            
+            };
+        }
+        
+        const providerId = params.providerId;
+        const name = params.name;
+        const enabled = params.enabled;
+        const apiKey = params.apiKey;
+        const fromName = params.fromName;
+        const fromEmail = params.fromEmail;
+        const replyToName = params.replyToName;
+        const replyToEmail = params.replyToEmail;
+
+        if (typeof providerId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "providerId"');
+        }
+
+        const apiPath = '/messaging/providers/resend/{providerId}'.replace('{providerId}', providerId);
+        const payload: Payload = {};
+        if (typeof name !== 'undefined') {
+            payload['name'] = name;
+        }
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        if (typeof apiKey !== 'undefined') {
+            payload['apiKey'] = apiKey;
+        }
+        if (typeof fromName !== 'undefined') {
+            payload['fromName'] = fromName;
+        }
+        if (typeof fromEmail !== 'undefined') {
+            payload['fromEmail'] = fromEmail;
+        }
+        if (typeof replyToName !== 'undefined') {
+            payload['replyToName'] = replyToName;
+        }
+        if (typeof replyToEmail !== 'undefined') {
+            payload['replyToEmail'] = replyToEmail;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -4180,37 +4418,41 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    listProviderLogs(params: { providerId: string, queries?: string[]  }): Promise<Models.LogList>;
+    listProviderLogs(params: { providerId: string, queries?: string[], total?: boolean  }): Promise<Models.LogList>;
     /**
      * Get the provider activity logs listed by its unique ID.
      *
      * @param {string} providerId - Provider ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listProviderLogs(providerId: string, queries?: string[]): Promise<Models.LogList>;
+    listProviderLogs(providerId: string, queries?: string[], total?: boolean): Promise<Models.LogList>;
     listProviderLogs(
-        paramsOrFirst: { providerId: string, queries?: string[] } | string,
-        ...rest: [(string[])?]    
+        paramsOrFirst: { providerId: string, queries?: string[], total?: boolean } | string,
+        ...rest: [(string[])?, (boolean)?]    
     ): Promise<Models.LogList> {
-        let params: { providerId: string, queries?: string[] };
+        let params: { providerId: string, queries?: string[], total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { providerId: string, queries?: string[] };
+            params = (paramsOrFirst || {}) as { providerId: string, queries?: string[], total?: boolean };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
-                queries: rest[0] as string[]            
+                queries: rest[0] as string[],
+                total: rest[1] as boolean            
             };
         }
         
         const providerId = params.providerId;
         const queries = params.queries;
+        const total = params.total;
 
         if (typeof providerId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "providerId"');
@@ -4220,6 +4462,9 @@ export class Messaging {
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -4239,37 +4484,41 @@ export class Messaging {
      *
      * @param {string} params.subscriberId - Subscriber ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    listSubscriberLogs(params: { subscriberId: string, queries?: string[]  }): Promise<Models.LogList>;
+    listSubscriberLogs(params: { subscriberId: string, queries?: string[], total?: boolean  }): Promise<Models.LogList>;
     /**
      * Get the subscriber activity logs listed by its unique ID.
      *
      * @param {string} subscriberId - Subscriber ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listSubscriberLogs(subscriberId: string, queries?: string[]): Promise<Models.LogList>;
+    listSubscriberLogs(subscriberId: string, queries?: string[], total?: boolean): Promise<Models.LogList>;
     listSubscriberLogs(
-        paramsOrFirst: { subscriberId: string, queries?: string[] } | string,
-        ...rest: [(string[])?]    
+        paramsOrFirst: { subscriberId: string, queries?: string[], total?: boolean } | string,
+        ...rest: [(string[])?, (boolean)?]    
     ): Promise<Models.LogList> {
-        let params: { subscriberId: string, queries?: string[] };
+        let params: { subscriberId: string, queries?: string[], total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { subscriberId: string, queries?: string[] };
+            params = (paramsOrFirst || {}) as { subscriberId: string, queries?: string[], total?: boolean };
         } else {
             params = {
                 subscriberId: paramsOrFirst as string,
-                queries: rest[0] as string[]            
+                queries: rest[0] as string[],
+                total: rest[1] as boolean            
             };
         }
         
         const subscriberId = params.subscriberId;
         const queries = params.queries;
+        const total = params.total;
 
         if (typeof subscriberId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "subscriberId"');
@@ -4279,6 +4528,9 @@ export class Messaging {
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -4298,37 +4550,41 @@ export class Messaging {
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, description, emailTotal, smsTotal, pushTotal
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.TopicList>}
      */
-    listTopics(params?: { queries?: string[], search?: string  }): Promise<Models.TopicList>;
+    listTopics(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.TopicList>;
     /**
      * Get a list of all topics from the current Appwrite project.
      *
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, description, emailTotal, smsTotal, pushTotal
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.TopicList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listTopics(queries?: string[], search?: string): Promise<Models.TopicList>;
+    listTopics(queries?: string[], search?: string, total?: boolean): Promise<Models.TopicList>;
     listTopics(
-        paramsOrFirst?: { queries?: string[], search?: string } | string[],
-        ...rest: [(string)?]    
+        paramsOrFirst?: { queries?: string[], search?: string, total?: boolean } | string[],
+        ...rest: [(string)?, (boolean)?]    
     ): Promise<Models.TopicList> {
-        let params: { queries?: string[], search?: string };
+        let params: { queries?: string[], search?: string, total?: boolean };
         
         if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], search?: string };
+            params = (paramsOrFirst || {}) as { queries?: string[], search?: string, total?: boolean };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
-                search: rest[0] as string            
+                search: rest[0] as string,
+                total: rest[1] as boolean            
             };
         }
         
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
 
 
         const apiPath = '/messaging/topics';
@@ -4338,6 +4594,9 @@ export class Messaging {
         }
         if (typeof search !== 'undefined') {
             payload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -4604,37 +4863,41 @@ export class Messaging {
      *
      * @param {string} params.topicId - Topic ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    listTopicLogs(params: { topicId: string, queries?: string[]  }): Promise<Models.LogList>;
+    listTopicLogs(params: { topicId: string, queries?: string[], total?: boolean  }): Promise<Models.LogList>;
     /**
      * Get the topic activity logs listed by its unique ID.
      *
      * @param {string} topicId - Topic ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listTopicLogs(topicId: string, queries?: string[]): Promise<Models.LogList>;
+    listTopicLogs(topicId: string, queries?: string[], total?: boolean): Promise<Models.LogList>;
     listTopicLogs(
-        paramsOrFirst: { topicId: string, queries?: string[] } | string,
-        ...rest: [(string[])?]    
+        paramsOrFirst: { topicId: string, queries?: string[], total?: boolean } | string,
+        ...rest: [(string[])?, (boolean)?]    
     ): Promise<Models.LogList> {
-        let params: { topicId: string, queries?: string[] };
+        let params: { topicId: string, queries?: string[], total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { topicId: string, queries?: string[] };
+            params = (paramsOrFirst || {}) as { topicId: string, queries?: string[], total?: boolean };
         } else {
             params = {
                 topicId: paramsOrFirst as string,
-                queries: rest[0] as string[]            
+                queries: rest[0] as string[],
+                total: rest[1] as boolean            
             };
         }
         
         const topicId = params.topicId;
         const queries = params.queries;
+        const total = params.total;
 
         if (typeof topicId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "topicId"');
@@ -4644,6 +4907,9 @@ export class Messaging {
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -4664,40 +4930,44 @@ export class Messaging {
      * @param {string} params.topicId - Topic ID. The topic ID subscribed to.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, provider, type, enabled
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SubscriberList>}
      */
-    listSubscribers(params: { topicId: string, queries?: string[], search?: string  }): Promise<Models.SubscriberList>;
+    listSubscribers(params: { topicId: string, queries?: string[], search?: string, total?: boolean  }): Promise<Models.SubscriberList>;
     /**
      * Get a list of all subscribers from the current Appwrite project.
      *
      * @param {string} topicId - Topic ID. The topic ID subscribed to.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, provider, type, enabled
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SubscriberList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listSubscribers(topicId: string, queries?: string[], search?: string): Promise<Models.SubscriberList>;
+    listSubscribers(topicId: string, queries?: string[], search?: string, total?: boolean): Promise<Models.SubscriberList>;
     listSubscribers(
-        paramsOrFirst: { topicId: string, queries?: string[], search?: string } | string,
-        ...rest: [(string[])?, (string)?]    
+        paramsOrFirst: { topicId: string, queries?: string[], search?: string, total?: boolean } | string,
+        ...rest: [(string[])?, (string)?, (boolean)?]    
     ): Promise<Models.SubscriberList> {
-        let params: { topicId: string, queries?: string[], search?: string };
+        let params: { topicId: string, queries?: string[], search?: string, total?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { topicId: string, queries?: string[], search?: string };
+            params = (paramsOrFirst || {}) as { topicId: string, queries?: string[], search?: string, total?: boolean };
         } else {
             params = {
                 topicId: paramsOrFirst as string,
                 queries: rest[0] as string[],
-                search: rest[1] as string            
+                search: rest[1] as string,
+                total: rest[2] as boolean            
             };
         }
         
         const topicId = params.topicId;
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
 
         if (typeof topicId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "topicId"');
@@ -4710,6 +4980,9 @@ export class Messaging {
         }
         if (typeof search !== 'undefined') {
             payload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
