@@ -4,7 +4,8 @@ import type { Models } from '../models';
 import { Framework } from '../enums/framework';
 import { BuildRuntime } from '../enums/build-runtime';
 import { Adapter } from '../enums/adapter';
-import { VCSDeploymentType } from '../enums/vcs-deployment-type';
+import { TemplateReferenceType } from '../enums/template-reference-type';
+import { VCSReferenceType } from '../enums/vcs-reference-type';
 import { DeploymentDownloadType } from '../enums/deployment-download-type';
 
 export class Sites {
@@ -728,7 +729,7 @@ export class Sites {
     }
 
     /**
-     * Create a new site code deployment. Use this endpoint to upload a new version of your site code. To activate your newly uploaded code, you'll need to update the function's deployment to use your new deployment ID.
+     * Create a new site code deployment. Use this endpoint to upload a new version of your site code. To activate your newly uploaded code, you'll need to update the site's deployment to use your new deployment ID.
      *
      * @param {string} params.siteId - Site ID.
      * @param {File} params.code - Gzip file with your code package. When used with the Appwrite CLI, pass the path to your code directory, and the CLI will automatically package your code. Use a path that is within the current directory.
@@ -741,7 +742,7 @@ export class Sites {
      */
     createDeployment(params: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string , onProgress?: (progress: UploadProgress) => void }): Promise<Models.Deployment>;
     /**
-     * Create a new site code deployment. Use this endpoint to upload a new version of your site code. To activate your newly uploaded code, you'll need to update the function's deployment to use your new deployment ID.
+     * Create a new site code deployment. Use this endpoint to upload a new version of your site code. To activate your newly uploaded code, you'll need to update the site's deployment to use your new deployment ID.
      *
      * @param {string} siteId - Site ID.
      * @param {File} code - Gzip file with your code package. When used with the Appwrite CLI, pass the path to your code directory, and the CLI will automatically package your code. Use a path that is within the current directory.
@@ -897,12 +898,13 @@ export class Sites {
      * @param {string} params.repository - Repository name of the template.
      * @param {string} params.owner - The name of the owner of the template.
      * @param {string} params.rootDirectory - Path to site code in the template repo.
-     * @param {string} params.version - Version (tag) for the repo linked to the site template.
+     * @param {TemplateReferenceType} params.type - Type for the reference provided. Can be commit, branch, or tag
+     * @param {string} params.reference - Reference value, can be a commit hash, branch name, or release tag
      * @param {boolean} params.activate - Automatically activate the deployment when it is finished building.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createTemplateDeployment(params: { siteId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean  }): Promise<Models.Deployment>;
+    createTemplateDeployment(params: { siteId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean  }): Promise<Models.Deployment>;
     /**
      * Create a deployment based on a template.
      * 
@@ -912,29 +914,31 @@ export class Sites {
      * @param {string} repository - Repository name of the template.
      * @param {string} owner - The name of the owner of the template.
      * @param {string} rootDirectory - Path to site code in the template repo.
-     * @param {string} version - Version (tag) for the repo linked to the site template.
+     * @param {TemplateReferenceType} type - Type for the reference provided. Can be commit, branch, or tag
+     * @param {string} reference - Reference value, can be a commit hash, branch name, or release tag
      * @param {boolean} activate - Automatically activate the deployment when it is finished building.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createTemplateDeployment(siteId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean): Promise<Models.Deployment>;
+    createTemplateDeployment(siteId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean): Promise<Models.Deployment>;
     createTemplateDeployment(
-        paramsOrFirst: { siteId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean } | string,
-        ...rest: [(string)?, (string)?, (string)?, (string)?, (boolean)?]    
+        paramsOrFirst: { siteId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean } | string,
+        ...rest: [(string)?, (string)?, (string)?, (TemplateReferenceType)?, (string)?, (boolean)?]    
     ): Promise<Models.Deployment> {
-        let params: { siteId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean };
+        let params: { siteId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, repository: string, owner: string, rootDirectory: string, version: string, activate?: boolean };
+            params = (paramsOrFirst || {}) as { siteId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
                 repository: rest[0] as string,
                 owner: rest[1] as string,
                 rootDirectory: rest[2] as string,
-                version: rest[3] as string,
-                activate: rest[4] as boolean            
+                type: rest[3] as TemplateReferenceType,
+                reference: rest[4] as string,
+                activate: rest[5] as boolean            
             };
         }
         
@@ -942,7 +946,8 @@ export class Sites {
         const repository = params.repository;
         const owner = params.owner;
         const rootDirectory = params.rootDirectory;
-        const version = params.version;
+        const type = params.type;
+        const reference = params.reference;
         const activate = params.activate;
 
         if (typeof siteId === 'undefined') {
@@ -957,8 +962,11 @@ export class Sites {
         if (typeof rootDirectory === 'undefined') {
             throw new AppwriteException('Missing required parameter: "rootDirectory"');
         }
-        if (typeof version === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "version"');
+        if (typeof type === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "type"');
+        }
+        if (typeof reference === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "reference"');
         }
 
         const apiPath = '/sites/{siteId}/deployments/template'.replace('{siteId}', siteId);
@@ -972,8 +980,11 @@ export class Sites {
         if (typeof rootDirectory !== 'undefined') {
             payload['rootDirectory'] = rootDirectory;
         }
-        if (typeof version !== 'undefined') {
-            payload['version'] = version;
+        if (typeof type !== 'undefined') {
+            payload['type'] = type;
+        }
+        if (typeof reference !== 'undefined') {
+            payload['reference'] = reference;
         }
         if (typeof activate !== 'undefined') {
             payload['activate'] = activate;
@@ -998,39 +1009,39 @@ export class Sites {
      * This endpoint lets you create deployment from a branch, commit, or a tag.
      *
      * @param {string} params.siteId - Site ID.
-     * @param {VCSDeploymentType} params.type - Type of reference passed. Allowed values are: branch, commit
+     * @param {VCSReferenceType} params.type - Type of reference passed. Allowed values are: branch, commit
      * @param {string} params.reference - VCS reference to create deployment from. Depending on type this can be: branch name, commit hash
      * @param {boolean} params.activate - Automatically activate the deployment when it is finished building.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createVcsDeployment(params: { siteId: string, type: VCSDeploymentType, reference: string, activate?: boolean  }): Promise<Models.Deployment>;
+    createVcsDeployment(params: { siteId: string, type: VCSReferenceType, reference: string, activate?: boolean  }): Promise<Models.Deployment>;
     /**
      * Create a deployment when a site is connected to VCS.
      * 
      * This endpoint lets you create deployment from a branch, commit, or a tag.
      *
      * @param {string} siteId - Site ID.
-     * @param {VCSDeploymentType} type - Type of reference passed. Allowed values are: branch, commit
+     * @param {VCSReferenceType} type - Type of reference passed. Allowed values are: branch, commit
      * @param {string} reference - VCS reference to create deployment from. Depending on type this can be: branch name, commit hash
      * @param {boolean} activate - Automatically activate the deployment when it is finished building.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createVcsDeployment(siteId: string, type: VCSDeploymentType, reference: string, activate?: boolean): Promise<Models.Deployment>;
+    createVcsDeployment(siteId: string, type: VCSReferenceType, reference: string, activate?: boolean): Promise<Models.Deployment>;
     createVcsDeployment(
-        paramsOrFirst: { siteId: string, type: VCSDeploymentType, reference: string, activate?: boolean } | string,
-        ...rest: [(VCSDeploymentType)?, (string)?, (boolean)?]    
+        paramsOrFirst: { siteId: string, type: VCSReferenceType, reference: string, activate?: boolean } | string,
+        ...rest: [(VCSReferenceType)?, (string)?, (boolean)?]    
     ): Promise<Models.Deployment> {
-        let params: { siteId: string, type: VCSDeploymentType, reference: string, activate?: boolean };
+        let params: { siteId: string, type: VCSReferenceType, reference: string, activate?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, type: VCSDeploymentType, reference: string, activate?: boolean };
+            params = (paramsOrFirst || {}) as { siteId: string, type: VCSReferenceType, reference: string, activate?: boolean };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
-                type: rest[0] as VCSDeploymentType,
+                type: rest[0] as VCSReferenceType,
                 reference: rest[1] as string,
                 activate: rest[2] as boolean            
             };

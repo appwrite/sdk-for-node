@@ -2719,6 +2719,10 @@ export namespace Models {
          * Virus scanning is enabled.
          */
         antivirus: boolean;
+        /**
+         * Image transformations are enabled.
+         */
+        transformations: boolean;
     }
 
     /**

@@ -15,7 +15,7 @@ export class Storage {
     /**
      * Get a list of all the storage buckets. You can use the query params to filter your results.
      *
-     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: enabled, name, fileSecurity, maximumFileSize, encryption, antivirus
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: enabled, name, fileSecurity, maximumFileSize, encryption, antivirus, transformations
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
      * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
@@ -25,7 +25,7 @@ export class Storage {
     /**
      * Get a list of all the storage buckets. You can use the query params to filter your results.
      *
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: enabled, name, fileSecurity, maximumFileSize, encryption, antivirus
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: enabled, name, fileSecurity, maximumFileSize, encryption, antivirus, transformations
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
@@ -91,10 +91,11 @@ export class Storage {
      * @param {Compression} params.compression - Compression algorithm choosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} params.antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
+     * @param {boolean} params.transformations - Are image transformations enabled?
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
-    createBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean  }): Promise<Models.Bucket>;
+    createBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean  }): Promise<Models.Bucket>;
     /**
      * Create a new storage bucket.
      *
@@ -108,19 +109,20 @@ export class Storage {
      * @param {Compression} compression - Compression algorithm choosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
+     * @param {boolean} transformations - Are image transformations enabled?
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
+    createBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean): Promise<Models.Bucket>;
     createBucket(
-        paramsOrFirst: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean } | string,
-        ...rest: [(string)?, (string[])?, (boolean)?, (boolean)?, (number)?, (string[])?, (Compression)?, (boolean)?, (boolean)?]    
+        paramsOrFirst: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean } | string,
+        ...rest: [(string)?, (string[])?, (boolean)?, (boolean)?, (number)?, (string[])?, (Compression)?, (boolean)?, (boolean)?, (boolean)?]    
     ): Promise<Models.Bucket> {
-        let params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean };
+        let params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean };
+            params = (paramsOrFirst || {}) as { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
@@ -132,7 +134,8 @@ export class Storage {
                 allowedFileExtensions: rest[5] as string[],
                 compression: rest[6] as Compression,
                 encryption: rest[7] as boolean,
-                antivirus: rest[8] as boolean            
+                antivirus: rest[8] as boolean,
+                transformations: rest[9] as boolean            
             };
         }
         
@@ -146,6 +149,7 @@ export class Storage {
         const compression = params.compression;
         const encryption = params.encryption;
         const antivirus = params.antivirus;
+        const transformations = params.transformations;
 
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
@@ -185,6 +189,9 @@ export class Storage {
         }
         if (typeof antivirus !== 'undefined') {
             payload['antivirus'] = antivirus;
+        }
+        if (typeof transformations !== 'undefined') {
+            payload['transformations'] = transformations;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -264,10 +271,11 @@ export class Storage {
      * @param {Compression} params.compression - Compression algorithm choosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} params.antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
+     * @param {boolean} params.transformations - Are image transformations enabled?
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
-    updateBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean  }): Promise<Models.Bucket>;
+    updateBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean  }): Promise<Models.Bucket>;
     /**
      * Update a storage bucket by its unique ID.
      *
@@ -281,19 +289,20 @@ export class Storage {
      * @param {Compression} compression - Compression algorithm choosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
+     * @param {boolean} transformations - Are image transformations enabled?
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean): Promise<Models.Bucket>;
+    updateBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean): Promise<Models.Bucket>;
     updateBucket(
-        paramsOrFirst: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean } | string,
-        ...rest: [(string)?, (string[])?, (boolean)?, (boolean)?, (number)?, (string[])?, (Compression)?, (boolean)?, (boolean)?]    
+        paramsOrFirst: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean } | string,
+        ...rest: [(string)?, (string[])?, (boolean)?, (boolean)?, (number)?, (string[])?, (Compression)?, (boolean)?, (boolean)?, (boolean)?]    
     ): Promise<Models.Bucket> {
-        let params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean };
+        let params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean };
+            params = (paramsOrFirst || {}) as { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
@@ -305,7 +314,8 @@ export class Storage {
                 allowedFileExtensions: rest[5] as string[],
                 compression: rest[6] as Compression,
                 encryption: rest[7] as boolean,
-                antivirus: rest[8] as boolean            
+                antivirus: rest[8] as boolean,
+                transformations: rest[9] as boolean            
             };
         }
         
@@ -319,6 +329,7 @@ export class Storage {
         const compression = params.compression;
         const encryption = params.encryption;
         const antivirus = params.antivirus;
+        const transformations = params.transformations;
 
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
@@ -355,6 +366,9 @@ export class Storage {
         }
         if (typeof antivirus !== 'undefined') {
             payload['antivirus'] = antivirus;
+        }
+        if (typeof transformations !== 'undefined') {
+            payload['transformations'] = transformations;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
