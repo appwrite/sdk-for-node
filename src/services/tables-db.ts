@@ -741,10 +741,12 @@ export class TablesDB {
      * @param {string[]} params.permissions - An array of permissions strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.rowSecurity - Enables configuring permissions for individual rows. A user needs one of row or table level permissions to access a row. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.enabled - Is table enabled? When set to 'disabled', users cannot access the table but Server SDKs with and API key can still read and write to the table. No data is lost when this is toggled.
+     * @param {object[]} params.columns - Array of column definitions to create. Each column should contain: key (string), type (string: string, integer, float, boolean, datetime, relationship), size (integer, required for string type), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
+     * @param {object[]} params.indexes - Array of index definitions to create. Each index should contain: key (string), type (string: key, fulltext, unique, spatial), attributes (array of column keys), orders (array of ASC/DESC, optional), and lengths (array of integers, optional).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Table>}
      */
-    createTable(params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean  }): Promise<Models.Table>;
+    createTable(params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean, columns?: object[], indexes?: object[]  }): Promise<Models.Table>;
     /**
      * Create a new Table. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      *
@@ -754,19 +756,21 @@ export class TablesDB {
      * @param {string[]} permissions - An array of permissions strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} rowSecurity - Enables configuring permissions for individual rows. A user needs one of row or table level permissions to access a row. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} enabled - Is table enabled? When set to 'disabled', users cannot access the table but Server SDKs with and API key can still read and write to the table. No data is lost when this is toggled.
+     * @param {object[]} columns - Array of column definitions to create. Each column should contain: key (string), type (string: string, integer, float, boolean, datetime, relationship), size (integer, required for string type), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
+     * @param {object[]} indexes - Array of index definitions to create. Each index should contain: key (string), type (string: key, fulltext, unique, spatial), attributes (array of column keys), orders (array of ASC/DESC, optional), and lengths (array of integers, optional).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Table>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createTable(databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean): Promise<Models.Table>;
+    createTable(databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean, columns?: object[], indexes?: object[]): Promise<Models.Table>;
     createTable(
-        paramsOrFirst: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean } | string,
-        ...rest: [(string)?, (string)?, (string[])?, (boolean)?, (boolean)?]    
+        paramsOrFirst: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean, columns?: object[], indexes?: object[] } | string,
+        ...rest: [(string)?, (string)?, (string[])?, (boolean)?, (boolean)?, (object[])?, (object[])?]    
     ): Promise<Models.Table> {
-        let params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean };
+        let params: { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean, columns?: object[], indexes?: object[] };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean };
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, name: string, permissions?: string[], rowSecurity?: boolean, enabled?: boolean, columns?: object[], indexes?: object[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -774,7 +778,9 @@ export class TablesDB {
                 name: rest[1] as string,
                 permissions: rest[2] as string[],
                 rowSecurity: rest[3] as boolean,
-                enabled: rest[4] as boolean            
+                enabled: rest[4] as boolean,
+                columns: rest[5] as object[],
+                indexes: rest[6] as object[]            
             };
         }
         
@@ -784,6 +790,8 @@ export class TablesDB {
         const permissions = params.permissions;
         const rowSecurity = params.rowSecurity;
         const enabled = params.enabled;
+        const columns = params.columns;
+        const indexes = params.indexes;
 
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
@@ -811,6 +819,12 @@ export class TablesDB {
         }
         if (typeof enabled !== 'undefined') {
             payload['enabled'] = enabled;
+        }
+        if (typeof columns !== 'undefined') {
+            payload['columns'] = columns;
+        }
+        if (typeof indexes !== 'undefined') {
+            payload['indexes'] = indexes;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
