@@ -619,15 +619,15 @@ export class Users {
      * @param {string} params.email - User email.
      * @param {string} params.password - User password hashed using Scrypt.
      * @param {string} params.passwordSalt - Optional salt used to hash password.
-     * @param {number} params.passwordCpu - Optional CPU cost used to hash password.
-     * @param {number} params.passwordMemory - Optional memory cost used to hash password.
-     * @param {number} params.passwordParallel - Optional parallelization cost used to hash password.
-     * @param {number} params.passwordLength - Optional hash length used to hash password.
+     * @param {number | bigint} params.passwordCpu - Optional CPU cost used to hash password.
+     * @param {number | bigint} params.passwordMemory - Optional memory cost used to hash password.
+     * @param {number | bigint} params.passwordParallel - Optional parallelization cost used to hash password.
+     * @param {number | bigint} params.passwordLength - Optional hash length used to hash password.
      * @param {string} params.name - User name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      */
-    createScryptUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number, passwordMemory: number, passwordParallel: number, passwordLength: number, name?: string  }): Promise<Models.User<Preferences>>;
+    createScryptUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number | bigint, passwordMemory: number | bigint, passwordParallel: number | bigint, passwordLength: number | bigint, name?: string  }): Promise<Models.User<Preferences>>;
     /**
      * Create a new user. Password provided must be hashed with the [Scrypt](https://github.com/Tarsnap/scrypt) algorithm. Use the [POST /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to create users with a plain text password.
      *
@@ -635,34 +635,34 @@ export class Users {
      * @param {string} email - User email.
      * @param {string} password - User password hashed using Scrypt.
      * @param {string} passwordSalt - Optional salt used to hash password.
-     * @param {number} passwordCpu - Optional CPU cost used to hash password.
-     * @param {number} passwordMemory - Optional memory cost used to hash password.
-     * @param {number} passwordParallel - Optional parallelization cost used to hash password.
-     * @param {number} passwordLength - Optional hash length used to hash password.
+     * @param {number | bigint} passwordCpu - Optional CPU cost used to hash password.
+     * @param {number | bigint} passwordMemory - Optional memory cost used to hash password.
+     * @param {number | bigint} passwordParallel - Optional parallelization cost used to hash password.
+     * @param {number | bigint} passwordLength - Optional hash length used to hash password.
      * @param {string} name - User name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createScryptUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number, passwordMemory: number, passwordParallel: number, passwordLength: number, name?: string): Promise<Models.User<Preferences>>;
+    createScryptUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number | bigint, passwordMemory: number | bigint, passwordParallel: number | bigint, passwordLength: number | bigint, name?: string): Promise<Models.User<Preferences>>;
     createScryptUser<Preferences extends Models.Preferences = Models.DefaultPreferences>(
-        paramsOrFirst: { userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number, passwordMemory: number, passwordParallel: number, passwordLength: number, name?: string } | string,
-        ...rest: [(string)?, (string)?, (string)?, (number)?, (number)?, (number)?, (number)?, (string)?]    
+        paramsOrFirst: { userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number | bigint, passwordMemory: number | bigint, passwordParallel: number | bigint, passwordLength: number | bigint, name?: string } | string,
+        ...rest: [(string)?, (string)?, (string)?, (number | bigint)?, (number | bigint)?, (number | bigint)?, (number | bigint)?, (string)?]    
     ): Promise<Models.User<Preferences>> {
-        let params: { userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number, passwordMemory: number, passwordParallel: number, passwordLength: number, name?: string };
+        let params: { userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number | bigint, passwordMemory: number | bigint, passwordParallel: number | bigint, passwordLength: number | bigint, name?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number, passwordMemory: number, passwordParallel: number, passwordLength: number, name?: string };
+            params = (paramsOrFirst || {}) as { userId: string, email: string, password: string, passwordSalt: string, passwordCpu: number | bigint, passwordMemory: number | bigint, passwordParallel: number | bigint, passwordLength: number | bigint, name?: string };
         } else {
             params = {
                 userId: paramsOrFirst as string,
                 email: rest[0] as string,
                 password: rest[1] as string,
                 passwordSalt: rest[2] as string,
-                passwordCpu: rest[3] as number,
-                passwordMemory: rest[4] as number,
-                passwordParallel: rest[5] as number,
-                passwordLength: rest[6] as number,
+                passwordCpu: rest[3] as number | bigint,
+                passwordMemory: rest[4] as number | bigint,
+                passwordParallel: rest[5] as number | bigint,
+                passwordLength: rest[6] as number | bigint,
                 name: rest[7] as string            
             };
         }
@@ -1119,35 +1119,35 @@ export class Users {
      *
      * @param {string} params.userId - User ID.
      * @param {string} params.sessionId - Session ID. Use the string 'recent' to use the most recent session. Defaults to the most recent session.
-     * @param {number} params.duration - Time in seconds before JWT expires. Default duration is 900 seconds, and maximum is 3600 seconds.
+     * @param {number | bigint} params.duration - Time in seconds before JWT expires. Default duration is 900 seconds, and maximum is 3600 seconds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Jwt>}
      */
-    createJWT(params: { userId: string, sessionId?: string, duration?: number  }): Promise<Models.Jwt>;
+    createJWT(params: { userId: string, sessionId?: string, duration?: number | bigint  }): Promise<Models.Jwt>;
     /**
      * Use this endpoint to create a JSON Web Token for user by its unique ID. You can use the resulting JWT to authenticate on behalf of the user. The JWT secret will become invalid if the session it uses gets deleted.
      *
      * @param {string} userId - User ID.
      * @param {string} sessionId - Session ID. Use the string 'recent' to use the most recent session. Defaults to the most recent session.
-     * @param {number} duration - Time in seconds before JWT expires. Default duration is 900 seconds, and maximum is 3600 seconds.
+     * @param {number | bigint} duration - Time in seconds before JWT expires. Default duration is 900 seconds, and maximum is 3600 seconds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Jwt>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createJWT(userId: string, sessionId?: string, duration?: number): Promise<Models.Jwt>;
+    createJWT(userId: string, sessionId?: string, duration?: number | bigint): Promise<Models.Jwt>;
     createJWT(
-        paramsOrFirst: { userId: string, sessionId?: string, duration?: number } | string,
-        ...rest: [(string)?, (number)?]    
+        paramsOrFirst: { userId: string, sessionId?: string, duration?: number | bigint } | string,
+        ...rest: [(string)?, (number | bigint)?]    
     ): Promise<Models.Jwt> {
-        let params: { userId: string, sessionId?: string, duration?: number };
+        let params: { userId: string, sessionId?: string, duration?: number | bigint };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { userId: string, sessionId?: string, duration?: number };
+            params = (paramsOrFirst || {}) as { userId: string, sessionId?: string, duration?: number | bigint };
         } else {
             params = {
                 userId: paramsOrFirst as string,
                 sessionId: rest[0] as string,
-                duration: rest[1] as number            
+                duration: rest[1] as number | bigint            
             };
         }
         
@@ -3012,37 +3012,37 @@ export class Users {
      * 
      *
      * @param {string} params.userId - User ID.
-     * @param {number} params.length - Token length in characters. The default length is 6 characters
-     * @param {number} params.expire - Token expiration period in seconds. The default expiration is 15 minutes.
+     * @param {number | bigint} params.length - Token length in characters. The default length is 6 characters
+     * @param {number | bigint} params.expire - Token expiration period in seconds. The default expiration is 15 minutes.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Token>}
      */
-    createToken(params: { userId: string, length?: number, expire?: number  }): Promise<Models.Token>;
+    createToken(params: { userId: string, length?: number | bigint, expire?: number | bigint  }): Promise<Models.Token>;
     /**
      * Returns a token with a secret key for creating a session. Use the user ID and secret and submit a request to the [PUT /account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession) endpoint to complete the login process.
      * 
      *
      * @param {string} userId - User ID.
-     * @param {number} length - Token length in characters. The default length is 6 characters
-     * @param {number} expire - Token expiration period in seconds. The default expiration is 15 minutes.
+     * @param {number | bigint} length - Token length in characters. The default length is 6 characters
+     * @param {number | bigint} expire - Token expiration period in seconds. The default expiration is 15 minutes.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Token>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createToken(userId: string, length?: number, expire?: number): Promise<Models.Token>;
+    createToken(userId: string, length?: number | bigint, expire?: number | bigint): Promise<Models.Token>;
     createToken(
-        paramsOrFirst: { userId: string, length?: number, expire?: number } | string,
-        ...rest: [(number)?, (number)?]    
+        paramsOrFirst: { userId: string, length?: number | bigint, expire?: number | bigint } | string,
+        ...rest: [(number | bigint)?, (number | bigint)?]    
     ): Promise<Models.Token> {
-        let params: { userId: string, length?: number, expire?: number };
+        let params: { userId: string, length?: number | bigint, expire?: number | bigint };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { userId: string, length?: number, expire?: number };
+            params = (paramsOrFirst || {}) as { userId: string, length?: number | bigint, expire?: number | bigint };
         } else {
             params = {
                 userId: paramsOrFirst as string,
-                length: rest[0] as number,
-                expire: rest[1] as number            
+                length: rest[0] as number | bigint,
+                expire: rest[1] as number | bigint            
             };
         }
         

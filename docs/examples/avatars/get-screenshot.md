@@ -30,5 +30,5 @@ const result = await avatars.getScreenshot({
     width: 800, // optional
     height: 600, // optional
     quality: 85, // optional
-    output: sdk.Output.Jpg // optional
+    output: sdk.ImageFormat.Jpg // optional
 });

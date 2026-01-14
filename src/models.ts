@@ -23,7 +23,7 @@ export namespace Models {
         /**
          * Total number of rows that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of rows.
          */
@@ -37,7 +37,7 @@ export namespace Models {
         /**
          * Total number of documents that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of documents.
          */
@@ -51,7 +51,7 @@ export namespace Models {
         /**
          * Total number of tables that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of tables.
          */
@@ -65,7 +65,7 @@ export namespace Models {
         /**
          * Total number of collections that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of collections.
          */
@@ -79,7 +79,7 @@ export namespace Models {
         /**
          * Total number of databases that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of databases.
          */
@@ -93,7 +93,7 @@ export namespace Models {
         /**
          * Total number of indexes that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of indexes.
          */
@@ -107,7 +107,7 @@ export namespace Models {
         /**
          * Total number of indexes that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of indexes.
          */
@@ -121,7 +121,7 @@ export namespace Models {
         /**
          * Total number of users that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of users.
          */
@@ -135,7 +135,7 @@ export namespace Models {
         /**
          * Total number of sessions that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of sessions.
          */
@@ -149,7 +149,7 @@ export namespace Models {
         /**
          * Total number of identities that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of identities.
          */
@@ -163,7 +163,7 @@ export namespace Models {
         /**
          * Total number of logs that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of logs.
          */
@@ -177,7 +177,7 @@ export namespace Models {
         /**
          * Total number of files that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of files.
          */
@@ -191,7 +191,7 @@ export namespace Models {
         /**
          * Total number of buckets that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of buckets.
          */
@@ -205,7 +205,7 @@ export namespace Models {
         /**
          * Total number of tokens that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of tokens.
          */
@@ -219,7 +219,7 @@ export namespace Models {
         /**
          * Total number of teams that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of teams.
          */
@@ -233,7 +233,7 @@ export namespace Models {
         /**
          * Total number of memberships that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of memberships.
          */
@@ -247,7 +247,7 @@ export namespace Models {
         /**
          * Total number of sites that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of sites.
          */
@@ -261,7 +261,7 @@ export namespace Models {
         /**
          * Total number of functions that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of functions.
          */
@@ -275,7 +275,7 @@ export namespace Models {
         /**
          * Total number of frameworks that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of frameworks.
          */
@@ -289,7 +289,7 @@ export namespace Models {
         /**
          * Total number of runtimes that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of runtimes.
          */
@@ -303,7 +303,7 @@ export namespace Models {
         /**
          * Total number of deployments that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of deployments.
          */
@@ -317,7 +317,7 @@ export namespace Models {
         /**
          * Total number of executions that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of executions.
          */
@@ -331,7 +331,7 @@ export namespace Models {
         /**
          * Total number of countries that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of countries.
          */
@@ -345,7 +345,7 @@ export namespace Models {
         /**
          * Total number of continents that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of continents.
          */
@@ -359,7 +359,7 @@ export namespace Models {
         /**
          * Total number of languages that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of languages.
          */
@@ -373,7 +373,7 @@ export namespace Models {
         /**
          * Total number of currencies that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of currencies.
          */
@@ -387,7 +387,7 @@ export namespace Models {
         /**
          * Total number of phones that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of phones.
          */
@@ -401,7 +401,7 @@ export namespace Models {
         /**
          * Total number of variables that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of variables.
          */
@@ -415,7 +415,7 @@ export namespace Models {
         /**
          * Total number of localeCodes that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of localeCodes.
          */
@@ -429,7 +429,7 @@ export namespace Models {
         /**
          * Total number of providers that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of providers.
          */
@@ -443,7 +443,7 @@ export namespace Models {
         /**
          * Total number of messages that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of messages.
          */
@@ -457,7 +457,7 @@ export namespace Models {
         /**
          * Total number of topics that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of topics.
          */
@@ -471,7 +471,7 @@ export namespace Models {
         /**
          * Total number of subscribers that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of subscribers.
          */
@@ -485,7 +485,7 @@ export namespace Models {
         /**
          * Total number of targets that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of targets.
          */
@@ -499,7 +499,7 @@ export namespace Models {
         /**
          * Total number of transactions that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of transactions.
          */
@@ -513,7 +513,7 @@ export namespace Models {
         /**
          * Total number of specifications that matched your query.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of specifications.
          */
@@ -548,6 +548,14 @@ export namespace Models {
          * Database type.
          */
         type: DatabaseType;
+        /**
+         * Database backup policies.
+         */
+        policies: Index[];
+        /**
+         * Database backup archives.
+         */
+        archives: Collection[];
     }
 
     /**
@@ -603,7 +611,7 @@ export namespace Models {
         /**
          * Total number of attributes in the given collection.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of attributes.
          */
@@ -649,7 +657,7 @@ export namespace Models {
         /**
          * Attribute size.
          */
-        size: number;
+        size: number | bigint;
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
@@ -699,15 +707,15 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number;
+        min?: number | bigint;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number;
+        max?: number | bigint;
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: number;
+        default?: number | bigint;
     }
 
     /**
@@ -749,15 +757,15 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number;
+        min?: number | bigint;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number;
+        max?: number | bigint;
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: number;
+        default?: number | bigint;
     }
 
     /**
@@ -1277,7 +1285,7 @@ export namespace Models {
         /**
          * Total number of columns in the given table.
          */
-        total: number;
+        total: number | bigint;
         /**
          * List of columns.
          */
@@ -1323,7 +1331,7 @@ export namespace Models {
         /**
          * Column size.
          */
-        size: number;
+        size: number | bigint;
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
@@ -1373,15 +1381,15 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number;
+        min?: number | bigint;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number;
+        max?: number | bigint;
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: number;
+        default?: number | bigint;
     }
 
     /**
@@ -1423,15 +1431,15 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number;
+        min?: number | bigint;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number;
+        max?: number | bigint;
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: number;
+        default?: number | bigint;
     }
 
     /**
@@ -1937,7 +1945,7 @@ export namespace Models {
         /**
          * Index attributes length.
          */
-        lengths: number[];
+        lengths: number | bigint[];
         /**
          * Index orders.
          */
@@ -1983,7 +1991,7 @@ export namespace Models {
         /**
          * Index columns length.
          */
-        lengths: number[];
+        lengths: number | bigint[];
         /**
          * Index orders.
          */
@@ -2001,7 +2009,7 @@ export namespace Models {
         /**
          * Row automatically incrementing ID.
          */
-        $sequence: number;
+        $sequence: number | bigint;
         /**
          * Table ID.
          */
@@ -2040,7 +2048,7 @@ export namespace Models {
         /**
          * Document automatically incrementing ID.
          */
-        $sequence: number;
+        $sequence: number | bigint;
         /**
          * Collection ID.
          */
@@ -2291,19 +2299,19 @@ export namespace Models {
         /**
          * CPU complexity of computed hash.
          */
-        costCpu: number;
+        costCpu: number | bigint;
         /**
          * Memory complexity of computed hash.
          */
-        costMemory: number;
+        costMemory: number | bigint;
         /**
          * Parallelization of computed hash.
          */
-        costParallel: number;
+        costParallel: number | bigint;
         /**
          * Length used to compute hash.
          */
-        length: number;
+        length: number | bigint;
     }
 
     /**
@@ -2339,15 +2347,15 @@ export namespace Models {
         /**
          * Memory used to compute hash.
          */
-        memoryCost: number;
+        memoryCost: number | bigint;
         /**
          * Amount of time consumed to compute hash
          */
-        timeCost: number;
+        timeCost: number | bigint;
         /**
          * Number of threads used to compute hash.
          */
-        threads: number;
+        threads: number | bigint;
     }
 
     /**
@@ -2656,15 +2664,15 @@ export namespace Models {
         /**
          * File original size in bytes.
          */
-        sizeOriginal: number;
+        sizeOriginal: number | bigint;
         /**
          * Total number of chunks available
          */
-        chunksTotal: number;
+        chunksTotal: number | bigint;
         /**
          * Total number of chunks uploaded
          */
-        chunksUploaded: number;
+        chunksUploaded: number | bigint;
     }
 
     /**
@@ -2702,13 +2710,13 @@ export namespace Models {
         /**
          * Maximum file size supported.
          */
-        maximumFileSize: number;
+        maximumFileSize: number | bigint;
         /**
          * Allowed file extensions.
          */
         allowedFileExtensions: string[];
         /**
-         * Compression algorithm choosen for compression. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
+         * Compression algorithm chosen for compression. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
          */
         compression: string;
         /**
@@ -2723,6 +2731,10 @@ export namespace Models {
          * Image transformations are enabled.
          */
         transformations: boolean;
+        /**
+         * Total size of this bucket in bytes.
+         */
+        totalSize: number | bigint;
     }
 
     /**
@@ -2782,7 +2794,7 @@ export namespace Models {
         /**
          * Total number of team members.
          */
-        total: number;
+        total: number | bigint;
         /**
          * Team preferences as a key-value object
          */
@@ -2918,7 +2930,7 @@ export namespace Models {
         /**
          * Site request timeout in seconds.
          */
-        timeout: number;
+        timeout: number | bigint;
         /**
          * The install command used to install the site dependencies.
          */
@@ -3048,7 +3060,7 @@ export namespace Models {
         /**
          * Function execution timeout in seconds.
          */
-        timeout: number;
+        timeout: number | bigint;
         /**
          * The entrypoint file used to execute the deployment.
          */
@@ -3212,15 +3224,15 @@ export namespace Models {
         /**
          * The code size in bytes.
          */
-        sourceSize: number;
+        sourceSize: number | bigint;
         /**
          * The build output size in bytes.
          */
-        buildSize: number;
+        buildSize: number | bigint;
         /**
          * The total size in bytes (source and build output).
          */
-        totalSize: number;
+        totalSize: number | bigint;
         /**
          * The current build ID.
          */
@@ -3248,7 +3260,7 @@ export namespace Models {
         /**
          * The current build time in seconds.
          */
-        buildDuration: number;
+        buildDuration: number | bigint;
         /**
          * The name of the vcs provider repository
          */
@@ -3342,7 +3354,7 @@ export namespace Models {
         /**
          * HTTP response status code.
          */
-        responseStatusCode: number;
+        responseStatusCode: number | bigint;
         /**
          * HTTP response body. This will return empty unless execution is created as synchronous.
          */
@@ -3362,7 +3374,7 @@ export namespace Models {
         /**
          * Resource(function/site) execution duration in seconds.
          */
-        duration: number;
+        duration: number | bigint;
         /**
          * The scheduled time for execution. If left empty, execution will be queued immediately.
          */
@@ -3472,11 +3484,11 @@ export namespace Models {
         /**
          * Number of decimal digits.
          */
-        decimalDigits: number;
+        decimalDigits: number | bigint;
         /**
          * Currency digit rounding.
          */
-        rounding: number;
+        rounding: number | bigint;
         /**
          * Currency code in [ISO 4217-1](http://en.wikipedia.org/wiki/ISO_4217) three-character format.
          */
@@ -3526,7 +3538,7 @@ export namespace Models {
         /**
          * Amount of actions in the queue.
          */
-        size: number;
+        size: number | bigint;
     }
 
     /**
@@ -3540,7 +3552,7 @@ export namespace Models {
         /**
          * Duration in milliseconds how long the health check took.
          */
-        ping: number;
+        ping: number | bigint;
         /**
          * Service status. Possible values are: `pass`, `fail`
          */
@@ -3584,15 +3596,15 @@ export namespace Models {
         /**
          * Current unix timestamp on trustful remote server.
          */
-        remoteTime: number;
+        remoteTime: number | bigint;
         /**
          * Current unix timestamp of local server where Appwrite runs.
          */
-        localTime: number;
+        localTime: number | bigint;
         /**
          * Difference of unix remote and local timestamps in milliseconds.
          */
-        diff: number;
+        diff: number | bigint;
     }
 
     /**
@@ -3616,11 +3628,11 @@ export namespace Models {
         /**
          * Memory size in MB.
          */
-        memory: number;
+        memory: number | bigint;
         /**
          * Number of CPUs.
          */
-        cpus: number;
+        cpus: number | bigint;
         /**
          * Is size enabled.
          */
@@ -3788,7 +3800,7 @@ export namespace Models {
         /**
          * Number of recipients the message was delivered to.
          */
-        deliveredTotal: number;
+        deliveredTotal: number | bigint;
         /**
          * Data of the message.
          */
@@ -3822,15 +3834,15 @@ export namespace Models {
         /**
          * Total count of email subscribers subscribed to the topic.
          */
-        emailTotal: number;
+        emailTotal: number | bigint;
         /**
          * Total count of SMS subscribers subscribed to the topic.
          */
-        smsTotal: number;
+        smsTotal: number | bigint;
         /**
          * Total count of push subscribers subscribed to the topic.
          */
-        pushTotal: number;
+        pushTotal: number | bigint;
         /**
          * Subscribe permissions.
          */
@@ -3860,7 +3872,7 @@ export namespace Models {
         /**
          * Number of operations in the transaction.
          */
-        operations: number;
+        operations: number | bigint;
         /**
          * Expiration time in ISO 8601 format.
          */
@@ -3949,5 +3961,335 @@ export namespace Models {
          * Is the target expired.
          */
         expired: boolean;
+    }
+
+    /**
+     * Archive
+     */
+    export type BackupArchive = {
+        /**
+         * Archive ID.
+         */
+        $id: string;
+        /**
+         * Archive creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Archive update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Archive policy ID.
+         */
+        policyId: string;
+        /**
+         * Archive size in bytes.
+         */
+        size: number | bigint;
+        /**
+         * The status of the archive creation. Possible values: pending, processing, uploading, completed, failed.
+         */
+        status: string;
+        /**
+         * The backup start time.
+         */
+        startedAt: string;
+        /**
+         * Migration ID.
+         */
+        migrationId: string;
+        /**
+         * The services that are backed up by this archive.
+         */
+        services: string[];
+        /**
+         * The resources that are backed up by this archive.
+         */
+        resources: string[];
+        /**
+         * The resource ID to backup. Set only if this archive should backup a single resource.
+         */
+        resourceId?: string;
+        /**
+         * The resource type to backup. Set only if this archive should backup a single resource.
+         */
+        resourceType?: string;
+    }
+
+    /**
+     * Invoice
+     */
+    export type Invoice = {
+        /**
+         * Invoice ID.
+         */
+        $id: string;
+        /**
+         * Invoice creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Invoice update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Invoice permissions. [Learn more about permissions](/docs/permissions).
+         */
+        $permissions: string[];
+        /**
+         * Project ID
+         */
+        teamId: string;
+        /**
+         * Aggregation ID
+         */
+        aggregationId: string;
+        /**
+         * Billing plan selected. Can be one of `tier-0`, `tier-1` or `tier-2`.
+         */
+        plan: string;
+        /**
+         * Usage breakdown per resource
+         */
+        usage: UsageResources[];
+        /**
+         * Invoice Amount
+         */
+        amount: number | bigint;
+        /**
+         * Tax percentage
+         */
+        tax: number | bigint;
+        /**
+         * Tax amount
+         */
+        taxAmount: number | bigint;
+        /**
+         * VAT percentage
+         */
+        vat: number | bigint;
+        /**
+         * VAT amount
+         */
+        vatAmount: number | bigint;
+        /**
+         * Gross amount after vat, tax, and discounts applied.
+         */
+        grossAmount: number | bigint;
+        /**
+         * Credits used.
+         */
+        creditsUsed: number | bigint;
+        /**
+         * Currency the invoice is in
+         */
+        currency: string;
+        /**
+         * Client secret for processing failed payments in front-end
+         */
+        clientSecret: string;
+        /**
+         * Invoice status
+         */
+        status: string;
+        /**
+         * Last payment error associated with the invoice
+         */
+        lastError: string;
+        /**
+         * Invoice due date.
+         */
+        dueAt: string;
+        /**
+         * Beginning date of the invoice
+         */
+        from: string;
+        /**
+         * End date of the invoice
+         */
+        to: string;
+    }
+
+    /**
+     * backup
+     */
+    export type BackupPolicy = {
+        /**
+         * Backup policy ID.
+         */
+        $id: string;
+        /**
+         * Backup policy name.
+         */
+        name: string;
+        /**
+         * Policy creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Policy update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * The services that are backed up by this policy.
+         */
+        services: string[];
+        /**
+         * The resources that are backed up by this policy.
+         */
+        resources: string[];
+        /**
+         * The resource ID to backup. Set only if this policy should backup a single resource.
+         */
+        resourceId?: string;
+        /**
+         * The resource type to backup. Set only if this policy should backup a single resource.
+         */
+        resourceType?: string;
+        /**
+         * How many days to keep the backup before it will be automatically deleted.
+         */
+        retention: number | bigint;
+        /**
+         * Policy backup schedule in CRON format.
+         */
+        schedule: string;
+        /**
+         * Is this policy enabled.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * Restoration
+     */
+    export type BackupRestoration = {
+        /**
+         * Restoration ID.
+         */
+        $id: string;
+        /**
+         * Restoration creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Restoration update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Backup archive ID.
+         */
+        archiveId: string;
+        /**
+         * Backup policy ID.
+         */
+        policyId: string;
+        /**
+         * The status of the restoration. Possible values: pending, downloading, processing, completed, failed.
+         */
+        status: string;
+        /**
+         * The backup start time.
+         */
+        startedAt: string;
+        /**
+         * Migration ID.
+         */
+        migrationId: string;
+        /**
+         * The services that are backed up by this policy.
+         */
+        services: string[];
+        /**
+         * The resources that are backed up by this policy.
+         */
+        resources: string[];
+        /**
+         * Optional data in key-value object. 
+         */
+        options: string;
+    }
+
+    /**
+     * UsageResource
+     */
+    export type UsageResources = {
+        /**
+         * Invoice name
+         */
+        name: string;
+        /**
+         * Invoice value
+         */
+        value: number | bigint;
+        /**
+         * Invoice amount
+         */
+        amount: number | bigint;
+        /**
+         * Invoice rate
+         */
+        rate: number | bigint;
+        /**
+         * Invoice description
+         */
+        desc: string;
+        /**
+         * Resource ID
+         */
+        resourceId: string;
+    }
+
+    /**
+     * EstimationDeleteOrganization
+     */
+    export type EstimationDeleteOrganization = {
+        /**
+         * List of unpaid invoices
+         */
+        unpaidInvoices: Invoice[];
+    }
+
+    /**
+     * Backup archive list
+     */
+    export type BackupArchiveList = {
+        /**
+         * Total number of archives that matched your query.
+         */
+        total: number | bigint;
+        /**
+         * List of archives.
+         */
+        archives: BackupArchive[];
+    }
+
+    /**
+     * Backup policy list
+     */
+    export type BackupPolicyList = {
+        /**
+         * Total number of policies that matched your query.
+         */
+        total: number | bigint;
+        /**
+         * List of policies.
+         */
+        policies: BackupPolicy[];
+    }
+
+    /**
+     * Backup restoration list
+     */
+    export type BackupRestorationList = {
+        /**
+         * Total number of restorations that matched your query.
+         */
+        total: number | bigint;
+        /**
+         * List of restorations.
+         */
+        restorations: BackupRestoration[];
     }
 }

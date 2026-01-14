@@ -5,8 +5,8 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setSession(''); // The user session to authenticate with
 
-const account = new sdk.Account(client);
+const organizations = new sdk.Organizations(client);
 
-const result = await account.createJWT({
-    duration: 0 // optional
+const result = await organizations.delete({
+    organizationId: '<ORGANIZATION_ID>'
 });

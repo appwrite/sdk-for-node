@@ -86,16 +86,16 @@ export class Storage {
      * @param {string[]} params.permissions - An array of permission strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.fileSecurity - Enables configuring permissions for individual file. A user needs one of file or bucket level permissions to access a file. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
-     * @param {number} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 30MB.
+     * @param {number | bigint} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} params.allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} params.compression - Compression algorithm choosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {Compression} params.compression - Compression algorithm chosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} params.antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} params.transformations - Are image transformations enabled?
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
-    createBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean  }): Promise<Models.Bucket>;
+    createBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number | bigint, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean  }): Promise<Models.Bucket>;
     /**
      * Create a new storage bucket.
      *
@@ -104,9 +104,9 @@ export class Storage {
      * @param {string[]} permissions - An array of permission strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} fileSecurity - Enables configuring permissions for individual file. A user needs one of file or bucket level permissions to access a file. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
-     * @param {number} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 30MB.
+     * @param {number | bigint} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} compression - Compression algorithm choosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {Compression} compression - Compression algorithm chosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} transformations - Are image transformations enabled?
@@ -114,15 +114,15 @@ export class Storage {
      * @returns {Promise<Models.Bucket>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean): Promise<Models.Bucket>;
+    createBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number | bigint, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean): Promise<Models.Bucket>;
     createBucket(
-        paramsOrFirst: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean } | string,
-        ...rest: [(string)?, (string[])?, (boolean)?, (boolean)?, (number)?, (string[])?, (Compression)?, (boolean)?, (boolean)?, (boolean)?]    
+        paramsOrFirst: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number | bigint, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean } | string,
+        ...rest: [(string)?, (string[])?, (boolean)?, (boolean)?, (number | bigint)?, (string[])?, (Compression)?, (boolean)?, (boolean)?, (boolean)?]    
     ): Promise<Models.Bucket> {
-        let params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
+        let params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number | bigint, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
+            params = (paramsOrFirst || {}) as { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number | bigint, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
@@ -130,7 +130,7 @@ export class Storage {
                 permissions: rest[1] as string[],
                 fileSecurity: rest[2] as boolean,
                 enabled: rest[3] as boolean,
-                maximumFileSize: rest[4] as number,
+                maximumFileSize: rest[4] as number | bigint,
                 allowedFileExtensions: rest[5] as string[],
                 compression: rest[6] as Compression,
                 encryption: rest[7] as boolean,
@@ -266,16 +266,16 @@ export class Storage {
      * @param {string[]} params.permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.fileSecurity - Enables configuring permissions for individual file. A user needs one of file or bucket level permissions to access a file. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
-     * @param {number} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 30MB.
+     * @param {number | bigint} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} params.allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} params.compression - Compression algorithm choosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {Compression} params.compression - Compression algorithm chosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} params.antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} params.transformations - Are image transformations enabled?
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
-    updateBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean  }): Promise<Models.Bucket>;
+    updateBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number | bigint, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean  }): Promise<Models.Bucket>;
     /**
      * Update a storage bucket by its unique ID.
      *
@@ -284,9 +284,9 @@ export class Storage {
      * @param {string[]} permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} fileSecurity - Enables configuring permissions for individual file. A user needs one of file or bucket level permissions to access a file. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
-     * @param {number} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 30MB.
+     * @param {number | bigint} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} compression - Compression algorithm choosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {Compression} compression - Compression algorithm chosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} transformations - Are image transformations enabled?
@@ -294,15 +294,15 @@ export class Storage {
      * @returns {Promise<Models.Bucket>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean): Promise<Models.Bucket>;
+    updateBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number | bigint, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean): Promise<Models.Bucket>;
     updateBucket(
-        paramsOrFirst: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean } | string,
-        ...rest: [(string)?, (string[])?, (boolean)?, (boolean)?, (number)?, (string[])?, (Compression)?, (boolean)?, (boolean)?, (boolean)?]    
+        paramsOrFirst: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number | bigint, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean } | string,
+        ...rest: [(string)?, (string[])?, (boolean)?, (boolean)?, (number | bigint)?, (string[])?, (Compression)?, (boolean)?, (boolean)?, (boolean)?]    
     ): Promise<Models.Bucket> {
-        let params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
+        let params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number | bigint, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
+            params = (paramsOrFirst || {}) as { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number | bigint, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
@@ -310,7 +310,7 @@ export class Storage {
                 permissions: rest[1] as string[],
                 fileSecurity: rest[2] as boolean,
                 enabled: rest[3] as boolean,
-                maximumFileSize: rest[4] as number,
+                maximumFileSize: rest[4] as number | bigint,
                 allowedFileExtensions: rest[5] as string[],
                 compression: rest[6] as Compression,
                 encryption: rest[7] as boolean,
@@ -669,10 +669,10 @@ export class Storage {
     /**
      * Update a file by its unique ID. Only users with write permissions have access to update this resource.
      *
-     * @param {string} params.bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
-     * @param {string} params.fileId - File unique ID.
-     * @param {string} params.name - Name of the file
-     * @param {string[]} params.permissions - An array of permission string. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string} params.bucketId - Bucket unique ID.
+     * @param {string} params.fileId - File ID.
+     * @param {string} params.name - File name.
+     * @param {string[]} params.permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
@@ -680,10 +680,10 @@ export class Storage {
     /**
      * Update a file by its unique ID. Only users with write permissions have access to update this resource.
      *
-     * @param {string} bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
-     * @param {string} fileId - File unique ID.
-     * @param {string} name - Name of the file
-     * @param {string[]} permissions - An array of permission string. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string} bucketId - Bucket unique ID.
+     * @param {string} fileId - File ID.
+     * @param {string} name - File name.
+     * @param {string[]} permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -872,36 +872,36 @@ export class Storage {
      *
      * @param {string} params.bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param {string} params.fileId - File ID
-     * @param {number} params.width - Resize preview image width, Pass an integer between 0 to 4000.
-     * @param {number} params.height - Resize preview image height, Pass an integer between 0 to 4000.
+     * @param {number | bigint} params.width - Resize preview image width, Pass an integer between 0 to 4000.
+     * @param {number | bigint} params.height - Resize preview image height, Pass an integer between 0 to 4000.
      * @param {ImageGravity} params.gravity - Image crop gravity. Can be one of center,top-left,top,top-right,left,right,bottom-left,bottom,bottom-right
-     * @param {number} params.quality - Preview image quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
-     * @param {number} params.borderWidth - Preview image border in pixels. Pass an integer between 0 to 100. Defaults to 0.
+     * @param {number | bigint} params.quality - Preview image quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
+     * @param {number | bigint} params.borderWidth - Preview image border in pixels. Pass an integer between 0 to 100. Defaults to 0.
      * @param {string} params.borderColor - Preview image border color. Use a valid HEX color, no # is needed for prefix.
-     * @param {number} params.borderRadius - Preview image border radius in pixels. Pass an integer between 0 to 4000.
-     * @param {number} params.opacity - Preview image opacity. Only works with images having an alpha channel (like png). Pass a number between 0 to 1.
-     * @param {number} params.rotation - Preview image rotation in degrees. Pass an integer between -360 and 360.
+     * @param {number | bigint} params.borderRadius - Preview image border radius in pixels. Pass an integer between 0 to 4000.
+     * @param {number | bigint} params.opacity - Preview image opacity. Only works with images having an alpha channel (like png). Pass a number between 0 to 1.
+     * @param {number | bigint} params.rotation - Preview image rotation in degrees. Pass an integer between -360 and 360.
      * @param {string} params.background - Preview image background color. Only works with transparent images (png). Use a valid HEX color, no # is needed for prefix.
      * @param {ImageFormat} params.output - Output format type (jpeg, jpg, png, gif and webp).
      * @param {string} params.token - File token for accessing this file.
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    getFilePreview(params: { bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string  }): Promise<ArrayBuffer>;
+    getFilePreview(params: { bucketId: string, fileId: string, width?: number | bigint, height?: number | bigint, gravity?: ImageGravity, quality?: number | bigint, borderWidth?: number | bigint, borderColor?: string, borderRadius?: number | bigint, opacity?: number | bigint, rotation?: number | bigint, background?: string, output?: ImageFormat, token?: string  }): Promise<ArrayBuffer>;
     /**
      * Get a file preview image. Currently, this method supports preview for image files (jpg, png, and gif), other supported formats, like pdf, docs, slides, and spreadsheets, will return the file icon image. You can also pass query string arguments for cutting and resizing your preview image. Preview is supported only for image files smaller than 10MB.
      *
      * @param {string} bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param {string} fileId - File ID
-     * @param {number} width - Resize preview image width, Pass an integer between 0 to 4000.
-     * @param {number} height - Resize preview image height, Pass an integer between 0 to 4000.
+     * @param {number | bigint} width - Resize preview image width, Pass an integer between 0 to 4000.
+     * @param {number | bigint} height - Resize preview image height, Pass an integer between 0 to 4000.
      * @param {ImageGravity} gravity - Image crop gravity. Can be one of center,top-left,top,top-right,left,right,bottom-left,bottom,bottom-right
-     * @param {number} quality - Preview image quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
-     * @param {number} borderWidth - Preview image border in pixels. Pass an integer between 0 to 100. Defaults to 0.
+     * @param {number | bigint} quality - Preview image quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
+     * @param {number | bigint} borderWidth - Preview image border in pixels. Pass an integer between 0 to 100. Defaults to 0.
      * @param {string} borderColor - Preview image border color. Use a valid HEX color, no # is needed for prefix.
-     * @param {number} borderRadius - Preview image border radius in pixels. Pass an integer between 0 to 4000.
-     * @param {number} opacity - Preview image opacity. Only works with images having an alpha channel (like png). Pass a number between 0 to 1.
-     * @param {number} rotation - Preview image rotation in degrees. Pass an integer between -360 and 360.
+     * @param {number | bigint} borderRadius - Preview image border radius in pixels. Pass an integer between 0 to 4000.
+     * @param {number | bigint} opacity - Preview image opacity. Only works with images having an alpha channel (like png). Pass a number between 0 to 1.
+     * @param {number | bigint} rotation - Preview image rotation in degrees. Pass an integer between -360 and 360.
      * @param {string} background - Preview image background color. Only works with transparent images (png). Use a valid HEX color, no # is needed for prefix.
      * @param {ImageFormat} output - Output format type (jpeg, jpg, png, gif and webp).
      * @param {string} token - File token for accessing this file.
@@ -909,28 +909,28 @@ export class Storage {
      * @returns {Promise<ArrayBuffer>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getFilePreview(bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string): Promise<ArrayBuffer>;
+    getFilePreview(bucketId: string, fileId: string, width?: number | bigint, height?: number | bigint, gravity?: ImageGravity, quality?: number | bigint, borderWidth?: number | bigint, borderColor?: string, borderRadius?: number | bigint, opacity?: number | bigint, rotation?: number | bigint, background?: string, output?: ImageFormat, token?: string): Promise<ArrayBuffer>;
     getFilePreview(
-        paramsOrFirst: { bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string } | string,
-        ...rest: [(string)?, (number)?, (number)?, (ImageGravity)?, (number)?, (number)?, (string)?, (number)?, (number)?, (number)?, (string)?, (ImageFormat)?, (string)?]    
+        paramsOrFirst: { bucketId: string, fileId: string, width?: number | bigint, height?: number | bigint, gravity?: ImageGravity, quality?: number | bigint, borderWidth?: number | bigint, borderColor?: string, borderRadius?: number | bigint, opacity?: number | bigint, rotation?: number | bigint, background?: string, output?: ImageFormat, token?: string } | string,
+        ...rest: [(string)?, (number | bigint)?, (number | bigint)?, (ImageGravity)?, (number | bigint)?, (number | bigint)?, (string)?, (number | bigint)?, (number | bigint)?, (number | bigint)?, (string)?, (ImageFormat)?, (string)?]    
     ): Promise<ArrayBuffer> {
-        let params: { bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string };
+        let params: { bucketId: string, fileId: string, width?: number | bigint, height?: number | bigint, gravity?: ImageGravity, quality?: number | bigint, borderWidth?: number | bigint, borderColor?: string, borderRadius?: number | bigint, opacity?: number | bigint, rotation?: number | bigint, background?: string, output?: ImageFormat, token?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string };
+            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, width?: number | bigint, height?: number | bigint, gravity?: ImageGravity, quality?: number | bigint, borderWidth?: number | bigint, borderColor?: string, borderRadius?: number | bigint, opacity?: number | bigint, rotation?: number | bigint, background?: string, output?: ImageFormat, token?: string };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
                 fileId: rest[0] as string,
-                width: rest[1] as number,
-                height: rest[2] as number,
+                width: rest[1] as number | bigint,
+                height: rest[2] as number | bigint,
                 gravity: rest[3] as ImageGravity,
-                quality: rest[4] as number,
-                borderWidth: rest[5] as number,
+                quality: rest[4] as number | bigint,
+                borderWidth: rest[5] as number | bigint,
                 borderColor: rest[6] as string,
-                borderRadius: rest[7] as number,
-                opacity: rest[8] as number,
-                rotation: rest[9] as number,
+                borderRadius: rest[7] as number | bigint,
+                opacity: rest[8] as number | bigint,
+                rotation: rest[9] as number | bigint,
                 background: rest[10] as string,
                 output: rest[11] as ImageFormat,
                 token: rest[12] as string            

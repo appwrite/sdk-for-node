@@ -3,10 +3,10 @@ const sdk = require('node-appwrite');
 const client = new sdk.Client()
     .setEndpoint('https://<REGION>.cloud.appwrite.io/v1') // Your API Endpoint
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
-    .setSession(''); // The user session to authenticate with
+    .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const account = new sdk.Account(client);
+const health = new sdk.Health(client);
 
-const result = await account.createJWT({
-    duration: 0 // optional
+const result = await health.getQueueBillingProjectAggregation({
+    threshold: null // optional
 });
