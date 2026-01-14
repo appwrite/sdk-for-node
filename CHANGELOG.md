@@ -1,5 +1,9 @@
 # Change Log
 
+## 21.1.1
+
+* Update SDK as per latest server specs
+
 ## 20.3.0
 
 * Add `total` parameter to list queries allowing skipping counting rows in a table for improved performance
