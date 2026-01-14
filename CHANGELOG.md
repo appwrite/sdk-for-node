@@ -4,6 +4,18 @@
 
 * Update SDK as per latest server specs
 
+## 21.1.0
+
+* Added ability to create columns and indexes synchronously while creating a table
+
+## 21.0.0
+
+* Rename `VCSDeploymentType` enum to `VCSReferenceType`
+* Change `createTemplateDeployment` method signature: replace `version` parameter with `type` (TemplateReferenceType)
+  and `reference` parameters
+* Add `getScreenshot` method to `Avatars` service
+* Add `Theme`, `Timezone` and `Output` enums
+
 ## 20.3.0
 
 * Add `total` parameter to list queries allowing skipping counting rows in a table for improved performance
@@ -47,7 +59,8 @@
 ## 16.0.0
 
 * Fix: remove content-type from GET requests
-* Update (breaking): min and max params are now optional in `updateFloatAttribute` and `updateIntegerAttribute` methods (changes their positioning in method definition)
+* Update (breaking): min and max params are now optional in `updateFloatAttribute` and `updateIntegerAttribute`
+  methods (changes their positioning in method definition)
 
 ## 15.0.1
 
@@ -89,4 +102,5 @@
     * Rename `templateBranch` to `templateVersion`  in `createFunction()`.
     * Rename `downloadDeployment()` to `getDeploymentDownload()`
 
-> You can find the new syntax for breaking changes in the [Appwrite API references](https://appwrite.io/docs/references). Select version `1.6.x`.
+> You can find the new syntax for breaking changes in
+> the [Appwrite API references](https://appwrite.io/docs/references). Select version `1.6.x`.
