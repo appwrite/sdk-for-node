@@ -548,6 +548,14 @@ export namespace Models {
          * Database type.
          */
         type: DatabaseType;
+        /**
+         * Database backup policies.
+         */
+        policies: Index[];
+        /**
+         * Database backup archives.
+         */
+        archives: Collection[];
     }
 
     /**
@@ -699,11 +707,11 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number;
+        min?: number | bigint;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number;
+        max?: number | bigint;
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
@@ -1373,11 +1381,11 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number;
+        min?: number | bigint;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number;
+        max?: number | bigint;
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
@@ -2665,6 +2673,14 @@ export namespace Models {
          * Total number of chunks uploaded
          */
         chunksUploaded: number;
+        /**
+         * Whether file contents are encrypted at rest.
+         */
+        encryption: boolean;
+        /**
+         * Compression algorithm used for the file. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
+         */
+        compression: string;
     }
 
     /**
@@ -2708,7 +2724,7 @@ export namespace Models {
          */
         allowedFileExtensions: string[];
         /**
-         * Compression algorithm choosen for compression. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
+         * Compression algorithm chosen for compression. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
          */
         compression: string;
         /**
@@ -2723,6 +2739,10 @@ export namespace Models {
          * Image transformations are enabled.
          */
         transformations: boolean;
+        /**
+         * Total size of this bucket in bytes.
+         */
+        totalSize: number;
     }
 
     /**
@@ -3949,5 +3969,335 @@ export namespace Models {
          * Is the target expired.
          */
         expired: boolean;
+    }
+
+    /**
+     * Archive
+     */
+    export type BackupArchive = {
+        /**
+         * Archive ID.
+         */
+        $id: string;
+        /**
+         * Archive creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Archive update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Archive policy ID.
+         */
+        policyId: string;
+        /**
+         * Archive size in bytes.
+         */
+        size: number;
+        /**
+         * The status of the archive creation. Possible values: pending, processing, uploading, completed, failed.
+         */
+        status: string;
+        /**
+         * The backup start time.
+         */
+        startedAt: string;
+        /**
+         * Migration ID.
+         */
+        migrationId: string;
+        /**
+         * The services that are backed up by this archive.
+         */
+        services: string[];
+        /**
+         * The resources that are backed up by this archive.
+         */
+        resources: string[];
+        /**
+         * The resource ID to backup. Set only if this archive should backup a single resource.
+         */
+        resourceId?: string;
+        /**
+         * The resource type to backup. Set only if this archive should backup a single resource.
+         */
+        resourceType?: string;
+    }
+
+    /**
+     * Invoice
+     */
+    export type Invoice = {
+        /**
+         * Invoice ID.
+         */
+        $id: string;
+        /**
+         * Invoice creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Invoice update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Invoice permissions. [Learn more about permissions](/docs/permissions).
+         */
+        $permissions: string[];
+        /**
+         * Project ID
+         */
+        teamId: string;
+        /**
+         * Aggregation ID
+         */
+        aggregationId: string;
+        /**
+         * Billing plan selected. Can be one of `tier-0`, `tier-1` or `tier-2`.
+         */
+        plan: string;
+        /**
+         * Usage breakdown per resource
+         */
+        usage: UsageResources[];
+        /**
+         * Invoice Amount
+         */
+        amount: number;
+        /**
+         * Tax percentage
+         */
+        tax: number;
+        /**
+         * Tax amount
+         */
+        taxAmount: number;
+        /**
+         * VAT percentage
+         */
+        vat: number;
+        /**
+         * VAT amount
+         */
+        vatAmount: number;
+        /**
+         * Gross amount after vat, tax, and discounts applied.
+         */
+        grossAmount: number;
+        /**
+         * Credits used.
+         */
+        creditsUsed: number;
+        /**
+         * Currency the invoice is in
+         */
+        currency: string;
+        /**
+         * Client secret for processing failed payments in front-end
+         */
+        clientSecret: string;
+        /**
+         * Invoice status
+         */
+        status: string;
+        /**
+         * Last payment error associated with the invoice
+         */
+        lastError: string;
+        /**
+         * Invoice due date.
+         */
+        dueAt: string;
+        /**
+         * Beginning date of the invoice
+         */
+        from: string;
+        /**
+         * End date of the invoice
+         */
+        to: string;
+    }
+
+    /**
+     * backup
+     */
+    export type BackupPolicy = {
+        /**
+         * Backup policy ID.
+         */
+        $id: string;
+        /**
+         * Backup policy name.
+         */
+        name: string;
+        /**
+         * Policy creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Policy update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * The services that are backed up by this policy.
+         */
+        services: string[];
+        /**
+         * The resources that are backed up by this policy.
+         */
+        resources: string[];
+        /**
+         * The resource ID to backup. Set only if this policy should backup a single resource.
+         */
+        resourceId?: string;
+        /**
+         * The resource type to backup. Set only if this policy should backup a single resource.
+         */
+        resourceType?: string;
+        /**
+         * How many days to keep the backup before it will be automatically deleted.
+         */
+        retention: number;
+        /**
+         * Policy backup schedule in CRON format.
+         */
+        schedule: string;
+        /**
+         * Is this policy enabled.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * Restoration
+     */
+    export type BackupRestoration = {
+        /**
+         * Restoration ID.
+         */
+        $id: string;
+        /**
+         * Restoration creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Restoration update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Backup archive ID.
+         */
+        archiveId: string;
+        /**
+         * Backup policy ID.
+         */
+        policyId: string;
+        /**
+         * The status of the restoration. Possible values: pending, downloading, processing, completed, failed.
+         */
+        status: string;
+        /**
+         * The backup start time.
+         */
+        startedAt: string;
+        /**
+         * Migration ID.
+         */
+        migrationId: string;
+        /**
+         * The services that are backed up by this policy.
+         */
+        services: string[];
+        /**
+         * The resources that are backed up by this policy.
+         */
+        resources: string[];
+        /**
+         * Optional data in key-value object. 
+         */
+        options: string;
+    }
+
+    /**
+     * UsageResource
+     */
+    export type UsageResources = {
+        /**
+         * Invoice name
+         */
+        name: string;
+        /**
+         * Invoice value
+         */
+        value: number;
+        /**
+         * Invoice amount
+         */
+        amount: number;
+        /**
+         * Invoice rate
+         */
+        rate: number;
+        /**
+         * Invoice description
+         */
+        desc: string;
+        /**
+         * Resource ID
+         */
+        resourceId: string;
+    }
+
+    /**
+     * EstimationDeleteOrganization
+     */
+    export type EstimationDeleteOrganization = {
+        /**
+         * List of unpaid invoices
+         */
+        unpaidInvoices: Invoice[];
+    }
+
+    /**
+     * Backup archive list
+     */
+    export type BackupArchiveList = {
+        /**
+         * Total number of archives that matched your query.
+         */
+        total: number;
+        /**
+         * List of archives.
+         */
+        archives: BackupArchive[];
+    }
+
+    /**
+     * Backup policy list
+     */
+    export type BackupPolicyList = {
+        /**
+         * Total number of policies that matched your query.
+         */
+        total: number;
+        /**
+         * List of policies.
+         */
+        policies: BackupPolicy[];
+    }
+
+    /**
+     * Backup restoration list
+     */
+    export type BackupRestorationList = {
+        /**
+         * Total number of restorations that matched your query.
+         */
+        total: number;
+        /**
+         * List of restorations.
+         */
+        restorations: BackupRestoration[];
     }
 }

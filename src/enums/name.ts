@@ -9,6 +9,7 @@ export enum Name {
     V1webhooks = 'v1-webhooks',
     V1certificates = 'v1-certificates',
     V1builds = 'v1-builds',
+    V1screenshots = 'v1-screenshots',
     V1messaging = 'v1-messaging',
     V1migrations = 'v1-migrations',
 }

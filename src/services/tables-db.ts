@@ -2131,14 +2131,14 @@ export class TablesDB {
      * @param {string} params.tableId - Table ID.
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
-     * @param {number} params.min - Minimum value
-     * @param {number} params.max - Maximum value
-     * @param {number} params.xdefault - Default value. Cannot be set when column is required.
+     * @param {number | bigint} params.min - Minimum value
+     * @param {number | bigint} params.max - Maximum value
+     * @param {number | bigint} params.xdefault - Default value. Cannot be set when column is required.
      * @param {boolean} params.array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnInteger>}
      */
-    createIntegerColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean  }): Promise<Models.ColumnInteger>;
+    createIntegerColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean  }): Promise<Models.ColumnInteger>;
     /**
      * Create an integer column. Optionally, minimum and maximum values can be provided.
      * 
@@ -2147,32 +2147,32 @@ export class TablesDB {
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
-     * @param {number} min - Minimum value
-     * @param {number} max - Maximum value
-     * @param {number} xdefault - Default value. Cannot be set when column is required.
+     * @param {number | bigint} min - Minimum value
+     * @param {number | bigint} max - Maximum value
+     * @param {number | bigint} xdefault - Default value. Cannot be set when column is required.
      * @param {boolean} array - Is column an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnInteger>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createIntegerColumn(databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.ColumnInteger>;
+    createIntegerColumn(databaseId: string, tableId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean): Promise<Models.ColumnInteger>;
     createIntegerColumn(
-        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (number)?, (number)?, (number)?, (boolean)?]    
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (number | bigint)?, (number | bigint)?, (number | bigint)?, (boolean)?]    
     ): Promise<Models.ColumnInteger> {
-        let params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean };
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean };
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 tableId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                min: rest[3] as number,
-                max: rest[4] as number,
-                xdefault: rest[5] as number,
+                min: rest[3] as number | bigint,
+                max: rest[4] as number | bigint,
+                xdefault: rest[5] as number | bigint,
                 array: rest[6] as boolean            
             };
         }
@@ -2241,14 +2241,14 @@ export class TablesDB {
      * @param {string} params.tableId - Table ID.
      * @param {string} params.key - Column Key.
      * @param {boolean} params.required - Is column required?
-     * @param {number} params.xdefault - Default value. Cannot be set when column is required.
-     * @param {number} params.min - Minimum value
-     * @param {number} params.max - Maximum value
+     * @param {number | bigint} params.xdefault - Default value. Cannot be set when column is required.
+     * @param {number | bigint} params.min - Minimum value
+     * @param {number | bigint} params.max - Maximum value
      * @param {string} params.newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnInteger>}
      */
-    updateIntegerColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string  }): Promise<Models.ColumnInteger>;
+    updateIntegerColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string  }): Promise<Models.ColumnInteger>;
     /**
      * Update an integer column. Changing the `default` value will not update already existing rows.
      * 
@@ -2257,32 +2257,32 @@ export class TablesDB {
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
      * @param {boolean} required - Is column required?
-     * @param {number} xdefault - Default value. Cannot be set when column is required.
-     * @param {number} min - Minimum value
-     * @param {number} max - Maximum value
+     * @param {number | bigint} xdefault - Default value. Cannot be set when column is required.
+     * @param {number | bigint} min - Minimum value
+     * @param {number | bigint} max - Maximum value
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnInteger>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateIntegerColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string): Promise<Models.ColumnInteger>;
+    updateIntegerColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string): Promise<Models.ColumnInteger>;
     updateIntegerColumn(
-        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (number)?, (number)?, (number)?, (string)?]    
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (number | bigint)?, (number | bigint)?, (number | bigint)?, (string)?]    
     ): Promise<Models.ColumnInteger> {
-        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string };
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 tableId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as number,
-                min: rest[4] as number,
-                max: rest[5] as number,
+                xdefault: rest[3] as number | bigint,
+                min: rest[4] as number | bigint,
+                max: rest[5] as number | bigint,
                 newKey: rest[6] as string            
             };
         }
@@ -3594,9 +3594,9 @@ export class TablesDB {
      * @param {string} params.tableId - Table ID.
      * @param {string} params.key - Column Key.
      * @throws {AppwriteException}
-     * @returns {Promise<{}>}
+     * @returns {Promise<Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnString>}
      */
-    getColumn(params: { databaseId: string, tableId: string, key: string  }): Promise<{}>;
+    getColumn(params: { databaseId: string, tableId: string, key: string  }): Promise<Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnString>;
     /**
      * Get column by ID.
      *
@@ -3604,14 +3604,14 @@ export class TablesDB {
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
      * @throws {AppwriteException}
-     * @returns {Promise<{}>}
+     * @returns {Promise<Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnString>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getColumn(databaseId: string, tableId: string, key: string): Promise<{}>;
+    getColumn(databaseId: string, tableId: string, key: string): Promise<Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnString>;
     getColumn(
         paramsOrFirst: { databaseId: string, tableId: string, key: string } | string,
         ...rest: [(string)?, (string)?]    
-    ): Promise<{}> {
+    ): Promise<Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnString> {
         let params: { databaseId: string, tableId: string, key: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {

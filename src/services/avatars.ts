@@ -6,7 +6,7 @@ import { CreditCard } from '../enums/credit-card';
 import { Flag } from '../enums/flag';
 import { Theme } from '../enums/theme';
 import { Timezone } from '../enums/timezone';
-import { Output } from '../enums/output';
+import { ImageFormat } from '../enums/image-format';
 
 export class Avatars {
     client: Client;
@@ -579,11 +579,11 @@ export class Avatars {
      * @param {number} params.width - Output image width. Pass 0 to use original width, or an integer between 1 to 2000. Defaults to 0 (original width).
      * @param {number} params.height - Output image height. Pass 0 to use original height, or an integer between 1 to 2000. Defaults to 0 (original height).
      * @param {number} params.quality - Screenshot quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
-     * @param {Output} params.output - Output format type (jpeg, jpg, png, gif and webp).
+     * @param {ImageFormat} params.output - Output format type (jpeg, jpg, png, gif and webp).
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    getScreenshot(params: { url: string, headers?: object, viewportWidth?: number, viewportHeight?: number, scale?: number, theme?: Theme, userAgent?: string, fullpage?: boolean, locale?: string, timezone?: Timezone, latitude?: number, longitude?: number, accuracy?: number, touch?: boolean, permissions?: string[], sleep?: number, width?: number, height?: number, quality?: number, output?: Output  }): Promise<ArrayBuffer>;
+    getScreenshot(params: { url: string, headers?: object, viewportWidth?: number, viewportHeight?: number, scale?: number, theme?: Theme, userAgent?: string, fullpage?: boolean, locale?: string, timezone?: Timezone, latitude?: number, longitude?: number, accuracy?: number, touch?: boolean, permissions?: string[], sleep?: number, width?: number, height?: number, quality?: number, output?: ImageFormat  }): Promise<ArrayBuffer>;
     /**
      * Use this endpoint to capture a screenshot of any website URL. This endpoint uses a headless browser to render the webpage and capture it as an image.
      * 
@@ -610,20 +610,20 @@ export class Avatars {
      * @param {number} width - Output image width. Pass 0 to use original width, or an integer between 1 to 2000. Defaults to 0 (original width).
      * @param {number} height - Output image height. Pass 0 to use original height, or an integer between 1 to 2000. Defaults to 0 (original height).
      * @param {number} quality - Screenshot quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
-     * @param {Output} output - Output format type (jpeg, jpg, png, gif and webp).
+     * @param {ImageFormat} output - Output format type (jpeg, jpg, png, gif and webp).
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getScreenshot(url: string, headers?: object, viewportWidth?: number, viewportHeight?: number, scale?: number, theme?: Theme, userAgent?: string, fullpage?: boolean, locale?: string, timezone?: Timezone, latitude?: number, longitude?: number, accuracy?: number, touch?: boolean, permissions?: string[], sleep?: number, width?: number, height?: number, quality?: number, output?: Output): Promise<ArrayBuffer>;
+    getScreenshot(url: string, headers?: object, viewportWidth?: number, viewportHeight?: number, scale?: number, theme?: Theme, userAgent?: string, fullpage?: boolean, locale?: string, timezone?: Timezone, latitude?: number, longitude?: number, accuracy?: number, touch?: boolean, permissions?: string[], sleep?: number, width?: number, height?: number, quality?: number, output?: ImageFormat): Promise<ArrayBuffer>;
     getScreenshot(
-        paramsOrFirst: { url: string, headers?: object, viewportWidth?: number, viewportHeight?: number, scale?: number, theme?: Theme, userAgent?: string, fullpage?: boolean, locale?: string, timezone?: Timezone, latitude?: number, longitude?: number, accuracy?: number, touch?: boolean, permissions?: string[], sleep?: number, width?: number, height?: number, quality?: number, output?: Output } | string,
-        ...rest: [(object)?, (number)?, (number)?, (number)?, (Theme)?, (string)?, (boolean)?, (string)?, (Timezone)?, (number)?, (number)?, (number)?, (boolean)?, (string[])?, (number)?, (number)?, (number)?, (number)?, (Output)?]    
+        paramsOrFirst: { url: string, headers?: object, viewportWidth?: number, viewportHeight?: number, scale?: number, theme?: Theme, userAgent?: string, fullpage?: boolean, locale?: string, timezone?: Timezone, latitude?: number, longitude?: number, accuracy?: number, touch?: boolean, permissions?: string[], sleep?: number, width?: number, height?: number, quality?: number, output?: ImageFormat } | string,
+        ...rest: [(object)?, (number)?, (number)?, (number)?, (Theme)?, (string)?, (boolean)?, (string)?, (Timezone)?, (number)?, (number)?, (number)?, (boolean)?, (string[])?, (number)?, (number)?, (number)?, (number)?, (ImageFormat)?]    
     ): Promise<ArrayBuffer> {
-        let params: { url: string, headers?: object, viewportWidth?: number, viewportHeight?: number, scale?: number, theme?: Theme, userAgent?: string, fullpage?: boolean, locale?: string, timezone?: Timezone, latitude?: number, longitude?: number, accuracy?: number, touch?: boolean, permissions?: string[], sleep?: number, width?: number, height?: number, quality?: number, output?: Output };
+        let params: { url: string, headers?: object, viewportWidth?: number, viewportHeight?: number, scale?: number, theme?: Theme, userAgent?: string, fullpage?: boolean, locale?: string, timezone?: Timezone, latitude?: number, longitude?: number, accuracy?: number, touch?: boolean, permissions?: string[], sleep?: number, width?: number, height?: number, quality?: number, output?: ImageFormat };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { url: string, headers?: object, viewportWidth?: number, viewportHeight?: number, scale?: number, theme?: Theme, userAgent?: string, fullpage?: boolean, locale?: string, timezone?: Timezone, latitude?: number, longitude?: number, accuracy?: number, touch?: boolean, permissions?: string[], sleep?: number, width?: number, height?: number, quality?: number, output?: Output };
+            params = (paramsOrFirst || {}) as { url: string, headers?: object, viewportWidth?: number, viewportHeight?: number, scale?: number, theme?: Theme, userAgent?: string, fullpage?: boolean, locale?: string, timezone?: Timezone, latitude?: number, longitude?: number, accuracy?: number, touch?: boolean, permissions?: string[], sleep?: number, width?: number, height?: number, quality?: number, output?: ImageFormat };
         } else {
             params = {
                 url: paramsOrFirst as string,
@@ -645,7 +645,7 @@ export class Avatars {
                 width: rest[15] as number,
                 height: rest[16] as number,
                 quality: rest[17] as number,
-                output: rest[18] as Output            
+                output: rest[18] as ImageFormat            
             };
         }
         

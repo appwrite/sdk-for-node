@@ -86,9 +86,9 @@ export class Storage {
      * @param {string[]} params.permissions - An array of permission strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.fileSecurity - Enables configuring permissions for individual file. A user needs one of file or bucket level permissions to access a file. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
-     * @param {number} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 30MB.
+     * @param {number} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} params.allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} params.compression - Compression algorithm choosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {Compression} params.compression - Compression algorithm chosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} params.antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} params.transformations - Are image transformations enabled?
@@ -104,9 +104,9 @@ export class Storage {
      * @param {string[]} permissions - An array of permission strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} fileSecurity - Enables configuring permissions for individual file. A user needs one of file or bucket level permissions to access a file. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
-     * @param {number} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 30MB.
+     * @param {number} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} compression - Compression algorithm choosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {Compression} compression - Compression algorithm chosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} transformations - Are image transformations enabled?
@@ -266,9 +266,9 @@ export class Storage {
      * @param {string[]} params.permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.fileSecurity - Enables configuring permissions for individual file. A user needs one of file or bucket level permissions to access a file. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
-     * @param {number} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 30MB.
+     * @param {number} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} params.allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} params.compression - Compression algorithm choosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {Compression} params.compression - Compression algorithm chosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} params.antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} params.transformations - Are image transformations enabled?
@@ -284,9 +284,9 @@ export class Storage {
      * @param {string[]} permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} fileSecurity - Enables configuring permissions for individual file. A user needs one of file or bucket level permissions to access a file. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
-     * @param {number} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 30MB.
+     * @param {number} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} compression - Compression algorithm choosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {Compression} compression - Compression algorithm chosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} transformations - Are image transformations enabled?
@@ -669,10 +669,10 @@ export class Storage {
     /**
      * Update a file by its unique ID. Only users with write permissions have access to update this resource.
      *
-     * @param {string} params.bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
-     * @param {string} params.fileId - File unique ID.
-     * @param {string} params.name - Name of the file
-     * @param {string[]} params.permissions - An array of permission string. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string} params.bucketId - Bucket unique ID.
+     * @param {string} params.fileId - File ID.
+     * @param {string} params.name - File name.
+     * @param {string[]} params.permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
@@ -680,10 +680,10 @@ export class Storage {
     /**
      * Update a file by its unique ID. Only users with write permissions have access to update this resource.
      *
-     * @param {string} bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
-     * @param {string} fileId - File unique ID.
-     * @param {string} name - Name of the file
-     * @param {string[]} permissions - An array of permission string. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string} bucketId - Bucket unique ID.
+     * @param {string} fileId - File ID.
+     * @param {string} name - File name.
+     * @param {string[]} permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      * @deprecated Use the object parameter style method for a better developer experience.

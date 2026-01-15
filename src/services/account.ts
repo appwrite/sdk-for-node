@@ -302,13 +302,41 @@ export class Account {
     /**
      * Use this endpoint to create a JSON Web Token. You can use the resulting JWT to authenticate on behalf of the current user when working with the Appwrite server-side API and SDKs. The JWT secret is valid for 15 minutes from its creation and will be invalid if the user will logout in that time frame.
      *
+     * @param {number} params.duration - Time in seconds before JWT expires. Default duration is 900 seconds, and maximum is 3600 seconds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Jwt>}
      */
-    createJWT(): Promise<Models.Jwt> {
+    createJWT(params?: { duration?: number  }): Promise<Models.Jwt>;
+    /**
+     * Use this endpoint to create a JSON Web Token. You can use the resulting JWT to authenticate on behalf of the current user when working with the Appwrite server-side API and SDKs. The JWT secret is valid for 15 minutes from its creation and will be invalid if the user will logout in that time frame.
+     *
+     * @param {number} duration - Time in seconds before JWT expires. Default duration is 900 seconds, and maximum is 3600 seconds.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Jwt>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createJWT(duration?: number): Promise<Models.Jwt>;
+    createJWT(
+        paramsOrFirst?: { duration?: number } | number    
+    ): Promise<Models.Jwt> {
+        let params: { duration?: number };
+        
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { duration?: number };
+        } else {
+            params = {
+                duration: paramsOrFirst as number            
+            };
+        }
+        
+        const duration = params.duration;
+
 
         const apiPath = '/account/jwts';
         const payload: Payload = {};
+        if (typeof duration !== 'undefined') {
+            payload['duration'] = duration;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {

@@ -1,5 +1,13 @@
 # Change Log
 
+## 21.1.1
+
+* Update SDK as per latest server specs, these include -
+    * Updates to Runtime enums
+    * `Output` is now renamed to `ImageFormat` - Note that this is a breaking change
+    * Introduces Backups module for managing Database backups
+    * Introduces Organization module
+
 ## 21.1.0
 
 * Added ability to create columns and indexes synchronously while creating a table
@@ -7,7 +15,8 @@
 ## 21.0.0
 
 * Rename `VCSDeploymentType` enum to `VCSReferenceType`
-* Change `createTemplateDeployment` method signature: replace `version` parameter with `type` (TemplateReferenceType) and `reference` parameters
+* Change `createTemplateDeployment` method signature: replace `version` parameter with `type` (TemplateReferenceType)
+  and `reference` parameters
 * Add `getScreenshot` method to `Avatars` service
 * Add `Theme`, `Timezone` and `Output` enums
 
@@ -54,7 +63,8 @@
 ## 16.0.0
 
 * Fix: remove content-type from GET requests
-* Update (breaking): min and max params are now optional in `updateFloatAttribute` and `updateIntegerAttribute` methods (changes their positioning in method definition)
+* Update (breaking): min and max params are now optional in `updateFloatAttribute` and `updateIntegerAttribute`
+  methods (changes their positioning in method definition)
 
 ## 15.0.1
 
@@ -96,4 +106,5 @@
     * Rename `templateBranch` to `templateVersion`  in `createFunction()`.
     * Rename `downloadDeployment()` to `getDeploymentDownload()`
 
-> You can find the new syntax for breaking changes in the [Appwrite API references](https://appwrite.io/docs/references). Select version `1.6.x`.
+> You can find the new syntax for breaking changes in
+> the [Appwrite API references](https://appwrite.io/docs/references). Select version `1.6.x`.
