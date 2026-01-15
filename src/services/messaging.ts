@@ -364,7 +364,7 @@ export class Messaging {
      * @param {string} params.sound - Sound for push notification. Available only for Android and iOS Platform.
      * @param {string} params.color - Color for push notification. Available only for Android Platform.
      * @param {string} params.tag - Tag for push notification. Available only for Android Platform.
-     * @param {number | bigint} params.badge - Badge for push notification. Available only for iOS Platform.
+     * @param {number} params.badge - Badge for push notification. Available only for iOS Platform.
      * @param {boolean} params.draft - Is message a draft
      * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @param {boolean} params.contentAvailable - If set to true, the notification will be delivered in the background. Available only for iOS Platform.
@@ -373,7 +373,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    createPush(params: { messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number | bigint, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority  }): Promise<Models.Message>;
+    createPush(params: { messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority  }): Promise<Models.Message>;
     /**
      * Create a new push notification.
      *
@@ -390,7 +390,7 @@ export class Messaging {
      * @param {string} sound - Sound for push notification. Available only for Android and iOS Platform.
      * @param {string} color - Color for push notification. Available only for Android Platform.
      * @param {string} tag - Tag for push notification. Available only for Android Platform.
-     * @param {number | bigint} badge - Badge for push notification. Available only for iOS Platform.
+     * @param {number} badge - Badge for push notification. Available only for iOS Platform.
      * @param {boolean} draft - Is message a draft
      * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @param {boolean} contentAvailable - If set to true, the notification will be delivered in the background. Available only for iOS Platform.
@@ -400,15 +400,15 @@ export class Messaging {
      * @returns {Promise<Models.Message>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createPush(messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number | bigint, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority): Promise<Models.Message>;
+    createPush(messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority): Promise<Models.Message>;
     createPush(
-        paramsOrFirst: { messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number | bigint, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority } | string,
-        ...rest: [(string)?, (string)?, (string[])?, (string[])?, (string[])?, (object)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (number | bigint)?, (boolean)?, (string)?, (boolean)?, (boolean)?, (MessagePriority)?]    
+        paramsOrFirst: { messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority } | string,
+        ...rest: [(string)?, (string)?, (string[])?, (string[])?, (string[])?, (object)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (number)?, (boolean)?, (string)?, (boolean)?, (boolean)?, (MessagePriority)?]    
     ): Promise<Models.Message> {
-        let params: { messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number | bigint, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority };
+        let params: { messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number | bigint, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority };
+            params = (paramsOrFirst || {}) as { messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority };
         } else {
             params = {
                 messageId: paramsOrFirst as string,
@@ -424,7 +424,7 @@ export class Messaging {
                 sound: rest[9] as string,
                 color: rest[10] as string,
                 tag: rest[11] as string,
-                badge: rest[12] as number | bigint,
+                badge: rest[12] as number,
                 draft: rest[13] as boolean,
                 scheduledAt: rest[14] as string,
                 contentAvailable: rest[15] as boolean,
@@ -547,7 +547,7 @@ export class Messaging {
      * @param {string} params.sound - Sound for push notification. Available only for Android and iOS platforms.
      * @param {string} params.color - Color for push notification. Available only for Android platforms.
      * @param {string} params.tag - Tag for push notification. Available only for Android platforms.
-     * @param {number | bigint} params.badge - Badge for push notification. Available only for iOS platforms.
+     * @param {number} params.badge - Badge for push notification. Available only for iOS platforms.
      * @param {boolean} params.draft - Is message a draft
      * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @param {boolean} params.contentAvailable - If set to true, the notification will be delivered in the background. Available only for iOS Platform.
@@ -556,7 +556,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    updatePush(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number | bigint, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority  }): Promise<Models.Message>;
+    updatePush(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority  }): Promise<Models.Message>;
     /**
      * Update a push notification by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
      * 
@@ -574,7 +574,7 @@ export class Messaging {
      * @param {string} sound - Sound for push notification. Available only for Android and iOS platforms.
      * @param {string} color - Color for push notification. Available only for Android platforms.
      * @param {string} tag - Tag for push notification. Available only for Android platforms.
-     * @param {number | bigint} badge - Badge for push notification. Available only for iOS platforms.
+     * @param {number} badge - Badge for push notification. Available only for iOS platforms.
      * @param {boolean} draft - Is message a draft
      * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @param {boolean} contentAvailable - If set to true, the notification will be delivered in the background. Available only for iOS Platform.
@@ -584,15 +584,15 @@ export class Messaging {
      * @returns {Promise<Models.Message>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePush(messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number | bigint, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority): Promise<Models.Message>;
+    updatePush(messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority): Promise<Models.Message>;
     updatePush(
-        paramsOrFirst: { messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number | bigint, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority } | string,
-        ...rest: [(string[])?, (string[])?, (string[])?, (string)?, (string)?, (object)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (number | bigint)?, (boolean)?, (string)?, (boolean)?, (boolean)?, (MessagePriority)?]    
+        paramsOrFirst: { messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority } | string,
+        ...rest: [(string[])?, (string[])?, (string[])?, (string)?, (string)?, (object)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (number)?, (boolean)?, (string)?, (boolean)?, (boolean)?, (MessagePriority)?]    
     ): Promise<Models.Message> {
-        let params: { messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number | bigint, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority };
+        let params: { messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number | bigint, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority };
+            params = (paramsOrFirst || {}) as { messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority };
         } else {
             params = {
                 messageId: paramsOrFirst as string,
@@ -608,7 +608,7 @@ export class Messaging {
                 sound: rest[9] as string,
                 color: rest[10] as string,
                 tag: rest[11] as string,
-                badge: rest[12] as number | bigint,
+                badge: rest[12] as number,
                 draft: rest[13] as boolean,
                 scheduledAt: rest[14] as string,
                 contentAvailable: rest[15] as boolean,
@@ -2990,7 +2990,7 @@ export class Messaging {
      * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Provider name.
      * @param {string} params.host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
-     * @param {number | bigint} params.port - The default SMTP server port.
+     * @param {number} params.port - The default SMTP server port.
      * @param {string} params.username - Authentication username.
      * @param {string} params.password - Authentication password.
      * @param {SmtpEncryption} params.encryption - Encryption type. Can be omitted, 'ssl', or 'tls'
@@ -3005,14 +3005,14 @@ export class Messaging {
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.createSMTPProvider` instead.
      */
-    createSmtpProvider(params: { providerId: string, name: string, host: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    createSmtpProvider(params: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
     /**
      * Create a new SMTP provider.
      *
      * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Provider name.
      * @param {string} host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
-     * @param {number | bigint} port - The default SMTP server port.
+     * @param {number} port - The default SMTP server port.
      * @param {string} username - Authentication username.
      * @param {string} password - Authentication password.
      * @param {SmtpEncryption} encryption - Encryption type. Can be omitted, 'ssl', or 'tls'
@@ -3027,21 +3027,21 @@ export class Messaging {
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createSmtpProvider(providerId: string, name: string, host: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    createSmtpProvider(providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
     createSmtpProvider(
-        paramsOrFirst: { providerId: string, name: string, host: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
-        ...rest: [(string)?, (string)?, (number | bigint)?, (string)?, (string)?, (SmtpEncryption)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
+        paramsOrFirst: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
+        ...rest: [(string)?, (string)?, (number)?, (string)?, (string)?, (SmtpEncryption)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
     ): Promise<Models.Provider> {
-        let params: { providerId: string, name: string, host: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+        let params: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { providerId: string, name: string, host: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+            params = (paramsOrFirst || {}) as { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
                 host: rest[1] as string,
-                port: rest[2] as number | bigint,
+                port: rest[2] as number,
                 username: rest[3] as string,
                 password: rest[4] as string,
                 encryption: rest[5] as SmtpEncryption,
@@ -3144,7 +3144,7 @@ export class Messaging {
      * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Provider name.
      * @param {string} params.host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
-     * @param {number | bigint} params.port - The default SMTP server port.
+     * @param {number} params.port - The default SMTP server port.
      * @param {string} params.username - Authentication username.
      * @param {string} params.password - Authentication password.
      * @param {SmtpEncryption} params.encryption - Encryption type. Can be omitted, 'ssl', or 'tls'
@@ -3158,14 +3158,14 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    createSMTPProvider(params: { providerId: string, name: string, host: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    createSMTPProvider(params: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
     /**
      * Create a new SMTP provider.
      *
      * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Provider name.
      * @param {string} host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
-     * @param {number | bigint} port - The default SMTP server port.
+     * @param {number} port - The default SMTP server port.
      * @param {string} username - Authentication username.
      * @param {string} password - Authentication password.
      * @param {SmtpEncryption} encryption - Encryption type. Can be omitted, 'ssl', or 'tls'
@@ -3180,21 +3180,21 @@ export class Messaging {
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createSMTPProvider(providerId: string, name: string, host: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    createSMTPProvider(providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
     createSMTPProvider(
-        paramsOrFirst: { providerId: string, name: string, host: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
-        ...rest: [(string)?, (string)?, (number | bigint)?, (string)?, (string)?, (SmtpEncryption)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
+        paramsOrFirst: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
+        ...rest: [(string)?, (string)?, (number)?, (string)?, (string)?, (SmtpEncryption)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
     ): Promise<Models.Provider> {
-        let params: { providerId: string, name: string, host: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+        let params: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { providerId: string, name: string, host: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+            params = (paramsOrFirst || {}) as { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
                 host: rest[1] as string,
-                port: rest[2] as number | bigint,
+                port: rest[2] as number,
                 username: rest[3] as string,
                 password: rest[4] as string,
                 encryption: rest[5] as SmtpEncryption,
@@ -3297,7 +3297,7 @@ export class Messaging {
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
      * @param {string} params.host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
-     * @param {number | bigint} params.port - SMTP port.
+     * @param {number} params.port - SMTP port.
      * @param {string} params.username - Authentication username.
      * @param {string} params.password - Authentication password.
      * @param {SmtpEncryption} params.encryption - Encryption type. Can be 'ssl' or 'tls'
@@ -3312,14 +3312,14 @@ export class Messaging {
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.updateSMTPProvider` instead.
      */
-    updateSmtpProvider(params: { providerId: string, name?: string, host?: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    updateSmtpProvider(params: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
     /**
      * Update a SMTP provider by its unique ID.
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
      * @param {string} host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
-     * @param {number | bigint} port - SMTP port.
+     * @param {number} port - SMTP port.
      * @param {string} username - Authentication username.
      * @param {string} password - Authentication password.
      * @param {SmtpEncryption} encryption - Encryption type. Can be 'ssl' or 'tls'
@@ -3334,21 +3334,21 @@ export class Messaging {
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateSmtpProvider(providerId: string, name?: string, host?: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    updateSmtpProvider(providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
     updateSmtpProvider(
-        paramsOrFirst: { providerId: string, name?: string, host?: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
-        ...rest: [(string)?, (string)?, (number | bigint)?, (string)?, (string)?, (SmtpEncryption)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
+        paramsOrFirst: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
+        ...rest: [(string)?, (string)?, (number)?, (string)?, (string)?, (SmtpEncryption)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
     ): Promise<Models.Provider> {
-        let params: { providerId: string, name?: string, host?: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+        let params: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { providerId: string, name?: string, host?: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+            params = (paramsOrFirst || {}) as { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
                 host: rest[1] as string,
-                port: rest[2] as number | bigint,
+                port: rest[2] as number,
                 username: rest[3] as string,
                 password: rest[4] as string,
                 encryption: rest[5] as SmtpEncryption,
@@ -3442,7 +3442,7 @@ export class Messaging {
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
      * @param {string} params.host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
-     * @param {number | bigint} params.port - SMTP port.
+     * @param {number} params.port - SMTP port.
      * @param {string} params.username - Authentication username.
      * @param {string} params.password - Authentication password.
      * @param {SmtpEncryption} params.encryption - Encryption type. Can be 'ssl' or 'tls'
@@ -3456,14 +3456,14 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    updateSMTPProvider(params: { providerId: string, name?: string, host?: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    updateSMTPProvider(params: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
     /**
      * Update a SMTP provider by its unique ID.
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
      * @param {string} host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
-     * @param {number | bigint} port - SMTP port.
+     * @param {number} port - SMTP port.
      * @param {string} username - Authentication username.
      * @param {string} password - Authentication password.
      * @param {SmtpEncryption} encryption - Encryption type. Can be 'ssl' or 'tls'
@@ -3478,21 +3478,21 @@ export class Messaging {
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateSMTPProvider(providerId: string, name?: string, host?: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    updateSMTPProvider(providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
     updateSMTPProvider(
-        paramsOrFirst: { providerId: string, name?: string, host?: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
-        ...rest: [(string)?, (string)?, (number | bigint)?, (string)?, (string)?, (SmtpEncryption)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
+        paramsOrFirst: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
+        ...rest: [(string)?, (string)?, (number)?, (string)?, (string)?, (SmtpEncryption)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
     ): Promise<Models.Provider> {
-        let params: { providerId: string, name?: string, host?: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+        let params: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { providerId: string, name?: string, host?: string, port?: number | bigint, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+            params = (paramsOrFirst || {}) as { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
                 host: rest[1] as string,
-                port: rest[2] as number | bigint,
+                port: rest[2] as number,
                 username: rest[3] as string,
                 password: rest[4] as string,
                 encryption: rest[5] as SmtpEncryption,

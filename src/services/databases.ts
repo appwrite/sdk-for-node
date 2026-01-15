@@ -209,30 +209,30 @@ export class Databases {
     /**
      * Create a new transaction.
      *
-     * @param {number | bigint} params.ttl - Seconds before the transaction expires.
+     * @param {number} params.ttl - Seconds before the transaction expires.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Transaction>}
      */
-    createTransaction(params?: { ttl?: number | bigint  }): Promise<Models.Transaction>;
+    createTransaction(params?: { ttl?: number  }): Promise<Models.Transaction>;
     /**
      * Create a new transaction.
      *
-     * @param {number | bigint} ttl - Seconds before the transaction expires.
+     * @param {number} ttl - Seconds before the transaction expires.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Transaction>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createTransaction(ttl?: number | bigint): Promise<Models.Transaction>;
+    createTransaction(ttl?: number): Promise<Models.Transaction>;
     createTransaction(
-        paramsOrFirst?: { ttl?: number | bigint } | number | bigint    
+        paramsOrFirst?: { ttl?: number } | number    
     ): Promise<Models.Transaction> {
-        let params: { ttl?: number | bigint };
+        let params: { ttl?: number };
         
         if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { ttl?: number | bigint };
+            params = (paramsOrFirst || {}) as { ttl?: number };
         } else {
             params = {
-                ttl: paramsOrFirst as number | bigint            
+                ttl: paramsOrFirst as number            
             };
         }
         
@@ -1932,15 +1932,15 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID.
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {number | bigint} params.min - Minimum value.
-     * @param {number | bigint} params.max - Maximum value.
-     * @param {number | bigint} params.xdefault - Default value. Cannot be set when required.
+     * @param {number} params.min - Minimum value.
+     * @param {number} params.max - Maximum value.
+     * @param {number} params.xdefault - Default value. Cannot be set when required.
      * @param {boolean} params.array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createFloatColumn` instead.
      */
-    createFloatAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean  }): Promise<Models.AttributeFloat>;
+    createFloatAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean  }): Promise<Models.AttributeFloat>;
     /**
      * Create a float attribute. Optionally, minimum and maximum values can be provided.
      * 
@@ -1949,32 +1949,32 @@ export class Databases {
      * @param {string} collectionId - Collection ID.
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {number | bigint} min - Minimum value.
-     * @param {number | bigint} max - Maximum value.
-     * @param {number | bigint} xdefault - Default value. Cannot be set when required.
+     * @param {number} min - Minimum value.
+     * @param {number} max - Maximum value.
+     * @param {number} xdefault - Default value. Cannot be set when required.
      * @param {boolean} array - Is attribute an array?
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean): Promise<Models.AttributeFloat>;
+    createFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean): Promise<Models.AttributeFloat>;
     createFloatAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (number | bigint)?, (number | bigint)?, (number | bigint)?, (boolean)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (number)?, (number)?, (number)?, (boolean)?]    
     ): Promise<Models.AttributeFloat> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, min?: number, max?: number, xdefault?: number, array?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                min: rest[3] as number | bigint,
-                max: rest[4] as number | bigint,
-                xdefault: rest[5] as number | bigint,
+                min: rest[3] as number,
+                max: rest[4] as number,
+                xdefault: rest[5] as number,
                 array: rest[6] as boolean            
             };
         }
@@ -2043,15 +2043,15 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID.
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {number | bigint} params.xdefault - Default value. Cannot be set when required.
-     * @param {number | bigint} params.min - Minimum value.
-     * @param {number | bigint} params.max - Maximum value.
+     * @param {number} params.xdefault - Default value. Cannot be set when required.
+     * @param {number} params.min - Minimum value.
+     * @param {number} params.max - Maximum value.
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateFloatColumn` instead.
      */
-    updateFloatAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string  }): Promise<Models.AttributeFloat>;
+    updateFloatAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string  }): Promise<Models.AttributeFloat>;
     /**
      * Update a float attribute. Changing the `default` value will not update already existing documents.
      * 
@@ -2060,32 +2060,32 @@ export class Databases {
      * @param {string} collectionId - Collection ID.
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {number | bigint} xdefault - Default value. Cannot be set when required.
-     * @param {number | bigint} min - Minimum value.
-     * @param {number | bigint} max - Maximum value.
+     * @param {number} xdefault - Default value. Cannot be set when required.
+     * @param {number} min - Minimum value.
+     * @param {number} max - Maximum value.
      * @param {string} newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string): Promise<Models.AttributeFloat>;
+    updateFloatAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string): Promise<Models.AttributeFloat>;
     updateFloatAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (number | bigint)?, (number | bigint)?, (number | bigint)?, (string)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (number)?, (number)?, (number)?, (string)?]    
     ): Promise<Models.AttributeFloat> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number, min?: number, max?: number, newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as number | bigint,
-                min: rest[4] as number | bigint,
-                max: rest[5] as number | bigint,
+                xdefault: rest[3] as number,
+                min: rest[4] as number,
+                max: rest[5] as number,
                 newKey: rest[6] as string            
             };
         }
@@ -3220,7 +3220,7 @@ export class Databases {
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.collectionId - Collection ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} params.key - Attribute Key.
-     * @param {number | bigint} params.size - Attribute size for text attributes, in number of characters.
+     * @param {number} params.size - Attribute size for text attributes, in number of characters.
      * @param {boolean} params.required - Is attribute required?
      * @param {string} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
@@ -3229,7 +3229,7 @@ export class Databases {
      * @returns {Promise<Models.AttributeString>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createStringColumn` instead.
      */
-    createStringAttribute(params: { databaseId: string, collectionId: string, key: string, size: number | bigint, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean  }): Promise<Models.AttributeString>;
+    createStringAttribute(params: { databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean  }): Promise<Models.AttributeString>;
     /**
      * Create a string attribute.
      * 
@@ -3237,7 +3237,7 @@ export class Databases {
      * @param {string} databaseId - Database ID.
      * @param {string} collectionId - Collection ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} key - Attribute Key.
-     * @param {number | bigint} size - Attribute size for text attributes, in number of characters.
+     * @param {number} size - Attribute size for text attributes, in number of characters.
      * @param {boolean} required - Is attribute required?
      * @param {string} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
@@ -3246,21 +3246,21 @@ export class Databases {
      * @returns {Promise<Models.AttributeString>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createStringAttribute(databaseId: string, collectionId: string, key: string, size: number | bigint, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean): Promise<Models.AttributeString>;
+    createStringAttribute(databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean): Promise<Models.AttributeString>;
     createStringAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, size: number | bigint, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean } | string,
-        ...rest: [(string)?, (string)?, (number | bigint)?, (boolean)?, (string)?, (boolean)?, (boolean)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean } | string,
+        ...rest: [(string)?, (string)?, (number)?, (boolean)?, (string)?, (boolean)?, (boolean)?]    
     ): Promise<Models.AttributeString> {
-        let params: { databaseId: string, collectionId: string, key: string, size: number | bigint, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean };
+        let params: { databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, size: number | bigint, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
-                size: rest[2] as number | bigint,
+                size: rest[2] as number,
                 required: rest[3] as boolean,
                 xdefault: rest[4] as string,
                 array: rest[5] as boolean,
@@ -3336,13 +3336,13 @@ export class Databases {
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
      * @param {string} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
-     * @param {number | bigint} params.size - Maximum size of the string attribute.
+     * @param {number} params.size - Maximum size of the string attribute.
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateStringColumn` instead.
      */
-    updateStringAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number | bigint, newKey?: string  }): Promise<Models.AttributeString>;
+    updateStringAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string  }): Promise<Models.AttributeString>;
     /**
      * Update a string attribute. Changing the `default` value will not update already existing documents.
      * 
@@ -3352,21 +3352,21 @@ export class Databases {
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
      * @param {string} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
-     * @param {number | bigint} size - Maximum size of the string attribute.
+     * @param {number} size - Maximum size of the string attribute.
      * @param {string} newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateStringAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number | bigint, newKey?: string): Promise<Models.AttributeString>;
+    updateStringAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string): Promise<Models.AttributeString>;
     updateStringAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number | bigint, newKey?: string } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (number | bigint)?, (string)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (number)?, (string)?]    
     ): Promise<Models.AttributeString> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number | bigint, newKey?: string };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number | bigint, newKey?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -3374,7 +3374,7 @@ export class Databases {
                 key: rest[1] as string,
                 required: rest[2] as boolean,
                 xdefault: rest[3] as string,
-                size: rest[4] as number | bigint,
+                size: rest[4] as number,
                 newKey: rest[5] as string            
             };
         }
@@ -4676,14 +4676,14 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID.
      * @param {string} params.documentId - Document ID.
      * @param {string} params.attribute - Attribute key.
-     * @param {number | bigint} params.value - Value to increment the attribute by. The value must be a number.
-     * @param {number | bigint} params.min - Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
+     * @param {number} params.value - Value to increment the attribute by. The value must be a number.
+     * @param {number} params.min - Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
      * @param {string} params.transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.decrementRowColumn` instead.
      */
-    decrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number | bigint, min?: number | bigint, transactionId?: string  }): Promise<Document>;
+    decrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, min?: number, transactionId?: string  }): Promise<Document>;
     /**
      * Decrement a specific attribute of a document by a given value.
      *
@@ -4691,30 +4691,30 @@ export class Databases {
      * @param {string} collectionId - Collection ID.
      * @param {string} documentId - Document ID.
      * @param {string} attribute - Attribute key.
-     * @param {number | bigint} value - Value to increment the attribute by. The value must be a number.
-     * @param {number | bigint} min - Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
+     * @param {number} value - Value to increment the attribute by. The value must be a number.
+     * @param {number} min - Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
      * @param {string} transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    decrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number | bigint, min?: number | bigint, transactionId?: string): Promise<Document>;
+    decrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, min?: number, transactionId?: string): Promise<Document>;
     decrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(
-        paramsOrFirst: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number | bigint, min?: number | bigint, transactionId?: string } | string,
-        ...rest: [(string)?, (string)?, (string)?, (number | bigint)?, (number | bigint)?, (string)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, min?: number, transactionId?: string } | string,
+        ...rest: [(string)?, (string)?, (string)?, (number)?, (number)?, (string)?]    
     ): Promise<Document> {
-        let params: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number | bigint, min?: number | bigint, transactionId?: string };
+        let params: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, min?: number, transactionId?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number | bigint, min?: number | bigint, transactionId?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, min?: number, transactionId?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 documentId: rest[1] as string,
                 attribute: rest[2] as string,
-                value: rest[3] as number | bigint,
-                min: rest[4] as number | bigint,
+                value: rest[3] as number,
+                min: rest[4] as number,
                 transactionId: rest[5] as string            
             };
         }
@@ -4772,14 +4772,14 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID.
      * @param {string} params.documentId - Document ID.
      * @param {string} params.attribute - Attribute key.
-     * @param {number | bigint} params.value - Value to increment the attribute by. The value must be a number.
-     * @param {number | bigint} params.max - Maximum value for the attribute. If the current value is greater than this value, an error will be thrown.
+     * @param {number} params.value - Value to increment the attribute by. The value must be a number.
+     * @param {number} params.max - Maximum value for the attribute. If the current value is greater than this value, an error will be thrown.
      * @param {string} params.transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.incrementRowColumn` instead.
      */
-    incrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number | bigint, max?: number | bigint, transactionId?: string  }): Promise<Document>;
+    incrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, max?: number, transactionId?: string  }): Promise<Document>;
     /**
      * Increment a specific attribute of a document by a given value.
      *
@@ -4787,30 +4787,30 @@ export class Databases {
      * @param {string} collectionId - Collection ID.
      * @param {string} documentId - Document ID.
      * @param {string} attribute - Attribute key.
-     * @param {number | bigint} value - Value to increment the attribute by. The value must be a number.
-     * @param {number | bigint} max - Maximum value for the attribute. If the current value is greater than this value, an error will be thrown.
+     * @param {number} value - Value to increment the attribute by. The value must be a number.
+     * @param {number} max - Maximum value for the attribute. If the current value is greater than this value, an error will be thrown.
      * @param {string} transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    incrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number | bigint, max?: number | bigint, transactionId?: string): Promise<Document>;
+    incrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, max?: number, transactionId?: string): Promise<Document>;
     incrementDocumentAttribute<Document extends Models.Document = Models.DefaultDocument>(
-        paramsOrFirst: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number | bigint, max?: number | bigint, transactionId?: string } | string,
-        ...rest: [(string)?, (string)?, (string)?, (number | bigint)?, (number | bigint)?, (string)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, max?: number, transactionId?: string } | string,
+        ...rest: [(string)?, (string)?, (string)?, (number)?, (number)?, (string)?]    
     ): Promise<Document> {
-        let params: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number | bigint, max?: number | bigint, transactionId?: string };
+        let params: { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, max?: number, transactionId?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number | bigint, max?: number | bigint, transactionId?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, documentId: string, attribute: string, value?: number, max?: number, transactionId?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 documentId: rest[1] as string,
                 attribute: rest[2] as string,
-                value: rest[3] as number | bigint,
-                max: rest[4] as number | bigint,
+                value: rest[3] as number,
+                max: rest[4] as number,
                 transactionId: rest[5] as string            
             };
         }
@@ -4945,12 +4945,12 @@ export class Databases {
      * @param {IndexType} params.type - Index type.
      * @param {string[]} params.attributes - Array of attributes to index. Maximum of 100 attributes are allowed, each 32 characters long.
      * @param {string[]} params.orders - Array of index orders. Maximum of 100 orders are allowed.
-     * @param {number | bigint[]} params.lengths - Length of index. Maximum of 100
+     * @param {number[]} params.lengths - Length of index. Maximum of 100
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createIndex` instead.
      */
-    createIndex(params: { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number | bigint[]  }): Promise<Models.Index>;
+    createIndex(params: { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number[]  }): Promise<Models.Index>;
     /**
      * Creates an index on the attributes listed. Your index should include all the attributes you will query in a single request.
      * Attributes can be `key`, `fulltext`, and `unique`.
@@ -4961,20 +4961,20 @@ export class Databases {
      * @param {IndexType} type - Index type.
      * @param {string[]} attributes - Array of attributes to index. Maximum of 100 attributes are allowed, each 32 characters long.
      * @param {string[]} orders - Array of index orders. Maximum of 100 orders are allowed.
-     * @param {number | bigint[]} lengths - Length of index. Maximum of 100
+     * @param {number[]} lengths - Length of index. Maximum of 100
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number | bigint[]): Promise<Models.Index>;
+    createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number[]): Promise<Models.Index>;
     createIndex(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number | bigint[] } | string,
-        ...rest: [(string)?, (string)?, (IndexType)?, (string[])?, (string[])?, (number | bigint[])?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number[] } | string,
+        ...rest: [(string)?, (string)?, (IndexType)?, (string[])?, (string[])?, (number[])?]    
     ): Promise<Models.Index> {
-        let params: { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number | bigint[] };
+        let params: { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number[] };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number | bigint[] };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: string[], lengths?: number[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
@@ -4983,7 +4983,7 @@ export class Databases {
                 type: rest[2] as IndexType,
                 attributes: rest[3] as string[],
                 orders: rest[4] as string[],
-                lengths: rest[5] as number | bigint[]            
+                lengths: rest[5] as number[]            
             };
         }
         

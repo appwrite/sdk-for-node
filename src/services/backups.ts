@@ -282,7 +282,7 @@ export class Backups {
      *
      * @param {string} params.policyId - Policy ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string[]} params.services - Array of services to backup
-     * @param {number | bigint} params.retention - Days to keep backups before deletion
+     * @param {number} params.retention - Days to keep backups before deletion
      * @param {string} params.schedule - Schedule CRON syntax.
      * @param {string} params.name - Policy name. Max length: 128 chars.
      * @param {string} params.resourceId - Resource ID. When set, only this single resource will be backed up.
@@ -290,13 +290,13 @@ export class Backups {
      * @throws {AppwriteException}
      * @returns {Promise<Models.BackupPolicy>}
      */
-    createPolicy(params: { policyId: string, services: string[], retention: number | bigint, schedule: string, name?: string, resourceId?: string, enabled?: boolean  }): Promise<Models.BackupPolicy>;
+    createPolicy(params: { policyId: string, services: string[], retention: number, schedule: string, name?: string, resourceId?: string, enabled?: boolean  }): Promise<Models.BackupPolicy>;
     /**
      * Create a new backup policy.
      *
      * @param {string} policyId - Policy ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string[]} services - Array of services to backup
-     * @param {number | bigint} retention - Days to keep backups before deletion
+     * @param {number} retention - Days to keep backups before deletion
      * @param {string} schedule - Schedule CRON syntax.
      * @param {string} name - Policy name. Max length: 128 chars.
      * @param {string} resourceId - Resource ID. When set, only this single resource will be backed up.
@@ -305,20 +305,20 @@ export class Backups {
      * @returns {Promise<Models.BackupPolicy>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createPolicy(policyId: string, services: string[], retention: number | bigint, schedule: string, name?: string, resourceId?: string, enabled?: boolean): Promise<Models.BackupPolicy>;
+    createPolicy(policyId: string, services: string[], retention: number, schedule: string, name?: string, resourceId?: string, enabled?: boolean): Promise<Models.BackupPolicy>;
     createPolicy(
-        paramsOrFirst: { policyId: string, services: string[], retention: number | bigint, schedule: string, name?: string, resourceId?: string, enabled?: boolean } | string,
-        ...rest: [(string[])?, (number | bigint)?, (string)?, (string)?, (string)?, (boolean)?]    
+        paramsOrFirst: { policyId: string, services: string[], retention: number, schedule: string, name?: string, resourceId?: string, enabled?: boolean } | string,
+        ...rest: [(string[])?, (number)?, (string)?, (string)?, (string)?, (boolean)?]    
     ): Promise<Models.BackupPolicy> {
-        let params: { policyId: string, services: string[], retention: number | bigint, schedule: string, name?: string, resourceId?: string, enabled?: boolean };
+        let params: { policyId: string, services: string[], retention: number, schedule: string, name?: string, resourceId?: string, enabled?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { policyId: string, services: string[], retention: number | bigint, schedule: string, name?: string, resourceId?: string, enabled?: boolean };
+            params = (paramsOrFirst || {}) as { policyId: string, services: string[], retention: number, schedule: string, name?: string, resourceId?: string, enabled?: boolean };
         } else {
             params = {
                 policyId: paramsOrFirst as string,
                 services: rest[0] as string[],
-                retention: rest[1] as number | bigint,
+                retention: rest[1] as number,
                 schedule: rest[2] as string,
                 name: rest[3] as string,
                 resourceId: rest[4] as string,
@@ -440,39 +440,39 @@ export class Backups {
      *
      * @param {string} params.policyId - Policy ID. Choose a custom ID`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Policy name. Max length: 128 chars.
-     * @param {number | bigint} params.retention - Days to keep backups before deletion
+     * @param {number} params.retention - Days to keep backups before deletion
      * @param {string} params.schedule - Cron expression
      * @param {boolean} params.enabled - Is Backup enabled? When set to 'disabled', No backup will be taken
      * @throws {AppwriteException}
      * @returns {Promise<Models.BackupPolicy>}
      */
-    updatePolicy(params: { policyId: string, name?: string, retention?: number | bigint, schedule?: string, enabled?: boolean  }): Promise<Models.BackupPolicy>;
+    updatePolicy(params: { policyId: string, name?: string, retention?: number, schedule?: string, enabled?: boolean  }): Promise<Models.BackupPolicy>;
     /**
      * Update an existing policy using it's ID.
      *
      * @param {string} policyId - Policy ID. Choose a custom ID`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Policy name. Max length: 128 chars.
-     * @param {number | bigint} retention - Days to keep backups before deletion
+     * @param {number} retention - Days to keep backups before deletion
      * @param {string} schedule - Cron expression
      * @param {boolean} enabled - Is Backup enabled? When set to 'disabled', No backup will be taken
      * @throws {AppwriteException}
      * @returns {Promise<Models.BackupPolicy>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePolicy(policyId: string, name?: string, retention?: number | bigint, schedule?: string, enabled?: boolean): Promise<Models.BackupPolicy>;
+    updatePolicy(policyId: string, name?: string, retention?: number, schedule?: string, enabled?: boolean): Promise<Models.BackupPolicy>;
     updatePolicy(
-        paramsOrFirst: { policyId: string, name?: string, retention?: number | bigint, schedule?: string, enabled?: boolean } | string,
-        ...rest: [(string)?, (number | bigint)?, (string)?, (boolean)?]    
+        paramsOrFirst: { policyId: string, name?: string, retention?: number, schedule?: string, enabled?: boolean } | string,
+        ...rest: [(string)?, (number)?, (string)?, (boolean)?]    
     ): Promise<Models.BackupPolicy> {
-        let params: { policyId: string, name?: string, retention?: number | bigint, schedule?: string, enabled?: boolean };
+        let params: { policyId: string, name?: string, retention?: number, schedule?: string, enabled?: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { policyId: string, name?: string, retention?: number | bigint, schedule?: string, enabled?: boolean };
+            params = (paramsOrFirst || {}) as { policyId: string, name?: string, retention?: number, schedule?: string, enabled?: boolean };
         } else {
             params = {
                 policyId: paramsOrFirst as string,
                 name: rest[0] as string,
-                retention: rest[1] as number | bigint,
+                retention: rest[1] as number,
                 schedule: rest[2] as string,
                 enabled: rest[3] as boolean            
             };
