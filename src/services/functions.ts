@@ -2,6 +2,7 @@ import { AppwriteException, Client, type Payload, UploadProgress } from '../clie
 import type { Models } from '../models';
 
 import { Runtime } from '../enums/runtime';
+import { Scopes } from '../enums/scopes';
 import { TemplateReferenceType } from '../enums/template-reference-type';
 import { VCSReferenceType } from '../enums/vcs-reference-type';
 import { DeploymentDownloadType } from '../enums/deployment-download-type';
@@ -23,7 +24,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.FunctionList>}
      */
-    list(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.FunctionList>;
+    list(params?: { queries?: string[], search?: string, total?: boolean }): Promise<Models.FunctionList>;
     /**
      * Get a list of all the project's functions. You can use the query params to filter your results.
      *
@@ -94,7 +95,7 @@ export class Functions {
      * @param {boolean} params.logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
      * @param {string} params.entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
      * @param {string} params.commands - Build Commands.
-     * @param {string[]} params.scopes - List of scopes allowed for API key auto-generated for every execution. Maximum of 100 scopes are allowed.
+     * @param {Scopes[]} params.scopes - List of scopes allowed for API key auto-generated for every execution. Maximum of 100 scopes are allowed.
      * @param {string} params.installationId - Appwrite Installation ID for VCS (Version Control System) deployment.
      * @param {string} params.providerRepositoryId - Repository ID of the repo linked to the function.
      * @param {string} params.providerBranch - Production branch for the repo linked to the function.
@@ -104,7 +105,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
-    create(params: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string  }): Promise<Models.Function>;
+    create(params: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string }): Promise<Models.Function>;
     /**
      * Create a new function. You can pass a list of [permissions](https://appwrite.io/docs/permissions) to allow different project users or team with access to execute the function using the client API.
      *
@@ -119,7 +120,7 @@ export class Functions {
      * @param {boolean} logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
      * @param {string} entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
      * @param {string} commands - Build Commands.
-     * @param {string[]} scopes - List of scopes allowed for API key auto-generated for every execution. Maximum of 100 scopes are allowed.
+     * @param {Scopes[]} scopes - List of scopes allowed for API key auto-generated for every execution. Maximum of 100 scopes are allowed.
      * @param {string} installationId - Appwrite Installation ID for VCS (Version Control System) deployment.
      * @param {string} providerRepositoryId - Repository ID of the repo linked to the function.
      * @param {string} providerBranch - Production branch for the repo linked to the function.
@@ -130,15 +131,15 @@ export class Functions {
      * @returns {Promise<Models.Function>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    create(functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string): Promise<Models.Function>;
+    create(functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string): Promise<Models.Function>;
     create(
-        paramsOrFirst: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string } | string,
-        ...rest: [(string)?, (Runtime)?, (string[])?, (string[])?, (string)?, (number)?, (boolean)?, (boolean)?, (string)?, (string)?, (string[])?, (string)?, (string)?, (string)?, (boolean)?, (string)?, (string)?]    
+        paramsOrFirst: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string } | string,
+        ...rest: [(string)?, (Runtime)?, (string[])?, (string[])?, (string)?, (number)?, (boolean)?, (boolean)?, (string)?, (string)?, (Scopes[])?, (string)?, (string)?, (string)?, (boolean)?, (string)?, (string)?]    
     ): Promise<Models.Function> {
-        let params: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
+        let params: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
+            params = (paramsOrFirst || {}) as { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -152,7 +153,7 @@ export class Functions {
                 logging: rest[7] as boolean,
                 entrypoint: rest[8] as string,
                 commands: rest[9] as string,
-                scopes: rest[10] as string[],
+                scopes: rest[10] as Scopes[],
                 installationId: rest[11] as string,
                 providerRepositoryId: rest[12] as string,
                 providerBranch: rest[13] as string,
@@ -314,7 +315,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
-    get(params: { functionId: string  }): Promise<Models.Function>;
+    get(params: { functionId: string }): Promise<Models.Function>;
     /**
      * Get a function by its unique ID.
      *
@@ -372,7 +373,7 @@ export class Functions {
      * @param {boolean} params.logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
      * @param {string} params.entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
      * @param {string} params.commands - Build Commands.
-     * @param {string[]} params.scopes - List of scopes allowed for API Key auto-generated for every execution. Maximum of 100 scopes are allowed.
+     * @param {Scopes[]} params.scopes - List of scopes allowed for API Key auto-generated for every execution. Maximum of 100 scopes are allowed.
      * @param {string} params.installationId - Appwrite Installation ID for VCS (Version Controle System) deployment.
      * @param {string} params.providerRepositoryId - Repository ID of the repo linked to the function
      * @param {string} params.providerBranch - Production branch for the repo linked to the function
@@ -382,7 +383,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
-    update(params: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string  }): Promise<Models.Function>;
+    update(params: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string }): Promise<Models.Function>;
     /**
      * Update function by its unique ID.
      *
@@ -397,7 +398,7 @@ export class Functions {
      * @param {boolean} logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
      * @param {string} entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
      * @param {string} commands - Build Commands.
-     * @param {string[]} scopes - List of scopes allowed for API Key auto-generated for every execution. Maximum of 100 scopes are allowed.
+     * @param {Scopes[]} scopes - List of scopes allowed for API Key auto-generated for every execution. Maximum of 100 scopes are allowed.
      * @param {string} installationId - Appwrite Installation ID for VCS (Version Controle System) deployment.
      * @param {string} providerRepositoryId - Repository ID of the repo linked to the function
      * @param {string} providerBranch - Production branch for the repo linked to the function
@@ -408,15 +409,15 @@ export class Functions {
      * @returns {Promise<Models.Function>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    update(functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string): Promise<Models.Function>;
+    update(functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string): Promise<Models.Function>;
     update(
-        paramsOrFirst: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string } | string,
-        ...rest: [(string)?, (Runtime)?, (string[])?, (string[])?, (string)?, (number)?, (boolean)?, (boolean)?, (string)?, (string)?, (string[])?, (string)?, (string)?, (string)?, (boolean)?, (string)?, (string)?]    
+        paramsOrFirst: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string } | string,
+        ...rest: [(string)?, (Runtime)?, (string[])?, (string[])?, (string)?, (number)?, (boolean)?, (boolean)?, (string)?, (string)?, (Scopes[])?, (string)?, (string)?, (string)?, (boolean)?, (string)?, (string)?]    
     ): Promise<Models.Function> {
-        let params: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
+        let params: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: string[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
+            params = (paramsOrFirst || {}) as { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -430,7 +431,7 @@ export class Functions {
                 logging: rest[7] as boolean,
                 entrypoint: rest[8] as string,
                 commands: rest[9] as string,
-                scopes: rest[10] as string[],
+                scopes: rest[10] as Scopes[],
                 installationId: rest[11] as string,
                 providerRepositoryId: rest[12] as string,
                 providerBranch: rest[13] as string,
@@ -540,7 +541,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    delete(params: { functionId: string  }): Promise<{}>;
+    delete(params: { functionId: string }): Promise<{}>;
     /**
      * Delete a function by its unique ID.
      *
@@ -593,7 +594,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
-    updateFunctionDeployment(params: { functionId: string, deploymentId: string  }): Promise<Models.Function>;
+    updateFunctionDeployment(params: { functionId: string, deploymentId: string }): Promise<Models.Function>;
     /**
      * Update the function active deployment. Use this endpoint to switch the code deployment that should be used when visitor opens your function.
      *
@@ -658,7 +659,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.DeploymentList>}
      */
-    listDeployments(params: { functionId: string, queries?: string[], search?: string, total?: boolean  }): Promise<Models.DeploymentList>;
+    listDeployments(params: { functionId: string, queries?: string[], search?: string, total?: boolean }): Promise<Models.DeploymentList>;
     /**
      * Get a list of all the function's code deployments. You can use the query params to filter your results.
      *
@@ -736,7 +737,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createDeployment(params: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string , onProgress?: (progress: UploadProgress) => void }): Promise<Models.Deployment>;
+    createDeployment(params: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string, onProgress?: (progress: UploadProgress) => void }): Promise<Models.Deployment>;
     /**
      * Create a new function code deployment. Use this endpoint to upload a new version of your code function. To execute your newly uploaded code, you'll need to update the function's deployment to use your new deployment UID.
      * 
@@ -755,7 +756,7 @@ export class Functions {
      */
     createDeployment(functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string, onProgress?: (progress: UploadProgress) => void): Promise<Models.Deployment>;
     createDeployment(
-        paramsOrFirst: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string, onProgress?: (progress: UploadProgress) => void  } | string,
+        paramsOrFirst: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string, onProgress?: (progress: UploadProgress) => void } | string,
         ...rest: [(File)?, (boolean)?, (string)?, (string)?,((progress: UploadProgress) => void)?]    
     ): Promise<Models.Deployment> {
         let params: { functionId: string, code: File, activate: boolean, entrypoint?: string, commands?: string };
@@ -829,7 +830,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createDuplicateDeployment(params: { functionId: string, deploymentId: string, buildId?: string  }): Promise<Models.Deployment>;
+    createDuplicateDeployment(params: { functionId: string, deploymentId: string, buildId?: string }): Promise<Models.Deployment>;
     /**
      * Create a new build for an existing function deployment. This endpoint allows you to rebuild a deployment with the updated function configuration, including its entrypoint and build commands if they have been modified. The build process will be queued and executed asynchronously. The original deployment's code will be preserved and used for the new build.
      *
@@ -905,7 +906,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createTemplateDeployment(params: { functionId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean  }): Promise<Models.Deployment>;
+    createTemplateDeployment(params: { functionId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean }): Promise<Models.Deployment>;
     /**
      * Create a deployment based on a template.
      * 
@@ -1016,7 +1017,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createVcsDeployment(params: { functionId: string, type: VCSReferenceType, reference: string, activate?: boolean  }): Promise<Models.Deployment>;
+    createVcsDeployment(params: { functionId: string, type: VCSReferenceType, reference: string, activate?: boolean }): Promise<Models.Deployment>;
     /**
      * Create a deployment when a function is connected to VCS.
      * 
@@ -1096,7 +1097,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    getDeployment(params: { functionId: string, deploymentId: string  }): Promise<Models.Deployment>;
+    getDeployment(params: { functionId: string, deploymentId: string }): Promise<Models.Deployment>;
     /**
      * Get a function deployment by its unique ID.
      *
@@ -1155,7 +1156,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteDeployment(params: { functionId: string, deploymentId: string  }): Promise<{}>;
+    deleteDeployment(params: { functionId: string, deploymentId: string }): Promise<{}>;
     /**
      * Delete a code deployment by its unique ID.
      *
@@ -1216,7 +1217,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    getDeploymentDownload(params: { functionId: string, deploymentId: string, type?: DeploymentDownloadType  }): Promise<ArrayBuffer>;
+    getDeploymentDownload(params: { functionId: string, deploymentId: string, type?: DeploymentDownloadType }): Promise<ArrayBuffer>;
     /**
      * Get a function deployment content by its unique ID. The endpoint response return with a 'Content-Disposition: attachment' header that tells the browser to start downloading the file to user downloads directory.
      *
@@ -1282,7 +1283,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    updateDeploymentStatus(params: { functionId: string, deploymentId: string  }): Promise<Models.Deployment>;
+    updateDeploymentStatus(params: { functionId: string, deploymentId: string }): Promise<Models.Deployment>;
     /**
      * Cancel an ongoing function deployment build. If the build is already in progress, it will be stopped and marked as canceled. If the build hasn't started yet, it will be marked as canceled without executing. You cannot cancel builds that have already completed (status 'ready') or failed. The response includes the final build status and details.
      *
@@ -1343,7 +1344,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.ExecutionList>}
      */
-    listExecutions(params: { functionId: string, queries?: string[], total?: boolean  }): Promise<Models.ExecutionList>;
+    listExecutions(params: { functionId: string, queries?: string[], total?: boolean }): Promise<Models.ExecutionList>;
     /**
      * Get a list of all the current user function execution logs. You can use the query params to filter your results.
      *
@@ -1413,7 +1414,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Execution>}
      */
-    createExecution(params: { functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string  }): Promise<Models.Execution>;
+    createExecution(params: { functionId: string, body?: string, async?: boolean, xpath?: string, method?: ExecutionMethod, headers?: object, scheduledAt?: string }): Promise<Models.Execution>;
     /**
      * Trigger a function execution. The returned object will return you the current execution status. You can ping the `Get Execution` endpoint to get updates on the current execution status. Once this endpoint is called, your function execution process will start asynchronously.
      *
@@ -1503,7 +1504,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Execution>}
      */
-    getExecution(params: { functionId: string, executionId: string  }): Promise<Models.Execution>;
+    getExecution(params: { functionId: string, executionId: string }): Promise<Models.Execution>;
     /**
      * Get a function execution log by its unique ID.
      *
@@ -1562,7 +1563,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteExecution(params: { functionId: string, executionId: string  }): Promise<{}>;
+    deleteExecution(params: { functionId: string, executionId: string }): Promise<{}>;
     /**
      * Delete a function execution by its unique ID.
      *
@@ -1621,7 +1622,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.VariableList>}
      */
-    listVariables(params: { functionId: string  }): Promise<Models.VariableList>;
+    listVariables(params: { functionId: string }): Promise<Models.VariableList>;
     /**
      * Get a list of all variables of a specific function.
      *
@@ -1675,7 +1676,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-    createVariable(params: { functionId: string, key: string, value: string, secret?: boolean  }): Promise<Models.Variable>;
+    createVariable(params: { functionId: string, key: string, value: string, secret?: boolean }): Promise<Models.Variable>;
     /**
      * Create a new function environment variable. These variables can be accessed in the function at runtime as environment variables.
      *
@@ -1753,7 +1754,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-    getVariable(params: { functionId: string, variableId: string  }): Promise<Models.Variable>;
+    getVariable(params: { functionId: string, variableId: string }): Promise<Models.Variable>;
     /**
      * Get a variable by its unique ID.
      *
@@ -1815,7 +1816,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-    updateVariable(params: { functionId: string, variableId: string, key: string, value?: string, secret?: boolean  }): Promise<Models.Variable>;
+    updateVariable(params: { functionId: string, variableId: string, key: string, value?: string, secret?: boolean }): Promise<Models.Variable>;
     /**
      * Update variable by its unique ID.
      *
@@ -1896,7 +1897,7 @@ export class Functions {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteVariable(params: { functionId: string, variableId: string  }): Promise<{}>;
+    deleteVariable(params: { functionId: string, variableId: string }): Promise<{}>;
     /**
      * Delete a variable by its unique ID.
      *

@@ -21,7 +21,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.BucketList>}
      */
-    listBuckets(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.BucketList>;
+    listBuckets(params?: { queries?: string[], search?: string, total?: boolean }): Promise<Models.BucketList>;
     /**
      * Get a list of all the storage buckets. You can use the query params to filter your results.
      *
@@ -88,14 +88,14 @@ export class Storage {
      * @param {boolean} params.enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
      * @param {number} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 30MB.
      * @param {string[]} params.allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} params.compression - Compression algorithm choosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {Compression} params.compression - Compression algorithm chosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} params.antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} params.transformations - Are image transformations enabled?
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
-    createBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean  }): Promise<Models.Bucket>;
+    createBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean }): Promise<Models.Bucket>;
     /**
      * Create a new storage bucket.
      *
@@ -106,7 +106,7 @@ export class Storage {
      * @param {boolean} enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
      * @param {number} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 30MB.
      * @param {string[]} allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} compression - Compression algorithm choosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {Compression} compression - Compression algorithm chosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} transformations - Are image transformations enabled?
@@ -214,7 +214,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
-    getBucket(params: { bucketId: string  }): Promise<Models.Bucket>;
+    getBucket(params: { bucketId: string }): Promise<Models.Bucket>;
     /**
      * Get a storage bucket by its unique ID. This endpoint response returns a JSON object with the storage bucket metadata.
      *
@@ -268,14 +268,14 @@ export class Storage {
      * @param {boolean} params.enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
      * @param {number} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 30MB.
      * @param {string[]} params.allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} params.compression - Compression algorithm choosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {Compression} params.compression - Compression algorithm chosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} params.antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} params.transformations - Are image transformations enabled?
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
-    updateBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean  }): Promise<Models.Bucket>;
+    updateBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean }): Promise<Models.Bucket>;
     /**
      * Update a storage bucket by its unique ID.
      *
@@ -286,7 +286,7 @@ export class Storage {
      * @param {boolean} enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
      * @param {number} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 30MB.
      * @param {string[]} allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} compression - Compression algorithm choosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {Compression} compression - Compression algorithm chosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
      * @param {boolean} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} transformations - Are image transformations enabled?
@@ -391,7 +391,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteBucket(params: { bucketId: string  }): Promise<{}>;
+    deleteBucket(params: { bucketId: string }): Promise<{}>;
     /**
      * Delete a storage bucket by its unique ID.
      *
@@ -446,7 +446,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.FileList>}
      */
-    listFiles(params: { bucketId: string, queries?: string[], search?: string, total?: boolean  }): Promise<Models.FileList>;
+    listFiles(params: { bucketId: string, queries?: string[], search?: string, total?: boolean }): Promise<Models.FileList>;
     /**
      * Get a list of all the user files. You can use the query params to filter your results.
      *
@@ -526,7 +526,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
-    createFile(params: { bucketId: string, fileId: string, file: File, permissions?: string[] , onProgress?: (progress: UploadProgress) => void }): Promise<Models.File>;
+    createFile(params: { bucketId: string, fileId: string, file: File, permissions?: string[], onProgress?: (progress: UploadProgress) => void }): Promise<Models.File>;
     /**
      * Create a new file. Before using this route, you should create a new bucket resource using either a [server integration](https://appwrite.io/docs/server/storage#storageCreateBucket) API or directly from your Appwrite console.
      * 
@@ -547,7 +547,7 @@ export class Storage {
      */
     createFile(bucketId: string, fileId: string, file: File, permissions?: string[], onProgress?: (progress: UploadProgress) => void): Promise<Models.File>;
     createFile(
-        paramsOrFirst: { bucketId: string, fileId: string, file: File, permissions?: string[], onProgress?: (progress: UploadProgress) => void  } | string,
+        paramsOrFirst: { bucketId: string, fileId: string, file: File, permissions?: string[], onProgress?: (progress: UploadProgress) => void } | string,
         ...rest: [(string)?, (File)?, (string[])?,((progress: UploadProgress) => void)?]    
     ): Promise<Models.File> {
         let params: { bucketId: string, fileId: string, file: File, permissions?: string[] };
@@ -615,7 +615,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
-    getFile(params: { bucketId: string, fileId: string  }): Promise<Models.File>;
+    getFile(params: { bucketId: string, fileId: string }): Promise<Models.File>;
     /**
      * Get a file by its unique ID. This endpoint response returns a JSON object with the file metadata.
      *
@@ -669,21 +669,21 @@ export class Storage {
     /**
      * Update a file by its unique ID. Only users with write permissions have access to update this resource.
      *
-     * @param {string} params.bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
-     * @param {string} params.fileId - File unique ID.
-     * @param {string} params.name - Name of the file
-     * @param {string[]} params.permissions - An array of permission string. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string} params.bucketId - Bucket unique ID.
+     * @param {string} params.fileId - File ID.
+     * @param {string} params.name - File name.
+     * @param {string[]} params.permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
-    updateFile(params: { bucketId: string, fileId: string, name?: string, permissions?: string[]  }): Promise<Models.File>;
+    updateFile(params: { bucketId: string, fileId: string, name?: string, permissions?: string[] }): Promise<Models.File>;
     /**
      * Update a file by its unique ID. Only users with write permissions have access to update this resource.
      *
-     * @param {string} bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
-     * @param {string} fileId - File unique ID.
-     * @param {string} name - Name of the file
-     * @param {string[]} permissions - An array of permission string. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string} bucketId - Bucket unique ID.
+     * @param {string} fileId - File ID.
+     * @param {string} name - File name.
+     * @param {string[]} permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -748,7 +748,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteFile(params: { bucketId: string, fileId: string  }): Promise<{}>;
+    deleteFile(params: { bucketId: string, fileId: string }): Promise<{}>;
     /**
      * Delete a file by its unique ID. Only users with write permissions have access to delete this resource.
      *
@@ -809,7 +809,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    getFileDownload(params: { bucketId: string, fileId: string, token?: string  }): Promise<ArrayBuffer>;
+    getFileDownload(params: { bucketId: string, fileId: string, token?: string }): Promise<ArrayBuffer>;
     /**
      * Get a file content by its unique ID. The endpoint response return with a 'Content-Disposition: attachment' header that tells the browser to start downloading the file to user downloads directory.
      *
@@ -887,7 +887,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    getFilePreview(params: { bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string  }): Promise<ArrayBuffer>;
+    getFilePreview(params: { bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string }): Promise<ArrayBuffer>;
     /**
      * Get a file preview image. Currently, this method supports preview for image files (jpg, png, and gif), other supported formats, like pdf, docs, slides, and spreadsheets, will return the file icon image. You can also pass query string arguments for cutting and resizing your preview image. Preview is supported only for image files smaller than 10MB.
      *
@@ -1020,7 +1020,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    getFileView(params: { bucketId: string, fileId: string, token?: string  }): Promise<ArrayBuffer>;
+    getFileView(params: { bucketId: string, fileId: string, token?: string }): Promise<ArrayBuffer>;
     /**
      * Get a file content by its unique ID. This endpoint is similar to the download method but returns with no  'Content-Disposition: attachment' header.
      *

@@ -19,7 +19,7 @@ export class Tokens {
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceTokenList>}
      */
-    list(params: { bucketId: string, fileId: string, queries?: string[], total?: boolean  }): Promise<Models.ResourceTokenList>;
+    list(params: { bucketId: string, fileId: string, queries?: string[], total?: boolean }): Promise<Models.ResourceTokenList>;
     /**
      * List all the tokens created for a specific file or bucket. You can use the query params to filter your results.
      *
@@ -91,7 +91,7 @@ export class Tokens {
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceToken>}
      */
-    createFileToken(params: { bucketId: string, fileId: string, expire?: string  }): Promise<Models.ResourceToken>;
+    createFileToken(params: { bucketId: string, fileId: string, expire?: string }): Promise<Models.ResourceToken>;
     /**
      * Create a new token. A token is linked to a file. Token can be passed as a request URL search parameter.
      *
@@ -156,7 +156,7 @@ export class Tokens {
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceToken>}
      */
-    get(params: { tokenId: string  }): Promise<Models.ResourceToken>;
+    get(params: { tokenId: string }): Promise<Models.ResourceToken>;
     /**
      * Get a token by its unique ID.
      *
@@ -208,7 +208,7 @@ export class Tokens {
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceToken>}
      */
-    update(params: { tokenId: string, expire?: string  }): Promise<Models.ResourceToken>;
+    update(params: { tokenId: string, expire?: string }): Promise<Models.ResourceToken>;
     /**
      * Update a token by its unique ID. Use this endpoint to update a token's expiry date.
      *
@@ -267,7 +267,7 @@ export class Tokens {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    delete(params: { tokenId: string  }): Promise<{}>;
+    delete(params: { tokenId: string }): Promise<{}>;
     /**
      * Delete a token by its unique ID.
      *

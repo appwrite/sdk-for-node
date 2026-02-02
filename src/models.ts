@@ -409,6 +409,20 @@ export namespace Models {
     }
 
     /**
+     * Status List
+     */
+    export type HealthStatusList = {
+        /**
+         * Total number of statuses that matched your query.
+         */
+        total: number;
+        /**
+         * List of statuses.
+         */
+        statuses: HealthStatus[];
+    }
+
+    /**
      * Locale codes list
      */
     export type LocaleCodeList = {
@@ -699,11 +713,11 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number;
+        min?: number | bigint;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number;
+        max?: number | bigint;
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
@@ -1373,11 +1387,11 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number;
+        min?: number | bigint;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number;
+        max?: number | bigint;
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
@@ -2665,6 +2679,14 @@ export namespace Models {
          * Total number of chunks uploaded
          */
         chunksUploaded: number;
+        /**
+         * Whether file contents are encrypted at rest.
+         */
+        encryption: boolean;
+        /**
+         * Compression algorithm used for the file. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
+         */
+        compression: string;
     }
 
     /**
@@ -2708,7 +2730,7 @@ export namespace Models {
          */
         allowedFileExtensions: string[];
         /**
-         * Compression algorithm choosen for compression. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
+         * Compression algorithm chosen for compression. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
          */
         compression: string;
         /**
@@ -2723,6 +2745,10 @@ export namespace Models {
          * Image transformations are enabled.
          */
         transformations: boolean;
+        /**
+         * Total size of this bucket in bytes.
+         */
+        totalSize: number;
     }
 
     /**
@@ -3238,7 +3264,7 @@ export namespace Models {
          */
         screenshotDark: string;
         /**
-         * The deployment status. Possible values are "waiting", "processing", "building", "ready", and "failed".
+         * The deployment status. Possible values are "waiting", "processing", "building", "ready", "canceled" and "failed".
          */
         status: DeploymentStatus;
         /**
