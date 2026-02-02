@@ -1239,6 +1239,178 @@ export namespace Models {
     }
 
     /**
+     * AttributeVarchar
+     */
+    export type AttributeVarchar = {
+        /**
+         * Attribute Key.
+         */
+        key: string;
+        /**
+         * Attribute type.
+         */
+        type: string;
+        /**
+         * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: AttributeStatus;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an attribute.
+         */
+        error: string;
+        /**
+         * Is attribute required?
+         */
+        required: boolean;
+        /**
+         * Is attribute an array?
+         */
+        array?: boolean;
+        /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Attribute size.
+         */
+        size: number;
+        /**
+         * Default value for attribute when not provided. Cannot be set when attribute is required.
+         */
+        default?: string;
+    }
+
+    /**
+     * AttributeText
+     */
+    export type AttributeText = {
+        /**
+         * Attribute Key.
+         */
+        key: string;
+        /**
+         * Attribute type.
+         */
+        type: string;
+        /**
+         * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: AttributeStatus;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an attribute.
+         */
+        error: string;
+        /**
+         * Is attribute required?
+         */
+        required: boolean;
+        /**
+         * Is attribute an array?
+         */
+        array?: boolean;
+        /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Default value for attribute when not provided. Cannot be set when attribute is required.
+         */
+        default?: string;
+    }
+
+    /**
+     * AttributeMediumtext
+     */
+    export type AttributeMediumtext = {
+        /**
+         * Attribute Key.
+         */
+        key: string;
+        /**
+         * Attribute type.
+         */
+        type: string;
+        /**
+         * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: AttributeStatus;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an attribute.
+         */
+        error: string;
+        /**
+         * Is attribute required?
+         */
+        required: boolean;
+        /**
+         * Is attribute an array?
+         */
+        array?: boolean;
+        /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Default value for attribute when not provided. Cannot be set when attribute is required.
+         */
+        default?: string;
+    }
+
+    /**
+     * AttributeLongtext
+     */
+    export type AttributeLongtext = {
+        /**
+         * Attribute Key.
+         */
+        key: string;
+        /**
+         * Attribute type.
+         */
+        type: string;
+        /**
+         * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: AttributeStatus;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an attribute.
+         */
+        error: string;
+        /**
+         * Is attribute required?
+         */
+        required: boolean;
+        /**
+         * Is attribute an array?
+         */
+        array?: boolean;
+        /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Default value for attribute when not provided. Cannot be set when attribute is required.
+         */
+        default?: string;
+    }
+
+    /**
      * Table
      */
     export type Table = {
@@ -1910,6 +2082,178 @@ export namespace Models {
          * Default value for column when not provided. Cannot be set when column is required.
          */
         default?: any[];
+    }
+
+    /**
+     * ColumnVarchar
+     */
+    export type ColumnVarchar = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: ColumnStatus;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Column size.
+         */
+        size: number;
+        /**
+         * Default value for column when not provided. Cannot be set when column is required.
+         */
+        default?: string;
+    }
+
+    /**
+     * ColumnText
+     */
+    export type ColumnText = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: ColumnStatus;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Default value for column when not provided. Cannot be set when column is required.
+         */
+        default?: string;
+    }
+
+    /**
+     * ColumnMediumtext
+     */
+    export type ColumnMediumtext = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: ColumnStatus;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Default value for column when not provided. Cannot be set when column is required.
+         */
+        default?: string;
+    }
+
+    /**
+     * ColumnLongtext
+     */
+    export type ColumnLongtext = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: ColumnStatus;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Default value for column when not provided. Cannot be set when column is required.
+         */
+        default?: string;
     }
 
     /**

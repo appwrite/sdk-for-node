@@ -2709,6 +2709,390 @@ export class TablesDB {
     }
 
     /**
+     * Create a longtext column.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {boolean} params.array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnLongtext>}
+     */
+    createLongtextColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean }): Promise<Models.ColumnLongtext>;
+    /**
+     * Create a longtext column.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {string} xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {boolean} array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnLongtext>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createLongtextColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnLongtext>;
+    createLongtextColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (boolean)?]    
+    ): Promise<Models.ColumnLongtext> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                array: rest[4] as boolean            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const array = params.array;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/longtext'.replace('{databaseId}', databaseId).replace('{tableId}', tableId);
+        const payload: Payload = {};
+        if (typeof key !== 'undefined') {
+            payload['key'] = key;
+        }
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof array !== 'undefined') {
+            payload['array'] = array;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a longtext column. Changing the `default` value will not update already existing rows.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnLongtext>}
+     */
+    updateLongtextColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string }): Promise<Models.ColumnLongtext>;
+    /**
+     * Update a longtext column. Changing the `default` value will not update already existing rows.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {string} xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {string} newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnLongtext>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateLongtextColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.ColumnLongtext>;
+    updateLongtextColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (string)?]    
+    ): Promise<Models.ColumnLongtext> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                newKey: rest[4] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+        if (typeof xdefault === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "xdefault"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/longtext/{key}'.replace('{databaseId}', databaseId).replace('{tableId}', tableId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a mediumtext column.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {boolean} params.array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnMediumtext>}
+     */
+    createMediumtextColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean }): Promise<Models.ColumnMediumtext>;
+    /**
+     * Create a mediumtext column.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {string} xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {boolean} array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnMediumtext>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createMediumtextColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnMediumtext>;
+    createMediumtextColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (boolean)?]    
+    ): Promise<Models.ColumnMediumtext> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                array: rest[4] as boolean            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const array = params.array;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/mediumtext'.replace('{databaseId}', databaseId).replace('{tableId}', tableId);
+        const payload: Payload = {};
+        if (typeof key !== 'undefined') {
+            payload['key'] = key;
+        }
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof array !== 'undefined') {
+            payload['array'] = array;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a mediumtext column. Changing the `default` value will not update already existing rows.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnMediumtext>}
+     */
+    updateMediumtextColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string }): Promise<Models.ColumnMediumtext>;
+    /**
+     * Update a mediumtext column. Changing the `default` value will not update already existing rows.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {string} xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {string} newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnMediumtext>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateMediumtextColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.ColumnMediumtext>;
+    updateMediumtextColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (string)?]    
+    ): Promise<Models.ColumnMediumtext> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                newKey: rest[4] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+        if (typeof xdefault === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "xdefault"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/mediumtext/{key}'.replace('{databaseId}', databaseId).replace('{tableId}', tableId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Create a geometric point column.
      *
      * @param {string} params.databaseId - Database ID.
@@ -3188,6 +3572,7 @@ export class TablesDB {
      * @param {boolean} params.encrypt - Toggle encryption for the column. Encryption enhances security by not storing any plain text values in the database. However, encrypted columns cannot be queried.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnString>}
+     * @deprecated This API has been deprecated since 1.9.0. Please use `TablesDB.createTextColumn` instead.
      */
     createStringColumn(params: { databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean }): Promise<Models.ColumnString>;
     /**
@@ -3300,6 +3685,7 @@ export class TablesDB {
      * @param {string} params.newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnString>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateTextColumn` instead.
      */
     updateStringColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string }): Promise<Models.ColumnString>;
     /**
@@ -3372,6 +3758,198 @@ export class TablesDB {
         }
         if (typeof size !== 'undefined') {
             payload['size'] = size;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a text column.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {boolean} params.array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnText>}
+     */
+    createTextColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean }): Promise<Models.ColumnText>;
+    /**
+     * Create a text column.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {string} xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {boolean} array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnText>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createTextColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnText>;
+    createTextColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (boolean)?]    
+    ): Promise<Models.ColumnText> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                array: rest[4] as boolean            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const array = params.array;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/text'.replace('{databaseId}', databaseId).replace('{tableId}', tableId);
+        const payload: Payload = {};
+        if (typeof key !== 'undefined') {
+            payload['key'] = key;
+        }
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof array !== 'undefined') {
+            payload['array'] = array;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a text column. Changing the `default` value will not update already existing rows.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnText>}
+     */
+    updateTextColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string }): Promise<Models.ColumnText>;
+    /**
+     * Update a text column. Changing the `default` value will not update already existing rows.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {string} xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {string} newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnText>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateTextColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.ColumnText>;
+    updateTextColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (string)?]    
+    ): Promise<Models.ColumnText> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                newKey: rest[4] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+        if (typeof xdefault === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "xdefault"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/text/{key}'.replace('{databaseId}', databaseId).replace('{tableId}', tableId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
         }
         if (typeof newKey !== 'undefined') {
             payload['newKey'] = newKey;
@@ -3564,6 +4142,215 @@ export class TablesDB {
         }
         if (typeof xdefault !== 'undefined') {
             payload['default'] = xdefault;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a varchar column.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} params.key - Column Key.
+     * @param {number} params.size - Column size for varchar columns, in number of characters. Maximum size is 16381.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {boolean} params.array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnVarchar>}
+     */
+    createVarcharColumn(params: { databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean }): Promise<Models.ColumnVarchar>;
+    /**
+     * Create a varchar column.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} key - Column Key.
+     * @param {number} size - Column size for varchar columns, in number of characters. Maximum size is 16381.
+     * @param {boolean} required - Is column required?
+     * @param {string} xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {boolean} array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnVarchar>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createVarcharColumn(databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean): Promise<Models.ColumnVarchar>;
+    createVarcharColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean } | string,
+        ...rest: [(string)?, (string)?, (number)?, (boolean)?, (string)?, (boolean)?]    
+    ): Promise<Models.ColumnVarchar> {
+        let params: { databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                size: rest[2] as number,
+                required: rest[3] as boolean,
+                xdefault: rest[4] as string,
+                array: rest[5] as boolean            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const size = params.size;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const array = params.array;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof size === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "size"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/varchar'.replace('{databaseId}', databaseId).replace('{tableId}', tableId);
+        const payload: Payload = {};
+        if (typeof key !== 'undefined') {
+            payload['key'] = key;
+        }
+        if (typeof size !== 'undefined') {
+            payload['size'] = size;
+        }
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof array !== 'undefined') {
+            payload['array'] = array;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a varchar column. Changing the `default` value will not update already existing rows.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {string} params.xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {number} params.size - Maximum size of the varchar column.
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnVarchar>}
+     */
+    updateVarcharColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string }): Promise<Models.ColumnVarchar>;
+    /**
+     * Update a varchar column. Changing the `default` value will not update already existing rows.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {string} xdefault - Default value for column when not provided. Cannot be set when column is required.
+     * @param {number} size - Maximum size of the varchar column.
+     * @param {string} newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnVarchar>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateVarcharColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string): Promise<Models.ColumnVarchar>;
+    updateVarcharColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (number)?, (string)?]    
+    ): Promise<Models.ColumnVarchar> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                size: rest[4] as number,
+                newKey: rest[5] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const size = params.size;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+        if (typeof xdefault === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "xdefault"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/varchar/{key}'.replace('{databaseId}', databaseId).replace('{tableId}', tableId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof size !== 'undefined') {
+            payload['size'] = size;
         }
         if (typeof newKey !== 'undefined') {
             payload['newKey'] = newKey;

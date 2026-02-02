@@ -2738,6 +2738,390 @@ export class Databases {
     }
 
     /**
+     * Create a longtext attribute.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} params.key - Attribute Key.
+     * @param {boolean} params.required - Is attribute required?
+     * @param {string} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {boolean} params.array - Is attribute an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeLongtext>}
+     */
+    createLongtextAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean }): Promise<Models.AttributeLongtext>;
+    /**
+     * Create a longtext attribute.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} key - Attribute Key.
+     * @param {boolean} required - Is attribute required?
+     * @param {string} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {boolean} array - Is attribute an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeLongtext>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createLongtextAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeLongtext>;
+    createLongtextAttribute(
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (boolean)?]    
+    ): Promise<Models.AttributeLongtext> {
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                collectionId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                array: rest[4] as boolean            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const collectionId = params.collectionId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const array = params.array;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/longtext'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const payload: Payload = {};
+        if (typeof key !== 'undefined') {
+            payload['key'] = key;
+        }
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof array !== 'undefined') {
+            payload['array'] = array;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a longtext attribute. Changing the `default` value will not update already existing documents.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} params.key - Attribute Key.
+     * @param {boolean} params.required - Is attribute required?
+     * @param {string} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {string} params.newKey - New Attribute Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeLongtext>}
+     */
+    updateLongtextAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string }): Promise<Models.AttributeLongtext>;
+    /**
+     * Update a longtext attribute. Changing the `default` value will not update already existing documents.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} key - Attribute Key.
+     * @param {boolean} required - Is attribute required?
+     * @param {string} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {string} newKey - New Attribute Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeLongtext>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateLongtextAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeLongtext>;
+    updateLongtextAttribute(
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (string)?]    
+    ): Promise<Models.AttributeLongtext> {
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                collectionId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                newKey: rest[4] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const collectionId = params.collectionId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+        if (typeof xdefault === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "xdefault"');
+        }
+
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/longtext/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a mediumtext attribute.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} params.key - Attribute Key.
+     * @param {boolean} params.required - Is attribute required?
+     * @param {string} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {boolean} params.array - Is attribute an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeMediumtext>}
+     */
+    createMediumtextAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean }): Promise<Models.AttributeMediumtext>;
+    /**
+     * Create a mediumtext attribute.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} key - Attribute Key.
+     * @param {boolean} required - Is attribute required?
+     * @param {string} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {boolean} array - Is attribute an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeMediumtext>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createMediumtextAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeMediumtext>;
+    createMediumtextAttribute(
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (boolean)?]    
+    ): Promise<Models.AttributeMediumtext> {
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                collectionId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                array: rest[4] as boolean            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const collectionId = params.collectionId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const array = params.array;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const payload: Payload = {};
+        if (typeof key !== 'undefined') {
+            payload['key'] = key;
+        }
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof array !== 'undefined') {
+            payload['array'] = array;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a mediumtext attribute. Changing the `default` value will not update already existing documents.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} params.key - Attribute Key.
+     * @param {boolean} params.required - Is attribute required?
+     * @param {string} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {string} params.newKey - New Attribute Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeMediumtext>}
+     */
+    updateMediumtextAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string }): Promise<Models.AttributeMediumtext>;
+    /**
+     * Update a mediumtext attribute. Changing the `default` value will not update already existing documents.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} key - Attribute Key.
+     * @param {boolean} required - Is attribute required?
+     * @param {string} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {string} newKey - New Attribute Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeMediumtext>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateMediumtextAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeMediumtext>;
+    updateMediumtextAttribute(
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (string)?]    
+    ): Promise<Models.AttributeMediumtext> {
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                collectionId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                newKey: rest[4] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const collectionId = params.collectionId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+        if (typeof xdefault === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "xdefault"');
+        }
+
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Create a geometric point attribute.
      *
      * @param {string} params.databaseId - Database ID.
@@ -3427,6 +3811,198 @@ export class Databases {
     }
 
     /**
+     * Create a text attribute.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} params.key - Attribute Key.
+     * @param {boolean} params.required - Is attribute required?
+     * @param {string} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {boolean} params.array - Is attribute an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeText>}
+     */
+    createTextAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean }): Promise<Models.AttributeText>;
+    /**
+     * Create a text attribute.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} key - Attribute Key.
+     * @param {boolean} required - Is attribute required?
+     * @param {string} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {boolean} array - Is attribute an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeText>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createTextAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeText>;
+    createTextAttribute(
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (boolean)?]    
+    ): Promise<Models.AttributeText> {
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                collectionId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                array: rest[4] as boolean            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const collectionId = params.collectionId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const array = params.array;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/text'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const payload: Payload = {};
+        if (typeof key !== 'undefined') {
+            payload['key'] = key;
+        }
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof array !== 'undefined') {
+            payload['array'] = array;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a text attribute. Changing the `default` value will not update already existing documents.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} params.key - Attribute Key.
+     * @param {boolean} params.required - Is attribute required?
+     * @param {string} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {string} params.newKey - New Attribute Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeText>}
+     */
+    updateTextAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string }): Promise<Models.AttributeText>;
+    /**
+     * Update a text attribute. Changing the `default` value will not update already existing documents.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} key - Attribute Key.
+     * @param {boolean} required - Is attribute required?
+     * @param {string} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {string} newKey - New Attribute Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeText>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateTextAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string): Promise<Models.AttributeText>;
+    updateTextAttribute(
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (string)?]    
+    ): Promise<Models.AttributeText> {
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                collectionId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                newKey: rest[4] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const collectionId = params.collectionId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+        if (typeof xdefault === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "xdefault"');
+        }
+
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/text/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Create a URL attribute.
      * 
      *
@@ -3602,6 +4178,215 @@ export class Databases {
         }
         if (typeof xdefault !== 'undefined') {
             payload['default'] = xdefault;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a varchar attribute.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} params.key - Attribute Key.
+     * @param {number} params.size - Attribute size for varchar attributes, in number of characters. Maximum size is 16381.
+     * @param {boolean} params.required - Is attribute required?
+     * @param {string} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {boolean} params.array - Is attribute an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeVarchar>}
+     */
+    createVarcharAttribute(params: { databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean }): Promise<Models.AttributeVarchar>;
+    /**
+     * Create a varchar attribute.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} key - Attribute Key.
+     * @param {number} size - Attribute size for varchar attributes, in number of characters. Maximum size is 16381.
+     * @param {boolean} required - Is attribute required?
+     * @param {string} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {boolean} array - Is attribute an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeVarchar>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createVarcharAttribute(databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean): Promise<Models.AttributeVarchar>;
+    createVarcharAttribute(
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean } | string,
+        ...rest: [(string)?, (string)?, (number)?, (boolean)?, (string)?, (boolean)?]    
+    ): Promise<Models.AttributeVarchar> {
+        let params: { databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                collectionId: rest[0] as string,
+                key: rest[1] as string,
+                size: rest[2] as number,
+                required: rest[3] as boolean,
+                xdefault: rest[4] as string,
+                array: rest[5] as boolean            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const collectionId = params.collectionId;
+        const key = params.key;
+        const size = params.size;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const array = params.array;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof size === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "size"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/varchar'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const payload: Payload = {};
+        if (typeof key !== 'undefined') {
+            payload['key'] = key;
+        }
+        if (typeof size !== 'undefined') {
+            payload['size'] = size;
+        }
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof array !== 'undefined') {
+            payload['array'] = array;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a varchar attribute. Changing the `default` value will not update already existing documents.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} params.key - Attribute Key.
+     * @param {boolean} params.required - Is attribute required?
+     * @param {string} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {number} params.size - Maximum size of the varchar attribute.
+     * @param {string} params.newKey - New Attribute Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeVarchar>}
+     */
+    updateVarcharAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string }): Promise<Models.AttributeVarchar>;
+    /**
+     * Update a varchar attribute. Changing the `default` value will not update already existing documents.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} key - Attribute Key.
+     * @param {boolean} required - Is attribute required?
+     * @param {string} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
+     * @param {number} size - Maximum size of the varchar attribute.
+     * @param {string} newKey - New Attribute Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeVarchar>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateVarcharAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string): Promise<Models.AttributeVarchar>;
+    updateVarcharAttribute(
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (string)?, (number)?, (string)?]    
+    ): Promise<Models.AttributeVarchar> {
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                collectionId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as string,
+                size: rest[4] as number,
+                newKey: rest[5] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const collectionId = params.collectionId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const size = params.size;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+        if (typeof xdefault === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "xdefault"');
+        }
+
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/varchar/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof size !== 'undefined') {
+            payload['size'] = size;
         }
         if (typeof newKey !== 'undefined') {
             payload['newKey'] = newKey;
