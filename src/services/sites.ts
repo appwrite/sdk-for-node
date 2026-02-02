@@ -24,7 +24,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.SiteList>}
      */
-    list(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.SiteList>;
+    list(params?: { queries?: string[], search?: string, total?: boolean }): Promise<Models.SiteList>;
     /**
      * Get a list of all the project's sites. You can use the query params to filter your results.
      *
@@ -105,7 +105,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Site>}
      */
-    create(params: { siteId: string, name: string, framework: Framework, buildRuntime: BuildRuntime, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, outputDirectory?: string, adapter?: Adapter, installationId?: string, fallbackFile?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string  }): Promise<Models.Site>;
+    create(params: { siteId: string, name: string, framework: Framework, buildRuntime: BuildRuntime, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, outputDirectory?: string, adapter?: Adapter, installationId?: string, fallbackFile?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string }): Promise<Models.Site>;
     /**
      * Create a new site.
      *
@@ -318,7 +318,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Site>}
      */
-    get(params: { siteId: string  }): Promise<Models.Site>;
+    get(params: { siteId: string }): Promise<Models.Site>;
     /**
      * Get a site by its unique ID.
      *
@@ -386,7 +386,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Site>}
      */
-    update(params: { siteId: string, name: string, framework: Framework, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, outputDirectory?: string, buildRuntime?: BuildRuntime, adapter?: Adapter, fallbackFile?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string  }): Promise<Models.Site>;
+    update(params: { siteId: string, name: string, framework: Framework, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, outputDirectory?: string, buildRuntime?: BuildRuntime, adapter?: Adapter, fallbackFile?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string }): Promise<Models.Site>;
     /**
      * Update site by its unique ID.
      *
@@ -547,7 +547,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    delete(params: { siteId: string  }): Promise<{}>;
+    delete(params: { siteId: string }): Promise<{}>;
     /**
      * Delete a site by its unique ID.
      *
@@ -600,7 +600,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Site>}
      */
-    updateSiteDeployment(params: { siteId: string, deploymentId: string  }): Promise<Models.Site>;
+    updateSiteDeployment(params: { siteId: string, deploymentId: string }): Promise<Models.Site>;
     /**
      * Update the site active deployment. Use this endpoint to switch the code deployment that should be used when visitor opens your site.
      *
@@ -665,7 +665,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.DeploymentList>}
      */
-    listDeployments(params: { siteId: string, queries?: string[], search?: string, total?: boolean  }): Promise<Models.DeploymentList>;
+    listDeployments(params: { siteId: string, queries?: string[], search?: string, total?: boolean }): Promise<Models.DeploymentList>;
     /**
      * Get a list of all the site's code deployments. You can use the query params to filter your results.
      *
@@ -740,7 +740,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createDeployment(params: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string , onProgress?: (progress: UploadProgress) => void }): Promise<Models.Deployment>;
+    createDeployment(params: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string, onProgress?: (progress: UploadProgress) => void }): Promise<Models.Deployment>;
     /**
      * Create a new site code deployment. Use this endpoint to upload a new version of your site code. To activate your newly uploaded code, you'll need to update the site's deployment to use your new deployment ID.
      *
@@ -756,7 +756,7 @@ export class Sites {
      */
     createDeployment(siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string, onProgress?: (progress: UploadProgress) => void): Promise<Models.Deployment>;
     createDeployment(
-        paramsOrFirst: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string, onProgress?: (progress: UploadProgress) => void  } | string,
+        paramsOrFirst: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string, onProgress?: (progress: UploadProgress) => void } | string,
         ...rest: [(File)?, (boolean)?, (string)?, (string)?, (string)?,((progress: UploadProgress) => void)?]    
     ): Promise<Models.Deployment> {
         let params: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string };
@@ -834,7 +834,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createDuplicateDeployment(params: { siteId: string, deploymentId: string  }): Promise<Models.Deployment>;
+    createDuplicateDeployment(params: { siteId: string, deploymentId: string }): Promise<Models.Deployment>;
     /**
      * Create a new build for an existing site deployment. This endpoint allows you to rebuild a deployment with the updated site configuration, including its commands and output directory if they have been modified. The build process will be queued and executed asynchronously. The original deployment's code will be preserved and used for the new build.
      *
@@ -904,7 +904,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createTemplateDeployment(params: { siteId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean  }): Promise<Models.Deployment>;
+    createTemplateDeployment(params: { siteId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean }): Promise<Models.Deployment>;
     /**
      * Create a deployment based on a template.
      * 
@@ -1015,7 +1015,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createVcsDeployment(params: { siteId: string, type: VCSReferenceType, reference: string, activate?: boolean  }): Promise<Models.Deployment>;
+    createVcsDeployment(params: { siteId: string, type: VCSReferenceType, reference: string, activate?: boolean }): Promise<Models.Deployment>;
     /**
      * Create a deployment when a site is connected to VCS.
      * 
@@ -1095,7 +1095,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    getDeployment(params: { siteId: string, deploymentId: string  }): Promise<Models.Deployment>;
+    getDeployment(params: { siteId: string, deploymentId: string }): Promise<Models.Deployment>;
     /**
      * Get a site deployment by its unique ID.
      *
@@ -1154,7 +1154,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteDeployment(params: { siteId: string, deploymentId: string  }): Promise<{}>;
+    deleteDeployment(params: { siteId: string, deploymentId: string }): Promise<{}>;
     /**
      * Delete a site deployment by its unique ID.
      *
@@ -1215,7 +1215,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    getDeploymentDownload(params: { siteId: string, deploymentId: string, type?: DeploymentDownloadType  }): Promise<ArrayBuffer>;
+    getDeploymentDownload(params: { siteId: string, deploymentId: string, type?: DeploymentDownloadType }): Promise<ArrayBuffer>;
     /**
      * Get a site deployment content by its unique ID. The endpoint response return with a 'Content-Disposition: attachment' header that tells the browser to start downloading the file to user downloads directory.
      *
@@ -1281,7 +1281,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    updateDeploymentStatus(params: { siteId: string, deploymentId: string  }): Promise<Models.Deployment>;
+    updateDeploymentStatus(params: { siteId: string, deploymentId: string }): Promise<Models.Deployment>;
     /**
      * Cancel an ongoing site deployment build. If the build is already in progress, it will be stopped and marked as canceled. If the build hasn't started yet, it will be marked as canceled without executing. You cannot cancel builds that have already completed (status 'ready') or failed. The response includes the final build status and details.
      *
@@ -1342,7 +1342,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.ExecutionList>}
      */
-    listLogs(params: { siteId: string, queries?: string[], total?: boolean  }): Promise<Models.ExecutionList>;
+    listLogs(params: { siteId: string, queries?: string[], total?: boolean }): Promise<Models.ExecutionList>;
     /**
      * Get a list of all site logs. You can use the query params to filter your results.
      *
@@ -1407,7 +1407,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Execution>}
      */
-    getLog(params: { siteId: string, logId: string  }): Promise<Models.Execution>;
+    getLog(params: { siteId: string, logId: string }): Promise<Models.Execution>;
     /**
      * Get a site request log by its unique ID.
      *
@@ -1466,7 +1466,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteLog(params: { siteId: string, logId: string  }): Promise<{}>;
+    deleteLog(params: { siteId: string, logId: string }): Promise<{}>;
     /**
      * Delete a site log by its unique ID.
      *
@@ -1525,7 +1525,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.VariableList>}
      */
-    listVariables(params: { siteId: string  }): Promise<Models.VariableList>;
+    listVariables(params: { siteId: string }): Promise<Models.VariableList>;
     /**
      * Get a list of all variables of a specific site.
      *
@@ -1579,7 +1579,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-    createVariable(params: { siteId: string, key: string, value: string, secret?: boolean  }): Promise<Models.Variable>;
+    createVariable(params: { siteId: string, key: string, value: string, secret?: boolean }): Promise<Models.Variable>;
     /**
      * Create a new site variable. These variables can be accessed during build and runtime (server-side rendering) as environment variables.
      *
@@ -1657,7 +1657,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-    getVariable(params: { siteId: string, variableId: string  }): Promise<Models.Variable>;
+    getVariable(params: { siteId: string, variableId: string }): Promise<Models.Variable>;
     /**
      * Get a variable by its unique ID.
      *
@@ -1719,7 +1719,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-    updateVariable(params: { siteId: string, variableId: string, key: string, value?: string, secret?: boolean  }): Promise<Models.Variable>;
+    updateVariable(params: { siteId: string, variableId: string, key: string, value?: string, secret?: boolean }): Promise<Models.Variable>;
     /**
      * Update variable by its unique ID.
      *
@@ -1800,7 +1800,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteVariable(params: { siteId: string, variableId: string  }): Promise<{}>;
+    deleteVariable(params: { siteId: string, variableId: string }): Promise<{}>;
     /**
      * Delete a variable by its unique ID.
      *

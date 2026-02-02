@@ -5,10 +5,13 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const databases = new sdk.Databases(client);
+const tablesDB = new sdk.TablesDB(client);
 
-const result = await databases.update({
+const result = await tablesDB.updateTextColumn({
     databaseId: '<DATABASE_ID>',
-    name: '<NAME>', // optional
-    enabled: false // optional
+    tableId: '<TABLE_ID>',
+    key: '',
+    required: false,
+    default: '<DEFAULT>',
+    newKey: '' // optional
 });

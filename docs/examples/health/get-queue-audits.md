@@ -5,10 +5,8 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const databases = new sdk.Databases(client);
+const health = new sdk.Health(client);
 
-const result = await databases.update({
-    databaseId: '<DATABASE_ID>',
-    name: '<NAME>', // optional
-    enabled: false // optional
+const result = await health.getQueueAudits({
+    threshold: null // optional
 });

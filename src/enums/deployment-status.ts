@@ -3,5 +3,6 @@ export enum DeploymentStatus {
     Processing = 'processing',
     Building = 'building',
     Ready = 'ready',
+    Canceled = 'canceled',
     Failed = 'failed',
 }

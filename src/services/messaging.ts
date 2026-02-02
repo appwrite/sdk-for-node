@@ -20,7 +20,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.MessageList>}
      */
-    listMessages(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.MessageList>;
+    listMessages(params?: { queries?: string[], search?: string, total?: boolean }): Promise<Models.MessageList>;
     /**
      * Get a list of all messages from the current Appwrite project.
      *
@@ -95,7 +95,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    createEmail(params: { messageId: string, subject: string, content: string, topics?: string[], users?: string[], targets?: string[], cc?: string[], bcc?: string[], attachments?: string[], draft?: boolean, html?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
+    createEmail(params: { messageId: string, subject: string, content: string, topics?: string[], users?: string[], targets?: string[], cc?: string[], bcc?: string[], attachments?: string[], draft?: boolean, html?: boolean, scheduledAt?: string }): Promise<Models.Message>;
     /**
      * Create a new email message.
      *
@@ -235,7 +235,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    updateEmail(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], subject?: string, content?: string, draft?: boolean, html?: boolean, cc?: string[], bcc?: string[], scheduledAt?: string, attachments?: string[]  }): Promise<Models.Message>;
+    updateEmail(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], subject?: string, content?: string, draft?: boolean, html?: boolean, cc?: string[], bcc?: string[], scheduledAt?: string, attachments?: string[] }): Promise<Models.Message>;
     /**
      * Update an email message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
      * 
@@ -373,7 +373,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    createPush(params: { messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority  }): Promise<Models.Message>;
+    createPush(params: { messageId: string, title?: string, body?: string, topics?: string[], users?: string[], targets?: string[], data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority }): Promise<Models.Message>;
     /**
      * Create a new push notification.
      *
@@ -556,7 +556,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    updatePush(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority  }): Promise<Models.Message>;
+    updatePush(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], title?: string, body?: string, data?: object, action?: string, image?: string, icon?: string, sound?: string, color?: string, tag?: string, badge?: number, draft?: boolean, scheduledAt?: string, contentAvailable?: boolean, critical?: boolean, priority?: MessagePriority }): Promise<Models.Message>;
     /**
      * Update a push notification by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
      * 
@@ -725,7 +725,7 @@ export class Messaging {
      * @returns {Promise<Models.Message>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.createSMS` instead.
      */
-    createSms(params: { messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
+    createSms(params: { messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string }): Promise<Models.Message>;
     /**
      * Create a new SMS message.
      *
@@ -826,7 +826,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    createSMS(params: { messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
+    createSMS(params: { messageId: string, content: string, topics?: string[], users?: string[], targets?: string[], draft?: boolean, scheduledAt?: string }): Promise<Models.Message>;
     /**
      * Create a new SMS message.
      *
@@ -929,7 +929,7 @@ export class Messaging {
      * @returns {Promise<Models.Message>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.updateSMS` instead.
      */
-    updateSms(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
+    updateSms(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string }): Promise<Models.Message>;
     /**
      * Update an SMS message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
      * 
@@ -1026,7 +1026,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    updateSMS(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string  }): Promise<Models.Message>;
+    updateSMS(params: { messageId: string, topics?: string[], users?: string[], targets?: string[], content?: string, draft?: boolean, scheduledAt?: string }): Promise<Models.Message>;
     /**
      * Update an SMS message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
      * 
@@ -1117,7 +1117,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
-    getMessage(params: { messageId: string  }): Promise<Models.Message>;
+    getMessage(params: { messageId: string }): Promise<Models.Message>;
     /**
      * Get a message by its unique ID.
      * 
@@ -1169,7 +1169,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    delete(params: { messageId: string  }): Promise<{}>;
+    delete(params: { messageId: string }): Promise<{}>;
     /**
      * Delete a message. If the message is not a draft or scheduled, but has been sent, this will not recall the message.
      *
@@ -1223,7 +1223,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    listMessageLogs(params: { messageId: string, queries?: string[], total?: boolean  }): Promise<Models.LogList>;
+    listMessageLogs(params: { messageId: string, queries?: string[], total?: boolean }): Promise<Models.LogList>;
     /**
      * Get the message activity logs listed by its unique ID.
      *
@@ -1289,7 +1289,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.TargetList>}
      */
-    listTargets(params: { messageId: string, queries?: string[], total?: boolean  }): Promise<Models.TargetList>;
+    listTargets(params: { messageId: string, queries?: string[], total?: boolean }): Promise<Models.TargetList>;
     /**
      * Get a list of the targets associated with a message.
      *
@@ -1355,7 +1355,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.ProviderList>}
      */
-    listProviders(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.ProviderList>;
+    listProviders(params?: { queries?: string[], search?: string, total?: boolean }): Promise<Models.ProviderList>;
     /**
      * Get a list of all providers from the current Appwrite project.
      *
@@ -1427,7 +1427,7 @@ export class Messaging {
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.createAPNSProvider` instead.
      */
-    createApnsProvider(params: { providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean  }): Promise<Models.Provider>;
+    createApnsProvider(params: { providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new Apple Push Notification service provider.
      *
@@ -1535,7 +1535,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    createAPNSProvider(params: { providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean  }): Promise<Models.Provider>;
+    createAPNSProvider(params: { providerId: string, name: string, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new Apple Push Notification service provider.
      *
@@ -1644,7 +1644,7 @@ export class Messaging {
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.updateAPNSProvider` instead.
      */
-    updateApnsProvider(params: { providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean  }): Promise<Models.Provider>;
+    updateApnsProvider(params: { providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean }): Promise<Models.Provider>;
     /**
      * Update a Apple Push Notification service provider by its unique ID.
      *
@@ -1746,7 +1746,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    updateAPNSProvider(params: { providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean  }): Promise<Models.Provider>;
+    updateAPNSProvider(params: { providerId: string, name?: string, enabled?: boolean, authKey?: string, authKeyId?: string, teamId?: string, bundleId?: string, sandbox?: boolean }): Promise<Models.Provider>;
     /**
      * Update a Apple Push Notification service provider by its unique ID.
      *
@@ -1845,7 +1845,7 @@ export class Messaging {
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.createFCMProvider` instead.
      */
-    createFcmProvider(params: { providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean  }): Promise<Models.Provider>;
+    createFcmProvider(params: { providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new Firebase Cloud Messaging provider.
      *
@@ -1925,7 +1925,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    createFCMProvider(params: { providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean  }): Promise<Models.Provider>;
+    createFCMProvider(params: { providerId: string, name: string, serviceAccountJSON?: object, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new Firebase Cloud Messaging provider.
      *
@@ -2006,7 +2006,7 @@ export class Messaging {
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.updateFCMProvider` instead.
      */
-    updateFcmProvider(params: { providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object  }): Promise<Models.Provider>;
+    updateFcmProvider(params: { providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object }): Promise<Models.Provider>;
     /**
      * Update a Firebase Cloud Messaging provider by its unique ID.
      *
@@ -2080,7 +2080,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    updateFCMProvider(params: { providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object  }): Promise<Models.Provider>;
+    updateFCMProvider(params: { providerId: string, name?: string, enabled?: boolean, serviceAccountJSON?: object }): Promise<Models.Provider>;
     /**
      * Update a Firebase Cloud Messaging provider by its unique ID.
      *
@@ -2160,7 +2160,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    createMailgunProvider(params: { providerId: string, name: string, apiKey?: string, domain?: string, isEuRegion?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    createMailgunProvider(params: { providerId: string, name: string, apiKey?: string, domain?: string, isEuRegion?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new Mailgun provider.
      *
@@ -2282,7 +2282,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    updateMailgunProvider(params: { providerId: string, name?: string, apiKey?: string, domain?: string, isEuRegion?: boolean, enabled?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string  }): Promise<Models.Provider>;
+    updateMailgunProvider(params: { providerId: string, name?: string, apiKey?: string, domain?: string, isEuRegion?: boolean, enabled?: boolean, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string }): Promise<Models.Provider>;
     /**
      * Update a Mailgun provider by its unique ID.
      *
@@ -2394,7 +2394,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    createMsg91Provider(params: { providerId: string, name: string, templateId?: string, senderId?: string, authKey?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    createMsg91Provider(params: { providerId: string, name: string, templateId?: string, senderId?: string, authKey?: string, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new MSG91 provider.
      *
@@ -2488,7 +2488,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    updateMsg91Provider(params: { providerId: string, name?: string, enabled?: boolean, templateId?: string, senderId?: string, authKey?: string  }): Promise<Models.Provider>;
+    updateMsg91Provider(params: { providerId: string, name?: string, enabled?: boolean, templateId?: string, senderId?: string, authKey?: string }): Promise<Models.Provider>;
     /**
      * Update a MSG91 provider by its unique ID.
      *
@@ -2578,7 +2578,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    createResendProvider(params: { providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    createResendProvider(params: { providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new Resend provider.
      *
@@ -2686,7 +2686,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    updateResendProvider(params: { providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string  }): Promise<Models.Provider>;
+    updateResendProvider(params: { providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string }): Promise<Models.Provider>;
     /**
      * Update a Resend provider by its unique ID.
      *
@@ -2788,7 +2788,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    createSendgridProvider(params: { providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    createSendgridProvider(params: { providerId: string, name: string, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new Sendgrid provider.
      *
@@ -2896,7 +2896,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    updateSendgridProvider(params: { providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string  }): Promise<Models.Provider>;
+    updateSendgridProvider(params: { providerId: string, name?: string, enabled?: boolean, apiKey?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string }): Promise<Models.Provider>;
     /**
      * Update a Sendgrid provider by its unique ID.
      *
@@ -3005,7 +3005,7 @@ export class Messaging {
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.createSMTPProvider` instead.
      */
-    createSmtpProvider(params: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    createSmtpProvider(params: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new SMTP provider.
      *
@@ -3158,7 +3158,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    createSMTPProvider(params: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    createSMTPProvider(params: { providerId: string, name: string, host: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new SMTP provider.
      *
@@ -3312,7 +3312,7 @@ export class Messaging {
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.updateSMTPProvider` instead.
      */
-    updateSmtpProvider(params: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    updateSmtpProvider(params: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Update a SMTP provider by its unique ID.
      *
@@ -3456,7 +3456,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    updateSMTPProvider(params: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    updateSMTPProvider(params: { providerId: string, name?: string, host?: string, port?: number, username?: string, password?: string, encryption?: SmtpEncryption, autoTLS?: boolean, mailer?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Update a SMTP provider by its unique ID.
      *
@@ -3592,7 +3592,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    createTelesignProvider(params: { providerId: string, name: string, from?: string, customerId?: string, apiKey?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    createTelesignProvider(params: { providerId: string, name: string, from?: string, customerId?: string, apiKey?: string, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new Telesign provider.
      *
@@ -3686,7 +3686,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    updateTelesignProvider(params: { providerId: string, name?: string, enabled?: boolean, customerId?: string, apiKey?: string, from?: string  }): Promise<Models.Provider>;
+    updateTelesignProvider(params: { providerId: string, name?: string, enabled?: boolean, customerId?: string, apiKey?: string, from?: string }): Promise<Models.Provider>;
     /**
      * Update a Telesign provider by its unique ID.
      *
@@ -3774,7 +3774,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    createTextmagicProvider(params: { providerId: string, name: string, from?: string, username?: string, apiKey?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    createTextmagicProvider(params: { providerId: string, name: string, from?: string, username?: string, apiKey?: string, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new Textmagic provider.
      *
@@ -3868,7 +3868,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    updateTextmagicProvider(params: { providerId: string, name?: string, enabled?: boolean, username?: string, apiKey?: string, from?: string  }): Promise<Models.Provider>;
+    updateTextmagicProvider(params: { providerId: string, name?: string, enabled?: boolean, username?: string, apiKey?: string, from?: string }): Promise<Models.Provider>;
     /**
      * Update a Textmagic provider by its unique ID.
      *
@@ -3956,7 +3956,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    createTwilioProvider(params: { providerId: string, name: string, from?: string, accountSid?: string, authToken?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    createTwilioProvider(params: { providerId: string, name: string, from?: string, accountSid?: string, authToken?: string, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new Twilio provider.
      *
@@ -4050,7 +4050,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    updateTwilioProvider(params: { providerId: string, name?: string, enabled?: boolean, accountSid?: string, authToken?: string, from?: string  }): Promise<Models.Provider>;
+    updateTwilioProvider(params: { providerId: string, name?: string, enabled?: boolean, accountSid?: string, authToken?: string, from?: string }): Promise<Models.Provider>;
     /**
      * Update a Twilio provider by its unique ID.
      *
@@ -4138,7 +4138,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    createVonageProvider(params: { providerId: string, name: string, from?: string, apiKey?: string, apiSecret?: string, enabled?: boolean  }): Promise<Models.Provider>;
+    createVonageProvider(params: { providerId: string, name: string, from?: string, apiKey?: string, apiSecret?: string, enabled?: boolean }): Promise<Models.Provider>;
     /**
      * Create a new Vonage provider.
      *
@@ -4232,7 +4232,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    updateVonageProvider(params: { providerId: string, name?: string, enabled?: boolean, apiKey?: string, apiSecret?: string, from?: string  }): Promise<Models.Provider>;
+    updateVonageProvider(params: { providerId: string, name?: string, enabled?: boolean, apiKey?: string, apiSecret?: string, from?: string }): Promise<Models.Provider>;
     /**
      * Update a Vonage provider by its unique ID.
      *
@@ -4316,7 +4316,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
-    getProvider(params: { providerId: string  }): Promise<Models.Provider>;
+    getProvider(params: { providerId: string }): Promise<Models.Provider>;
     /**
      * Get a provider by its unique ID.
      * 
@@ -4368,7 +4368,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteProvider(params: { providerId: string  }): Promise<{}>;
+    deleteProvider(params: { providerId: string }): Promise<{}>;
     /**
      * Delete a provider by its unique ID.
      *
@@ -4422,7 +4422,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    listProviderLogs(params: { providerId: string, queries?: string[], total?: boolean  }): Promise<Models.LogList>;
+    listProviderLogs(params: { providerId: string, queries?: string[], total?: boolean }): Promise<Models.LogList>;
     /**
      * Get the provider activity logs listed by its unique ID.
      *
@@ -4488,7 +4488,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    listSubscriberLogs(params: { subscriberId: string, queries?: string[], total?: boolean  }): Promise<Models.LogList>;
+    listSubscriberLogs(params: { subscriberId: string, queries?: string[], total?: boolean }): Promise<Models.LogList>;
     /**
      * Get the subscriber activity logs listed by its unique ID.
      *
@@ -4554,7 +4554,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.TopicList>}
      */
-    listTopics(params?: { queries?: string[], search?: string, total?: boolean  }): Promise<Models.TopicList>;
+    listTopics(params?: { queries?: string[], search?: string, total?: boolean }): Promise<Models.TopicList>;
     /**
      * Get a list of all topics from the current Appwrite project.
      *
@@ -4620,7 +4620,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      */
-    createTopic(params: { topicId: string, name: string, subscribe?: string[]  }): Promise<Models.Topic>;
+    createTopic(params: { topicId: string, name: string, subscribe?: string[] }): Promise<Models.Topic>;
     /**
      * Create a new topic.
      *
@@ -4692,7 +4692,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      */
-    getTopic(params: { topicId: string  }): Promise<Models.Topic>;
+    getTopic(params: { topicId: string }): Promise<Models.Topic>;
     /**
      * Get a topic by its unique ID.
      * 
@@ -4747,7 +4747,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      */
-    updateTopic(params: { topicId: string, name?: string, subscribe?: string[]  }): Promise<Models.Topic>;
+    updateTopic(params: { topicId: string, name?: string, subscribe?: string[] }): Promise<Models.Topic>;
     /**
      * Update a topic by its unique ID.
      * 
@@ -4813,7 +4813,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteTopic(params: { topicId: string  }): Promise<{}>;
+    deleteTopic(params: { topicId: string }): Promise<{}>;
     /**
      * Delete a topic by its unique ID.
      *
@@ -4867,7 +4867,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.LogList>}
      */
-    listTopicLogs(params: { topicId: string, queries?: string[], total?: boolean  }): Promise<Models.LogList>;
+    listTopicLogs(params: { topicId: string, queries?: string[], total?: boolean }): Promise<Models.LogList>;
     /**
      * Get the topic activity logs listed by its unique ID.
      *
@@ -4934,7 +4934,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.SubscriberList>}
      */
-    listSubscribers(params: { topicId: string, queries?: string[], search?: string, total?: boolean  }): Promise<Models.SubscriberList>;
+    listSubscribers(params: { topicId: string, queries?: string[], search?: string, total?: boolean }): Promise<Models.SubscriberList>;
     /**
      * Get a list of all subscribers from the current Appwrite project.
      *
@@ -5006,7 +5006,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Subscriber>}
      */
-    createSubscriber(params: { topicId: string, subscriberId: string, targetId: string  }): Promise<Models.Subscriber>;
+    createSubscriber(params: { topicId: string, subscriberId: string, targetId: string }): Promise<Models.Subscriber>;
     /**
      * Create a new subscriber.
      *
@@ -5079,7 +5079,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Subscriber>}
      */
-    getSubscriber(params: { topicId: string, subscriberId: string  }): Promise<Models.Subscriber>;
+    getSubscriber(params: { topicId: string, subscriberId: string }): Promise<Models.Subscriber>;
     /**
      * Get a subscriber by its unique ID.
      * 
@@ -5139,7 +5139,7 @@ export class Messaging {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteSubscriber(params: { topicId: string, subscriberId: string  }): Promise<{}>;
+    deleteSubscriber(params: { topicId: string, subscriberId: string }): Promise<{}>;
     /**
      * Delete a subscriber by its unique ID.
      *
