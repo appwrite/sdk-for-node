@@ -21,9 +21,6 @@ export enum BuildRuntime {
     Python312 = 'python-3.12',
     Pythonml311 = 'python-ml-3.11',
     Pythonml312 = 'python-ml-3.12',
-    Deno121 = 'deno-1.21',
-    Deno124 = 'deno-1.24',
-    Deno135 = 'deno-1.35',
     Deno140 = 'deno-1.40',
     Deno146 = 'deno-1.46',
     Deno20 = 'deno-2.0',
@@ -38,6 +35,7 @@ export enum BuildRuntime {
     Dart35 = 'dart-3.5',
     Dart38 = 'dart-3.8',
     Dart39 = 'dart-3.9',
+    Dart310 = 'dart-3.10',
     Dotnet60 = 'dotnet-6.0',
     Dotnet70 = 'dotnet-7.0',
     Dotnet80 = 'dotnet-8.0',
@@ -66,4 +64,5 @@ export enum BuildRuntime {
     Flutter329 = 'flutter-3.29',
     Flutter332 = 'flutter-3.32',
     Flutter335 = 'flutter-3.35',
+    Flutter338 = 'flutter-3.38',
 }

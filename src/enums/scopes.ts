@@ -54,4 +54,12 @@ export enum Scopes {
     AssistantRead = 'assistant.read',
     TokensRead = 'tokens.read',
     TokensWrite = 'tokens.write',
+    PoliciesWrite = 'policies.write',
+    PoliciesRead = 'policies.read',
+    ArchivesRead = 'archives.read',
+    ArchivesWrite = 'archives.write',
+    RestorationsRead = 'restorations.read',
+    RestorationsWrite = 'restorations.write',
+    DomainsRead = 'domains.read',
+    DomainsWrite = 'domains.write',
 }
