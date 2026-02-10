@@ -1,5 +1,12 @@
 # Change Log
 
+## 22.0.1
+
+* Update SDK as per latest server specs, these include -
+    * Introduces Backups module for managing Database backups
+    * Introduces Organization module
+    * Introduce Account level keys, Backup Service & Models
+
 ## 20.3.0
 
 * Add `total` parameter to list queries allowing skipping counting rows in a table for improved performance
@@ -43,7 +50,8 @@
 ## 16.0.0
 
 * Fix: remove content-type from GET requests
-* Update (breaking): min and max params are now optional in `updateFloatAttribute` and `updateIntegerAttribute` methods (changes their positioning in method definition)
+* Update (breaking): min and max params are now optional in `updateFloatAttribute` and `updateIntegerAttribute`
+  methods (changes their positioning in method definition)
 
 ## 15.0.1
 
@@ -85,4 +93,5 @@
     * Rename `templateBranch` to `templateVersion`  in `createFunction()`.
     * Rename `downloadDeployment()` to `getDeploymentDownload()`
 
-> You can find the new syntax for breaking changes in the [Appwrite API references](https://appwrite.io/docs/references). Select version `1.6.x`.
+> You can find the new syntax for breaking changes in
+> the [Appwrite API references](https://appwrite.io/docs/references). Select version `1.6.x`.
