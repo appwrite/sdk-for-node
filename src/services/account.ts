@@ -1,6 +1,7 @@
 import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
 import type { Models } from '../models';
 
+import { Scopes } from '../enums/scopes';
 import { AuthenticatorType } from '../enums/authenticator-type';
 import { AuthenticationFactor } from '../enums/authentication-factor';
 import { OAuthProvider } from '../enums/o-auth-provider';
@@ -345,6 +346,313 @@ export class Account {
 
         return this.client.call(
             'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Get a list of all API keys from the current account. 
+     *
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.KeyList>}
+     */
+    listKeys(params?: { total?: boolean }): Promise<Models.KeyList>;
+    /**
+     * Get a list of all API keys from the current account. 
+     *
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.KeyList>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    listKeys(total?: boolean): Promise<Models.KeyList>;
+    listKeys(
+        paramsOrFirst?: { total?: boolean } | boolean    
+    ): Promise<Models.KeyList> {
+        let params: { total?: boolean };
+        
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { total?: boolean };
+        } else {
+            params = {
+                total: paramsOrFirst as boolean            
+            };
+        }
+        
+        const total = params.total;
+
+
+        const apiPath = '/account/keys';
+        const payload: Payload = {};
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a new account API key.
+     *
+     * @param {string} params.name - Key name. Max length: 128 chars.
+     * @param {Scopes[]} params.scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {string} params.expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Key>}
+     */
+    createKey(params: { name: string, scopes: Scopes[], expire?: string }): Promise<Models.Key>;
+    /**
+     * Create a new account API key.
+     *
+     * @param {string} name - Key name. Max length: 128 chars.
+     * @param {Scopes[]} scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {string} expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Key>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createKey(name: string, scopes: Scopes[], expire?: string): Promise<Models.Key>;
+    createKey(
+        paramsOrFirst: { name: string, scopes: Scopes[], expire?: string } | string,
+        ...rest: [(Scopes[])?, (string)?]    
+    ): Promise<Models.Key> {
+        let params: { name: string, scopes: Scopes[], expire?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { name: string, scopes: Scopes[], expire?: string };
+        } else {
+            params = {
+                name: paramsOrFirst as string,
+                scopes: rest[0] as Scopes[],
+                expire: rest[1] as string            
+            };
+        }
+        
+        const name = params.name;
+        const scopes = params.scopes;
+        const expire = params.expire;
+
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+        if (typeof scopes === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "scopes"');
+        }
+
+        const apiPath = '/account/keys';
+        const payload: Payload = {};
+        if (typeof name !== 'undefined') {
+            payload['name'] = name;
+        }
+        if (typeof scopes !== 'undefined') {
+            payload['scopes'] = scopes;
+        }
+        if (typeof expire !== 'undefined') {
+            payload['expire'] = expire;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Get a key by its unique ID. This endpoint returns details about a specific API key in your account including it's scopes.
+     *
+     * @param {string} params.keyId - Key unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Key>}
+     */
+    getKey(params: { keyId: string }): Promise<Models.Key>;
+    /**
+     * Get a key by its unique ID. This endpoint returns details about a specific API key in your account including it's scopes.
+     *
+     * @param {string} keyId - Key unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Key>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getKey(keyId: string): Promise<Models.Key>;
+    getKey(
+        paramsOrFirst: { keyId: string } | string    
+    ): Promise<Models.Key> {
+        let params: { keyId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { keyId: string };
+        } else {
+            params = {
+                keyId: paramsOrFirst as string            
+            };
+        }
+        
+        const keyId = params.keyId;
+
+        if (typeof keyId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "keyId"');
+        }
+
+        const apiPath = '/account/keys/{keyId}'.replace('{keyId}', keyId);
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
+     *
+     * @param {string} params.keyId - Key unique ID.
+     * @param {string} params.name - Key name. Max length: 128 chars.
+     * @param {Scopes[]} params.scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {string} params.expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Key>}
+     */
+    updateKey(params: { keyId: string, name: string, scopes: Scopes[], expire?: string }): Promise<Models.Key>;
+    /**
+     * Update a key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
+     *
+     * @param {string} keyId - Key unique ID.
+     * @param {string} name - Key name. Max length: 128 chars.
+     * @param {Scopes[]} scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {string} expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Key>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateKey(keyId: string, name: string, scopes: Scopes[], expire?: string): Promise<Models.Key>;
+    updateKey(
+        paramsOrFirst: { keyId: string, name: string, scopes: Scopes[], expire?: string } | string,
+        ...rest: [(string)?, (Scopes[])?, (string)?]    
+    ): Promise<Models.Key> {
+        let params: { keyId: string, name: string, scopes: Scopes[], expire?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { keyId: string, name: string, scopes: Scopes[], expire?: string };
+        } else {
+            params = {
+                keyId: paramsOrFirst as string,
+                name: rest[0] as string,
+                scopes: rest[1] as Scopes[],
+                expire: rest[2] as string            
+            };
+        }
+        
+        const keyId = params.keyId;
+        const name = params.name;
+        const scopes = params.scopes;
+        const expire = params.expire;
+
+        if (typeof keyId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "keyId"');
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+        if (typeof scopes === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "scopes"');
+        }
+
+        const apiPath = '/account/keys/{keyId}'.replace('{keyId}', keyId);
+        const payload: Payload = {};
+        if (typeof name !== 'undefined') {
+            payload['name'] = name;
+        }
+        if (typeof scopes !== 'undefined') {
+            payload['scopes'] = scopes;
+        }
+        if (typeof expire !== 'undefined') {
+            payload['expire'] = expire;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'put',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Delete a key by its unique ID. Once deleted, the key can no longer be used to authenticate API calls.
+     *
+     * @param {string} params.keyId - Key unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deleteKey(params: { keyId: string }): Promise<{}>;
+    /**
+     * Delete a key by its unique ID. Once deleted, the key can no longer be used to authenticate API calls.
+     *
+     * @param {string} keyId - Key unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    deleteKey(keyId: string): Promise<{}>;
+    deleteKey(
+        paramsOrFirst: { keyId: string } | string    
+    ): Promise<{}> {
+        let params: { keyId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { keyId: string };
+        } else {
+            params = {
+                keyId: paramsOrFirst as string            
+            };
+        }
+        
+        const keyId = params.keyId;
+
+        if (typeof keyId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "keyId"');
+        }
+
+        const apiPath = '/account/keys/{keyId}'.replace('{keyId}', keyId);
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'delete',
             uri,
             apiHeaders,
             payload,
@@ -2338,7 +2646,7 @@ export class Account {
      * 
      * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      *
-     * @param {OAuthProvider} params.provider - OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, authentik, autodesk, bitbucket, bitly, box, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, github, gitlab, google, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, yahoo, yammer, yandex, zoho, zoom.
+     * @param {OAuthProvider} params.provider - OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, authentik, autodesk, bitbucket, bitly, box, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, github, gitlab, google, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, yahoo, yammer, yandex, zoho, zoom, githubImagine, googleImagine.
      * @param {string} params.success - URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param {string} params.failure - URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param {string[]} params.scopes - A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 4096 characters long.
@@ -2353,7 +2661,7 @@ export class Account {
      * 
      * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      *
-     * @param {OAuthProvider} provider - OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, authentik, autodesk, bitbucket, bitly, box, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, github, gitlab, google, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, yahoo, yammer, yandex, zoho, zoom.
+     * @param {OAuthProvider} provider - OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, authentik, autodesk, bitbucket, bitly, box, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, github, gitlab, google, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, yahoo, yammer, yandex, zoho, zoom, githubImagine, googleImagine.
      * @param {string} success - URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param {string} failure - URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param {string[]} scopes - A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 4096 characters long.
