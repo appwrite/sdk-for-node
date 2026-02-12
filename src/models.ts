@@ -325,20 +325,6 @@ export namespace Models {
     }
 
     /**
-     * API Keys List
-     */
-    export type KeyList = {
-        /**
-         * Total number of keys that matched your query.
-         */
-        total: number;
-        /**
-         * List of keys.
-         */
-        keys: Key[];
-    }
-
-    /**
      * Countries List
      */
     export type CountryList = {
@@ -3778,48 +3764,6 @@ export namespace Models {
     }
 
     /**
-     * Key
-     */
-    export type Key = {
-        /**
-         * Key ID.
-         */
-        $id: string;
-        /**
-         * Key creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Key update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * Key name.
-         */
-        name: string;
-        /**
-         * Key expiration date in ISO 8601 format.
-         */
-        expire: string;
-        /**
-         * Allowed permission scopes.
-         */
-        scopes: string[];
-        /**
-         * Secret key.
-         */
-        secret: string;
-        /**
-         * Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
-         */
-        accessedAt: string;
-        /**
-         * List of SDK user agents that used this key.
-         */
-        sdks: string[];
-    }
-
-    /**
      * Variable
      */
     export type Variable = {
@@ -4456,100 +4400,6 @@ export namespace Models {
     }
 
     /**
-     * Invoice
-     */
-    export type Invoice = {
-        /**
-         * Invoice ID.
-         */
-        $id: string;
-        /**
-         * Invoice creation time in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Invoice update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * Invoice permissions. [Learn more about permissions](/docs/permissions).
-         */
-        $permissions: string[];
-        /**
-         * Project ID
-         */
-        teamId: string;
-        /**
-         * Aggregation ID
-         */
-        aggregationId: string;
-        /**
-         * Billing plan selected. Can be one of `tier-0`, `tier-1` or `tier-2`.
-         */
-        plan: string;
-        /**
-         * Usage breakdown per resource
-         */
-        usage: UsageResources[];
-        /**
-         * Invoice Amount
-         */
-        amount: number;
-        /**
-         * Tax percentage
-         */
-        tax: number;
-        /**
-         * Tax amount
-         */
-        taxAmount: number;
-        /**
-         * VAT percentage
-         */
-        vat: number;
-        /**
-         * VAT amount
-         */
-        vatAmount: number;
-        /**
-         * Gross amount after vat, tax, and discounts applied.
-         */
-        grossAmount: number;
-        /**
-         * Credits used.
-         */
-        creditsUsed: number;
-        /**
-         * Currency the invoice is in
-         */
-        currency: string;
-        /**
-         * Client secret for processing failed payments in front-end
-         */
-        clientSecret: string;
-        /**
-         * Invoice status
-         */
-        status: string;
-        /**
-         * Last payment error associated with the invoice
-         */
-        lastError: string;
-        /**
-         * Invoice due date.
-         */
-        dueAt: string;
-        /**
-         * Beginning date of the invoice
-         */
-        from: string;
-        /**
-         * End date of the invoice
-         */
-        to: string;
-    }
-
-    /**
      * backup
      */
     export type BackupPolicy = {
@@ -4647,46 +4497,6 @@ export namespace Models {
          * Optional data in key-value object. 
          */
         options: string;
-    }
-
-    /**
-     * UsageResource
-     */
-    export type UsageResources = {
-        /**
-         * Invoice name
-         */
-        name: string;
-        /**
-         * Invoice value
-         */
-        value: number;
-        /**
-         * Invoice amount
-         */
-        amount: number;
-        /**
-         * Invoice rate
-         */
-        rate: number;
-        /**
-         * Invoice description
-         */
-        desc: string;
-        /**
-         * Resource ID
-         */
-        resourceId: string;
-    }
-
-    /**
-     * EstimationDeleteOrganization
-     */
-    export type EstimationDeleteOrganization = {
-        /**
-         * List of unpaid invoices
-         */
-        unpaidInvoices: Invoice[];
     }
 
     /**
