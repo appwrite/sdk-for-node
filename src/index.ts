@@ -47,7 +47,6 @@ export { BuildRuntime } from './enums/build-runtime';
 export { Adapter } from './enums/adapter';
 export { Compression } from './enums/compression';
 export { ImageGravity } from './enums/image-gravity';
-export { Roles } from './enums/roles';
 export { PasswordHash } from './enums/password-hash';
 export { MessagingProviderType } from './enums/messaging-provider-type';
 export { DatabaseType } from './enums/database-type';

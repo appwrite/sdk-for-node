@@ -608,6 +608,14 @@ export namespace Models {
          * Collection indexes.
          */
         indexes: Index[];
+        /**
+         * Maximum document size in bytes. Returns 0 when no limit applies.
+         */
+        bytesMax: number;
+        /**
+         * Currently used document size in bytes based on defined attributes.
+         */
+        bytesUsed: number;
     }
 
     /**
@@ -1449,11 +1457,19 @@ export namespace Models {
         /**
          * Table columns.
          */
-        columns: (Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnPoint | Models.ColumnLine | Models.ColumnPolygon | Models.ColumnString)[];
+        columns: (Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnPoint | Models.ColumnLine | Models.ColumnPolygon | Models.ColumnVarchar | Models.ColumnText | Models.ColumnMediumtext | Models.ColumnLongtext | Models.ColumnString)[];
         /**
          * Table indexes.
          */
         indexes: ColumnIndex[];
+        /**
+         * Maximum row size in bytes. Returns 0 when no limit applies.
+         */
+        bytesMax: number;
+        /**
+         * Currently used row size in bytes based on defined columns.
+         */
+        bytesUsed: number;
     }
 
     /**
@@ -1467,7 +1483,7 @@ export namespace Models {
         /**
          * List of columns.
          */
-        columns: (Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnPoint | Models.ColumnLine | Models.ColumnPolygon | Models.ColumnString)[];
+        columns: (Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnPoint | Models.ColumnLine | Models.ColumnPolygon | Models.ColumnVarchar | Models.ColumnText | Models.ColumnMediumtext | Models.ColumnLongtext | Models.ColumnString)[];
     }
 
     /**

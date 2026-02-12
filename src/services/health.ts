@@ -466,7 +466,7 @@ export class Health {
     ): Promise<Models.HealthQueue> {
         let params: { name: Name, threshold?: number };
         
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && 'name' in paramsOrFirst)) {
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('name' in paramsOrFirst || 'threshold' in paramsOrFirst))) {
             params = (paramsOrFirst || {}) as { name: Name, threshold?: number };
         } else {
             params = {
