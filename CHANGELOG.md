@@ -1,8 +1,9 @@
 # Change Log
 
-## 22.0.1
+## 22.1.0
 
 * Fix doc examples with proper formatting
+* Add support for the new `Backups` service
 
 ## 22.0.0
 
