@@ -733,65 +733,62 @@ export class Sites {
      *
      * @param {string} params.siteId - Site ID.
      * @param {File} params.code - Gzip file with your code package. When used with the Appwrite CLI, pass the path to your code directory, and the CLI will automatically package your code. Use a path that is within the current directory.
-     * @param {boolean} params.activate - Automatically activate the deployment when it is finished building.
      * @param {string} params.installCommand - Install Commands.
      * @param {string} params.buildCommand - Build Commands.
      * @param {string} params.outputDirectory - Output Directory.
+     * @param {boolean} params.activate - Automatically activate the deployment when it is finished building.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createDeployment(params: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string, onProgress?: (progress: UploadProgress) => void }): Promise<Models.Deployment>;
+    createDeployment(params: { siteId: string, code: File, installCommand?: string, buildCommand?: string, outputDirectory?: string, activate?: boolean, onProgress?: (progress: UploadProgress) => void }): Promise<Models.Deployment>;
     /**
      * Create a new site code deployment. Use this endpoint to upload a new version of your site code. To activate your newly uploaded code, you'll need to update the site's deployment to use your new deployment ID.
      *
      * @param {string} siteId - Site ID.
      * @param {File} code - Gzip file with your code package. When used with the Appwrite CLI, pass the path to your code directory, and the CLI will automatically package your code. Use a path that is within the current directory.
-     * @param {boolean} activate - Automatically activate the deployment when it is finished building.
      * @param {string} installCommand - Install Commands.
      * @param {string} buildCommand - Build Commands.
      * @param {string} outputDirectory - Output Directory.
+     * @param {boolean} activate - Automatically activate the deployment when it is finished building.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createDeployment(siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string, onProgress?: (progress: UploadProgress) => void): Promise<Models.Deployment>;
+    createDeployment(siteId: string, code: File, installCommand?: string, buildCommand?: string, outputDirectory?: string, activate?: boolean, onProgress?: (progress: UploadProgress) => void): Promise<Models.Deployment>;
     createDeployment(
-        paramsOrFirst: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string, onProgress?: (progress: UploadProgress) => void } | string,
-        ...rest: [(File)?, (boolean)?, (string)?, (string)?, (string)?,((progress: UploadProgress) => void)?]    
+        paramsOrFirst: { siteId: string, code: File, installCommand?: string, buildCommand?: string, outputDirectory?: string, activate?: boolean, onProgress?: (progress: UploadProgress) => void } | string,
+        ...rest: [(File)?, (string)?, (string)?, (string)?, (boolean)?,((progress: UploadProgress) => void)?]    
     ): Promise<Models.Deployment> {
-        let params: { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string };
+        let params: { siteId: string, code: File, installCommand?: string, buildCommand?: string, outputDirectory?: string, activate?: boolean };
         let onProgress: ((progress: UploadProgress) => void);
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, code: File, activate: boolean, installCommand?: string, buildCommand?: string, outputDirectory?: string };
+            params = (paramsOrFirst || {}) as { siteId: string, code: File, installCommand?: string, buildCommand?: string, outputDirectory?: string, activate?: boolean };
             onProgress = paramsOrFirst?.onProgress as ((progress: UploadProgress) => void);
         } else {
             params = {
                 siteId: paramsOrFirst as string,
                 code: rest[0] as File,
-                activate: rest[1] as boolean,
-                installCommand: rest[2] as string,
-                buildCommand: rest[3] as string,
-                outputDirectory: rest[4] as string            
+                installCommand: rest[1] as string,
+                buildCommand: rest[2] as string,
+                outputDirectory: rest[3] as string,
+                activate: rest[4] as boolean            
             };
             onProgress = rest[5] as ((progress: UploadProgress) => void);
         }
         
         const siteId = params.siteId;
         const code = params.code;
-        const activate = params.activate;
         const installCommand = params.installCommand;
         const buildCommand = params.buildCommand;
         const outputDirectory = params.outputDirectory;
+        const activate = params.activate;
 
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof code === 'undefined') {
             throw new AppwriteException('Missing required parameter: "code"');
-        }
-        if (typeof activate === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "activate"');
         }
 
         const apiPath = '/sites/{siteId}/deployments'.replace('{siteId}', siteId);

@@ -1,20 +1,8 @@
 # Change Log
 
-## 22.1.2
-
-* Fix very large double values (for example 1.7976931348623157e+308) from being expanded into giant integer literals
-
-## 22.1.1
-
-* Removed unused BigNumber import from src/client.ts to clean up dependencies
-* Updated documentation examples to include the new encrypt option for text-like attributes (encrypt: false) across multiple examples
-* Updated README to specify Appwrite server compatibility with 1.8.x
-* Repo cleanup: removed obsolete GitHub workflow and issue template files as part of repository cleanup (non-breaking)
-
 ## 22.0.1
 
 * Fix doc examples with proper formatting
-* Add support for the new `Backups` service
 
 ## 22.0.0
 

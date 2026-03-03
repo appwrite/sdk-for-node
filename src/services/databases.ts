@@ -1134,7 +1134,7 @@ export class Databases {
      * 
      *
      * @param {string} params.databaseId - Database ID.
-     * @param {string} params.collectionId - Collection ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
      * @param {boolean} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
@@ -1149,7 +1149,7 @@ export class Databases {
      * 
      *
      * @param {string} databaseId - Database ID.
-     * @param {string} collectionId - Collection ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
      * @param {boolean} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
@@ -3607,6 +3607,90 @@ export class Databases {
     }
 
     /**
+     * Update relationship attribute. [Learn more about relationship attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.collectionId - Collection ID.
+     * @param {string} params.key - Attribute Key.
+     * @param {RelationMutate} params.onDelete - Constraints option
+     * @param {string} params.newKey - New Attribute Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeRelationship>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateRelationshipColumn` instead.
+     */
+    updateRelationshipAttribute(params: { databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string }): Promise<Models.AttributeRelationship>;
+    /**
+     * Update relationship attribute. [Learn more about relationship attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} collectionId - Collection ID.
+     * @param {string} key - Attribute Key.
+     * @param {RelationMutate} onDelete - Constraints option
+     * @param {string} newKey - New Attribute Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeRelationship>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateRelationshipAttribute(databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string): Promise<Models.AttributeRelationship>;
+    updateRelationshipAttribute(
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (RelationMutate)?, (string)?]    
+    ): Promise<Models.AttributeRelationship> {
+        let params: { databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                collectionId: rest[0] as string,
+                key: rest[1] as string,
+                onDelete: rest[2] as RelationMutate,
+                newKey: rest[3] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const collectionId = params.collectionId;
+        const key = params.key;
+        const onDelete = params.onDelete;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/relationship/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof onDelete !== 'undefined') {
+            payload['onDelete'] = onDelete;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Create a string attribute.
      * 
      *
@@ -4569,90 +4653,6 @@ export class Databases {
     }
 
     /**
-     * Update relationship attribute. [Learn more about relationship attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
-     * 
-     *
-     * @param {string} params.databaseId - Database ID.
-     * @param {string} params.collectionId - Collection ID.
-     * @param {string} params.key - Attribute Key.
-     * @param {RelationMutate} params.onDelete - Constraints option
-     * @param {string} params.newKey - New Attribute Key.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.AttributeRelationship>}
-     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateRelationshipColumn` instead.
-     */
-    updateRelationshipAttribute(params: { databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string }): Promise<Models.AttributeRelationship>;
-    /**
-     * Update relationship attribute. [Learn more about relationship attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
-     * 
-     *
-     * @param {string} databaseId - Database ID.
-     * @param {string} collectionId - Collection ID.
-     * @param {string} key - Attribute Key.
-     * @param {RelationMutate} onDelete - Constraints option
-     * @param {string} newKey - New Attribute Key.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.AttributeRelationship>}
-     * @deprecated Use the object parameter style method for a better developer experience.
-     */
-    updateRelationshipAttribute(databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string): Promise<Models.AttributeRelationship>;
-    updateRelationshipAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string } | string,
-        ...rest: [(string)?, (string)?, (RelationMutate)?, (string)?]    
-    ): Promise<Models.AttributeRelationship> {
-        let params: { databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, onDelete?: RelationMutate, newKey?: string };
-        } else {
-            params = {
-                databaseId: paramsOrFirst as string,
-                collectionId: rest[0] as string,
-                key: rest[1] as string,
-                onDelete: rest[2] as RelationMutate,
-                newKey: rest[3] as string            
-            };
-        }
-        
-        const databaseId = params.databaseId;
-        const collectionId = params.collectionId;
-        const key = params.key;
-        const onDelete = params.onDelete;
-        const newKey = params.newKey;
-
-        if (typeof databaseId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
-        if (typeof collectionId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "collectionId"');
-        }
-        if (typeof key === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "key"');
-        }
-
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/{key}/relationship'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
-        const payload: Payload = {};
-        if (typeof onDelete !== 'undefined') {
-            payload['onDelete'] = onDelete;
-        }
-        if (typeof newKey !== 'undefined') {
-            payload['newKey'] = newKey;
-        }
-        const uri = new URL(this.client.config.endpoint + apiPath);
-
-        const apiHeaders: { [header: string]: string } = {
-            'content-type': 'application/json',
-        }
-
-        return this.client.call(
-            'patch',
-            uri,
-            apiHeaders,
-            payload,
-        );
-    }
-
-    /**
      * Get a list of all the user's documents in a given collection. You can use the query params to filter your results.
      *
      * @param {string} params.databaseId - Database ID.
@@ -4660,11 +4660,12 @@ export class Databases {
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param {string} params.transactionId - Transaction ID to read uncommitted changes within the transaction.
      * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @param {number} params.ttl - TTL (seconds) for cached responses when caching is enabled for select queries. Must be between 0 and 86400 (24 hours).
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.listRows` instead.
      */
-    listDocuments<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, queries?: string[], transactionId?: string, total?: boolean }): Promise<Models.DocumentList<Document>>;
+    listDocuments<Document extends Models.Document = Models.DefaultDocument>(params: { databaseId: string, collectionId: string, queries?: string[], transactionId?: string, total?: boolean, ttl?: number }): Promise<Models.DocumentList<Document>>;
     /**
      * Get a list of all the user's documents in a given collection. You can use the query params to filter your results.
      *
@@ -4673,26 +4674,28 @@ export class Databases {
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param {string} transactionId - Transaction ID to read uncommitted changes within the transaction.
      * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @param {number} ttl - TTL (seconds) for cached responses when caching is enabled for select queries. Must be between 0 and 86400 (24 hours).
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listDocuments<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, queries?: string[], transactionId?: string, total?: boolean): Promise<Models.DocumentList<Document>>;
+    listDocuments<Document extends Models.Document = Models.DefaultDocument>(databaseId: string, collectionId: string, queries?: string[], transactionId?: string, total?: boolean, ttl?: number): Promise<Models.DocumentList<Document>>;
     listDocuments<Document extends Models.Document = Models.DefaultDocument>(
-        paramsOrFirst: { databaseId: string, collectionId: string, queries?: string[], transactionId?: string, total?: boolean } | string,
-        ...rest: [(string)?, (string[])?, (string)?, (boolean)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, queries?: string[], transactionId?: string, total?: boolean, ttl?: number } | string,
+        ...rest: [(string)?, (string[])?, (string)?, (boolean)?, (number)?]    
     ): Promise<Models.DocumentList<Document>> {
-        let params: { databaseId: string, collectionId: string, queries?: string[], transactionId?: string, total?: boolean };
+        let params: { databaseId: string, collectionId: string, queries?: string[], transactionId?: string, total?: boolean, ttl?: number };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, queries?: string[], transactionId?: string, total?: boolean };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, queries?: string[], transactionId?: string, total?: boolean, ttl?: number };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 queries: rest[1] as string[],
                 transactionId: rest[2] as string,
-                total: rest[3] as boolean            
+                total: rest[3] as boolean,
+                ttl: rest[4] as number            
             };
         }
         
@@ -4701,6 +4704,7 @@ export class Databases {
         const queries = params.queries;
         const transactionId = params.transactionId;
         const total = params.total;
+        const ttl = params.ttl;
 
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
@@ -4719,6 +4723,9 @@ export class Databases {
         }
         if (typeof total !== 'undefined') {
             payload['total'] = total;
+        }
+        if (typeof ttl !== 'undefined') {
+            payload['ttl'] = ttl;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
