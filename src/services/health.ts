@@ -131,6 +131,67 @@ export class Health {
     }
 
     /**
+     * Get console pausing health status. Monitors projects approaching the pause threshold to detect potential issues with console access tracking.
+     * 
+     *
+     * @param {number} params.threshold - Percentage threshold of projects approaching pause. When hit (equal or higher), endpoint returns server error. Default value is 10.
+     * @param {number} params.inactivityDays - Number of days of inactivity before a project is paused. Should match the plan's projectInactivityDays setting. Default value is 7.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthStatus>}
+     */
+    getConsolePausing(params?: { threshold?: number, inactivityDays?: number }): Promise<Models.HealthStatus>;
+    /**
+     * Get console pausing health status. Monitors projects approaching the pause threshold to detect potential issues with console access tracking.
+     * 
+     *
+     * @param {number} threshold - Percentage threshold of projects approaching pause. When hit (equal or higher), endpoint returns server error. Default value is 10.
+     * @param {number} inactivityDays - Number of days of inactivity before a project is paused. Should match the plan's projectInactivityDays setting. Default value is 7.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthStatus>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getConsolePausing(threshold?: number, inactivityDays?: number): Promise<Models.HealthStatus>;
+    getConsolePausing(
+        paramsOrFirst?: { threshold?: number, inactivityDays?: number } | number,
+        ...rest: [(number)?]    
+    ): Promise<Models.HealthStatus> {
+        let params: { threshold?: number, inactivityDays?: number };
+        
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number, inactivityDays?: number };
+        } else {
+            params = {
+                threshold: paramsOrFirst as number,
+                inactivityDays: rest[0] as number            
+            };
+        }
+        
+        const threshold = params.threshold;
+        const inactivityDays = params.inactivityDays;
+
+
+        const apiPath = '/health/console-pausing';
+        const payload: Payload = {};
+        if (typeof threshold !== 'undefined') {
+            payload['threshold'] = threshold;
+        }
+        if (typeof inactivityDays !== 'undefined') {
+            payload['inactivityDays'] = inactivityDays;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Check the Appwrite database servers are up and connection is successful.
      *
      * @throws {AppwriteException}
@@ -228,6 +289,108 @@ export class Health {
     }
 
     /**
+     * Get billing project aggregation queue.
+     *
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     */
+    getQueueBillingProjectAggregation(params?: { threshold?: number }): Promise<Models.HealthQueue>;
+    /**
+     * Get billing project aggregation queue.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getQueueBillingProjectAggregation(threshold?: number): Promise<Models.HealthQueue>;
+    getQueueBillingProjectAggregation(
+        paramsOrFirst?: { threshold?: number } | number    
+    ): Promise<Models.HealthQueue> {
+        let params: { threshold?: number };
+        
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
+        } else {
+            params = {
+                threshold: paramsOrFirst as number            
+            };
+        }
+        
+        const threshold = params.threshold;
+
+
+        const apiPath = '/health/queue/billing-project-aggregation';
+        const payload: Payload = {};
+        if (typeof threshold !== 'undefined') {
+            payload['threshold'] = threshold;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Get billing team aggregation queue.
+     *
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     */
+    getQueueBillingTeamAggregation(params?: { threshold?: number }): Promise<Models.HealthQueue>;
+    /**
+     * Get billing team aggregation queue.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getQueueBillingTeamAggregation(threshold?: number): Promise<Models.HealthQueue>;
+    getQueueBillingTeamAggregation(
+        paramsOrFirst?: { threshold?: number } | number    
+    ): Promise<Models.HealthQueue> {
+        let params: { threshold?: number };
+        
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
+        } else {
+            params = {
+                threshold: paramsOrFirst as number            
+            };
+        }
+        
+        const threshold = params.threshold;
+
+
+        const apiPath = '/health/queue/billing-team-aggregation';
+        const payload: Payload = {};
+        if (typeof threshold !== 'undefined') {
+            payload['threshold'] = threshold;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Get the number of builds that are waiting to be processed in the Appwrite internal queue server.
      *
      * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
@@ -261,6 +424,57 @@ export class Health {
 
 
         const apiPath = '/health/queue/builds';
+        const payload: Payload = {};
+        if (typeof threshold !== 'undefined') {
+            payload['threshold'] = threshold;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Get the priority builds queue size.
+     *
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 500.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     */
+    getQueuePriorityBuilds(params?: { threshold?: number }): Promise<Models.HealthQueue>;
+    /**
+     * Get the priority builds queue size.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 500.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getQueuePriorityBuilds(threshold?: number): Promise<Models.HealthQueue>;
+    getQueuePriorityBuilds(
+        paramsOrFirst?: { threshold?: number } | number    
+    ): Promise<Models.HealthQueue> {
+        let params: { threshold?: number };
+        
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
+        } else {
+            params = {
+                threshold: paramsOrFirst as number            
+            };
+        }
+        
+        const threshold = params.threshold;
+
+
+        const apiPath = '/health/queue/builds-priority';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;
@@ -756,6 +970,57 @@ export class Health {
     }
 
     /**
+     * Get region manager queue.
+     *
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 100.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     */
+    getQueueRegionManager(params?: { threshold?: number }): Promise<Models.HealthQueue>;
+    /**
+     * Get region manager queue.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 100.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getQueueRegionManager(threshold?: number): Promise<Models.HealthQueue>;
+    getQueueRegionManager(
+        paramsOrFirst?: { threshold?: number } | number    
+    ): Promise<Models.HealthQueue> {
+        let params: { threshold?: number };
+        
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
+        } else {
+            params = {
+                threshold: paramsOrFirst as number            
+            };
+        }
+        
+        const threshold = params.threshold;
+
+
+        const apiPath = '/health/queue/region-manager';
+        const payload: Payload = {};
+        if (typeof threshold !== 'undefined') {
+            payload['threshold'] = threshold;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Get the number of metrics that are waiting to be processed in the Appwrite stats resources queue.
      *
      * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
@@ -840,6 +1105,57 @@ export class Health {
 
 
         const apiPath = '/health/queue/stats-usage';
+        const payload: Payload = {};
+        if (typeof threshold !== 'undefined') {
+            payload['threshold'] = threshold;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Get threats queue.
+     *
+     * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 100.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     */
+    getQueueThreats(params?: { threshold?: number }): Promise<Models.HealthQueue>;
+    /**
+     * Get threats queue.
+     *
+     * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 100.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthQueue>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getQueueThreats(threshold?: number): Promise<Models.HealthQueue>;
+    getQueueThreats(
+        paramsOrFirst?: { threshold?: number } | number    
+    ): Promise<Models.HealthQueue> {
+        let params: { threshold?: number };
+        
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number };
+        } else {
+            params = {
+                threshold: paramsOrFirst as number            
+            };
+        }
+        
+        const threshold = params.threshold;
+
+
+        const apiPath = '/health/queue/threats';
         const payload: Payload = {};
         if (typeof threshold !== 'undefined') {
             payload['threshold'] = threshold;

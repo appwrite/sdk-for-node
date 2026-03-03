@@ -1,6 +1,8 @@
 export { Client, Query, AppwriteException } from './client';
 export { Account } from './services/account';
+export { Activities } from './services/activities';
 export { Avatars } from './services/avatars';
+export { Backups } from './services/backups';
 export { Databases } from './services/databases';
 export { Functions } from './services/functions';
 export { Graphql } from './services/graphql';
@@ -29,6 +31,7 @@ export { Theme } from './enums/theme';
 export { Timezone } from './enums/timezone';
 export { BrowserPermission } from './enums/browser-permission';
 export { ImageFormat } from './enums/image-format';
+export { BackupServices } from './enums/backup-services';
 export { RelationshipType } from './enums/relationship-type';
 export { RelationMutate } from './enums/relation-mutate';
 export { IndexType } from './enums/index-type';
