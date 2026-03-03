@@ -12,9 +12,9 @@ const sites = new sdk.Sites(client);
 const result = await sites.createDeployment({
     siteId: '<SITE_ID>',
     code: InputFile.fromPath('/path/to/file', 'filename'),
-    activate: false,
     installCommand: '<INSTALL_COMMAND>', // optional
     buildCommand: '<BUILD_COMMAND>', // optional
-    outputDirectory: '<OUTPUT_DIRECTORY>' // optional
+    outputDirectory: '<OUTPUT_DIRECTORY>', // optional
+    activate: false // optional
 });
 ```

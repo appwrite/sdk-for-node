@@ -131,6 +131,67 @@ export class Health {
     }
 
     /**
+     * Get console pausing health status. Monitors projects approaching the pause threshold to detect potential issues with console access tracking.
+     * 
+     *
+     * @param {number} params.threshold - Percentage threshold of projects approaching pause. When hit (equal or higher), endpoint returns server error. Default value is 10.
+     * @param {number} params.inactivityDays - Number of days of inactivity before a project is paused. Should match the plan's projectInactivityDays setting. Default value is 7.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthStatus>}
+     */
+    getConsolePausing(params?: { threshold?: number, inactivityDays?: number }): Promise<Models.HealthStatus>;
+    /**
+     * Get console pausing health status. Monitors projects approaching the pause threshold to detect potential issues with console access tracking.
+     * 
+     *
+     * @param {number} threshold - Percentage threshold of projects approaching pause. When hit (equal or higher), endpoint returns server error. Default value is 10.
+     * @param {number} inactivityDays - Number of days of inactivity before a project is paused. Should match the plan's projectInactivityDays setting. Default value is 7.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthStatus>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getConsolePausing(threshold?: number, inactivityDays?: number): Promise<Models.HealthStatus>;
+    getConsolePausing(
+        paramsOrFirst?: { threshold?: number, inactivityDays?: number } | number,
+        ...rest: [(number)?]    
+    ): Promise<Models.HealthStatus> {
+        let params: { threshold?: number, inactivityDays?: number };
+        
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { threshold?: number, inactivityDays?: number };
+        } else {
+            params = {
+                threshold: paramsOrFirst as number,
+                inactivityDays: rest[0] as number            
+            };
+        }
+        
+        const threshold = params.threshold;
+        const inactivityDays = params.inactivityDays;
+
+
+        const apiPath = '/health/console-pausing';
+        const payload: Payload = {};
+        if (typeof threshold !== 'undefined') {
+            payload['threshold'] = threshold;
+        }
+        if (typeof inactivityDays !== 'undefined') {
+            payload['inactivityDays'] = inactivityDays;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Check the Appwrite database servers are up and connection is successful.
      *
      * @throws {AppwriteException}

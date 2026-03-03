@@ -1,5 +1,14 @@
 # Change Log
 
+## 22.2.0
+
+* Added ttl option to listDocuments for cached responses
+* Added getConsolePausing health status endpoint in Health service
+* Added Health.getConsolePausing overloads (object and positional)
+* Added updateRelationshipAttribute for Databases to manage relationship attributes
+* Added console pausing example to health docs
+* Made activate optional in createDeployment object parameter
+
 ## 22.1.2
 
 * Fix very large double values (for example 1.7976931348623157e+308) from being expanded into giant integer literals
