@@ -1,4 +1,4 @@
-export enum IndexType {
+export enum DatabasesIndexType {
     Key = 'key',
     Fulltext = 'fulltext',
     Unique = 'unique',

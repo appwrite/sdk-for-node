@@ -325,6 +325,20 @@ export namespace Models {
     }
 
     /**
+     * Webhooks List
+     */
+    export type WebhookList = {
+        /**
+         * Total number of webhooks that matched your query.
+         */
+        total: number;
+        /**
+         * List of webhooks.
+         */
+        webhooks: Webhook[];
+    }
+
+    /**
      * Countries List
      */
     export type CountryList = {
@@ -535,6 +549,34 @@ export namespace Models {
     }
 
     /**
+     * VectorsDB Collections List
+     */
+    export type VectorsdbCollectionList = {
+        /**
+         * Total number of collections that matched your query.
+         */
+        total: number;
+        /**
+         * List of collections.
+         */
+        collections: VectorsdbCollection[];
+    }
+
+    /**
+     * Embedding list
+     */
+    export type EmbeddingList = {
+        /**
+         * Total number of embeddings that matched your query.
+         */
+        total: number;
+        /**
+         * List of embeddings.
+         */
+        embeddings: Embedding[];
+    }
+
+    /**
      * Database
      */
     export type Database = {
@@ -570,6 +612,28 @@ export namespace Models {
          * Database backup archives.
          */
         archives: Collection[];
+    }
+
+    /**
+     * Embedding
+     */
+    export type Embedding = {
+        /**
+         * Embedding model used to generate embeddings.
+         */
+        model: string;
+        /**
+         * Number of dimensions for each embedding vector.
+         */
+        dimension: number;
+        /**
+         * Embedding vector values. If an error occurs, this will be an empty array.
+         */
+        embedding: number[];
+        /**
+         * Error message if embedding generation fails. Empty string if no error.
+         */
+        error: string;
     }
 
     /**
@@ -1440,6 +1504,144 @@ export namespace Models {
          * Defines whether this attribute is encrypted or not.
          */
         encrypt?: boolean;
+    }
+
+    /**
+     * VectorsDB Collection
+     */
+    export type VectorsdbCollection = {
+        /**
+         * Collection ID.
+         */
+        $id: string;
+        /**
+         * Collection creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Collection update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Collection permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+         */
+        $permissions: string[];
+        /**
+         * Database ID.
+         */
+        databaseId: string;
+        /**
+         * Collection name.
+         */
+        name: string;
+        /**
+         * Collection enabled. Can be 'enabled' or 'disabled'. When disabled, the collection is inaccessible to users, but remains accessible to Server SDKs using API keys.
+         */
+        enabled: boolean;
+        /**
+         * Whether document-level permissions are enabled. [Learn more about permissions](https://appwrite.io/docs/permissions).
+         */
+        documentSecurity: boolean;
+        /**
+         * Collection attributes.
+         */
+        attributes: (Models.AttributeObject | Models.AttributeVector)[];
+        /**
+         * Collection indexes.
+         */
+        indexes: Index[];
+        /**
+         * Maximum document size in bytes. Returns 0 when no limit applies.
+         */
+        bytesMax: number;
+        /**
+         * Currently used document size in bytes based on defined attributes.
+         */
+        bytesUsed: number;
+        /**
+         * Embedding dimension.
+         */
+        dimension: number;
+    }
+
+    /**
+     * AttributeObject
+     */
+    export type AttributeObject = {
+        /**
+         * Attribute Key.
+         */
+        key: string;
+        /**
+         * Attribute type.
+         */
+        type: string;
+        /**
+         * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: AttributeStatus;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an attribute.
+         */
+        error: string;
+        /**
+         * Is attribute required?
+         */
+        required: boolean;
+        /**
+         * Is attribute an array?
+         */
+        array?: boolean;
+        /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+    }
+
+    /**
+     * AttributeVector
+     */
+    export type AttributeVector = {
+        /**
+         * Attribute Key.
+         */
+        key: string;
+        /**
+         * Attribute type.
+         */
+        type: string;
+        /**
+         * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: AttributeStatus;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an attribute.
+         */
+        error: string;
+        /**
+         * Is attribute required?
+         */
+        required: boolean;
+        /**
+         * Is attribute an array?
+         */
+        array?: boolean;
+        /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Vector dimensions.
+         */
+        size: number;
     }
 
     /**
@@ -2415,7 +2617,7 @@ export namespace Models {
         /**
          * Row sequence ID.
          */
-        $sequence: number;
+        $sequence: string;
         /**
          * Table ID.
          */
@@ -2454,7 +2656,7 @@ export namespace Models {
         /**
          * Document sequence ID.
          */
-        $sequence: number;
+        $sequence: string;
         /**
          * Collection ID.
          */
@@ -2491,15 +2693,15 @@ export namespace Models {
          */
         event: string;
         /**
-         * User ID.
+         * User ID of the actor recorded for this log. During impersonation, this is the original impersonator, not the impersonated target user.
          */
         userId: string;
         /**
-         * User Email.
+         * User email of the actor recorded for this log. During impersonation, this is the original impersonator.
          */
         userEmail: string;
         /**
-         * User Name.
+         * User name of the actor recorded for this log. During impersonation, this is the original impersonator.
          */
         userName: string;
         /**
@@ -2652,6 +2854,14 @@ export namespace Models {
          * Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
          */
         accessedAt: string;
+        /**
+         * Whether the user can impersonate other users.
+         */
+        impersonator?: boolean;
+        /**
+         * ID of the original actor performing the impersonation. Present only when the current request is impersonating another user. Internal audit logs attribute the action to this user, while the impersonated target is recorded only in internal audit payload data.
+         */
+        impersonatorUserId?: string;
     }
 
     /**
@@ -3310,6 +3520,10 @@ export namespace Models {
          */
         framework: string;
         /**
+         * How many days to keep the non-active deployments before they will be automatically deleted.
+         */
+        deploymentRetention: number;
+        /**
          * Site's active deployment ID.
          */
         deploymentId: string;
@@ -3354,6 +3568,10 @@ export namespace Models {
          */
         buildCommand: string;
         /**
+         * Custom command to use when starting site runtime.
+         */
+        startCommand: string;
+        /**
          * The directory where the site build output is located.
          */
         outputDirectory: string;
@@ -3378,9 +3596,13 @@ export namespace Models {
          */
         providerSilentMode: boolean;
         /**
-         * Machine specification for builds and executions.
+         * Machine specification for deployment builds.
          */
-        specification: string;
+        buildSpecification: string;
+        /**
+         * Machine specification for SSR executions.
+         */
+        runtimeSpecification: string;
         /**
          * Site build runtime.
          */
@@ -3435,6 +3657,10 @@ export namespace Models {
          * Function execution and build runtime.
          */
         runtime: string;
+        /**
+         * How many days to keep the non-active deployments before they will be automatically deleted.
+         */
+        deploymentRetention: number;
         /**
          * Function's active deployment ID.
          */
@@ -3508,9 +3734,13 @@ export namespace Models {
          */
         providerSilentMode: boolean;
         /**
-         * Machine specification for builds and executions.
+         * Machine specification for deployment builds.
          */
-        specification: string;
+        buildSpecification: string;
+        /**
+         * Machine specification for executions.
+         */
+        runtimeSpecification: string;
     }
 
     /**
@@ -3793,6 +4023,64 @@ export namespace Models {
          * The scheduled time for execution. If left empty, execution will be queued immediately.
          */
         scheduledAt?: string;
+    }
+
+    /**
+     * Webhook
+     */
+    export type Webhook = {
+        /**
+         * Webhook ID.
+         */
+        $id: string;
+        /**
+         * Webhook creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Webhook update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Webhook name.
+         */
+        name: string;
+        /**
+         * Webhook URL endpoint.
+         */
+        url: string;
+        /**
+         * Webhook trigger events.
+         */
+        events: string[];
+        /**
+         * Indicated if SSL / TLS Certificate verification is enabled.
+         */
+        security: boolean;
+        /**
+         * HTTP basic authentication username.
+         */
+        httpUser: string;
+        /**
+         * HTTP basic authentication password.
+         */
+        httpPass: string;
+        /**
+         * Signature key which can be used to validated incoming
+         */
+        signatureKey: string;
+        /**
+         * Indicates if this webhook is enabled.
+         */
+        enabled: boolean;
+        /**
+         * Webhook error logs from the most recent failure.
+         */
+        logs: string;
+        /**
+         * Number of consecutive failed webhook attempts.
+         */
+        attempts: number;
     }
 
     /**

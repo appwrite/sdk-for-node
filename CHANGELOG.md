@@ -1,13 +1,8 @@
 # Change Log
 
-## 22.2.0
+## 22.1.3
 
-* Added ttl option to listDocuments for cached responses
-* Added getConsolePausing health status endpoint in Health service
-* Added Health.getConsolePausing overloads (object and positional)
-* Added updateRelationshipAttribute for Databases to manage relationship attributes
-* Added console pausing example to health docs
-* Made activate optional in createDeployment object parameter
+* Updated `DocumentsDB` docs and `DatabasesIndexType` usage; bumped API version badge to 1.9.0
 
 ## 22.1.2
 
