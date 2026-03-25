@@ -135,54 +135,12 @@ describe('Health', () => {
         expect(response).toEqual(data);
     });
     
-    test('test method getQueueBillingProjectAggregation()', async () => {
-        const data = {
-            'size': 8,};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await health.getQueueBillingProjectAggregation(
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
-    test('test method getQueueBillingTeamAggregation()', async () => {
-        const data = {
-            'size': 8,};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await health.getQueueBillingTeamAggregation(
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
     test('test method getQueueBuilds()', async () => {
         const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await health.getQueueBuilds(
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
-    test('test method getQueuePriorityBuilds()', async () => {
-        const data = {
-            'size': 8,};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await health.getQueuePriorityBuilds(
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
@@ -318,20 +276,6 @@ describe('Health', () => {
         expect(response).toEqual(data);
     });
     
-    test('test method getQueueRegionManager()', async () => {
-        const data = {
-            'size': 8,};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await health.getQueueRegionManager(
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
     test('test method getQueueStatsResources()', async () => {
         const data = {
             'size': 8,};
@@ -352,20 +296,6 @@ describe('Health', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await health.getQueueUsage(
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
-    test('test method getQueueThreats()', async () => {
-        const data = {
-            'size': 8,};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await health.getQueueThreats(
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
