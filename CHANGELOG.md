@@ -1,8 +1,9 @@
 # Change Log
 
-## 22.1.3
+## 23.0.0
 
-* Updated `DocumentsDB` docs and `DatabasesIndexType` usage; bumped API version badge to 1.9.0
+* [BREAKING] Changed `$sequence` type from `int` to `string` for rows and documents
+* Updated `DatabasesIndexType` usage; bumped API version badge to 1.9.0
 
 ## 22.1.2
 
