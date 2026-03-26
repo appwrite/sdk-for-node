@@ -3,7 +3,7 @@ import type { Models } from '../models';
 
 import { RelationshipType } from '../enums/relationship-type';
 import { RelationMutate } from '../enums/relation-mutate';
-import { IndexType } from '../enums/index-type';
+import { TablesDBIndexType } from '../enums/tables-db-index-type';
 import { OrderBy } from '../enums/order-by';
 
 export class TablesDB {
@@ -4693,14 +4693,14 @@ export class TablesDB {
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} params.key - Index Key.
-     * @param {IndexType} params.type - Index type.
+     * @param {TablesDBIndexType} params.type - Index type.
      * @param {string[]} params.columns - Array of columns to index. Maximum of 100 columns are allowed, each 32 characters long.
      * @param {OrderBy[]} params.orders - Array of index orders. Maximum of 100 orders are allowed.
      * @param {number[]} params.lengths - Length of index. Maximum of 100
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnIndex>}
      */
-    createIndex(params: { databaseId: string, tableId: string, key: string, type: IndexType, columns: string[], orders?: OrderBy[], lengths?: number[] }): Promise<Models.ColumnIndex>;
+    createIndex(params: { databaseId: string, tableId: string, key: string, type: TablesDBIndexType, columns: string[], orders?: OrderBy[], lengths?: number[] }): Promise<Models.ColumnIndex>;
     /**
      * Creates an index on the columns listed. Your index should include all the columns you will query in a single request.
      * Type can be `key`, `fulltext`, or `unique`.
@@ -4708,7 +4708,7 @@ export class TablesDB {
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param {string} key - Index Key.
-     * @param {IndexType} type - Index type.
+     * @param {TablesDBIndexType} type - Index type.
      * @param {string[]} columns - Array of columns to index. Maximum of 100 columns are allowed, each 32 characters long.
      * @param {OrderBy[]} orders - Array of index orders. Maximum of 100 orders are allowed.
      * @param {number[]} lengths - Length of index. Maximum of 100
@@ -4716,21 +4716,21 @@ export class TablesDB {
      * @returns {Promise<Models.ColumnIndex>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createIndex(databaseId: string, tableId: string, key: string, type: IndexType, columns: string[], orders?: OrderBy[], lengths?: number[]): Promise<Models.ColumnIndex>;
+    createIndex(databaseId: string, tableId: string, key: string, type: TablesDBIndexType, columns: string[], orders?: OrderBy[], lengths?: number[]): Promise<Models.ColumnIndex>;
     createIndex(
-        paramsOrFirst: { databaseId: string, tableId: string, key: string, type: IndexType, columns: string[], orders?: OrderBy[], lengths?: number[] } | string,
-        ...rest: [(string)?, (string)?, (IndexType)?, (string[])?, (OrderBy[])?, (number[])?]    
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, type: TablesDBIndexType, columns: string[], orders?: OrderBy[], lengths?: number[] } | string,
+        ...rest: [(string)?, (string)?, (TablesDBIndexType)?, (string[])?, (OrderBy[])?, (number[])?]    
     ): Promise<Models.ColumnIndex> {
-        let params: { databaseId: string, tableId: string, key: string, type: IndexType, columns: string[], orders?: OrderBy[], lengths?: number[] };
+        let params: { databaseId: string, tableId: string, key: string, type: TablesDBIndexType, columns: string[], orders?: OrderBy[], lengths?: number[] };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, type: IndexType, columns: string[], orders?: OrderBy[], lengths?: number[] };
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, type: TablesDBIndexType, columns: string[], orders?: OrderBy[], lengths?: number[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 tableId: rest[0] as string,
                 key: rest[1] as string,
-                type: rest[2] as IndexType,
+                type: rest[2] as TablesDBIndexType,
                 columns: rest[3] as string[],
                 orders: rest[4] as OrderBy[],
                 lengths: rest[5] as number[]            

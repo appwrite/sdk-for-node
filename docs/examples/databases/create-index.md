@@ -12,7 +12,7 @@ const result = await databases.createIndex({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
     key: '',
-    type: sdk.IndexType.Key,
+    type: sdk.DatabasesIndexType.Key,
     attributes: [],
     orders: [sdk.OrderBy.Asc], // optional
     lengths: [] // optional

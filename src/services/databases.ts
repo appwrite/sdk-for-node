@@ -3,7 +3,7 @@ import type { Models } from '../models';
 
 import { RelationshipType } from '../enums/relationship-type';
 import { RelationMutate } from '../enums/relation-mutate';
-import { IndexType } from '../enums/index-type';
+import { DatabasesIndexType } from '../enums/databases-index-type';
 import { OrderBy } from '../enums/order-by';
 
 export class Databases {
@@ -5757,7 +5757,7 @@ export class Databases {
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} params.key - Index Key.
-     * @param {IndexType} params.type - Index type.
+     * @param {DatabasesIndexType} params.type - Index type.
      * @param {string[]} params.attributes - Array of attributes to index. Maximum of 100 attributes are allowed, each 32 characters long.
      * @param {OrderBy[]} params.orders - Array of index orders. Maximum of 100 orders are allowed.
      * @param {number[]} params.lengths - Length of index. Maximum of 100
@@ -5765,7 +5765,7 @@ export class Databases {
      * @returns {Promise<Models.Index>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createIndex` instead.
      */
-    createIndex(params: { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: OrderBy[], lengths?: number[] }): Promise<Models.Index>;
+    createIndex(params: { databaseId: string, collectionId: string, key: string, type: DatabasesIndexType, attributes: string[], orders?: OrderBy[], lengths?: number[] }): Promise<Models.Index>;
     /**
      * Creates an index on the attributes listed. Your index should include all the attributes you will query in a single request.
      * Attributes can be `key`, `fulltext`, and `unique`.
@@ -5773,7 +5773,7 @@ export class Databases {
      * @param {string} databaseId - Database ID.
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} key - Index Key.
-     * @param {IndexType} type - Index type.
+     * @param {DatabasesIndexType} type - Index type.
      * @param {string[]} attributes - Array of attributes to index. Maximum of 100 attributes are allowed, each 32 characters long.
      * @param {OrderBy[]} orders - Array of index orders. Maximum of 100 orders are allowed.
      * @param {number[]} lengths - Length of index. Maximum of 100
@@ -5781,21 +5781,21 @@ export class Databases {
      * @returns {Promise<Models.Index>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createIndex(databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: OrderBy[], lengths?: number[]): Promise<Models.Index>;
+    createIndex(databaseId: string, collectionId: string, key: string, type: DatabasesIndexType, attributes: string[], orders?: OrderBy[], lengths?: number[]): Promise<Models.Index>;
     createIndex(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: OrderBy[], lengths?: number[] } | string,
-        ...rest: [(string)?, (string)?, (IndexType)?, (string[])?, (OrderBy[])?, (number[])?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, type: DatabasesIndexType, attributes: string[], orders?: OrderBy[], lengths?: number[] } | string,
+        ...rest: [(string)?, (string)?, (DatabasesIndexType)?, (string[])?, (OrderBy[])?, (number[])?]    
     ): Promise<Models.Index> {
-        let params: { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: OrderBy[], lengths?: number[] };
+        let params: { databaseId: string, collectionId: string, key: string, type: DatabasesIndexType, attributes: string[], orders?: OrderBy[], lengths?: number[] };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, type: IndexType, attributes: string[], orders?: OrderBy[], lengths?: number[] };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, type: DatabasesIndexType, attributes: string[], orders?: OrderBy[], lengths?: number[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
-                type: rest[2] as IndexType,
+                type: rest[2] as DatabasesIndexType,
                 attributes: rest[3] as string[],
                 orders: rest[4] as OrderBy[],
                 lengths: rest[5] as number[]            

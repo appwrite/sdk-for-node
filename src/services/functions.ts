@@ -101,11 +101,13 @@ export class Functions {
      * @param {string} params.providerBranch - Production branch for the repo linked to the function.
      * @param {boolean} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
      * @param {string} params.providerRootDirectory - Path to function code in the linked repo.
-     * @param {string} params.specification - Runtime specification for the function and builds.
+     * @param {string} params.buildSpecification - Build specification for the function deployments.
+     * @param {string} params.runtimeSpecification - Runtime specification for the function executions.
+     * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
-    create(params: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string }): Promise<Models.Function>;
+    create(params: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number }): Promise<Models.Function>;
     /**
      * Create a new function. You can pass a list of [permissions](https://appwrite.io/docs/permissions) to allow different project users or team with access to execute the function using the client API.
      *
@@ -126,20 +128,22 @@ export class Functions {
      * @param {string} providerBranch - Production branch for the repo linked to the function.
      * @param {boolean} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
      * @param {string} providerRootDirectory - Path to function code in the linked repo.
-     * @param {string} specification - Runtime specification for the function and builds.
+     * @param {string} buildSpecification - Build specification for the function deployments.
+     * @param {string} runtimeSpecification - Runtime specification for the function executions.
+     * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    create(functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string): Promise<Models.Function>;
+    create(functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number): Promise<Models.Function>;
     create(
-        paramsOrFirst: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string } | string,
-        ...rest: [(string)?, (Runtime)?, (string[])?, (string[])?, (string)?, (number)?, (boolean)?, (boolean)?, (string)?, (string)?, (Scopes[])?, (string)?, (string)?, (string)?, (boolean)?, (string)?, (string)?]    
+        paramsOrFirst: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number } | string,
+        ...rest: [(string)?, (Runtime)?, (string[])?, (string[])?, (string)?, (number)?, (boolean)?, (boolean)?, (string)?, (string)?, (Scopes[])?, (string)?, (string)?, (string)?, (boolean)?, (string)?, (string)?, (string)?, (number)?]    
     ): Promise<Models.Function> {
-        let params: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
+        let params: { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
+            params = (paramsOrFirst || {}) as { functionId: string, name: string, runtime: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -159,7 +163,9 @@ export class Functions {
                 providerBranch: rest[13] as string,
                 providerSilentMode: rest[14] as boolean,
                 providerRootDirectory: rest[15] as string,
-                specification: rest[16] as string            
+                buildSpecification: rest[16] as string,
+                runtimeSpecification: rest[17] as string,
+                deploymentRetention: rest[18] as number            
             };
         }
         
@@ -180,7 +186,9 @@ export class Functions {
         const providerBranch = params.providerBranch;
         const providerSilentMode = params.providerSilentMode;
         const providerRootDirectory = params.providerRootDirectory;
-        const specification = params.specification;
+        const buildSpecification = params.buildSpecification;
+        const runtimeSpecification = params.runtimeSpecification;
+        const deploymentRetention = params.deploymentRetention;
 
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
@@ -245,8 +253,14 @@ export class Functions {
         if (typeof providerRootDirectory !== 'undefined') {
             payload['providerRootDirectory'] = providerRootDirectory;
         }
-        if (typeof specification !== 'undefined') {
-            payload['specification'] = specification;
+        if (typeof buildSpecification !== 'undefined') {
+            payload['buildSpecification'] = buildSpecification;
+        }
+        if (typeof runtimeSpecification !== 'undefined') {
+            payload['runtimeSpecification'] = runtimeSpecification;
+        }
+        if (typeof deploymentRetention !== 'undefined') {
+            payload['deploymentRetention'] = deploymentRetention;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -379,11 +393,13 @@ export class Functions {
      * @param {string} params.providerBranch - Production branch for the repo linked to the function
      * @param {boolean} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
      * @param {string} params.providerRootDirectory - Path to function code in the linked repo.
-     * @param {string} params.specification - Runtime specification for the function and builds.
+     * @param {string} params.buildSpecification - Build specification for the function deployments.
+     * @param {string} params.runtimeSpecification - Runtime specification for the function executions.
+     * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
-    update(params: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string }): Promise<Models.Function>;
+    update(params: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number }): Promise<Models.Function>;
     /**
      * Update function by its unique ID.
      *
@@ -404,20 +420,22 @@ export class Functions {
      * @param {string} providerBranch - Production branch for the repo linked to the function
      * @param {boolean} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
      * @param {string} providerRootDirectory - Path to function code in the linked repo.
-     * @param {string} specification - Runtime specification for the function and builds.
+     * @param {string} buildSpecification - Build specification for the function deployments.
+     * @param {string} runtimeSpecification - Runtime specification for the function executions.
+     * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    update(functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string): Promise<Models.Function>;
+    update(functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number): Promise<Models.Function>;
     update(
-        paramsOrFirst: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string } | string,
-        ...rest: [(string)?, (Runtime)?, (string[])?, (string[])?, (string)?, (number)?, (boolean)?, (boolean)?, (string)?, (string)?, (Scopes[])?, (string)?, (string)?, (string)?, (boolean)?, (string)?, (string)?]    
+        paramsOrFirst: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number } | string,
+        ...rest: [(string)?, (Runtime)?, (string[])?, (string[])?, (string)?, (number)?, (boolean)?, (boolean)?, (string)?, (string)?, (Scopes[])?, (string)?, (string)?, (string)?, (boolean)?, (string)?, (string)?, (string)?, (number)?]    
     ): Promise<Models.Function> {
-        let params: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
+        let params: { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, specification?: string };
+            params = (paramsOrFirst || {}) as { functionId: string, name: string, runtime?: Runtime, execute?: string[], events?: string[], schedule?: string, timeout?: number, enabled?: boolean, logging?: boolean, entrypoint?: string, commands?: string, scopes?: Scopes[], installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
@@ -437,7 +455,9 @@ export class Functions {
                 providerBranch: rest[13] as string,
                 providerSilentMode: rest[14] as boolean,
                 providerRootDirectory: rest[15] as string,
-                specification: rest[16] as string            
+                buildSpecification: rest[16] as string,
+                runtimeSpecification: rest[17] as string,
+                deploymentRetention: rest[18] as number            
             };
         }
         
@@ -458,7 +478,9 @@ export class Functions {
         const providerBranch = params.providerBranch;
         const providerSilentMode = params.providerSilentMode;
         const providerRootDirectory = params.providerRootDirectory;
-        const specification = params.specification;
+        const buildSpecification = params.buildSpecification;
+        const runtimeSpecification = params.runtimeSpecification;
+        const deploymentRetention = params.deploymentRetention;
 
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
@@ -517,8 +539,14 @@ export class Functions {
         if (typeof providerRootDirectory !== 'undefined') {
             payload['providerRootDirectory'] = providerRootDirectory;
         }
-        if (typeof specification !== 'undefined') {
-            payload['specification'] = specification;
+        if (typeof buildSpecification !== 'undefined') {
+            payload['buildSpecification'] = buildSpecification;
+        }
+        if (typeof runtimeSpecification !== 'undefined') {
+            payload['runtimeSpecification'] = runtimeSpecification;
+        }
+        if (typeof deploymentRetention !== 'undefined') {
+            payload['deploymentRetention'] = deploymentRetention;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
