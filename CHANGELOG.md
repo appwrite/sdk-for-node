@@ -2,8 +2,23 @@
 
 ## 23.0.0
 
-* [BREAKING] Changed `$sequence` type from `int` to `string` for rows and documents
-* Updated `DatabasesIndexType` usage; bumped API version badge to 1.9.0
+* [BREAKING] Changed `$sequence` type from `number` to `string` for `Row` and `Document` models
+* [BREAKING] Renamed `IndexType` enum: split into `DatabasesIndexType` (with new `Spatial` value) and `TablesDBIndexType`
+* [BREAKING] Replaced `specification` parameter with `buildSpecification` and `runtimeSpecification` in `Functions.create()`, `Functions.update()`, `Sites.create()`, `Sites.update()`
+* Added new `Project` service with full CRUD for project-level environment variables
+* Added new `Webhooks` service with full CRUD for project webhooks (including `updateSignature`)
+* Added `Users.updateImpersonator()` method for enabling/disabling user impersonation
+* Added impersonation support: `setImpersonateUserId()`, `setImpersonateUserEmail()`, `setImpersonateUserPhone()` on `Client`
+* Added `impersonator` and `impersonatorUserId` optional fields to `User` model
+* Added `deploymentRetention` parameter to Functions and Sites create/update
+* Added `startCommand` parameter to Sites create/update
+* Added `Webhook` and `WebhookList` models
+* Added `Documentsdb`, `Vectorsdb` values to `BackupServices` and `DatabaseType` enums
+* Added `WebhooksRead`, `WebhooksWrite`, `ProjectRead`, `ProjectWrite` scopes
+* Added custom `toString()` on response data using `JSONbig.stringify` for BigInt support
+* Removed `getQueueBillingProjectAggregation`, `getQueueBillingTeamAggregation`, `getQueuePriorityBuilds`, `getQueueRegionManager`, `getQueueThreats` from `Health` service
+* Updated `Log` model field descriptions to clarify impersonation behavior
+* Updated `X-Appwrite-Response-Format` header to `1.9.0`
 
 ## 22.1.2
 
