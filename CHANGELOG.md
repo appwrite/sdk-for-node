@@ -1,5 +1,11 @@
 # Change Log
 
+## 23.1.0
+
+* Added: Added `getHeaders()` method to `Client` to expose current request headers
+* Added: Added `package-lock.json` to track dependency lockfile in version control
+* Updated: Improved MFA authenticator test data with realistic TOTP secret and URI values
+
 ## 23.0.0
 
 * [BREAKING] Changed `$sequence` type from `number` to `string` for `Row` and `Document` models
