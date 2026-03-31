@@ -192,8 +192,8 @@ describe('Account', () => {
     
     test('test method createMfaAuthenticator()', async () => {
         const data = {
-            'secret': '1',
-            'uri': '1',};
+            'secret': '[SHARED_SECRET]',
+            'uri': 'otpauth://totp/appwrite:user@example.com?secret=[SHARED_SECRET]&issuer=appwrite',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await account.createMfaAuthenticator(
@@ -208,8 +208,8 @@ describe('Account', () => {
     
     test('test method createMFAAuthenticator()', async () => {
         const data = {
-            'secret': '1',
-            'uri': '1',};
+            'secret': '[SHARED_SECRET]',
+            'uri': 'otpauth://totp/appwrite:user@example.com?secret=[SHARED_SECRET]&issuer=appwrite',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await account.createMFAAuthenticator(
