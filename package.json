@@ -2,7 +2,7 @@
   "name": "node-appwrite",
   "homepage": "https://appwrite.io/support",
   "description": "Appwrite is an open-source self-hosted backend server that abstracts and simplifies complex and repetitive development tasks behind a very simple REST API",
-  "version": "23.1.0",
+  "version": "23.2.0",
   "license": "BSD-3-Clause",
   "main": "dist/index.js",
   "type": "commonjs",
@@ -44,7 +44,7 @@
   "devDependencies": {
     "@types/json-bigint": "1.0.4",
     "@types/node": "20.11.25",
-    "tsup": "7.2.0",
+    "tsup": "^8.5.1",
     "esbuild-plugin-file-path-extensions": "^2.0.0",
     "tslib": "2.6.2",
     "typescript": "5.4.2",

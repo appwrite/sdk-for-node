@@ -10,6 +10,6 @@ const tokens = new sdk.Tokens(client);
 
 const result = await tokens.update({
     tokenId: '<TOKEN_ID>',
-    expire: '' // optional
+    expire: '2020-10-15T06:38:00.000+00:00' // optional
 });
 ```

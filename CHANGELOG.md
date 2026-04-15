@@ -1,5 +1,16 @@
 # Change Log
 
+## 23.2.0
+
+* Added `x` OAuth provider to `OAuthProvider` enum
+* Added `userType` field to `Log` model
+* Added Project service: platform CRUD, key CRUD, label/email/protocol/service management
+* Added new models: `Key`, `KeyList`, `PlatformAndroid`, `PlatformApple`, `PlatformLinux`, `PlatformList`, and others
+* Added new enums: `PlatformType`, `ProtocolId`, `ServiceId`
+* Updated `BuildRuntime`, `Runtime`, `Scopes` enums
+* Updated `X-Appwrite-Response-Format` header to `1.9.1`
+* Updated TTL description for list caching in Databases and TablesDB
+
 ## 23.1.0
 
 * Added: Added `getHeaders()` method to `Client` to expose current request headers

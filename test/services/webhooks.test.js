@@ -33,10 +33,10 @@ describe('Webhooks', () => {
             'name': 'My Webhook',
             'url': 'https://example.com/webhook',
             'events': [],
-            'security': true,
-            'httpUser': 'username',
-            'httpPass': 'password',
-            'signatureKey': 'ad3d581ca230e2b7059c545e5a',
+            'tls': true,
+            'authUsername': 'username',
+            'authPassword': 'password',
+            'secret': 'ad3d581ca230e2b7059c545e5a',
             'enabled': true,
             'logs': 'Failed to connect to remote server.',
             'attempts': 10,};
@@ -63,10 +63,10 @@ describe('Webhooks', () => {
             'name': 'My Webhook',
             'url': 'https://example.com/webhook',
             'events': [],
-            'security': true,
-            'httpUser': 'username',
-            'httpPass': 'password',
-            'signatureKey': 'ad3d581ca230e2b7059c545e5a',
+            'tls': true,
+            'authUsername': 'username',
+            'authPassword': 'password',
+            'secret': 'ad3d581ca230e2b7059c545e5a',
             'enabled': true,
             'logs': 'Failed to connect to remote server.',
             'attempts': 10,};
@@ -90,10 +90,10 @@ describe('Webhooks', () => {
             'name': 'My Webhook',
             'url': 'https://example.com/webhook',
             'events': [],
-            'security': true,
-            'httpUser': 'username',
-            'httpPass': 'password',
-            'signatureKey': 'ad3d581ca230e2b7059c545e5a',
+            'tls': true,
+            'authUsername': 'username',
+            'authPassword': 'password',
+            'secret': 'ad3d581ca230e2b7059c545e5a',
             'enabled': true,
             'logs': 'Failed to connect to remote server.',
             'attempts': 10,};
@@ -126,7 +126,7 @@ describe('Webhooks', () => {
         expect(response).toEqual(data);
     });
     
-    test('test method updateSignature()', async () => {
+    test('test method updateSecret()', async () => {
         const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -134,16 +134,16 @@ describe('Webhooks', () => {
             'name': 'My Webhook',
             'url': 'https://example.com/webhook',
             'events': [],
-            'security': true,
-            'httpUser': 'username',
-            'httpPass': 'password',
-            'signatureKey': 'ad3d581ca230e2b7059c545e5a',
+            'tls': true,
+            'authUsername': 'username',
+            'authPassword': 'password',
+            'secret': 'ad3d581ca230e2b7059c545e5a',
             'enabled': true,
             'logs': 'Failed to connect to remote server.',
             'attempts': 10,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
-        const response = await webhooks.updateSignature(
+        const response = await webhooks.updateSecret(
             '<WEBHOOK_ID>',
         );
 
