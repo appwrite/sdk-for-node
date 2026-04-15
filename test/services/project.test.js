@@ -112,6 +112,98 @@ describe('Project', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method updateLabels()', async () => {
+        const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'name': 'New Project',
+            'description': 'This is a new project.',
+            'teamId': '1592981250',
+            'logo': '5f5c451b403cb',
+            'url': '5f5c451b403cb',
+            'legalName': 'Company LTD.',
+            'legalCountry': 'US',
+            'legalState': 'New York',
+            'legalCity': 'New York City.',
+            'legalAddress': '620 Eighth Avenue, New York, NY 10018',
+            'legalTaxId': '131102020',
+            'authDuration': 60,
+            'authLimit': 100,
+            'authSessionsLimit': 10,
+            'authPasswordHistory': 5,
+            'authPasswordDictionary': true,
+            'authPersonalDataCheck': true,
+            'authDisposableEmails': true,
+            'authCanonicalEmails': true,
+            'authFreeEmails': true,
+            'authMockNumbers': [],
+            'authSessionAlerts': true,
+            'authMembershipsUserName': true,
+            'authMembershipsUserEmail': true,
+            'authMembershipsMfa': true,
+            'authInvalidateSessions': true,
+            'oAuthProviders': [],
+            'platforms': [],
+            'webhooks': [],
+            'keys': [],
+            'devKeys': [],
+            'smtpEnabled': true,
+            'smtpSenderName': 'John Appwrite',
+            'smtpSenderEmail': 'john@appwrite.io',
+            'smtpReplyTo': 'support@appwrite.io',
+            'smtpHost': 'mail.appwrite.io',
+            'smtpPort': 25,
+            'smtpUsername': 'emailuser',
+            'smtpPassword': 'securepassword',
+            'smtpSecure': 'tls',
+            'pingCount': 1,
+            'pingedAt': '2020-10-15T06:38:00.000+00:00',
+            'labels': [],
+            'status': 'active',
+            'authEmailPassword': true,
+            'authUsersAuthMagicURL': true,
+            'authEmailOtp': true,
+            'authAnonymous': true,
+            'authInvites': true,
+            'authJWT': true,
+            'authPhone': true,
+            'serviceStatusForAccount': true,
+            'serviceStatusForAvatars': true,
+            'serviceStatusForDatabases': true,
+            'serviceStatusForTablesdb': true,
+            'serviceStatusForLocale': true,
+            'serviceStatusForHealth': true,
+            'serviceStatusForProject': true,
+            'serviceStatusForStorage': true,
+            'serviceStatusForTeams': true,
+            'serviceStatusForUsers': true,
+            'serviceStatusForVcs': true,
+            'serviceStatusForSites': true,
+            'serviceStatusForFunctions': true,
+            'serviceStatusForProxy': true,
+            'serviceStatusForGraphql': true,
+            'serviceStatusForMigrations': true,
+            'serviceStatusForMessaging': true,
+            'protocolStatusForRest': true,
+            'protocolStatusForGraphql': true,
+            'protocolStatusForWebsocket': true,
+            'region': 'fra',
+            'billingLimits': {},
+            'blocks': [],
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await project.updateLabels(
+            [],
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method listPlatforms()', async () => {
         const data = {
             'total': 5,

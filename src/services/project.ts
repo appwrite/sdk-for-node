@@ -338,6 +338,61 @@ export class Project {
     }
 
     /**
+     * Update the project labels. Labels can be used to easily filter projects in an organization.
+     *
+     * @param {string[]} params.labels - Array of project labels. Replaces the previous labels. Maximum of 1000 labels are allowed, each up to 36 alphanumeric characters long.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    updateLabels(params: { labels: string[] }): Promise<Models.Project>;
+    /**
+     * Update the project labels. Labels can be used to easily filter projects in an organization.
+     *
+     * @param {string[]} labels - Array of project labels. Replaces the previous labels. Maximum of 1000 labels are allowed, each up to 36 alphanumeric characters long.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateLabels(labels: string[]): Promise<Models.Project>;
+    updateLabels(
+        paramsOrFirst: { labels: string[] } | string[]    
+    ): Promise<Models.Project> {
+        let params: { labels: string[] };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { labels: string[] };
+        } else {
+            params = {
+                labels: paramsOrFirst as string[]            
+            };
+        }
+        
+        const labels = params.labels;
+
+        if (typeof labels === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "labels"');
+        }
+
+        const apiPath = '/project/labels';
+        const payload: Payload = {};
+        if (typeof labels !== 'undefined') {
+            payload['labels'] = labels;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'put',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Get a list of all platforms in the project. This endpoint returns an array of all platforms and their configurations.
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: type, name, hostname, bundleIdentifier, applicationId, packageIdentifierName, packageName
