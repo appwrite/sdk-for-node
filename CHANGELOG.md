@@ -1,13 +1,17 @@
 # Change Log
 
-## 23.2.0
+## 24.0.0
 
+* [BREAKING] Renamed Webhook model fields: `security` → `tls`, `httpUser` → `authUsername`, `httpPass` → `authPassword`, `signatureKey` → `secret`
+* [BREAKING] Renamed Webhook service parameters to match: `security` → `tls`, `httpUser` → `authUsername`, `httpPass` → `authPassword`
+* Added `secret` parameter to Webhook create and update methods
 * Added `x` OAuth provider to `OAuthProvider` enum
 * Added `userType` field to `Log` model
+* Added `purge` parameter to `updateCollection` and `updateTable` for cache invalidation
 * Added Project service: platform CRUD, key CRUD, label/email/protocol/service management
 * Added new models: `Key`, `KeyList`, `PlatformAndroid`, `PlatformApple`, `PlatformLinux`, `PlatformList`, and others
 * Added new enums: `PlatformType`, `ProtocolId`, `ServiceId`
-* Updated `BuildRuntime`, `Runtime`, `Scopes` enums
+* Updated `BuildRuntime`, `Runtime`, `Scopes` enums with new values
 * Updated `X-Appwrite-Response-Format` header to `1.9.1`
 * Updated TTL description for list caching in Databases and TablesDB
 
