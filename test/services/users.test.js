@@ -437,37 +437,6 @@ describe('Users', () => {
         expect(response).toEqual(data);
     });
     
-    test('test method updateLabels()', async () => {
-        const data = {
-            '\$id': '5e5ea5c16897e',
-            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            'name': 'John Doe',
-            'registration': '2020-10-15T06:38:00.000+00:00',
-            'status': true,
-            'labels': [],
-            'passwordUpdate': '2020-10-15T06:38:00.000+00:00',
-            'email': 'john@appwrite.io',
-            'phone': '+4930901820',
-            'emailVerification': true,
-            'phoneVerification': true,
-            'mfa': true,
-            'prefs': {},
-            'targets': [],
-            'accessedAt': '2020-10-15T06:38:00.000+00:00',};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await users.updateLabels(
-            '<USER_ID>',
-            [],
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
     test('test method listLogs()', async () => {
         const data = {
             'total': 5,

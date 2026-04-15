@@ -8,7 +8,7 @@
 * Added `x` OAuth provider to `OAuthProvider` enum
 * Added `userType` field to `Log` model
 * Added `purge` parameter to `updateCollection` and `updateTable` for cache invalidation
-* Added Project service: platform CRUD, key CRUD, label/email/protocol/service management
+* Added Project service: platform CRUD, key CRUD, protocol/service status management
 * Added new models: `Key`, `KeyList`, `PlatformAndroid`, `PlatformApple`, `PlatformLinux`, `PlatformList`, and others
 * Added new enums: `PlatformType`, `ProtocolId`, `ServiceId`
 * Updated `BuildRuntime`, `Runtime`, `Scopes` enums with new values
