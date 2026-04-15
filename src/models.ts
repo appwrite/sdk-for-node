@@ -5,6 +5,7 @@ import { IndexStatus } from "./enums/index-status"
 import { DeploymentStatus } from "./enums/deployment-status"
 import { ExecutionTrigger } from "./enums/execution-trigger"
 import { ExecutionStatus } from "./enums/execution-status"
+import { PlatformType } from "./enums/platform-type"
 import { HealthAntivirusStatus } from "./enums/health-antivirus-status"
 import { HealthCheckStatus } from "./enums/health-check-status"
 import { MessageStatus } from "./enums/message-status"
@@ -336,6 +337,20 @@ export namespace Models {
          * List of webhooks.
          */
         webhooks: Webhook[];
+    }
+
+    /**
+     * API Keys List
+     */
+    export type KeyList = {
+        /**
+         * Total number of keys that matched your query.
+         */
+        total: number;
+        /**
+         * List of keys.
+         */
+        keys: Key[];
     }
 
     /**
@@ -2521,6 +2536,10 @@ export namespace Models {
          */
         mode: string;
         /**
+         * User type who triggered the audit log. Possible values: user, admin, guest, keyProject, keyAccount, keyOrganization.
+         */
+        userType: string;
+        /**
          * IP session in use when the session was created.
          */
         ip: string;
@@ -3838,6 +3857,324 @@ export namespace Models {
     }
 
     /**
+     * Project
+     */
+    export type Project = {
+        /**
+         * Project ID.
+         */
+        $id: string;
+        /**
+         * Project creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Project update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Project name.
+         */
+        name: string;
+        /**
+         * Project description.
+         */
+        description: string;
+        /**
+         * Project team ID.
+         */
+        teamId: string;
+        /**
+         * Project logo file ID.
+         */
+        logo: string;
+        /**
+         * Project website URL.
+         */
+        url: string;
+        /**
+         * Company legal name.
+         */
+        legalName: string;
+        /**
+         * Country code in [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1) two-character format.
+         */
+        legalCountry: string;
+        /**
+         * State name.
+         */
+        legalState: string;
+        /**
+         * City name.
+         */
+        legalCity: string;
+        /**
+         * Company Address.
+         */
+        legalAddress: string;
+        /**
+         * Company Tax ID.
+         */
+        legalTaxId: string;
+        /**
+         * Session duration in seconds.
+         */
+        authDuration: number;
+        /**
+         * Max users allowed. 0 is unlimited.
+         */
+        authLimit: number;
+        /**
+         * Max sessions allowed per user. 100 maximum.
+         */
+        authSessionsLimit: number;
+        /**
+         * Max allowed passwords in the history list per user. Max passwords limit allowed in history is 20. Use 0 for disabling password history.
+         */
+        authPasswordHistory: number;
+        /**
+         * Whether or not to check user's password against most commonly used passwords.
+         */
+        authPasswordDictionary: boolean;
+        /**
+         * Whether or not to check the user password for similarity with their personal data.
+         */
+        authPersonalDataCheck: boolean;
+        /**
+         * Whether or not to disallow disposable email addresses during signup and email updates.
+         */
+        authDisposableEmails: boolean;
+        /**
+         * Whether or not to require canonical email addresses during signup and email updates.
+         */
+        authCanonicalEmails: boolean;
+        /**
+         * Whether or not to disallow free email addresses during signup and email updates.
+         */
+        authFreeEmails: boolean;
+        /**
+         * An array of mock numbers and their corresponding verification codes (OTPs).
+         */
+        authMockNumbers: MockNumber[];
+        /**
+         * Whether or not to send session alert emails to users.
+         */
+        authSessionAlerts: boolean;
+        /**
+         * Whether or not to show user names in the teams membership response.
+         */
+        authMembershipsUserName: boolean;
+        /**
+         * Whether or not to show user emails in the teams membership response.
+         */
+        authMembershipsUserEmail: boolean;
+        /**
+         * Whether or not to show user MFA status in the teams membership response.
+         */
+        authMembershipsMfa: boolean;
+        /**
+         * Whether or not all existing sessions should be invalidated on password change
+         */
+        authInvalidateSessions: boolean;
+        /**
+         * List of Auth Providers.
+         */
+        oAuthProviders: AuthProvider[];
+        /**
+         * List of Platforms.
+         */
+        platforms: (Models.PlatformWeb | Models.PlatformApple | Models.PlatformAndroid | Models.PlatformWindows | Models.PlatformLinux)[];
+        /**
+         * List of Webhooks.
+         */
+        webhooks: Webhook[];
+        /**
+         * List of API Keys.
+         */
+        keys: Key[];
+        /**
+         * List of dev keys.
+         */
+        devKeys: DevKey[];
+        /**
+         * Status for custom SMTP
+         */
+        smtpEnabled: boolean;
+        /**
+         * SMTP sender name
+         */
+        smtpSenderName: string;
+        /**
+         * SMTP sender email
+         */
+        smtpSenderEmail: string;
+        /**
+         * SMTP reply to email
+         */
+        smtpReplyTo: string;
+        /**
+         * SMTP server host name
+         */
+        smtpHost: string;
+        /**
+         * SMTP server port
+         */
+        smtpPort: number;
+        /**
+         * SMTP server username
+         */
+        smtpUsername: string;
+        /**
+         * SMTP server password
+         */
+        smtpPassword: string;
+        /**
+         * SMTP server secure protocol
+         */
+        smtpSecure: string;
+        /**
+         * Number of times the ping was received for this project.
+         */
+        pingCount: number;
+        /**
+         * Last ping datetime in ISO 8601 format.
+         */
+        pingedAt: string;
+        /**
+         * Labels for the project.
+         */
+        labels: string[];
+        /**
+         * Project status
+         */
+        status: string;
+        /**
+         * Email/Password auth method status
+         */
+        authEmailPassword: boolean;
+        /**
+         * Magic URL auth method status
+         */
+        authUsersAuthMagicURL: boolean;
+        /**
+         * Email (OTP) auth method status
+         */
+        authEmailOtp: boolean;
+        /**
+         * Anonymous auth method status
+         */
+        authAnonymous: boolean;
+        /**
+         * Invites auth method status
+         */
+        authInvites: boolean;
+        /**
+         * JWT auth method status
+         */
+        authJWT: boolean;
+        /**
+         * Phone auth method status
+         */
+        authPhone: boolean;
+        /**
+         * Account service status
+         */
+        serviceStatusForAccount: boolean;
+        /**
+         * Avatars service status
+         */
+        serviceStatusForAvatars: boolean;
+        /**
+         * Databases (legacy) service status
+         */
+        serviceStatusForDatabases: boolean;
+        /**
+         * TablesDB service status
+         */
+        serviceStatusForTablesdb: boolean;
+        /**
+         * Locale service status
+         */
+        serviceStatusForLocale: boolean;
+        /**
+         * Health service status
+         */
+        serviceStatusForHealth: boolean;
+        /**
+         * Project service status
+         */
+        serviceStatusForProject: boolean;
+        /**
+         * Storage service status
+         */
+        serviceStatusForStorage: boolean;
+        /**
+         * Teams service status
+         */
+        serviceStatusForTeams: boolean;
+        /**
+         * Users service status
+         */
+        serviceStatusForUsers: boolean;
+        /**
+         * VCS service status
+         */
+        serviceStatusForVcs: boolean;
+        /**
+         * Sites service status
+         */
+        serviceStatusForSites: boolean;
+        /**
+         * Functions service status
+         */
+        serviceStatusForFunctions: boolean;
+        /**
+         * Proxy service status
+         */
+        serviceStatusForProxy: boolean;
+        /**
+         * GraphQL service status
+         */
+        serviceStatusForGraphql: boolean;
+        /**
+         * Migrations service status
+         */
+        serviceStatusForMigrations: boolean;
+        /**
+         * Messaging service status
+         */
+        serviceStatusForMessaging: boolean;
+        /**
+         * REST protocol status
+         */
+        protocolStatusForRest: boolean;
+        /**
+         * GraphQL protocol status
+         */
+        protocolStatusForGraphql: boolean;
+        /**
+         * Websocket protocol status
+         */
+        protocolStatusForWebsocket: boolean;
+        /**
+         * Project region
+         */
+        region: string;
+        /**
+         * Billing limits reached
+         */
+        billingLimits: BillingLimits;
+        /**
+         * Project blocks information
+         */
+        blocks: Block[];
+        /**
+         * Last time the project was accessed via console. Used with plan's projectInactivityDays to determine if project is paused.
+         */
+        consoleAccessedAt: string;
+    }
+
+    /**
      * Webhook
      */
     export type Webhook = {
@@ -3866,21 +4203,21 @@ export namespace Models {
          */
         events: string[];
         /**
-         * Indicated if SSL / TLS Certificate verification is enabled.
+         * Indicates if SSL / TLS certificate verification is enabled.
          */
-        security: boolean;
+        tls: boolean;
         /**
          * HTTP basic authentication username.
          */
-        httpUser: string;
+        authUsername: string;
         /**
          * HTTP basic authentication password.
          */
-        httpPass: string;
+        authPassword: string;
         /**
-         * Signature key which can be used to validated incoming
+         * Signature key which can be used to validate incoming webhook payloads. Only returned on creation and secret rotation.
          */
-        signatureKey: string;
+        secret: string;
         /**
          * Indicates if this webhook is enabled.
          */
@@ -3893,6 +4230,290 @@ export namespace Models {
          * Number of consecutive failed webhook attempts.
          */
         attempts: number;
+    }
+
+    /**
+     * Key
+     */
+    export type Key = {
+        /**
+         * Key ID.
+         */
+        $id: string;
+        /**
+         * Key creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Key update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Key name.
+         */
+        name: string;
+        /**
+         * Key expiration date in ISO 8601 format.
+         */
+        expire: string;
+        /**
+         * Allowed permission scopes.
+         */
+        scopes: string[];
+        /**
+         * Secret key.
+         */
+        secret: string;
+        /**
+         * Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
+         */
+        accessedAt: string;
+        /**
+         * List of SDK user agents that used this key.
+         */
+        sdks: string[];
+    }
+
+    /**
+     * DevKey
+     */
+    export type DevKey = {
+        /**
+         * Key ID.
+         */
+        $id: string;
+        /**
+         * Key creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Key update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Key name.
+         */
+        name: string;
+        /**
+         * Key expiration date in ISO 8601 format.
+         */
+        expire: string;
+        /**
+         * Secret key.
+         */
+        secret: string;
+        /**
+         * Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
+         */
+        accessedAt: string;
+        /**
+         * List of SDK user agents that used this key.
+         */
+        sdks: string[];
+    }
+
+    /**
+     * Mock Number
+     */
+    export type MockNumber = {
+        /**
+         * Mock phone number for testing phone authentication. Useful for testing phone authentication without sending an SMS.
+         */
+        phone: string;
+        /**
+         * Mock OTP for the number. 
+         */
+        otp: string;
+    }
+
+    /**
+     * AuthProvider
+     */
+    export type AuthProvider = {
+        /**
+         * Auth Provider.
+         */
+        key: string;
+        /**
+         * Auth Provider name.
+         */
+        name: string;
+        /**
+         * OAuth 2.0 application ID.
+         */
+        appId: string;
+        /**
+         * OAuth 2.0 application secret. Might be JSON string if provider requires extra configuration.
+         */
+        secret: string;
+        /**
+         * Auth Provider is active and can be used to create session.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * Platform Web
+     */
+    export type PlatformWeb = {
+        /**
+         * Platform ID.
+         */
+        $id: string;
+        /**
+         * Platform creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Platform update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Platform name.
+         */
+        name: string;
+        /**
+         * Platform type. Possible values are: windows, apple, android, linux, web.
+         */
+        type: PlatformType;
+        /**
+         * Web app hostname. Empty string for other platforms.
+         */
+        hostname: string;
+    }
+
+    /**
+     * Platform Apple
+     */
+    export type PlatformApple = {
+        /**
+         * Platform ID.
+         */
+        $id: string;
+        /**
+         * Platform creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Platform update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Platform name.
+         */
+        name: string;
+        /**
+         * Platform type. Possible values are: windows, apple, android, linux, web.
+         */
+        type: PlatformType;
+        /**
+         * Apple bundle identifier.
+         */
+        bundleIdentifier: string;
+    }
+
+    /**
+     * Platform Android
+     */
+    export type PlatformAndroid = {
+        /**
+         * Platform ID.
+         */
+        $id: string;
+        /**
+         * Platform creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Platform update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Platform name.
+         */
+        name: string;
+        /**
+         * Platform type. Possible values are: windows, apple, android, linux, web.
+         */
+        type: PlatformType;
+        /**
+         * Android application ID.
+         */
+        applicationId: string;
+    }
+
+    /**
+     * Platform Windows
+     */
+    export type PlatformWindows = {
+        /**
+         * Platform ID.
+         */
+        $id: string;
+        /**
+         * Platform creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Platform update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Platform name.
+         */
+        name: string;
+        /**
+         * Platform type. Possible values are: windows, apple, android, linux, web.
+         */
+        type: PlatformType;
+        /**
+         * Windows package identifier name.
+         */
+        packageIdentifierName: string;
+    }
+
+    /**
+     * Platform Linux
+     */
+    export type PlatformLinux = {
+        /**
+         * Platform ID.
+         */
+        $id: string;
+        /**
+         * Platform creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Platform update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Platform name.
+         */
+        name: string;
+        /**
+         * Platform type. Possible values are: windows, apple, android, linux, web.
+         */
+        type: PlatformType;
+        /**
+         * Linux package name.
+         */
+        packageName: string;
+    }
+
+    /**
+     * Platforms List
+     */
+    export type PlatformList = {
+        /**
+         * Total number of platforms in the given project.
+         */
+        total: number;
+        /**
+         * List of platforms.
+         */
+        platforms: (Models.PlatformWeb | Models.PlatformApple | Models.PlatformAndroid | Models.PlatformWindows | Models.PlatformLinux)[];
     }
 
     /**
@@ -4663,6 +5284,70 @@ export namespace Models {
          * The resource type to backup. Set only if this archive should backup a single resource.
          */
         resourceType?: string;
+    }
+
+    /**
+     * BillingLimits
+     */
+    export type BillingLimits = {
+        /**
+         * Bandwidth limit
+         */
+        bandwidth: number;
+        /**
+         * Storage limit
+         */
+        storage: number;
+        /**
+         * Users limit
+         */
+        users: number;
+        /**
+         * Executions limit
+         */
+        executions: number;
+        /**
+         * GBHours limit
+         */
+        GBHours: number;
+        /**
+         * Image transformations limit
+         */
+        imageTransformations: number;
+        /**
+         * Auth phone limit
+         */
+        authPhone: number;
+        /**
+         * Budget limit percentage
+         */
+        budgetLimit: number;
+    }
+
+    /**
+     * Block
+     */
+    export type Block = {
+        /**
+         * Block creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Resource type that is blocked
+         */
+        resourceType: string;
+        /**
+         * Resource identifier that is blocked
+         */
+        resourceId: string;
+        /**
+         * Reason for the block. Can be null if no reason was provided.
+         */
+        reason?: string;
+        /**
+         * Block expiration date in ISO 8601 format. Can be null if the block does not expire.
+         */
+        expiredAt?: string;
     }
 
     /**

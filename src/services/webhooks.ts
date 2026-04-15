@@ -12,7 +12,7 @@ export class Webhooks {
     /**
      * Get a list of all webhooks belonging to the project. You can use the query params to filter your results.
      *
-     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, url, httpUser, security, events, enabled, logs, attempts
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, url, authUsername, tls, events, enabled, logs, attempts
      * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WebhookList>}
@@ -21,7 +21,7 @@ export class Webhooks {
     /**
      * Get a list of all webhooks belonging to the project. You can use the query params to filter your results.
      *
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, url, httpUser, security, events, enabled, logs, attempts
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, url, authUsername, tls, events, enabled, logs, attempts
      * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WebhookList>}
@@ -76,13 +76,14 @@ export class Webhooks {
      * @param {string} params.name - Webhook name. Max length: 128 chars.
      * @param {string[]} params.events - Events list. Maximum of 100 events are allowed.
      * @param {boolean} params.enabled - Enable or disable a webhook.
-     * @param {boolean} params.security - Certificate verification, false for disabled or true for enabled.
-     * @param {string} params.httpUser - Webhook HTTP user. Max length: 256 chars.
-     * @param {string} params.httpPass - Webhook HTTP password. Max length: 256 chars.
+     * @param {boolean} params.tls - Certificate verification, false for disabled or true for enabled.
+     * @param {string} params.authUsername - Webhook HTTP user. Max length: 256 chars.
+     * @param {string} params.authPassword - Webhook HTTP password. Max length: 256 chars.
+     * @param {string} params.secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      */
-    create(params: { webhookId: string, url: string, name: string, events: string[], enabled?: boolean, security?: boolean, httpUser?: string, httpPass?: string }): Promise<Models.Webhook>;
+    create(params: { webhookId: string, url: string, name: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string, secret?: string }): Promise<Models.Webhook>;
     /**
      * Create a new webhook. Use this endpoint to configure a URL that will receive events from Appwrite when specific events occur.
      *
@@ -91,22 +92,23 @@ export class Webhooks {
      * @param {string} name - Webhook name. Max length: 128 chars.
      * @param {string[]} events - Events list. Maximum of 100 events are allowed.
      * @param {boolean} enabled - Enable or disable a webhook.
-     * @param {boolean} security - Certificate verification, false for disabled or true for enabled.
-     * @param {string} httpUser - Webhook HTTP user. Max length: 256 chars.
-     * @param {string} httpPass - Webhook HTTP password. Max length: 256 chars.
+     * @param {boolean} tls - Certificate verification, false for disabled or true for enabled.
+     * @param {string} authUsername - Webhook HTTP user. Max length: 256 chars.
+     * @param {string} authPassword - Webhook HTTP password. Max length: 256 chars.
+     * @param {string} secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    create(webhookId: string, url: string, name: string, events: string[], enabled?: boolean, security?: boolean, httpUser?: string, httpPass?: string): Promise<Models.Webhook>;
+    create(webhookId: string, url: string, name: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string, secret?: string): Promise<Models.Webhook>;
     create(
-        paramsOrFirst: { webhookId: string, url: string, name: string, events: string[], enabled?: boolean, security?: boolean, httpUser?: string, httpPass?: string } | string,
-        ...rest: [(string)?, (string)?, (string[])?, (boolean)?, (boolean)?, (string)?, (string)?]    
+        paramsOrFirst: { webhookId: string, url: string, name: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string, secret?: string } | string,
+        ...rest: [(string)?, (string)?, (string[])?, (boolean)?, (boolean)?, (string)?, (string)?, (string)?]    
     ): Promise<Models.Webhook> {
-        let params: { webhookId: string, url: string, name: string, events: string[], enabled?: boolean, security?: boolean, httpUser?: string, httpPass?: string };
+        let params: { webhookId: string, url: string, name: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string, secret?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { webhookId: string, url: string, name: string, events: string[], enabled?: boolean, security?: boolean, httpUser?: string, httpPass?: string };
+            params = (paramsOrFirst || {}) as { webhookId: string, url: string, name: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string, secret?: string };
         } else {
             params = {
                 webhookId: paramsOrFirst as string,
@@ -114,9 +116,10 @@ export class Webhooks {
                 name: rest[1] as string,
                 events: rest[2] as string[],
                 enabled: rest[3] as boolean,
-                security: rest[4] as boolean,
-                httpUser: rest[5] as string,
-                httpPass: rest[6] as string            
+                tls: rest[4] as boolean,
+                authUsername: rest[5] as string,
+                authPassword: rest[6] as string,
+                secret: rest[7] as string            
             };
         }
         
@@ -125,9 +128,10 @@ export class Webhooks {
         const name = params.name;
         const events = params.events;
         const enabled = params.enabled;
-        const security = params.security;
-        const httpUser = params.httpUser;
-        const httpPass = params.httpPass;
+        const tls = params.tls;
+        const authUsername = params.authUsername;
+        const authPassword = params.authPassword;
+        const secret = params.secret;
 
         if (typeof webhookId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "webhookId"');
@@ -159,14 +163,17 @@ export class Webhooks {
         if (typeof enabled !== 'undefined') {
             payload['enabled'] = enabled;
         }
-        if (typeof security !== 'undefined') {
-            payload['security'] = security;
+        if (typeof tls !== 'undefined') {
+            payload['tls'] = tls;
         }
-        if (typeof httpUser !== 'undefined') {
-            payload['httpUser'] = httpUser;
+        if (typeof authUsername !== 'undefined') {
+            payload['authUsername'] = authUsername;
         }
-        if (typeof httpPass !== 'undefined') {
-            payload['httpPass'] = httpPass;
+        if (typeof authPassword !== 'undefined') {
+            payload['authPassword'] = authPassword;
+        }
+        if (typeof secret !== 'undefined') {
+            payload['secret'] = secret;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -241,13 +248,13 @@ export class Webhooks {
      * @param {string} params.url - Webhook URL.
      * @param {string[]} params.events - Events list. Maximum of 100 events are allowed.
      * @param {boolean} params.enabled - Enable or disable a webhook.
-     * @param {boolean} params.security - Certificate verification, false for disabled or true for enabled.
-     * @param {string} params.httpUser - Webhook HTTP user. Max length: 256 chars.
-     * @param {string} params.httpPass - Webhook HTTP password. Max length: 256 chars.
+     * @param {boolean} params.tls - Certificate verification, false for disabled or true for enabled.
+     * @param {string} params.authUsername - Webhook HTTP user. Max length: 256 chars.
+     * @param {string} params.authPassword - Webhook HTTP password. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      */
-    update(params: { webhookId: string, name: string, url: string, events: string[], enabled?: boolean, security?: boolean, httpUser?: string, httpPass?: string }): Promise<Models.Webhook>;
+    update(params: { webhookId: string, name: string, url: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string }): Promise<Models.Webhook>;
     /**
      * Update a webhook by its unique ID. Use this endpoint to update the URL, events, or status of an existing webhook.
      *
@@ -256,22 +263,22 @@ export class Webhooks {
      * @param {string} url - Webhook URL.
      * @param {string[]} events - Events list. Maximum of 100 events are allowed.
      * @param {boolean} enabled - Enable or disable a webhook.
-     * @param {boolean} security - Certificate verification, false for disabled or true for enabled.
-     * @param {string} httpUser - Webhook HTTP user. Max length: 256 chars.
-     * @param {string} httpPass - Webhook HTTP password. Max length: 256 chars.
+     * @param {boolean} tls - Certificate verification, false for disabled or true for enabled.
+     * @param {string} authUsername - Webhook HTTP user. Max length: 256 chars.
+     * @param {string} authPassword - Webhook HTTP password. Max length: 256 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    update(webhookId: string, name: string, url: string, events: string[], enabled?: boolean, security?: boolean, httpUser?: string, httpPass?: string): Promise<Models.Webhook>;
+    update(webhookId: string, name: string, url: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string): Promise<Models.Webhook>;
     update(
-        paramsOrFirst: { webhookId: string, name: string, url: string, events: string[], enabled?: boolean, security?: boolean, httpUser?: string, httpPass?: string } | string,
+        paramsOrFirst: { webhookId: string, name: string, url: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string } | string,
         ...rest: [(string)?, (string)?, (string[])?, (boolean)?, (boolean)?, (string)?, (string)?]    
     ): Promise<Models.Webhook> {
-        let params: { webhookId: string, name: string, url: string, events: string[], enabled?: boolean, security?: boolean, httpUser?: string, httpPass?: string };
+        let params: { webhookId: string, name: string, url: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { webhookId: string, name: string, url: string, events: string[], enabled?: boolean, security?: boolean, httpUser?: string, httpPass?: string };
+            params = (paramsOrFirst || {}) as { webhookId: string, name: string, url: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string };
         } else {
             params = {
                 webhookId: paramsOrFirst as string,
@@ -279,9 +286,9 @@ export class Webhooks {
                 url: rest[1] as string,
                 events: rest[2] as string[],
                 enabled: rest[3] as boolean,
-                security: rest[4] as boolean,
-                httpUser: rest[5] as string,
-                httpPass: rest[6] as string            
+                tls: rest[4] as boolean,
+                authUsername: rest[5] as string,
+                authPassword: rest[6] as string            
             };
         }
         
@@ -290,9 +297,9 @@ export class Webhooks {
         const url = params.url;
         const events = params.events;
         const enabled = params.enabled;
-        const security = params.security;
-        const httpUser = params.httpUser;
-        const httpPass = params.httpPass;
+        const tls = params.tls;
+        const authUsername = params.authUsername;
+        const authPassword = params.authPassword;
 
         if (typeof webhookId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "webhookId"');
@@ -321,14 +328,14 @@ export class Webhooks {
         if (typeof enabled !== 'undefined') {
             payload['enabled'] = enabled;
         }
-        if (typeof security !== 'undefined') {
-            payload['security'] = security;
+        if (typeof tls !== 'undefined') {
+            payload['tls'] = tls;
         }
-        if (typeof httpUser !== 'undefined') {
-            payload['httpUser'] = httpUser;
+        if (typeof authUsername !== 'undefined') {
+            payload['authUsername'] = authUsername;
         }
-        if (typeof httpPass !== 'undefined') {
-            payload['httpPass'] = httpPass;
+        if (typeof authPassword !== 'undefined') {
+            payload['authPassword'] = authPassword;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -397,43 +404,51 @@ export class Webhooks {
     }
 
     /**
-     * Update the webhook signature key. This endpoint can be used to regenerate the signature key used to sign and validate payload deliveries for a specific webhook.
+     * Update the webhook signing key. This endpoint can be used to regenerate the signing key used to sign and validate payload deliveries for a specific webhook.
      *
      * @param {string} params.webhookId - Webhook ID.
+     * @param {string} params.secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      */
-    updateSignature(params: { webhookId: string }): Promise<Models.Webhook>;
+    updateSecret(params: { webhookId: string, secret?: string }): Promise<Models.Webhook>;
     /**
-     * Update the webhook signature key. This endpoint can be used to regenerate the signature key used to sign and validate payload deliveries for a specific webhook.
+     * Update the webhook signing key. This endpoint can be used to regenerate the signing key used to sign and validate payload deliveries for a specific webhook.
      *
      * @param {string} webhookId - Webhook ID.
+     * @param {string} secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateSignature(webhookId: string): Promise<Models.Webhook>;
-    updateSignature(
-        paramsOrFirst: { webhookId: string } | string    
+    updateSecret(webhookId: string, secret?: string): Promise<Models.Webhook>;
+    updateSecret(
+        paramsOrFirst: { webhookId: string, secret?: string } | string,
+        ...rest: [(string)?]    
     ): Promise<Models.Webhook> {
-        let params: { webhookId: string };
+        let params: { webhookId: string, secret?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { webhookId: string };
+            params = (paramsOrFirst || {}) as { webhookId: string, secret?: string };
         } else {
             params = {
-                webhookId: paramsOrFirst as string            
+                webhookId: paramsOrFirst as string,
+                secret: rest[0] as string            
             };
         }
         
         const webhookId = params.webhookId;
+        const secret = params.secret;
 
         if (typeof webhookId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "webhookId"');
         }
 
-        const apiPath = '/webhooks/{webhookId}/signature'.replace('{webhookId}', webhookId);
+        const apiPath = '/webhooks/{webhookId}/secret'.replace('{webhookId}', webhookId);
         const payload: Payload = {};
+        if (typeof secret !== 'undefined') {
+            payload['secret'] = secret;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {

@@ -6,10 +6,11 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const tokens = new sdk.Tokens(client);
+const project = new sdk.Project(client);
 
-const result = await tokens.update({
-    tokenId: '<TOKEN_ID>',
-    expire: '2020-10-15T06:38:00.000+00:00' // optional
+const result = await project.createWindowsPlatform({
+    platformId: '<PLATFORM_ID>',
+    name: '<NAME>',
+    packageIdentifierName: '<PACKAGE_IDENTIFIER_NAME>'
 });
 ```

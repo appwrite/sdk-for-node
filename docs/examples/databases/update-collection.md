@@ -14,6 +14,7 @@ const result = await databases.updateCollection({
     name: '<NAME>', // optional
     permissions: [sdk.Permission.read(sdk.Role.any())], // optional
     documentSecurity: false, // optional
-    enabled: false // optional
+    enabled: false, // optional
+    purge: false // optional
 });
 ```

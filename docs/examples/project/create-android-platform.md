@@ -6,9 +6,11 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const webhooks = new sdk.Webhooks(client);
+const project = new sdk.Project(client);
 
-const result = await webhooks.updateSignature({
-    webhookId: '<WEBHOOK_ID>'
+const result = await project.createAndroidPlatform({
+    platformId: '<PLATFORM_ID>',
+    name: '<NAME>',
+    applicationId: '<APPLICATION_ID>'
 });
 ```

@@ -47,6 +47,7 @@ export enum Runtime {
     Dart38 = 'dart-3.8',
     Dart39 = 'dart-3.9',
     Dart310 = 'dart-3.10',
+    Dart311 = 'dart-3.11',
     Dotnet60 = 'dotnet-6.0',
     Dotnet70 = 'dotnet-7.0',
     Dotnet80 = 'dotnet-8.0',
@@ -85,4 +86,5 @@ export enum Runtime {
     Flutter332 = 'flutter-3.32',
     Flutter335 = 'flutter-3.35',
     Flutter338 = 'flutter-3.38',
+    Flutter341 = 'flutter-3.41',
 }
