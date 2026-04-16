@@ -11,7 +11,7 @@ describe('Sites', () => {
 
     
     test('test method list()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'sites': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -26,7 +26,7 @@ describe('Sites', () => {
     });
     
     test('test method create()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -75,7 +75,7 @@ describe('Sites', () => {
     });
     
     test('test method listFrameworks()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'frameworks': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -90,7 +90,7 @@ describe('Sites', () => {
     });
     
     test('test method listSpecifications()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'specifications': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -105,7 +105,7 @@ describe('Sites', () => {
     });
     
     test('test method get()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -151,7 +151,7 @@ describe('Sites', () => {
     });
     
     test('test method update()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -199,7 +199,7 @@ describe('Sites', () => {
     });
     
     test('test method delete()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await sites.delete(
@@ -213,7 +213,7 @@ describe('Sites', () => {
     });
     
     test('test method updateSiteDeployment()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -260,7 +260,7 @@ describe('Sites', () => {
     });
     
     test('test method listDeployments()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'deployments': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -276,7 +276,7 @@ describe('Sites', () => {
     });
     
     test('test method createDeployment()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -318,7 +318,7 @@ describe('Sites', () => {
     });
     
     test('test method createDuplicateDeployment()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -360,7 +360,7 @@ describe('Sites', () => {
     });
     
     test('test method createTemplateDeployment()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -406,7 +406,7 @@ describe('Sites', () => {
     });
     
     test('test method createVcsDeployment()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -449,7 +449,7 @@ describe('Sites', () => {
     });
     
     test('test method getDeployment()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -491,7 +491,7 @@ describe('Sites', () => {
     });
     
     test('test method deleteDeployment()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await sites.deleteDeployment(
@@ -521,7 +521,7 @@ describe('Sites', () => {
     });
     
     test('test method updateDeploymentStatus()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -563,7 +563,7 @@ describe('Sites', () => {
     });
     
     test('test method listLogs()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'executions': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -579,7 +579,7 @@ describe('Sites', () => {
     });
     
     test('test method getLog()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -611,7 +611,7 @@ describe('Sites', () => {
     });
     
     test('test method deleteLog()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await sites.deleteLog(
@@ -626,7 +626,7 @@ describe('Sites', () => {
     });
     
     test('test method listVariables()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'variables': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -642,7 +642,7 @@ describe('Sites', () => {
     });
     
     test('test method createVariable()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -666,7 +666,7 @@ describe('Sites', () => {
     });
     
     test('test method getVariable()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -689,7 +689,7 @@ describe('Sites', () => {
     });
     
     test('test method updateVariable()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -713,7 +713,7 @@ describe('Sites', () => {
     });
     
     test('test method deleteVariable()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await sites.deleteVariable(

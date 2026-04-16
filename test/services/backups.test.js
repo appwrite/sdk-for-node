@@ -11,7 +11,7 @@ describe('Backups', () => {
 
     
     test('test method listArchives()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'archives': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -26,7 +26,7 @@ describe('Backups', () => {
     });
     
     test('test method createArchive()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -50,7 +50,7 @@ describe('Backups', () => {
     });
     
     test('test method getArchive()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -74,7 +74,7 @@ describe('Backups', () => {
     });
     
     test('test method deleteArchive()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await backups.deleteArchive(
@@ -88,7 +88,7 @@ describe('Backups', () => {
     });
     
     test('test method listPolicies()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'policies': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -103,7 +103,7 @@ describe('Backups', () => {
     });
     
     test('test method createPolicy()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             'name': 'Hourly backups',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -129,7 +129,7 @@ describe('Backups', () => {
     });
     
     test('test method getPolicy()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             'name': 'Hourly backups',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -152,7 +152,7 @@ describe('Backups', () => {
     });
     
     test('test method updatePolicy()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             'name': 'Hourly backups',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -175,7 +175,7 @@ describe('Backups', () => {
     });
     
     test('test method deletePolicy()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await backups.deletePolicy(
@@ -189,7 +189,7 @@ describe('Backups', () => {
     });
     
     test('test method createRestoration()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -215,7 +215,7 @@ describe('Backups', () => {
     });
     
     test('test method listRestorations()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'restorations': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -230,7 +230,7 @@ describe('Backups', () => {
     });
     
     test('test method getRestoration()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',

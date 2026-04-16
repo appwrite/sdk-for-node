@@ -11,7 +11,7 @@ describe('Locale', () => {
 
     
     test('test method get()', async () => {
-        const data = {
+                                                const data = {
             'ip': '127.0.0.1',
             'countryCode': 'US',
             'country': 'United States',
@@ -31,7 +31,7 @@ describe('Locale', () => {
     });
     
     test('test method listCodes()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'localeCodes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -46,7 +46,7 @@ describe('Locale', () => {
     });
     
     test('test method listContinents()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'continents': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -61,7 +61,7 @@ describe('Locale', () => {
     });
     
     test('test method listCountries()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'countries': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -76,7 +76,7 @@ describe('Locale', () => {
     });
     
     test('test method listCountriesEU()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'countries': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -91,7 +91,7 @@ describe('Locale', () => {
     });
     
     test('test method listCountriesPhones()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'phones': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -106,7 +106,7 @@ describe('Locale', () => {
     });
     
     test('test method listCurrencies()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'currencies': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -121,7 +121,7 @@ describe('Locale', () => {
     });
     
     test('test method listLanguages()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'languages': [],};
         mockedFetch.mockImplementation(() => Response.json(data));

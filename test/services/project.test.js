@@ -11,7 +11,7 @@ describe('Project', () => {
 
     
     test('test method listKeys()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'keys': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -26,7 +26,7 @@ describe('Project', () => {
     });
     
     test('test method createKey()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -51,7 +51,7 @@ describe('Project', () => {
     });
     
     test('test method getKey()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -74,7 +74,7 @@ describe('Project', () => {
     });
     
     test('test method updateKey()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -99,7 +99,7 @@ describe('Project', () => {
     });
     
     test('test method deleteKey()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.deleteKey(
@@ -113,7 +113,7 @@ describe('Project', () => {
     });
     
     test('test method updateLabels()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -205,7 +205,7 @@ describe('Project', () => {
     });
     
     test('test method listPlatforms()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'platforms': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -220,7 +220,7 @@ describe('Project', () => {
     });
     
     test('test method createAndroidPlatform()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -242,7 +242,7 @@ describe('Project', () => {
     });
     
     test('test method updateAndroidPlatform()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -264,7 +264,7 @@ describe('Project', () => {
     });
     
     test('test method createApplePlatform()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -286,7 +286,7 @@ describe('Project', () => {
     });
     
     test('test method updateApplePlatform()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -308,7 +308,7 @@ describe('Project', () => {
     });
     
     test('test method createLinuxPlatform()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -330,7 +330,7 @@ describe('Project', () => {
     });
     
     test('test method updateLinuxPlatform()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -352,7 +352,7 @@ describe('Project', () => {
     });
     
     test('test method createWebPlatform()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -374,7 +374,7 @@ describe('Project', () => {
     });
     
     test('test method updateWebPlatform()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -396,7 +396,7 @@ describe('Project', () => {
     });
     
     test('test method createWindowsPlatform()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -418,7 +418,7 @@ describe('Project', () => {
     });
     
     test('test method updateWindowsPlatform()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -440,13 +440,13 @@ describe('Project', () => {
     });
     
     test('test method getPlatform()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'My Web App',
             'type': 'web',
-            'hostname': 'app.example.com',};
+            'packageName': 'com.company.appname',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.getPlatform(
@@ -460,7 +460,7 @@ describe('Project', () => {
     });
     
     test('test method deletePlatform()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.deletePlatform(
@@ -474,7 +474,7 @@ describe('Project', () => {
     });
     
     test('test method updateProtocolStatus()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -567,7 +567,7 @@ describe('Project', () => {
     });
     
     test('test method updateServiceStatus()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -660,7 +660,7 @@ describe('Project', () => {
     });
     
     test('test method listVariables()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'variables': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -675,7 +675,7 @@ describe('Project', () => {
     });
     
     test('test method createVariable()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -699,7 +699,7 @@ describe('Project', () => {
     });
     
     test('test method getVariable()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -721,7 +721,7 @@ describe('Project', () => {
     });
     
     test('test method updateVariable()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -743,7 +743,7 @@ describe('Project', () => {
     });
     
     test('test method deleteVariable()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.deleteVariable(

@@ -11,7 +11,7 @@ describe('Account', () => {
 
     
     test('test method get()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -40,7 +40,7 @@ describe('Account', () => {
     });
     
     test('test method create()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -72,7 +72,7 @@ describe('Account', () => {
     });
     
     test('test method updateEmail()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -103,7 +103,7 @@ describe('Account', () => {
     });
     
     test('test method listIdentities()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'identities': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -118,7 +118,7 @@ describe('Account', () => {
     });
     
     test('test method deleteIdentity()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await account.deleteIdentity(
@@ -132,7 +132,7 @@ describe('Account', () => {
     });
     
     test('test method createJWT()', async () => {
-        const data = {
+                                                const data = {
             'jwt': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -146,7 +146,7 @@ describe('Account', () => {
     });
     
     test('test method listLogs()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'logs': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -161,7 +161,7 @@ describe('Account', () => {
     });
     
     test('test method updateMFA()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -191,7 +191,7 @@ describe('Account', () => {
     });
     
     test('test method createMfaAuthenticator()', async () => {
-        const data = {
+                                                const data = {
             'secret': '[SHARED_SECRET]',
             'uri': 'otpauth://totp/appwrite:user@example.com?secret=[SHARED_SECRET]&issuer=appwrite',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -207,7 +207,7 @@ describe('Account', () => {
     });
     
     test('test method createMFAAuthenticator()', async () => {
-        const data = {
+                                                const data = {
             'secret': '[SHARED_SECRET]',
             'uri': 'otpauth://totp/appwrite:user@example.com?secret=[SHARED_SECRET]&issuer=appwrite',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -223,7 +223,7 @@ describe('Account', () => {
     });
     
     test('test method updateMfaAuthenticator()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -254,7 +254,7 @@ describe('Account', () => {
     });
     
     test('test method updateMFAAuthenticator()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -285,7 +285,7 @@ describe('Account', () => {
     });
     
     test('test method deleteMfaAuthenticator()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await account.deleteMfaAuthenticator(
@@ -299,7 +299,7 @@ describe('Account', () => {
     });
     
     test('test method deleteMFAAuthenticator()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await account.deleteMFAAuthenticator(
@@ -313,7 +313,7 @@ describe('Account', () => {
     });
     
     test('test method createMfaChallenge()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',
@@ -331,7 +331,7 @@ describe('Account', () => {
     });
     
     test('test method createMFAChallenge()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',
@@ -349,7 +349,7 @@ describe('Account', () => {
     });
     
     test('test method updateMfaChallenge()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -393,7 +393,7 @@ describe('Account', () => {
     });
     
     test('test method updateMFAChallenge()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -437,7 +437,7 @@ describe('Account', () => {
     });
     
     test('test method listMfaFactors()', async () => {
-        const data = {
+                                                const data = {
             'totp': true,
             'phone': true,
             'email': true,
@@ -454,7 +454,7 @@ describe('Account', () => {
     });
     
     test('test method listMFAFactors()', async () => {
-        const data = {
+                                                const data = {
             'totp': true,
             'phone': true,
             'email': true,
@@ -471,7 +471,7 @@ describe('Account', () => {
     });
     
     test('test method getMfaRecoveryCodes()', async () => {
-        const data = {
+                                                const data = {
             'recoveryCodes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -485,7 +485,7 @@ describe('Account', () => {
     });
     
     test('test method getMFARecoveryCodes()', async () => {
-        const data = {
+                                                const data = {
             'recoveryCodes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -499,7 +499,7 @@ describe('Account', () => {
     });
     
     test('test method createMfaRecoveryCodes()', async () => {
-        const data = {
+                                                const data = {
             'recoveryCodes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -513,7 +513,7 @@ describe('Account', () => {
     });
     
     test('test method createMFARecoveryCodes()', async () => {
-        const data = {
+                                                const data = {
             'recoveryCodes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -527,7 +527,7 @@ describe('Account', () => {
     });
     
     test('test method updateMfaRecoveryCodes()', async () => {
-        const data = {
+                                                const data = {
             'recoveryCodes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -541,7 +541,7 @@ describe('Account', () => {
     });
     
     test('test method updateMFARecoveryCodes()', async () => {
-        const data = {
+                                                const data = {
             'recoveryCodes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -555,7 +555,7 @@ describe('Account', () => {
     });
     
     test('test method updateName()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -585,7 +585,7 @@ describe('Account', () => {
     });
     
     test('test method updatePassword()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -615,7 +615,7 @@ describe('Account', () => {
     });
     
     test('test method updatePhone()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -646,7 +646,7 @@ describe('Account', () => {
     });
     
     test('test method getPrefs()', async () => {
-        const data = {};
+                                                const data = {};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await account.getPrefs(
@@ -659,7 +659,7 @@ describe('Account', () => {
     });
     
     test('test method updatePrefs()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -689,7 +689,7 @@ describe('Account', () => {
     });
     
     test('test method createRecovery()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',
@@ -710,7 +710,7 @@ describe('Account', () => {
     });
     
     test('test method updateRecovery()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',
@@ -732,7 +732,7 @@ describe('Account', () => {
     });
     
     test('test method listSessions()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'sessions': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -747,7 +747,7 @@ describe('Account', () => {
     });
     
     test('test method deleteSessions()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await account.deleteSessions(
@@ -760,7 +760,7 @@ describe('Account', () => {
     });
     
     test('test method createAnonymousSession()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -802,7 +802,7 @@ describe('Account', () => {
     });
     
     test('test method createEmailPasswordSession()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -846,7 +846,7 @@ describe('Account', () => {
     });
     
     test('test method updateMagicURLSession()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -890,7 +890,7 @@ describe('Account', () => {
     });
     
     test('test method updatePhoneSession()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -934,7 +934,7 @@ describe('Account', () => {
     });
     
     test('test method createSession()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -978,7 +978,7 @@ describe('Account', () => {
     });
     
     test('test method getSession()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1021,7 +1021,7 @@ describe('Account', () => {
     });
     
     test('test method updateSession()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1064,7 +1064,7 @@ describe('Account', () => {
     });
     
     test('test method deleteSession()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await account.deleteSession(
@@ -1078,7 +1078,7 @@ describe('Account', () => {
     });
     
     test('test method updateStatus()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1107,7 +1107,7 @@ describe('Account', () => {
     });
     
     test('test method createEmailToken()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',
@@ -1128,7 +1128,7 @@ describe('Account', () => {
     });
     
     test('test method createMagicURLToken()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',
@@ -1163,7 +1163,7 @@ describe('Account', () => {
     });
     
     test('test method createPhoneToken()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',
@@ -1184,7 +1184,7 @@ describe('Account', () => {
     });
     
     test('test method createEmailVerification()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',
@@ -1204,7 +1204,7 @@ describe('Account', () => {
     });
     
     test('test method createVerification()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',
@@ -1224,7 +1224,7 @@ describe('Account', () => {
     });
     
     test('test method updateEmailVerification()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',
@@ -1245,7 +1245,7 @@ describe('Account', () => {
     });
     
     test('test method updateVerification()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',
@@ -1266,7 +1266,7 @@ describe('Account', () => {
     });
     
     test('test method createPhoneVerification()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',
@@ -1285,7 +1285,7 @@ describe('Account', () => {
     });
     
     test('test method updatePhoneVerification()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',

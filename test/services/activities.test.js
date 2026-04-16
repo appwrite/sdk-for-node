@@ -11,7 +11,7 @@ describe('Activities', () => {
 
     
     test('test method listEvents()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'events': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -26,7 +26,7 @@ describe('Activities', () => {
     });
     
     test('test method getEvent()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             'userType': 'user',
             'userId': '610fc2f985ee0',

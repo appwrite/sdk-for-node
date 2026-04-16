@@ -11,7 +11,7 @@ describe('TablesDB', () => {
 
     
     test('test method list()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'databases': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -26,7 +26,7 @@ describe('TablesDB', () => {
     });
     
     test('test method create()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             'name': 'My Database',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -49,7 +49,7 @@ describe('TablesDB', () => {
     });
     
     test('test method listTransactions()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'transactions': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -64,7 +64,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createTransaction()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -83,7 +83,7 @@ describe('TablesDB', () => {
     });
     
     test('test method getTransaction()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -103,7 +103,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateTransaction()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -123,7 +123,7 @@ describe('TablesDB', () => {
     });
     
     test('test method deleteTransaction()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await tablesDB.deleteTransaction(
@@ -137,7 +137,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createOperations()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -157,7 +157,7 @@ describe('TablesDB', () => {
     });
     
     test('test method get()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             'name': 'My Database',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -179,7 +179,7 @@ describe('TablesDB', () => {
     });
     
     test('test method update()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             'name': 'My Database',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -201,7 +201,7 @@ describe('TablesDB', () => {
     });
     
     test('test method delete()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await tablesDB.delete(
@@ -215,7 +215,7 @@ describe('TablesDB', () => {
     });
     
     test('test method listTables()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'tables': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -231,7 +231,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createTable()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -259,7 +259,7 @@ describe('TablesDB', () => {
     });
     
     test('test method getTable()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -286,7 +286,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateTable()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -313,7 +313,7 @@ describe('TablesDB', () => {
     });
     
     test('test method deleteTable()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await tablesDB.deleteTable(
@@ -328,7 +328,7 @@ describe('TablesDB', () => {
     });
     
     test('test method listColumns()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'columns': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -345,7 +345,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createBooleanColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'isEnabled',
             'type': 'boolean',
             'status': 'available',
@@ -369,7 +369,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateBooleanColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'isEnabled',
             'type': 'boolean',
             'status': 'available',
@@ -394,7 +394,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createDatetimeColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'birthDay',
             'type': 'datetime',
             'status': 'available',
@@ -419,7 +419,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateDatetimeColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'birthDay',
             'type': 'datetime',
             'status': 'available',
@@ -445,7 +445,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createEmailColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'userEmail',
             'type': 'string',
             'status': 'available',
@@ -470,7 +470,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateEmailColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'userEmail',
             'type': 'string',
             'status': 'available',
@@ -496,7 +496,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createEnumColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'status',
             'type': 'string',
             'status': 'available',
@@ -523,7 +523,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateEnumColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'status',
             'type': 'string',
             'status': 'available',
@@ -551,7 +551,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createFloatColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'percentageCompleted',
             'type': 'double',
             'status': 'available',
@@ -575,7 +575,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateFloatColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'percentageCompleted',
             'type': 'double',
             'status': 'available',
@@ -600,7 +600,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createIntegerColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'count',
             'type': 'integer',
             'status': 'available',
@@ -624,7 +624,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateIntegerColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'count',
             'type': 'integer',
             'status': 'available',
@@ -649,7 +649,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createIpColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'ipAddress',
             'type': 'string',
             'status': 'available',
@@ -674,7 +674,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateIpColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'ipAddress',
             'type': 'string',
             'status': 'available',
@@ -700,7 +700,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createLineColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -724,7 +724,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateLineColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -748,7 +748,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createLongtextColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -772,7 +772,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateLongtextColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -797,7 +797,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createMediumtextColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -821,7 +821,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateMediumtextColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -846,7 +846,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createPointColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -870,7 +870,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updatePointColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -894,7 +894,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createPolygonColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -918,7 +918,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updatePolygonColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -942,7 +942,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createRelationshipColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -972,7 +972,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createStringColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -998,7 +998,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateStringColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -1024,7 +1024,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createTextColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -1048,7 +1048,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateTextColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -1073,7 +1073,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createUrlColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'githubUrl',
             'type': 'string',
             'status': 'available',
@@ -1098,7 +1098,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateUrlColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'githubUrl',
             'type': 'string',
             'status': 'available',
@@ -1124,7 +1124,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createVarcharColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -1150,7 +1150,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateVarcharColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -1176,14 +1176,15 @@ describe('TablesDB', () => {
     });
     
     test('test method getColumn()', async () => {
-        const data = {
-            'key': 'isEnabled',
-            'type': 'boolean',
+                                                const data = {
+            'key': 'fullName',
+            'type': 'string',
             'status': 'available',
             'error': 'string',
             'required': true,
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',};
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'size': 128,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await tablesDB.getColumn(
@@ -1199,7 +1200,7 @@ describe('TablesDB', () => {
     });
     
     test('test method deleteColumn()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await tablesDB.deleteColumn(
@@ -1215,7 +1216,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateRelationshipColumn()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -1244,7 +1245,7 @@ describe('TablesDB', () => {
     });
     
     test('test method listIndexes()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'indexes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1261,7 +1262,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createIndex()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1288,7 +1289,7 @@ describe('TablesDB', () => {
     });
     
     test('test method getIndex()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1313,7 +1314,7 @@ describe('TablesDB', () => {
     });
     
     test('test method deleteIndex()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await tablesDB.deleteIndex(
@@ -1329,7 +1330,7 @@ describe('TablesDB', () => {
     });
     
     test('test method listRows()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'rows': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1346,7 +1347,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createRow()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$sequence': '1',
             '\$tableId': '5e5ea5c15117e',
@@ -1370,7 +1371,7 @@ describe('TablesDB', () => {
     });
     
     test('test method createRows()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'rows': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1388,7 +1389,7 @@ describe('TablesDB', () => {
     });
     
     test('test method upsertRows()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'rows': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1406,7 +1407,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateRows()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'rows': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1423,7 +1424,7 @@ describe('TablesDB', () => {
     });
     
     test('test method deleteRows()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'rows': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1440,7 +1441,7 @@ describe('TablesDB', () => {
     });
     
     test('test method getRow()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$sequence': '1',
             '\$tableId': '5e5ea5c15117e',
@@ -1463,7 +1464,7 @@ describe('TablesDB', () => {
     });
     
     test('test method upsertRow()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$sequence': '1',
             '\$tableId': '5e5ea5c15117e',
@@ -1486,7 +1487,7 @@ describe('TablesDB', () => {
     });
     
     test('test method updateRow()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$sequence': '1',
             '\$tableId': '5e5ea5c15117e',
@@ -1509,7 +1510,7 @@ describe('TablesDB', () => {
     });
     
     test('test method deleteRow()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await tablesDB.deleteRow(
@@ -1525,7 +1526,7 @@ describe('TablesDB', () => {
     });
     
     test('test method decrementRowColumn()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$sequence': '1',
             '\$tableId': '5e5ea5c15117e',
@@ -1549,7 +1550,7 @@ describe('TablesDB', () => {
     });
     
     test('test method incrementRowColumn()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$sequence': '1',
             '\$tableId': '5e5ea5c15117e',
