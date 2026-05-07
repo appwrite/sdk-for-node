@@ -2,6 +2,7 @@ import { AppwriteException, Client, type Payload, UploadProgress } from '../clie
 import type { Models } from '../models';
 
 
+
 export class Activities {
     client: Client;
 

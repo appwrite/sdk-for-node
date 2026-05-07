@@ -655,6 +655,7 @@ describe('Sites', () => {
 
         const response = await sites.createVariable(
             '<SITE_ID>',
+            '<VARIABLE_ID>',
             '<KEY>',
             '<VALUE>',
         );
@@ -703,7 +704,6 @@ describe('Sites', () => {
         const response = await sites.updateVariable(
             '<SITE_ID>',
             '<VARIABLE_ID>',
-            '<KEY>',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.

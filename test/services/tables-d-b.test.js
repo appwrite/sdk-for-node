@@ -344,6 +344,55 @@ describe('TablesDB', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method createBigIntColumn()', async () => {
+                                                const data = {
+            'key': 'count',
+            'type': 'bigint',
+            'status': 'available',
+            'error': 'string',
+            'required': true,
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await tablesDB.createBigIntColumn(
+            '<DATABASE_ID>',
+            '<TABLE_ID>',
+            '',
+            true,
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method updateBigIntColumn()', async () => {
+                                                const data = {
+            'key': 'count',
+            'type': 'bigint',
+            'status': 'available',
+            'error': 'string',
+            'required': true,
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await tablesDB.updateBigIntColumn(
+            '<DATABASE_ID>',
+            '<TABLE_ID>',
+            '',
+            true,
+            1,
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method createBooleanColumn()', async () => {
                                                 const data = {
             'key': 'isEnabled',

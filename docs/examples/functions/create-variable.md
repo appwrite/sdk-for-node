@@ -10,6 +10,7 @@ const functions = new sdk.Functions(client);
 
 const result = await functions.createVariable({
     functionId: '<FUNCTION_ID>',
+    variableId: '<VARIABLE_ID>',
     key: '<KEY>',
     value: '<VALUE>',
     secret: false // optional

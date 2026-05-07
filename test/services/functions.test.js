@@ -677,6 +677,7 @@ describe('Functions', () => {
 
         const response = await functions.createVariable(
             '<FUNCTION_ID>',
+            '<VARIABLE_ID>',
             '<KEY>',
             '<VALUE>',
         );
@@ -725,7 +726,6 @@ describe('Functions', () => {
         const response = await functions.updateVariable(
             '<FUNCTION_ID>',
             '<VARIABLE_ID>',
-            '<KEY>',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.

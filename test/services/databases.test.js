@@ -344,6 +344,55 @@ describe('Databases', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method createBigIntAttribute()', async () => {
+                                                const data = {
+            'key': 'count',
+            'type': 'bigint',
+            'status': 'available',
+            'error': 'string',
+            'required': true,
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await databases.createBigIntAttribute(
+            '<DATABASE_ID>',
+            '<COLLECTION_ID>',
+            '',
+            true,
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method updateBigIntAttribute()', async () => {
+                                                const data = {
+            'key': 'count',
+            'type': 'bigint',
+            'status': 'available',
+            'error': 'string',
+            'required': true,
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await databases.updateBigIntAttribute(
+            '<DATABASE_ID>',
+            '<COLLECTION_ID>',
+            '',
+            true,
+            1,
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method createBooleanAttribute()', async () => {
                                                 const data = {
             'key': 'isEnabled',

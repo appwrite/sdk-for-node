@@ -1,6 +1,7 @@
 import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
 import type { Models } from '../models';
 
+
 import { RelationshipType } from '../enums/relationship-type';
 import { RelationMutate } from '../enums/relation-mutate';
 import { DatabasesIndexType } from '../enums/databases-index-type';
@@ -1130,6 +1131,228 @@ export class Databases {
 
         return this.client.call(
             'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a bigint attribute. Optionally, minimum and maximum values can be provided.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.collectionId - Collection ID.
+     * @param {string} params.key - Attribute Key.
+     * @param {boolean} params.required - Is attribute required?
+     * @param {number | bigint} params.min - Minimum value
+     * @param {number | bigint} params.max - Maximum value
+     * @param {number | bigint} params.xdefault - Default value. Cannot be set when attribute is required.
+     * @param {boolean} params.array - Is attribute an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeBigint>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createBigIntColumn` instead.
+     */
+    createBigIntAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean }): Promise<Models.AttributeBigint>;
+    /**
+     * Create a bigint attribute. Optionally, minimum and maximum values can be provided.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} collectionId - Collection ID.
+     * @param {string} key - Attribute Key.
+     * @param {boolean} required - Is attribute required?
+     * @param {number | bigint} min - Minimum value
+     * @param {number | bigint} max - Maximum value
+     * @param {number | bigint} xdefault - Default value. Cannot be set when attribute is required.
+     * @param {boolean} array - Is attribute an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeBigint>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createBigIntAttribute(databaseId: string, collectionId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean): Promise<Models.AttributeBigint>;
+    createBigIntAttribute(
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (number | bigint)?, (number | bigint)?, (number | bigint)?, (boolean)?]    
+    ): Promise<Models.AttributeBigint> {
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                collectionId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                min: rest[3] as number | bigint,
+                max: rest[4] as number | bigint,
+                xdefault: rest[5] as number | bigint,
+                array: rest[6] as boolean            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const collectionId = params.collectionId;
+        const key = params.key;
+        const required = params.required;
+        const min = params.min;
+        const max = params.max;
+        const xdefault = params.xdefault;
+        const array = params.array;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/bigint'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const payload: Payload = {};
+        if (typeof key !== 'undefined') {
+            payload['key'] = key;
+        }
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof min !== 'undefined') {
+            payload['min'] = min;
+        }
+        if (typeof max !== 'undefined') {
+            payload['max'] = max;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof array !== 'undefined') {
+            payload['array'] = array;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a bigint attribute. Changing the `default` value will not update already existing documents.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.collectionId - Collection ID.
+     * @param {string} params.key - Attribute Key.
+     * @param {boolean} params.required - Is attribute required?
+     * @param {number | bigint} params.xdefault - Default value. Cannot be set when attribute is required.
+     * @param {number | bigint} params.min - Minimum value
+     * @param {number | bigint} params.max - Maximum value
+     * @param {string} params.newKey - New Attribute Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeBigint>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateBigIntColumn` instead.
+     */
+    updateBigIntAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string }): Promise<Models.AttributeBigint>;
+    /**
+     * Update a bigint attribute. Changing the `default` value will not update already existing documents.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} collectionId - Collection ID.
+     * @param {string} key - Attribute Key.
+     * @param {boolean} required - Is attribute required?
+     * @param {number | bigint} xdefault - Default value. Cannot be set when attribute is required.
+     * @param {number | bigint} min - Minimum value
+     * @param {number | bigint} max - Maximum value
+     * @param {string} newKey - New Attribute Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AttributeBigint>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateBigIntAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string): Promise<Models.AttributeBigint>;
+    updateBigIntAttribute(
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (number | bigint)?, (number | bigint)?, (number | bigint)?, (string)?]    
+    ): Promise<Models.AttributeBigint> {
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                collectionId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as number | bigint,
+                min: rest[4] as number | bigint,
+                max: rest[5] as number | bigint,
+                newKey: rest[6] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const collectionId = params.collectionId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const min = params.min;
+        const max = params.max;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof collectionId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "collectionId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+        if (typeof xdefault === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "xdefault"');
+        }
+
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/bigint/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof min !== 'undefined') {
+            payload['min'] = min;
+        }
+        if (typeof max !== 'undefined') {
+            payload['max'] = max;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
             uri,
             apiHeaders,
             payload,
