@@ -49,7 +49,7 @@ export { Name } from './enums/name';
 export { MessagePriority } from './enums/message-priority';
 export { SmtpEncryption } from './enums/smtp-encryption';
 export { AuthMethod } from './enums/auth-method';
-export { ProjectPolicyId } from './enums/project-policy-id';
+export { ProjectPolicy } from './enums/project-policy';
 export { ProtocolId } from './enums/protocol-id';
 export { ServiceId } from './enums/service-id';
 export { Secure } from './enums/secure';

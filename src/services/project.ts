@@ -5,7 +5,7 @@ import type { Models } from '../models';
 import { AuthMethod } from '../enums/auth-method';
 import { Scopes } from '../enums/scopes';
 import { OAuthProvider } from '../enums/o-auth-provider';
-import { ProjectPolicyId } from '../enums/project-policy-id';
+import { ProjectPolicy } from '../enums/project-policy';
 import { ProtocolId } from '../enums/protocol-id';
 import { ServiceId } from '../enums/service-id';
 import { Secure } from '../enums/secure';
@@ -5377,30 +5377,30 @@ export class Project {
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy.
+     * @param {ProjectPolicy} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy.
      * @throws {AppwriteException}
      * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy>}
      */
-    getPolicy(params: { policyId: ProjectPolicyId }): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy>;
+    getPolicy(params: { policyId: ProjectPolicy }): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy>;
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy.
+     * @param {ProjectPolicy} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy.
      * @throws {AppwriteException}
      * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getPolicy(policyId: ProjectPolicyId): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy>;
+    getPolicy(policyId: ProjectPolicy): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy>;
     getPolicy(
-        paramsOrFirst: { policyId: ProjectPolicyId } | ProjectPolicyId    
+        paramsOrFirst: { policyId: ProjectPolicy } | ProjectPolicy    
     ): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy> {
-        let params: { policyId: ProjectPolicyId };
+        let params: { policyId: ProjectPolicy };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('policyId' in paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { policyId: ProjectPolicyId };
+            params = (paramsOrFirst || {}) as { policyId: ProjectPolicy };
         } else {
             params = {
-                policyId: paramsOrFirst as ProjectPolicyId            
+                policyId: paramsOrFirst as ProjectPolicy            
             };
         }
         
