@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const project = new sdk.Project(client);
 
 const result = await project.getOAuth2Provider({
-    providerId: sdk.ProviderId.Amazon
+    providerId: sdk.OAuthProvider.Amazon
 });
 ```
