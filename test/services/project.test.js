@@ -440,31 +440,12 @@ describe('Project', () => {
         expect(response).toEqual(data);
     });
     
-    test('test method getOAuth2Provider()', async () => {
-                                                const data = {
-            '\$id': 'github',
-            'enabled': true,
-            'applicationId': '00001111-aaaa-2222-bbbb-3333cccc4444',
-            'applicationSecret': 'A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u',
-            'tenant': 'common',};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await project.getOAuth2Provider(
-            'amazon',
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
     test('test method updateOAuth2Amazon()', async () => {
                                                 const data = {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'amzn1.application-oa2-client.87400c00000000000000000000063d5b2',
-            'clientSecret': '79ffe4000000000000000000000000000000000000000000000000000002de55',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Amazon(
@@ -500,7 +481,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'OaOkIA000000000000000000005KLSYq',
-            'clientSecret': 'zXz0000-00000000000000000000000000000-00000000000000000000PJafnF',
+            'clientSecret': '<CLIENT_SECRET>',
             'endpoint': 'example.us.auth0.com',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -518,7 +499,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'dTKOPa0000000000000000000000000000e7G8hv',
-            'clientSecret': 'ntQadq000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000Hp5WK',
+            'clientSecret': '<CLIENT_SECRET>',
             'endpoint': 'example.authentik.com',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -536,7 +517,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '5zw90v00000000000000000000kVYXN7',
-            'clientSecret': '7I000000000000MW',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Autodesk(
@@ -553,7 +534,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'key': 'Knt70000000000ByRc',
-            'secret': 'NMfLZJ00000000000000000000TLQdDx',};
+            'secret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Bitbucket(
@@ -570,7 +551,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'd95151000000000000000000000000000067af9b',
-            'clientSecret': 'a13e250000000000000000000000000000d73095',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Bitly(
@@ -587,7 +568,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'deglcs00000000000000000000x2og6y',
-            'clientSecret': 'OKM1f100000000000000000000eshEif',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Box(
@@ -604,7 +585,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'apiKey': '07a9000000000000067f',
-            'apiSecret': 'a399a90000000000000000000000000000d90639',};
+            'apiSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Dailymotion(
@@ -621,7 +602,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '950722000000343754',
-            'clientSecret': 'YmPXnM000000000000000000002zFg5D',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Discord(
@@ -638,7 +619,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'publicKey': 'cgegH70000000000000000000000000000000000000000000000000000Hr1nYX',
-            'secretKey': 'W7Bykj00000000000000000000000000000000000000000000000000003o43w9',};
+            'secretKey': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Disqus(
@@ -655,7 +636,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'appKey': 'jl000000000009t',
-            'appSecret': 'g200000000000vw',};
+            'appSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Dropbox(
@@ -672,7 +653,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'keyString': 'nsgzxh0000000000008j85a2',
-            'sharedSecret': 'tp000000ru',};
+            'sharedSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Etsy(
@@ -689,7 +670,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'appId': '260600000007694',
-            'appSecret': '2d0b2800000000000000000000d38af4',};
+            'appSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Facebook(
@@ -706,7 +687,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'byay5H0000000000VtiI40',
-            'clientSecret': 'yEpOYn0000000000000000004iIsU5',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Figma(
@@ -723,7 +704,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'b2222c00-0000-0000-0000-000000862097',
-            'clientSecret': 'Jx4s0C0000000000000000000000000000000wGqLsc',
+            'clientSecret': '<CLIENT_SECRET>',
             'endpoint': 'example.fusionauth.io',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -741,7 +722,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'e4d87900000000540733',
-            'clientSecret': '5e07c00000000000000000000000000000198bcc',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2GitHub(
@@ -758,7 +739,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'applicationId': 'd41ffe0000000000000000000000000000000000000000000000000000d5e252',
-            'secret': 'gloas-838cfa0000000000000000000000000000000000000000000000000000ecbb38',
+            'secret': '<CLIENT_SECRET>',
             'endpoint': 'https://gitlab.com',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -775,8 +756,8 @@ describe('Project', () => {
                                                 const data = {
             '\$id': 'github',
             'enabled': true,
-            'clientId': 'your-google-client-id.apps.googleusercontent.com',
-            'clientSecret': 'your-google-client-secret',};
+            'clientId': '120000000095-92ifjb00000000000000000000g7ijfb.apps.googleusercontent.com',
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Google(
@@ -793,7 +774,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'appwrite-o0000000st-app',
-            'clientSecret': 'jdjrJd00000000000000000000HUsaZO',
+            'clientSecret': '<CLIENT_SECRET>',
             'endpoint': 'keycloak.example.com',
             'realmName': 'appwrite-realm',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -812,7 +793,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '01KQ7C00000000000001MFHS32',
-            'clientSecret': '34ac5600000000000000000000000000000000000000000000000000e830c8b',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Kick(
@@ -829,7 +810,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '770000000000dv',
-            'primaryClientSecret': 'your-linkedin-client-secret',};
+            'primaryClientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Linkedin(
@@ -846,7 +827,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'applicationId': '00001111-aaaa-2222-bbbb-3333cccc4444',
-            'applicationSecret': 'A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u',
+            'applicationSecret': '<CLIENT_SECRET>',
             'tenant': 'common',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -864,7 +845,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'oauthClientId': '341d8700-0000-0000-0000-000000446ee3',
-            'oauthClientSecret': 'secret_dLUr4b000000000000000000000000000000lFHAa9',};
+            'oauthClientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Notion(
@@ -881,7 +862,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'qibI2x0000000000000000000000000006L2YFoG',
-            'clientSecret': 'Ah68ed000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003qpcHV',
+            'clientSecret': '<CLIENT_SECRET>',
             'wellKnownURL': 'https://myoauth.com/.well-known/openid-configuration',
             'authorizationURL': 'https://myoauth.com/oauth2/authorize',
             'tokenURL': 'https://myoauth.com/oauth2/token',
@@ -902,7 +883,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '0oa00000000000000698',
-            'clientSecret': 'Kiq0000000000000000000000000000000000000-00000000000H2L5-3SJ-vRV',
+            'clientSecret': '<CLIENT_SECRET>',
             'domain': 'trial-6400025.okta.com',
             'authorizationServerId': 'aus000000000000000h7z',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -921,7 +902,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB',
-            'secretKey': 'EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp',};
+            'secretKey': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Paypal(
@@ -938,7 +919,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB',
-            'secretKey': 'EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp',};
+            'secretKey': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2PaypalSandbox(
@@ -955,7 +936,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'appwrite-oauth-test-app',
-            'clientSecret': 'Rn247T0000000000000000000000000000000000000000000000000000W2zWTN',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Podio(
@@ -972,7 +953,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'customerKey': '3MVG9I0000000000000000000000000000000000000000000000000000000000000000000000000C5Aejq',
-            'customerSecret': '3w000000000000e2',};
+            'customerSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Salesforce(
@@ -989,7 +970,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '23000000089.15000000000023',
-            'clientSecret': '81656000000000000000000000f3d2fd',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Slack(
@@ -1006,7 +987,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '6ec271000000000000000000009beace',
-            'clientSecret': 'db068a000000000000000000008b5b9f',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Spotify(
@@ -1023,7 +1004,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'ca_UKibXX0000000000000000000006byvR',
-            'apiSecretKey': 'sk_51SfOd000000000000000000000000000000000000000000000000000000000000000000000000000000000000000QGWYfp',};
+            'apiSecretKey': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Stripe(
@@ -1040,7 +1021,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'oauth2ClientId': 'appwrite-test-org.appwrite-test-app',
-            'oauth2ClientSecret': '7cb52700-0000-0000-0000-000000ca5b83',};
+            'oauth2ClientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Tradeshift(
@@ -1057,7 +1038,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'oauth2ClientId': 'appwrite-test-org.appwrite-test-app',
-            'oauth2ClientSecret': '7cb52700-0000-0000-0000-000000ca5b83',};
+            'oauth2ClientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2TradeshiftSandbox(
@@ -1074,7 +1055,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'vvi0in000000000000000000ikmt9p',
-            'clientSecret': 'pmapue000000000000000000zylw3v',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Twitch(
@@ -1091,7 +1072,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '130005',
-            'clientSecret': 'PlBfJS0000000000000000000000000000000000000000000000000000EdUZJk',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2WordPress(
@@ -1108,7 +1089,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'customerKey': 'slzZV0000000000000NFLaWT',
-            'secretKey': 'tkEPkp00000000000000000000000000000000000000FTxbI9',};
+            'secretKey': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2X(
@@ -1125,7 +1106,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'dj0yJm000000000000000000000000000000000000000000000000000000000000000000000000000000000000Z4PWRm',
-            'clientSecret': 'cf978f0000000000000000000000000000c5e2e9',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Yahoo(
@@ -1142,7 +1123,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '6a8a6a0000000000000000000091483c',
-            'clientSecret': 'bbf98500000000000000000000c75a63',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Yandex(
@@ -1159,7 +1140,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '1000.83C178000000000000000000RPNX0B',
-            'clientSecret': 'fb5cac000000000000000000000000000000a68f6e',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Zoho(
@@ -1176,10 +1157,29 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'QMAC00000000000000w0AQ',
-            'clientSecret': 'GAWsG4000000000000000000007U01ON',};
+            'clientSecret': '<CLIENT_SECRET>',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Zoom(
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method getOAuth2Provider()', async () => {
+                                                const data = {
+            '\$id': 'github',
+            'enabled': true,
+            'applicationId': '00001111-aaaa-2222-bbbb-3333cccc4444',
+            'applicationSecret': '<CLIENT_SECRET>',
+            'tenant': 'common',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await project.getOAuth2Provider(
+            'amazon',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.

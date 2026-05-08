@@ -1,4 +1,4 @@
-export enum MethodId {
+export enum AuthMethod {
     Emailpassword = 'email-password',
     Magicurl = 'magic-url',
     Emailotp = 'email-otp',

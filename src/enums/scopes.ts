@@ -77,8 +77,6 @@ export enum Scopes {
     SchedulesWrite = 'schedules.write',
     VcsRead = 'vcs.read',
     VcsWrite = 'vcs.write',
-    PresencesRead = 'presences.read',
-    PresencesWrite = 'presences.write',
     BackupsPoliciesRead = 'backups.policies.read',
     BackupsPoliciesWrite = 'backups.policies.write',
     ArchivesRead = 'archives.read',
