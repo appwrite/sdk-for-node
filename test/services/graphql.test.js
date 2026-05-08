@@ -11,7 +11,7 @@ describe('Graphql', () => {
 
     
     test('test method query()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await graphql.query(
@@ -25,7 +25,7 @@ describe('Graphql', () => {
     });
     
     test('test method mutation()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await graphql.mutation(

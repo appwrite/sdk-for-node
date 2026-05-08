@@ -11,7 +11,7 @@ describe('Messaging', () => {
 
     
     test('test method listMessages()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'messages': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -26,7 +26,7 @@ describe('Messaging', () => {
     });
     
     test('test method createEmail()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -52,7 +52,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateEmail()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -76,7 +76,7 @@ describe('Messaging', () => {
     });
     
     test('test method createPush()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -100,7 +100,7 @@ describe('Messaging', () => {
     });
     
     test('test method updatePush()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -124,7 +124,7 @@ describe('Messaging', () => {
     });
     
     test('test method createSms()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -149,7 +149,7 @@ describe('Messaging', () => {
     });
     
     test('test method createSMS()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -174,7 +174,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateSms()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -198,7 +198,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateSMS()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -222,7 +222,7 @@ describe('Messaging', () => {
     });
     
     test('test method getMessage()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -246,7 +246,7 @@ describe('Messaging', () => {
     });
     
     test('test method delete()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await messaging.delete(
@@ -260,7 +260,7 @@ describe('Messaging', () => {
     });
     
     test('test method listMessageLogs()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'logs': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -276,7 +276,7 @@ describe('Messaging', () => {
     });
     
     test('test method listTargets()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'targets': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -292,7 +292,7 @@ describe('Messaging', () => {
     });
     
     test('test method listProviders()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'providers': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -307,7 +307,7 @@ describe('Messaging', () => {
     });
     
     test('test method createApnsProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -330,7 +330,7 @@ describe('Messaging', () => {
     });
     
     test('test method createAPNSProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -353,7 +353,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateApnsProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -375,7 +375,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateAPNSProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -397,7 +397,7 @@ describe('Messaging', () => {
     });
     
     test('test method createFcmProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -420,7 +420,7 @@ describe('Messaging', () => {
     });
     
     test('test method createFCMProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -443,7 +443,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateFcmProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -465,7 +465,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateFCMProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -487,7 +487,7 @@ describe('Messaging', () => {
     });
     
     test('test method createMailgunProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -510,7 +510,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateMailgunProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -532,7 +532,7 @@ describe('Messaging', () => {
     });
     
     test('test method createMsg91Provider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -555,7 +555,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateMsg91Provider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -577,7 +577,7 @@ describe('Messaging', () => {
     });
     
     test('test method createResendProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -600,7 +600,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateResendProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -622,7 +622,7 @@ describe('Messaging', () => {
     });
     
     test('test method createSendgridProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -645,7 +645,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateSendgridProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -667,7 +667,7 @@ describe('Messaging', () => {
     });
     
     test('test method createSmtpProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -691,7 +691,7 @@ describe('Messaging', () => {
     });
     
     test('test method createSMTPProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -715,7 +715,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateSmtpProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -737,7 +737,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateSMTPProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -759,7 +759,7 @@ describe('Messaging', () => {
     });
     
     test('test method createTelesignProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -782,7 +782,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateTelesignProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -804,7 +804,7 @@ describe('Messaging', () => {
     });
     
     test('test method createTextmagicProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -827,7 +827,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateTextmagicProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -849,7 +849,7 @@ describe('Messaging', () => {
     });
     
     test('test method createTwilioProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -872,7 +872,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateTwilioProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -894,7 +894,7 @@ describe('Messaging', () => {
     });
     
     test('test method createVonageProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -917,7 +917,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateVonageProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -939,7 +939,7 @@ describe('Messaging', () => {
     });
     
     test('test method getProvider()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -961,7 +961,7 @@ describe('Messaging', () => {
     });
     
     test('test method deleteProvider()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await messaging.deleteProvider(
@@ -975,7 +975,7 @@ describe('Messaging', () => {
     });
     
     test('test method listProviderLogs()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'logs': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -991,7 +991,7 @@ describe('Messaging', () => {
     });
     
     test('test method listSubscriberLogs()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'logs': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1007,7 +1007,7 @@ describe('Messaging', () => {
     });
     
     test('test method listTopics()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'topics': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1022,7 +1022,7 @@ describe('Messaging', () => {
     });
     
     test('test method createTopic()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1045,7 +1045,7 @@ describe('Messaging', () => {
     });
     
     test('test method getTopic()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1067,7 +1067,7 @@ describe('Messaging', () => {
     });
     
     test('test method updateTopic()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1089,7 +1089,7 @@ describe('Messaging', () => {
     });
     
     test('test method deleteTopic()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await messaging.deleteTopic(
@@ -1103,7 +1103,7 @@ describe('Messaging', () => {
     });
     
     test('test method listTopicLogs()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'logs': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1119,7 +1119,7 @@ describe('Messaging', () => {
     });
     
     test('test method listSubscribers()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'subscribers': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1135,7 +1135,7 @@ describe('Messaging', () => {
     });
     
     test('test method createSubscriber()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1160,7 +1160,7 @@ describe('Messaging', () => {
     });
     
     test('test method getSubscriber()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1184,7 +1184,7 @@ describe('Messaging', () => {
     });
     
     test('test method deleteSubscriber()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await messaging.deleteSubscriber(

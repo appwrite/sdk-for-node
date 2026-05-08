@@ -14,7 +14,7 @@ const result = await databases.createStringAttribute({
     key: '',
     size: 1,
     required: false,
-    default: '<DEFAULT>', // optional
+    xdefault: '<DEFAULT>', // optional
     array: false, // optional
     encrypt: false // optional
 });

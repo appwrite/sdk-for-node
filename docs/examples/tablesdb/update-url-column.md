@@ -13,7 +13,7 @@ const result = await tablesDB.updateUrlColumn({
     tableId: '<TABLE_ID>',
     key: '',
     required: false,
-    default: 'https://example.com',
+    xdefault: 'https://example.com',
     newKey: '' // optional
 });
 ```

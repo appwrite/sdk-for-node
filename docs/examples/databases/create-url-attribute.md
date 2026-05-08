@@ -13,7 +13,7 @@ const result = await databases.createUrlAttribute({
     collectionId: '<COLLECTION_ID>',
     key: '',
     required: false,
-    default: 'https://example.com', // optional
+    xdefault: 'https://example.com', // optional
     array: false // optional
 });
 ```

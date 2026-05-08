@@ -8,8 +8,9 @@ const client = new sdk.Client()
 
 const project = new sdk.Project(client);
 
-const result = await project.updateProtocolStatus({
-    protocolId: sdk.ProtocolId.Rest,
-    enabled: false
+const result = await project.updateOAuth2Linkedin({
+    clientId: '<CLIENT_ID>', // optional
+    primaryClientSecret: '<PRIMARY_CLIENT_SECRET>', // optional
+    enabled: false // optional
 });
 ```

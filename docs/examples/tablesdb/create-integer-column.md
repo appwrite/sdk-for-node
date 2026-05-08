@@ -15,7 +15,7 @@ const result = await tablesDB.createIntegerColumn({
     required: false,
     min: null, // optional
     max: null, // optional
-    default: null, // optional
+    xdefault: null, // optional
     array: false // optional
 });
 ```

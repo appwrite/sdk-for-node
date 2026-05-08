@@ -13,7 +13,7 @@ const result = await databases.updateBooleanAttribute({
     collectionId: '<COLLECTION_ID>',
     key: '',
     required: false,
-    default: false,
+    xdefault: false,
     newKey: '' // optional
 });
 ```

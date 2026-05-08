@@ -14,7 +14,7 @@ const result = await tablesDB.createEnumColumn({
     key: '',
     elements: [],
     required: false,
-    default: '<DEFAULT>', // optional
+    xdefault: '<DEFAULT>', // optional
     array: false // optional
 });
 ```

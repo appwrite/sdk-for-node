@@ -11,7 +11,7 @@ describe('Webhooks', () => {
 
     
     test('test method list()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'webhooks': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -26,7 +26,7 @@ describe('Webhooks', () => {
     });
     
     test('test method create()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -56,7 +56,7 @@ describe('Webhooks', () => {
     });
     
     test('test method get()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -83,7 +83,7 @@ describe('Webhooks', () => {
     });
     
     test('test method update()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -113,7 +113,7 @@ describe('Webhooks', () => {
     });
     
     test('test method delete()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await webhooks.delete(
@@ -127,7 +127,7 @@ describe('Webhooks', () => {
     });
     
     test('test method updateSecret()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',

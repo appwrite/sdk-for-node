@@ -11,7 +11,7 @@ describe('Users', () => {
 
     
     test('test method list()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'users': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -26,7 +26,7 @@ describe('Users', () => {
     });
     
     test('test method create()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -56,7 +56,7 @@ describe('Users', () => {
     });
     
     test('test method createArgon2User()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -88,7 +88,7 @@ describe('Users', () => {
     });
     
     test('test method createBcryptUser()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -120,7 +120,7 @@ describe('Users', () => {
     });
     
     test('test method listIdentities()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'identities': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -135,7 +135,7 @@ describe('Users', () => {
     });
     
     test('test method deleteIdentity()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await users.deleteIdentity(
@@ -149,7 +149,7 @@ describe('Users', () => {
     });
     
     test('test method createMD5User()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -181,7 +181,7 @@ describe('Users', () => {
     });
     
     test('test method createPHPassUser()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -213,7 +213,7 @@ describe('Users', () => {
     });
     
     test('test method createScryptUser()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -250,7 +250,7 @@ describe('Users', () => {
     });
     
     test('test method createScryptModifiedUser()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -285,7 +285,7 @@ describe('Users', () => {
     });
     
     test('test method createSHAUser()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -317,7 +317,7 @@ describe('Users', () => {
     });
     
     test('test method get()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -347,7 +347,7 @@ describe('Users', () => {
     });
     
     test('test method delete()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await users.delete(
@@ -361,7 +361,7 @@ describe('Users', () => {
     });
     
     test('test method updateEmail()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -392,7 +392,7 @@ describe('Users', () => {
     });
     
     test('test method updateImpersonator()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -423,7 +423,7 @@ describe('Users', () => {
     });
     
     test('test method createJWT()', async () => {
-        const data = {
+                                                const data = {
             'jwt': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -438,7 +438,7 @@ describe('Users', () => {
     });
     
     test('test method updateLabels()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -469,7 +469,7 @@ describe('Users', () => {
     });
     
     test('test method listLogs()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'logs': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -485,7 +485,7 @@ describe('Users', () => {
     });
     
     test('test method listMemberships()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'memberships': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -501,7 +501,7 @@ describe('Users', () => {
     });
     
     test('test method updateMfa()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -532,7 +532,7 @@ describe('Users', () => {
     });
     
     test('test method updateMFA()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -563,7 +563,7 @@ describe('Users', () => {
     });
     
     test('test method deleteMfaAuthenticator()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await users.deleteMfaAuthenticator(
@@ -578,7 +578,7 @@ describe('Users', () => {
     });
     
     test('test method deleteMFAAuthenticator()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await users.deleteMFAAuthenticator(
@@ -593,7 +593,7 @@ describe('Users', () => {
     });
     
     test('test method listMfaFactors()', async () => {
-        const data = {
+                                                const data = {
             'totp': true,
             'phone': true,
             'email': true,
@@ -611,7 +611,7 @@ describe('Users', () => {
     });
     
     test('test method listMFAFactors()', async () => {
-        const data = {
+                                                const data = {
             'totp': true,
             'phone': true,
             'email': true,
@@ -629,7 +629,7 @@ describe('Users', () => {
     });
     
     test('test method getMfaRecoveryCodes()', async () => {
-        const data = {
+                                                const data = {
             'recoveryCodes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -644,7 +644,7 @@ describe('Users', () => {
     });
     
     test('test method getMFARecoveryCodes()', async () => {
-        const data = {
+                                                const data = {
             'recoveryCodes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -659,7 +659,7 @@ describe('Users', () => {
     });
     
     test('test method updateMfaRecoveryCodes()', async () => {
-        const data = {
+                                                const data = {
             'recoveryCodes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -674,7 +674,7 @@ describe('Users', () => {
     });
     
     test('test method updateMFARecoveryCodes()', async () => {
-        const data = {
+                                                const data = {
             'recoveryCodes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -689,7 +689,7 @@ describe('Users', () => {
     });
     
     test('test method createMfaRecoveryCodes()', async () => {
-        const data = {
+                                                const data = {
             'recoveryCodes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -704,7 +704,7 @@ describe('Users', () => {
     });
     
     test('test method createMFARecoveryCodes()', async () => {
-        const data = {
+                                                const data = {
             'recoveryCodes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -719,7 +719,7 @@ describe('Users', () => {
     });
     
     test('test method updateName()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -750,7 +750,7 @@ describe('Users', () => {
     });
     
     test('test method updatePassword()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -781,7 +781,7 @@ describe('Users', () => {
     });
     
     test('test method updatePhone()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -812,7 +812,7 @@ describe('Users', () => {
     });
     
     test('test method getPrefs()', async () => {
-        const data = {};
+                                                const data = {};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await users.getPrefs(
@@ -826,7 +826,7 @@ describe('Users', () => {
     });
     
     test('test method updatePrefs()', async () => {
-        const data = {};
+                                                const data = {};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await users.updatePrefs(
@@ -841,7 +841,7 @@ describe('Users', () => {
     });
     
     test('test method listSessions()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'sessions': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -857,7 +857,7 @@ describe('Users', () => {
     });
     
     test('test method createSession()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -900,7 +900,7 @@ describe('Users', () => {
     });
     
     test('test method deleteSessions()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await users.deleteSessions(
@@ -914,7 +914,7 @@ describe('Users', () => {
     });
     
     test('test method deleteSession()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await users.deleteSession(
@@ -929,7 +929,7 @@ describe('Users', () => {
     });
     
     test('test method updateStatus()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -960,7 +960,7 @@ describe('Users', () => {
     });
     
     test('test method listTargets()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'targets': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -976,7 +976,7 @@ describe('Users', () => {
     });
     
     test('test method createTarget()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1001,7 +1001,7 @@ describe('Users', () => {
     });
     
     test('test method getTarget()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1024,7 +1024,7 @@ describe('Users', () => {
     });
     
     test('test method updateTarget()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1047,7 +1047,7 @@ describe('Users', () => {
     });
     
     test('test method deleteTarget()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await users.deleteTarget(
@@ -1062,7 +1062,7 @@ describe('Users', () => {
     });
     
     test('test method createToken()', async () => {
-        const data = {
+                                                const data = {
             '\$id': 'bb8ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c168bb8',
@@ -1082,7 +1082,7 @@ describe('Users', () => {
     });
     
     test('test method updateEmailVerification()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1113,7 +1113,7 @@ describe('Users', () => {
     });
     
     test('test method updatePhoneVerification()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',

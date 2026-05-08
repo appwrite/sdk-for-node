@@ -13,7 +13,7 @@ const result = await tablesDB.updateEmailColumn({
     tableId: '<TABLE_ID>',
     key: '',
     required: false,
-    default: 'email@example.com',
+    xdefault: 'email@example.com',
     newKey: '' // optional
 });
 ```

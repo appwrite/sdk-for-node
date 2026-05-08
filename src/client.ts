@@ -1,6 +1,7 @@
 import { fetch, FormData, File } from 'node-fetch-native-with-agent';
 import { createAgent } from 'node-fetch-native-with-agent/agent';
 import { Models } from './models';
+import { InputFile } from './inputFile';
 import JSONbigModule from 'json-bigint';
 const JSONbigParser = JSONbigModule({ storeAsString: false });
 const JSONbigSerializer = JSONbigModule({ useNativeBigInt: true });
@@ -73,7 +74,7 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/24.0.0';
+    let ua = 'AppwriteNodeJSSDK/24.1.0';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
@@ -117,6 +118,8 @@ class Client {
         locale: '',
         session: '',
         forwardeduseragent: '',
+        devkey: '',
+        cookie: '',
         impersonateuserid: '',
         impersonateuseremail: '',
         impersonateuserphone: '',
@@ -125,9 +128,9 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '24.0.0',
+        'x-sdk-version': '24.1.0',
         'user-agent' : getUserAgent(),
-        'X-Appwrite-Response-Format': '1.9.1',
+        'X-Appwrite-Response-Format': '1.9.4',
     };
 
     /**
@@ -279,6 +282,34 @@ class Client {
         return this;
     }
     /**
+     * Set DevKey
+     *
+     * Your secret dev API key
+     *
+     * @param value string
+     *
+     * @return {this}
+     */
+    setDevKey(value: string): this {
+        this.headers['X-Appwrite-Dev-Key'] = value;
+        this.config.devkey = value;
+        return this;
+    }
+    /**
+     * Set Cookie
+     *
+     * The user cookie to authenticate with. Used by SDKs that forward an incoming Cookie header in server-side runtimes.
+     *
+     * @param value string
+     *
+     * @return {this}
+     */
+    setCookie(value: string): this {
+        this.headers['Cookie'] = value;
+        this.config.cookie = value;
+        return this;
+    }
+    /**
      * Set ImpersonateUserId
      *
      * Impersonate a user by ID on an already user-authenticated request. Requires the current request to be authenticated as a user with impersonator capability; X-Appwrite-Key alone is not sufficient. Impersonator users are intentionally granted users.read so they can discover a target before impersonation begins. Internal audit logs still attribute actions to the original impersonator and record the impersonated target only in internal audit payload data.
@@ -367,10 +398,58 @@ class Client {
     }
 
     async chunkedUpload(method: string, url: URL, headers: Headers = {}, originalPayload: Payload = {}, onProgress: (progress: UploadProgress) => void) {
-        const [fileParam, file] = Object.entries(originalPayload).find(([_, value]) => value instanceof File) ?? [];
+        const [fileParam, file] = Object.entries(originalPayload).find(
+            ([_, value]) => value instanceof File || value instanceof InputFile
+        ) ?? [];
 
         if (!file || !fileParam) {
             throw new Error('File not found in payload');
+        }
+
+        if (file instanceof InputFile) {
+            const size = await file.size();
+
+            if (size <= Client.CHUNK_SIZE) {
+                const payload = { ...originalPayload };
+                payload[fileParam] = await file.toFile();
+                return await this.call(method, url, headers, payload);
+            }
+
+            let start = 0;
+            let response = null;
+
+            while (start < size) {
+                let end = start + Client.CHUNK_SIZE;
+                if (end >= size) {
+                    end = size;
+                }
+
+                headers['content-range'] = `bytes ${start}-${end - 1}/${size}`;
+                const chunk = await file.slice(start, end);
+
+                const payload = { ...originalPayload };
+                payload[fileParam] = new File([chunk], file.filename);
+
+                response = await this.call(method, url, headers, payload);
+
+                if (onProgress && typeof onProgress === 'function') {
+                    onProgress({
+                        $id: response.$id,
+                        progress: Math.round((end / size) * 100),
+                        sizeUploaded: end,
+                        chunksTotal: Math.ceil(size / Client.CHUNK_SIZE),
+                        chunksUploaded: Math.ceil(end / Client.CHUNK_SIZE)
+                    });
+                }
+
+                if (response && response.$id) {
+                    headers['x-appwrite-id'] = response.$id;
+                }
+
+                start = end;
+            }
+
+            return response;
         }
 
         if (file.size <= Client.CHUNK_SIZE) {

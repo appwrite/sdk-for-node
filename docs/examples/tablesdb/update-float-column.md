@@ -13,7 +13,7 @@ const result = await tablesDB.updateFloatColumn({
     tableId: '<TABLE_ID>',
     key: '',
     required: false,
-    default: null,
+    xdefault: null,
     min: null, // optional
     max: null, // optional
     newKey: '' // optional
