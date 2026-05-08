@@ -13,7 +13,7 @@ const result = await databases.updateTextAttribute({
     collectionId: '<COLLECTION_ID>',
     key: '',
     required: false,
-    default: '<DEFAULT>',
+    xdefault: '<DEFAULT>',
     newKey: '' // optional
 });
 ```

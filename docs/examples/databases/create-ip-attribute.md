@@ -13,7 +13,7 @@ const result = await databases.createIpAttribute({
     collectionId: '<COLLECTION_ID>',
     key: '',
     required: false,
-    default: '', // optional
+    xdefault: '', // optional
     array: false // optional
 });
 ```

@@ -13,7 +13,7 @@ const result = await tablesDB.updateLongtextColumn({
     tableId: '<TABLE_ID>',
     key: '',
     required: false,
-    default: '<DEFAULT>',
+    xdefault: '<DEFAULT>',
     newKey: '' // optional
 });
 ```

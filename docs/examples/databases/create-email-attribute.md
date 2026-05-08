@@ -13,7 +13,7 @@ const result = await databases.createEmailAttribute({
     collectionId: '<COLLECTION_ID>',
     key: '',
     required: false,
-    default: 'email@example.com', // optional
+    xdefault: 'email@example.com', // optional
     array: false // optional
 });
 ```

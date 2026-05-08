@@ -13,7 +13,7 @@ const result = await databases.updateEmailAttribute({
     collectionId: '<COLLECTION_ID>',
     key: '',
     required: false,
-    default: 'email@example.com',
+    xdefault: 'email@example.com',
     newKey: '' // optional
 });
 ```

@@ -13,7 +13,7 @@ const result = await databases.createTextAttribute({
     collectionId: '<COLLECTION_ID>',
     key: '',
     required: false,
-    default: '<DEFAULT>', // optional
+    xdefault: '<DEFAULT>', // optional
     array: false, // optional
     encrypt: false // optional
 });

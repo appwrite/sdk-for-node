@@ -13,7 +13,7 @@ const result = await databases.updateUrlAttribute({
     collectionId: '<COLLECTION_ID>',
     key: '',
     required: false,
-    default: 'https://example.com',
+    xdefault: 'https://example.com',
     newKey: '' // optional
 });
 ```

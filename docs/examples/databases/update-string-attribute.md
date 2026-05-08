@@ -13,7 +13,7 @@ const result = await databases.updateStringAttribute({
     collectionId: '<COLLECTION_ID>',
     key: '',
     required: false,
-    default: '<DEFAULT>',
+    xdefault: '<DEFAULT>',
     size: 1, // optional
     newKey: '' // optional
 });

@@ -13,7 +13,7 @@ const result = await tablesDB.updateBooleanColumn({
     tableId: '<TABLE_ID>',
     key: '',
     required: false,
-    default: false,
+    xdefault: false,
     newKey: '' // optional
 });
 ```

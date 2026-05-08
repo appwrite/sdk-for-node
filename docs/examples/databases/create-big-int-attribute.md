@@ -15,7 +15,7 @@ const result = await databases.createBigIntAttribute({
     required: false,
     min: null, // optional
     max: null, // optional
-    default: null, // optional
+    xdefault: null, // optional
     array: false // optional
 });
 ```
