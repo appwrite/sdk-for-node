@@ -8,6 +8,8 @@ import { ExecutionStatus } from "./enums/execution-status"
 import { PlatformType } from "./enums/platform-type"
 import { HealthAntivirusStatus } from "./enums/health-antivirus-status"
 import { HealthCheckStatus } from "./enums/health-check-status"
+import { ProxyRuleDeploymentResourceType } from "./enums/proxy-rule-deployment-resource-type"
+import { ProxyRuleStatus } from "./enums/proxy-rule-status"
 import { MessageStatus } from "./enums/message-status"
 
 /**
@@ -43,6 +45,20 @@ export namespace Models {
          * List of documents.
          */
         documents: Document[];
+    }
+
+    /**
+     * Presences List
+     */
+    export type PresenceList<Presence extends Models.Presence = Models.DefaultPresence> = {
+        /**
+         * Total number of presences that matched your query.
+         */
+        total: number;
+        /**
+         * List of presences.
+         */
+        presences: Presence[];
     }
 
     /**
@@ -438,6 +454,48 @@ export namespace Models {
     }
 
     /**
+     * Mock Numbers List
+     */
+    export type MockNumberList = {
+        /**
+         * Total number of mockNumbers that matched your query.
+         */
+        total: number;
+        /**
+         * List of mockNumbers.
+         */
+        mockNumbers: MockNumber[];
+    }
+
+    /**
+     * Policies List
+     */
+    export type PolicyList = {
+        /**
+         * Total number of policies in the given project.
+         */
+        total: number;
+        /**
+         * List of policies.
+         */
+        policies: (Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy)[];
+    }
+
+    /**
+     * Email Templates List
+     */
+    export type EmailTemplateList = {
+        /**
+         * Total number of templates that matched your query.
+         */
+        total: number;
+        /**
+         * List of templates.
+         */
+        templates: EmailTemplate[];
+    }
+
+    /**
      * Status List
      */
     export type HealthStatusList = {
@@ -449,6 +507,20 @@ export namespace Models {
          * List of statuses.
          */
         statuses: HealthStatus[];
+    }
+
+    /**
+     * Rule List
+     */
+    export type ProxyRuleList = {
+        /**
+         * Total number of rules that matched your query.
+         */
+        total: number;
+        /**
+         * List of rules.
+         */
+        rules: ProxyRule[];
     }
 
     /**
@@ -640,7 +712,7 @@ export namespace Models {
         /**
          * Collection attributes.
          */
-        attributes: (Models.AttributeBoolean | Models.AttributeInteger | Models.AttributeFloat | Models.AttributeEmail | Models.AttributeEnum | Models.AttributeUrl | Models.AttributeIp | Models.AttributeDatetime | Models.AttributeRelationship | Models.AttributePoint | Models.AttributeLine | Models.AttributePolygon | Models.AttributeVarchar | Models.AttributeText | Models.AttributeMediumtext | Models.AttributeLongtext | Models.AttributeString)[];
+        attributes: (Models.AttributeBoolean | Models.AttributeBigint | Models.AttributeInteger | Models.AttributeFloat | Models.AttributeEmail | Models.AttributeEnum | Models.AttributeUrl | Models.AttributeIp | Models.AttributeDatetime | Models.AttributeRelationship | Models.AttributePoint | Models.AttributeLine | Models.AttributePolygon | Models.AttributeVarchar | Models.AttributeText | Models.AttributeMediumtext | Models.AttributeLongtext | Models.AttributeString)[];
         /**
          * Collection indexes.
          */
@@ -666,7 +738,7 @@ export namespace Models {
         /**
          * List of attributes.
          */
-        attributes: (Models.AttributeBoolean | Models.AttributeInteger | Models.AttributeFloat | Models.AttributeEmail | Models.AttributeEnum | Models.AttributeUrl | Models.AttributeIp | Models.AttributeDatetime | Models.AttributeRelationship | Models.AttributePoint | Models.AttributeLine | Models.AttributePolygon | Models.AttributeVarchar | Models.AttributeText | Models.AttributeMediumtext | Models.AttributeLongtext | Models.AttributeString)[];
+        attributes: (Models.AttributeBoolean | Models.AttributeBigint | Models.AttributeInteger | Models.AttributeFloat | Models.AttributeEmail | Models.AttributeEnum | Models.AttributeUrl | Models.AttributeIp | Models.AttributeDatetime | Models.AttributeRelationship | Models.AttributePoint | Models.AttributeLine | Models.AttributePolygon | Models.AttributeVarchar | Models.AttributeText | Models.AttributeMediumtext | Models.AttributeLongtext | Models.AttributeString)[];
     }
 
     /**
@@ -767,6 +839,56 @@ export namespace Models {
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
         default?: number;
+    }
+
+    /**
+     * AttributeBigInt
+     */
+    export type AttributeBigint = {
+        /**
+         * Attribute Key.
+         */
+        key: string;
+        /**
+         * Attribute type.
+         */
+        type: string;
+        /**
+         * Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: AttributeStatus;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an attribute.
+         */
+        error: string;
+        /**
+         * Is attribute required?
+         */
+        required: boolean;
+        /**
+         * Is attribute an array?
+         */
+        array?: boolean;
+        /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Minimum value to enforce for new documents.
+         */
+        min?: number | bigint;
+        /**
+         * Maximum value to enforce for new documents.
+         */
+        max?: number | bigint;
+        /**
+         * Default value for attribute when not provided. Cannot be set when attribute is required.
+         */
+        default?: number | bigint;
     }
 
     /**
@@ -1510,7 +1632,7 @@ export namespace Models {
         /**
          * Table columns.
          */
-        columns: (Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnPoint | Models.ColumnLine | Models.ColumnPolygon | Models.ColumnVarchar | Models.ColumnText | Models.ColumnMediumtext | Models.ColumnLongtext | Models.ColumnString)[];
+        columns: (Models.ColumnBoolean | Models.ColumnBigint | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnPoint | Models.ColumnLine | Models.ColumnPolygon | Models.ColumnVarchar | Models.ColumnText | Models.ColumnMediumtext | Models.ColumnLongtext | Models.ColumnString)[];
         /**
          * Table indexes.
          */
@@ -1536,7 +1658,7 @@ export namespace Models {
         /**
          * List of columns.
          */
-        columns: (Models.ColumnBoolean | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnPoint | Models.ColumnLine | Models.ColumnPolygon | Models.ColumnVarchar | Models.ColumnText | Models.ColumnMediumtext | Models.ColumnLongtext | Models.ColumnString)[];
+        columns: (Models.ColumnBoolean | Models.ColumnBigint | Models.ColumnInteger | Models.ColumnFloat | Models.ColumnEmail | Models.ColumnEnum | Models.ColumnUrl | Models.ColumnIp | Models.ColumnDatetime | Models.ColumnRelationship | Models.ColumnPoint | Models.ColumnLine | Models.ColumnPolygon | Models.ColumnVarchar | Models.ColumnText | Models.ColumnMediumtext | Models.ColumnLongtext | Models.ColumnString)[];
     }
 
     /**
@@ -1637,6 +1759,56 @@ export namespace Models {
          * Default value for column when not provided. Cannot be set when column is required.
          */
         default?: number;
+    }
+
+    /**
+     * ColumnBigInt
+     */
+    export type ColumnBigint = {
+        /**
+         * Column Key.
+         */
+        key: string;
+        /**
+         * Column type.
+         */
+        type: string;
+        /**
+         * Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
+         */
+        status: ColumnStatus;
+        /**
+         * Error message. Displays error generated on failure of creating or deleting an column.
+         */
+        error: string;
+        /**
+         * Is column required?
+         */
+        required: boolean;
+        /**
+         * Is column an array?
+         */
+        array?: boolean;
+        /**
+         * Column creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Column update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Minimum value to enforce for new documents.
+         */
+        min?: number | bigint;
+        /**
+         * Maximum value to enforce for new documents.
+         */
+        max?: number | bigint;
+        /**
+         * Default value for column when not provided. Cannot be set when column is required.
+         */
+        default?: number | bigint;
     }
 
     /**
@@ -2512,6 +2684,57 @@ export namespace Models {
     };
 
     /**
+     * Presence
+     */
+    export type Presence = {
+        /**
+         * Presence ID.
+         */
+        $id: string;
+        /**
+         * Presence sequence ID.
+         */
+        $sequence: string;
+        /**
+         * Presence creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Presence update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Presence permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+         */
+        $permissions: string[];
+        /**
+         * User internal ID.
+         */
+        userInternalId: string;
+        /**
+         * User ID.
+         */
+        userId: string;
+        /**
+         * Presence status.
+         */
+        status?: string;
+        /**
+         * Presence source.
+         */
+        source: string;
+        /**
+         * Presence expiry date in ISO 8601 format.
+         */
+        expiresAt?: string;
+    }
+
+    export type DefaultPresence = Presence & {
+        [key: string]: any;
+        [__default]: true;
+    };
+
+    /**
      * Log
      */
     export type Log = {
@@ -3285,6 +3508,10 @@ export namespace Models {
          */
         userEmail: string;
         /**
+         * User phone number. Hide this attribute by toggling membership privacy in the Console.
+         */
+        userPhone: string;
+        /**
          * Team ID.
          */
         teamId: string;
@@ -3973,6 +4200,14 @@ export namespace Models {
          */
         authMembershipsMfa: boolean;
         /**
+         * Whether or not to show user IDs in the teams membership response.
+         */
+        authMembershipsUserId: boolean;
+        /**
+         * Whether or not to show user phone numbers in the teams membership response.
+         */
+        authMembershipsUserPhone: boolean;
+        /**
          * Whether or not all existing sessions should be invalidated on password change
          */
         authInvalidateSessions: boolean;
@@ -4009,9 +4244,13 @@ export namespace Models {
          */
         smtpSenderEmail: string;
         /**
+         * SMTP reply to name
+         */
+        smtpReplyToName: string;
+        /**
          * SMTP reply to email
          */
-        smtpReplyTo: string;
+        smtpReplyToEmail: string;
         /**
          * SMTP server host name
          */
@@ -4025,7 +4264,7 @@ export namespace Models {
          */
         smtpUsername: string;
         /**
-         * SMTP server password
+         * SMTP server password. This property is write-only and always returned empty.
          */
         smtpPassword: string;
         /**
@@ -4275,6 +4514,48 @@ export namespace Models {
     }
 
     /**
+     * Ephemeral Key
+     */
+    export type EphemeralKey = {
+        /**
+         * Key ID.
+         */
+        $id: string;
+        /**
+         * Key creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Key update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Key name.
+         */
+        name: string;
+        /**
+         * Key expiration date in ISO 8601 format.
+         */
+        expire: string;
+        /**
+         * Allowed permission scopes.
+         */
+        scopes: string[];
+        /**
+         * Secret key.
+         */
+        secret: string;
+        /**
+         * Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
+         */
+        accessedAt: string;
+        /**
+         * List of SDK user agents that used this key.
+         */
+        sdks: string[];
+    }
+
+    /**
      * DevKey
      */
     export type DevKey = {
@@ -4319,11 +4600,1115 @@ export namespace Models {
         /**
          * Mock phone number for testing phone authentication. Useful for testing phone authentication without sending an SMS.
          */
-        phone: string;
+        number: string;
         /**
          * Mock OTP for the number. 
          */
         otp: string;
+        /**
+         * Attribute creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Attribute update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+    }
+
+    /**
+     * OAuth2GitHub
+     */
+    export type OAuth2Github = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * GitHub OAuth2 client ID. For GitHub Apps, use the "App ID" when both an App ID and client ID are available.
+         */
+        clientId: string;
+        /**
+         * GitHub OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Discord
+     */
+    export type OAuth2Discord = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Discord OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Discord OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Figma
+     */
+    export type OAuth2Figma = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Figma OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Figma OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Dropbox
+     */
+    export type OAuth2Dropbox = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Dropbox OAuth2 app key.
+         */
+        appKey: string;
+        /**
+         * Dropbox OAuth2 app secret.
+         */
+        appSecret: string;
+    }
+
+    /**
+     * OAuth2Dailymotion
+     */
+    export type OAuth2Dailymotion = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Dailymotion OAuth2 API key.
+         */
+        apiKey: string;
+        /**
+         * Dailymotion OAuth2 API secret.
+         */
+        apiSecret: string;
+    }
+
+    /**
+     * OAuth2Bitbucket
+     */
+    export type OAuth2Bitbucket = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Bitbucket OAuth2 key.
+         */
+        key: string;
+        /**
+         * Bitbucket OAuth2 secret.
+         */
+        secret: string;
+    }
+
+    /**
+     * OAuth2Bitly
+     */
+    export type OAuth2Bitly = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Bitly OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Bitly OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Box
+     */
+    export type OAuth2Box = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Box OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Box OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Autodesk
+     */
+    export type OAuth2Autodesk = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Autodesk OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Autodesk OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Google
+     */
+    export type OAuth2Google = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Google OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Google OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Zoom
+     */
+    export type OAuth2Zoom = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Zoom OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Zoom OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Zoho
+     */
+    export type OAuth2Zoho = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Zoho OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Zoho OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Yandex
+     */
+    export type OAuth2Yandex = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Yandex OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Yandex OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2X
+     */
+    export type OAuth2X = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * X OAuth2 customer key.
+         */
+        customerKey: string;
+        /**
+         * X OAuth2 secret key.
+         */
+        secretKey: string;
+    }
+
+    /**
+     * OAuth2WordPress
+     */
+    export type OAuth2WordPress = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * WordPress OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * WordPress OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Twitch
+     */
+    export type OAuth2Twitch = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Twitch OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Twitch OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Stripe
+     */
+    export type OAuth2Stripe = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Stripe OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Stripe OAuth2 API secret key.
+         */
+        apiSecretKey: string;
+    }
+
+    /**
+     * OAuth2Spotify
+     */
+    export type OAuth2Spotify = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Spotify OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Spotify OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Slack
+     */
+    export type OAuth2Slack = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Slack OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Slack OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Podio
+     */
+    export type OAuth2Podio = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Podio OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Podio OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Notion
+     */
+    export type OAuth2Notion = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Notion OAuth2 client ID.
+         */
+        oauthClientId: string;
+        /**
+         * Notion OAuth2 client secret.
+         */
+        oauthClientSecret: string;
+    }
+
+    /**
+     * OAuth2Salesforce
+     */
+    export type OAuth2Salesforce = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Salesforce OAuth2 consumer key.
+         */
+        customerKey: string;
+        /**
+         * Salesforce OAuth2 consumer secret.
+         */
+        customerSecret: string;
+    }
+
+    /**
+     * OAuth2Yahoo
+     */
+    export type OAuth2Yahoo = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Yahoo OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Yahoo OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Linkedin
+     */
+    export type OAuth2Linkedin = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * LinkedIn OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * LinkedIn OAuth2 primary client secret.
+         */
+        primaryClientSecret: string;
+    }
+
+    /**
+     * OAuth2Disqus
+     */
+    export type OAuth2Disqus = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Disqus OAuth2 public key.
+         */
+        publicKey: string;
+        /**
+         * Disqus OAuth2 secret key.
+         */
+        secretKey: string;
+    }
+
+    /**
+     * OAuth2Amazon
+     */
+    export type OAuth2Amazon = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Amazon OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Amazon OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Etsy
+     */
+    export type OAuth2Etsy = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Etsy OAuth2 keystring.
+         */
+        keyString: string;
+        /**
+         * Etsy OAuth2 shared secret.
+         */
+        sharedSecret: string;
+    }
+
+    /**
+     * OAuth2Facebook
+     */
+    export type OAuth2Facebook = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Facebook OAuth2 app ID.
+         */
+        appId: string;
+        /**
+         * Facebook OAuth2 app secret.
+         */
+        appSecret: string;
+    }
+
+    /**
+     * OAuth2Tradeshift
+     */
+    export type OAuth2Tradeshift = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Tradeshift OAuth2 client ID.
+         */
+        oauth2ClientId: string;
+        /**
+         * Tradeshift OAuth2 client secret.
+         */
+        oauth2ClientSecret: string;
+    }
+
+    /**
+     * OAuth2Paypal
+     */
+    export type OAuth2Paypal = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * PayPal OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * PayPal OAuth2 secret key.
+         */
+        secretKey: string;
+    }
+
+    /**
+     * OAuth2Gitlab
+     */
+    export type OAuth2Gitlab = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * GitLab OAuth2 application ID.
+         */
+        applicationId: string;
+        /**
+         * GitLab OAuth2 secret.
+         */
+        secret: string;
+        /**
+         * GitLab OAuth2 endpoint URL. Defaults to https://gitlab.com for self-hosted instances.
+         */
+        endpoint: string;
+    }
+
+    /**
+     * OAuth2Authentik
+     */
+    export type OAuth2Authentik = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Authentik OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Authentik OAuth2 client secret.
+         */
+        clientSecret: string;
+        /**
+         * Authentik OAuth2 endpoint domain.
+         */
+        endpoint: string;
+    }
+
+    /**
+     * OAuth2Auth0
+     */
+    export type OAuth2Auth0 = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Auth0 OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Auth0 OAuth2 client secret.
+         */
+        clientSecret: string;
+        /**
+         * Auth0 OAuth2 endpoint domain.
+         */
+        endpoint: string;
+    }
+
+    /**
+     * OAuth2FusionAuth
+     */
+    export type OAuth2FusionAuth = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * FusionAuth OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * FusionAuth OAuth2 client secret.
+         */
+        clientSecret: string;
+        /**
+         * FusionAuth OAuth2 endpoint domain.
+         */
+        endpoint: string;
+    }
+
+    /**
+     * OAuth2Keycloak
+     */
+    export type OAuth2Keycloak = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Keycloak OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Keycloak OAuth2 client secret.
+         */
+        clientSecret: string;
+        /**
+         * Keycloak OAuth2 endpoint domain.
+         */
+        endpoint: string;
+        /**
+         * Keycloak OAuth2 realm name.
+         */
+        realmName: string;
+    }
+
+    /**
+     * OAuth2Oidc
+     */
+    export type OAuth2Oidc = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * OpenID Connect OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * OpenID Connect OAuth2 client secret.
+         */
+        clientSecret: string;
+        /**
+         * OpenID Connect well-known configuration URL. When set, authorization, token, and user info endpoints can be discovered automatically.
+         */
+        wellKnownURL: string;
+        /**
+         * OpenID Connect authorization endpoint URL.
+         */
+        authorizationURL: string;
+        /**
+         * OpenID Connect token endpoint URL.
+         */
+        tokenURL: string;
+        /**
+         * OpenID Connect user info endpoint URL.
+         */
+        userInfoURL: string;
+    }
+
+    /**
+     * OAuth2Okta
+     */
+    export type OAuth2Okta = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Okta OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Okta OAuth2 client secret.
+         */
+        clientSecret: string;
+        /**
+         * Okta OAuth2 domain.
+         */
+        domain: string;
+        /**
+         * Okta OAuth2 authorization server ID.
+         */
+        authorizationServerId: string;
+    }
+
+    /**
+     * OAuth2Kick
+     */
+    export type OAuth2Kick = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Kick OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Kick OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
+     * OAuth2Apple
+     */
+    export type OAuth2Apple = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Apple OAuth2 service ID.
+         */
+        serviceId: string;
+        /**
+         * Apple OAuth2 key ID.
+         */
+        keyId: string;
+        /**
+         * Apple OAuth2 team ID.
+         */
+        teamId: string;
+        /**
+         * Apple OAuth2 .p8 private key file contents. The secret key wrapped by the PEM markers is 200 characters long.
+         */
+        p8File: string;
+    }
+
+    /**
+     * OAuth2Microsoft
+     */
+    export type OAuth2Microsoft = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Microsoft OAuth2 application ID.
+         */
+        applicationId: string;
+        /**
+         * Microsoft OAuth2 application secret.
+         */
+        applicationSecret: string;
+        /**
+         * Microsoft Entra ID tenant identifier. Use 'common', 'organizations', 'consumers' or a specific tenant ID.
+         */
+        tenant: string;
+    }
+
+    /**
+     * OAuth2 Providers List
+     */
+    export type OAuth2ProviderList = {
+        /**
+         * Total number of OAuth2 providers in the given project.
+         */
+        total: number;
+        /**
+         * List of OAuth2 providers.
+         */
+        providers: (Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft)[];
+    }
+
+    /**
+     * Policy Password Dictionary
+     */
+    export type PolicyPasswordDictionary = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether password dictionary policy is enabled.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * Policy Password History
+     */
+    export type PolicyPasswordHistory = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Password history length. A value of 0 means the policy is disabled.
+         */
+        total: number;
+    }
+
+    /**
+     * Policy Password Personal Data
+     */
+    export type PolicyPasswordPersonalData = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether password personal data policy is enabled.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * Policy Session Alert
+     */
+    export type PolicySessionAlert = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether session alert policy is enabled.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * Policy Session Duration
+     */
+    export type PolicySessionDuration = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Session duration in seconds.
+         */
+        duration: number;
+    }
+
+    /**
+     * Policy Session Invalidation
+     */
+    export type PolicySessionInvalidation = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether session invalidation policy is enabled.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * Policy Session Limit
+     */
+    export type PolicySessionLimit = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Maximum number of sessions allowed per user. A value of 0 means the policy is disabled.
+         */
+        total: number;
+    }
+
+    /**
+     * Policy User Limit
+     */
+    export type PolicyUserLimit = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Maximum number of users allowed in the project. A value of 0 means the policy is disabled.
+         */
+        total: number;
+    }
+
+    /**
+     * Policy Membership Privacy
+     */
+    export type PolicyMembershipPrivacy = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether user ID is visible in memberships.
+         */
+        userId: boolean;
+        /**
+         * Whether user email is visible in memberships.
+         */
+        userEmail: boolean;
+        /**
+         * Whether user phone is visible in memberships.
+         */
+        userPhone: boolean;
+        /**
+         * Whether user name is visible in memberships.
+         */
+        userName: boolean;
+        /**
+         * Whether user MFA status is visible in memberships.
+         */
+        userMFA: boolean;
     }
 
     /**
@@ -4343,7 +5728,7 @@ export namespace Models {
          */
         appId: string;
         /**
-         * OAuth 2.0 application secret. Might be JSON string if provider requires extra configuration.
+         * OAuth 2.0 application secret. Might be JSON string if provider requires extra configuration. This property is write-only and always returned empty.
          */
         secret: string;
         /**
@@ -4776,6 +6161,110 @@ export namespace Models {
          * Size slug.
          */
         slug: string;
+    }
+
+    /**
+     * Rule
+     */
+    export type ProxyRule = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * Rule creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Rule update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Domain name.
+         */
+        domain: string;
+        /**
+         * Action definition for the rule. Possible values are "api", "deployment", or "redirect"
+         */
+        type: string;
+        /**
+         * Defines how the rule was created. Possible values are "manual" or "deployment"
+         */
+        trigger: string;
+        /**
+         * URL to redirect to. Used if type is "redirect"
+         */
+        redirectUrl: string;
+        /**
+         * Status code to apply during redirect. Used if type is "redirect"
+         */
+        redirectStatusCode: number;
+        /**
+         * ID of deployment. Used if type is "deployment"
+         */
+        deploymentId: string;
+        /**
+         * Type of deployment. Possible values are "function", "site". Used if rule's type is "deployment".
+         */
+        deploymentResourceType?: ProxyRuleDeploymentResourceType;
+        /**
+         * ID of deployment's resource (site or function ID). Used if type is "deployment"
+         */
+        deploymentResourceId: string;
+        /**
+         * Name of Git branch that updates rule. Used if type is "deployment"
+         */
+        deploymentVcsProviderBranch: string;
+        /**
+         * Domain verification status. Possible values are "unverified", "verifying", "verified"
+         */
+        status: ProxyRuleStatus;
+        /**
+         * Logs from rule verification or certificate generation. Certificate generation logs are prioritized if both are available.
+         */
+        logs: string;
+        /**
+         * Certificate auto-renewal date in ISO 8601 format.
+         */
+        renewAt: string;
+    }
+
+    /**
+     * EmailTemplate
+     */
+    export type EmailTemplate = {
+        /**
+         * Template type
+         */
+        templateId: string;
+        /**
+         * Template locale
+         */
+        locale: string;
+        /**
+         * Template message
+         */
+        message: string;
+        /**
+         * Name of the sender
+         */
+        senderName: string;
+        /**
+         * Email of the sender
+         */
+        senderEmail: string;
+        /**
+         * Reply to email address
+         */
+        replyToEmail: string;
+        /**
+         * Reply to name
+         */
+        replyToName: string;
+        /**
+         * Email subject
+         */
+        subject: string;
     }
 
     /**
@@ -5257,7 +6746,7 @@ export namespace Models {
          */
         size: number;
         /**
-         * The status of the archive creation. Possible values: pending, processing, uploading, completed, failed.
+         * The status of the archive creation. Possible values: pending, processing, uploading, completed, failed, skipped.
          */
         status: string;
         /**
@@ -5348,6 +6837,26 @@ export namespace Models {
          * Block expiration date in ISO 8601 format. Can be null if the block does not expire.
          */
         expiredAt?: string;
+        /**
+         * Name of the project this block applies to.
+         */
+        projectName: string;
+        /**
+         * Region of the project this block applies to.
+         */
+        region: string;
+        /**
+         * Name of the organization that owns the project.
+         */
+        organizationName: string;
+        /**
+         * ID of the organization that owns the project.
+         */
+        organizationId: string;
+        /**
+         * Billing plan of the organization that owns the project.
+         */
+        billingPlan: string;
     }
 
     /**

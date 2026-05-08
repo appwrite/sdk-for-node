@@ -11,7 +11,7 @@ const project = new sdk.Project(client);
 const result = await project.createKey({
     keyId: '<KEY_ID>',
     name: '<NAME>',
-    scopes: [sdk.Scopes.SessionsWrite],
+    scopes: [sdk.Scopes.ProjectRead],
     expire: '2020-10-15T06:38:00.000+00:00' // optional
 });
 ```

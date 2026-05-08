@@ -11,7 +11,7 @@ describe('Databases', () => {
 
     
     test('test method list()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'databases': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -26,7 +26,7 @@ describe('Databases', () => {
     });
     
     test('test method create()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             'name': 'My Database',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -49,7 +49,7 @@ describe('Databases', () => {
     });
     
     test('test method listTransactions()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'transactions': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -64,7 +64,7 @@ describe('Databases', () => {
     });
     
     test('test method createTransaction()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -83,7 +83,7 @@ describe('Databases', () => {
     });
     
     test('test method getTransaction()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -103,7 +103,7 @@ describe('Databases', () => {
     });
     
     test('test method updateTransaction()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -123,7 +123,7 @@ describe('Databases', () => {
     });
     
     test('test method deleteTransaction()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await databases.deleteTransaction(
@@ -137,7 +137,7 @@ describe('Databases', () => {
     });
     
     test('test method createOperations()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '259125845563242502',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -157,7 +157,7 @@ describe('Databases', () => {
     });
     
     test('test method get()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             'name': 'My Database',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -179,7 +179,7 @@ describe('Databases', () => {
     });
     
     test('test method update()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             'name': 'My Database',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -201,7 +201,7 @@ describe('Databases', () => {
     });
     
     test('test method delete()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await databases.delete(
@@ -215,7 +215,7 @@ describe('Databases', () => {
     });
     
     test('test method listCollections()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'collections': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -231,7 +231,7 @@ describe('Databases', () => {
     });
     
     test('test method createCollection()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -259,7 +259,7 @@ describe('Databases', () => {
     });
     
     test('test method getCollection()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -286,7 +286,7 @@ describe('Databases', () => {
     });
     
     test('test method updateCollection()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -313,7 +313,7 @@ describe('Databases', () => {
     });
     
     test('test method deleteCollection()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await databases.deleteCollection(
@@ -328,7 +328,7 @@ describe('Databases', () => {
     });
     
     test('test method listAttributes()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'attributes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -344,8 +344,57 @@ describe('Databases', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method createBigIntAttribute()', async () => {
+                                                const data = {
+            'key': 'count',
+            'type': 'bigint',
+            'status': 'available',
+            'error': 'string',
+            'required': true,
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await databases.createBigIntAttribute(
+            '<DATABASE_ID>',
+            '<COLLECTION_ID>',
+            '',
+            true,
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method updateBigIntAttribute()', async () => {
+                                                const data = {
+            'key': 'count',
+            'type': 'bigint',
+            'status': 'available',
+            'error': 'string',
+            'required': true,
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await databases.updateBigIntAttribute(
+            '<DATABASE_ID>',
+            '<COLLECTION_ID>',
+            '',
+            true,
+            1,
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method createBooleanAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'isEnabled',
             'type': 'boolean',
             'status': 'available',
@@ -369,7 +418,7 @@ describe('Databases', () => {
     });
     
     test('test method updateBooleanAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'isEnabled',
             'type': 'boolean',
             'status': 'available',
@@ -394,7 +443,7 @@ describe('Databases', () => {
     });
     
     test('test method createDatetimeAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'birthDay',
             'type': 'datetime',
             'status': 'available',
@@ -419,7 +468,7 @@ describe('Databases', () => {
     });
     
     test('test method updateDatetimeAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'birthDay',
             'type': 'datetime',
             'status': 'available',
@@ -445,7 +494,7 @@ describe('Databases', () => {
     });
     
     test('test method createEmailAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'userEmail',
             'type': 'string',
             'status': 'available',
@@ -470,7 +519,7 @@ describe('Databases', () => {
     });
     
     test('test method updateEmailAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'userEmail',
             'type': 'string',
             'status': 'available',
@@ -496,7 +545,7 @@ describe('Databases', () => {
     });
     
     test('test method createEnumAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'status',
             'type': 'string',
             'status': 'available',
@@ -523,7 +572,7 @@ describe('Databases', () => {
     });
     
     test('test method updateEnumAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'status',
             'type': 'string',
             'status': 'available',
@@ -551,7 +600,7 @@ describe('Databases', () => {
     });
     
     test('test method createFloatAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'percentageCompleted',
             'type': 'double',
             'status': 'available',
@@ -575,7 +624,7 @@ describe('Databases', () => {
     });
     
     test('test method updateFloatAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'percentageCompleted',
             'type': 'double',
             'status': 'available',
@@ -600,7 +649,7 @@ describe('Databases', () => {
     });
     
     test('test method createIntegerAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'count',
             'type': 'integer',
             'status': 'available',
@@ -624,7 +673,7 @@ describe('Databases', () => {
     });
     
     test('test method updateIntegerAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'count',
             'type': 'integer',
             'status': 'available',
@@ -649,7 +698,7 @@ describe('Databases', () => {
     });
     
     test('test method createIpAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'ipAddress',
             'type': 'string',
             'status': 'available',
@@ -674,7 +723,7 @@ describe('Databases', () => {
     });
     
     test('test method updateIpAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'ipAddress',
             'type': 'string',
             'status': 'available',
@@ -700,7 +749,7 @@ describe('Databases', () => {
     });
     
     test('test method createLineAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -724,7 +773,7 @@ describe('Databases', () => {
     });
     
     test('test method updateLineAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -748,7 +797,7 @@ describe('Databases', () => {
     });
     
     test('test method createLongtextAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -772,7 +821,7 @@ describe('Databases', () => {
     });
     
     test('test method updateLongtextAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -797,7 +846,7 @@ describe('Databases', () => {
     });
     
     test('test method createMediumtextAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -821,7 +870,7 @@ describe('Databases', () => {
     });
     
     test('test method updateMediumtextAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -846,7 +895,7 @@ describe('Databases', () => {
     });
     
     test('test method createPointAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -870,7 +919,7 @@ describe('Databases', () => {
     });
     
     test('test method updatePointAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -894,7 +943,7 @@ describe('Databases', () => {
     });
     
     test('test method createPolygonAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -918,7 +967,7 @@ describe('Databases', () => {
     });
     
     test('test method updatePolygonAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -942,7 +991,7 @@ describe('Databases', () => {
     });
     
     test('test method createRelationshipAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -972,7 +1021,7 @@ describe('Databases', () => {
     });
     
     test('test method updateRelationshipAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -1001,7 +1050,7 @@ describe('Databases', () => {
     });
     
     test('test method createStringAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -1027,7 +1076,7 @@ describe('Databases', () => {
     });
     
     test('test method updateStringAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -1053,7 +1102,7 @@ describe('Databases', () => {
     });
     
     test('test method createTextAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -1077,7 +1126,7 @@ describe('Databases', () => {
     });
     
     test('test method updateTextAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -1102,7 +1151,7 @@ describe('Databases', () => {
     });
     
     test('test method createUrlAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'githubUrl',
             'type': 'string',
             'status': 'available',
@@ -1127,7 +1176,7 @@ describe('Databases', () => {
     });
     
     test('test method updateUrlAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'githubUrl',
             'type': 'string',
             'status': 'available',
@@ -1153,7 +1202,7 @@ describe('Databases', () => {
     });
     
     test('test method createVarcharAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -1179,7 +1228,7 @@ describe('Databases', () => {
     });
     
     test('test method updateVarcharAttribute()', async () => {
-        const data = {
+                                                const data = {
             'key': 'fullName',
             'type': 'string',
             'status': 'available',
@@ -1205,14 +1254,15 @@ describe('Databases', () => {
     });
     
     test('test method getAttribute()', async () => {
-        const data = {
-            'key': 'isEnabled',
-            'type': 'boolean',
+                                                const data = {
+            'key': 'fullName',
+            'type': 'string',
             'status': 'available',
             'error': 'string',
             'required': true,
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',};
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'size': 128,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await databases.getAttribute(
@@ -1228,7 +1278,7 @@ describe('Databases', () => {
     });
     
     test('test method deleteAttribute()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await databases.deleteAttribute(
@@ -1244,7 +1294,7 @@ describe('Databases', () => {
     });
     
     test('test method listDocuments()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'documents': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1261,7 +1311,7 @@ describe('Databases', () => {
     });
     
     test('test method createDocument()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$sequence': '1',
             '\$collectionId': '5e5ea5c15117e',
@@ -1285,7 +1335,7 @@ describe('Databases', () => {
     });
     
     test('test method createDocuments()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'documents': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1303,7 +1353,7 @@ describe('Databases', () => {
     });
     
     test('test method upsertDocuments()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'documents': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1321,7 +1371,7 @@ describe('Databases', () => {
     });
     
     test('test method updateDocuments()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'documents': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1338,7 +1388,7 @@ describe('Databases', () => {
     });
     
     test('test method deleteDocuments()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'documents': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1355,7 +1405,7 @@ describe('Databases', () => {
     });
     
     test('test method getDocument()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$sequence': '1',
             '\$collectionId': '5e5ea5c15117e',
@@ -1378,7 +1428,7 @@ describe('Databases', () => {
     });
     
     test('test method upsertDocument()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$sequence': '1',
             '\$collectionId': '5e5ea5c15117e',
@@ -1401,7 +1451,7 @@ describe('Databases', () => {
     });
     
     test('test method updateDocument()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$sequence': '1',
             '\$collectionId': '5e5ea5c15117e',
@@ -1424,7 +1474,7 @@ describe('Databases', () => {
     });
     
     test('test method deleteDocument()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await databases.deleteDocument(
@@ -1440,7 +1490,7 @@ describe('Databases', () => {
     });
     
     test('test method decrementDocumentAttribute()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$sequence': '1',
             '\$collectionId': '5e5ea5c15117e',
@@ -1464,7 +1514,7 @@ describe('Databases', () => {
     });
     
     test('test method incrementDocumentAttribute()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$sequence': '1',
             '\$collectionId': '5e5ea5c15117e',
@@ -1488,7 +1538,7 @@ describe('Databases', () => {
     });
     
     test('test method listIndexes()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'indexes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1505,7 +1555,7 @@ describe('Databases', () => {
     });
     
     test('test method createIndex()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1532,7 +1582,7 @@ describe('Databases', () => {
     });
     
     test('test method getIndex()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -1557,7 +1607,7 @@ describe('Databases', () => {
     });
     
     test('test method deleteIndex()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await databases.deleteIndex(
