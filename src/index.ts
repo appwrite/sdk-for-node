@@ -9,7 +9,6 @@ export { Graphql } from './services/graphql';
 export { Health } from './services/health';
 export { Locale } from './services/locale';
 export { Messaging } from './services/messaging';
-export { Presences } from './services/presences';
 export { Project } from './services/project';
 export { Proxy } from './services/proxy';
 export { Sites } from './services/sites';
