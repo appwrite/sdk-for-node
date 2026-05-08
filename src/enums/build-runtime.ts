@@ -79,6 +79,7 @@ export enum BuildRuntime {
     Go124 = 'go-1.24',
     Go125 = 'go-1.25',
     Go126 = 'go-1.26',
+    Rust183 = 'rust-1.83',
     Static1 = 'static-1',
     Flutter324 = 'flutter-3.24',
     Flutter327 = 'flutter-3.27',

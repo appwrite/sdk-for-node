@@ -11,7 +11,7 @@ describe('Storage', () => {
 
     
     test('test method listBuckets()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'buckets': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -26,7 +26,7 @@ describe('Storage', () => {
     });
     
     test('test method createBucket()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -55,7 +55,7 @@ describe('Storage', () => {
     });
     
     test('test method getBucket()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -83,7 +83,7 @@ describe('Storage', () => {
     });
     
     test('test method updateBucket()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -112,7 +112,7 @@ describe('Storage', () => {
     });
     
     test('test method deleteBucket()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await storage.deleteBucket(
@@ -126,7 +126,7 @@ describe('Storage', () => {
     });
     
     test('test method listFiles()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'files': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -142,7 +142,7 @@ describe('Storage', () => {
     });
     
     test('test method createFile()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             'bucketId': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -171,7 +171,7 @@ describe('Storage', () => {
     });
     
     test('test method getFile()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             'bucketId': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -199,7 +199,7 @@ describe('Storage', () => {
     });
     
     test('test method updateFile()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             'bucketId': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -227,7 +227,7 @@ describe('Storage', () => {
     });
     
     test('test method deleteFile()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await storage.deleteFile(

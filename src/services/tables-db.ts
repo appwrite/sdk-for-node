@@ -1,6 +1,7 @@
 import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
 import type { Models } from '../models';
 
+
 import { RelationshipType } from '../enums/relationship-type';
 import { RelationMutate } from '../enums/relation-mutate';
 import { TablesDBIndexType } from '../enums/tables-db-index-type';
@@ -1119,6 +1120,226 @@ export class TablesDB {
 
         return this.client.call(
             'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a bigint column. Optionally, minimum and maximum values can be provided.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {number | bigint} params.min - Minimum value
+     * @param {number | bigint} params.max - Maximum value
+     * @param {number | bigint} params.xdefault - Default value. Cannot be set when column is required.
+     * @param {boolean} params.array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnBigint>}
+     */
+    createBigIntColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean }): Promise<Models.ColumnBigint>;
+    /**
+     * Create a bigint column. Optionally, minimum and maximum values can be provided.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID.
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {number | bigint} min - Minimum value
+     * @param {number | bigint} max - Maximum value
+     * @param {number | bigint} xdefault - Default value. Cannot be set when column is required.
+     * @param {boolean} array - Is column an array?
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnBigint>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createBigIntColumn(databaseId: string, tableId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean): Promise<Models.ColumnBigint>;
+    createBigIntColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (number | bigint)?, (number | bigint)?, (number | bigint)?, (boolean)?]    
+    ): Promise<Models.ColumnBigint> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, min?: number | bigint, max?: number | bigint, xdefault?: number | bigint, array?: boolean };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                min: rest[3] as number | bigint,
+                max: rest[4] as number | bigint,
+                xdefault: rest[5] as number | bigint,
+                array: rest[6] as boolean            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const min = params.min;
+        const max = params.max;
+        const xdefault = params.xdefault;
+        const array = params.array;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/bigint'.replace('{databaseId}', databaseId).replace('{tableId}', tableId);
+        const payload: Payload = {};
+        if (typeof key !== 'undefined') {
+            payload['key'] = key;
+        }
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof min !== 'undefined') {
+            payload['min'] = min;
+        }
+        if (typeof max !== 'undefined') {
+            payload['max'] = max;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof array !== 'undefined') {
+            payload['array'] = array;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update a bigint column. Changing the `default` value will not update already existing rows.
+     * 
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.tableId - Table ID.
+     * @param {string} params.key - Column Key.
+     * @param {boolean} params.required - Is column required?
+     * @param {number | bigint} params.xdefault - Default value. Cannot be set when column is required.
+     * @param {number | bigint} params.min - Minimum value
+     * @param {number | bigint} params.max - Maximum value
+     * @param {string} params.newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnBigint>}
+     */
+    updateBigIntColumn(params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string }): Promise<Models.ColumnBigint>;
+    /**
+     * Update a bigint column. Changing the `default` value will not update already existing rows.
+     * 
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} tableId - Table ID.
+     * @param {string} key - Column Key.
+     * @param {boolean} required - Is column required?
+     * @param {number | bigint} xdefault - Default value. Cannot be set when column is required.
+     * @param {number | bigint} min - Minimum value
+     * @param {number | bigint} max - Maximum value
+     * @param {string} newKey - New Column Key.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ColumnBigint>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateBigIntColumn(databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string): Promise<Models.ColumnBigint>;
+    updateBigIntColumn(
+        paramsOrFirst: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (number | bigint)?, (number | bigint)?, (number | bigint)?, (string)?]    
+    ): Promise<Models.ColumnBigint> {
+        let params: { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, tableId: string, key: string, required: boolean, xdefault?: number | bigint, min?: number | bigint, max?: number | bigint, newKey?: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                tableId: rest[0] as string,
+                key: rest[1] as string,
+                required: rest[2] as boolean,
+                xdefault: rest[3] as number | bigint,
+                min: rest[4] as number | bigint,
+                max: rest[5] as number | bigint,
+                newKey: rest[6] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const tableId = params.tableId;
+        const key = params.key;
+        const required = params.required;
+        const xdefault = params.xdefault;
+        const min = params.min;
+        const max = params.max;
+        const newKey = params.newKey;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof tableId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "tableId"');
+        }
+        if (typeof key === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "key"');
+        }
+        if (typeof required === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "required"');
+        }
+        if (typeof xdefault === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "xdefault"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/bigint/{key}'.replace('{databaseId}', databaseId).replace('{tableId}', tableId).replace('{key}', key);
+        const payload: Payload = {};
+        if (typeof required !== 'undefined') {
+            payload['required'] = required;
+        }
+        if (typeof min !== 'undefined') {
+            payload['min'] = min;
+        }
+        if (typeof max !== 'undefined') {
+            payload['max'] = max;
+        }
+        if (typeof xdefault !== 'undefined') {
+            payload['default'] = xdefault;
+        }
+        if (typeof newKey !== 'undefined') {
+            payload['newKey'] = newKey;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
             uri,
             apiHeaders,
             payload,

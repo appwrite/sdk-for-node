@@ -11,7 +11,7 @@ describe('Teams', () => {
 
     
     test('test method list()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'teams': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -26,7 +26,7 @@ describe('Teams', () => {
     });
     
     test('test method create()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -47,7 +47,7 @@ describe('Teams', () => {
     });
     
     test('test method get()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -67,7 +67,7 @@ describe('Teams', () => {
     });
     
     test('test method updateName()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
@@ -88,7 +88,7 @@ describe('Teams', () => {
     });
     
     test('test method delete()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await teams.delete(
@@ -102,7 +102,7 @@ describe('Teams', () => {
     });
     
     test('test method listMemberships()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'memberships': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -118,13 +118,14 @@ describe('Teams', () => {
     });
     
     test('test method createMembership()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c16897e',
             'userName': 'John Doe',
             'userEmail': 'john@appwrite.io',
+            'userPhone': '+1 555 555 5555',
             'teamId': '5e5ea5c16897e',
             'teamName': 'VIP',
             'invited': '2020-10-15T06:38:00.000+00:00',
@@ -146,13 +147,14 @@ describe('Teams', () => {
     });
     
     test('test method getMembership()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c16897e',
             'userName': 'John Doe',
             'userEmail': 'john@appwrite.io',
+            'userPhone': '+1 555 555 5555',
             'teamId': '5e5ea5c16897e',
             'teamName': 'VIP',
             'invited': '2020-10-15T06:38:00.000+00:00',
@@ -174,13 +176,14 @@ describe('Teams', () => {
     });
     
     test('test method updateMembership()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c16897e',
             'userName': 'John Doe',
             'userEmail': 'john@appwrite.io',
+            'userPhone': '+1 555 555 5555',
             'teamId': '5e5ea5c16897e',
             'teamName': 'VIP',
             'invited': '2020-10-15T06:38:00.000+00:00',
@@ -203,7 +206,7 @@ describe('Teams', () => {
     });
     
     test('test method deleteMembership()', async () => {
-        const data = {message: ""};
+                                const data = {message: ""};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await teams.deleteMembership(
@@ -218,13 +221,14 @@ describe('Teams', () => {
     });
     
     test('test method updateMembershipStatus()', async () => {
-        const data = {
+                                                const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'userId': '5e5ea5c16897e',
             'userName': 'John Doe',
             'userEmail': 'john@appwrite.io',
+            'userPhone': '+1 555 555 5555',
             'teamId': '5e5ea5c16897e',
             'teamName': 'VIP',
             'invited': '2020-10-15T06:38:00.000+00:00',
@@ -248,7 +252,7 @@ describe('Teams', () => {
     });
     
     test('test method getPrefs()', async () => {
-        const data = {};
+                                                const data = {};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await teams.getPrefs(
@@ -262,7 +266,7 @@ describe('Teams', () => {
     });
     
     test('test method updatePrefs()', async () => {
-        const data = {};
+                                                const data = {};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await teams.updatePrefs(

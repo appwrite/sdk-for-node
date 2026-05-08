@@ -11,7 +11,7 @@ describe('Health', () => {
 
     
     test('test method get()', async () => {
-        const data = {
+                                                const data = {
             'name': 'database',
             'ping': 128,
             'status': 'pass',};
@@ -27,7 +27,7 @@ describe('Health', () => {
     });
     
     test('test method getAntivirus()', async () => {
-        const data = {
+                                                const data = {
             'version': '1.0.0',
             'status': 'online',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -42,7 +42,7 @@ describe('Health', () => {
     });
     
     test('test method getCache()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'statuses': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -57,7 +57,7 @@ describe('Health', () => {
     });
     
     test('test method getCertificate()', async () => {
-        const data = {
+                                                const data = {
             'name': '/CN=www.google.com',
             'subjectSN': '',
             'issuerOrganisation': '',
@@ -76,7 +76,7 @@ describe('Health', () => {
     });
     
     test('test method getConsolePausing()', async () => {
-        const data = {
+                                                const data = {
             'name': 'database',
             'ping': 128,
             'status': 'pass',};
@@ -92,7 +92,7 @@ describe('Health', () => {
     });
     
     test('test method getDB()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'statuses': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -107,7 +107,7 @@ describe('Health', () => {
     });
     
     test('test method getPubSub()', async () => {
-        const data = {
+                                                const data = {
             'total': 5,
             'statuses': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -122,7 +122,7 @@ describe('Health', () => {
     });
     
     test('test method getQueueAudits()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -136,7 +136,7 @@ describe('Health', () => {
     });
     
     test('test method getQueueBuilds()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -150,7 +150,7 @@ describe('Health', () => {
     });
     
     test('test method getQueueCertificates()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -164,7 +164,7 @@ describe('Health', () => {
     });
     
     test('test method getQueueDatabases()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -178,7 +178,7 @@ describe('Health', () => {
     });
     
     test('test method getQueueDeletes()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -192,7 +192,7 @@ describe('Health', () => {
     });
     
     test('test method getFailedJobs()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -207,7 +207,7 @@ describe('Health', () => {
     });
     
     test('test method getQueueFunctions()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -221,7 +221,7 @@ describe('Health', () => {
     });
     
     test('test method getQueueLogs()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -235,7 +235,7 @@ describe('Health', () => {
     });
     
     test('test method getQueueMails()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -249,7 +249,7 @@ describe('Health', () => {
     });
     
     test('test method getQueueMessaging()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -263,7 +263,7 @@ describe('Health', () => {
     });
     
     test('test method getQueueMigrations()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -277,7 +277,7 @@ describe('Health', () => {
     });
     
     test('test method getQueueStatsResources()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -291,7 +291,7 @@ describe('Health', () => {
     });
     
     test('test method getQueueUsage()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -305,7 +305,7 @@ describe('Health', () => {
     });
     
     test('test method getQueueWebhooks()', async () => {
-        const data = {
+                                                const data = {
             'size': 8,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -319,7 +319,7 @@ describe('Health', () => {
     });
     
     test('test method getStorage()', async () => {
-        const data = {
+                                                const data = {
             'name': 'database',
             'ping': 128,
             'status': 'pass',};
@@ -335,7 +335,7 @@ describe('Health', () => {
     });
     
     test('test method getStorageLocal()', async () => {
-        const data = {
+                                                const data = {
             'name': 'database',
             'ping': 128,
             'status': 'pass',};
@@ -351,7 +351,7 @@ describe('Health', () => {
     });
     
     test('test method getTime()', async () => {
-        const data = {
+                                                const data = {
             'remoteTime': 1639490751,
             'localTime': 1639490844,
             'diff': 93,};

@@ -8,8 +8,9 @@ const client = new sdk.Client()
 
 const project = new sdk.Project(client);
 
-const result = await project.updateServiceStatus({
-    serviceId: sdk.ServiceId.Account,
-    enabled: false
+const result = await project.updateOAuth2Zoho({
+    clientId: '<CLIENT_ID>', // optional
+    clientSecret: '<CLIENT_SECRET>', // optional
+    enabled: false // optional
 });
 ```
