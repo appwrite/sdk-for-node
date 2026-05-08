@@ -1,4 +1,4 @@
-export enum OAuthProvider {
+export enum ProviderId {
     Amazon = 'amazon',
     Apple = 'apple',
     Auth0 = 'auth0',
@@ -42,4 +42,8 @@ export enum OAuthProvider {
     Yandex = 'yandex',
     Zoho = 'zoho',
     Zoom = 'zoom',
+    Mock = 'mock',
+    Mockunverified = 'mock-unverified',
+    GithubImagine = 'githubImagine',
+    GoogleImagine = 'googleImagine',
 }

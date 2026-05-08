@@ -6,9 +6,9 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const project = new sdk.Project(client);
+const presences = new sdk.Presences(client);
 
-const result = await project.getOAuth2Provider({
-    providerId: sdk.ProviderId.Amazon
+const result = await presences.get({
+    presenceId: '<PRESENCE_ID>'
 });
 ```
