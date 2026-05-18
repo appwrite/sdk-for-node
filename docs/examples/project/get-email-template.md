@@ -9,7 +9,7 @@ const client = new sdk.Client()
 const project = new sdk.Project(client);
 
 const result = await project.getEmailTemplate({
-    templateId: sdk.EmailTemplateType.Verification,
-    locale: sdk.EmailTemplateLocale.Af // optional
+    templateId: sdk.ProjectEmailTemplateId.Verification,
+    locale: sdk.ProjectEmailTemplateLocale.Af // optional
 });
 ```

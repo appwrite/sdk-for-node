@@ -1,4 +1,4 @@
-export enum Scopes {
+export enum ProjectKeyScopes {
     ProjectRead = 'project.read',
     ProjectWrite = 'project.write',
     KeysRead = 'keys.read',
