@@ -5,6 +5,10 @@ import { IndexStatus } from "./enums/index-status"
 import { DeploymentStatus } from "./enums/deployment-status"
 import { ExecutionTrigger } from "./enums/execution-trigger"
 import { ExecutionStatus } from "./enums/execution-status"
+import { ProjectAuthMethodId } from "./enums/project-auth-method-id"
+import { ProjectServiceId } from "./enums/project-service-id"
+import { ProjectProtocolId } from "./enums/project-protocol-id"
+import { OAuth2GooglePrompt } from "./enums/o-auth-2-google-prompt"
 import { PlatformType } from "./enums/platform-type"
 import { HealthAntivirusStatus } from "./enums/health-antivirus-status"
 import { HealthCheckStatus } from "./enums/health-check-status"
@@ -45,6 +49,20 @@ export namespace Models {
          * List of documents.
          */
         documents: Document[];
+    }
+
+    /**
+     * Presences List
+     */
+    export type PresenceList<Presence extends Models.Presence = Models.DefaultPresence> = {
+        /**
+         * Total number of presences that matched your query.
+         */
+        total: number;
+        /**
+         * List of presences.
+         */
+        presences: Presence[];
     }
 
     /**
@@ -622,6 +640,34 @@ export namespace Models {
     }
 
     /**
+     * Insights List
+     */
+    export type InsightList = {
+        /**
+         * Total number of insights that matched your query.
+         */
+        total: number;
+        /**
+         * List of insights.
+         */
+        insights: Insight[];
+    }
+
+    /**
+     * Reports List
+     */
+    export type ReportList = {
+        /**
+         * Total number of reports that matched your query.
+         */
+        total: number;
+        /**
+         * List of reports.
+         */
+        reports: Report[];
+    }
+
+    /**
      * Database
      */
     export type Database = {
@@ -652,11 +698,11 @@ export namespace Models {
         /**
          * Database backup policies.
          */
-        policies: Index[];
+        policies: BackupPolicy[];
         /**
          * Database backup archives.
          */
-        archives: Collection[];
+        archives: BackupArchive[];
     }
 
     /**
@@ -2670,6 +2716,49 @@ export namespace Models {
     };
 
     /**
+     * Presence
+     */
+    export type Presence = {
+        /**
+         * Presence ID.
+         */
+        $id: string;
+        /**
+         * Presence creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Presence update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Presence permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+         */
+        $permissions: string[];
+        /**
+         * User ID.
+         */
+        userId: string;
+        /**
+         * Presence status.
+         */
+        status?: string;
+        /**
+         * Presence source.
+         */
+        source: string;
+        /**
+         * Presence expiry date in ISO 8601 format.
+         */
+        expiresAt?: string;
+    }
+
+    export type DefaultPresence = Presence & {
+        [key: string]: any;
+        [__default]: true;
+    };
+
+    /**
      * Log
      */
     export type Log = {
@@ -4039,131 +4128,11 @@ export namespace Models {
          */
         name: string;
         /**
-         * Project description.
-         */
-        description: string;
-        /**
          * Project team ID.
          */
         teamId: string;
         /**
-         * Project logo file ID.
-         */
-        logo: string;
-        /**
-         * Project website URL.
-         */
-        url: string;
-        /**
-         * Company legal name.
-         */
-        legalName: string;
-        /**
-         * Country code in [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1) two-character format.
-         */
-        legalCountry: string;
-        /**
-         * State name.
-         */
-        legalState: string;
-        /**
-         * City name.
-         */
-        legalCity: string;
-        /**
-         * Company Address.
-         */
-        legalAddress: string;
-        /**
-         * Company Tax ID.
-         */
-        legalTaxId: string;
-        /**
-         * Session duration in seconds.
-         */
-        authDuration: number;
-        /**
-         * Max users allowed. 0 is unlimited.
-         */
-        authLimit: number;
-        /**
-         * Max sessions allowed per user. 100 maximum.
-         */
-        authSessionsLimit: number;
-        /**
-         * Max allowed passwords in the history list per user. Max passwords limit allowed in history is 20. Use 0 for disabling password history.
-         */
-        authPasswordHistory: number;
-        /**
-         * Whether or not to check user's password against most commonly used passwords.
-         */
-        authPasswordDictionary: boolean;
-        /**
-         * Whether or not to check the user password for similarity with their personal data.
-         */
-        authPersonalDataCheck: boolean;
-        /**
-         * Whether or not to disallow disposable email addresses during signup and email updates.
-         */
-        authDisposableEmails: boolean;
-        /**
-         * Whether or not to require canonical email addresses during signup and email updates.
-         */
-        authCanonicalEmails: boolean;
-        /**
-         * Whether or not to disallow free email addresses during signup and email updates.
-         */
-        authFreeEmails: boolean;
-        /**
-         * An array of mock numbers and their corresponding verification codes (OTPs).
-         */
-        authMockNumbers: MockNumber[];
-        /**
-         * Whether or not to send session alert emails to users.
-         */
-        authSessionAlerts: boolean;
-        /**
-         * Whether or not to show user names in the teams membership response.
-         */
-        authMembershipsUserName: boolean;
-        /**
-         * Whether or not to show user emails in the teams membership response.
-         */
-        authMembershipsUserEmail: boolean;
-        /**
-         * Whether or not to show user MFA status in the teams membership response.
-         */
-        authMembershipsMfa: boolean;
-        /**
-         * Whether or not to show user IDs in the teams membership response.
-         */
-        authMembershipsUserId: boolean;
-        /**
-         * Whether or not to show user phone numbers in the teams membership response.
-         */
-        authMembershipsUserPhone: boolean;
-        /**
-         * Whether or not all existing sessions should be invalidated on password change
-         */
-        authInvalidateSessions: boolean;
-        /**
-         * List of Auth Providers.
-         */
-        oAuthProviders: AuthProvider[];
-        /**
-         * List of Platforms.
-         */
-        platforms: (Models.PlatformWeb | Models.PlatformApple | Models.PlatformAndroid | Models.PlatformWindows | Models.PlatformLinux)[];
-        /**
-         * List of Webhooks.
-         */
-        webhooks: Webhook[];
-        /**
-         * List of API Keys.
-         */
-        keys: Key[];
-        /**
-         * List of dev keys.
+         * Deprecated since 1.9.5: List of dev keys.
          */
         devKeys: DevKey[];
         /**
@@ -4223,113 +4192,17 @@ export namespace Models {
          */
         status: string;
         /**
-         * Email/Password auth method status
+         * List of auth methods.
          */
-        authEmailPassword: boolean;
+        authMethods: ProjectAuthMethod[];
         /**
-         * Magic URL auth method status
+         * List of services.
          */
-        authUsersAuthMagicURL: boolean;
+        services: ProjectService[];
         /**
-         * Email (OTP) auth method status
+         * List of protocols.
          */
-        authEmailOtp: boolean;
-        /**
-         * Anonymous auth method status
-         */
-        authAnonymous: boolean;
-        /**
-         * Invites auth method status
-         */
-        authInvites: boolean;
-        /**
-         * JWT auth method status
-         */
-        authJWT: boolean;
-        /**
-         * Phone auth method status
-         */
-        authPhone: boolean;
-        /**
-         * Account service status
-         */
-        serviceStatusForAccount: boolean;
-        /**
-         * Avatars service status
-         */
-        serviceStatusForAvatars: boolean;
-        /**
-         * Databases (legacy) service status
-         */
-        serviceStatusForDatabases: boolean;
-        /**
-         * TablesDB service status
-         */
-        serviceStatusForTablesdb: boolean;
-        /**
-         * Locale service status
-         */
-        serviceStatusForLocale: boolean;
-        /**
-         * Health service status
-         */
-        serviceStatusForHealth: boolean;
-        /**
-         * Project service status
-         */
-        serviceStatusForProject: boolean;
-        /**
-         * Storage service status
-         */
-        serviceStatusForStorage: boolean;
-        /**
-         * Teams service status
-         */
-        serviceStatusForTeams: boolean;
-        /**
-         * Users service status
-         */
-        serviceStatusForUsers: boolean;
-        /**
-         * VCS service status
-         */
-        serviceStatusForVcs: boolean;
-        /**
-         * Sites service status
-         */
-        serviceStatusForSites: boolean;
-        /**
-         * Functions service status
-         */
-        serviceStatusForFunctions: boolean;
-        /**
-         * Proxy service status
-         */
-        serviceStatusForProxy: boolean;
-        /**
-         * GraphQL service status
-         */
-        serviceStatusForGraphql: boolean;
-        /**
-         * Migrations service status
-         */
-        serviceStatusForMigrations: boolean;
-        /**
-         * Messaging service status
-         */
-        serviceStatusForMessaging: boolean;
-        /**
-         * REST protocol status
-         */
-        protocolStatusForRest: boolean;
-        /**
-         * GraphQL protocol status
-         */
-        protocolStatusForGraphql: boolean;
-        /**
-         * Websocket protocol status
-         */
-        protocolStatusForWebsocket: boolean;
+        protocols: ProjectProtocol[];
         /**
          * Project region
          */
@@ -4346,6 +4219,48 @@ export namespace Models {
          * Last time the project was accessed via console. Used with plan's projectInactivityDays to determine if project is paused.
          */
         consoleAccessedAt: string;
+    }
+
+    /**
+     * ProjectAuthMethod
+     */
+    export type ProjectAuthMethod = {
+        /**
+         * Auth method ID.
+         */
+        $id: ProjectAuthMethodId;
+        /**
+         * Auth method status.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * ProjectService
+     */
+    export type ProjectService = {
+        /**
+         * Service ID.
+         */
+        $id: ProjectServiceId;
+        /**
+         * Service status.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * ProjectProtocol
+     */
+    export type ProjectProtocol = {
+        /**
+         * Protocol ID.
+         */
+        $id: ProjectProtocolId;
+        /**
+         * Protocol status.
+         */
+        enabled: boolean;
     }
 
     /**
@@ -4768,6 +4683,10 @@ export namespace Models {
          * Google OAuth2 client secret.
          */
         clientSecret: string;
+        /**
+         * Google OAuth2 prompt values.
+         */
+        prompt: OAuth2GooglePrompt[];
     }
 
     /**
@@ -5647,32 +5566,6 @@ export namespace Models {
     }
 
     /**
-     * AuthProvider
-     */
-    export type AuthProvider = {
-        /**
-         * Auth Provider.
-         */
-        key: string;
-        /**
-         * Auth Provider name.
-         */
-        name: string;
-        /**
-         * OAuth 2.0 application ID.
-         */
-        appId: string;
-        /**
-         * OAuth 2.0 application secret. Might be JSON string if provider requires extra configuration. This property is write-only and always returned empty.
-         */
-        secret: string;
-        /**
-         * Auth Provider is active and can be used to create session.
-         */
-        enabled: boolean;
-    }
-
-    /**
      * Platform Web
      */
     export type PlatformWeb = {
@@ -6523,6 +6416,156 @@ export namespace Models {
     }
 
     /**
+     * Insight
+     */
+    export type Insight = {
+        /**
+         * Insight ID.
+         */
+        $id: string;
+        /**
+         * Insight creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Insight update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Parent report ID. Insights always belong to a report.
+         */
+        reportId: string;
+        /**
+         * Insight type. One of databaseIndex (legacy), tablesDBIndex, documentsDBIndex, vectorsDBIndex, databasePerformance, sitePerformance, siteAccessibility, siteSeo, functionPerformance. The index types are engine-specific so each CTA can pair the right service+method (databases.createIndex, tablesDB.createIndex, documentsDB.createIndex, or vectorsDB.createIndex).
+         */
+        type: string;
+        /**
+         * Insight severity. One of info, warning, critical.
+         */
+        severity: string;
+        /**
+         * Insight status. One of active, dismissed.
+         */
+        status: string;
+        /**
+         * Type of the resource the insight is about. Plural noun, e.g. databases, sites, functions.
+         */
+        resourceType: string;
+        /**
+         * ID of the resource the insight is about.
+         */
+        resourceId: string;
+        /**
+         * Plural noun for the parent resource that contains the insight's resource, e.g. an insight about a column index on a table → resourceType=indexes, parentResourceType=tables. Empty when the resource has no parent.
+         */
+        parentResourceType: string;
+        /**
+         * ID of the parent resource. Empty when the resource has no parent.
+         */
+        parentResourceId: string;
+        /**
+         * Insight title.
+         */
+        title: string;
+        /**
+         * Short markdown summary describing the insight.
+         */
+        summary: string;
+        /**
+         * List of call-to-action buttons attached to this insight.
+         */
+        ctas: InsightCTA[];
+        /**
+         * Time the insight was analyzed in ISO 8601 format.
+         */
+        analyzedAt?: string;
+        /**
+         * Time the insight was dismissed in ISO 8601 format. Empty when not dismissed.
+         */
+        dismissedAt?: string;
+        /**
+         * User ID that dismissed the insight. Empty when not dismissed.
+         */
+        dismissedBy?: string;
+    }
+
+    /**
+     * InsightCTA
+     */
+    export type InsightCTA = {
+        /**
+         * Human-readable label for the CTA, used in UI.
+         */
+        label: string;
+        /**
+         * Public API service (SDK namespace) the client should invoke. Must match the engine that owns the resource — for index suggestions: databases (legacy), tablesDB, documentsDB, or vectorsDB.
+         */
+        service: string;
+        /**
+         * Public API method on the chosen service the client should invoke when this CTA is triggered.
+         */
+        method: string;
+        /**
+         * Parameter map the client should pass to the service method when this CTA is triggered. Keys match the target API's parameter names (e.g. databaseId/tableId/columns for tablesDB, databaseId/collectionId/attributes for the legacy Databases API).
+         */
+        params: object;
+    }
+
+    /**
+     * Report
+     */
+    export type Report = {
+        /**
+         * Report ID.
+         */
+        $id: string;
+        /**
+         * Report creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Report update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * ID of the third-party app that submitted the report.
+         */
+        appId: string;
+        /**
+         * Analyzer that produced this report. e.g. lighthouse, audit, databaseAnalyzer.
+         */
+        type: string;
+        /**
+         * Short, human-readable title for the report.
+         */
+        title: string;
+        /**
+         * Markdown summary describing the report.
+         */
+        summary: string;
+        /**
+         * Plural noun describing what the report analyzes, e.g. databases, sites, urls.
+         */
+        targetType: string;
+        /**
+         * Free-form target identifier (URL for lighthouse, resource ID for db).
+         */
+        target: string;
+        /**
+         * Categories covered by the report, e.g. performance, accessibility.
+         */
+        categories: string[];
+        /**
+         * Insights nested under this report.
+         */
+        insights: Insight[];
+        /**
+         * Time the report was analyzed in ISO 8601 format.
+         */
+        analyzedAt?: string;
+    }
+
+    /**
      * ActivityEvent
      */
     export type ActivityEvent = {
@@ -6892,6 +6935,98 @@ export namespace Models {
          * Optional data in key-value object. 
          */
         options: string;
+    }
+
+    /**
+     * usageEvent
+     */
+    export type UsageEvent = {
+        /**
+         * The metric key.
+         */
+        metric: string;
+        /**
+         * The metric value.
+         */
+        value: number;
+        /**
+         * The event timestamp.
+         */
+        time: string;
+        /**
+         * The API endpoint path.
+         */
+        path: string;
+        /**
+         * The HTTP method.
+         */
+        method: string;
+        /**
+         * HTTP status code. Stored as string to preserve unset state (empty string = not available).
+         */
+        status: string;
+        /**
+         * The resource type.
+         */
+        resourceType: string;
+        /**
+         * The resource ID.
+         */
+        resourceId: string;
+        /**
+         * Country code in [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1) two-character format.
+         */
+        countryCode: string;
+        /**
+         * The user agent string.
+         */
+        userAgent: string;
+    }
+
+    /**
+     * Usage events list
+     */
+    export type UsageEventList = {
+        /**
+         * Total number of events that matched your query.
+         */
+        total: number;
+        /**
+         * List of events.
+         */
+        events: UsageEvent[];
+    }
+
+    /**
+     * usageGauge
+     */
+    export type UsageGauge = {
+        /**
+         * The metric key.
+         */
+        metric: string;
+        /**
+         * The current snapshot value.
+         */
+        value: number;
+        /**
+         * The snapshot timestamp.
+         */
+        time: string;
+    }
+
+    /**
+     * Usage gauges list
+     */
+    export type UsageGaugeList = {
+        /**
+         * Total number of gauges that matched your query.
+         */
+        total: number;
+        /**
+         * List of gauges.
+         */
+        gauges: UsageGauge[];
     }
 
     /**

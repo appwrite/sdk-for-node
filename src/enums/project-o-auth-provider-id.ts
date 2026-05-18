@@ -1,4 +1,4 @@
-export enum OAuthProvider {
+export enum ProjectOAuthProviderId {
     Amazon = 'amazon',
     Apple = 'apple',
     Auth0 = 'auth0',
@@ -42,4 +42,6 @@ export enum OAuthProvider {
     Yandex = 'yandex',
     Zoho = 'zoho',
     Zoom = 'zoom',
+    GithubImagine = 'githubImagine',
+    GoogleImagine = 'googleImagine',
 }

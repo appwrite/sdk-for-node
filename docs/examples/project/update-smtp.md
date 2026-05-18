@@ -17,7 +17,7 @@ const result = await project.updateSMTP({
     senderName: '<SENDER_NAME>', // optional
     replyToEmail: 'email@example.com', // optional
     replyToName: '<REPLY_TO_NAME>', // optional
-    secure: sdk.Secure.Tls, // optional
+    secure: sdk.ProjectSMTPSecure.Tls, // optional
     enabled: false // optional
 });
 ```

@@ -1,4 +1,4 @@
-export enum EmailTemplateLocale {
+export enum ProjectEmailTemplateLocale {
     Af = 'af',
     Arae = 'ar-ae',
     Arbh = 'ar-bh',

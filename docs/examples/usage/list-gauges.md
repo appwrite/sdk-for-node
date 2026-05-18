@@ -6,12 +6,10 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const project = new sdk.Project(client);
+const usage = new sdk.Usage(client);
 
-const result = await project.createKey({
-    keyId: '<KEY_ID>',
-    name: '<NAME>',
-    scopes: [sdk.ProjectKeyScopes.ProjectRead],
-    expire: '2020-10-15T06:38:00.000+00:00' // optional
+const result = await usage.listGauges({
+    queries: [], // optional
+    total: false // optional
 });
 ```

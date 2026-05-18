@@ -1,4 +1,4 @@
-export enum ProjectPolicy {
+export enum ProjectPolicyId {
     Passworddictionary = 'password-dictionary',
     Passwordhistory = 'password-history',
     Passwordpersonaldata = 'password-personal-data',

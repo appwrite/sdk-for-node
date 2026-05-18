@@ -9,8 +9,8 @@ const client = new sdk.Client()
 const project = new sdk.Project(client);
 
 const result = await project.updateEmailTemplate({
-    templateId: sdk.EmailTemplateType.Verification,
-    locale: sdk.EmailTemplateLocale.Af, // optional
+    templateId: sdk.ProjectEmailTemplateId.Verification,
+    locale: sdk.ProjectEmailTemplateLocale.Af, // optional
     subject: '<SUBJECT>', // optional
     message: '<MESSAGE>', // optional
     senderName: '<SENDER_NAME>', // optional
