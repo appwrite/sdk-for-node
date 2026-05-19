@@ -1,4 +1,4 @@
-export enum ServiceId {
+export enum ProjectServiceId {
     Account = 'account',
     Avatars = 'avatars',
     Databases = 'databases',
@@ -16,4 +16,5 @@ export enum ServiceId {
     Graphql = 'graphql',
     Migrations = 'migrations',
     Messaging = 'messaging',
+    Advisor = 'advisor',
 }

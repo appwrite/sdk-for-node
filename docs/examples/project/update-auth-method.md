@@ -9,7 +9,7 @@ const client = new sdk.Client()
 const project = new sdk.Project(client);
 
 const result = await project.updateAuthMethod({
-    methodId: sdk.AuthMethod.EmailPassword,
+    methodId: sdk.ProjectAuthMethodId.EmailPassword,
     enabled: false
 });
 ```

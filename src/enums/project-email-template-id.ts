@@ -1,4 +1,4 @@
-export enum EmailTemplateType {
+export enum ProjectEmailTemplateId {
     Verification = 'verification',
     MagicSession = 'magicSession',
     Recovery = 'recovery',

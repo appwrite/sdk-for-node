@@ -9,7 +9,7 @@ const client = new sdk.Client()
 const project = new sdk.Project(client);
 
 const result = await project.updateService({
-    serviceId: sdk.ServiceId.Account,
+    serviceId: sdk.ProjectServiceId.Account,
     enabled: false
 });
 ```

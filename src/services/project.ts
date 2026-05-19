@@ -2,21 +2,45 @@ import { AppwriteException, Client, type Payload, UploadProgress } from '../clie
 import type { Models } from '../models';
 
 
-import { AuthMethod } from '../enums/auth-method';
-import { Scopes } from '../enums/scopes';
-import { OAuthProvider } from '../enums/o-auth-provider';
-import { ProjectPolicy } from '../enums/project-policy';
-import { ProtocolId } from '../enums/protocol-id';
-import { ServiceId } from '../enums/service-id';
-import { Secure } from '../enums/secure';
-import { EmailTemplateType } from '../enums/email-template-type';
-import { EmailTemplateLocale } from '../enums/email-template-locale';
+import { ProjectAuthMethodId } from '../enums/project-auth-method-id';
+import { ProjectKeyScopes } from '../enums/project-key-scopes';
+import { ProjectOAuth2GooglePrompt } from '../enums/project-o-auth-2-google-prompt';
+import { ProjectOAuthProviderId } from '../enums/project-o-auth-provider-id';
+import { ProjectPolicyId } from '../enums/project-policy-id';
+import { ProjectProtocolId } from '../enums/project-protocol-id';
+import { ProjectServiceId } from '../enums/project-service-id';
+import { ProjectSMTPSecure } from '../enums/project-smtp-secure';
+import { ProjectEmailTemplateId } from '../enums/project-email-template-id';
+import { ProjectEmailTemplateLocale } from '../enums/project-email-template-locale';
 
 export class Project {
     client: Client;
 
     constructor(client: Client) {
         this.client = client;
+    }
+
+    /**
+     * Get a project.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    get(): Promise<Models.Project> {
+
+        const apiPath = '/project';
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
     }
 
     /**
@@ -46,33 +70,33 @@ export class Project {
     /**
      * Update properties of a specific auth method. Use this endpoint to enable or disable a method in your project. 
      *
-     * @param {AuthMethod} params.methodId - Auth Method ID. Possible values: email-password,magic-url,email-otp,anonymous,invites,jwt,phone
+     * @param {ProjectAuthMethodId} params.methodId - Auth Method ID. Possible values: email-password,magic-url,email-otp,anonymous,invites,jwt,phone
      * @param {boolean} params.enabled - Auth method status.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
-    updateAuthMethod(params: { methodId: AuthMethod, enabled: boolean }): Promise<Models.Project>;
+    updateAuthMethod(params: { methodId: ProjectAuthMethodId, enabled: boolean }): Promise<Models.Project>;
     /**
      * Update properties of a specific auth method. Use this endpoint to enable or disable a method in your project. 
      *
-     * @param {AuthMethod} methodId - Auth Method ID. Possible values: email-password,magic-url,email-otp,anonymous,invites,jwt,phone
+     * @param {ProjectAuthMethodId} methodId - Auth Method ID. Possible values: email-password,magic-url,email-otp,anonymous,invites,jwt,phone
      * @param {boolean} enabled - Auth method status.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateAuthMethod(methodId: AuthMethod, enabled: boolean): Promise<Models.Project>;
+    updateAuthMethod(methodId: ProjectAuthMethodId, enabled: boolean): Promise<Models.Project>;
     updateAuthMethod(
-        paramsOrFirst: { methodId: AuthMethod, enabled: boolean } | AuthMethod,
+        paramsOrFirst: { methodId: ProjectAuthMethodId, enabled: boolean } | ProjectAuthMethodId,
         ...rest: [(boolean)?]    
     ): Promise<Models.Project> {
-        let params: { methodId: AuthMethod, enabled: boolean };
+        let params: { methodId: ProjectAuthMethodId, enabled: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('methodId' in paramsOrFirst || 'enabled' in paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { methodId: AuthMethod, enabled: boolean };
+            params = (paramsOrFirst || {}) as { methodId: ProjectAuthMethodId, enabled: boolean };
         } else {
             params = {
-                methodId: paramsOrFirst as AuthMethod,
+                methodId: paramsOrFirst as ProjectAuthMethodId,
                 enabled: rest[0] as boolean            
             };
         }
@@ -172,12 +196,12 @@ export class Project {
      *
      * @param {string} params.keyId - Key ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Key name. Max length: 128 chars.
-     * @param {Scopes[]} params.scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 100 scopes are allowed.
      * @param {string} params.expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
      */
-    createKey(params: { keyId: string, name: string, scopes: Scopes[], expire?: string }): Promise<Models.Key>;
+    createKey(params: { keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string }): Promise<Models.Key>;
     /**
      * Create a new API key. It's recommended to have multiple API keys with strict scopes for separate functions within your project.
      * 
@@ -185,26 +209,26 @@ export class Project {
      *
      * @param {string} keyId - Key ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Key name. Max length: 128 chars.
-     * @param {Scopes[]} scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 100 scopes are allowed.
      * @param {string} expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createKey(keyId: string, name: string, scopes: Scopes[], expire?: string): Promise<Models.Key>;
+    createKey(keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string): Promise<Models.Key>;
     createKey(
-        paramsOrFirst: { keyId: string, name: string, scopes: Scopes[], expire?: string } | string,
-        ...rest: [(string)?, (Scopes[])?, (string)?]    
+        paramsOrFirst: { keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string } | string,
+        ...rest: [(string)?, (ProjectKeyScopes[])?, (string)?]    
     ): Promise<Models.Key> {
-        let params: { keyId: string, name: string, scopes: Scopes[], expire?: string };
+        let params: { keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { keyId: string, name: string, scopes: Scopes[], expire?: string };
+            params = (paramsOrFirst || {}) as { keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string };
         } else {
             params = {
                 keyId: paramsOrFirst as string,
                 name: rest[0] as string,
-                scopes: rest[1] as Scopes[],
+                scopes: rest[1] as ProjectKeyScopes[],
                 expire: rest[2] as string            
             };
         }
@@ -257,35 +281,35 @@ export class Project {
      * 
      * You can also create a standard API key if you need a longer-lived key instead.
      *
-     * @param {Scopes[]} params.scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 100 scopes are allowed.
      * @param {number} params.duration - Time in seconds before ephemeral key expires. Maximum duration is 3600 seconds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.EphemeralKey>}
      */
-    createEphemeralKey(params: { scopes: Scopes[], duration: number }): Promise<Models.EphemeralKey>;
+    createEphemeralKey(params: { scopes: ProjectKeyScopes[], duration: number }): Promise<Models.EphemeralKey>;
     /**
      * Create a new ephemeral API key. It's recommended to have multiple API keys with strict scopes for separate functions within your project.
      * 
      * You can also create a standard API key if you need a longer-lived key instead.
      *
-     * @param {Scopes[]} scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 100 scopes are allowed.
      * @param {number} duration - Time in seconds before ephemeral key expires. Maximum duration is 3600 seconds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.EphemeralKey>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createEphemeralKey(scopes: Scopes[], duration: number): Promise<Models.EphemeralKey>;
+    createEphemeralKey(scopes: ProjectKeyScopes[], duration: number): Promise<Models.EphemeralKey>;
     createEphemeralKey(
-        paramsOrFirst: { scopes: Scopes[], duration: number } | Scopes[],
+        paramsOrFirst: { scopes: ProjectKeyScopes[], duration: number } | ProjectKeyScopes[],
         ...rest: [(number)?]    
     ): Promise<Models.EphemeralKey> {
-        let params: { scopes: Scopes[], duration: number };
+        let params: { scopes: ProjectKeyScopes[], duration: number };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('scopes' in paramsOrFirst || 'duration' in paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { scopes: Scopes[], duration: number };
+            params = (paramsOrFirst || {}) as { scopes: ProjectKeyScopes[], duration: number };
         } else {
             params = {
-                scopes: paramsOrFirst as Scopes[],
+                scopes: paramsOrFirst as ProjectKeyScopes[],
                 duration: rest[0] as number            
             };
         }
@@ -378,37 +402,37 @@ export class Project {
      *
      * @param {string} params.keyId - Key ID.
      * @param {string} params.name - Key name. Max length: 128 chars.
-     * @param {Scopes[]} params.scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 100 scopes are allowed.
      * @param {string} params.expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
      */
-    updateKey(params: { keyId: string, name: string, scopes: Scopes[], expire?: string }): Promise<Models.Key>;
+    updateKey(params: { keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string }): Promise<Models.Key>;
     /**
      * Update a key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
      *
      * @param {string} keyId - Key ID.
      * @param {string} name - Key name. Max length: 128 chars.
-     * @param {Scopes[]} scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 100 scopes are allowed.
      * @param {string} expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateKey(keyId: string, name: string, scopes: Scopes[], expire?: string): Promise<Models.Key>;
+    updateKey(keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string): Promise<Models.Key>;
     updateKey(
-        paramsOrFirst: { keyId: string, name: string, scopes: Scopes[], expire?: string } | string,
-        ...rest: [(string)?, (Scopes[])?, (string)?]    
+        paramsOrFirst: { keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string } | string,
+        ...rest: [(string)?, (ProjectKeyScopes[])?, (string)?]    
     ): Promise<Models.Key> {
-        let params: { keyId: string, name: string, scopes: Scopes[], expire?: string };
+        let params: { keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { keyId: string, name: string, scopes: Scopes[], expire?: string };
+            params = (paramsOrFirst || {}) as { keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string };
         } else {
             params = {
                 keyId: paramsOrFirst as string,
                 name: rest[0] as string,
-                scopes: rest[1] as Scopes[],
+                scopes: rest[1] as ProjectKeyScopes[],
                 expire: rest[2] as string            
             };
         }
@@ -914,7 +938,7 @@ export class Project {
      * Update the project OAuth2 Amazon configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Amazon OAuth2 app. For example: amzn1.application-oa2-client.87400c00000000000000000000063d5b2
-     * @param {string} params.clientSecret - 'Client Secret' of Amazon OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Amazon OAuth2 app. For example: 79ffe4000000000000000000000000000000000000000000000000000002de55
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Amazon>}
@@ -924,7 +948,7 @@ export class Project {
      * Update the project OAuth2 Amazon configuration.
      *
      * @param {string} clientId - 'Client ID' of Amazon OAuth2 app. For example: amzn1.application-oa2-client.87400c00000000000000000000063d5b2
-     * @param {string} clientSecret - 'Client Secret' of Amazon OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Amazon OAuth2 app. For example: 79ffe4000000000000000000000000000000000000000000000000000002de55
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Amazon>}
@@ -1062,7 +1086,7 @@ export class Project {
      * Update the project OAuth2 Auth0 configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Auth0 OAuth2 app. For example: OaOkIA000000000000000000005KLSYq
-     * @param {string} params.clientSecret - 'Client Secret' of Auth0 OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Auth0 OAuth2 app. For example: zXz0000-00000000000000000000000000000-00000000000000000000PJafnF
      * @param {string} params.endpoint - Domain of Auth0 instance. For example: example.us.auth0.com
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -1073,7 +1097,7 @@ export class Project {
      * Update the project OAuth2 Auth0 configuration.
      *
      * @param {string} clientId - 'Client ID' of Auth0 OAuth2 app. For example: OaOkIA000000000000000000005KLSYq
-     * @param {string} clientSecret - 'Client Secret' of Auth0 OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Auth0 OAuth2 app. For example: zXz0000-00000000000000000000000000000-00000000000000000000PJafnF
      * @param {string} endpoint - Domain of Auth0 instance. For example: example.us.auth0.com
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -1136,7 +1160,7 @@ export class Project {
      * Update the project OAuth2 Authentik configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Authentik OAuth2 app. For example: dTKOPa0000000000000000000000000000e7G8hv
-     * @param {string} params.clientSecret - 'Client Secret' of Authentik OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Authentik OAuth2 app. For example: ntQadq000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000Hp5WK
      * @param {string} params.endpoint - Domain of Authentik instance. For example: example.authentik.com
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -1147,7 +1171,7 @@ export class Project {
      * Update the project OAuth2 Authentik configuration.
      *
      * @param {string} clientId - 'Client ID' of Authentik OAuth2 app. For example: dTKOPa0000000000000000000000000000e7G8hv
-     * @param {string} clientSecret - 'Client Secret' of Authentik OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Authentik OAuth2 app. For example: ntQadq000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000Hp5WK
      * @param {string} endpoint - Domain of Authentik instance. For example: example.authentik.com
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -1210,7 +1234,7 @@ export class Project {
      * Update the project OAuth2 Autodesk configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Autodesk OAuth2 app. For example: 5zw90v00000000000000000000kVYXN7
-     * @param {string} params.clientSecret - 'Client Secret' of Autodesk OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Autodesk OAuth2 app. For example: 7I000000000000MW
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Autodesk>}
@@ -1220,7 +1244,7 @@ export class Project {
      * Update the project OAuth2 Autodesk configuration.
      *
      * @param {string} clientId - 'Client ID' of Autodesk OAuth2 app. For example: 5zw90v00000000000000000000kVYXN7
-     * @param {string} clientSecret - 'Client Secret' of Autodesk OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Autodesk OAuth2 app. For example: 7I000000000000MW
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Autodesk>}
@@ -1277,7 +1301,7 @@ export class Project {
      * Update the project OAuth2 Bitbucket configuration.
      *
      * @param {string} params.key - 'Key' of Bitbucket OAuth2 app. For example: Knt70000000000ByRc
-     * @param {string} params.secret - 'Secret' of Bitbucket OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.secret - 'Secret' of Bitbucket OAuth2 app. For example: NMfLZJ00000000000000000000TLQdDx
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Bitbucket>}
@@ -1287,7 +1311,7 @@ export class Project {
      * Update the project OAuth2 Bitbucket configuration.
      *
      * @param {string} key - 'Key' of Bitbucket OAuth2 app. For example: Knt70000000000ByRc
-     * @param {string} secret - 'Secret' of Bitbucket OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} secret - 'Secret' of Bitbucket OAuth2 app. For example: NMfLZJ00000000000000000000TLQdDx
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Bitbucket>}
@@ -1344,7 +1368,7 @@ export class Project {
      * Update the project OAuth2 Bitly configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Bitly OAuth2 app. For example: d95151000000000000000000000000000067af9b
-     * @param {string} params.clientSecret - 'Client Secret' of Bitly OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Bitly OAuth2 app. For example: a13e250000000000000000000000000000d73095
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Bitly>}
@@ -1354,7 +1378,7 @@ export class Project {
      * Update the project OAuth2 Bitly configuration.
      *
      * @param {string} clientId - 'Client ID' of Bitly OAuth2 app. For example: d95151000000000000000000000000000067af9b
-     * @param {string} clientSecret - 'Client Secret' of Bitly OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Bitly OAuth2 app. For example: a13e250000000000000000000000000000d73095
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Bitly>}
@@ -1411,7 +1435,7 @@ export class Project {
      * Update the project OAuth2 Box configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Box OAuth2 app. For example: deglcs00000000000000000000x2og6y
-     * @param {string} params.clientSecret - 'Client Secret' of Box OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Box OAuth2 app. For example: OKM1f100000000000000000000eshEif
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Box>}
@@ -1421,7 +1445,7 @@ export class Project {
      * Update the project OAuth2 Box configuration.
      *
      * @param {string} clientId - 'Client ID' of Box OAuth2 app. For example: deglcs00000000000000000000x2og6y
-     * @param {string} clientSecret - 'Client Secret' of Box OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Box OAuth2 app. For example: OKM1f100000000000000000000eshEif
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Box>}
@@ -1478,7 +1502,7 @@ export class Project {
      * Update the project OAuth2 Dailymotion configuration.
      *
      * @param {string} params.apiKey - 'API Key' of Dailymotion OAuth2 app. For example: 07a9000000000000067f
-     * @param {string} params.apiSecret - 'API Secret' of Dailymotion OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.apiSecret - 'API Secret' of Dailymotion OAuth2 app. For example: a399a90000000000000000000000000000d90639
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Dailymotion>}
@@ -1488,7 +1512,7 @@ export class Project {
      * Update the project OAuth2 Dailymotion configuration.
      *
      * @param {string} apiKey - 'API Key' of Dailymotion OAuth2 app. For example: 07a9000000000000067f
-     * @param {string} apiSecret - 'API Secret' of Dailymotion OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} apiSecret - 'API Secret' of Dailymotion OAuth2 app. For example: a399a90000000000000000000000000000d90639
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Dailymotion>}
@@ -1545,7 +1569,7 @@ export class Project {
      * Update the project OAuth2 Discord configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Discord OAuth2 app. For example: 950722000000343754
-     * @param {string} params.clientSecret - 'Client Secret' of Discord OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Discord OAuth2 app. For example: YmPXnM000000000000000000002zFg5D
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Discord>}
@@ -1555,7 +1579,7 @@ export class Project {
      * Update the project OAuth2 Discord configuration.
      *
      * @param {string} clientId - 'Client ID' of Discord OAuth2 app. For example: 950722000000343754
-     * @param {string} clientSecret - 'Client Secret' of Discord OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Discord OAuth2 app. For example: YmPXnM000000000000000000002zFg5D
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Discord>}
@@ -1612,7 +1636,7 @@ export class Project {
      * Update the project OAuth2 Disqus configuration.
      *
      * @param {string} params.publicKey - 'Public Key, also known as API Key' of Disqus OAuth2 app. For example: cgegH70000000000000000000000000000000000000000000000000000Hr1nYX
-     * @param {string} params.secretKey - 'Secret Key, also known as API Secret' of Disqus OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.secretKey - 'Secret Key, also known as API Secret' of Disqus OAuth2 app. For example: W7Bykj00000000000000000000000000000000000000000000000000003o43w9
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Disqus>}
@@ -1622,7 +1646,7 @@ export class Project {
      * Update the project OAuth2 Disqus configuration.
      *
      * @param {string} publicKey - 'Public Key, also known as API Key' of Disqus OAuth2 app. For example: cgegH70000000000000000000000000000000000000000000000000000Hr1nYX
-     * @param {string} secretKey - 'Secret Key, also known as API Secret' of Disqus OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} secretKey - 'Secret Key, also known as API Secret' of Disqus OAuth2 app. For example: W7Bykj00000000000000000000000000000000000000000000000000003o43w9
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Disqus>}
@@ -1679,7 +1703,7 @@ export class Project {
      * Update the project OAuth2 Dropbox configuration.
      *
      * @param {string} params.appKey - 'App Key' of Dropbox OAuth2 app. For example: jl000000000009t
-     * @param {string} params.appSecret - 'App Secret' of Dropbox OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.appSecret - 'App Secret' of Dropbox OAuth2 app. For example: g200000000000vw
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Dropbox>}
@@ -1689,7 +1713,7 @@ export class Project {
      * Update the project OAuth2 Dropbox configuration.
      *
      * @param {string} appKey - 'App Key' of Dropbox OAuth2 app. For example: jl000000000009t
-     * @param {string} appSecret - 'App Secret' of Dropbox OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} appSecret - 'App Secret' of Dropbox OAuth2 app. For example: g200000000000vw
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Dropbox>}
@@ -1746,7 +1770,7 @@ export class Project {
      * Update the project OAuth2 Etsy configuration.
      *
      * @param {string} params.keyString - 'Keystring' of Etsy OAuth2 app. For example: nsgzxh0000000000008j85a2
-     * @param {string} params.sharedSecret - 'Shared Secret' of Etsy OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.sharedSecret - 'Shared Secret' of Etsy OAuth2 app. For example: tp000000ru
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Etsy>}
@@ -1756,7 +1780,7 @@ export class Project {
      * Update the project OAuth2 Etsy configuration.
      *
      * @param {string} keyString - 'Keystring' of Etsy OAuth2 app. For example: nsgzxh0000000000008j85a2
-     * @param {string} sharedSecret - 'Shared Secret' of Etsy OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} sharedSecret - 'Shared Secret' of Etsy OAuth2 app. For example: tp000000ru
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Etsy>}
@@ -1813,7 +1837,7 @@ export class Project {
      * Update the project OAuth2 Facebook configuration.
      *
      * @param {string} params.appId - 'App ID' of Facebook OAuth2 app. For example: 260600000007694
-     * @param {string} params.appSecret - 'App Secret' of Facebook OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.appSecret - 'App Secret' of Facebook OAuth2 app. For example: 2d0b2800000000000000000000d38af4
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Facebook>}
@@ -1823,7 +1847,7 @@ export class Project {
      * Update the project OAuth2 Facebook configuration.
      *
      * @param {string} appId - 'App ID' of Facebook OAuth2 app. For example: 260600000007694
-     * @param {string} appSecret - 'App Secret' of Facebook OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} appSecret - 'App Secret' of Facebook OAuth2 app. For example: 2d0b2800000000000000000000d38af4
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Facebook>}
@@ -1880,7 +1904,7 @@ export class Project {
      * Update the project OAuth2 Figma configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Figma OAuth2 app. For example: byay5H0000000000VtiI40
-     * @param {string} params.clientSecret - 'Client Secret' of Figma OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Figma OAuth2 app. For example: yEpOYn0000000000000000004iIsU5
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Figma>}
@@ -1890,7 +1914,7 @@ export class Project {
      * Update the project OAuth2 Figma configuration.
      *
      * @param {string} clientId - 'Client ID' of Figma OAuth2 app. For example: byay5H0000000000VtiI40
-     * @param {string} clientSecret - 'Client Secret' of Figma OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Figma OAuth2 app. For example: yEpOYn0000000000000000004iIsU5
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Figma>}
@@ -1947,7 +1971,7 @@ export class Project {
      * Update the project OAuth2 FusionAuth configuration.
      *
      * @param {string} params.clientId - 'Client ID' of FusionAuth OAuth2 app. For example: b2222c00-0000-0000-0000-000000862097
-     * @param {string} params.clientSecret - 'Client Secret' of FusionAuth OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of FusionAuth OAuth2 app. For example: Jx4s0C0000000000000000000000000000000wGqLsc
      * @param {string} params.endpoint - Domain of FusionAuth instance. For example: example.fusionauth.io
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -1958,7 +1982,7 @@ export class Project {
      * Update the project OAuth2 FusionAuth configuration.
      *
      * @param {string} clientId - 'Client ID' of FusionAuth OAuth2 app. For example: b2222c00-0000-0000-0000-000000862097
-     * @param {string} clientSecret - 'Client Secret' of FusionAuth OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of FusionAuth OAuth2 app. For example: Jx4s0C0000000000000000000000000000000wGqLsc
      * @param {string} endpoint - Domain of FusionAuth instance. For example: example.fusionauth.io
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -2021,7 +2045,7 @@ export class Project {
      * Update the project OAuth2 GitHub configuration.
      *
      * @param {string} params.clientId - 'OAuth2 app Client ID, or App ID' of GitHub OAuth2 app. For example: e4d87900000000540733. Example of wrong value: 370006
-     * @param {string} params.clientSecret - 'Client Secret' of GitHub OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of GitHub OAuth2 app. For example: 5e07c00000000000000000000000000000198bcc
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Github>}
@@ -2031,7 +2055,7 @@ export class Project {
      * Update the project OAuth2 GitHub configuration.
      *
      * @param {string} clientId - 'OAuth2 app Client ID, or App ID' of GitHub OAuth2 app. For example: e4d87900000000540733. Example of wrong value: 370006
-     * @param {string} clientSecret - 'Client Secret' of GitHub OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of GitHub OAuth2 app. For example: 5e07c00000000000000000000000000000198bcc
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Github>}
@@ -2088,7 +2112,7 @@ export class Project {
      * Update the project OAuth2 Gitlab configuration.
      *
      * @param {string} params.applicationId - 'Application ID' of Gitlab OAuth2 app. For example: d41ffe0000000000000000000000000000000000000000000000000000d5e252
-     * @param {string} params.secret - 'Secret' of Gitlab OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.secret - 'Secret' of Gitlab OAuth2 app. For example: gloas-838cfa0000000000000000000000000000000000000000000000000000ecbb38
      * @param {string} params.endpoint - Endpoint URL of self-hosted GitLab instance. For example: https://gitlab.com
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -2099,7 +2123,7 @@ export class Project {
      * Update the project OAuth2 Gitlab configuration.
      *
      * @param {string} applicationId - 'Application ID' of Gitlab OAuth2 app. For example: d41ffe0000000000000000000000000000000000000000000000000000d5e252
-     * @param {string} secret - 'Secret' of Gitlab OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} secret - 'Secret' of Gitlab OAuth2 app. For example: gloas-838cfa0000000000000000000000000000000000000000000000000000ecbb38
      * @param {string} endpoint - Endpoint URL of self-hosted GitLab instance. For example: https://gitlab.com
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -2162,41 +2186,45 @@ export class Project {
      * Update the project OAuth2 Google configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Google OAuth2 app. For example: 120000000095-92ifjb00000000000000000000g7ijfb.apps.googleusercontent.com
-     * @param {string} params.clientSecret - 'Client Secret' of Google OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Google OAuth2 app. For example: example-google-client-secret
+     * @param {ProjectOAuth2GooglePrompt[]} params.prompt - Array of Google OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. Must not be specified with other values. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account.
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Google>}
      */
-    updateOAuth2Google(params?: { clientId?: string, clientSecret?: string, enabled?: boolean }): Promise<Models.OAuth2Google>;
+    updateOAuth2Google(params?: { clientId?: string, clientSecret?: string, prompt?: ProjectOAuth2GooglePrompt[], enabled?: boolean }): Promise<Models.OAuth2Google>;
     /**
      * Update the project OAuth2 Google configuration.
      *
      * @param {string} clientId - 'Client ID' of Google OAuth2 app. For example: 120000000095-92ifjb00000000000000000000g7ijfb.apps.googleusercontent.com
-     * @param {string} clientSecret - 'Client Secret' of Google OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Google OAuth2 app. For example: example-google-client-secret
+     * @param {ProjectOAuth2GooglePrompt[]} prompt - Array of Google OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. Must not be specified with other values. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account.
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Google>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateOAuth2Google(clientId?: string, clientSecret?: string, enabled?: boolean): Promise<Models.OAuth2Google>;
+    updateOAuth2Google(clientId?: string, clientSecret?: string, prompt?: ProjectOAuth2GooglePrompt[], enabled?: boolean): Promise<Models.OAuth2Google>;
     updateOAuth2Google(
-        paramsOrFirst?: { clientId?: string, clientSecret?: string, enabled?: boolean } | string,
-        ...rest: [(string)?, (boolean)?]    
+        paramsOrFirst?: { clientId?: string, clientSecret?: string, prompt?: ProjectOAuth2GooglePrompt[], enabled?: boolean } | string,
+        ...rest: [(string)?, (ProjectOAuth2GooglePrompt[])?, (boolean)?]    
     ): Promise<Models.OAuth2Google> {
-        let params: { clientId?: string, clientSecret?: string, enabled?: boolean };
+        let params: { clientId?: string, clientSecret?: string, prompt?: ProjectOAuth2GooglePrompt[], enabled?: boolean };
         
         if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { clientId?: string, clientSecret?: string, enabled?: boolean };
+            params = (paramsOrFirst || {}) as { clientId?: string, clientSecret?: string, prompt?: ProjectOAuth2GooglePrompt[], enabled?: boolean };
         } else {
             params = {
                 clientId: paramsOrFirst as string,
                 clientSecret: rest[0] as string,
-                enabled: rest[1] as boolean            
+                prompt: rest[1] as ProjectOAuth2GooglePrompt[],
+                enabled: rest[2] as boolean            
             };
         }
         
         const clientId = params.clientId;
         const clientSecret = params.clientSecret;
+        const prompt = params.prompt;
         const enabled = params.enabled;
 
 
@@ -2207,6 +2235,9 @@ export class Project {
         }
         if (typeof clientSecret !== 'undefined') {
             payload['clientSecret'] = clientSecret;
+        }
+        if (typeof prompt !== 'undefined') {
+            payload['prompt'] = prompt;
         }
         if (typeof enabled !== 'undefined') {
             payload['enabled'] = enabled;
@@ -2229,7 +2260,7 @@ export class Project {
      * Update the project OAuth2 Keycloak configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Keycloak OAuth2 app. For example: appwrite-o0000000st-app
-     * @param {string} params.clientSecret - 'Client Secret' of Keycloak OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Keycloak OAuth2 app. For example: jdjrJd00000000000000000000HUsaZO
      * @param {string} params.endpoint - Domain of Keycloak instance. For example: keycloak.example.com
      * @param {string} params.realmName - Keycloak realm name. For example: appwrite-realm
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
@@ -2241,7 +2272,7 @@ export class Project {
      * Update the project OAuth2 Keycloak configuration.
      *
      * @param {string} clientId - 'Client ID' of Keycloak OAuth2 app. For example: appwrite-o0000000st-app
-     * @param {string} clientSecret - 'Client Secret' of Keycloak OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Keycloak OAuth2 app. For example: jdjrJd00000000000000000000HUsaZO
      * @param {string} endpoint - Domain of Keycloak instance. For example: keycloak.example.com
      * @param {string} realmName - Keycloak realm name. For example: appwrite-realm
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
@@ -2310,7 +2341,7 @@ export class Project {
      * Update the project OAuth2 Kick configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Kick OAuth2 app. For example: 01KQ7C00000000000001MFHS32
-     * @param {string} params.clientSecret - 'Client Secret' of Kick OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Kick OAuth2 app. For example: 34ac5600000000000000000000000000000000000000000000000000e830c8b
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Kick>}
@@ -2320,7 +2351,7 @@ export class Project {
      * Update the project OAuth2 Kick configuration.
      *
      * @param {string} clientId - 'Client ID' of Kick OAuth2 app. For example: 01KQ7C00000000000001MFHS32
-     * @param {string} clientSecret - 'Client Secret' of Kick OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Kick OAuth2 app. For example: 34ac5600000000000000000000000000000000000000000000000000e830c8b
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Kick>}
@@ -2377,7 +2408,7 @@ export class Project {
      * Update the project OAuth2 Linkedin configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Linkedin OAuth2 app. For example: 770000000000dv
-     * @param {string} params.primaryClientSecret - 'Primary Client Secret or Secondary Client Secret' of Linkedin OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.primaryClientSecret - 'Primary Client Secret or Secondary Client Secret' of Linkedin OAuth2 app. For example: example-linkedin-client-secret
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Linkedin>}
@@ -2387,7 +2418,7 @@ export class Project {
      * Update the project OAuth2 Linkedin configuration.
      *
      * @param {string} clientId - 'Client ID' of Linkedin OAuth2 app. For example: 770000000000dv
-     * @param {string} primaryClientSecret - 'Primary Client Secret or Secondary Client Secret' of Linkedin OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} primaryClientSecret - 'Primary Client Secret or Secondary Client Secret' of Linkedin OAuth2 app. For example: example-linkedin-client-secret
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Linkedin>}
@@ -2444,7 +2475,7 @@ export class Project {
      * Update the project OAuth2 Microsoft configuration.
      *
      * @param {string} params.applicationId - 'Entra ID Application ID, also known as Client ID' of Microsoft OAuth2 app. For example: 00001111-aaaa-2222-bbbb-3333cccc4444
-     * @param {string} params.applicationSecret - 'Entra ID Application Secret, also known as Client Secret' of Microsoft OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.applicationSecret - 'Entra ID Application Secret, also known as Client Secret' of Microsoft OAuth2 app. For example: A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u
      * @param {string} params.tenant - Microsoft Entra ID tenant identifier. Use 'common', 'organizations', 'consumers' or a specific tenant ID. For example: common
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -2455,7 +2486,7 @@ export class Project {
      * Update the project OAuth2 Microsoft configuration.
      *
      * @param {string} applicationId - 'Entra ID Application ID, also known as Client ID' of Microsoft OAuth2 app. For example: 00001111-aaaa-2222-bbbb-3333cccc4444
-     * @param {string} applicationSecret - 'Entra ID Application Secret, also known as Client Secret' of Microsoft OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} applicationSecret - 'Entra ID Application Secret, also known as Client Secret' of Microsoft OAuth2 app. For example: A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u
      * @param {string} tenant - Microsoft Entra ID tenant identifier. Use 'common', 'organizations', 'consumers' or a specific tenant ID. For example: common
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -2518,7 +2549,7 @@ export class Project {
      * Update the project OAuth2 Notion configuration.
      *
      * @param {string} params.oauthClientId - 'OAuth Client ID' of Notion OAuth2 app. For example: 341d8700-0000-0000-0000-000000446ee3
-     * @param {string} params.oauthClientSecret - 'OAuth Client Secret' of Notion OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.oauthClientSecret - 'OAuth Client Secret' of Notion OAuth2 app. For example: secret_dLUr4b000000000000000000000000000000lFHAa9
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Notion>}
@@ -2528,7 +2559,7 @@ export class Project {
      * Update the project OAuth2 Notion configuration.
      *
      * @param {string} oauthClientId - 'OAuth Client ID' of Notion OAuth2 app. For example: 341d8700-0000-0000-0000-000000446ee3
-     * @param {string} oauthClientSecret - 'OAuth Client Secret' of Notion OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} oauthClientSecret - 'OAuth Client Secret' of Notion OAuth2 app. For example: secret_dLUr4b000000000000000000000000000000lFHAa9
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Notion>}
@@ -2585,7 +2616,7 @@ export class Project {
      * Update the project OAuth2 Oidc configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Oidc OAuth2 app. For example: qibI2x0000000000000000000000000006L2YFoG
-     * @param {string} params.clientSecret - 'Client Secret' of Oidc OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Oidc OAuth2 app. For example: Ah68ed000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003qpcHV
      * @param {string} params.wellKnownURL - OpenID Connect well-known configuration URL. When provided, authorization, token, and user info endpoints can be discovered automatically. For example: https://myoauth.com/.well-known/openid-configuration
      * @param {string} params.authorizationURL - OpenID Connect authorization endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/authorize
      * @param {string} params.tokenURL - OpenID Connect token endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/token
@@ -2599,7 +2630,7 @@ export class Project {
      * Update the project OAuth2 Oidc configuration.
      *
      * @param {string} clientId - 'Client ID' of Oidc OAuth2 app. For example: qibI2x0000000000000000000000000006L2YFoG
-     * @param {string} clientSecret - 'Client Secret' of Oidc OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Oidc OAuth2 app. For example: Ah68ed000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003qpcHV
      * @param {string} wellKnownURL - OpenID Connect well-known configuration URL. When provided, authorization, token, and user info endpoints can be discovered automatically. For example: https://myoauth.com/.well-known/openid-configuration
      * @param {string} authorizationURL - OpenID Connect authorization endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/authorize
      * @param {string} tokenURL - OpenID Connect token endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/token
@@ -2680,7 +2711,7 @@ export class Project {
      * Update the project OAuth2 Okta configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Okta OAuth2 app. For example: 0oa00000000000000698
-     * @param {string} params.clientSecret - 'Client Secret' of Okta OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Okta OAuth2 app. For example: Kiq0000000000000000000000000000000000000-00000000000H2L5-3SJ-vRV
      * @param {string} params.domain - Okta company domain. Required when enabling the provider. For example: trial-6400025.okta.com. Example of wrong value: trial-6400025-admin.okta.com, or https://trial-6400025.okta.com/
      * @param {string} params.authorizationServerId - Custom Authorization Servers. Optional, can be left empty or unconfigured. For example: aus000000000000000h7z
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
@@ -2692,7 +2723,7 @@ export class Project {
      * Update the project OAuth2 Okta configuration.
      *
      * @param {string} clientId - 'Client ID' of Okta OAuth2 app. For example: 0oa00000000000000698
-     * @param {string} clientSecret - 'Client Secret' of Okta OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Okta OAuth2 app. For example: Kiq0000000000000000000000000000000000000-00000000000H2L5-3SJ-vRV
      * @param {string} domain - Okta company domain. Required when enabling the provider. For example: trial-6400025.okta.com. Example of wrong value: trial-6400025-admin.okta.com, or https://trial-6400025.okta.com/
      * @param {string} authorizationServerId - Custom Authorization Servers. Optional, can be left empty or unconfigured. For example: aus000000000000000h7z
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
@@ -2761,7 +2792,7 @@ export class Project {
      * Update the project OAuth2 Paypal configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Paypal OAuth2 app. For example: AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB
-     * @param {string} params.secretKey - 'Secret Key 1 or Secret Key 2' of Paypal OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.secretKey - 'Secret Key 1 or Secret Key 2' of Paypal OAuth2 app. For example: EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Paypal>}
@@ -2771,7 +2802,7 @@ export class Project {
      * Update the project OAuth2 Paypal configuration.
      *
      * @param {string} clientId - 'Client ID' of Paypal OAuth2 app. For example: AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB
-     * @param {string} secretKey - 'Secret Key 1 or Secret Key 2' of Paypal OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} secretKey - 'Secret Key 1 or Secret Key 2' of Paypal OAuth2 app. For example: EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Paypal>}
@@ -2828,7 +2859,7 @@ export class Project {
      * Update the project OAuth2 PaypalSandbox configuration.
      *
      * @param {string} params.clientId - 'Client ID' of PaypalSandbox OAuth2 app. For example: AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB
-     * @param {string} params.secretKey - 'Secret Key 1 or Secret Key 2' of PaypalSandbox OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.secretKey - 'Secret Key 1 or Secret Key 2' of PaypalSandbox OAuth2 app. For example: EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Paypal>}
@@ -2838,7 +2869,7 @@ export class Project {
      * Update the project OAuth2 PaypalSandbox configuration.
      *
      * @param {string} clientId - 'Client ID' of PaypalSandbox OAuth2 app. For example: AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB
-     * @param {string} secretKey - 'Secret Key 1 or Secret Key 2' of PaypalSandbox OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} secretKey - 'Secret Key 1 or Secret Key 2' of PaypalSandbox OAuth2 app. For example: EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Paypal>}
@@ -2895,7 +2926,7 @@ export class Project {
      * Update the project OAuth2 Podio configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Podio OAuth2 app. For example: appwrite-o0000000st-app
-     * @param {string} params.clientSecret - 'Client Secret' of Podio OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Podio OAuth2 app. For example: Rn247T0000000000000000000000000000000000000000000000000000W2zWTN
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Podio>}
@@ -2905,7 +2936,7 @@ export class Project {
      * Update the project OAuth2 Podio configuration.
      *
      * @param {string} clientId - 'Client ID' of Podio OAuth2 app. For example: appwrite-o0000000st-app
-     * @param {string} clientSecret - 'Client Secret' of Podio OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Podio OAuth2 app. For example: Rn247T0000000000000000000000000000000000000000000000000000W2zWTN
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Podio>}
@@ -2962,7 +2993,7 @@ export class Project {
      * Update the project OAuth2 Salesforce configuration.
      *
      * @param {string} params.customerKey - 'Consumer Key' of Salesforce OAuth2 app. For example: 3MVG9I0000000000000000000000000000000000000000000000000000000000000000000000000C5Aejq
-     * @param {string} params.customerSecret - 'Consumer Secret' of Salesforce OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.customerSecret - 'Consumer Secret' of Salesforce OAuth2 app. For example: 3w000000000000e2
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Salesforce>}
@@ -2972,7 +3003,7 @@ export class Project {
      * Update the project OAuth2 Salesforce configuration.
      *
      * @param {string} customerKey - 'Consumer Key' of Salesforce OAuth2 app. For example: 3MVG9I0000000000000000000000000000000000000000000000000000000000000000000000000C5Aejq
-     * @param {string} customerSecret - 'Consumer Secret' of Salesforce OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} customerSecret - 'Consumer Secret' of Salesforce OAuth2 app. For example: 3w000000000000e2
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Salesforce>}
@@ -3029,7 +3060,7 @@ export class Project {
      * Update the project OAuth2 Slack configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Slack OAuth2 app. For example: 23000000089.15000000000023
-     * @param {string} params.clientSecret - 'Client Secret' of Slack OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Slack OAuth2 app. For example: 81656000000000000000000000f3d2fd
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Slack>}
@@ -3039,7 +3070,7 @@ export class Project {
      * Update the project OAuth2 Slack configuration.
      *
      * @param {string} clientId - 'Client ID' of Slack OAuth2 app. For example: 23000000089.15000000000023
-     * @param {string} clientSecret - 'Client Secret' of Slack OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Slack OAuth2 app. For example: 81656000000000000000000000f3d2fd
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Slack>}
@@ -3096,7 +3127,7 @@ export class Project {
      * Update the project OAuth2 Spotify configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Spotify OAuth2 app. For example: 6ec271000000000000000000009beace
-     * @param {string} params.clientSecret - 'Client Secret' of Spotify OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Spotify OAuth2 app. For example: db068a000000000000000000008b5b9f
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Spotify>}
@@ -3106,7 +3137,7 @@ export class Project {
      * Update the project OAuth2 Spotify configuration.
      *
      * @param {string} clientId - 'Client ID' of Spotify OAuth2 app. For example: 6ec271000000000000000000009beace
-     * @param {string} clientSecret - 'Client Secret' of Spotify OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Spotify OAuth2 app. For example: db068a000000000000000000008b5b9f
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Spotify>}
@@ -3163,7 +3194,7 @@ export class Project {
      * Update the project OAuth2 Stripe configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Stripe OAuth2 app. For example: ca_UKibXX0000000000000000000006byvR
-     * @param {string} params.apiSecretKey - 'API Secret Key' of Stripe OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.apiSecretKey - 'API Secret Key' of Stripe OAuth2 app. For example: sk_51SfOd000000000000000000000000000000000000000000000000000000000000000000000000000000000000000QGWYfp
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Stripe>}
@@ -3173,7 +3204,7 @@ export class Project {
      * Update the project OAuth2 Stripe configuration.
      *
      * @param {string} clientId - 'Client ID' of Stripe OAuth2 app. For example: ca_UKibXX0000000000000000000006byvR
-     * @param {string} apiSecretKey - 'API Secret Key' of Stripe OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} apiSecretKey - 'API Secret Key' of Stripe OAuth2 app. For example: sk_51SfOd000000000000000000000000000000000000000000000000000000000000000000000000000000000000000QGWYfp
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Stripe>}
@@ -3230,7 +3261,7 @@ export class Project {
      * Update the project OAuth2 Tradeshift configuration.
      *
      * @param {string} params.oauth2ClientId - 'OAuth2 Client ID' of Tradeshift OAuth2 app. For example: appwrite-tes00000.0000000000est-app
-     * @param {string} params.oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift OAuth2 app. For example: 7cb52700-0000-0000-0000-000000ca5b83
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Tradeshift>}
@@ -3240,7 +3271,7 @@ export class Project {
      * Update the project OAuth2 Tradeshift configuration.
      *
      * @param {string} oauth2ClientId - 'OAuth2 Client ID' of Tradeshift OAuth2 app. For example: appwrite-tes00000.0000000000est-app
-     * @param {string} oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift OAuth2 app. For example: 7cb52700-0000-0000-0000-000000ca5b83
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Tradeshift>}
@@ -3297,7 +3328,7 @@ export class Project {
      * Update the project OAuth2 Tradeshift Sandbox configuration.
      *
      * @param {string} params.oauth2ClientId - 'OAuth2 Client ID' of Tradeshift Sandbox OAuth2 app. For example: appwrite-tes00000.0000000000est-app
-     * @param {string} params.oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift Sandbox OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift Sandbox OAuth2 app. For example: 7cb52700-0000-0000-0000-000000ca5b83
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Tradeshift>}
@@ -3307,7 +3338,7 @@ export class Project {
      * Update the project OAuth2 Tradeshift Sandbox configuration.
      *
      * @param {string} oauth2ClientId - 'OAuth2 Client ID' of Tradeshift Sandbox OAuth2 app. For example: appwrite-tes00000.0000000000est-app
-     * @param {string} oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift Sandbox OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift Sandbox OAuth2 app. For example: 7cb52700-0000-0000-0000-000000ca5b83
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Tradeshift>}
@@ -3364,7 +3395,7 @@ export class Project {
      * Update the project OAuth2 Twitch configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Twitch OAuth2 app. For example: vvi0in000000000000000000ikmt9p
-     * @param {string} params.clientSecret - 'Client Secret' of Twitch OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Twitch OAuth2 app. For example: pmapue000000000000000000zylw3v
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Twitch>}
@@ -3374,7 +3405,7 @@ export class Project {
      * Update the project OAuth2 Twitch configuration.
      *
      * @param {string} clientId - 'Client ID' of Twitch OAuth2 app. For example: vvi0in000000000000000000ikmt9p
-     * @param {string} clientSecret - 'Client Secret' of Twitch OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Twitch OAuth2 app. For example: pmapue000000000000000000zylw3v
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Twitch>}
@@ -3431,7 +3462,7 @@ export class Project {
      * Update the project OAuth2 WordPress configuration.
      *
      * @param {string} params.clientId - 'Client ID' of WordPress OAuth2 app. For example: 130005
-     * @param {string} params.clientSecret - 'Client Secret' of WordPress OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of WordPress OAuth2 app. For example: PlBfJS0000000000000000000000000000000000000000000000000000EdUZJk
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2WordPress>}
@@ -3441,7 +3472,7 @@ export class Project {
      * Update the project OAuth2 WordPress configuration.
      *
      * @param {string} clientId - 'Client ID' of WordPress OAuth2 app. For example: 130005
-     * @param {string} clientSecret - 'Client Secret' of WordPress OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of WordPress OAuth2 app. For example: PlBfJS0000000000000000000000000000000000000000000000000000EdUZJk
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2WordPress>}
@@ -3498,7 +3529,7 @@ export class Project {
      * Update the project OAuth2 X configuration.
      *
      * @param {string} params.customerKey - 'Customer Key' of X OAuth2 app. For example: slzZV0000000000000NFLaWT
-     * @param {string} params.secretKey - 'Secret Key' of X OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.secretKey - 'Secret Key' of X OAuth2 app. For example: tkEPkp00000000000000000000000000000000000000FTxbI9
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2X>}
@@ -3508,7 +3539,7 @@ export class Project {
      * Update the project OAuth2 X configuration.
      *
      * @param {string} customerKey - 'Customer Key' of X OAuth2 app. For example: slzZV0000000000000NFLaWT
-     * @param {string} secretKey - 'Secret Key' of X OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} secretKey - 'Secret Key' of X OAuth2 app. For example: tkEPkp00000000000000000000000000000000000000FTxbI9
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2X>}
@@ -3565,7 +3596,7 @@ export class Project {
      * Update the project OAuth2 Yahoo configuration.
      *
      * @param {string} params.clientId - 'Client ID, also known as Customer Key' of Yahoo OAuth2 app. For example: dj0yJm000000000000000000000000000000000000000000000000000000000000000000000000000000000000Z4PWRm
-     * @param {string} params.clientSecret - 'Client Secret, also known as Customer Secret' of Yahoo OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret, also known as Customer Secret' of Yahoo OAuth2 app. For example: cf978f0000000000000000000000000000c5e2e9
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Yahoo>}
@@ -3575,7 +3606,7 @@ export class Project {
      * Update the project OAuth2 Yahoo configuration.
      *
      * @param {string} clientId - 'Client ID, also known as Customer Key' of Yahoo OAuth2 app. For example: dj0yJm000000000000000000000000000000000000000000000000000000000000000000000000000000000000Z4PWRm
-     * @param {string} clientSecret - 'Client Secret, also known as Customer Secret' of Yahoo OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret, also known as Customer Secret' of Yahoo OAuth2 app. For example: cf978f0000000000000000000000000000c5e2e9
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Yahoo>}
@@ -3632,7 +3663,7 @@ export class Project {
      * Update the project OAuth2 Yandex configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Yandex OAuth2 app. For example: 6a8a6a0000000000000000000091483c
-     * @param {string} params.clientSecret - 'Client Secret' of Yandex OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Yandex OAuth2 app. For example: bbf98500000000000000000000c75a63
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Yandex>}
@@ -3642,7 +3673,7 @@ export class Project {
      * Update the project OAuth2 Yandex configuration.
      *
      * @param {string} clientId - 'Client ID' of Yandex OAuth2 app. For example: 6a8a6a0000000000000000000091483c
-     * @param {string} clientSecret - 'Client Secret' of Yandex OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Yandex OAuth2 app. For example: bbf98500000000000000000000c75a63
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Yandex>}
@@ -3699,7 +3730,7 @@ export class Project {
      * Update the project OAuth2 Zoho configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Zoho OAuth2 app. For example: 1000.83C178000000000000000000RPNX0B
-     * @param {string} params.clientSecret - 'Client Secret' of Zoho OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Zoho OAuth2 app. For example: fb5cac000000000000000000000000000000a68f6e
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Zoho>}
@@ -3709,7 +3740,7 @@ export class Project {
      * Update the project OAuth2 Zoho configuration.
      *
      * @param {string} clientId - 'Client ID' of Zoho OAuth2 app. For example: 1000.83C178000000000000000000RPNX0B
-     * @param {string} clientSecret - 'Client Secret' of Zoho OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Zoho OAuth2 app. For example: fb5cac000000000000000000000000000000a68f6e
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Zoho>}
@@ -3766,7 +3797,7 @@ export class Project {
      * Update the project OAuth2 Zoom configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Zoom OAuth2 app. For example: QMAC00000000000000w0AQ
-     * @param {string} params.clientSecret - 'Client Secret' of Zoom OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} params.clientSecret - 'Client Secret' of Zoom OAuth2 app. For example: GAWsG4000000000000000000007U01ON
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Zoom>}
@@ -3776,7 +3807,7 @@ export class Project {
      * Update the project OAuth2 Zoom configuration.
      *
      * @param {string} clientId - 'Client ID' of Zoom OAuth2 app. For example: QMAC00000000000000w0AQ
-     * @param {string} clientSecret - 'Client Secret' of Zoom OAuth2 app. For example: <CLIENT_SECRET>
+     * @param {string} clientSecret - 'Client Secret' of Zoom OAuth2 app. For example: GAWsG4000000000000000000007U01ON
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Zoom>}
@@ -3832,30 +3863,30 @@ export class Project {
     /**
      * Get a single OAuth2 provider configuration. Credential fields (client secret, p8 file, key/team IDs) are write-only and always returned empty.
      *
-     * @param {OAuthProvider} params.providerId - OAuth2 provider key. For example: github, google, apple.
+     * @param {ProjectOAuthProviderId} params.providerId - OAuth2 provider key. For example: github, google, apple.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft>}
      */
-    getOAuth2Provider(params: { providerId: OAuthProvider }): Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft>;
+    getOAuth2Provider(params: { providerId: ProjectOAuthProviderId }): Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft>;
     /**
      * Get a single OAuth2 provider configuration. Credential fields (client secret, p8 file, key/team IDs) are write-only and always returned empty.
      *
-     * @param {OAuthProvider} providerId - OAuth2 provider key. For example: github, google, apple.
+     * @param {ProjectOAuthProviderId} providerId - OAuth2 provider key. For example: github, google, apple.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getOAuth2Provider(providerId: OAuthProvider): Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft>;
+    getOAuth2Provider(providerId: ProjectOAuthProviderId): Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft>;
     getOAuth2Provider(
-        paramsOrFirst: { providerId: OAuthProvider } | OAuthProvider    
+        paramsOrFirst: { providerId: ProjectOAuthProviderId } | ProjectOAuthProviderId    
     ): Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft> {
-        let params: { providerId: OAuthProvider };
+        let params: { providerId: ProjectOAuthProviderId };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('providerId' in paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { providerId: OAuthProvider };
+            params = (paramsOrFirst || {}) as { providerId: ProjectOAuthProviderId };
         } else {
             params = {
-                providerId: paramsOrFirst as OAuthProvider            
+                providerId: paramsOrFirst as ProjectOAuthProviderId            
             };
         }
         
@@ -4847,6 +4878,171 @@ export class Project {
     }
 
     /**
+     * Configures if aliased emails such as subaddresses and emails with suffixes are denied during new users sign-ups and email updates.
+     *
+     * @param {boolean} params.enabled - Set whether or not to block aliased emails during signup and email updates.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    updateDenyAliasedEmailPolicy(params: { enabled: boolean }): Promise<Models.Project>;
+    /**
+     * Configures if aliased emails such as subaddresses and emails with suffixes are denied during new users sign-ups and email updates.
+     *
+     * @param {boolean} enabled - Set whether or not to block aliased emails during signup and email updates.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateDenyAliasedEmailPolicy(enabled: boolean): Promise<Models.Project>;
+    updateDenyAliasedEmailPolicy(
+        paramsOrFirst: { enabled: boolean } | boolean    
+    ): Promise<Models.Project> {
+        let params: { enabled: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { enabled: boolean };
+        } else {
+            params = {
+                enabled: paramsOrFirst as boolean            
+            };
+        }
+        
+        const enabled = params.enabled;
+
+        if (typeof enabled === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "enabled"');
+        }
+
+        const apiPath = '/project/policies/deny-aliased-email';
+        const payload: Payload = {};
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Configures if disposable emails from known temporary domains are denied during new users sign-ups and email updates.
+     *
+     * @param {boolean} params.enabled - Set whether or not to block disposable email addresses during signup and email updates.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    updateDenyDisposableEmailPolicy(params: { enabled: boolean }): Promise<Models.Project>;
+    /**
+     * Configures if disposable emails from known temporary domains are denied during new users sign-ups and email updates.
+     *
+     * @param {boolean} enabled - Set whether or not to block disposable email addresses during signup and email updates.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateDenyDisposableEmailPolicy(enabled: boolean): Promise<Models.Project>;
+    updateDenyDisposableEmailPolicy(
+        paramsOrFirst: { enabled: boolean } | boolean    
+    ): Promise<Models.Project> {
+        let params: { enabled: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { enabled: boolean };
+        } else {
+            params = {
+                enabled: paramsOrFirst as boolean            
+            };
+        }
+        
+        const enabled = params.enabled;
+
+        if (typeof enabled === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "enabled"');
+        }
+
+        const apiPath = '/project/policies/deny-disposable-email';
+        const payload: Payload = {};
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Configures if emails from free providers such as Gmail or Yahoo are denied during new users sign-ups and email updates.
+     *
+     * @param {boolean} params.enabled - Set whether or not to block free email addresses during signup and email updates.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    updateDenyFreeEmailPolicy(params: { enabled: boolean }): Promise<Models.Project>;
+    /**
+     * Configures if emails from free providers such as Gmail or Yahoo are denied during new users sign-ups and email updates.
+     *
+     * @param {boolean} enabled - Set whether or not to block free email addresses during signup and email updates.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateDenyFreeEmailPolicy(enabled: boolean): Promise<Models.Project>;
+    updateDenyFreeEmailPolicy(
+        paramsOrFirst: { enabled: boolean } | boolean    
+    ): Promise<Models.Project> {
+        let params: { enabled: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { enabled: boolean };
+        } else {
+            params = {
+                enabled: paramsOrFirst as boolean            
+            };
+        }
+        
+        const enabled = params.enabled;
+
+        if (typeof enabled === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "enabled"');
+        }
+
+        const apiPath = '/project/policies/deny-free-email';
+        const payload: Payload = {};
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Updating this policy allows you to control if team members can see other members information. When enabled, all team members can see ID, name, email, phone number, and MFA status of other members..
      *
      * @param {boolean} params.userId - Set to true if you want make user ID visible to all team members, or false to hide it.
@@ -5374,30 +5570,30 @@ export class Project {
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicy} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy.
+     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy.
      * @throws {AppwriteException}
      * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy>}
      */
-    getPolicy(params: { policyId: ProjectPolicy }): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy>;
+    getPolicy(params: { policyId: ProjectPolicyId }): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy>;
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicy} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy.
+     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy.
      * @throws {AppwriteException}
      * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getPolicy(policyId: ProjectPolicy): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy>;
+    getPolicy(policyId: ProjectPolicyId): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy>;
     getPolicy(
-        paramsOrFirst: { policyId: ProjectPolicy } | ProjectPolicy    
+        paramsOrFirst: { policyId: ProjectPolicyId } | ProjectPolicyId    
     ): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy> {
-        let params: { policyId: ProjectPolicy };
+        let params: { policyId: ProjectPolicyId };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('policyId' in paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { policyId: ProjectPolicy };
+            params = (paramsOrFirst || {}) as { policyId: ProjectPolicyId };
         } else {
             params = {
-                policyId: paramsOrFirst as ProjectPolicy            
+                policyId: paramsOrFirst as ProjectPolicyId            
             };
         }
         
@@ -5425,33 +5621,33 @@ export class Project {
     /**
      * Update properties of a specific protocol. Use this endpoint to enable or disable a protocol in your project. 
      *
-     * @param {ProtocolId} params.protocolId - Protocol name. Can be one of: rest, graphql, websocket
+     * @param {ProjectProtocolId} params.protocolId - Protocol name. Can be one of: rest, graphql, websocket
      * @param {boolean} params.enabled - Protocol status.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
-    updateProtocol(params: { protocolId: ProtocolId, enabled: boolean }): Promise<Models.Project>;
+    updateProtocol(params: { protocolId: ProjectProtocolId, enabled: boolean }): Promise<Models.Project>;
     /**
      * Update properties of a specific protocol. Use this endpoint to enable or disable a protocol in your project. 
      *
-     * @param {ProtocolId} protocolId - Protocol name. Can be one of: rest, graphql, websocket
+     * @param {ProjectProtocolId} protocolId - Protocol name. Can be one of: rest, graphql, websocket
      * @param {boolean} enabled - Protocol status.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateProtocol(protocolId: ProtocolId, enabled: boolean): Promise<Models.Project>;
+    updateProtocol(protocolId: ProjectProtocolId, enabled: boolean): Promise<Models.Project>;
     updateProtocol(
-        paramsOrFirst: { protocolId: ProtocolId, enabled: boolean } | ProtocolId,
+        paramsOrFirst: { protocolId: ProjectProtocolId, enabled: boolean } | ProjectProtocolId,
         ...rest: [(boolean)?]    
     ): Promise<Models.Project> {
-        let params: { protocolId: ProtocolId, enabled: boolean };
+        let params: { protocolId: ProjectProtocolId, enabled: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('protocolId' in paramsOrFirst || 'enabled' in paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { protocolId: ProtocolId, enabled: boolean };
+            params = (paramsOrFirst || {}) as { protocolId: ProjectProtocolId, enabled: boolean };
         } else {
             params = {
-                protocolId: paramsOrFirst as ProtocolId,
+                protocolId: paramsOrFirst as ProjectProtocolId,
                 enabled: rest[0] as boolean            
             };
         }
@@ -5488,33 +5684,33 @@ export class Project {
     /**
      * Update properties of a specific service. Use this endpoint to enable or disable a service in your project. 
      *
-     * @param {ServiceId} params.serviceId - Service name. Can be one of: account, avatars, databases, tablesdb, locale, health, project, storage, teams, users, vcs, sites, functions, proxy, graphql, migrations, messaging
+     * @param {ProjectServiceId} params.serviceId - Service name. Can be one of: account, avatars, databases, tablesdb, locale, health, project, storage, teams, users, vcs, sites, functions, proxy, graphql, migrations, messaging, advisor
      * @param {boolean} params.enabled - Service status.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
-    updateService(params: { serviceId: ServiceId, enabled: boolean }): Promise<Models.Project>;
+    updateService(params: { serviceId: ProjectServiceId, enabled: boolean }): Promise<Models.Project>;
     /**
      * Update properties of a specific service. Use this endpoint to enable or disable a service in your project. 
      *
-     * @param {ServiceId} serviceId - Service name. Can be one of: account, avatars, databases, tablesdb, locale, health, project, storage, teams, users, vcs, sites, functions, proxy, graphql, migrations, messaging
+     * @param {ProjectServiceId} serviceId - Service name. Can be one of: account, avatars, databases, tablesdb, locale, health, project, storage, teams, users, vcs, sites, functions, proxy, graphql, migrations, messaging, advisor
      * @param {boolean} enabled - Service status.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateService(serviceId: ServiceId, enabled: boolean): Promise<Models.Project>;
+    updateService(serviceId: ProjectServiceId, enabled: boolean): Promise<Models.Project>;
     updateService(
-        paramsOrFirst: { serviceId: ServiceId, enabled: boolean } | ServiceId,
+        paramsOrFirst: { serviceId: ProjectServiceId, enabled: boolean } | ProjectServiceId,
         ...rest: [(boolean)?]    
     ): Promise<Models.Project> {
-        let params: { serviceId: ServiceId, enabled: boolean };
+        let params: { serviceId: ProjectServiceId, enabled: boolean };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('serviceId' in paramsOrFirst || 'enabled' in paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { serviceId: ServiceId, enabled: boolean };
+            params = (paramsOrFirst || {}) as { serviceId: ProjectServiceId, enabled: boolean };
         } else {
             params = {
-                serviceId: paramsOrFirst as ServiceId,
+                serviceId: paramsOrFirst as ProjectServiceId,
                 enabled: rest[0] as boolean            
             };
         }
@@ -5559,12 +5755,12 @@ export class Project {
      * @param {string} params.senderName - Name shown in inbox as the sender of the email.
      * @param {string} params.replyToEmail - Email used when user replies to the email.
      * @param {string} params.replyToName - Name used when user replies to the email.
-     * @param {Secure} params.secure - Configures if communication with SMTP server is encrypted. Allowed values are: tls, ssl. Leave empty for no encryption.
+     * @param {ProjectSMTPSecure} params.secure - Configures if communication with SMTP server is encrypted. Allowed values are: tls, ssl. Leave empty for no encryption.
      * @param {boolean} params.enabled - Enable or disable custom SMTP. Custom SMTP is useful for branding purposes, but also allows use of custom email templates.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
-    updateSMTP(params?: { host?: string, port?: number, username?: string, password?: string, senderEmail?: string, senderName?: string, replyToEmail?: string, replyToName?: string, secure?: Secure, enabled?: boolean }): Promise<Models.Project>;
+    updateSMTP(params?: { host?: string, port?: number, username?: string, password?: string, senderEmail?: string, senderName?: string, replyToEmail?: string, replyToName?: string, secure?: ProjectSMTPSecure, enabled?: boolean }): Promise<Models.Project>;
     /**
      * Update the SMTP configuration for your project. Use this endpoint to configure your project's SMTP provider with your custom settings for sending transactional emails.
      *
@@ -5576,21 +5772,21 @@ export class Project {
      * @param {string} senderName - Name shown in inbox as the sender of the email.
      * @param {string} replyToEmail - Email used when user replies to the email.
      * @param {string} replyToName - Name used when user replies to the email.
-     * @param {Secure} secure - Configures if communication with SMTP server is encrypted. Allowed values are: tls, ssl. Leave empty for no encryption.
+     * @param {ProjectSMTPSecure} secure - Configures if communication with SMTP server is encrypted. Allowed values are: tls, ssl. Leave empty for no encryption.
      * @param {boolean} enabled - Enable or disable custom SMTP. Custom SMTP is useful for branding purposes, but also allows use of custom email templates.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateSMTP(host?: string, port?: number, username?: string, password?: string, senderEmail?: string, senderName?: string, replyToEmail?: string, replyToName?: string, secure?: Secure, enabled?: boolean): Promise<Models.Project>;
+    updateSMTP(host?: string, port?: number, username?: string, password?: string, senderEmail?: string, senderName?: string, replyToEmail?: string, replyToName?: string, secure?: ProjectSMTPSecure, enabled?: boolean): Promise<Models.Project>;
     updateSMTP(
-        paramsOrFirst?: { host?: string, port?: number, username?: string, password?: string, senderEmail?: string, senderName?: string, replyToEmail?: string, replyToName?: string, secure?: Secure, enabled?: boolean } | string,
-        ...rest: [(number)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (Secure)?, (boolean)?]    
+        paramsOrFirst?: { host?: string, port?: number, username?: string, password?: string, senderEmail?: string, senderName?: string, replyToEmail?: string, replyToName?: string, secure?: ProjectSMTPSecure, enabled?: boolean } | string,
+        ...rest: [(number)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (ProjectSMTPSecure)?, (boolean)?]    
     ): Promise<Models.Project> {
-        let params: { host?: string, port?: number, username?: string, password?: string, senderEmail?: string, senderName?: string, replyToEmail?: string, replyToName?: string, secure?: Secure, enabled?: boolean };
+        let params: { host?: string, port?: number, username?: string, password?: string, senderEmail?: string, senderName?: string, replyToEmail?: string, replyToName?: string, secure?: ProjectSMTPSecure, enabled?: boolean };
         
         if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { host?: string, port?: number, username?: string, password?: string, senderEmail?: string, senderName?: string, replyToEmail?: string, replyToName?: string, secure?: Secure, enabled?: boolean };
+            params = (paramsOrFirst || {}) as { host?: string, port?: number, username?: string, password?: string, senderEmail?: string, senderName?: string, replyToEmail?: string, replyToName?: string, secure?: ProjectSMTPSecure, enabled?: boolean };
         } else {
             params = {
                 host: paramsOrFirst as string,
@@ -5601,7 +5797,7 @@ export class Project {
                 senderName: rest[4] as string,
                 replyToEmail: rest[5] as string,
                 replyToName: rest[6] as string,
-                secure: rest[7] as Secure,
+                secure: rest[7] as ProjectSMTPSecure,
                 enabled: rest[8] as boolean            
             };
         }
@@ -5781,8 +5977,8 @@ export class Project {
     /**
      * Update a custom email template for the specified locale and type. Use this endpoint to modify the content of your email templates.
      *
-     * @param {EmailTemplateType} params.templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
-     * @param {EmailTemplateLocale} params.locale - Custom email template locale. If left empty, the fallback locale (en) will be used.
+     * @param {ProjectEmailTemplateId} params.templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
+     * @param {ProjectEmailTemplateLocale} params.locale - Custom email template locale. If left empty, the fallback locale (en) will be used.
      * @param {string} params.subject - Subject of the email template. Can be up to 255 characters.
      * @param {string} params.message - Plain or HTML body of the email template message. Can be up to 10MB of content.
      * @param {string} params.senderName - Name of the email sender.
@@ -5792,12 +5988,12 @@ export class Project {
      * @throws {AppwriteException}
      * @returns {Promise<Models.EmailTemplate>}
      */
-    updateEmailTemplate(params: { templateId: EmailTemplateType, locale?: EmailTemplateLocale, subject?: string, message?: string, senderName?: string, senderEmail?: string, replyToEmail?: string, replyToName?: string }): Promise<Models.EmailTemplate>;
+    updateEmailTemplate(params: { templateId: ProjectEmailTemplateId, locale?: ProjectEmailTemplateLocale, subject?: string, message?: string, senderName?: string, senderEmail?: string, replyToEmail?: string, replyToName?: string }): Promise<Models.EmailTemplate>;
     /**
      * Update a custom email template for the specified locale and type. Use this endpoint to modify the content of your email templates.
      *
-     * @param {EmailTemplateType} templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
-     * @param {EmailTemplateLocale} locale - Custom email template locale. If left empty, the fallback locale (en) will be used.
+     * @param {ProjectEmailTemplateId} templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
+     * @param {ProjectEmailTemplateLocale} locale - Custom email template locale. If left empty, the fallback locale (en) will be used.
      * @param {string} subject - Subject of the email template. Can be up to 255 characters.
      * @param {string} message - Plain or HTML body of the email template message. Can be up to 10MB of content.
      * @param {string} senderName - Name of the email sender.
@@ -5808,19 +6004,19 @@ export class Project {
      * @returns {Promise<Models.EmailTemplate>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateEmailTemplate(templateId: EmailTemplateType, locale?: EmailTemplateLocale, subject?: string, message?: string, senderName?: string, senderEmail?: string, replyToEmail?: string, replyToName?: string): Promise<Models.EmailTemplate>;
+    updateEmailTemplate(templateId: ProjectEmailTemplateId, locale?: ProjectEmailTemplateLocale, subject?: string, message?: string, senderName?: string, senderEmail?: string, replyToEmail?: string, replyToName?: string): Promise<Models.EmailTemplate>;
     updateEmailTemplate(
-        paramsOrFirst: { templateId: EmailTemplateType, locale?: EmailTemplateLocale, subject?: string, message?: string, senderName?: string, senderEmail?: string, replyToEmail?: string, replyToName?: string } | EmailTemplateType,
-        ...rest: [(EmailTemplateLocale)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?]    
+        paramsOrFirst: { templateId: ProjectEmailTemplateId, locale?: ProjectEmailTemplateLocale, subject?: string, message?: string, senderName?: string, senderEmail?: string, replyToEmail?: string, replyToName?: string } | ProjectEmailTemplateId,
+        ...rest: [(ProjectEmailTemplateLocale)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?]    
     ): Promise<Models.EmailTemplate> {
-        let params: { templateId: EmailTemplateType, locale?: EmailTemplateLocale, subject?: string, message?: string, senderName?: string, senderEmail?: string, replyToEmail?: string, replyToName?: string };
+        let params: { templateId: ProjectEmailTemplateId, locale?: ProjectEmailTemplateLocale, subject?: string, message?: string, senderName?: string, senderEmail?: string, replyToEmail?: string, replyToName?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('templateId' in paramsOrFirst || 'locale' in paramsOrFirst || 'subject' in paramsOrFirst || 'message' in paramsOrFirst || 'senderName' in paramsOrFirst || 'senderEmail' in paramsOrFirst || 'replyToEmail' in paramsOrFirst || 'replyToName' in paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { templateId: EmailTemplateType, locale?: EmailTemplateLocale, subject?: string, message?: string, senderName?: string, senderEmail?: string, replyToEmail?: string, replyToName?: string };
+            params = (paramsOrFirst || {}) as { templateId: ProjectEmailTemplateId, locale?: ProjectEmailTemplateLocale, subject?: string, message?: string, senderName?: string, senderEmail?: string, replyToEmail?: string, replyToName?: string };
         } else {
             params = {
-                templateId: paramsOrFirst as EmailTemplateType,
-                locale: rest[0] as EmailTemplateLocale,
+                templateId: paramsOrFirst as ProjectEmailTemplateId,
+                locale: rest[0] as ProjectEmailTemplateLocale,
                 subject: rest[1] as string,
                 message: rest[2] as string,
                 senderName: rest[3] as string,
@@ -5886,34 +6082,34 @@ export class Project {
     /**
      * Get a custom email template for the specified locale and type. This endpoint returns the template content, subject, and other configuration details.
      *
-     * @param {EmailTemplateType} params.templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
-     * @param {EmailTemplateLocale} params.locale - Custom email template locale. If left empty, the fallback locale (en) will be used.
+     * @param {ProjectEmailTemplateId} params.templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
+     * @param {ProjectEmailTemplateLocale} params.locale - Custom email template locale. If left empty, the fallback locale (en) will be used.
      * @throws {AppwriteException}
      * @returns {Promise<Models.EmailTemplate>}
      */
-    getEmailTemplate(params: { templateId: EmailTemplateType, locale?: EmailTemplateLocale }): Promise<Models.EmailTemplate>;
+    getEmailTemplate(params: { templateId: ProjectEmailTemplateId, locale?: ProjectEmailTemplateLocale }): Promise<Models.EmailTemplate>;
     /**
      * Get a custom email template for the specified locale and type. This endpoint returns the template content, subject, and other configuration details.
      *
-     * @param {EmailTemplateType} templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
-     * @param {EmailTemplateLocale} locale - Custom email template locale. If left empty, the fallback locale (en) will be used.
+     * @param {ProjectEmailTemplateId} templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
+     * @param {ProjectEmailTemplateLocale} locale - Custom email template locale. If left empty, the fallback locale (en) will be used.
      * @throws {AppwriteException}
      * @returns {Promise<Models.EmailTemplate>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getEmailTemplate(templateId: EmailTemplateType, locale?: EmailTemplateLocale): Promise<Models.EmailTemplate>;
+    getEmailTemplate(templateId: ProjectEmailTemplateId, locale?: ProjectEmailTemplateLocale): Promise<Models.EmailTemplate>;
     getEmailTemplate(
-        paramsOrFirst: { templateId: EmailTemplateType, locale?: EmailTemplateLocale } | EmailTemplateType,
-        ...rest: [(EmailTemplateLocale)?]    
+        paramsOrFirst: { templateId: ProjectEmailTemplateId, locale?: ProjectEmailTemplateLocale } | ProjectEmailTemplateId,
+        ...rest: [(ProjectEmailTemplateLocale)?]    
     ): Promise<Models.EmailTemplate> {
-        let params: { templateId: EmailTemplateType, locale?: EmailTemplateLocale };
+        let params: { templateId: ProjectEmailTemplateId, locale?: ProjectEmailTemplateLocale };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('templateId' in paramsOrFirst || 'locale' in paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { templateId: EmailTemplateType, locale?: EmailTemplateLocale };
+            params = (paramsOrFirst || {}) as { templateId: ProjectEmailTemplateId, locale?: ProjectEmailTemplateLocale };
         } else {
             params = {
-                templateId: paramsOrFirst as EmailTemplateType,
-                locale: rest[0] as EmailTemplateLocale            
+                templateId: paramsOrFirst as ProjectEmailTemplateId,
+                locale: rest[0] as ProjectEmailTemplateLocale            
             };
         }
         

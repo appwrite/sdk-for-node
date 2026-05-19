@@ -11,6 +11,7 @@ const project = new sdk.Project(client);
 const result = await project.updateOAuth2Google({
     clientId: '<CLIENT_ID>', // optional
     clientSecret: '<CLIENT_SECRET>', // optional
+    prompt: [sdk.ProjectOAuth2GooglePrompt.None], // optional
     enabled: false // optional
 });
 ```
