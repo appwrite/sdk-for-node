@@ -36,7 +36,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -89,7 +88,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -257,7 +255,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1431,7 +1428,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1472,7 +1468,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1513,7 +1508,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1554,7 +1548,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1594,7 +1587,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1635,7 +1627,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1676,7 +1667,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1717,7 +1707,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1758,7 +1747,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1799,7 +1787,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1840,7 +1827,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1881,7 +1867,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1942,7 +1927,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1984,7 +1968,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -2026,7 +2009,6 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'region': 'fra',
-            'billingLimits': {},
             'blocks': [],
             'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
