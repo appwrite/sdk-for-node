@@ -1,12 +1,11 @@
 # Change Log
 
-## 25.0.1
+## 25.1.0
 
-* Fixed: `BillingLimits` inner fields and `Project.billingLimits` are now optional — server emits sparse "limits crossed" map
-* Fixed: `Project.consoleAccessedAt` defaults to empty string for never-accessed projects (no longer null)
-* Added: `File.sizeActual` field — actual bytes used on disk after compression / encryption
-* Updated: `BuildRuntime` and `Runtime` enums with `deno-1.21`, `deno-1.24`, and `deno-1.35`
-* Updated: Advisor doc examples corrected to use API key auth instead of session
+* Added `sizeActual` property to file model for actual stored size after compression
+* Added `Deno121`, `Deno124`, and `Deno135` runtime options to `BuildRuntime` and `Runtime` enums
+* Updated advisor authentication examples to use API key instead of session
+* Updated billing limits properties to be optional in project models
 
 ## 25.0.0
 
