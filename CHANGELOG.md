@@ -1,5 +1,12 @@
 # Change Log
 
+## 25.1.0
+
+* Added `sizeActual` property to file model for actual stored size after compression
+* Added `Deno121`, `Deno124`, and `Deno135` runtime options to `BuildRuntime` and `Runtime` enums
+* Updated advisor authentication examples to use API key instead of session
+* Updated billing limits properties to be optional in project models
+
 ## 25.0.0
 
 * Breaking: Renamed `AuthMethod` enum to `ProjectAuthMethodId`

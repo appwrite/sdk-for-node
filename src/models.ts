@@ -3360,6 +3360,10 @@ export namespace Models {
          */
         sizeOriginal: number;
         /**
+         * File actual stored size in bytes after compression and/or encryption.
+         */
+        sizeActual: number;
+        /**
          * Total number of chunks available
          */
         chunksTotal: number;
@@ -4210,7 +4214,7 @@ export namespace Models {
         /**
          * Billing limits reached
          */
-        billingLimits: BillingLimits;
+        billingLimits?: BillingLimits;
         /**
          * Project blocks information
          */
@@ -6760,35 +6764,35 @@ export namespace Models {
         /**
          * Bandwidth limit
          */
-        bandwidth: number;
+        bandwidth?: number;
         /**
          * Storage limit
          */
-        storage: number;
+        storage?: number;
         /**
          * Users limit
          */
-        users: number;
+        users?: number;
         /**
          * Executions limit
          */
-        executions: number;
+        executions?: number;
         /**
          * GBHours limit
          */
-        GBHours: number;
+        GBHours?: number;
         /**
          * Image transformations limit
          */
-        imageTransformations: number;
+        imageTransformations?: number;
         /**
          * Auth phone limit
          */
-        authPhone: number;
+        authPhone?: number;
         /**
          * Budget limit percentage
          */
-        budgetLimit: number;
+        budgetLimit?: number;
     }
 
     /**
