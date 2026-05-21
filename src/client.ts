@@ -455,6 +455,7 @@ class Client {
             let uploadedBytes = firstChunkEnd;
             let lastResponse = response;
             let finalResponse = null;
+            let failed = false;
 
             const isUploadComplete = (chunkResponse: any) => {
                 const chunksUploaded = chunkResponse?.chunksUploaded;
@@ -474,6 +475,10 @@ class Client {
                 chunkPayload[fileParam] = new File([chunkBlob], file.filename);
 
                 const chunkResponse = await this.call(method, url, chunkHeaders, chunkPayload);
+
+                if (failed) {
+                    return chunkResponse;
+                }
                 
                 completedCount++;
                 uploadedBytes += (chunk.end - chunk.start);
@@ -500,7 +505,6 @@ class Client {
             const queue = [...chunks];
             const workers: Promise<void>[] = [];
             const workerCount = Math.min(CONCURRENCY, queue.length);
-            let failed = false;
 
             for (let i = 0; i < workerCount; i++) {
                 workers.push(
@@ -567,6 +571,7 @@ class Client {
         let uploadedBytes = firstChunkEnd;
         let lastResponse = response;
         let finalResponse = null;
+        let failed = false;
 
         const isUploadComplete = (chunkResponse: any) => {
             const chunksUploaded = chunkResponse?.chunksUploaded;
@@ -586,6 +591,10 @@ class Client {
             chunkPayload[fileParam] = new File([chunkBlob], file.name);
 
             const chunkResponse = await this.call(method, url, chunkHeaders, chunkPayload);
+
+            if (failed) {
+                return chunkResponse;
+            }
             
             completedCount++;
             uploadedBytes += (chunk.end - chunk.start);
@@ -612,7 +621,6 @@ class Client {
         const queue = [...chunks];
         const workers: Promise<void>[] = [];
         const workerCount = Math.min(CONCURRENCY, queue.length);
-        let failed = false;
 
         for (let i = 0; i < workerCount; i++) {
             workers.push(
@@ -635,7 +643,7 @@ class Client {
         return finalResponse ?? lastResponse;
     }
 
-    async ping(): Promise<any> {
+    async ping(): Promise<unknown> {
         return this.call('GET', new URL(this.config.endpoint + '/ping'));
     }
 
