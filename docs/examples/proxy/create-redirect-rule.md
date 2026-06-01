@@ -11,7 +11,7 @@ const proxy = new sdk.Proxy(client);
 const result = await proxy.createRedirectRule({
     domain: '',
     url: 'https://example.com',
-    statusCode: sdk.StatusCode.MovedPermanently301,
+    statusCode: sdk.StatusCode.MovedPermanently,
     resourceId: '<RESOURCE_ID>',
     resourceType: sdk.ProxyResourceType.Site
 });

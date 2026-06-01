@@ -42,6 +42,4 @@ export enum ProjectOAuthProviderId {
     Yandex = 'yandex',
     Zoho = 'zoho',
     Zoom = 'zoom',
-    GithubImagine = 'githubImagine',
-    GoogleImagine = 'googleImagine',
 }

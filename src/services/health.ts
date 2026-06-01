@@ -2,7 +2,7 @@ import { AppwriteException, Client, type Payload, UploadProgress } from '../clie
 import type { Models } from '../models';
 
 
-import { Name } from '../enums/name';
+import { HealthQueueName } from '../enums/health-queue-name';
 
 export class Health {
     client: Client;
@@ -507,34 +507,34 @@ export class Health {
      * Returns the amount of failed jobs in a given queue.
      * 
      *
-     * @param {Name} params.name - The name of the queue
+     * @param {HealthQueueName} params.name - The name of the queue
      * @param {number} params.threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      */
-    getFailedJobs(params: { name: Name, threshold?: number }): Promise<Models.HealthQueue>;
+    getFailedJobs(params: { name: HealthQueueName, threshold?: number }): Promise<Models.HealthQueue>;
     /**
      * Returns the amount of failed jobs in a given queue.
      * 
      *
-     * @param {Name} name - The name of the queue
+     * @param {HealthQueueName} name - The name of the queue
      * @param {number} threshold - Queue size threshold. When hit (equal or higher), endpoint returns server error. Default value is 5000.
      * @throws {AppwriteException}
      * @returns {Promise<Models.HealthQueue>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getFailedJobs(name: Name, threshold?: number): Promise<Models.HealthQueue>;
+    getFailedJobs(name: HealthQueueName, threshold?: number): Promise<Models.HealthQueue>;
     getFailedJobs(
-        paramsOrFirst: { name: Name, threshold?: number } | Name,
+        paramsOrFirst: { name: HealthQueueName, threshold?: number } | HealthQueueName,
         ...rest: [(number)?]    
     ): Promise<Models.HealthQueue> {
-        let params: { name: Name, threshold?: number };
+        let params: { name: HealthQueueName, threshold?: number };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('name' in paramsOrFirst || 'threshold' in paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { name: Name, threshold?: number };
+            params = (paramsOrFirst || {}) as { name: HealthQueueName, threshold?: number };
         } else {
             params = {
-                name: paramsOrFirst as Name,
+                name: paramsOrFirst as HealthQueueName,
                 threshold: rest[0] as number            
             };
         }

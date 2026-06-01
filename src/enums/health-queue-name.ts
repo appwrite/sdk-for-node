@@ -1,4 +1,4 @@
-export enum Name {
+export enum HealthQueueName {
     V1database = 'v1-database',
     V1deletes = 'v1-deletes',
     V1audits = 'v1-audits',

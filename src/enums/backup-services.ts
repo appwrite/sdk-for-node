@@ -3,6 +3,7 @@ export enum BackupServices {
     Tablesdb = 'tablesdb',
     Documentsdb = 'documentsdb',
     Vectorsdb = 'vectorsdb',
+    DedicatedDatabases = 'dedicatedDatabases',
     Functions = 'functions',
     Storage = 'storage',
 }
