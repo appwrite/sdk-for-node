@@ -54,7 +54,7 @@ export namespace Models {
     /**
      * Presences List
      */
-    export type PresenceList<Presence extends Models.Presence = Models.DefaultPresence> = {
+    export type PresenceList = {
         /**
          * Total number of presences that matched your query.
          */
@@ -346,6 +346,20 @@ export namespace Models {
     }
 
     /**
+     * Projects List
+     */
+    export type ProjectList = {
+        /**
+         * Total number of projects that matched your query.
+         */
+        total: number;
+        /**
+         * List of projects.
+         */
+        projects: Project[];
+    }
+
+    /**
      * Webhooks List
      */
     export type WebhookList = {
@@ -482,7 +496,7 @@ export namespace Models {
         /**
          * List of policies.
          */
-        policies: (Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy)[];
+        policies: (Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail)[];
     }
 
     /**
@@ -2751,12 +2765,11 @@ export namespace Models {
          * Presence expiry date in ISO 8601 format.
          */
         expiresAt?: string;
+        /**
+         * Presence metadata.
+         */
+        metadata?: object;
     }
-
-    export type DefaultPresence = Presence & {
-        [key: string]: any;
-        [__default]: true;
-    };
 
     /**
      * Log
@@ -3682,6 +3695,14 @@ export namespace Models {
          */
         providerSilentMode: boolean;
         /**
+         * List of branch name patterns that trigger automatic deployments. Supports glob wildcards. Empty list deploys on all branches.
+         */
+        providerBranches: string[];
+        /**
+         * List of file path patterns that trigger automatic deployments. Supports glob wildcards. Empty list deploys on all file changes.
+         */
+        providerPaths: string[];
+        /**
          * Machine specification for deployment builds.
          */
         buildSpecification: string;
@@ -3819,6 +3840,14 @@ export namespace Models {
          * Is VCS (Version Control System) connection is in silent mode? When in silence mode, no comments will be posted on the repository pull or merge requests
          */
         providerSilentMode: boolean;
+        /**
+         * List of branch name patterns that trigger automatic deployments. Supports glob wildcards. Empty list deploys on all branches.
+         */
+        providerBranches: string[];
+        /**
+         * List of file path patterns that trigger automatic deployments. Supports glob wildcards. Empty list deploys on all file changes.
+         */
+        providerPaths: string[];
         /**
          * Machine specification for deployment builds.
          */
@@ -6578,21 +6607,21 @@ export namespace Models {
          */
         $id: string;
         /**
-         * User type.
+         * Actor type.
          */
-        userType: string;
+        actorType: string;
         /**
-         * User ID.
+         * Actor ID.
          */
-        userId: string;
+        actorId: string;
         /**
-         * User Email.
+         * Actor Email.
          */
-        userEmail: string;
+        actorEmail: string;
         /**
-         * User Name.
+         * Actor Name.
          */
-        userName: string;
+        actorName: string;
         /**
          * Resource parent.
          */
@@ -6758,7 +6787,7 @@ export namespace Models {
     }
 
     /**
-     * BillingLimits
+     * Limits
      */
     export type BillingLimits = {
         /**
@@ -6892,6 +6921,48 @@ export namespace Models {
     }
 
     /**
+     * Policy Deny Aliased Email
+     */
+    export type PolicyDenyAliasedEmail = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether the deny aliased email policy is enabled.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * Policy Deny Disposable Email
+     */
+    export type PolicyDenyDisposableEmail = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether the deny disposable email policy is enabled.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * Policy Deny Free Email
+     */
+    export type PolicyDenyFreeEmail = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether the deny free email policy is enabled.
+         */
+        enabled: boolean;
+    }
+
+    /**
      * Restoration
      */
     export type BackupRestoration = {
@@ -6988,20 +7059,6 @@ export namespace Models {
     }
 
     /**
-     * Usage events list
-     */
-    export type UsageEventList = {
-        /**
-         * Total number of events that matched your query.
-         */
-        total: number;
-        /**
-         * List of events.
-         */
-        events: UsageEvent[];
-    }
-
-    /**
      * usageGauge
      */
     export type UsageGauge = {
@@ -7017,20 +7074,14 @@ export namespace Models {
          * The snapshot timestamp.
          */
         time: string;
-    }
-
-    /**
-     * Usage gauges list
-     */
-    export type UsageGaugeList = {
         /**
-         * Total number of gauges that matched your query.
+         * The resource type.
          */
-        total: number;
+        resourceType: string;
         /**
-         * List of gauges.
+         * The resource ID.
          */
-        gauges: UsageGauge[];
+        resourceId: string;
     }
 
     /**
@@ -7087,5 +7138,33 @@ export namespace Models {
          * List of restorations.
          */
         restorations: BackupRestoration[];
+    }
+
+    /**
+     * Usage events list
+     */
+    export type UsageEventList = {
+        /**
+         * Total number of events that matched your query.
+         */
+        total: number;
+        /**
+         * List of events.
+         */
+        events: UsageEvent[];
+    }
+
+    /**
+     * Usage gauges list
+     */
+    export type UsageGaugeList = {
+        /**
+         * Total number of gauges that matched your query.
+         */
+        total: number;
+        /**
+         * List of gauges.
+         */
+        gauges: UsageGauge[];
     }
 }

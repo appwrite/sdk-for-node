@@ -67,7 +67,7 @@ describe('Presences', () => {
         expect(response).toEqual(data);
     });
     
-    test('test method updatePresence()', async () => {
+    test('test method update()', async () => {
                                                 const data = {
             '\$id': '5e5ea5c16897e',
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -77,7 +77,7 @@ describe('Presences', () => {
             'source': 'HTTP',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
-        const response = await presences.updatePresence(
+        const response = await presences.update(
             '<PRESENCE_ID>',
             '<USER_ID>',
         );

@@ -55,6 +55,8 @@ describe('Functions', () => {
             'providerBranch': 'main',
             'providerRootDirectory': 'functions/helloWorld',
             'providerSilentMode': true,
+            'providerBranches': [],
+            'providerPaths': [],
             'buildSpecification': 's-1vcpu-512mb',
             'runtimeSpecification': 's-1vcpu-512mb',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -131,6 +133,8 @@ describe('Functions', () => {
             'providerBranch': 'main',
             'providerRootDirectory': 'functions/helloWorld',
             'providerSilentMode': true,
+            'providerBranches': [],
+            'providerPaths': [],
             'buildSpecification': 's-1vcpu-512mb',
             'runtimeSpecification': 's-1vcpu-512mb',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -175,6 +179,8 @@ describe('Functions', () => {
             'providerBranch': 'main',
             'providerRootDirectory': 'functions/helloWorld',
             'providerSilentMode': true,
+            'providerBranches': [],
+            'providerPaths': [],
             'buildSpecification': 's-1vcpu-512mb',
             'runtimeSpecification': 's-1vcpu-512mb',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -234,6 +240,8 @@ describe('Functions', () => {
             'providerBranch': 'main',
             'providerRootDirectory': 'functions/helloWorld',
             'providerSilentMode': true,
+            'providerBranches': [],
+            'providerPaths': [],
             'buildSpecification': 's-1vcpu-512mb',
             'runtimeSpecification': 's-1vcpu-512mb',};
         mockedFetch.mockImplementation(() => Response.json(data));

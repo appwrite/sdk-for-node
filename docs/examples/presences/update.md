@@ -8,7 +8,7 @@ const client = new sdk.Client()
 
 const presences = new sdk.Presences(client);
 
-const result = await presences.updatePresence({
+const result = await presences.update({
     presenceId: '<PRESENCE_ID>',
     userId: '<USER_ID>',
     status: '<STATUS>', // optional
