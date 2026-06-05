@@ -33,6 +33,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -56,6 +57,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -119,6 +121,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -179,6 +182,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -265,6 +269,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -335,6 +340,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -387,6 +393,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -466,6 +473,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -518,6 +526,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -573,6 +582,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -633,6 +643,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -698,6 +709,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -750,6 +762,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -812,6 +825,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -864,6 +878,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -924,6 +939,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -935,10 +951,119 @@ export class Project {
     }
 
     /**
+     * Update the OAuth2 server (OIDC provider) configuration.
+     *
+     * @param {boolean} params.enabled - Enable or disable the OAuth2 server.
+     * @param {string} params.authorizationUrl - URL to your application with consent screen.
+     * @param {string[]} params.scopes - List of allowed OAuth2 scopes. Maximum of 100 scopes are allowed, each up to 128 characters long.
+     * @param {number} params.accessTokenDuration - Access token duration in seconds for confidential clients (server-side apps that authenticate with a client secret). Leave empty to use default 8 hours.
+     * @param {number} params.refreshTokenDuration - Refresh token duration in seconds for confidential clients (server-side apps that authenticate with a client secret). Leave empty to use default 1 year.
+     * @param {number} params.publicAccessTokenDuration - Access token duration in seconds for public clients (SPAs, mobile, and native apps that cannot keep a client secret). Leave empty to use default 1 hour.
+     * @param {number} params.publicRefreshTokenDuration - Refresh token duration in seconds for public clients (SPAs, mobile, and native apps that cannot keep a client secret). Leave empty to use default 30 days.
+     * @param {boolean} params.confidentialPkce - When enabled, PKCE is required for confidential clients (server-side flows using client_secret). PKCE is always required for public clients regardless of this setting.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    updateOAuth2Server(params: { enabled: boolean, authorizationUrl: string, scopes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean }): Promise<Models.Project>;
+    /**
+     * Update the OAuth2 server (OIDC provider) configuration.
+     *
+     * @param {boolean} enabled - Enable or disable the OAuth2 server.
+     * @param {string} authorizationUrl - URL to your application with consent screen.
+     * @param {string[]} scopes - List of allowed OAuth2 scopes. Maximum of 100 scopes are allowed, each up to 128 characters long.
+     * @param {number} accessTokenDuration - Access token duration in seconds for confidential clients (server-side apps that authenticate with a client secret). Leave empty to use default 8 hours.
+     * @param {number} refreshTokenDuration - Refresh token duration in seconds for confidential clients (server-side apps that authenticate with a client secret). Leave empty to use default 1 year.
+     * @param {number} publicAccessTokenDuration - Access token duration in seconds for public clients (SPAs, mobile, and native apps that cannot keep a client secret). Leave empty to use default 1 hour.
+     * @param {number} publicRefreshTokenDuration - Refresh token duration in seconds for public clients (SPAs, mobile, and native apps that cannot keep a client secret). Leave empty to use default 30 days.
+     * @param {boolean} confidentialPkce - When enabled, PKCE is required for confidential clients (server-side flows using client_secret). PKCE is always required for public clients regardless of this setting.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Server(enabled: boolean, authorizationUrl: string, scopes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean): Promise<Models.Project>;
+    updateOAuth2Server(
+        paramsOrFirst: { enabled: boolean, authorizationUrl: string, scopes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean } | boolean,
+        ...rest: [(string)?, (string[])?, (number)?, (number)?, (number)?, (number)?, (boolean)?]    
+    ): Promise<Models.Project> {
+        let params: { enabled: boolean, authorizationUrl: string, scopes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { enabled: boolean, authorizationUrl: string, scopes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean };
+        } else {
+            params = {
+                enabled: paramsOrFirst as boolean,
+                authorizationUrl: rest[0] as string,
+                scopes: rest[1] as string[],
+                accessTokenDuration: rest[2] as number,
+                refreshTokenDuration: rest[3] as number,
+                publicAccessTokenDuration: rest[4] as number,
+                publicRefreshTokenDuration: rest[5] as number,
+                confidentialPkce: rest[6] as boolean            
+            };
+        }
+        
+        const enabled = params.enabled;
+        const authorizationUrl = params.authorizationUrl;
+        const scopes = params.scopes;
+        const accessTokenDuration = params.accessTokenDuration;
+        const refreshTokenDuration = params.refreshTokenDuration;
+        const publicAccessTokenDuration = params.publicAccessTokenDuration;
+        const publicRefreshTokenDuration = params.publicRefreshTokenDuration;
+        const confidentialPkce = params.confidentialPkce;
+
+        if (typeof enabled === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "enabled"');
+        }
+        if (typeof authorizationUrl === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "authorizationUrl"');
+        }
+
+        const apiPath = '/project/oauth2-server';
+        const payload: Payload = {};
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        if (typeof authorizationUrl !== 'undefined') {
+            payload['authorizationUrl'] = authorizationUrl;
+        }
+        if (typeof scopes !== 'undefined') {
+            payload['scopes'] = scopes;
+        }
+        if (typeof accessTokenDuration !== 'undefined') {
+            payload['accessTokenDuration'] = accessTokenDuration;
+        }
+        if (typeof refreshTokenDuration !== 'undefined') {
+            payload['refreshTokenDuration'] = refreshTokenDuration;
+        }
+        if (typeof publicAccessTokenDuration !== 'undefined') {
+            payload['publicAccessTokenDuration'] = publicAccessTokenDuration;
+        }
+        if (typeof publicRefreshTokenDuration !== 'undefined') {
+            payload['publicRefreshTokenDuration'] = publicRefreshTokenDuration;
+        }
+        if (typeof confidentialPkce !== 'undefined') {
+            payload['confidentialPkce'] = confidentialPkce;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'put',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Update the project OAuth2 Amazon configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Amazon OAuth2 app. For example: amzn1.application-oa2-client.87400c00000000000000000000063d5b2
-     * @param {string} params.clientSecret - 'Client Secret' of Amazon OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Amazon OAuth2 app. For example: 79ffe4000000000000000000000000000000000000000000000000000002de55
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Amazon>}
@@ -948,7 +1073,7 @@ export class Project {
      * Update the project OAuth2 Amazon configuration.
      *
      * @param {string} clientId - 'Client ID' of Amazon OAuth2 app. For example: amzn1.application-oa2-client.87400c00000000000000000000063d5b2
-     * @param {string} clientSecret - 'Client Secret' of Amazon OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Amazon OAuth2 app. For example: 79ffe4000000000000000000000000000000000000000000000000000002de55
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Amazon>}
@@ -990,6 +1115,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1071,6 +1197,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1086,7 +1213,7 @@ export class Project {
      * Update the project OAuth2 Auth0 configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Auth0 OAuth2 app. For example: OaOkIA000000000000000000005KLSYq
-     * @param {string} params.clientSecret - 'Client Secret' of Auth0 OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Auth0 OAuth2 app. For example: zXz0000-00000000000000000000000000000-00000000000000000000PJafnF
      * @param {string} params.endpoint - Domain of Auth0 instance. For example: example.us.auth0.com
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -1097,7 +1224,7 @@ export class Project {
      * Update the project OAuth2 Auth0 configuration.
      *
      * @param {string} clientId - 'Client ID' of Auth0 OAuth2 app. For example: OaOkIA000000000000000000005KLSYq
-     * @param {string} clientSecret - 'Client Secret' of Auth0 OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Auth0 OAuth2 app. For example: zXz0000-00000000000000000000000000000-00000000000000000000PJafnF
      * @param {string} endpoint - Domain of Auth0 instance. For example: example.us.auth0.com
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -1145,6 +1272,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1160,7 +1288,7 @@ export class Project {
      * Update the project OAuth2 Authentik configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Authentik OAuth2 app. For example: dTKOPa0000000000000000000000000000e7G8hv
-     * @param {string} params.clientSecret - 'Client Secret' of Authentik OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Authentik OAuth2 app. For example: ntQadq000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000Hp5WK
      * @param {string} params.endpoint - Domain of Authentik instance. For example: example.authentik.com
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -1171,7 +1299,7 @@ export class Project {
      * Update the project OAuth2 Authentik configuration.
      *
      * @param {string} clientId - 'Client ID' of Authentik OAuth2 app. For example: dTKOPa0000000000000000000000000000e7G8hv
-     * @param {string} clientSecret - 'Client Secret' of Authentik OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Authentik OAuth2 app. For example: ntQadq000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000Hp5WK
      * @param {string} endpoint - Domain of Authentik instance. For example: example.authentik.com
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -1219,6 +1347,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1234,7 +1363,7 @@ export class Project {
      * Update the project OAuth2 Autodesk configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Autodesk OAuth2 app. For example: 5zw90v00000000000000000000kVYXN7
-     * @param {string} params.clientSecret - 'Client Secret' of Autodesk OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Autodesk OAuth2 app. For example: 7I000000000000MW
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Autodesk>}
@@ -1244,7 +1373,7 @@ export class Project {
      * Update the project OAuth2 Autodesk configuration.
      *
      * @param {string} clientId - 'Client ID' of Autodesk OAuth2 app. For example: 5zw90v00000000000000000000kVYXN7
-     * @param {string} clientSecret - 'Client Secret' of Autodesk OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Autodesk OAuth2 app. For example: 7I000000000000MW
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Autodesk>}
@@ -1286,6 +1415,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1301,7 +1431,7 @@ export class Project {
      * Update the project OAuth2 Bitbucket configuration.
      *
      * @param {string} params.key - 'Key' of Bitbucket OAuth2 app. For example: Knt70000000000ByRc
-     * @param {string} params.secret - 'Secret' of Bitbucket OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.secret - 'Secret' of Bitbucket OAuth2 app. For example: NMfLZJ00000000000000000000TLQdDx
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Bitbucket>}
@@ -1311,7 +1441,7 @@ export class Project {
      * Update the project OAuth2 Bitbucket configuration.
      *
      * @param {string} key - 'Key' of Bitbucket OAuth2 app. For example: Knt70000000000ByRc
-     * @param {string} secret - 'Secret' of Bitbucket OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} secret - 'Secret' of Bitbucket OAuth2 app. For example: NMfLZJ00000000000000000000TLQdDx
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Bitbucket>}
@@ -1353,6 +1483,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1368,7 +1499,7 @@ export class Project {
      * Update the project OAuth2 Bitly configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Bitly OAuth2 app. For example: d95151000000000000000000000000000067af9b
-     * @param {string} params.clientSecret - 'Client Secret' of Bitly OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Bitly OAuth2 app. For example: a13e250000000000000000000000000000d73095
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Bitly>}
@@ -1378,7 +1509,7 @@ export class Project {
      * Update the project OAuth2 Bitly configuration.
      *
      * @param {string} clientId - 'Client ID' of Bitly OAuth2 app. For example: d95151000000000000000000000000000067af9b
-     * @param {string} clientSecret - 'Client Secret' of Bitly OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Bitly OAuth2 app. For example: a13e250000000000000000000000000000d73095
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Bitly>}
@@ -1420,6 +1551,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1435,7 +1567,7 @@ export class Project {
      * Update the project OAuth2 Box configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Box OAuth2 app. For example: deglcs00000000000000000000x2og6y
-     * @param {string} params.clientSecret - 'Client Secret' of Box OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Box OAuth2 app. For example: OKM1f100000000000000000000eshEif
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Box>}
@@ -1445,7 +1577,7 @@ export class Project {
      * Update the project OAuth2 Box configuration.
      *
      * @param {string} clientId - 'Client ID' of Box OAuth2 app. For example: deglcs00000000000000000000x2og6y
-     * @param {string} clientSecret - 'Client Secret' of Box OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Box OAuth2 app. For example: OKM1f100000000000000000000eshEif
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Box>}
@@ -1487,6 +1619,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1502,7 +1635,7 @@ export class Project {
      * Update the project OAuth2 Dailymotion configuration.
      *
      * @param {string} params.apiKey - 'API Key' of Dailymotion OAuth2 app. For example: 07a9000000000000067f
-     * @param {string} params.apiSecret - 'API Secret' of Dailymotion OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.apiSecret - 'API Secret' of Dailymotion OAuth2 app. For example: a399a90000000000000000000000000000d90639
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Dailymotion>}
@@ -1512,7 +1645,7 @@ export class Project {
      * Update the project OAuth2 Dailymotion configuration.
      *
      * @param {string} apiKey - 'API Key' of Dailymotion OAuth2 app. For example: 07a9000000000000067f
-     * @param {string} apiSecret - 'API Secret' of Dailymotion OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} apiSecret - 'API Secret' of Dailymotion OAuth2 app. For example: a399a90000000000000000000000000000d90639
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Dailymotion>}
@@ -1554,6 +1687,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1569,7 +1703,7 @@ export class Project {
      * Update the project OAuth2 Discord configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Discord OAuth2 app. For example: 950722000000343754
-     * @param {string} params.clientSecret - 'Client Secret' of Discord OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Discord OAuth2 app. For example: YmPXnM000000000000000000002zFg5D
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Discord>}
@@ -1579,7 +1713,7 @@ export class Project {
      * Update the project OAuth2 Discord configuration.
      *
      * @param {string} clientId - 'Client ID' of Discord OAuth2 app. For example: 950722000000343754
-     * @param {string} clientSecret - 'Client Secret' of Discord OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Discord OAuth2 app. For example: YmPXnM000000000000000000002zFg5D
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Discord>}
@@ -1621,6 +1755,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1636,7 +1771,7 @@ export class Project {
      * Update the project OAuth2 Disqus configuration.
      *
      * @param {string} params.publicKey - 'Public Key, also known as API Key' of Disqus OAuth2 app. For example: cgegH70000000000000000000000000000000000000000000000000000Hr1nYX
-     * @param {string} params.secretKey - 'Secret Key, also known as API Secret' of Disqus OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.secretKey - 'Secret Key, also known as API Secret' of Disqus OAuth2 app. For example: W7Bykj00000000000000000000000000000000000000000000000000003o43w9
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Disqus>}
@@ -1646,7 +1781,7 @@ export class Project {
      * Update the project OAuth2 Disqus configuration.
      *
      * @param {string} publicKey - 'Public Key, also known as API Key' of Disqus OAuth2 app. For example: cgegH70000000000000000000000000000000000000000000000000000Hr1nYX
-     * @param {string} secretKey - 'Secret Key, also known as API Secret' of Disqus OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} secretKey - 'Secret Key, also known as API Secret' of Disqus OAuth2 app. For example: W7Bykj00000000000000000000000000000000000000000000000000003o43w9
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Disqus>}
@@ -1688,6 +1823,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1703,7 +1839,7 @@ export class Project {
      * Update the project OAuth2 Dropbox configuration.
      *
      * @param {string} params.appKey - 'App Key' of Dropbox OAuth2 app. For example: jl000000000009t
-     * @param {string} params.appSecret - 'App Secret' of Dropbox OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.appSecret - 'App Secret' of Dropbox OAuth2 app. For example: g200000000000vw
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Dropbox>}
@@ -1713,7 +1849,7 @@ export class Project {
      * Update the project OAuth2 Dropbox configuration.
      *
      * @param {string} appKey - 'App Key' of Dropbox OAuth2 app. For example: jl000000000009t
-     * @param {string} appSecret - 'App Secret' of Dropbox OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} appSecret - 'App Secret' of Dropbox OAuth2 app. For example: g200000000000vw
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Dropbox>}
@@ -1755,6 +1891,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1770,7 +1907,7 @@ export class Project {
      * Update the project OAuth2 Etsy configuration.
      *
      * @param {string} params.keyString - 'Keystring' of Etsy OAuth2 app. For example: nsgzxh0000000000008j85a2
-     * @param {string} params.sharedSecret - 'Shared Secret' of Etsy OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.sharedSecret - 'Shared Secret' of Etsy OAuth2 app. For example: tp000000ru
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Etsy>}
@@ -1780,7 +1917,7 @@ export class Project {
      * Update the project OAuth2 Etsy configuration.
      *
      * @param {string} keyString - 'Keystring' of Etsy OAuth2 app. For example: nsgzxh0000000000008j85a2
-     * @param {string} sharedSecret - 'Shared Secret' of Etsy OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} sharedSecret - 'Shared Secret' of Etsy OAuth2 app. For example: tp000000ru
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Etsy>}
@@ -1822,6 +1959,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1837,7 +1975,7 @@ export class Project {
      * Update the project OAuth2 Facebook configuration.
      *
      * @param {string} params.appId - 'App ID' of Facebook OAuth2 app. For example: 260600000007694
-     * @param {string} params.appSecret - 'App Secret' of Facebook OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.appSecret - 'App Secret' of Facebook OAuth2 app. For example: 2d0b2800000000000000000000d38af4
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Facebook>}
@@ -1847,7 +1985,7 @@ export class Project {
      * Update the project OAuth2 Facebook configuration.
      *
      * @param {string} appId - 'App ID' of Facebook OAuth2 app. For example: 260600000007694
-     * @param {string} appSecret - 'App Secret' of Facebook OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} appSecret - 'App Secret' of Facebook OAuth2 app. For example: 2d0b2800000000000000000000d38af4
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Facebook>}
@@ -1889,6 +2027,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1904,7 +2043,7 @@ export class Project {
      * Update the project OAuth2 Figma configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Figma OAuth2 app. For example: byay5H0000000000VtiI40
-     * @param {string} params.clientSecret - 'Client Secret' of Figma OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Figma OAuth2 app. For example: yEpOYn0000000000000000004iIsU5
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Figma>}
@@ -1914,7 +2053,7 @@ export class Project {
      * Update the project OAuth2 Figma configuration.
      *
      * @param {string} clientId - 'Client ID' of Figma OAuth2 app. For example: byay5H0000000000VtiI40
-     * @param {string} clientSecret - 'Client Secret' of Figma OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Figma OAuth2 app. For example: yEpOYn0000000000000000004iIsU5
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Figma>}
@@ -1956,6 +2095,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1971,7 +2111,7 @@ export class Project {
      * Update the project OAuth2 FusionAuth configuration.
      *
      * @param {string} params.clientId - 'Client ID' of FusionAuth OAuth2 app. For example: b2222c00-0000-0000-0000-000000862097
-     * @param {string} params.clientSecret - 'Client Secret' of FusionAuth OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of FusionAuth OAuth2 app. For example: Jx4s0C0000000000000000000000000000000wGqLsc
      * @param {string} params.endpoint - Domain of FusionAuth instance. For example: example.fusionauth.io
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -1982,7 +2122,7 @@ export class Project {
      * Update the project OAuth2 FusionAuth configuration.
      *
      * @param {string} clientId - 'Client ID' of FusionAuth OAuth2 app. For example: b2222c00-0000-0000-0000-000000862097
-     * @param {string} clientSecret - 'Client Secret' of FusionAuth OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of FusionAuth OAuth2 app. For example: Jx4s0C0000000000000000000000000000000wGqLsc
      * @param {string} endpoint - Domain of FusionAuth instance. For example: example.fusionauth.io
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -2030,6 +2170,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2045,7 +2186,7 @@ export class Project {
      * Update the project OAuth2 GitHub configuration.
      *
      * @param {string} params.clientId - 'OAuth2 app Client ID, or App ID' of GitHub OAuth2 app. For example: e4d87900000000540733. Example of wrong value: 370006
-     * @param {string} params.clientSecret - 'Client Secret' of GitHub OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of GitHub OAuth2 app. For example: 5e07c00000000000000000000000000000198bcc
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Github>}
@@ -2055,7 +2196,7 @@ export class Project {
      * Update the project OAuth2 GitHub configuration.
      *
      * @param {string} clientId - 'OAuth2 app Client ID, or App ID' of GitHub OAuth2 app. For example: e4d87900000000540733. Example of wrong value: 370006
-     * @param {string} clientSecret - 'Client Secret' of GitHub OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of GitHub OAuth2 app. For example: 5e07c00000000000000000000000000000198bcc
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Github>}
@@ -2097,6 +2238,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2112,7 +2254,7 @@ export class Project {
      * Update the project OAuth2 Gitlab configuration.
      *
      * @param {string} params.applicationId - 'Application ID' of Gitlab OAuth2 app. For example: d41ffe0000000000000000000000000000000000000000000000000000d5e252
-     * @param {string} params.secret - 'Secret' of Gitlab OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.secret - 'Secret' of Gitlab OAuth2 app. For example: gloas-838cfa0000000000000000000000000000000000000000000000000000ecbb38
      * @param {string} params.endpoint - Endpoint URL of self-hosted GitLab instance. For example: https://gitlab.com
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -2123,7 +2265,7 @@ export class Project {
      * Update the project OAuth2 Gitlab configuration.
      *
      * @param {string} applicationId - 'Application ID' of Gitlab OAuth2 app. For example: d41ffe0000000000000000000000000000000000000000000000000000d5e252
-     * @param {string} secret - 'Secret' of Gitlab OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} secret - 'Secret' of Gitlab OAuth2 app. For example: gloas-838cfa0000000000000000000000000000000000000000000000000000ecbb38
      * @param {string} endpoint - Endpoint URL of self-hosted GitLab instance. For example: https://gitlab.com
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -2171,6 +2313,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2186,7 +2329,7 @@ export class Project {
      * Update the project OAuth2 Google configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Google OAuth2 app. For example: 120000000095-92ifjb00000000000000000000g7ijfb.apps.googleusercontent.com
-     * @param {string} params.clientSecret - 'Client Secret' of Google OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Google OAuth2 app. For example: GOCSPX-2k8gsR0000000000000000VNahJj
      * @param {ProjectOAuth2GooglePrompt[]} params.prompt - Array of Google OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. Must not be specified with other values. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account.
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -2197,7 +2340,7 @@ export class Project {
      * Update the project OAuth2 Google configuration.
      *
      * @param {string} clientId - 'Client ID' of Google OAuth2 app. For example: 120000000095-92ifjb00000000000000000000g7ijfb.apps.googleusercontent.com
-     * @param {string} clientSecret - 'Client Secret' of Google OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Google OAuth2 app. For example: GOCSPX-2k8gsR0000000000000000VNahJj
      * @param {ProjectOAuth2GooglePrompt[]} prompt - Array of Google OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. Must not be specified with other values. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account.
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -2245,6 +2388,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2260,7 +2404,7 @@ export class Project {
      * Update the project OAuth2 Keycloak configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Keycloak OAuth2 app. For example: appwrite-o0000000st-app
-     * @param {string} params.clientSecret - 'Client Secret' of Keycloak OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Keycloak OAuth2 app. For example: jdjrJd00000000000000000000HUsaZO
      * @param {string} params.endpoint - Domain of Keycloak instance. For example: keycloak.example.com
      * @param {string} params.realmName - Keycloak realm name. For example: appwrite-realm
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
@@ -2272,7 +2416,7 @@ export class Project {
      * Update the project OAuth2 Keycloak configuration.
      *
      * @param {string} clientId - 'Client ID' of Keycloak OAuth2 app. For example: appwrite-o0000000st-app
-     * @param {string} clientSecret - 'Client Secret' of Keycloak OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Keycloak OAuth2 app. For example: jdjrJd00000000000000000000HUsaZO
      * @param {string} endpoint - Domain of Keycloak instance. For example: keycloak.example.com
      * @param {string} realmName - Keycloak realm name. For example: appwrite-realm
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
@@ -2326,6 +2470,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2341,7 +2486,7 @@ export class Project {
      * Update the project OAuth2 Kick configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Kick OAuth2 app. For example: 01KQ7C00000000000001MFHS32
-     * @param {string} params.clientSecret - 'Client Secret' of Kick OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Kick OAuth2 app. For example: 34ac5600000000000000000000000000000000000000000000000000e830c8b
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Kick>}
@@ -2351,7 +2496,7 @@ export class Project {
      * Update the project OAuth2 Kick configuration.
      *
      * @param {string} clientId - 'Client ID' of Kick OAuth2 app. For example: 01KQ7C00000000000001MFHS32
-     * @param {string} clientSecret - 'Client Secret' of Kick OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Kick OAuth2 app. For example: 34ac5600000000000000000000000000000000000000000000000000e830c8b
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Kick>}
@@ -2393,6 +2538,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2408,7 +2554,7 @@ export class Project {
      * Update the project OAuth2 Linkedin configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Linkedin OAuth2 app. For example: 770000000000dv
-     * @param {string} params.primaryClientSecret - 'Primary Client Secret or Secondary Client Secret' of Linkedin OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.primaryClientSecret - 'Primary Client Secret or Secondary Client Secret' of Linkedin OAuth2 app. For example: WPL_AP1.2Bf0000000000000./HtlYw==
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Linkedin>}
@@ -2418,7 +2564,7 @@ export class Project {
      * Update the project OAuth2 Linkedin configuration.
      *
      * @param {string} clientId - 'Client ID' of Linkedin OAuth2 app. For example: 770000000000dv
-     * @param {string} primaryClientSecret - 'Primary Client Secret or Secondary Client Secret' of Linkedin OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} primaryClientSecret - 'Primary Client Secret or Secondary Client Secret' of Linkedin OAuth2 app. For example: WPL_AP1.2Bf0000000000000./HtlYw==
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Linkedin>}
@@ -2460,6 +2606,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2475,7 +2622,7 @@ export class Project {
      * Update the project OAuth2 Microsoft configuration.
      *
      * @param {string} params.applicationId - 'Entra ID Application ID, also known as Client ID' of Microsoft OAuth2 app. For example: 00001111-aaaa-2222-bbbb-3333cccc4444
-     * @param {string} params.applicationSecret - 'Entra ID Application Secret, also known as Client Secret' of Microsoft OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.applicationSecret - 'Entra ID Application Secret, also known as Client Secret' of Microsoft OAuth2 app. For example: A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u
      * @param {string} params.tenant - Microsoft Entra ID tenant identifier. Use 'common', 'organizations', 'consumers' or a specific tenant ID. For example: common
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -2486,7 +2633,7 @@ export class Project {
      * Update the project OAuth2 Microsoft configuration.
      *
      * @param {string} applicationId - 'Entra ID Application ID, also known as Client ID' of Microsoft OAuth2 app. For example: 00001111-aaaa-2222-bbbb-3333cccc4444
-     * @param {string} applicationSecret - 'Entra ID Application Secret, also known as Client Secret' of Microsoft OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} applicationSecret - 'Entra ID Application Secret, also known as Client Secret' of Microsoft OAuth2 app. For example: A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u
      * @param {string} tenant - Microsoft Entra ID tenant identifier. Use 'common', 'organizations', 'consumers' or a specific tenant ID. For example: common
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
@@ -2534,6 +2681,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2549,7 +2697,7 @@ export class Project {
      * Update the project OAuth2 Notion configuration.
      *
      * @param {string} params.oauthClientId - 'OAuth Client ID' of Notion OAuth2 app. For example: 341d8700-0000-0000-0000-000000446ee3
-     * @param {string} params.oauthClientSecret - 'OAuth Client Secret' of Notion OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.oauthClientSecret - 'OAuth Client Secret' of Notion OAuth2 app. For example: secret_dLUr4b000000000000000000000000000000lFHAa9
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Notion>}
@@ -2559,7 +2707,7 @@ export class Project {
      * Update the project OAuth2 Notion configuration.
      *
      * @param {string} oauthClientId - 'OAuth Client ID' of Notion OAuth2 app. For example: 341d8700-0000-0000-0000-000000446ee3
-     * @param {string} oauthClientSecret - 'OAuth Client Secret' of Notion OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} oauthClientSecret - 'OAuth Client Secret' of Notion OAuth2 app. For example: secret_dLUr4b000000000000000000000000000000lFHAa9
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Notion>}
@@ -2601,6 +2749,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2616,7 +2765,7 @@ export class Project {
      * Update the project OAuth2 Oidc configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Oidc OAuth2 app. For example: qibI2x0000000000000000000000000006L2YFoG
-     * @param {string} params.clientSecret - 'Client Secret' of Oidc OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Oidc OAuth2 app. For example: Ah68ed000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003qpcHV
      * @param {string} params.wellKnownURL - OpenID Connect well-known configuration URL. When provided, authorization, token, and user info endpoints can be discovered automatically. For example: https://myoauth.com/.well-known/openid-configuration
      * @param {string} params.authorizationURL - OpenID Connect authorization endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/authorize
      * @param {string} params.tokenURL - OpenID Connect token endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/token
@@ -2630,7 +2779,7 @@ export class Project {
      * Update the project OAuth2 Oidc configuration.
      *
      * @param {string} clientId - 'Client ID' of Oidc OAuth2 app. For example: qibI2x0000000000000000000000000006L2YFoG
-     * @param {string} clientSecret - 'Client Secret' of Oidc OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Oidc OAuth2 app. For example: Ah68ed000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003qpcHV
      * @param {string} wellKnownURL - OpenID Connect well-known configuration URL. When provided, authorization, token, and user info endpoints can be discovered automatically. For example: https://myoauth.com/.well-known/openid-configuration
      * @param {string} authorizationURL - OpenID Connect authorization endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/authorize
      * @param {string} tokenURL - OpenID Connect token endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/token
@@ -2696,6 +2845,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2711,7 +2861,7 @@ export class Project {
      * Update the project OAuth2 Okta configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Okta OAuth2 app. For example: 0oa00000000000000698
-     * @param {string} params.clientSecret - 'Client Secret' of Okta OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Okta OAuth2 app. For example: Kiq0000000000000000000000000000000000000-00000000000H2L5-3SJ-vRV
      * @param {string} params.domain - Okta company domain. Required when enabling the provider. For example: trial-6400025.okta.com. Example of wrong value: trial-6400025-admin.okta.com, or https://trial-6400025.okta.com/
      * @param {string} params.authorizationServerId - Custom Authorization Servers. Optional, can be left empty or unconfigured. For example: aus000000000000000h7z
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
@@ -2723,7 +2873,7 @@ export class Project {
      * Update the project OAuth2 Okta configuration.
      *
      * @param {string} clientId - 'Client ID' of Okta OAuth2 app. For example: 0oa00000000000000698
-     * @param {string} clientSecret - 'Client Secret' of Okta OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Okta OAuth2 app. For example: Kiq0000000000000000000000000000000000000-00000000000H2L5-3SJ-vRV
      * @param {string} domain - Okta company domain. Required when enabling the provider. For example: trial-6400025.okta.com. Example of wrong value: trial-6400025-admin.okta.com, or https://trial-6400025.okta.com/
      * @param {string} authorizationServerId - Custom Authorization Servers. Optional, can be left empty or unconfigured. For example: aus000000000000000h7z
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
@@ -2777,6 +2927,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2792,7 +2943,7 @@ export class Project {
      * Update the project OAuth2 Paypal configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Paypal OAuth2 app. For example: AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB
-     * @param {string} params.secretKey - 'Secret Key 1 or Secret Key 2' of Paypal OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.secretKey - 'Secret Key 1 or Secret Key 2' of Paypal OAuth2 app. For example: EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Paypal>}
@@ -2802,7 +2953,7 @@ export class Project {
      * Update the project OAuth2 Paypal configuration.
      *
      * @param {string} clientId - 'Client ID' of Paypal OAuth2 app. For example: AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB
-     * @param {string} secretKey - 'Secret Key 1 or Secret Key 2' of Paypal OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} secretKey - 'Secret Key 1 or Secret Key 2' of Paypal OAuth2 app. For example: EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Paypal>}
@@ -2844,6 +2995,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2859,7 +3011,7 @@ export class Project {
      * Update the project OAuth2 PaypalSandbox configuration.
      *
      * @param {string} params.clientId - 'Client ID' of PaypalSandbox OAuth2 app. For example: AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB
-     * @param {string} params.secretKey - 'Secret Key 1 or Secret Key 2' of PaypalSandbox OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.secretKey - 'Secret Key 1 or Secret Key 2' of PaypalSandbox OAuth2 app. For example: EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Paypal>}
@@ -2869,7 +3021,7 @@ export class Project {
      * Update the project OAuth2 PaypalSandbox configuration.
      *
      * @param {string} clientId - 'Client ID' of PaypalSandbox OAuth2 app. For example: AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB
-     * @param {string} secretKey - 'Secret Key 1 or Secret Key 2' of PaypalSandbox OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} secretKey - 'Secret Key 1 or Secret Key 2' of PaypalSandbox OAuth2 app. For example: EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Paypal>}
@@ -2911,6 +3063,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2926,7 +3079,7 @@ export class Project {
      * Update the project OAuth2 Podio configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Podio OAuth2 app. For example: appwrite-o0000000st-app
-     * @param {string} params.clientSecret - 'Client Secret' of Podio OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Podio OAuth2 app. For example: Rn247T0000000000000000000000000000000000000000000000000000W2zWTN
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Podio>}
@@ -2936,7 +3089,7 @@ export class Project {
      * Update the project OAuth2 Podio configuration.
      *
      * @param {string} clientId - 'Client ID' of Podio OAuth2 app. For example: appwrite-o0000000st-app
-     * @param {string} clientSecret - 'Client Secret' of Podio OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Podio OAuth2 app. For example: Rn247T0000000000000000000000000000000000000000000000000000W2zWTN
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Podio>}
@@ -2978,6 +3131,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2993,7 +3147,7 @@ export class Project {
      * Update the project OAuth2 Salesforce configuration.
      *
      * @param {string} params.customerKey - 'Consumer Key' of Salesforce OAuth2 app. For example: 3MVG9I0000000000000000000000000000000000000000000000000000000000000000000000000C5Aejq
-     * @param {string} params.customerSecret - 'Consumer Secret' of Salesforce OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.customerSecret - 'Consumer Secret' of Salesforce OAuth2 app. For example: 3w000000000000e2
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Salesforce>}
@@ -3003,7 +3157,7 @@ export class Project {
      * Update the project OAuth2 Salesforce configuration.
      *
      * @param {string} customerKey - 'Consumer Key' of Salesforce OAuth2 app. For example: 3MVG9I0000000000000000000000000000000000000000000000000000000000000000000000000C5Aejq
-     * @param {string} customerSecret - 'Consumer Secret' of Salesforce OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} customerSecret - 'Consumer Secret' of Salesforce OAuth2 app. For example: 3w000000000000e2
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Salesforce>}
@@ -3045,6 +3199,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3060,7 +3215,7 @@ export class Project {
      * Update the project OAuth2 Slack configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Slack OAuth2 app. For example: 23000000089.15000000000023
-     * @param {string} params.clientSecret - 'Client Secret' of Slack OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Slack OAuth2 app. For example: 81656000000000000000000000f3d2fd
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Slack>}
@@ -3070,7 +3225,7 @@ export class Project {
      * Update the project OAuth2 Slack configuration.
      *
      * @param {string} clientId - 'Client ID' of Slack OAuth2 app. For example: 23000000089.15000000000023
-     * @param {string} clientSecret - 'Client Secret' of Slack OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Slack OAuth2 app. For example: 81656000000000000000000000f3d2fd
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Slack>}
@@ -3112,6 +3267,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3127,7 +3283,7 @@ export class Project {
      * Update the project OAuth2 Spotify configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Spotify OAuth2 app. For example: 6ec271000000000000000000009beace
-     * @param {string} params.clientSecret - 'Client Secret' of Spotify OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Spotify OAuth2 app. For example: db068a000000000000000000008b5b9f
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Spotify>}
@@ -3137,7 +3293,7 @@ export class Project {
      * Update the project OAuth2 Spotify configuration.
      *
      * @param {string} clientId - 'Client ID' of Spotify OAuth2 app. For example: 6ec271000000000000000000009beace
-     * @param {string} clientSecret - 'Client Secret' of Spotify OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Spotify OAuth2 app. For example: db068a000000000000000000008b5b9f
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Spotify>}
@@ -3179,6 +3335,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3194,7 +3351,7 @@ export class Project {
      * Update the project OAuth2 Stripe configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Stripe OAuth2 app. For example: ca_UKibXX0000000000000000000006byvR
-     * @param {string} params.apiSecretKey - 'API Secret Key' of Stripe OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.apiSecretKey - 'API Secret Key' of Stripe OAuth2 app. For example: sk_51SfOd000000000000000000000000000000000000000000000000000000000000000000000000000000000000000QGWYfp
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Stripe>}
@@ -3204,7 +3361,7 @@ export class Project {
      * Update the project OAuth2 Stripe configuration.
      *
      * @param {string} clientId - 'Client ID' of Stripe OAuth2 app. For example: ca_UKibXX0000000000000000000006byvR
-     * @param {string} apiSecretKey - 'API Secret Key' of Stripe OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} apiSecretKey - 'API Secret Key' of Stripe OAuth2 app. For example: sk_51SfOd000000000000000000000000000000000000000000000000000000000000000000000000000000000000000QGWYfp
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Stripe>}
@@ -3246,6 +3403,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3261,7 +3419,7 @@ export class Project {
      * Update the project OAuth2 Tradeshift configuration.
      *
      * @param {string} params.oauth2ClientId - 'OAuth2 Client ID' of Tradeshift OAuth2 app. For example: appwrite-tes00000.0000000000est-app
-     * @param {string} params.oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift OAuth2 app. For example: 7cb52700-0000-0000-0000-000000ca5b83
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Tradeshift>}
@@ -3271,7 +3429,7 @@ export class Project {
      * Update the project OAuth2 Tradeshift configuration.
      *
      * @param {string} oauth2ClientId - 'OAuth2 Client ID' of Tradeshift OAuth2 app. For example: appwrite-tes00000.0000000000est-app
-     * @param {string} oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift OAuth2 app. For example: 7cb52700-0000-0000-0000-000000ca5b83
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Tradeshift>}
@@ -3313,6 +3471,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3328,7 +3487,7 @@ export class Project {
      * Update the project OAuth2 Tradeshift Sandbox configuration.
      *
      * @param {string} params.oauth2ClientId - 'OAuth2 Client ID' of Tradeshift Sandbox OAuth2 app. For example: appwrite-tes00000.0000000000est-app
-     * @param {string} params.oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift Sandbox OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift Sandbox OAuth2 app. For example: 7cb52700-0000-0000-0000-000000ca5b83
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Tradeshift>}
@@ -3338,7 +3497,7 @@ export class Project {
      * Update the project OAuth2 Tradeshift Sandbox configuration.
      *
      * @param {string} oauth2ClientId - 'OAuth2 Client ID' of Tradeshift Sandbox OAuth2 app. For example: appwrite-tes00000.0000000000est-app
-     * @param {string} oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift Sandbox OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} oauth2ClientSecret - 'OAuth2 Client Secret' of Tradeshift Sandbox OAuth2 app. For example: 7cb52700-0000-0000-0000-000000ca5b83
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Tradeshift>}
@@ -3380,6 +3539,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3395,7 +3555,7 @@ export class Project {
      * Update the project OAuth2 Twitch configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Twitch OAuth2 app. For example: vvi0in000000000000000000ikmt9p
-     * @param {string} params.clientSecret - 'Client Secret' of Twitch OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Twitch OAuth2 app. For example: pmapue000000000000000000zylw3v
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Twitch>}
@@ -3405,7 +3565,7 @@ export class Project {
      * Update the project OAuth2 Twitch configuration.
      *
      * @param {string} clientId - 'Client ID' of Twitch OAuth2 app. For example: vvi0in000000000000000000ikmt9p
-     * @param {string} clientSecret - 'Client Secret' of Twitch OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Twitch OAuth2 app. For example: pmapue000000000000000000zylw3v
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Twitch>}
@@ -3447,6 +3607,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3462,7 +3623,7 @@ export class Project {
      * Update the project OAuth2 WordPress configuration.
      *
      * @param {string} params.clientId - 'Client ID' of WordPress OAuth2 app. For example: 130005
-     * @param {string} params.clientSecret - 'Client Secret' of WordPress OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of WordPress OAuth2 app. For example: PlBfJS0000000000000000000000000000000000000000000000000000EdUZJk
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2WordPress>}
@@ -3472,7 +3633,7 @@ export class Project {
      * Update the project OAuth2 WordPress configuration.
      *
      * @param {string} clientId - 'Client ID' of WordPress OAuth2 app. For example: 130005
-     * @param {string} clientSecret - 'Client Secret' of WordPress OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of WordPress OAuth2 app. For example: PlBfJS0000000000000000000000000000000000000000000000000000EdUZJk
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2WordPress>}
@@ -3514,6 +3675,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3529,7 +3691,7 @@ export class Project {
      * Update the project OAuth2 X configuration.
      *
      * @param {string} params.customerKey - 'Customer Key' of X OAuth2 app. For example: slzZV0000000000000NFLaWT
-     * @param {string} params.secretKey - 'Secret Key' of X OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.secretKey - 'Secret Key' of X OAuth2 app. For example: tkEPkp00000000000000000000000000000000000000FTxbI9
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2X>}
@@ -3539,7 +3701,7 @@ export class Project {
      * Update the project OAuth2 X configuration.
      *
      * @param {string} customerKey - 'Customer Key' of X OAuth2 app. For example: slzZV0000000000000NFLaWT
-     * @param {string} secretKey - 'Secret Key' of X OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} secretKey - 'Secret Key' of X OAuth2 app. For example: tkEPkp00000000000000000000000000000000000000FTxbI9
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2X>}
@@ -3581,6 +3743,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3596,7 +3759,7 @@ export class Project {
      * Update the project OAuth2 Yahoo configuration.
      *
      * @param {string} params.clientId - 'Client ID, also known as Customer Key' of Yahoo OAuth2 app. For example: dj0yJm000000000000000000000000000000000000000000000000000000000000000000000000000000000000Z4PWRm
-     * @param {string} params.clientSecret - 'Client Secret, also known as Customer Secret' of Yahoo OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret, also known as Customer Secret' of Yahoo OAuth2 app. For example: cf978f0000000000000000000000000000c5e2e9
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Yahoo>}
@@ -3606,7 +3769,7 @@ export class Project {
      * Update the project OAuth2 Yahoo configuration.
      *
      * @param {string} clientId - 'Client ID, also known as Customer Key' of Yahoo OAuth2 app. For example: dj0yJm000000000000000000000000000000000000000000000000000000000000000000000000000000000000Z4PWRm
-     * @param {string} clientSecret - 'Client Secret, also known as Customer Secret' of Yahoo OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret, also known as Customer Secret' of Yahoo OAuth2 app. For example: cf978f0000000000000000000000000000c5e2e9
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Yahoo>}
@@ -3648,6 +3811,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3663,7 +3827,7 @@ export class Project {
      * Update the project OAuth2 Yandex configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Yandex OAuth2 app. For example: 6a8a6a0000000000000000000091483c
-     * @param {string} params.clientSecret - 'Client Secret' of Yandex OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Yandex OAuth2 app. For example: bbf98500000000000000000000c75a63
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Yandex>}
@@ -3673,7 +3837,7 @@ export class Project {
      * Update the project OAuth2 Yandex configuration.
      *
      * @param {string} clientId - 'Client ID' of Yandex OAuth2 app. For example: 6a8a6a0000000000000000000091483c
-     * @param {string} clientSecret - 'Client Secret' of Yandex OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Yandex OAuth2 app. For example: bbf98500000000000000000000c75a63
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Yandex>}
@@ -3715,6 +3879,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3730,7 +3895,7 @@ export class Project {
      * Update the project OAuth2 Zoho configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Zoho OAuth2 app. For example: 1000.83C178000000000000000000RPNX0B
-     * @param {string} params.clientSecret - 'Client Secret' of Zoho OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Zoho OAuth2 app. For example: fb5cac000000000000000000000000000000a68f6e
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Zoho>}
@@ -3740,7 +3905,7 @@ export class Project {
      * Update the project OAuth2 Zoho configuration.
      *
      * @param {string} clientId - 'Client ID' of Zoho OAuth2 app. For example: 1000.83C178000000000000000000RPNX0B
-     * @param {string} clientSecret - 'Client Secret' of Zoho OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Zoho OAuth2 app. For example: fb5cac000000000000000000000000000000a68f6e
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Zoho>}
@@ -3782,6 +3947,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3797,7 +3963,7 @@ export class Project {
      * Update the project OAuth2 Zoom configuration.
      *
      * @param {string} params.clientId - 'Client ID' of Zoom OAuth2 app. For example: QMAC00000000000000w0AQ
-     * @param {string} params.clientSecret - 'Client Secret' of Zoom OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} params.clientSecret - 'Client Secret' of Zoom OAuth2 app. For example: GAWsG4000000000000000000007U01ON
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Zoom>}
@@ -3807,7 +3973,7 @@ export class Project {
      * Update the project OAuth2 Zoom configuration.
      *
      * @param {string} clientId - 'Client ID' of Zoom OAuth2 app. For example: QMAC00000000000000w0AQ
-     * @param {string} clientSecret - 'Client Secret' of Zoom OAuth2 app. For example: your-oauth2-client-secret
+     * @param {string} clientSecret - 'Client Secret' of Zoom OAuth2 app. For example: GAWsG4000000000000000000007U01ON
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Zoom>}
@@ -3849,6 +4015,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3901,6 +4068,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -3960,6 +4128,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -4035,6 +4204,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4108,6 +4278,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4184,6 +4355,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4257,6 +4429,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4333,6 +4506,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4406,6 +4580,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4482,6 +4657,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4555,6 +4731,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4631,6 +4808,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4704,6 +4882,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4756,6 +4935,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -4807,6 +4987,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4867,6 +5048,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -4921,6 +5103,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4976,6 +5159,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5031,6 +5215,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5112,6 +5297,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5167,6 +5353,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5226,6 +5413,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5281,6 +5469,89 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update the password strength requirements for users in the project.
+     *
+     * @param {number} params.min - Minimum password length. Value must be between 8 and 256. Default is 8.
+     * @param {boolean} params.uppercase - Whether passwords must include at least one uppercase letter.
+     * @param {boolean} params.lowercase - Whether passwords must include at least one lowercase letter.
+     * @param {boolean} params.number - Whether passwords must include at least one number.
+     * @param {boolean} params.symbols - Whether passwords must include at least one symbol.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.PolicyPasswordStrength>}
+     */
+    updatePasswordStrengthPolicy(params?: { min?: number, uppercase?: boolean, lowercase?: boolean, number?: boolean, symbols?: boolean }): Promise<Models.PolicyPasswordStrength>;
+    /**
+     * Update the password strength requirements for users in the project.
+     *
+     * @param {number} min - Minimum password length. Value must be between 8 and 256. Default is 8.
+     * @param {boolean} uppercase - Whether passwords must include at least one uppercase letter.
+     * @param {boolean} lowercase - Whether passwords must include at least one lowercase letter.
+     * @param {boolean} number - Whether passwords must include at least one number.
+     * @param {boolean} symbols - Whether passwords must include at least one symbol.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.PolicyPasswordStrength>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updatePasswordStrengthPolicy(min?: number, uppercase?: boolean, lowercase?: boolean, number?: boolean, symbols?: boolean): Promise<Models.PolicyPasswordStrength>;
+    updatePasswordStrengthPolicy(
+        paramsOrFirst?: { min?: number, uppercase?: boolean, lowercase?: boolean, number?: boolean, symbols?: boolean } | number,
+        ...rest: [(boolean)?, (boolean)?, (boolean)?, (boolean)?]    
+    ): Promise<Models.PolicyPasswordStrength> {
+        let params: { min?: number, uppercase?: boolean, lowercase?: boolean, number?: boolean, symbols?: boolean };
+        
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { min?: number, uppercase?: boolean, lowercase?: boolean, number?: boolean, symbols?: boolean };
+        } else {
+            params = {
+                min: paramsOrFirst as number,
+                uppercase: rest[0] as boolean,
+                lowercase: rest[1] as boolean,
+                number: rest[2] as boolean,
+                symbols: rest[3] as boolean            
+            };
+        }
+        
+        const min = params.min;
+        const uppercase = params.uppercase;
+        const lowercase = params.lowercase;
+        const number = params.number;
+        const symbols = params.symbols;
+
+
+        const apiPath = '/project/policies/password-strength';
+        const payload: Payload = {};
+        if (typeof min !== 'undefined') {
+            payload['min'] = min;
+        }
+        if (typeof uppercase !== 'undefined') {
+            payload['uppercase'] = uppercase;
+        }
+        if (typeof lowercase !== 'undefined') {
+            payload['lowercase'] = lowercase;
+        }
+        if (typeof number !== 'undefined') {
+            payload['number'] = number;
+        }
+        if (typeof symbols !== 'undefined') {
+            payload['symbols'] = symbols;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5336,6 +5607,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5391,6 +5663,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5446,6 +5719,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5501,6 +5775,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5556,6 +5831,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5570,23 +5846,23 @@ export class Project {
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, deny-aliased-email, deny-disposable-email, deny-free-email.
+     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, deny-aliased-email, deny-disposable-email, deny-free-email.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail>}
      */
-    getPolicy(params: { policyId: ProjectPolicyId }): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail>;
+    getPolicy(params: { policyId: ProjectPolicyId }): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail>;
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, deny-aliased-email, deny-disposable-email, deny-free-email.
+     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, deny-aliased-email, deny-disposable-email, deny-free-email.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getPolicy(policyId: ProjectPolicyId): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail>;
+    getPolicy(policyId: ProjectPolicyId): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail>;
     getPolicy(
         paramsOrFirst: { policyId: ProjectPolicyId } | ProjectPolicyId    
-    ): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail> {
+    ): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail> {
         let params: { policyId: ProjectPolicyId };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('policyId' in paramsOrFirst))) {
@@ -5608,6 +5884,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -5670,6 +5947,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5733,6 +6011,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5849,6 +6128,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5904,6 +6184,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5964,6 +6245,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -6068,6 +6350,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -6128,6 +6411,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -6187,6 +6471,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -6269,6 +6554,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -6321,6 +6607,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -6394,6 +6681,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -6446,6 +6734,7 @@ export class Project {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 

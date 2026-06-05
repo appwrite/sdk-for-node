@@ -1,6 +1,7 @@
 export enum ProjectPolicyId {
     Passworddictionary = 'password-dictionary',
     Passwordhistory = 'password-history',
+    Passwordstrength = 'password-strength',
     Passwordpersonaldata = 'password-personal-data',
     Sessionalert = 'session-alert',
     Sessionduration = 'session-duration',

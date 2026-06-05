@@ -17,6 +17,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -35,9 +36,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.get(
@@ -69,6 +78,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -87,9 +97,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateAuthMethod(
@@ -236,6 +254,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -254,9 +273,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateLabels(
@@ -369,12 +396,62 @@ describe('Project', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method updateOAuth2Server()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'name': 'New Project',
+            'teamId': '1592981250',
+            'region': 'fra',
+            'devKeys': [],
+            'smtpEnabled': true,
+            'smtpSenderName': 'John Appwrite',
+            'smtpSenderEmail': 'john@appwrite.io',
+            'smtpReplyToName': 'Support Team',
+            'smtpReplyToEmail': 'support@appwrite.io',
+            'smtpHost': 'mail.appwrite.io',
+            'smtpPort': 25,
+            'smtpUsername': 'emailuser',
+            'smtpPassword': '',
+            'smtpSecure': 'tls',
+            'pingCount': 1,
+            'pingedAt': '2020-10-15T06:38:00.000+00:00',
+            'labels': [],
+            'status': 'active',
+            'authMethods': [],
+            'services': [],
+            'protocols': [],
+            'blocks': [],
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await project.updateOAuth2Server(
+            true,
+            'https://example.com',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method updateOAuth2Amazon()', async () => {
                                                 const data = {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'amzn1.application-oa2-client.87400c00000000000000000000063d5b2',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': '79ffe4000000000000000000000000000000000000000000000000000002de55',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Amazon(
@@ -410,7 +487,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'OaOkIA000000000000000000005KLSYq',
-            'clientSecret': 'your-oauth2-client-secret',
+            'clientSecret': 'zXz0000-00000000000000000000000000000-00000000000000000000PJafnF',
             'endpoint': 'example.us.auth0.com',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -428,7 +505,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'dTKOPa0000000000000000000000000000e7G8hv',
-            'clientSecret': 'your-oauth2-client-secret',
+            'clientSecret': 'ntQadq000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000Hp5WK',
             'endpoint': 'example.authentik.com',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -446,7 +523,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '5zw90v00000000000000000000kVYXN7',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': '7I000000000000MW',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Autodesk(
@@ -463,7 +540,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'key': 'Knt70000000000ByRc',
-            'secret': 'your-oauth2-client-secret',};
+            'secret': 'NMfLZJ00000000000000000000TLQdDx',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Bitbucket(
@@ -480,7 +557,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'd95151000000000000000000000000000067af9b',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': 'a13e250000000000000000000000000000d73095',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Bitly(
@@ -497,7 +574,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'deglcs00000000000000000000x2og6y',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': 'OKM1f100000000000000000000eshEif',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Box(
@@ -514,7 +591,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'apiKey': '07a9000000000000067f',
-            'apiSecret': 'your-oauth2-client-secret',};
+            'apiSecret': 'a399a90000000000000000000000000000d90639',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Dailymotion(
@@ -531,7 +608,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '950722000000343754',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': 'YmPXnM000000000000000000002zFg5D',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Discord(
@@ -548,7 +625,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'publicKey': 'cgegH70000000000000000000000000000000000000000000000000000Hr1nYX',
-            'secretKey': 'your-oauth2-client-secret',};
+            'secretKey': 'W7Bykj00000000000000000000000000000000000000000000000000003o43w9',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Disqus(
@@ -565,7 +642,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'appKey': 'jl000000000009t',
-            'appSecret': 'your-oauth2-client-secret',};
+            'appSecret': 'g200000000000vw',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Dropbox(
@@ -582,7 +659,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'keyString': 'nsgzxh0000000000008j85a2',
-            'sharedSecret': 'your-oauth2-client-secret',};
+            'sharedSecret': 'tp000000ru',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Etsy(
@@ -599,7 +676,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'appId': '260600000007694',
-            'appSecret': 'your-oauth2-client-secret',};
+            'appSecret': '2d0b2800000000000000000000d38af4',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Facebook(
@@ -616,7 +693,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'byay5H0000000000VtiI40',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': 'yEpOYn0000000000000000004iIsU5',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Figma(
@@ -633,7 +710,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'b2222c00-0000-0000-0000-000000862097',
-            'clientSecret': 'your-oauth2-client-secret',
+            'clientSecret': 'Jx4s0C0000000000000000000000000000000wGqLsc',
             'endpoint': 'example.fusionauth.io',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -651,7 +728,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'e4d87900000000540733',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': '5e07c00000000000000000000000000000198bcc',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2GitHub(
@@ -668,7 +745,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'applicationId': 'd41ffe0000000000000000000000000000000000000000000000000000d5e252',
-            'secret': 'your-oauth2-client-secret',
+            'secret': 'gloas-838cfa0000000000000000000000000000000000000000000000000000ecbb38',
             'endpoint': 'https://gitlab.com',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -686,7 +763,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '120000000095-92ifjb00000000000000000000g7ijfb.apps.googleusercontent.com',
-            'clientSecret': 'your-oauth2-client-secret',
+            'clientSecret': 'GOCSPX-2k8gsR0000000000000000VNahJj',
             'prompt': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -704,7 +781,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'appwrite-o0000000st-app',
-            'clientSecret': 'your-oauth2-client-secret',
+            'clientSecret': 'jdjrJd00000000000000000000HUsaZO',
             'endpoint': 'keycloak.example.com',
             'realmName': 'appwrite-realm',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -723,7 +800,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '01KQ7C00000000000001MFHS32',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': '34ac5600000000000000000000000000000000000000000000000000e830c8b',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Kick(
@@ -740,7 +817,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '770000000000dv',
-            'primaryClientSecret': 'your-oauth2-client-secret',};
+            'primaryClientSecret': 'WPL_AP1.2Bf0000000000000./HtlYw==',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Linkedin(
@@ -757,7 +834,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'applicationId': '00001111-aaaa-2222-bbbb-3333cccc4444',
-            'applicationSecret': 'your-oauth2-client-secret',
+            'applicationSecret': 'A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u',
             'tenant': 'common',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -775,7 +852,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'oauthClientId': '341d8700-0000-0000-0000-000000446ee3',
-            'oauthClientSecret': 'your-oauth2-client-secret',};
+            'oauthClientSecret': 'secret_dLUr4b000000000000000000000000000000lFHAa9',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Notion(
@@ -792,7 +869,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'qibI2x0000000000000000000000000006L2YFoG',
-            'clientSecret': 'your-oauth2-client-secret',
+            'clientSecret': 'Ah68ed000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003qpcHV',
             'wellKnownURL': 'https://myoauth.com/.well-known/openid-configuration',
             'authorizationURL': 'https://myoauth.com/oauth2/authorize',
             'tokenURL': 'https://myoauth.com/oauth2/token',
@@ -813,7 +890,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '0oa00000000000000698',
-            'clientSecret': 'your-oauth2-client-secret',
+            'clientSecret': 'Kiq0000000000000000000000000000000000000-00000000000H2L5-3SJ-vRV',
             'domain': 'trial-6400025.okta.com',
             'authorizationServerId': 'aus000000000000000h7z',};
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -832,7 +909,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB',
-            'secretKey': 'your-oauth2-client-secret',};
+            'secretKey': 'EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Paypal(
@@ -849,7 +926,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB',
-            'secretKey': 'your-oauth2-client-secret',};
+            'secretKey': 'EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2PaypalSandbox(
@@ -866,7 +943,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'appwrite-oauth-test-app',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': 'Rn247T0000000000000000000000000000000000000000000000000000W2zWTN',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Podio(
@@ -883,7 +960,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'customerKey': '3MVG9I0000000000000000000000000000000000000000000000000000000000000000000000000C5Aejq',
-            'customerSecret': 'your-oauth2-client-secret',};
+            'customerSecret': '3w000000000000e2',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Salesforce(
@@ -900,7 +977,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '23000000089.15000000000023',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': '81656000000000000000000000f3d2fd',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Slack(
@@ -917,7 +994,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '6ec271000000000000000000009beace',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': 'db068a000000000000000000008b5b9f',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Spotify(
@@ -934,7 +1011,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'ca_UKibXX0000000000000000000006byvR',
-            'apiSecretKey': 'your-oauth2-client-secret',};
+            'apiSecretKey': 'sk_51SfOd000000000000000000000000000000000000000000000000000000000000000000000000000000000000000QGWYfp',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Stripe(
@@ -951,7 +1028,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'oauth2ClientId': 'appwrite-test-org.appwrite-test-app',
-            'oauth2ClientSecret': 'your-oauth2-client-secret',};
+            'oauth2ClientSecret': '7cb52700-0000-0000-0000-000000ca5b83',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Tradeshift(
@@ -968,7 +1045,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'oauth2ClientId': 'appwrite-test-org.appwrite-test-app',
-            'oauth2ClientSecret': 'your-oauth2-client-secret',};
+            'oauth2ClientSecret': '7cb52700-0000-0000-0000-000000ca5b83',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2TradeshiftSandbox(
@@ -985,7 +1062,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'vvi0in000000000000000000ikmt9p',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': 'pmapue000000000000000000zylw3v',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Twitch(
@@ -1002,7 +1079,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '130005',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': 'PlBfJS0000000000000000000000000000000000000000000000000000EdUZJk',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2WordPress(
@@ -1019,7 +1096,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'customerKey': 'slzZV0000000000000NFLaWT',
-            'secretKey': 'your-oauth2-client-secret',};
+            'secretKey': 'tkEPkp00000000000000000000000000000000000000FTxbI9',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2X(
@@ -1036,7 +1113,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'dj0yJm000000000000000000000000000000000000000000000000000000000000000000000000000000000000Z4PWRm',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': 'cf978f0000000000000000000000000000c5e2e9',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Yahoo(
@@ -1053,7 +1130,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '6a8a6a0000000000000000000091483c',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': 'bbf98500000000000000000000c75a63',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Yandex(
@@ -1070,7 +1147,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': '1000.83C178000000000000000000RPNX0B',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': 'fb5cac000000000000000000000000000000a68f6e',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Zoho(
@@ -1087,7 +1164,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'clientId': 'QMAC00000000000000w0AQ',
-            'clientSecret': 'your-oauth2-client-secret',};
+            'clientSecret': 'GAWsG4000000000000000000007U01ON',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Zoom(
@@ -1104,7 +1181,7 @@ describe('Project', () => {
             '\$id': 'github',
             'enabled': true,
             'applicationId': '00001111-aaaa-2222-bbbb-3333cccc4444',
-            'applicationSecret': 'your-oauth2-client-secret',
+            'applicationSecret': 'A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u',
             'tenant': 'common',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -1389,7 +1466,7 @@ describe('Project', () => {
     
     test('test method listPolicies()', async () => {
                                                 const data = {
-            'total': 9,
+            'total': 10,
             'policies': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -1409,6 +1486,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1427,9 +1505,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateDenyAliasedEmailPolicy(
@@ -1449,6 +1535,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1467,9 +1554,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateDenyDisposableEmailPolicy(
@@ -1489,6 +1584,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1507,9 +1603,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateDenyFreeEmailPolicy(
@@ -1529,6 +1633,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1547,9 +1652,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateMembershipPrivacyPolicy(
@@ -1568,6 +1681,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1586,9 +1700,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updatePasswordDictionaryPolicy(
@@ -1608,6 +1730,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1626,9 +1749,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updatePasswordHistoryPolicy(
@@ -1648,6 +1779,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1666,13 +1798,40 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updatePasswordPersonalDataPolicy(
             true,
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method updatePasswordStrengthPolicy()', async () => {
+                                                const data = {
+            '\$id': 'password-dictionary',
+            'min': 12,
+            'uppercase': true,
+            'lowercase': true,
+            'number': true,
+            'symbols': true,};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await project.updatePasswordStrengthPolicy(
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
@@ -1688,6 +1847,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1706,9 +1866,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSessionAlertPolicy(
@@ -1728,6 +1896,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1746,9 +1915,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSessionDurationPolicy(
@@ -1768,6 +1945,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1786,9 +1964,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSessionInvalidationPolicy(
@@ -1808,6 +1994,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1826,9 +2013,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSessionLimitPolicy(
@@ -1848,6 +2043,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1866,9 +2062,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateUserLimitPolicy(
@@ -1904,6 +2108,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1922,9 +2127,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateProtocol(
@@ -1945,6 +2158,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -1963,9 +2177,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateService(
@@ -1986,6 +2208,7 @@ describe('Project', () => {
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'name': 'New Project',
             'teamId': '1592981250',
+            'region': 'fra',
             'devKeys': [],
             'smtpEnabled': true,
             'smtpSenderName': 'John Appwrite',
@@ -2004,9 +2227,17 @@ describe('Project', () => {
             'authMethods': [],
             'services': [],
             'protocols': [],
-            'region': 'fra',
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'oAuth2ServerEnabled': true,
+            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
+            'oAuth2ServerScopes': [],
+            'oAuth2ServerAccessTokenDuration': 3600,
+            'oAuth2ServerRefreshTokenDuration': 86400,
+            'oAuth2ServerPublicAccessTokenDuration': 3600,
+            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
+            'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSMTP(

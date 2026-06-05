@@ -92,5 +92,7 @@ export enum ProjectKeyScopes {
     DomainsRead = 'domains.read',
     DomainsWrite = 'domains.write',
     EventsRead = 'events.read',
+    AppsRead = 'apps.read',
+    AppsWrite = 'apps.write',
     UsageRead = 'usage.read',
 }
