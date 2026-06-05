@@ -24,6 +24,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -47,6 +48,32 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Check the database that backs the audit and activity store. When the connection is reachable the endpoint returns a passing status with its response time.
+     * 
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.HealthStatusList>}
+     */
+    getAuditsDB(): Promise<Models.HealthStatusList> {
+
+        const apiPath = '/health/audits-db';
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -70,6 +97,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -121,6 +149,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -182,6 +211,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -205,6 +235,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -228,6 +259,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -281,6 +313,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -332,6 +365,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -383,6 +417,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -442,6 +477,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -493,6 +529,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -554,6 +591,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -605,6 +643,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -656,6 +695,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -707,6 +747,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -758,6 +799,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -809,6 +851,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -860,6 +903,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -911,6 +955,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -962,6 +1007,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -985,6 +1031,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -1008,6 +1055,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -1031,6 +1079,7 @@ export class Health {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(

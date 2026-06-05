@@ -54,6 +54,7 @@ export class Graphql {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'x-sdk-graphql': 'true',
             'content-type': 'application/json',
         }
@@ -110,6 +111,7 @@ export class Graphql {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'x-sdk-graphql': 'true',
             'content-type': 'application/json',
         }

@@ -496,7 +496,7 @@ export namespace Models {
         /**
          * List of policies.
          */
-        policies: (Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail)[];
+        policies: (Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail)[];
     }
 
     /**
@@ -4165,6 +4165,10 @@ export namespace Models {
          */
         teamId: string;
         /**
+         * Project region
+         */
+        region: string;
+        /**
          * Deprecated since 1.9.5: List of dev keys.
          */
         devKeys: DevKey[];
@@ -4237,14 +4241,6 @@ export namespace Models {
          */
         protocols: ProjectProtocol[];
         /**
-         * Project region
-         */
-        region: string;
-        /**
-         * Billing limits reached
-         */
-        billingLimits?: BillingLimits;
-        /**
          * Project blocks information
          */
         blocks: Block[];
@@ -4252,6 +4248,46 @@ export namespace Models {
          * Last time the project was accessed via console. Used with plan's projectInactivityDays to determine if project is paused.
          */
         consoleAccessedAt: string;
+        /**
+         * Billing limits reached
+         */
+        billingLimits?: BillingLimits;
+        /**
+         * OAuth2 server status
+         */
+        oAuth2ServerEnabled: boolean;
+        /**
+         * OAuth2 server authorization URL
+         */
+        oAuth2ServerAuthorizationUrl: string;
+        /**
+         * OAuth2 server allowed scopes
+         */
+        oAuth2ServerScopes: string[];
+        /**
+         * OAuth2 server access token duration in seconds for confidential clients
+         */
+        oAuth2ServerAccessTokenDuration: number;
+        /**
+         * OAuth2 server refresh token duration in seconds for confidential clients
+         */
+        oAuth2ServerRefreshTokenDuration: number;
+        /**
+         * OAuth2 server access token duration in seconds for public clients (SPAs, mobile, native)
+         */
+        oAuth2ServerPublicAccessTokenDuration: number;
+        /**
+         * OAuth2 server refresh token duration in seconds for public clients (SPAs, mobile, native)
+         */
+        oAuth2ServerPublicRefreshTokenDuration: number;
+        /**
+         * When enabled, PKCE is required for confidential clients (server-side flows using client_secret). PKCE is always required for public clients regardless of this setting.
+         */
+        oAuth2ServerConfidentialPkce: boolean;
+        /**
+         * OAuth2 server discovery URL
+         */
+        oAuth2ServerDiscoveryUrl: string;
     }
 
     /**
@@ -5482,6 +5518,36 @@ export namespace Models {
          * Password history length. A value of 0 means the policy is disabled.
          */
         total: number;
+    }
+
+    /**
+     * Policy Password Strength
+     */
+    export type PolicyPasswordStrength = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Minimum password length required for user passwords.
+         */
+        min: number;
+        /**
+         * Whether passwords must include at least one uppercase letter.
+         */
+        uppercase: boolean;
+        /**
+         * Whether passwords must include at least one lowercase letter.
+         */
+        lowercase: boolean;
+        /**
+         * Whether passwords must include at least one number.
+         */
+        number: boolean;
+        /**
+         * Whether passwords must include at least one symbol.
+         */
+        symbols: boolean;
     }
 
     /**

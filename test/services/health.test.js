@@ -41,6 +41,21 @@ describe('Health', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method getAuditsDB()', async () => {
+                                                const data = {
+            'total': 5,
+            'statuses': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await health.getAuditsDB(
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method getCache()', async () => {
                                                 const data = {
             'total': 5,

@@ -68,6 +68,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -206,6 +207,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -338,6 +340,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -520,6 +523,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -701,6 +705,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -803,6 +808,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -904,6 +910,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1002,6 +1009,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1099,6 +1107,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1153,6 +1162,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -1204,6 +1214,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1271,6 +1282,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -1337,6 +1349,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -1403,6 +1416,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -1511,6 +1525,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1619,6 +1634,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1722,6 +1738,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1824,6 +1841,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1905,6 +1923,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -1985,6 +2004,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2060,6 +2080,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2134,6 +2155,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2256,6 +2278,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2372,6 +2395,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2466,6 +2490,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2554,6 +2579,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2662,6 +2688,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2764,6 +2791,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2872,6 +2900,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -2974,6 +3003,247 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a new Amazon SES provider.
+     *
+     * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Provider name.
+     * @param {string} params.accessKey - AWS access key ID.
+     * @param {string} params.secretKey - AWS secret access key.
+     * @param {string} params.region - AWS region, for example us-east-1.
+     * @param {string} params.fromName - Sender Name.
+     * @param {string} params.fromEmail - Sender email address.
+     * @param {string} params.replyToName - Name set in the reply to field for the mail. Default value is sender name.
+     * @param {string} params.replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
+     * @param {boolean} params.enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    createSesProvider(params: { providerId: string, name: string, accessKey?: string, secretKey?: string, region?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean }): Promise<Models.Provider>;
+    /**
+     * Create a new Amazon SES provider.
+     *
+     * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} name - Provider name.
+     * @param {string} accessKey - AWS access key ID.
+     * @param {string} secretKey - AWS secret access key.
+     * @param {string} region - AWS region, for example us-east-1.
+     * @param {string} fromName - Sender Name.
+     * @param {string} fromEmail - Sender email address.
+     * @param {string} replyToName - Name set in the reply to field for the mail. Default value is sender name.
+     * @param {string} replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
+     * @param {boolean} enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createSesProvider(providerId: string, name: string, accessKey?: string, secretKey?: string, region?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean): Promise<Models.Provider>;
+    createSesProvider(
+        paramsOrFirst: { providerId: string, name: string, accessKey?: string, secretKey?: string, region?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean } | string,
+        ...rest: [(string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
+    ): Promise<Models.Provider> {
+        let params: { providerId: string, name: string, accessKey?: string, secretKey?: string, region?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { providerId: string, name: string, accessKey?: string, secretKey?: string, region?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string, enabled?: boolean };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                accessKey: rest[1] as string,
+                secretKey: rest[2] as string,
+                region: rest[3] as string,
+                fromName: rest[4] as string,
+                fromEmail: rest[5] as string,
+                replyToName: rest[6] as string,
+                replyToEmail: rest[7] as string,
+                enabled: rest[8] as boolean            
+            };
+        }
+        
+        const providerId = params.providerId;
+        const name = params.name;
+        const accessKey = params.accessKey;
+        const secretKey = params.secretKey;
+        const region = params.region;
+        const fromName = params.fromName;
+        const fromEmail = params.fromEmail;
+        const replyToName = params.replyToName;
+        const replyToEmail = params.replyToEmail;
+        const enabled = params.enabled;
+
+        if (typeof providerId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "providerId"');
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+
+        const apiPath = '/messaging/providers/ses';
+        const payload: Payload = {};
+        if (typeof providerId !== 'undefined') {
+            payload['providerId'] = providerId;
+        }
+        if (typeof name !== 'undefined') {
+            payload['name'] = name;
+        }
+        if (typeof accessKey !== 'undefined') {
+            payload['accessKey'] = accessKey;
+        }
+        if (typeof secretKey !== 'undefined') {
+            payload['secretKey'] = secretKey;
+        }
+        if (typeof region !== 'undefined') {
+            payload['region'] = region;
+        }
+        if (typeof fromName !== 'undefined') {
+            payload['fromName'] = fromName;
+        }
+        if (typeof fromEmail !== 'undefined') {
+            payload['fromEmail'] = fromEmail;
+        }
+        if (typeof replyToName !== 'undefined') {
+            payload['replyToName'] = replyToName;
+        }
+        if (typeof replyToEmail !== 'undefined') {
+            payload['replyToEmail'] = replyToEmail;
+        }
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update an Amazon SES provider by its unique ID.
+     *
+     * @param {string} params.providerId - Provider ID.
+     * @param {string} params.name - Provider name.
+     * @param {boolean} params.enabled - Set as enabled.
+     * @param {string} params.accessKey - AWS access key ID.
+     * @param {string} params.secretKey - AWS secret access key.
+     * @param {string} params.region - AWS region, for example us-east-1.
+     * @param {string} params.fromName - Sender Name.
+     * @param {string} params.fromEmail - Sender email address.
+     * @param {string} params.replyToName - Name set in the Reply To field for the mail. Default value is Sender Name.
+     * @param {string} params.replyToEmail - Email set in the Reply To field for the mail. Default value is Sender Email.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    updateSesProvider(params: { providerId: string, name?: string, enabled?: boolean, accessKey?: string, secretKey?: string, region?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string }): Promise<Models.Provider>;
+    /**
+     * Update an Amazon SES provider by its unique ID.
+     *
+     * @param {string} providerId - Provider ID.
+     * @param {string} name - Provider name.
+     * @param {boolean} enabled - Set as enabled.
+     * @param {string} accessKey - AWS access key ID.
+     * @param {string} secretKey - AWS secret access key.
+     * @param {string} region - AWS region, for example us-east-1.
+     * @param {string} fromName - Sender Name.
+     * @param {string} fromEmail - Sender email address.
+     * @param {string} replyToName - Name set in the Reply To field for the mail. Default value is Sender Name.
+     * @param {string} replyToEmail - Email set in the Reply To field for the mail. Default value is Sender Email.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateSesProvider(providerId: string, name?: string, enabled?: boolean, accessKey?: string, secretKey?: string, region?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string): Promise<Models.Provider>;
+    updateSesProvider(
+        paramsOrFirst: { providerId: string, name?: string, enabled?: boolean, accessKey?: string, secretKey?: string, region?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string } | string,
+        ...rest: [(string)?, (boolean)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?]    
+    ): Promise<Models.Provider> {
+        let params: { providerId: string, name?: string, enabled?: boolean, accessKey?: string, secretKey?: string, region?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { providerId: string, name?: string, enabled?: boolean, accessKey?: string, secretKey?: string, region?: string, fromName?: string, fromEmail?: string, replyToName?: string, replyToEmail?: string };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                enabled: rest[1] as boolean,
+                accessKey: rest[2] as string,
+                secretKey: rest[3] as string,
+                region: rest[4] as string,
+                fromName: rest[5] as string,
+                fromEmail: rest[6] as string,
+                replyToName: rest[7] as string,
+                replyToEmail: rest[8] as string            
+            };
+        }
+        
+        const providerId = params.providerId;
+        const name = params.name;
+        const enabled = params.enabled;
+        const accessKey = params.accessKey;
+        const secretKey = params.secretKey;
+        const region = params.region;
+        const fromName = params.fromName;
+        const fromEmail = params.fromEmail;
+        const replyToName = params.replyToName;
+        const replyToEmail = params.replyToEmail;
+
+        if (typeof providerId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "providerId"');
+        }
+
+        const apiPath = '/messaging/providers/ses/{providerId}'.replace('{providerId}', providerId);
+        const payload: Payload = {};
+        if (typeof name !== 'undefined') {
+            payload['name'] = name;
+        }
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        if (typeof accessKey !== 'undefined') {
+            payload['accessKey'] = accessKey;
+        }
+        if (typeof secretKey !== 'undefined') {
+            payload['secretKey'] = secretKey;
+        }
+        if (typeof region !== 'undefined') {
+            payload['region'] = region;
+        }
+        if (typeof fromName !== 'undefined') {
+            payload['fromName'] = fromName;
+        }
+        if (typeof fromEmail !== 'undefined') {
+            payload['fromEmail'] = fromEmail;
+        }
+        if (typeof replyToName !== 'undefined') {
+            payload['replyToName'] = replyToName;
+        }
+        if (typeof replyToEmail !== 'undefined') {
+            payload['replyToEmail'] = replyToEmail;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3128,6 +3398,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3281,6 +3552,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3426,6 +3698,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3570,6 +3843,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3664,6 +3938,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3752,6 +4027,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3846,6 +4122,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -3934,6 +4211,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4028,6 +4306,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4116,6 +4395,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4210,6 +4490,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4298,6 +4579,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4352,6 +4634,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -4403,6 +4686,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4470,6 +4754,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -4536,6 +4821,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -4602,6 +4888,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -4674,6 +4961,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4728,6 +5016,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -4796,6 +5085,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4848,6 +5138,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -4915,6 +5206,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -4988,6 +5280,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -5060,6 +5353,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
@@ -5122,6 +5416,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
         }
 
         return this.client.call(
@@ -5181,6 +5476,7 @@ export class Messaging {
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
         }
 
