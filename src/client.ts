@@ -1,5 +1,4 @@
-import { fetch, FormData, File } from 'node-fetch-native-with-agent';
-import { createAgent } from 'node-fetch-native-with-agent/agent';
+import { fetch, FormData, File, Agent, type RequestInit } from 'undici';
 import { Models } from './models';
 import { InputFile } from './inputFile';
 import JSONbigModule from 'json-bigint';
@@ -74,7 +73,7 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/26.1.0';
+    let ua = 'AppwriteNodeJSSDK/26.2.0';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
@@ -108,6 +107,7 @@ function getUserAgent() {
 
 class Client {
     static CHUNK_SIZE = 1024 * 1024 * 5;
+    private selfSignedAgent?: Agent;
 
     config = {
         endpoint: 'https://cloud.appwrite.io/v1',
@@ -128,7 +128,7 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '26.1.0',
+        'x-sdk-version': '26.2.0',
         'user-agent' : getUserAgent(),
         'X-Appwrite-Response-Format': '1.9.5',
     };
@@ -169,6 +169,11 @@ class Client {
         }
 
         this.config.selfSigned = selfSigned;
+
+        if (!selfSigned && this.selfSignedAgent) {
+            this.selfSignedAgent.destroy();
+            this.selfSignedAgent = undefined;
+        }
 
         return this;
     }
@@ -359,8 +364,18 @@ class Client {
         let options: RequestInit = {
             method,
             headers,
-            ...createAgent(this.config.endpoint, { rejectUnauthorized: !this.config.selfSigned }),
         };
+
+        if (this.config.selfSigned) {
+            if (!this.selfSignedAgent) {
+                this.selfSignedAgent = new Agent({
+                    connect: {
+                        rejectUnauthorized: false,
+                    },
+                });
+            }
+            options.dispatcher = this.selfSignedAgent;
+        }
 
         if (method === 'GET') {
             for (const [key, value] of Object.entries(Client.flatten(params))) {

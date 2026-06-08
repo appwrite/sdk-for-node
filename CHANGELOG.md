@@ -1,5 +1,16 @@
 # Change Log
 
+## 26.2.0
+
+* Added: Device Authorization Grant params (`verificationUrl`, `userCodeLength`, `userCodeFormat`, `deviceCodeDuration`) to `updateOAuth2Server`
+* Added: `authorizationDetailsTypes` (RFC 9396) param to `updateOAuth2Server` in `project`
+* Added: `userAccessedAt` param to `updateMembershipPrivacyPolicy` in `project`
+* Added: email classification attributes (`emailCanonical`, `emailIsFree`, `emailIsDisposable`, `emailIsCorporate`, `emailIsCanonical`) to `User`
+* Added: `userAccessedAt` attribute to `Membership`
+* Added: `dedicatedDatabases.execute` to `ProjectKeyScopes`
+* Updated: Replaced HTTP transport with `undici` for requests and self-signed certs
+
+
 ## 26.1.0
 
 * Added: `createSesProvider` and `updateSesProvider` to `messaging`

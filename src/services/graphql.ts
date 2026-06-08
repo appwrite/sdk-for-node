@@ -57,6 +57,7 @@ export class Graphql {
             'X-Appwrite-Project': this.client.config.project,
             'x-sdk-graphql': 'true',
             'content-type': 'application/json',
+            'accept': 'application/json',
         }
 
         return this.client.call(
@@ -114,6 +115,7 @@ export class Graphql {
             'X-Appwrite-Project': this.client.config.project,
             'x-sdk-graphql': 'true',
             'content-type': 'application/json',
+            'accept': 'application/json',
         }
 
         return this.client.call(

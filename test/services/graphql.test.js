@@ -2,8 +2,8 @@ const { Client } = require("../../dist/client");
 const { InputFile } = require("../../dist/inputFile");
 const { Graphql } = require("../../dist/services/graphql");
 
-const { fetch: mockedFetch, Response } = require("node-fetch-native-with-agent");
-jest.mock('node-fetch-native-with-agent', () => ({ ...jest.requireActual('node-fetch-native-with-agent'), fetch: jest.fn() }));
+const { fetch: mockedFetch, Response } = require("undici");
+jest.mock('undici', () => ({ ...jest.requireActual('undici'), fetch: jest.fn() }));
 
 describe('Graphql', () => {
     const client = new Client();

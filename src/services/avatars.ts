@@ -85,6 +85,7 @@ export class Avatars {
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
+            'accept': 'image/png',
         }
 
         return this.client.call(
@@ -166,6 +167,7 @@ export class Avatars {
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
+            'accept': 'image/png',
         }
 
         return this.client.call(
@@ -226,6 +228,7 @@ export class Avatars {
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
+            'accept': 'image/*',
         }
 
         return this.client.call(
@@ -307,6 +310,7 @@ export class Avatars {
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
+            'accept': 'image/png',
         }
 
         return this.client.call(
@@ -386,6 +390,7 @@ export class Avatars {
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
+            'accept': 'image/*',
         }
 
         return this.client.call(
@@ -471,6 +476,7 @@ export class Avatars {
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
+            'accept': 'image/png',
         }
 
         return this.client.call(
@@ -551,6 +557,7 @@ export class Avatars {
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
+            'accept': 'image/png',
         }
 
         return this.client.call(
@@ -749,6 +756,7 @@ export class Avatars {
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
+            'accept': 'image/png',
         }
 
         return this.client.call(
