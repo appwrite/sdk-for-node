@@ -89,6 +89,7 @@ export enum ProjectKeyScopes {
     ArchivesWrite = 'archives.write',
     RestorationsRead = 'restorations.read',
     RestorationsWrite = 'restorations.write',
+    DedicatedDatabasesExecute = 'dedicatedDatabases.execute',
     DomainsRead = 'domains.read',
     DomainsWrite = 'domains.write',
     EventsRead = 'events.read',

@@ -2926,6 +2926,26 @@ export namespace Models {
          */
         emailVerification: boolean;
         /**
+         * Canonical form of the user email address.
+         */
+        emailCanonical?: string;
+        /**
+         * Whether the user email is from a free email provider.
+         */
+        emailIsFree?: boolean;
+        /**
+         * Whether the user email is from a disposable email provider.
+         */
+        emailIsDisposable?: boolean;
+        /**
+         * Whether the user email is from a corporate domain.
+         */
+        emailIsCorporate?: boolean;
+        /**
+         * Whether the user email is in its canonical form.
+         */
+        emailIsCanonical?: boolean;
+        /**
          * Phone verification status.
          */
         phoneVerification: boolean;
@@ -3576,6 +3596,10 @@ export namespace Models {
          * Multi factor authentication status, true if the user has MFA enabled or false otherwise. Hide this attribute by toggling membership privacy in the Console.
          */
         mfa: boolean;
+        /**
+         * Most recent access date in ISO 8601 format. Show this attribute by toggling membership privacy in the Console.
+         */
+        userAccessedAt: string;
         /**
          * User list of roles
          */
@@ -4265,6 +4289,10 @@ export namespace Models {
          */
         oAuth2ServerScopes: string[];
         /**
+         * OAuth2 server accepted RFC 9396 authorization_details types
+         */
+        oAuth2ServerAuthorizationDetailsTypes: string[];
+        /**
          * OAuth2 server access token duration in seconds for confidential clients
          */
         oAuth2ServerAccessTokenDuration: number;
@@ -4284,6 +4312,22 @@ export namespace Models {
          * When enabled, PKCE is required for confidential clients (server-side flows using client_secret). PKCE is always required for public clients regardless of this setting.
          */
         oAuth2ServerConfidentialPkce: boolean;
+        /**
+         * URL to your application page where users enter the device flow user code. Empty when the Device Authorization Grant is not configured.
+         */
+        oAuth2ServerVerificationUrl: string;
+        /**
+         * Number of characters in the device flow user code, excluding the formatting separator.
+         */
+        oAuth2ServerUserCodeLength: number;
+        /**
+         * Character set for device flow user codes: `numeric`, `alphabetic`, or `alphanumeric`.
+         */
+        oAuth2ServerUserCodeFormat: string;
+        /**
+         * Lifetime in seconds of device flow device codes and user codes.
+         */
+        oAuth2ServerDeviceCodeDuration: number;
         /**
          * OAuth2 server discovery URL
          */
@@ -5662,6 +5706,10 @@ export namespace Models {
          * Whether user MFA status is visible in memberships.
          */
         userMFA: boolean;
+        /**
+         * Whether user last access time is visible in memberships.
+         */
+        userAccessedAt: boolean;
     }
 
     /**

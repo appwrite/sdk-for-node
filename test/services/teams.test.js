@@ -2,8 +2,8 @@ const { Client } = require("../../dist/client");
 const { InputFile } = require("../../dist/inputFile");
 const { Teams } = require("../../dist/services/teams");
 
-const { fetch: mockedFetch, Response } = require("node-fetch-native-with-agent");
-jest.mock('node-fetch-native-with-agent', () => ({ ...jest.requireActual('node-fetch-native-with-agent'), fetch: jest.fn() }));
+const { fetch: mockedFetch, Response } = require("undici");
+jest.mock('undici', () => ({ ...jest.requireActual('undici'), fetch: jest.fn() }));
 
 describe('Teams', () => {
     const client = new Client();
@@ -132,6 +132,7 @@ describe('Teams', () => {
             'joined': '2020-10-15T06:38:00.000+00:00',
             'confirm': true,
             'mfa': true,
+            'userAccessedAt': '2020-10-15T06:38:00.000+00:00',
             'roles': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -161,6 +162,7 @@ describe('Teams', () => {
             'joined': '2020-10-15T06:38:00.000+00:00',
             'confirm': true,
             'mfa': true,
+            'userAccessedAt': '2020-10-15T06:38:00.000+00:00',
             'roles': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -190,6 +192,7 @@ describe('Teams', () => {
             'joined': '2020-10-15T06:38:00.000+00:00',
             'confirm': true,
             'mfa': true,
+            'userAccessedAt': '2020-10-15T06:38:00.000+00:00',
             'roles': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -235,6 +238,7 @@ describe('Teams', () => {
             'joined': '2020-10-15T06:38:00.000+00:00',
             'confirm': true,
             'mfa': true,
+            'userAccessedAt': '2020-10-15T06:38:00.000+00:00',
             'roles': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 

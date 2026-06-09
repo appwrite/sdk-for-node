@@ -2,8 +2,8 @@ const { Client } = require("../../dist/client");
 const { InputFile } = require("../../dist/inputFile");
 const { Organization } = require("../../dist/services/organization");
 
-const { fetch: mockedFetch, Response } = require("node-fetch-native-with-agent");
-jest.mock('node-fetch-native-with-agent', () => ({ ...jest.requireActual('node-fetch-native-with-agent'), fetch: jest.fn() }));
+const { fetch: mockedFetch, Response } = require("undici");
+jest.mock('undici', () => ({ ...jest.requireActual('undici'), fetch: jest.fn() }));
 
 describe('Organization', () => {
     const client = new Client();
@@ -158,11 +158,16 @@ describe('Organization', () => {
             'oAuth2ServerEnabled': true,
             'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
             'oAuth2ServerScopes': [],
+            'oAuth2ServerAuthorizationDetailsTypes': [],
             'oAuth2ServerAccessTokenDuration': 3600,
             'oAuth2ServerRefreshTokenDuration': 86400,
             'oAuth2ServerPublicAccessTokenDuration': 3600,
             'oAuth2ServerPublicRefreshTokenDuration': 2592000,
             'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
+            'oAuth2ServerUserCodeLength': 8,
+            'oAuth2ServerUserCodeFormat': 'alphanumeric',
+            'oAuth2ServerDeviceCodeDuration': 600,
             'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -208,11 +213,16 @@ describe('Organization', () => {
             'oAuth2ServerEnabled': true,
             'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
             'oAuth2ServerScopes': [],
+            'oAuth2ServerAuthorizationDetailsTypes': [],
             'oAuth2ServerAccessTokenDuration': 3600,
             'oAuth2ServerRefreshTokenDuration': 86400,
             'oAuth2ServerPublicAccessTokenDuration': 3600,
             'oAuth2ServerPublicRefreshTokenDuration': 2592000,
             'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
+            'oAuth2ServerUserCodeLength': 8,
+            'oAuth2ServerUserCodeFormat': 'alphanumeric',
+            'oAuth2ServerDeviceCodeDuration': 600,
             'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -257,11 +267,16 @@ describe('Organization', () => {
             'oAuth2ServerEnabled': true,
             'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
             'oAuth2ServerScopes': [],
+            'oAuth2ServerAuthorizationDetailsTypes': [],
             'oAuth2ServerAccessTokenDuration': 3600,
             'oAuth2ServerRefreshTokenDuration': 86400,
             'oAuth2ServerPublicAccessTokenDuration': 3600,
             'oAuth2ServerPublicRefreshTokenDuration': 2592000,
             'oAuth2ServerConfidentialPkce': true,
+            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
+            'oAuth2ServerUserCodeLength': 8,
+            'oAuth2ServerUserCodeFormat': 'alphanumeric',
+            'oAuth2ServerDeviceCodeDuration': 600,
             'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
