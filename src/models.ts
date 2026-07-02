@@ -178,17 +178,17 @@ export namespace Models {
     }
 
     /**
-     * Logs List
+     * Notifications List
      */
-    export type LogList = {
+    export type NotificationList = {
         /**
-         * Total number of logs that matched your query.
+         * Total number of notifications that matched your query.
          */
         total: number;
         /**
-         * List of logs.
+         * List of notifications.
          */
-        logs: Log[];
+        notifications: Notification[];
     }
 
     /**
@@ -496,7 +496,7 @@ export namespace Models {
         /**
          * List of policies.
          */
-        policies: (Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail)[];
+        policies: (Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail)[];
     }
 
     /**
@@ -1364,7 +1364,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: any[];
+        default?: number[];
     }
 
     /**
@@ -1406,7 +1406,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: any[];
+        default?: number[][];
     }
 
     /**
@@ -1448,7 +1448,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: any[];
+        default?: number[][][];
     }
 
     /**
@@ -2284,7 +2284,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: any[];
+        default?: number[];
     }
 
     /**
@@ -2326,7 +2326,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: any[];
+        default?: number[][];
     }
 
     /**
@@ -2368,7 +2368,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: any[];
+        default?: number[][][];
     }
 
     /**
@@ -2772,100 +2772,6 @@ export namespace Models {
     }
 
     /**
-     * Log
-     */
-    export type Log = {
-        /**
-         * Event name.
-         */
-        event: string;
-        /**
-         * User ID of the actor recorded for this log. During impersonation, this is the original impersonator, not the impersonated target user.
-         */
-        userId: string;
-        /**
-         * User email of the actor recorded for this log. During impersonation, this is the original impersonator.
-         */
-        userEmail: string;
-        /**
-         * User name of the actor recorded for this log. During impersonation, this is the original impersonator.
-         */
-        userName: string;
-        /**
-         * API mode when event triggered.
-         */
-        mode: string;
-        /**
-         * User type who triggered the audit log. Possible values: user, admin, guest, keyProject, keyAccount, keyOrganization.
-         */
-        userType: string;
-        /**
-         * IP session in use when the session was created.
-         */
-        ip: string;
-        /**
-         * Log creation date in ISO 8601 format.
-         */
-        time: string;
-        /**
-         * Operating system code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/os.json).
-         */
-        osCode: string;
-        /**
-         * Operating system name.
-         */
-        osName: string;
-        /**
-         * Operating system version.
-         */
-        osVersion: string;
-        /**
-         * Client type.
-         */
-        clientType: string;
-        /**
-         * Client code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/clients.json).
-         */
-        clientCode: string;
-        /**
-         * Client name.
-         */
-        clientName: string;
-        /**
-         * Client version.
-         */
-        clientVersion: string;
-        /**
-         * Client engine name.
-         */
-        clientEngine: string;
-        /**
-         * Client engine name.
-         */
-        clientEngineVersion: string;
-        /**
-         * Device name.
-         */
-        deviceName: string;
-        /**
-         * Device brand name.
-         */
-        deviceBrand: string;
-        /**
-         * Device model name.
-         */
-        deviceModel: string;
-        /**
-         * Country two-character ISO 3166-1 alpha code.
-         */
-        countryCode: string;
-        /**
-         * Country name.
-         */
-        countryName: string;
-    }
-
-    /**
      * User
      */
     export type User<Preferences extends Models.Preferences = Models.DefaultPreferences> = {
@@ -3262,6 +3168,76 @@ export namespace Models {
          * Identity Provider Refresh Token.
          */
         providerRefreshToken: string;
+    }
+
+    /**
+     * Notification
+     */
+    export type Notification = {
+        /**
+         * Notification ID.
+         */
+        $id: string;
+        /**
+         * Notification creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Notification update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Stable message ID used for dedup.
+         */
+        messageId?: string;
+        /**
+         * Notification type: info, warning, error.
+         */
+        type: string;
+        /**
+         * Channel: email, sms, push, console, webhook.
+         */
+        channel: string;
+        /**
+         * Resource type this notification is addressed to.
+         */
+        resourceType: string;
+        /**
+         * Resource ID this notification is addressed to.
+         */
+        resourceId: string;
+        /**
+         * Parent resource type for the notification.
+         */
+        parentResourceType: string;
+        /**
+         * Parent resource ID for the notification.
+         */
+        parentResourceId: string;
+        /**
+         * Project the notification pertains to.
+         */
+        projectId?: string;
+        /**
+         * Notification title.
+         */
+        title: string;
+        /**
+         * Notification body.
+         */
+        body: string;
+        /**
+         * Whether the notification has been read.
+         */
+        read?: boolean;
+        /**
+         * First time the notification was viewed from a notification logo.
+         */
+        firstSeen?: string;
+        /**
+         * Most recent time the notification was viewed from a notification logo.
+         */
+        lastSeen?: string;
     }
 
     /**
@@ -4253,6 +4229,10 @@ export namespace Models {
          */
         status: string;
         /**
+         * Stage progress (completed or skipped) with timestamps and actor types, keyed by stage id.
+         */
+        onboarding: object;
+        /**
          * List of auth methods.
          */
         authMethods: ProjectAuthMethod[];
@@ -4273,65 +4253,69 @@ export namespace Models {
          */
         consoleAccessedAt: string;
         /**
+         * Whether WAF enforcement is enabled for the project.
+         */
+        wafEnabled: boolean;
+        /**
          * Billing limits reached
          */
         billingLimits?: BillingLimits;
         /**
          * OAuth2 server status
          */
-        oAuth2ServerEnabled: boolean;
+        oAuth2ServerEnabled?: boolean;
         /**
          * OAuth2 server authorization URL
          */
-        oAuth2ServerAuthorizationUrl: string;
+        oAuth2ServerAuthorizationUrl?: string;
         /**
          * OAuth2 server allowed scopes
          */
-        oAuth2ServerScopes: string[];
+        oAuth2ServerScopes?: string[];
         /**
          * OAuth2 server accepted RFC 9396 authorization_details types
          */
-        oAuth2ServerAuthorizationDetailsTypes: string[];
+        oAuth2ServerAuthorizationDetailsTypes?: string[];
         /**
          * OAuth2 server access token duration in seconds for confidential clients
          */
-        oAuth2ServerAccessTokenDuration: number;
+        oAuth2ServerAccessTokenDuration?: number;
         /**
          * OAuth2 server refresh token duration in seconds for confidential clients
          */
-        oAuth2ServerRefreshTokenDuration: number;
+        oAuth2ServerRefreshTokenDuration?: number;
         /**
          * OAuth2 server access token duration in seconds for public clients (SPAs, mobile, native)
          */
-        oAuth2ServerPublicAccessTokenDuration: number;
+        oAuth2ServerPublicAccessTokenDuration?: number;
         /**
          * OAuth2 server refresh token duration in seconds for public clients (SPAs, mobile, native)
          */
-        oAuth2ServerPublicRefreshTokenDuration: number;
+        oAuth2ServerPublicRefreshTokenDuration?: number;
         /**
          * When enabled, PKCE is required for confidential clients (server-side flows using client_secret). PKCE is always required for public clients regardless of this setting.
          */
-        oAuth2ServerConfidentialPkce: boolean;
+        oAuth2ServerConfidentialPkce?: boolean;
         /**
          * URL to your application page where users enter the device flow user code. Empty when the Device Authorization Grant is not configured.
          */
-        oAuth2ServerVerificationUrl: string;
+        oAuth2ServerVerificationUrl?: string;
         /**
          * Number of characters in the device flow user code, excluding the formatting separator.
          */
-        oAuth2ServerUserCodeLength: number;
+        oAuth2ServerUserCodeLength?: number;
         /**
          * Character set for device flow user codes: `numeric`, `alphabetic`, or `alphanumeric`.
          */
-        oAuth2ServerUserCodeFormat: string;
+        oAuth2ServerUserCodeFormat?: string;
         /**
          * Lifetime in seconds of device flow device codes and user codes.
          */
-        oAuth2ServerDeviceCodeDuration: number;
+        oAuth2ServerDeviceCodeDuration?: number;
         /**
          * OAuth2 server discovery URL
          */
-        oAuth2ServerDiscoveryUrl: string;
+        oAuth2ServerDiscoveryUrl?: string;
     }
 
     /**
@@ -6788,62 +6772,6 @@ export namespace Models {
          * Hostname.
          */
         hostname: string;
-        /**
-         * Operating system code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/os.json).
-         */
-        osCode: string;
-        /**
-         * Operating system name.
-         */
-        osName: string;
-        /**
-         * Operating system version.
-         */
-        osVersion: string;
-        /**
-         * Client type.
-         */
-        clientType: string;
-        /**
-         * Client code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/clients.json).
-         */
-        clientCode: string;
-        /**
-         * Client name.
-         */
-        clientName: string;
-        /**
-         * Client version.
-         */
-        clientVersion: string;
-        /**
-         * Client engine name.
-         */
-        clientEngine: string;
-        /**
-         * Client engine name.
-         */
-        clientEngineVersion: string;
-        /**
-         * Device name.
-         */
-        deviceName: string;
-        /**
-         * Device brand name.
-         */
-        deviceBrand: string;
-        /**
-         * Device model name.
-         */
-        deviceModel: string;
-        /**
-         * Country two-character ISO 3166-1 alpha code.
-         */
-        countryCode: string;
-        /**
-         * Country name.
-         */
-        countryName: string;
     }
 
     /**
@@ -6955,6 +6883,10 @@ export namespace Models {
          */
         resourceId: string;
         /**
+         * Block mode. full blocks reads and writes; readOnly blocks writes only.
+         */
+        mode: string;
+        /**
          * Reason for the block. Can be null if no reason was provided.
          */
         reason?: string;
@@ -7029,6 +6961,10 @@ export namespace Models {
          */
         schedule: string;
         /**
+         * Backup type. Possible values: full (complete database snapshot), incremental (changes since last backup).
+         */
+        type: string;
+        /**
          * Is this policy enabled.
          */
         enabled: boolean;
@@ -7072,6 +7008,20 @@ export namespace Models {
         $id: string;
         /**
          * Whether the deny free email policy is enabled.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * Policy Deny Corporate Email
+     */
+    export type PolicyDenyCorporateEmail = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether the deny non-corporate email policy is enabled.
          */
         enabled: boolean;
     }
@@ -7127,75 +7077,133 @@ export namespace Models {
     }
 
     /**
-     * usageEvent
+     * usageDataPoint
      */
-    export type UsageEvent = {
+    export type UsageDataPoint = {
         /**
-         * The metric key.
-         */
-        metric: string;
-        /**
-         * The metric value.
-         */
-        value: number;
-        /**
-         * The event timestamp.
+         * Bucket start timestamp (ISO 8601). When `interval` is omitted this is the request end time, marking the aggregate as-of moment.
          */
         time: string;
         /**
-         * The API endpoint path.
+         * Aggregated value for the bucket.
          */
-        path: string;
+        value: number;
         /**
-         * The HTTP method.
+         * API endpoint path when broken down by `path`.
          */
-        method: string;
+        path?: string;
         /**
-         * HTTP status code. Stored as string to preserve unset state (empty string = not available).
+         * HTTP method when broken down by `method`.
          */
-        status: string;
+        method?: string;
         /**
-         * The resource type.
+         * HTTP status code when broken down by `status`.
          */
-        resourceType: string;
+        status?: string;
         /**
-         * The resource ID.
+         * API service segment when broken down by `service`.
          */
-        resourceId: string;
+        service?: string;
         /**
-         * Country code in [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1) two-character format.
+         * Country code when broken down by `country`.
          */
-        countryCode: string;
+        country?: string;
         /**
-         * The user agent string.
+         * Appwrite region when broken down by `region`.
          */
-        userAgent: string;
+        region?: string;
+        /**
+         * Caller origin hostname when broken down by `hostname`.
+         */
+        hostname?: string;
+        /**
+         * Operating system name when broken down by `osName`.
+         */
+        osName?: string;
+        /**
+         * Client type when broken down by `clientType`.
+         */
+        clientType?: string;
+        /**
+         * Client name when broken down by `clientName`.
+         */
+        clientName?: string;
+        /**
+         * Device classification when broken down by `deviceName`.
+         */
+        deviceName?: string;
+        /**
+         * Owning team ID when broken down by `teamId`.
+         */
+        teamId?: string;
+        /**
+         * External resource ID when broken down by `resourceId`.
+         */
+        resourceId?: string;
+        /**
+         * Resource type when broken down by `resource` (gauges only).
+         */
+        resource?: string;
     }
 
     /**
-     * usageGauge
+     * usageEventList
      */
-    export type UsageGauge = {
+    export type UsageEventList = {
         /**
-         * The metric key.
+         * Time interval size (1h or 1d). Empty when the request omits `interval` — points then carry the request end time as their as-of marker.
+         */
+        interval: string;
+        /**
+         * One entry per requested metric, each carrying its own points[] time series (sums per bucket / dimension over time).
+         */
+        metrics: UsageMetric[];
+    }
+
+    /**
+     * usageGaugeList
+     */
+    export type UsageGaugeList = {
+        /**
+         * Time interval size (1h or 1d). Empty when the request omits `interval` — points then carry the request end time as their as-of marker.
+         */
+        interval: string;
+        /**
+         * One entry per requested metric, each carrying its own points[] time series (latest-snapshot per bucket / dimension via argMax over time).
+         */
+        metrics: UsageMetric[];
+    }
+
+    /**
+     * usageMetric
+     */
+    export type UsageMetric = {
+        /**
+         * Metric key this series describes.
          */
         metric: string;
         /**
-         * The current snapshot value.
+         * Data points for this metric, ordered by time ascending. With `interval`, each entry is one bucket; without, each entry is one row of the dimensional or aggregate breakdown.
          */
-        value: number;
+        points: UsageDataPoint[];
+    }
+
+    /**
+     * WAF Challenge Token
+     */
+    export type WafChallengeToken = {
         /**
-         * The snapshot timestamp.
+         * Clearance token proving the challenge was solved. Present it on subsequent requests via the X-Appwrite-WAF-Token header.
          */
-        time: string;
+        token: string;
         /**
-         * The resource type.
+         * Absolute expiry time of the clearance token as a UNIX timestamp. Advisory; prefer expiresIn.
          */
-        resourceType: string;
+        expiresAt: number;
         /**
-         * The resource ID.
+         * Lifetime of the clearance token in seconds from now. Clients should compute their local deadline from this to avoid clock skew.
          */
-        resourceId: string;
+        expiresIn: number;
     }
 
     /**
@@ -7252,33 +7260,5 @@ export namespace Models {
          * List of restorations.
          */
         restorations: BackupRestoration[];
-    }
-
-    /**
-     * Usage events list
-     */
-    export type UsageEventList = {
-        /**
-         * Total number of events that matched your query.
-         */
-        total: number;
-        /**
-         * List of events.
-         */
-        events: UsageEvent[];
-    }
-
-    /**
-     * Usage gauges list
-     */
-    export type UsageGaugeList = {
-        /**
-         * Total number of gauges that matched your query.
-         */
-        total: number;
-        /**
-         * List of gauges.
-         */
-        gauges: UsageGauge[];
     }
 }

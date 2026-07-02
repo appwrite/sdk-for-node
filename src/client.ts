@@ -1,6 +1,7 @@
 import { fetch, FormData, File, Agent, type RequestInit } from 'undici';
 import { Models } from './models';
 import { InputFile } from './inputFile';
+import { WafChallenge, WAF_CHALLENGE_ERROR } from './waf';
 import JSONbigModule from 'json-bigint';
 const JSONbigParser = JSONbigModule({ storeAsString: false });
 const JSONbigSerializer = JSONbigModule({ useNativeBigInt: true });
@@ -115,8 +116,10 @@ class Client {
         project: '',
         key: '',
         jwt: '',
+        bearer: '',
         locale: '',
         session: '',
+        mode: '',
         forwardeduseragent: '',
         devkey: '',
         cookie: '',
@@ -132,6 +135,15 @@ class Client {
         'user-agent' : getUserAgent(),
         'X-Appwrite-Response-Format': '1.9.5',
     };
+
+    /**
+     * Handles WAF proof-of-work challenges transparently: solves and retries so
+     * application code never sees `waf_challenge_required`. See ./waf.
+     */
+    private waf: WafChallenge = new WafChallenge(
+        () => this.config.endpoint,
+        () => this.config.project,
+    );
 
     /**
      * Set Endpoint
@@ -246,6 +258,20 @@ class Client {
         return this;
     }
     /**
+     * Set Bearer
+     *
+     * The OAuth access token to authenticate with
+     *
+     * @param value string
+     *
+     * @return {this}
+     */
+    setBearer(value: string): this {
+        this.headers['Authorization'] = value;
+        this.config.bearer = value;
+        return this;
+    }
+    /**
      * Set Locale
      *
      * @param value string
@@ -269,6 +295,18 @@ class Client {
     setSession(value: string): this {
         this.headers['X-Appwrite-Session'] = value;
         this.config.session = value;
+        return this;
+    }
+    /**
+     * Set Mode
+     *
+     * @param value string
+     *
+     * @return {this}
+     */
+    setMode(value: string): this {
+        this.headers['X-Appwrite-Mode'] = value;
+        this.config.mode = value;
         return this;
     }
     /**
@@ -316,7 +354,7 @@ class Client {
     /**
      * Set ImpersonateUserId
      *
-     * Impersonate a user by ID on an already user-authenticated request. Requires the current request to be authenticated as a user with impersonator capability; X-Appwrite-Key alone is not sufficient. Impersonator users are intentionally granted users.read so they can discover a target before impersonation begins. Internal audit logs still attribute actions to the original impersonator and record the impersonated target only in internal audit payload data.
+     * Impersonate a user by ID
      *
      * @param value string
      *
@@ -330,7 +368,7 @@ class Client {
     /**
      * Set ImpersonateUserEmail
      *
-     * Impersonate a user by email on an already user-authenticated request. Requires the current request to be authenticated as a user with impersonator capability; X-Appwrite-Key alone is not sufficient. Impersonator users are intentionally granted users.read so they can discover a target before impersonation begins. Internal audit logs still attribute actions to the original impersonator and record the impersonated target only in internal audit payload data.
+     * Impersonate a user by email
      *
      * @param value string
      *
@@ -344,7 +382,7 @@ class Client {
     /**
      * Set ImpersonateUserPhone
      *
-     * Impersonate a user by phone on an already user-authenticated request. Requires the current request to be authenticated as a user with impersonator capability; X-Appwrite-Key alone is not sufficient. Impersonator users are intentionally granted users.read so they can discover a target before impersonation begins. Internal audit logs still attribute actions to the original impersonator and record the impersonated target only in internal audit payload data.
+     * Impersonate a user by phone
      *
      * @param value string
      *
@@ -660,6 +698,7 @@ class Client {
     async ping(): Promise<unknown> {
         return this.call('GET', new URL(this.config.endpoint + '/ping'), {
             'X-Appwrite-Project': this.config.project,
+            'accept': 'application/json',
         });
     }
 
@@ -678,7 +717,13 @@ class Client {
         return response.headers.get('location') || '';
     }
 
-    async call(method: string, url: URL, headers: Headers = {}, params: Payload = {}, responseType = 'json'): Promise<any> {
+    async call(method: string, url: URL, headers: Headers = {}, params: Payload = {}, responseType = 'json', _wafAttempt = 0): Promise<any> {
+        // Attach a cached WAF clearance token, if we hold a valid one.
+        const wafToken = this.waf.token();
+        if (wafToken) {
+            headers = { ...headers, 'X-Appwrite-WAF-Token': wafToken };
+        }
+
         const { uri, options } = this.prepareRequest(method, url, headers, params);
 
         let data: any = null;
@@ -698,6 +743,22 @@ class Client {
             data = {
                 message: await response.text()
             };
+        }
+
+        // WAF proof-of-work challenge: solve it transparently and retry once, so
+        // callers never see `waf_challenge_required`. A single retry (guarded by
+        // _wafAttempt) can never loop; a stale/rejected token is dropped and
+        // re-solved once before the error is surfaced.
+        if (response.status === 403 && data?.type === WAF_CHALLENGE_ERROR && _wafAttempt < 1) {
+            const challengeHeaders: Record<string, string> = {};
+            response.headers.forEach((value: string, key: string) => { challengeHeaders[key.toLowerCase()] = value; });
+            this.waf.reset();
+            try {
+                const token = await this.waf.solve(challengeHeaders);
+                return this.call(method, url, { ...headers, 'X-Appwrite-WAF-Token': token }, params, responseType, _wafAttempt + 1);
+            } catch {
+                // Solve failed — fall through and surface the original error.
+            }
         }
 
         if (400 <= response.status) {

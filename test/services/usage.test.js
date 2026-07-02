@@ -12,11 +12,12 @@ describe('Usage', () => {
     
     test('test method listEvents()', async () => {
                                                 const data = {
-            'total': 5,
-            'events': [],};
+            'interval': '1d',
+            'metrics': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await usage.listEvents(
+            [],
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
@@ -27,11 +28,12 @@ describe('Usage', () => {
     
     test('test method listGauges()', async () => {
                                                 const data = {
-            'total': 5,
-            'gauges': [],};
+            'interval': '1d',
+            'metrics': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await usage.listGauges(
+            [],
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.

@@ -468,22 +468,6 @@ describe('Users', () => {
         expect(response).toEqual(data);
     });
     
-    test('test method listLogs()', async () => {
-                                                const data = {
-            'total': 5,
-            'logs': [],};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await users.listLogs(
-            '<USER_ID>',
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
     test('test method listMemberships()', async () => {
                                                 const data = {
             'total': 5,
@@ -771,7 +755,7 @@ describe('Users', () => {
 
         const response = await users.updatePassword(
             '<USER_ID>',
-            '',
+            'password',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.

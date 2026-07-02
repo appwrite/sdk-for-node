@@ -6,9 +6,9 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const sites = new sdk.Sites(client);
+const health = new sdk.Health(client);
 
-const result = await sites.listSpecifications({
-    type: 'runtimes' // optional
+const result = await health.getQueueNotifications({
+    threshold: null // optional
 });
 ```

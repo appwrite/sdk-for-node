@@ -12,4 +12,5 @@ export enum HealthQueueName {
     V1screenshots = 'v1-screenshots',
     V1messaging = 'v1-messaging',
     V1migrations = 'v1-migrations',
+    V1notifications = 'v1-notifications',
 }

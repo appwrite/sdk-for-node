@@ -230,7 +230,7 @@ export class Webhooks {
             throw new AppwriteException('Missing required parameter: "webhookId"');
         }
 
-        const apiPath = '/webhooks/{webhookId}'.replace('{webhookId}', webhookId);
+        const apiPath = '/webhooks/{webhookId}'.replace('{webhookId}', encodeURIComponent(String(webhookId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -321,7 +321,7 @@ export class Webhooks {
             throw new AppwriteException('Missing required parameter: "events"');
         }
 
-        const apiPath = '/webhooks/{webhookId}'.replace('{webhookId}', webhookId);
+        const apiPath = '/webhooks/{webhookId}'.replace('{webhookId}', encodeURIComponent(String(webhookId)));
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
@@ -396,7 +396,7 @@ export class Webhooks {
             throw new AppwriteException('Missing required parameter: "webhookId"');
         }
 
-        const apiPath = '/webhooks/{webhookId}'.replace('{webhookId}', webhookId);
+        const apiPath = '/webhooks/{webhookId}'.replace('{webhookId}', encodeURIComponent(String(webhookId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -454,7 +454,7 @@ export class Webhooks {
             throw new AppwriteException('Missing required parameter: "webhookId"');
         }
 
-        const apiPath = '/webhooks/{webhookId}/secret'.replace('{webhookId}', webhookId);
+        const apiPath = '/webhooks/{webhookId}/secret'.replace('{webhookId}', encodeURIComponent(String(webhookId)));
         const payload: Payload = {};
         if (typeof secret !== 'undefined') {
             payload['secret'] = secret;

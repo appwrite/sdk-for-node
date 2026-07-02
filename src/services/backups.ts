@@ -165,7 +165,7 @@ export class Backups {
             throw new AppwriteException('Missing required parameter: "archiveId"');
         }
 
-        const apiPath = '/backups/archives/{archiveId}'.replace('{archiveId}', archiveId);
+        const apiPath = '/backups/archives/{archiveId}'.replace('{archiveId}', encodeURIComponent(String(archiveId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -218,7 +218,7 @@ export class Backups {
             throw new AppwriteException('Missing required parameter: "archiveId"');
         }
 
-        const apiPath = '/backups/archives/{archiveId}'.replace('{archiveId}', archiveId);
+        const apiPath = '/backups/archives/{archiveId}'.replace('{archiveId}', encodeURIComponent(String(archiveId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -434,7 +434,7 @@ export class Backups {
             throw new AppwriteException('Missing required parameter: "policyId"');
         }
 
-        const apiPath = '/backups/policies/{policyId}'.replace('{policyId}', policyId);
+        const apiPath = '/backups/policies/{policyId}'.replace('{policyId}', encodeURIComponent(String(policyId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -504,7 +504,7 @@ export class Backups {
             throw new AppwriteException('Missing required parameter: "policyId"');
         }
 
-        const apiPath = '/backups/policies/{policyId}'.replace('{policyId}', policyId);
+        const apiPath = '/backups/policies/{policyId}'.replace('{policyId}', encodeURIComponent(String(policyId)));
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
@@ -570,7 +570,7 @@ export class Backups {
             throw new AppwriteException('Missing required parameter: "policyId"');
         }
 
-        const apiPath = '/backups/policies/{policyId}'.replace('{policyId}', policyId);
+        const apiPath = '/backups/policies/{policyId}'.replace('{policyId}', encodeURIComponent(String(policyId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -759,7 +759,7 @@ export class Backups {
             throw new AppwriteException('Missing required parameter: "restorationId"');
         }
 
-        const apiPath = '/backups/restorations/{restorationId}'.replace('{restorationId}', restorationId);
+        const apiPath = '/backups/restorations/{restorationId}'.replace('{restorationId}', encodeURIComponent(String(restorationId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 

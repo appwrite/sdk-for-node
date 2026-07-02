@@ -62,7 +62,7 @@ describe('Account', () => {
         const response = await account.create(
             '<USER_ID>',
             'email@example.com',
-            '',
+            'password',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
@@ -137,21 +137,6 @@ describe('Account', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await account.createJWT(
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
-    test('test method listLogs()', async () => {
-                                                const data = {
-            'total': 5,
-            'logs': [],};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await account.listLogs(
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
@@ -605,7 +590,7 @@ describe('Account', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await account.updatePassword(
-            '',
+            'password',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
@@ -722,7 +707,7 @@ describe('Account', () => {
         const response = await account.updateRecovery(
             '<USER_ID>',
             '<SECRET>',
-            '',
+            'password',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.

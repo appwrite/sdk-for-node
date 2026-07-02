@@ -291,6 +291,20 @@ describe('Health', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method getQueueNotifications()', async () => {
+                                                const data = {
+            'size': 8,};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await health.getQueueNotifications(
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method getQueueStatsResources()', async () => {
                                                 const data = {
             'size': 8,};

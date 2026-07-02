@@ -44,21 +44,7 @@ describe('Activities', () => {
             'time': '2020-10-15T06:38:00.000+00:00',
             'projectId': '610fc2f985ee0',
             'teamId': '610fc2f985ee0',
-            'hostname': 'appwrite.io',
-            'osCode': 'Mac',
-            'osName': 'Mac',
-            'osVersion': 'Mac',
-            'clientType': 'browser',
-            'clientCode': 'CM',
-            'clientName': 'Chrome Mobile iOS',
-            'clientVersion': '84.0',
-            'clientEngine': 'WebKit',
-            'clientEngineVersion': '605.1.15',
-            'deviceName': 'smartphone',
-            'deviceBrand': 'Google',
-            'deviceModel': 'Nexus 5',
-            'countryCode': 'US',
-            'countryName': 'United States',};
+            'hostname': 'appwrite.io',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await activities.getEvent(

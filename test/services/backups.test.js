@@ -112,6 +112,7 @@ describe('Backups', () => {
             'resources': [],
             'retention': 7,
             'schedule': '0 * * * *',
+            'type': 'full',
             'enabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -138,6 +139,7 @@ describe('Backups', () => {
             'resources': [],
             'retention': 7,
             'schedule': '0 * * * *',
+            'type': 'full',
             'enabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -161,6 +163,7 @@ describe('Backups', () => {
             'resources': [],
             'retention': 7,
             'schedule': '0 * * * *',
+            'type': 'full',
             'enabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
