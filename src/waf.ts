@@ -10,9 +10,15 @@
  * and a straight synchronous solve loop; solves are single-flight (concurrent
  * 403s share one solve) and the clearance token is cached until shortly before it
  * expires.
+ *
+ * NOTE: this file is emitted by sdk-generator (templates/node/src/waf.ts.twig).
+ * Edit it there, not in the generated SDK, or a regen will overwrite your change.
  */
 
 import { createHash } from 'crypto';
+// Solve over the same transport library the client uses, so proxy/keep-alive
+// behaviour is consistent with the rest of the SDK.
+import { fetch } from 'undici';
 
 export const WAF_CHALLENGE_ERROR = 'waf_challenge_required';
 
@@ -80,7 +86,8 @@ export class WafChallenge {
         this.inflight = (async () => {
             const solution = solvePow(nonce, difficulty);
             // Solve UNAUTHENTICATED — only the project header, never the API key.
-            const res = await fetch(this.getEndpoint() + '/waf/challenge', {
+            const endpoint = this.getEndpoint().replace(/\/+$/, '');
+            const res = await fetch(endpoint + '/waf/challenge', {
                 method: 'POST',
                 headers: { 'content-type': 'application/json', 'x-appwrite-project': this.getProject() },
                 body: JSON.stringify({ nonce, solution }),
