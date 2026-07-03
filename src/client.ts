@@ -137,7 +137,7 @@ class Client {
     };
 
     /**
-     * Handles WAF proof-of-work challenges transparently: solves and retries so
+     * Handles WAF challenges transparently: solves and retries so
      * application code never sees `waf_challenge_required`. See ./waf.
      */
     private waf: WafChallenge = new WafChallenge(
@@ -745,7 +745,7 @@ class Client {
             };
         }
 
-        // WAF proof-of-work challenge: solve it transparently and retry once, so
+        // WAF challenge: solve it transparently and retry once, so
         // callers never see `waf_challenge_required`. A single retry (guarded by
         // _wafAttempt) can never loop; a stale/rejected token is dropped and
         // re-solved once before the error is surfaced.
