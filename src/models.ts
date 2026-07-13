@@ -4336,6 +4336,10 @@ export namespace Models {
          */
         oAuth2ServerAuthorizationDetailsTypes?: string[];
         /**
+         * OAuth2 server accepted RFC 9396 authorization_details types
+         */
+        oAuth2ServerAuthorizationDetailsTypes: string[];
+        /**
          * OAuth2 server access token duration in seconds for confidential clients
          */
         oAuth2ServerAccessTokenDuration?: number;
@@ -4371,6 +4375,22 @@ export namespace Models {
          * Lifetime in seconds of device flow device codes and user codes.
          */
         oAuth2ServerDeviceCodeDuration?: number;
+        /**
+         * URL to your application page where users enter the device flow user code. Empty when the Device Authorization Grant is not configured.
+         */
+        oAuth2ServerVerificationUrl: string;
+        /**
+         * Number of characters in the device flow user code, excluding the formatting separator.
+         */
+        oAuth2ServerUserCodeLength: number;
+        /**
+         * Character set for device flow user codes: `numeric`, `alphabetic`, or `alphanumeric`.
+         */
+        oAuth2ServerUserCodeFormat: string;
+        /**
+         * Lifetime in seconds of device flow device codes and user codes.
+         */
+        oAuth2ServerDeviceCodeDuration: number;
         /**
          * OAuth2 server discovery URL
          */
