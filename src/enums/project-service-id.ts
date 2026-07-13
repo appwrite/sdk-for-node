@@ -17,4 +17,5 @@ export enum ProjectServiceId {
     Migrations = 'migrations',
     Messaging = 'messaging',
     Advisor = 'advisor',
+    Oauth2 = 'oauth2',
 }

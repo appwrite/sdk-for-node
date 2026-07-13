@@ -10,6 +10,114 @@ describe('Organization', () => {
     const organization = new Organization(client);
 
     
+    test('test method get()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'name': 'VIP',
+            'total': 7,
+            'prefs': {},
+            'billingBudget': 50,
+            'budgetAlerts': [],
+            'billingPlan': 'tier-1',
+            'billingPlanId': 'tier-1',
+            'billingPlanDetails': {},
+            'billingEmail': 'billing@org.example',
+            'billingStartDate': '2020-10-15T06:38:00.000+00:00',
+            'billingCurrentInvoiceDate': '2020-10-15T06:38:00.000+00:00',
+            'billingNextInvoiceDate': '2020-10-15T06:38:00.000+00:00',
+            'billingTrialStartDate': '2020-10-15T06:38:00.000+00:00',
+            'billingTrialDays': 14,
+            'billingAggregationId': 'adbc3de4rddfsd',
+            'billingInvoiceId': 'adbc3de4rddfsd',
+            'paymentMethodId': 'adbc3de4rddfsd',
+            'billingAddressId': 'adbc3de4rddfsd',
+            'backupPaymentMethodId': 'adbc3de4rddfsd',
+            'status': 'active',
+            'remarks': 'Pending initial payment',
+            'agreementBAA': '',
+            'programManagerName': '',
+            'programManagerCalendar': '',
+            'programDiscordChannelName': '',
+            'programDiscordChannelUrl': '',
+            'billingPlanDowngrade': 'tier-1',
+            'billingTaxId': '',
+            'markedForDeletion': true,
+            'platform': 'imagine',
+            'projects': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await organization.get(
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method update()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'name': 'VIP',
+            'total': 7,
+            'prefs': {},
+            'billingBudget': 50,
+            'budgetAlerts': [],
+            'billingPlan': 'tier-1',
+            'billingPlanId': 'tier-1',
+            'billingPlanDetails': {},
+            'billingEmail': 'billing@org.example',
+            'billingStartDate': '2020-10-15T06:38:00.000+00:00',
+            'billingCurrentInvoiceDate': '2020-10-15T06:38:00.000+00:00',
+            'billingNextInvoiceDate': '2020-10-15T06:38:00.000+00:00',
+            'billingTrialStartDate': '2020-10-15T06:38:00.000+00:00',
+            'billingTrialDays': 14,
+            'billingAggregationId': 'adbc3de4rddfsd',
+            'billingInvoiceId': 'adbc3de4rddfsd',
+            'paymentMethodId': 'adbc3de4rddfsd',
+            'billingAddressId': 'adbc3de4rddfsd',
+            'backupPaymentMethodId': 'adbc3de4rddfsd',
+            'status': 'active',
+            'remarks': 'Pending initial payment',
+            'agreementBAA': '',
+            'programManagerName': '',
+            'programManagerCalendar': '',
+            'programDiscordChannelName': '',
+            'programDiscordChannelUrl': '',
+            'billingPlanDowngrade': 'tier-1',
+            'billingTaxId': '',
+            'markedForDeletion': true,
+            'platform': 'imagine',
+            'projects': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await organization.update(
+            '<NAME>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method delete()', async () => {
+                                const data = {message: ""};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await organization.delete(
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method listKeys()', async () => {
                                                 const data = {
             'total': 5,
@@ -112,6 +220,123 @@ describe('Organization', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method listMemberships()', async () => {
+                                                const data = {
+            'total': 5,
+            'memberships': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await organization.listMemberships(
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method createMembership()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'userId': '5e5ea5c16897e',
+            'userName': 'John Doe',
+            'userEmail': 'john@appwrite.io',
+            'userPhone': '+1 555 555 5555',
+            'teamId': '5e5ea5c16897e',
+            'teamName': 'VIP',
+            'invited': '2020-10-15T06:38:00.000+00:00',
+            'joined': '2020-10-15T06:38:00.000+00:00',
+            'confirm': true,
+            'mfa': true,
+            'userAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'roles': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await organization.createMembership(
+            [],
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method getMembership()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'userId': '5e5ea5c16897e',
+            'userName': 'John Doe',
+            'userEmail': 'john@appwrite.io',
+            'userPhone': '+1 555 555 5555',
+            'teamId': '5e5ea5c16897e',
+            'teamName': 'VIP',
+            'invited': '2020-10-15T06:38:00.000+00:00',
+            'joined': '2020-10-15T06:38:00.000+00:00',
+            'confirm': true,
+            'mfa': true,
+            'userAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'roles': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await organization.getMembership(
+            '<MEMBERSHIP_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method updateMembership()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'userId': '5e5ea5c16897e',
+            'userName': 'John Doe',
+            'userEmail': 'john@appwrite.io',
+            'userPhone': '+1 555 555 5555',
+            'teamId': '5e5ea5c16897e',
+            'teamName': 'VIP',
+            'invited': '2020-10-15T06:38:00.000+00:00',
+            'joined': '2020-10-15T06:38:00.000+00:00',
+            'confirm': true,
+            'mfa': true,
+            'userAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'roles': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await organization.updateMembership(
+            '<MEMBERSHIP_ID>',
+            [],
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method deleteMembership()', async () => {
+                                const data = {message: ""};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await organization.deleteMembership(
+            '<MEMBERSHIP_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method listProjects()', async () => {
                                                 const data = {
             'total': 5,
@@ -144,31 +369,18 @@ describe('Organization', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await organization.createProject(
@@ -199,31 +411,18 @@ describe('Organization', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await organization.getProject(
@@ -253,31 +452,18 @@ describe('Organization', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await organization.updateProject(

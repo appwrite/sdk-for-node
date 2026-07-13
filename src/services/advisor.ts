@@ -111,7 +111,7 @@ export class Advisor {
             throw new AppwriteException('Missing required parameter: "reportId"');
         }
 
-        const apiPath = '/reports/{reportId}'.replace('{reportId}', reportId);
+        const apiPath = '/reports/{reportId}'.replace('{reportId}', encodeURIComponent(String(reportId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -166,7 +166,7 @@ export class Advisor {
             throw new AppwriteException('Missing required parameter: "reportId"');
         }
 
-        const apiPath = '/reports/{reportId}'.replace('{reportId}', reportId);
+        const apiPath = '/reports/{reportId}'.replace('{reportId}', encodeURIComponent(String(reportId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -230,7 +230,7 @@ export class Advisor {
             throw new AppwriteException('Missing required parameter: "reportId"');
         }
 
-        const apiPath = '/reports/{reportId}/insights'.replace('{reportId}', reportId);
+        const apiPath = '/reports/{reportId}/insights'.replace('{reportId}', encodeURIComponent(String(reportId)));
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
@@ -299,7 +299,7 @@ export class Advisor {
             throw new AppwriteException('Missing required parameter: "insightId"');
         }
 
-        const apiPath = '/reports/{reportId}/insights/{insightId}'.replace('{reportId}', reportId).replace('{insightId}', insightId);
+        const apiPath = '/reports/{reportId}/insights/{insightId}'.replace('{reportId}', encodeURIComponent(String(reportId))).replace('{insightId}', encodeURIComponent(String(insightId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 

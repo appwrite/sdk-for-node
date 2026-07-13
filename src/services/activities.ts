@@ -101,7 +101,7 @@ export class Activities {
             throw new AppwriteException('Missing required parameter: "eventId"');
         }
 
-        const apiPath = '/activities/events/{eventId}'.replace('{eventId}', eventId);
+        const apiPath = '/activities/events/{eventId}'.replace('{eventId}', encodeURIComponent(String(eventId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 

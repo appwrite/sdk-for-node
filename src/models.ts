@@ -1,4 +1,5 @@
 import { DatabaseType } from "./enums/database-type"
+import { DatabaseStatus } from "./enums/database-status"
 import { AttributeStatus } from "./enums/attribute-status"
 import { ColumnStatus } from "./enums/column-status"
 import { IndexStatus } from "./enums/index-status"
@@ -9,12 +10,12 @@ import { ProjectAuthMethodId } from "./enums/project-auth-method-id"
 import { ProjectServiceId } from "./enums/project-service-id"
 import { ProjectProtocolId } from "./enums/project-protocol-id"
 import { OAuth2GooglePrompt } from "./enums/o-auth-2-google-prompt"
+import { OAuth2OidcPrompt } from "./enums/o-auth-2-oidc-prompt"
 import { PlatformType } from "./enums/platform-type"
-import { HealthAntivirusStatus } from "./enums/health-antivirus-status"
-import { HealthCheckStatus } from "./enums/health-check-status"
 import { ProxyRuleDeploymentResourceType } from "./enums/proxy-rule-deployment-resource-type"
 import { ProxyRuleStatus } from "./enums/proxy-rule-status"
 import { MessageStatus } from "./enums/message-status"
+import { BillingPlanGroup } from "./enums/billing-plan-group"
 
 /**
  * Appwrite Models
@@ -496,7 +497,7 @@ export namespace Models {
         /**
          * List of policies.
          */
-        policies: (Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail)[];
+        policies: (Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail)[];
     }
 
     /**
@@ -511,20 +512,6 @@ export namespace Models {
          * List of templates.
          */
         templates: EmailTemplate[];
-    }
-
-    /**
-     * Status List
-     */
-    export type HealthStatusList = {
-        /**
-         * Total number of statuses that matched your query.
-         */
-        total: number;
-        /**
-         * List of statuses.
-         */
-        statuses: HealthStatus[];
     }
 
     /**
@@ -709,6 +696,10 @@ export namespace Models {
          * Database type.
          */
         type: DatabaseType;
+        /**
+         * Database status. Possible values: `provisioning`, `ready` or `failed`
+         */
+        status?: DatabaseStatus;
         /**
          * Database backup policies.
          */
@@ -1364,7 +1355,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: any[];
+        default?: number[];
     }
 
     /**
@@ -1406,7 +1397,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: any[];
+        default?: number[][];
     }
 
     /**
@@ -1448,7 +1439,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: any[];
+        default?: number[][][];
     }
 
     /**
@@ -2284,7 +2275,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: any[];
+        default?: number[];
     }
 
     /**
@@ -2326,7 +2317,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: any[];
+        default?: number[][];
     }
 
     /**
@@ -2368,7 +2359,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: any[];
+        default?: number[][][];
     }
 
     /**
@@ -2796,7 +2787,7 @@ export namespace Models {
          */
         mode: string;
         /**
-         * User type who triggered the audit log. Possible values: user, admin, guest, keyProject, keyAccount, keyOrganization.
+         * User type who triggered the audit log. Possible values: user, admin, guest, hidden, keyProject, keyAccount, keyOrganization.
          */
         userType: string;
         /**
@@ -3336,6 +3327,50 @@ export namespace Models {
          * Currency code in [ISO 4217-1](http://en.wikipedia.org/wiki/ISO_4217) three-character format
          */
         currency: string;
+        /**
+         * City
+         */
+        city?: string;
+        /**
+         * Name of timezone
+         */
+        timeZone?: string;
+        /**
+         * Postal code
+         */
+        postalCode?: string;
+        /**
+         * Latitude
+         */
+        latitude?: number;
+        /**
+         * Longitude
+         */
+        longitude?: number;
+        /**
+         * Autonomous System Number (ASN) of the IP
+         */
+        autonomousSystemNumber?: string;
+        /**
+         * Organization that owns the ASN
+         */
+        autonomousSystemOrganization?: string;
+        /**
+         * Internet service provider of the IP
+         */
+        isp?: string;
+        /**
+         * Connection type of the IP (e.g. cable, cellular, corporate)
+         */
+        connectionType?: string;
+        /**
+         * User type classification of the IP (e.g. residential, business, hosting)
+         */
+        connectionUsageType?: string;
+        /**
+         * Registered organization of the IP
+         */
+        connectionOrganization?: string;
     }
 
     /**
@@ -4253,6 +4288,10 @@ export namespace Models {
          */
         status: string;
         /**
+         * Stage progress (completed or skipped) with timestamps and actor types, keyed by stage id.
+         */
+        onboarding: object;
+        /**
          * List of auth methods.
          */
         authMethods: ProjectAuthMethod[];
@@ -4279,59 +4318,63 @@ export namespace Models {
         /**
          * OAuth2 server status
          */
-        oAuth2ServerEnabled: boolean;
+        oAuth2ServerEnabled?: boolean;
         /**
          * OAuth2 server authorization URL
          */
-        oAuth2ServerAuthorizationUrl: string;
+        oAuth2ServerAuthorizationUrl?: string;
         /**
          * OAuth2 server allowed scopes
          */
-        oAuth2ServerScopes: string[];
+        oAuth2ServerScopes?: string[];
+        /**
+         * OAuth2 server scopes used when an authorization request omits the scope parameter
+         */
+        oAuth2ServerDefaultScopes?: string[];
         /**
          * OAuth2 server accepted RFC 9396 authorization_details types
          */
-        oAuth2ServerAuthorizationDetailsTypes: string[];
+        oAuth2ServerAuthorizationDetailsTypes?: string[];
         /**
          * OAuth2 server access token duration in seconds for confidential clients
          */
-        oAuth2ServerAccessTokenDuration: number;
+        oAuth2ServerAccessTokenDuration?: number;
         /**
          * OAuth2 server refresh token duration in seconds for confidential clients
          */
-        oAuth2ServerRefreshTokenDuration: number;
+        oAuth2ServerRefreshTokenDuration?: number;
         /**
          * OAuth2 server access token duration in seconds for public clients (SPAs, mobile, native)
          */
-        oAuth2ServerPublicAccessTokenDuration: number;
+        oAuth2ServerPublicAccessTokenDuration?: number;
         /**
          * OAuth2 server refresh token duration in seconds for public clients (SPAs, mobile, native)
          */
-        oAuth2ServerPublicRefreshTokenDuration: number;
+        oAuth2ServerPublicRefreshTokenDuration?: number;
         /**
          * When enabled, PKCE is required for confidential clients (server-side flows using client_secret). PKCE is always required for public clients regardless of this setting.
          */
-        oAuth2ServerConfidentialPkce: boolean;
+        oAuth2ServerConfidentialPkce?: boolean;
         /**
          * URL to your application page where users enter the device flow user code. Empty when the Device Authorization Grant is not configured.
          */
-        oAuth2ServerVerificationUrl: string;
+        oAuth2ServerVerificationUrl?: string;
         /**
          * Number of characters in the device flow user code, excluding the formatting separator.
          */
-        oAuth2ServerUserCodeLength: number;
+        oAuth2ServerUserCodeLength?: number;
         /**
          * Character set for device flow user codes: `numeric`, `alphabetic`, or `alphanumeric`.
          */
-        oAuth2ServerUserCodeFormat: string;
+        oAuth2ServerUserCodeFormat?: string;
         /**
          * Lifetime in seconds of device flow device codes and user codes.
          */
-        oAuth2ServerDeviceCodeDuration: number;
+        oAuth2ServerDeviceCodeDuration?: number;
         /**
          * OAuth2 server discovery URL
          */
-        oAuth2ServerDiscoveryUrl: string;
+        oAuth2ServerDiscoveryUrl?: string;
     }
 
     /**
@@ -5269,6 +5312,28 @@ export namespace Models {
     }
 
     /**
+     * OAuth2Appwrite
+     */
+    export type OAuth2Appwrite = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Appwrite OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Appwrite OAuth2 client secret.
+         */
+        clientSecret: string;
+    }
+
+    /**
      * OAuth2Authentik
      */
     export type OAuth2Authentik = {
@@ -5412,6 +5477,14 @@ export namespace Models {
          * OpenID Connect user info endpoint URL.
          */
         userInfoURL: string;
+        /**
+         * OpenID Connect prompt values controlling the authentication and consent screens.
+         */
+        prompt: OAuth2OidcPrompt[];
+        /**
+         * Maximum authentication age in seconds. When set, the user must have authenticated within this many seconds.
+         */
+        maxAge?: number;
     }
 
     /**
@@ -5533,7 +5606,7 @@ export namespace Models {
         /**
          * List of OAuth2 providers.
          */
-        providers: (Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft)[];
+        providers: (Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Appwrite | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft)[];
     }
 
     /**
@@ -6010,96 +6083,6 @@ export namespace Models {
          * Country name.
          */
         countryName: string;
-    }
-
-    /**
-     * Health Antivirus
-     */
-    export type HealthAntivirus = {
-        /**
-         * Antivirus version.
-         */
-        version: string;
-        /**
-         * Antivirus status. Possible values are: `disabled`, `offline`, `online`
-         */
-        status: HealthAntivirusStatus;
-    }
-
-    /**
-     * Health Queue
-     */
-    export type HealthQueue = {
-        /**
-         * Amount of actions in the queue.
-         */
-        size: number;
-    }
-
-    /**
-     * Health Status
-     */
-    export type HealthStatus = {
-        /**
-         * Name of the service.
-         */
-        name: string;
-        /**
-         * Duration in milliseconds how long the health check took.
-         */
-        ping: number;
-        /**
-         * Service status. Possible values are: `pass`, `fail`
-         */
-        status: HealthCheckStatus;
-    }
-
-    /**
-     * Health Certificate
-     */
-    export type HealthCertificate = {
-        /**
-         * Certificate name
-         */
-        name: string;
-        /**
-         * Subject SN
-         */
-        subjectSN: string;
-        /**
-         * Issuer organisation
-         */
-        issuerOrganisation: string;
-        /**
-         * Valid from
-         */
-        validFrom: string;
-        /**
-         * Valid to
-         */
-        validTo: string;
-        /**
-         * Signature type SN
-         */
-        signatureTypeSN: string;
-    }
-
-    /**
-     * Health Time
-     */
-    export type HealthTime = {
-        /**
-         * Current unix timestamp on trustful remote server.
-         */
-        remoteTime: number;
-        /**
-         * Current unix timestamp of local server where Appwrite runs.
-         */
-        localTime: number;
-        /**
-         * Difference of unix remote and local timestamps in milliseconds.
-         */
-        diff: number;
     }
 
     /**
@@ -6788,62 +6771,36 @@ export namespace Models {
          * Hostname.
          */
         hostname: string;
+    }
+
+    /**
+     * AdditionalResource
+     */
+    export type AdditionalResource = {
         /**
-         * Operating system code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/os.json).
+         * Resource name
          */
-        osCode: string;
+        name: string;
         /**
-         * Operating system name.
+         * Resource unit
          */
-        osName: string;
+        unit: string;
         /**
-         * Operating system version.
+         * Price currency
          */
-        osVersion: string;
+        currency: string;
         /**
-         * Client type.
+         * Price
          */
-        clientType: string;
+        price: number;
         /**
-         * Client code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/clients.json).
+         * Resource value
          */
-        clientCode: string;
+        value: number;
         /**
-         * Client name.
+         * Description on invoice
          */
-        clientName: string;
-        /**
-         * Client version.
-         */
-        clientVersion: string;
-        /**
-         * Client engine name.
-         */
-        clientEngine: string;
-        /**
-         * Client engine name.
-         */
-        clientEngineVersion: string;
-        /**
-         * Device name.
-         */
-        deviceName: string;
-        /**
-         * Device brand name.
-         */
-        deviceBrand: string;
-        /**
-         * Device model name.
-         */
-        deviceModel: string;
-        /**
-         * Country two-character ISO 3166-1 alpha code.
-         */
-        countryCode: string;
-        /**
-         * Country name.
-         */
-        countryName: string;
+        invoiceDesc: string;
     }
 
     /**
@@ -6939,6 +6896,450 @@ export namespace Models {
     }
 
     /**
+     * billingPlan
+     */
+    export type BillingPlan = {
+        /**
+         * Plan ID.
+         */
+        $id: string;
+        /**
+         * Plan name
+         */
+        name: string;
+        /**
+         * Plan description
+         */
+        desc: string;
+        /**
+         * Plan order
+         */
+        order: number;
+        /**
+         * Price
+         */
+        price: number;
+        /**
+         * Trial days
+         */
+        trial: number;
+        /**
+         * Bandwidth
+         */
+        bandwidth: number;
+        /**
+         * Storage
+         */
+        storage: number;
+        /**
+         * Image Transformations
+         */
+        imageTransformations: number;
+        /**
+         * Screenshots generated
+         */
+        screenshotsGenerated: number;
+        /**
+         * Members
+         */
+        members: number;
+        /**
+         * Webhooks
+         */
+        webhooks: number;
+        /**
+         * Projects
+         */
+        projects: number;
+        /**
+         * Platforms
+         */
+        platforms: number;
+        /**
+         * Users
+         */
+        users: number;
+        /**
+         * Teams
+         */
+        teams: number;
+        /**
+         * Databases
+         */
+        databases: number;
+        /**
+         * Database reads per month
+         */
+        databasesReads: number;
+        /**
+         * Database writes per month
+         */
+        databasesWrites: number;
+        /**
+         * Database batch size limit
+         */
+        databasesBatchSize: number;
+        /**
+         * Buckets
+         */
+        buckets: number;
+        /**
+         * File size
+         */
+        fileSize: number;
+        /**
+         * Functions
+         */
+        functions: number;
+        /**
+         * Sites
+         */
+        sites: number;
+        /**
+         * Function executions
+         */
+        executions: number;
+        /**
+         * Rolling max executions retained per function/site
+         */
+        executionsRetentionCount: number;
+        /**
+         * GB hours for functions
+         */
+        GBHours: number;
+        /**
+         * Realtime connections
+         */
+        realtime: number;
+        /**
+         * Realtime messages
+         */
+        realtimeMessages: number;
+        /**
+         * Messages per month
+         */
+        messages: number;
+        /**
+         * Topics for messaging
+         */
+        topics: number;
+        /**
+         * SMS authentications per month
+         */
+        authPhone: number;
+        /**
+         * Custom domains
+         */
+        domains: number;
+        /**
+         * Activity log days
+         */
+        activityLogs: number;
+        /**
+         * Usage history days
+         */
+        usageLogs: number;
+        /**
+         * Usage log time intervals allowed for this plan (e.g. 15m, 1h, 1d).
+         */
+        usageLogsIntervals?: string[];
+        /**
+         * Number of days of console inactivity before a project is paused. 0 means pausing is disabled.
+         */
+        projectInactivityDays: number;
+        /**
+         * Alert threshold percentage
+         */
+        alertLimit: number;
+        /**
+         * Additional resources
+         */
+        usage: UsageBillingPlan;
+        /**
+         * Addons
+         */
+        addons: BillingPlanAddon;
+        /**
+         * Budget cap enabled or disabled.
+         */
+        budgetCapEnabled: boolean;
+        /**
+         * Custom SMTP
+         */
+        customSmtp: boolean;
+        /**
+         * Appwrite branding in email
+         */
+        emailBranding: boolean;
+        /**
+         * Does plan require payment method
+         */
+        requiresPaymentMethod: boolean;
+        /**
+         * Does plan require billing address
+         */
+        requiresBillingAddress: boolean;
+        /**
+         * Is the billing plan available
+         */
+        isAvailable: boolean;
+        /**
+         * Can user change the plan themselves
+         */
+        selfService: boolean;
+        /**
+         * Does plan enable premium support
+         */
+        premiumSupport: boolean;
+        /**
+         * Does plan support budget cap
+         */
+        budgeting: boolean;
+        /**
+         * Does plan support mock numbers
+         */
+        supportsMockNumbers: boolean;
+        /**
+         * Does plan support organization roles
+         */
+        supportsOrganizationRoles: boolean;
+        /**
+         * Does plan support credit
+         */
+        supportsCredits: boolean;
+        /**
+         * Does plan support blocking disposable email addresses.
+         */
+        supportsDisposableEmailValidation: boolean;
+        /**
+         * Does plan support requiring canonical email addresses.
+         */
+        supportsCanonicalEmailValidation: boolean;
+        /**
+         * Does plan support blocking free email addresses.
+         */
+        supportsFreeEmailValidation: boolean;
+        /**
+         * Does plan support restricting sign-ups to corporate email addresses only.
+         */
+        supportsCorporateEmailValidation: boolean;
+        /**
+         * Does plan support project-specific member roles.
+         */
+        supportsProjectSpecificRoles: boolean;
+        /**
+         * Does plan support backup policies.
+         */
+        backupsEnabled: boolean;
+        /**
+         * Whether usage addons are calculated per project.
+         */
+        usagePerProject: boolean;
+        /**
+         * Supported addons for this plan
+         */
+        supportedAddons: BillingPlanSupportedAddons;
+        /**
+         * How many policies does plan support
+         */
+        backupPolicies: number;
+        /**
+         * Maximum function and site deployment size in MB
+         */
+        deploymentSize: number;
+        /**
+         * Maximum function and site deployment size in MB
+         */
+        buildSize: number;
+        /**
+         * Does the plan support encrypted string attributes or not.
+         */
+        databasesAllowEncrypt: boolean;
+        /**
+         * Plan specific limits
+         */
+        limits?: BillingPlanLimits;
+        /**
+         * Group of this billing plan for variants
+         */
+        group: BillingPlanGroup;
+        /**
+         * Details of the program this plan is a part of.
+         */
+        program?: Program;
+        /**
+         * Dedicated database limits available to this plan.
+         */
+        dedicatedDatabases?: BillingPlanDedicatedDatabaseLimits;
+    }
+
+    /**
+     * Addon
+     */
+    export type BillingPlanAddon = {
+        /**
+         * Addon seats
+         */
+        seats: BillingPlanAddonDetails;
+        /**
+         * Addon projects
+         */
+        projects: BillingPlanAddonDetails;
+    }
+
+    /**
+     * Details
+     */
+    export type BillingPlanAddonDetails = {
+        /**
+         * Is the addon supported in the plan?
+         */
+        supported: boolean;
+        /**
+         * Addon plan included value
+         */
+        planIncluded: number;
+        /**
+         * Addon limit
+         */
+        limit: number;
+        /**
+         * Addon type
+         */
+        type: string;
+        /**
+         * Price currency
+         */
+        currency: string;
+        /**
+         * Price
+         */
+        price: number;
+        /**
+         * Resource value
+         */
+        value: number;
+        /**
+         * Description on invoice
+         */
+        invoiceDesc: string;
+    }
+
+    /**
+     * PlanLimits
+     */
+    export type BillingPlanLimits = {
+        /**
+         * Credits limit per billing cycle
+         */
+        credits?: number;
+        /**
+         * Daily credits limit (if applicable)
+         */
+        dailyCredits?: number;
+    }
+
+    /**
+     * dedicatedDatabaseLimits
+     */
+    export type BillingPlanDedicatedDatabaseLimits = {
+        /**
+         * Minimum CPU allocation in millicores.
+         */
+        minCpu?: number;
+        /**
+         * Maximum CPU allocation in millicores.
+         */
+        maxCpu?: number;
+        /**
+         * Minimum memory allocation in megabytes.
+         */
+        minMemoryMb?: number;
+        /**
+         * Maximum memory allocation in megabytes.
+         */
+        maxMemoryMb?: number;
+        /**
+         * Minimum storage allocation in gigabytes.
+         */
+        minStorageGb?: number;
+        /**
+         * Maximum storage allocation in gigabytes.
+         */
+        maxStorageGb?: number;
+        /**
+         * Maximum number of high-availability replicas per dedicated database.
+         */
+        maxReplicas?: number;
+        /**
+         * Maximum number of client connections.
+         */
+        maxConnections?: number;
+        /**
+         * Maximum number of entries allowed in the IP allowlist.
+         */
+        maxIpAllowlistSize?: number;
+        /**
+         * Maximum number of database extensions that can be enabled.
+         */
+        maxExtensions?: number;
+        /**
+         * Maximum number of days a backup can be retained.
+         */
+        maxBackupRetentionDays?: number;
+        /**
+         * Maximum number of days of point-in-time recovery data that can be retained.
+         */
+        maxPitrRetentionDays?: number;
+        /**
+         * Maximum number of rows a single SQL API query can return.
+         */
+        maxSqlApiMaxRows?: number;
+        /**
+         * Maximum response size in bytes for a single SQL API query.
+         */
+        maxSqlApiMaxBytes?: number;
+        /**
+         * Maximum execution time in seconds for a single SQL API query.
+         */
+        maxSqlApiTimeoutSeconds?: number;
+        /**
+         * Maximum number of SQL statement types that can be permitted through the SQL API.
+         */
+        maxSqlApiAllowedStatements?: number;
+        /**
+         * SQL statement types permitted through the SQL API.
+         */
+        allowedSqlStatements?: string[];
+        /**
+         * Storage classes available for dedicated databases.
+         */
+        allowedStorageClasses?: string[];
+        /**
+         * Replica synchronization modes available for dedicated databases.
+         */
+        allowedSyncModes?: string[];
+    }
+
+    /**
+     * BillingPlanSupportedAddons
+     */
+    export type BillingPlanSupportedAddons = {
+        /**
+         * Whether the plan supports BAA (Business Associate Agreement) addon
+         */
+        baa: boolean;
+        /**
+         * Whether the plan supports Premium Geo DB addon (project-level)
+         */
+        premiumGeoDB: boolean;
+        /**
+         * Whether the plan supports Premium Geo DB addon (organization-level)
+         */
+        premiumGeoDBOrg: boolean;
+    }
+
+    /**
      * Block
      */
     export type Block = {
@@ -6954,6 +7355,10 @@ export namespace Models {
          * Resource identifier that is blocked
          */
         resourceId: string;
+        /**
+         * Block mode. full blocks reads and writes; readOnly blocks writes only.
+         */
+        mode: string;
         /**
          * Reason for the block. Can be null if no reason was provided.
          */
@@ -6982,6 +7387,152 @@ export namespace Models {
          * Billing plan of the organization that owns the project.
          */
         billingPlan: string;
+    }
+
+    /**
+     * Organization
+     */
+    export type Organization<Preferences extends Models.Preferences = Models.DefaultPreferences> = {
+        /**
+         * Team ID.
+         */
+        $id: string;
+        /**
+         * Team creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Team update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Team name.
+         */
+        name: string;
+        /**
+         * Total number of team members.
+         */
+        total: number;
+        /**
+         * Team preferences as a key-value object
+         */
+        prefs: Preferences;
+        /**
+         * Project budget limit
+         */
+        billingBudget: number;
+        /**
+         * Project budget limit
+         */
+        budgetAlerts: number[];
+        /**
+         * Organization's billing plan ID.
+         */
+        billingPlan: string;
+        /**
+         * Organization's billing plan ID.
+         */
+        billingPlanId: string;
+        /**
+         * Organization's billing plan.
+         */
+        billingPlanDetails: BillingPlan;
+        /**
+         * Billing email set for the organization.
+         */
+        billingEmail: string;
+        /**
+         * Billing cycle start date.
+         */
+        billingStartDate: string;
+        /**
+         * Current invoice cycle start date.
+         */
+        billingCurrentInvoiceDate: string;
+        /**
+         * Next invoice cycle start date.
+         */
+        billingNextInvoiceDate: string;
+        /**
+         * Start date of trial.
+         */
+        billingTrialStartDate: string;
+        /**
+         * Number of trial days.
+         */
+        billingTrialDays: number;
+        /**
+         * Current active aggregation id.
+         */
+        billingAggregationId: string;
+        /**
+         * Current active aggregation id.
+         */
+        billingInvoiceId: string;
+        /**
+         * Default payment method.
+         */
+        paymentMethodId: string;
+        /**
+         * Default payment method.
+         */
+        billingAddressId: string;
+        /**
+         * Backup payment method.
+         */
+        backupPaymentMethodId: string;
+        /**
+         * Team status.
+         */
+        status: string;
+        /**
+         * Remarks on team status.
+         */
+        remarks: string;
+        /**
+         * Organization agreements
+         */
+        agreementBAA: string;
+        /**
+         * Program manager's name.
+         */
+        programManagerName: string;
+        /**
+         * Program manager's calendar link.
+         */
+        programManagerCalendar: string;
+        /**
+         * Program's discord channel name.
+         */
+        programDiscordChannelName: string;
+        /**
+         * Program's discord channel URL.
+         */
+        programDiscordChannelUrl: string;
+        /**
+         * Billing limits reached
+         */
+        billingLimits?: BillingLimits;
+        /**
+         * Billing plan selected for downgrade.
+         */
+        billingPlanDowngrade: string;
+        /**
+         * Tax Id
+         */
+        billingTaxId: string;
+        /**
+         * Marked for deletion
+         */
+        markedForDeletion: boolean;
+        /**
+         * Product with which the organization is associated (appwrite or imagine)
+         */
+        platform: string;
+        /**
+         * Selected projects
+         */
+        projects: string[];
     }
 
     /**
@@ -7029,6 +7580,10 @@ export namespace Models {
          */
         schedule: string;
         /**
+         * Backup type. Possible values: full (complete database snapshot), incremental (changes since last backup).
+         */
+        type: string;
+        /**
          * Is this policy enabled.
          */
         enabled: boolean;
@@ -7074,6 +7629,62 @@ export namespace Models {
          * Whether the deny free email policy is enabled.
          */
         enabled: boolean;
+    }
+
+    /**
+     * Policy Deny Corporate Email
+     */
+    export type PolicyDenyCorporateEmail = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether the deny non-corporate email policy is enabled.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * Program
+     */
+    export type Program = {
+        /**
+         * Program ID
+         */
+        $id: string;
+        /**
+         * Program title
+         */
+        title: string;
+        /**
+         * Program description
+         */
+        description: string;
+        /**
+         * Program tag for highlighting on console
+         */
+        tag: string;
+        /**
+         * Program icon for highlighting on console
+         */
+        icon: string;
+        /**
+         * URL for more information on this program
+         */
+        url: string;
+        /**
+         * Whether this program is active
+         */
+        active: boolean;
+        /**
+         * Whether this program is external
+         */
+        external: boolean;
+        /**
+         * Billing plan ID that this is program is associated with.
+         */
+        billingPlanId: string;
     }
 
     /**
@@ -7127,75 +7738,53 @@ export namespace Models {
     }
 
     /**
-     * usageEvent
+     * usageBillingPlan
      */
-    export type UsageEvent = {
+    export type UsageBillingPlan = {
         /**
-         * The metric key.
+         * Bandwidth additional resources
          */
-        metric: string;
+        bandwidth: AdditionalResource;
         /**
-         * The metric value.
+         * Executions additional resources
          */
-        value: number;
+        executions: AdditionalResource;
         /**
-         * The event timestamp.
+         * Member additional resources
          */
-        time: string;
+        member: AdditionalResource;
         /**
-         * The API endpoint path.
+         * Realtime additional resources
          */
-        path: string;
+        realtime: AdditionalResource;
         /**
-         * The HTTP method.
+         * Realtime messages additional resources
          */
-        method: string;
+        realtimeMessages: AdditionalResource;
         /**
-         * HTTP status code. Stored as string to preserve unset state (empty string = not available).
+         * Realtime bandwidth additional resources
          */
-        status: string;
+        realtimeBandwidth: AdditionalResource;
         /**
-         * The resource type.
+         * Storage additional resources
          */
-        resourceType: string;
+        storage: AdditionalResource;
         /**
-         * The resource ID.
+         * User additional resources
          */
-        resourceId: string;
+        users: AdditionalResource;
         /**
-         * Country code in [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1) two-character format.
+         * GBHour additional resources
          */
-        countryCode: string;
+        GBHours: AdditionalResource;
         /**
-         * The user agent string.
+         * Image transformation additional resources
          */
-        userAgent: string;
-    }
-
-    /**
-     * usageGauge
-     */
-    export type UsageGauge = {
+        imageTransformations: AdditionalResource;
         /**
-         * The metric key.
+         * Credits additional resources
          */
-        metric: string;
-        /**
-         * The current snapshot value.
-         */
-        value: number;
-        /**
-         * The snapshot timestamp.
-         */
-        time: string;
-        /**
-         * The resource type.
-         */
-        resourceType: string;
-        /**
-         * The resource ID.
-         */
-        resourceId: string;
+        credits: AdditionalResource;
     }
 
     /**
@@ -7252,33 +7841,5 @@ export namespace Models {
          * List of restorations.
          */
         restorations: BackupRestoration[];
-    }
-
-    /**
-     * Usage events list
-     */
-    export type UsageEventList = {
-        /**
-         * Total number of events that matched your query.
-         */
-        total: number;
-        /**
-         * List of events.
-         */
-        events: UsageEvent[];
-    }
-
-    /**
-     * Usage gauges list
-     */
-    export type UsageGaugeList = {
-        /**
-         * Total number of gauges that matched your query.
-         */
-        total: number;
-        /**
-         * List of gauges.
-         */
-        gauges: UsageGauge[];
     }
 }

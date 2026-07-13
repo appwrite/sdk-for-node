@@ -6,13 +6,14 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const users = new sdk.Users(client);
+const organization = new sdk.Organization(client);
 
-const result = await users.create({
-    userId: '<USER_ID>',
+const result = await organization.createMembership({
+    roles: [],
     email: 'email@example.com', // optional
+    userId: '<USER_ID>', // optional
     phone: '+12065550100', // optional
-    password: 'password', // optional
+    url: 'https://example.com', // optional
     name: '<NAME>' // optional
 });
 ```

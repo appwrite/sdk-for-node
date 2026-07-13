@@ -12,4 +12,5 @@ export enum ProjectPolicyId {
     Denyaliasedemail = 'deny-aliased-email',
     Denydisposableemail = 'deny-disposable-email',
     Denyfreeemail = 'deny-free-email',
+    Denycorporateemail = 'deny-corporate-email',
 }

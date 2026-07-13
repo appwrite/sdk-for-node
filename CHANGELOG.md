@@ -1,5 +1,23 @@
 # Change Log
 
+## 27.0.0
+
+* Breaking: removed `Health` service, health enums, and health response models
+* Breaking: removed `Usage` service and `UsageEvent`/`UsageGauge` models
+* Breaking: removed messaging `listMessageLogs`, `listProviderLogs`, `listSubscriberLogs`, `listTopicLogs` methods
+* Added: `Organization` `get`, `update`, `delete`, and membership CRUD methods
+* Added: `Query.vectorCosine`, `Query.vectorDot`, `Query.vectorEuclidean` vector filters
+* Added: `Client.setBearer` for OAuth access token authentication
+* Added: `updateOAuth2Appwrite` and `updateDenyCorporateEmailPolicy` project methods
+* Added: `prompt` and `maxAge` params to `updateOAuth2Oidc`, `defaultScopes` to `updateOAuth2Server`
+* Added: `token` param to `getDeploymentDownload`, `type` to `listSpecifications`
+* Added: `newSpecification` param to `createRestoration`, `specification` to `tablesDB.create`
+* Added: `BillingPlanGroup`, `DatabaseStatus`, `OAuth2OidcPrompt`, `ProjectOAuth2OidcPrompt` enums
+* Added: `Appwrite` OAuth provider, `stages` and `project.oauth2` key scopes
+* Added: `Organization`, `BillingPlan`, `OAuth2Appwrite`, `PolicyDenyCorporateEmail` models
+* Fixed: URL-encoded path parameters in organization key/project endpoints
+* Updated: spatial attribute/column `xdefault` types narrowed to `number[]`/`any[][]`
+
 ## 26.2.0
 
 * Added: Device Authorization Grant params (`verificationUrl`, `userCodeLength`, `userCodeFormat`, `deviceCodeDuration`) to `updateOAuth2Server`

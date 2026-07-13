@@ -62,7 +62,7 @@ export class Tokens {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
 
-        const apiPath = '/tokens/buckets/{bucketId}/files/{fileId}'.replace('{bucketId}', bucketId).replace('{fileId}', fileId);
+        const apiPath = '/tokens/buckets/{bucketId}/files/{fileId}'.replace('{bucketId}', encodeURIComponent(String(bucketId))).replace('{fileId}', encodeURIComponent(String(fileId)));
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
@@ -133,7 +133,7 @@ export class Tokens {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
 
-        const apiPath = '/tokens/buckets/{bucketId}/files/{fileId}'.replace('{bucketId}', bucketId).replace('{fileId}', fileId);
+        const apiPath = '/tokens/buckets/{bucketId}/files/{fileId}'.replace('{bucketId}', encodeURIComponent(String(bucketId))).replace('{fileId}', encodeURIComponent(String(fileId)));
         const payload: Payload = {};
         if (typeof expire !== 'undefined') {
             payload['expire'] = expire;
@@ -190,7 +190,7 @@ export class Tokens {
             throw new AppwriteException('Missing required parameter: "tokenId"');
         }
 
-        const apiPath = '/tokens/{tokenId}'.replace('{tokenId}', tokenId);
+        const apiPath = '/tokens/{tokenId}'.replace('{tokenId}', encodeURIComponent(String(tokenId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -248,7 +248,7 @@ export class Tokens {
             throw new AppwriteException('Missing required parameter: "tokenId"');
         }
 
-        const apiPath = '/tokens/{tokenId}'.replace('{tokenId}', tokenId);
+        const apiPath = '/tokens/{tokenId}'.replace('{tokenId}', encodeURIComponent(String(tokenId)));
         const payload: Payload = {};
         if (typeof expire !== 'undefined') {
             payload['expire'] = expire;
@@ -305,7 +305,7 @@ export class Tokens {
             throw new AppwriteException('Missing required parameter: "tokenId"');
         }
 
-        const apiPath = '/tokens/{tokenId}'.replace('{tokenId}', tokenId);
+        const apiPath = '/tokens/{tokenId}'.replace('{tokenId}', encodeURIComponent(String(tokenId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 

@@ -430,7 +430,7 @@ export class Proxy {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
 
-        const apiPath = '/proxy/rules/{ruleId}'.replace('{ruleId}', ruleId);
+        const apiPath = '/proxy/rules/{ruleId}'.replace('{ruleId}', encodeURIComponent(String(ruleId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -483,7 +483,7 @@ export class Proxy {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
 
-        const apiPath = '/proxy/rules/{ruleId}'.replace('{ruleId}', ruleId);
+        const apiPath = '/proxy/rules/{ruleId}'.replace('{ruleId}', encodeURIComponent(String(ruleId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -536,7 +536,7 @@ export class Proxy {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
 
-        const apiPath = '/proxy/rules/{ruleId}/status'.replace('{ruleId}', ruleId);
+        const apiPath = '/proxy/rules/{ruleId}/status'.replace('{ruleId}', encodeURIComponent(String(ruleId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 

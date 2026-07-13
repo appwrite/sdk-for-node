@@ -5,6 +5,7 @@ import type { Models } from '../models';
 import { ProjectAuthMethodId } from '../enums/project-auth-method-id';
 import { ProjectKeyScopes } from '../enums/project-key-scopes';
 import { ProjectOAuth2GooglePrompt } from '../enums/project-o-auth-2-google-prompt';
+import { ProjectOAuth2OidcPrompt } from '../enums/project-o-auth-2-oidc-prompt';
 import { ProjectOAuthProviderId } from '../enums/project-o-auth-provider-id';
 import { ProjectPolicyId } from '../enums/project-policy-id';
 import { ProjectProtocolId } from '../enums/project-protocol-id';
@@ -113,7 +114,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "enabled"');
         }
 
-        const apiPath = '/project/auth-methods/{methodId}'.replace('{methodId}', methodId);
+        const apiPath = '/project/auth-methods/{methodId}'.replace('{methodId}', encodeURIComponent(String(methodId)));
         const payload: Payload = {};
         if (typeof enabled !== 'undefined') {
             payload['enabled'] = enabled;
@@ -202,7 +203,7 @@ export class Project {
      *
      * @param {string} params.keyId - Key ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Key name. Max length: 128 chars.
-     * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 200 scopes are allowed.
      * @param {string} params.expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
@@ -215,7 +216,7 @@ export class Project {
      *
      * @param {string} keyId - Key ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Key name. Max length: 128 chars.
-     * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 200 scopes are allowed.
      * @param {string} expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
@@ -289,7 +290,7 @@ export class Project {
      * 
      * You can also create a standard API key if you need a longer-lived key instead.
      *
-     * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 200 scopes are allowed.
      * @param {number} params.duration - Time in seconds before ephemeral key expires. Maximum duration is 3600 seconds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.EphemeralKey>}
@@ -300,7 +301,7 @@ export class Project {
      * 
      * You can also create a standard API key if you need a longer-lived key instead.
      *
-     * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 200 scopes are allowed.
      * @param {number} duration - Time in seconds before ephemeral key expires. Maximum duration is 3600 seconds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.EphemeralKey>}
@@ -392,7 +393,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
 
-        const apiPath = '/project/keys/{keyId}'.replace('{keyId}', keyId);
+        const apiPath = '/project/keys/{keyId}'.replace('{keyId}', encodeURIComponent(String(keyId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -414,7 +415,7 @@ export class Project {
      *
      * @param {string} params.keyId - Key ID.
      * @param {string} params.name - Key name. Max length: 128 chars.
-     * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 200 scopes are allowed.
      * @param {string} params.expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
@@ -425,7 +426,7 @@ export class Project {
      *
      * @param {string} keyId - Key ID.
      * @param {string} name - Key name. Max length: 128 chars.
-     * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 200 scopes are allowed.
      * @param {string} expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
@@ -464,7 +465,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "scopes"');
         }
 
-        const apiPath = '/project/keys/{keyId}'.replace('{keyId}', keyId);
+        const apiPath = '/project/keys/{keyId}'.replace('{keyId}', encodeURIComponent(String(keyId)));
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
@@ -527,7 +528,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
 
-        const apiPath = '/project/keys/{keyId}'.replace('{keyId}', keyId);
+        const apiPath = '/project/keys/{keyId}'.replace('{keyId}', encodeURIComponent(String(keyId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -766,7 +767,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "number"');
         }
 
-        const apiPath = '/project/mock-phones/{number}'.replace('{number}', number);
+        const apiPath = '/project/mock-phones/{number}'.replace('{number}', encodeURIComponent(String(number)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -827,7 +828,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "otp"');
         }
 
-        const apiPath = '/project/mock-phones/{number}'.replace('{number}', number);
+        const apiPath = '/project/mock-phones/{number}'.replace('{number}', encodeURIComponent(String(number)));
         const payload: Payload = {};
         if (typeof otp !== 'undefined') {
             payload['otp'] = otp;
@@ -884,7 +885,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "number"');
         }
 
-        const apiPath = '/project/mock-phones/{number}'.replace('{number}', number);
+        const apiPath = '/project/mock-phones/{number}'.replace('{number}', encodeURIComponent(String(number)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -978,10 +979,11 @@ export class Project {
      * @param {number} params.userCodeLength - Number of characters in the device flow user code, excluding the formatting separator. Shorter codes are easier to type but weaker; pair short codes with short expiry. Leave empty to use default 8.
      * @param {string} params.userCodeFormat - Character set for device flow user codes: `numeric` (digits only — best for numeric keypads and TV remotes), `alphabetic` (letters only), or `alphanumeric` (letters and digits — highest entropy per character). Defaults to `alphanumeric`.
      * @param {number} params.deviceCodeDuration - Lifetime in seconds of device flow device codes and user codes. Device codes are intentionally short-lived. Leave empty to use default 600.
+     * @param {string[]} params.defaultScopes - List of OAuth2 scopes used when an authorization request omits the scope parameter. Every default scope must also be allowed by the OAuth2 server. Maximum of 100 scopes are allowed, each up to 128 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
-    updateOAuth2Server(params: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number }): Promise<Models.Project>;
+    updateOAuth2Server(params: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] }): Promise<Models.Project>;
     /**
      * Update the OAuth2 server (OIDC provider) configuration.
      *
@@ -998,19 +1000,20 @@ export class Project {
      * @param {number} userCodeLength - Number of characters in the device flow user code, excluding the formatting separator. Shorter codes are easier to type but weaker; pair short codes with short expiry. Leave empty to use default 8.
      * @param {string} userCodeFormat - Character set for device flow user codes: `numeric` (digits only — best for numeric keypads and TV remotes), `alphabetic` (letters only), or `alphanumeric` (letters and digits — highest entropy per character). Defaults to `alphanumeric`.
      * @param {number} deviceCodeDuration - Lifetime in seconds of device flow device codes and user codes. Device codes are intentionally short-lived. Leave empty to use default 600.
+     * @param {string[]} defaultScopes - List of OAuth2 scopes used when an authorization request omits the scope parameter. Every default scope must also be allowed by the OAuth2 server. Maximum of 100 scopes are allowed, each up to 128 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateOAuth2Server(enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number): Promise<Models.Project>;
+    updateOAuth2Server(enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[]): Promise<Models.Project>;
     updateOAuth2Server(
-        paramsOrFirst: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number } | boolean,
-        ...rest: [(string)?, (string[])?, (string[])?, (number)?, (number)?, (number)?, (number)?, (boolean)?, (string)?, (number)?, (string)?, (number)?]    
+        paramsOrFirst: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] } | boolean,
+        ...rest: [(string)?, (string[])?, (string[])?, (number)?, (number)?, (number)?, (number)?, (boolean)?, (string)?, (number)?, (string)?, (number)?, (string[])?]    
     ): Promise<Models.Project> {
-        let params: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number };
+        let params: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number };
+            params = (paramsOrFirst || {}) as { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] };
         } else {
             params = {
                 enabled: paramsOrFirst as boolean,
@@ -1025,7 +1028,8 @@ export class Project {
                 verificationUrl: rest[8] as string,
                 userCodeLength: rest[9] as number,
                 userCodeFormat: rest[10] as string,
-                deviceCodeDuration: rest[11] as number            
+                deviceCodeDuration: rest[11] as number,
+                defaultScopes: rest[12] as string[]            
             };
         }
         
@@ -1042,6 +1046,7 @@ export class Project {
         const userCodeLength = params.userCodeLength;
         const userCodeFormat = params.userCodeFormat;
         const deviceCodeDuration = params.deviceCodeDuration;
+        const defaultScopes = params.defaultScopes;
 
         if (typeof enabled === 'undefined') {
             throw new AppwriteException('Missing required parameter: "enabled"');
@@ -1090,6 +1095,9 @@ export class Project {
         }
         if (typeof deviceCodeDuration !== 'undefined') {
             payload['deviceCodeDuration'] = deviceCodeDuration;
+        }
+        if (typeof defaultScopes !== 'undefined') {
+            payload['defaultScopes'] = defaultScopes;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1239,6 +1247,75 @@ export class Project {
         }
         if (typeof p8File !== 'undefined') {
             payload['p8File'] = p8File;
+        }
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update the project OAuth2 Appwrite configuration.
+     *
+     * @param {string} params.clientId - 'Client ID' of Appwrite OAuth2 app. For example: 6a42000000000000b5a0
+     * @param {string} params.clientSecret - 'Client Secret' of Appwrite OAuth2 app. For example: b86afd000000000000000000000000000000000000000000000000000ced5f93
+     * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Appwrite>}
+     */
+    updateOAuth2Appwrite(params?: { clientId?: string, clientSecret?: string, enabled?: boolean }): Promise<Models.OAuth2Appwrite>;
+    /**
+     * Update the project OAuth2 Appwrite configuration.
+     *
+     * @param {string} clientId - 'Client ID' of Appwrite OAuth2 app. For example: 6a42000000000000b5a0
+     * @param {string} clientSecret - 'Client Secret' of Appwrite OAuth2 app. For example: b86afd000000000000000000000000000000000000000000000000000ced5f93
+     * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Appwrite>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Appwrite(clientId?: string, clientSecret?: string, enabled?: boolean): Promise<Models.OAuth2Appwrite>;
+    updateOAuth2Appwrite(
+        paramsOrFirst?: { clientId?: string, clientSecret?: string, enabled?: boolean } | string,
+        ...rest: [(string)?, (boolean)?]    
+    ): Promise<Models.OAuth2Appwrite> {
+        let params: { clientId?: string, clientSecret?: string, enabled?: boolean };
+        
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { clientId?: string, clientSecret?: string, enabled?: boolean };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string,
+                clientSecret: rest[0] as string,
+                enabled: rest[1] as boolean            
+            };
+        }
+        
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+
+
+        const apiPath = '/project/oauth2/appwrite';
+        const payload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            payload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            payload['clientSecret'] = clientSecret;
         }
         if (typeof enabled !== 'undefined') {
             payload['enabled'] = enabled;
@@ -2842,11 +2919,13 @@ export class Project {
      * @param {string} params.authorizationURL - OpenID Connect authorization endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/authorize
      * @param {string} params.tokenURL - OpenID Connect token endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/token
      * @param {string} params.userInfoURL - OpenID Connect user info endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/userinfo
+     * @param {ProjectOAuth2OidcPrompt[]} params.prompt - Array of OpenID Connect prompt values controlling the authentication and consent screens. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account.
+     * @param {number} params.maxAge - Maximum authentication age in seconds. When set, the user must have authenticated within this many seconds, otherwise they are prompted to re-authenticate.
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Oidc>}
      */
-    updateOAuth2Oidc(params?: { clientId?: string, clientSecret?: string, wellKnownURL?: string, authorizationURL?: string, tokenURL?: string, userInfoURL?: string, enabled?: boolean }): Promise<Models.OAuth2Oidc>;
+    updateOAuth2Oidc(params?: { clientId?: string, clientSecret?: string, wellKnownURL?: string, authorizationURL?: string, tokenURL?: string, userInfoURL?: string, prompt?: ProjectOAuth2OidcPrompt[], maxAge?: number, enabled?: boolean }): Promise<Models.OAuth2Oidc>;
     /**
      * Update the project OAuth2 Oidc configuration.
      *
@@ -2856,20 +2935,22 @@ export class Project {
      * @param {string} authorizationURL - OpenID Connect authorization endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/authorize
      * @param {string} tokenURL - OpenID Connect token endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/token
      * @param {string} userInfoURL - OpenID Connect user info endpoint URL. Required when wellKnownURL is not provided. For example: https://myoauth.com/oauth2/userinfo
+     * @param {ProjectOAuth2OidcPrompt[]} prompt - Array of OpenID Connect prompt values controlling the authentication and consent screens. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account.
+     * @param {number} maxAge - Maximum authentication age in seconds. When set, the user must have authenticated within this many seconds, otherwise they are prompted to re-authenticate.
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Oidc>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateOAuth2Oidc(clientId?: string, clientSecret?: string, wellKnownURL?: string, authorizationURL?: string, tokenURL?: string, userInfoURL?: string, enabled?: boolean): Promise<Models.OAuth2Oidc>;
+    updateOAuth2Oidc(clientId?: string, clientSecret?: string, wellKnownURL?: string, authorizationURL?: string, tokenURL?: string, userInfoURL?: string, prompt?: ProjectOAuth2OidcPrompt[], maxAge?: number, enabled?: boolean): Promise<Models.OAuth2Oidc>;
     updateOAuth2Oidc(
-        paramsOrFirst?: { clientId?: string, clientSecret?: string, wellKnownURL?: string, authorizationURL?: string, tokenURL?: string, userInfoURL?: string, enabled?: boolean } | string,
-        ...rest: [(string)?, (string)?, (string)?, (string)?, (string)?, (boolean)?]    
+        paramsOrFirst?: { clientId?: string, clientSecret?: string, wellKnownURL?: string, authorizationURL?: string, tokenURL?: string, userInfoURL?: string, prompt?: ProjectOAuth2OidcPrompt[], maxAge?: number, enabled?: boolean } | string,
+        ...rest: [(string)?, (string)?, (string)?, (string)?, (string)?, (ProjectOAuth2OidcPrompt[])?, (number)?, (boolean)?]    
     ): Promise<Models.OAuth2Oidc> {
-        let params: { clientId?: string, clientSecret?: string, wellKnownURL?: string, authorizationURL?: string, tokenURL?: string, userInfoURL?: string, enabled?: boolean };
+        let params: { clientId?: string, clientSecret?: string, wellKnownURL?: string, authorizationURL?: string, tokenURL?: string, userInfoURL?: string, prompt?: ProjectOAuth2OidcPrompt[], maxAge?: number, enabled?: boolean };
         
         if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { clientId?: string, clientSecret?: string, wellKnownURL?: string, authorizationURL?: string, tokenURL?: string, userInfoURL?: string, enabled?: boolean };
+            params = (paramsOrFirst || {}) as { clientId?: string, clientSecret?: string, wellKnownURL?: string, authorizationURL?: string, tokenURL?: string, userInfoURL?: string, prompt?: ProjectOAuth2OidcPrompt[], maxAge?: number, enabled?: boolean };
         } else {
             params = {
                 clientId: paramsOrFirst as string,
@@ -2878,7 +2959,9 @@ export class Project {
                 authorizationURL: rest[2] as string,
                 tokenURL: rest[3] as string,
                 userInfoURL: rest[4] as string,
-                enabled: rest[5] as boolean            
+                prompt: rest[5] as ProjectOAuth2OidcPrompt[],
+                maxAge: rest[6] as number,
+                enabled: rest[7] as boolean            
             };
         }
         
@@ -2888,6 +2971,8 @@ export class Project {
         const authorizationURL = params.authorizationURL;
         const tokenURL = params.tokenURL;
         const userInfoURL = params.userInfoURL;
+        const prompt = params.prompt;
+        const maxAge = params.maxAge;
         const enabled = params.enabled;
 
 
@@ -2910,6 +2995,12 @@ export class Project {
         }
         if (typeof userInfoURL !== 'undefined') {
             payload['userInfoURL'] = userInfoURL;
+        }
+        if (typeof prompt !== 'undefined') {
+            payload['prompt'] = prompt;
+        }
+        if (typeof maxAge !== 'undefined') {
+            payload['maxAge'] = maxAge;
         }
         if (typeof enabled !== 'undefined') {
             payload['enabled'] = enabled;
@@ -4153,7 +4244,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "providerId"');
         }
 
-        const apiPath = '/project/oauth2/{providerId}'.replace('{providerId}', providerId);
+        const apiPath = '/project/oauth2/{providerId}'.replace('{providerId}', encodeURIComponent(String(providerId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -4360,7 +4451,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "applicationId"');
         }
 
-        const apiPath = '/project/platforms/android/{platformId}'.replace('{platformId}', platformId);
+        const apiPath = '/project/platforms/android/{platformId}'.replace('{platformId}', encodeURIComponent(String(platformId)));
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
@@ -4513,7 +4604,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "bundleIdentifier"');
         }
 
-        const apiPath = '/project/platforms/apple/{platformId}'.replace('{platformId}', platformId);
+        const apiPath = '/project/platforms/apple/{platformId}'.replace('{platformId}', encodeURIComponent(String(platformId)));
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
@@ -4666,7 +4757,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "packageName"');
         }
 
-        const apiPath = '/project/platforms/linux/{platformId}'.replace('{platformId}', platformId);
+        const apiPath = '/project/platforms/linux/{platformId}'.replace('{platformId}', encodeURIComponent(String(platformId)));
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
@@ -4819,7 +4910,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "hostname"');
         }
 
-        const apiPath = '/project/platforms/web/{platformId}'.replace('{platformId}', platformId);
+        const apiPath = '/project/platforms/web/{platformId}'.replace('{platformId}', encodeURIComponent(String(platformId)));
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
@@ -4972,7 +5063,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "packageIdentifierName"');
         }
 
-        const apiPath = '/project/platforms/windows/{platformId}'.replace('{platformId}', platformId);
+        const apiPath = '/project/platforms/windows/{platformId}'.replace('{platformId}', encodeURIComponent(String(platformId)));
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
@@ -5032,7 +5123,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "platformId"');
         }
 
-        const apiPath = '/project/platforms/{platformId}'.replace('{platformId}', platformId);
+        const apiPath = '/project/platforms/{platformId}'.replace('{platformId}', encodeURIComponent(String(platformId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -5085,7 +5176,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "platformId"');
         }
 
-        const apiPath = '/project/platforms/{platformId}'.replace('{platformId}', platformId);
+        const apiPath = '/project/platforms/{platformId}'.replace('{platformId}', encodeURIComponent(String(platformId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -5200,6 +5291,63 @@ export class Project {
         }
 
         const apiPath = '/project/policies/deny-aliased-email';
+        const payload: Payload = {};
+        if (typeof enabled !== 'undefined') {
+            payload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Configures if only corporate email addresses (non-free and non-disposable domains) are allowed during new user sign-ups and email updates.
+     *
+     * @param {boolean} params.enabled - Set whether or not to restrict sign-ups and email updates to corporate email addresses only.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    updateDenyCorporateEmailPolicy(params: { enabled: boolean }): Promise<Models.Project>;
+    /**
+     * Configures if only corporate email addresses (non-free and non-disposable domains) are allowed during new user sign-ups and email updates.
+     *
+     * @param {boolean} enabled - Set whether or not to restrict sign-ups and email updates to corporate email addresses only.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateDenyCorporateEmailPolicy(enabled: boolean): Promise<Models.Project>;
+    updateDenyCorporateEmailPolicy(
+        paramsOrFirst: { enabled: boolean } | boolean    
+    ): Promise<Models.Project> {
+        let params: { enabled: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { enabled: boolean };
+        } else {
+            params = {
+                enabled: paramsOrFirst as boolean            
+            };
+        }
+        
+        const enabled = params.enabled;
+
+        if (typeof enabled === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "enabled"');
+        }
+
+        const apiPath = '/project/policies/deny-corporate-email';
         const payload: Payload = {};
         if (typeof enabled !== 'undefined') {
             payload['enabled'] = enabled;
@@ -5970,23 +6118,23 @@ export class Project {
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, deny-aliased-email, deny-disposable-email, deny-free-email.
+     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>}
      */
-    getPolicy(params: { policyId: ProjectPolicyId }): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail>;
+    getPolicy(params: { policyId: ProjectPolicyId }): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>;
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, deny-aliased-email, deny-disposable-email, deny-free-email.
+     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getPolicy(policyId: ProjectPolicyId): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail>;
+    getPolicy(policyId: ProjectPolicyId): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>;
     getPolicy(
         paramsOrFirst: { policyId: ProjectPolicyId } | ProjectPolicyId    
-    ): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail> {
+    ): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail> {
         let params: { policyId: ProjectPolicyId };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('policyId' in paramsOrFirst))) {
@@ -6003,7 +6151,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "policyId"');
         }
 
-        const apiPath = '/project/policies/{policyId}'.replace('{policyId}', policyId);
+        const apiPath = '/project/policies/{policyId}'.replace('{policyId}', encodeURIComponent(String(policyId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -6064,7 +6212,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "enabled"');
         }
 
-        const apiPath = '/project/protocols/{protocolId}'.replace('{protocolId}', protocolId);
+        const apiPath = '/project/protocols/{protocolId}'.replace('{protocolId}', encodeURIComponent(String(protocolId)));
         const payload: Payload = {};
         if (typeof enabled !== 'undefined') {
             payload['enabled'] = enabled;
@@ -6088,7 +6236,7 @@ export class Project {
     /**
      * Update properties of a specific service. Use this endpoint to enable or disable a service in your project. 
      *
-     * @param {ProjectServiceId} params.serviceId - Service name. Can be one of: account, avatars, databases, tablesdb, locale, health, project, storage, teams, users, vcs, sites, functions, proxy, graphql, migrations, messaging, advisor
+     * @param {ProjectServiceId} params.serviceId - Service name. Can be one of: account, avatars, databases, tablesdb, locale, health, project, storage, teams, users, vcs, sites, functions, proxy, graphql, migrations, messaging, advisor, oauth2
      * @param {boolean} params.enabled - Service status.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
@@ -6097,7 +6245,7 @@ export class Project {
     /**
      * Update properties of a specific service. Use this endpoint to enable or disable a service in your project. 
      *
-     * @param {ProjectServiceId} serviceId - Service name. Can be one of: account, avatars, databases, tablesdb, locale, health, project, storage, teams, users, vcs, sites, functions, proxy, graphql, migrations, messaging, advisor
+     * @param {ProjectServiceId} serviceId - Service name. Can be one of: account, avatars, databases, tablesdb, locale, health, project, storage, teams, users, vcs, sites, functions, proxy, graphql, migrations, messaging, advisor, oauth2
      * @param {boolean} enabled - Service status.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
@@ -6129,7 +6277,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "enabled"');
         }
 
-        const apiPath = '/project/services/{serviceId}'.replace('{serviceId}', serviceId);
+        const apiPath = '/project/services/{serviceId}'.replace('{serviceId}', encodeURIComponent(String(serviceId)));
         const payload: Payload = {};
         if (typeof enabled !== 'undefined') {
             payload['enabled'] = enabled;
@@ -6533,7 +6681,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "templateId"');
         }
 
-        const apiPath = '/project/templates/email/{templateId}'.replace('{templateId}', templateId);
+        const apiPath = '/project/templates/email/{templateId}'.replace('{templateId}', encodeURIComponent(String(templateId)));
         const payload: Payload = {};
         if (typeof locale !== 'undefined') {
             payload['locale'] = locale;
@@ -6735,7 +6883,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "variableId"');
         }
 
-        const apiPath = '/project/variables/{variableId}'.replace('{variableId}', variableId);
+        const apiPath = '/project/variables/{variableId}'.replace('{variableId}', encodeURIComponent(String(variableId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -6801,7 +6949,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "variableId"');
         }
 
-        const apiPath = '/project/variables/{variableId}'.replace('{variableId}', variableId);
+        const apiPath = '/project/variables/{variableId}'.replace('{variableId}', encodeURIComponent(String(variableId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -6864,7 +7012,7 @@ export class Project {
             throw new AppwriteException('Missing required parameter: "variableId"');
         }
 
-        const apiPath = '/project/variables/{variableId}'.replace('{variableId}', variableId);
+        const apiPath = '/project/variables/{variableId}'.replace('{variableId}', encodeURIComponent(String(variableId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 

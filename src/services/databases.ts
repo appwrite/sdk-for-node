@@ -167,6 +167,7 @@ export class Databases {
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries).
      * @throws {AppwriteException}
      * @returns {Promise<Models.TransactionList>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.listTransactions` instead.
      */
     listTransactions(params?: { queries?: string[] }): Promise<Models.TransactionList>;
     /**
@@ -220,6 +221,7 @@ export class Databases {
      * @param {number} params.ttl - Seconds before the transaction expires.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Transaction>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createTransaction` instead.
      */
     createTransaction(params?: { ttl?: number }): Promise<Models.Transaction>;
     /**
@@ -274,6 +276,7 @@ export class Databases {
      * @param {string} params.transactionId - Transaction ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Transaction>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.getTransaction` instead.
      */
     getTransaction(params: { transactionId: string }): Promise<Models.Transaction>;
     /**
@@ -304,7 +307,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "transactionId"');
         }
 
-        const apiPath = '/databases/transactions/{transactionId}'.replace('{transactionId}', transactionId);
+        const apiPath = '/databases/transactions/{transactionId}'.replace('{transactionId}', encodeURIComponent(String(transactionId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -329,6 +332,7 @@ export class Databases {
      * @param {boolean} params.rollback - Rollback transaction?
      * @throws {AppwriteException}
      * @returns {Promise<Models.Transaction>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateTransaction` instead.
      */
     updateTransaction(params: { transactionId: string, commit?: boolean, rollback?: boolean }): Promise<Models.Transaction>;
     /**
@@ -366,7 +370,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "transactionId"');
         }
 
-        const apiPath = '/databases/transactions/{transactionId}'.replace('{transactionId}', transactionId);
+        const apiPath = '/databases/transactions/{transactionId}'.replace('{transactionId}', encodeURIComponent(String(transactionId)));
         const payload: Payload = {};
         if (typeof commit !== 'undefined') {
             payload['commit'] = commit;
@@ -396,6 +400,7 @@ export class Databases {
      * @param {string} params.transactionId - Transaction ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.deleteTransaction` instead.
      */
     deleteTransaction(params: { transactionId: string }): Promise<{}>;
     /**
@@ -426,7 +431,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "transactionId"');
         }
 
-        const apiPath = '/databases/transactions/{transactionId}'.replace('{transactionId}', transactionId);
+        const apiPath = '/databases/transactions/{transactionId}'.replace('{transactionId}', encodeURIComponent(String(transactionId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -450,6 +455,7 @@ export class Databases {
      * @param {object[]} params.operations - Array of staged operations.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Transaction>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createOperations` instead.
      */
     createOperations(params: { transactionId: string, operations?: object[] }): Promise<Models.Transaction>;
     /**
@@ -484,7 +490,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "transactionId"');
         }
 
-        const apiPath = '/databases/transactions/{transactionId}/operations'.replace('{transactionId}', transactionId);
+        const apiPath = '/databases/transactions/{transactionId}/operations'.replace('{transactionId}', encodeURIComponent(String(transactionId)));
         const payload: Payload = {};
         if (typeof operations !== 'undefined') {
             payload['operations'] = operations;
@@ -542,7 +548,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
 
-        const apiPath = '/databases/{databaseId}'.replace('{databaseId}', databaseId);
+        const apiPath = '/databases/{databaseId}'.replace('{databaseId}', encodeURIComponent(String(databaseId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -605,7 +611,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
 
-        const apiPath = '/databases/{databaseId}'.replace('{databaseId}', databaseId);
+        const apiPath = '/databases/{databaseId}'.replace('{databaseId}', encodeURIComponent(String(databaseId)));
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
@@ -666,7 +672,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
 
-        const apiPath = '/databases/{databaseId}'.replace('{databaseId}', databaseId);
+        const apiPath = '/databases/{databaseId}'.replace('{databaseId}', encodeURIComponent(String(databaseId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -733,7 +739,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections'.replace('{databaseId}', databaseId);
+        const apiPath = '/databases/{databaseId}/collections'.replace('{databaseId}', encodeURIComponent(String(databaseId)));
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
@@ -831,7 +837,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "name"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections'.replace('{databaseId}', databaseId);
+        const apiPath = '/databases/{databaseId}/collections'.replace('{databaseId}', encodeURIComponent(String(databaseId)));
         const payload: Payload = {};
         if (typeof collectionId !== 'undefined') {
             payload['collectionId'] = collectionId;
@@ -915,7 +921,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -997,7 +1003,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
@@ -1075,7 +1081,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1145,7 +1151,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
@@ -1245,7 +1251,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/bigint'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/bigint'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -1361,7 +1367,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/bigint/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/bigint/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -1463,7 +1469,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/boolean'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/boolean'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -1563,7 +1569,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/boolean/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/boolean/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -1657,7 +1663,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/datetime'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/datetime'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -1757,7 +1763,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/datetime/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/datetime/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -1853,7 +1859,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/email'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/email'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -1955,7 +1961,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/email/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/email/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -2058,7 +2064,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/enum'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/enum'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -2170,7 +2176,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/enum/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/enum/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof elements !== 'undefined') {
             payload['elements'] = elements;
@@ -2277,7 +2283,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/float'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/float'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -2393,7 +2399,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/float/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/float/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -2503,7 +2509,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/integer'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/integer'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -2619,7 +2625,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/integer/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/integer/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -2721,7 +2727,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/ip'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/ip'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -2823,7 +2829,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/ip/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/ip/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -2857,12 +2863,12 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {any[]} params.xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
+     * @param {any[][]} params.xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLine>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createLineColumn` instead.
      */
-    createLineAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] }): Promise<Models.AttributeLine>;
+    createLineAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][] }): Promise<Models.AttributeLine>;
     /**
      * Create a geometric line attribute.
      *
@@ -2870,27 +2876,27 @@ export class Databases {
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {any[]} xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
+     * @param {any[][]} xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLine>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createLineAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[]): Promise<Models.AttributeLine>;
+    createLineAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][]): Promise<Models.AttributeLine>;
     createLineAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (any[])?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][] } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[][])?]    
     ): Promise<Models.AttributeLine> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][] };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as any[]            
+                xdefault: rest[3] as any[][]            
             };
         }
         
@@ -2913,7 +2919,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/line'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/line'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -2947,13 +2953,13 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#createCollection).
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {any[]} params.xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
+     * @param {any[][]} params.xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
      * @param {string} params.newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLine>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateLineColumn` instead.
      */
-    updateLineAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string }): Promise<Models.AttributeLine>;
+    updateLineAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][], newKey?: string }): Promise<Models.AttributeLine>;
     /**
      * Update a line attribute. Changing the `default` value will not update already existing documents.
      *
@@ -2961,28 +2967,28 @@ export class Databases {
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#createCollection).
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {any[]} xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
+     * @param {any[][]} xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
      * @param {string} newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLine>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateLineAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string): Promise<Models.AttributeLine>;
+    updateLineAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][], newKey?: string): Promise<Models.AttributeLine>;
     updateLineAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (any[])?, (string)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][], newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[][])?, (string)?]    
     ): Promise<Models.AttributeLine> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][], newKey?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][], newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as any[],
+                xdefault: rest[3] as any[][],
                 newKey: rest[4] as string            
             };
         }
@@ -3007,7 +3013,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/line/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/line/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -3047,6 +3053,7 @@ export class Databases {
      * @param {boolean} params.encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLongtext>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createLongtextColumn` instead.
      */
     createLongtextAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean }): Promise<Models.AttributeLongtext>;
     /**
@@ -3106,7 +3113,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/longtext'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/longtext'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -3151,6 +3158,7 @@ export class Databases {
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLongtext>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateLongtextColumn` instead.
      */
     updateLongtextAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string }): Promise<Models.AttributeLongtext>;
     /**
@@ -3210,7 +3218,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/longtext/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/longtext/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -3250,6 +3258,7 @@ export class Databases {
      * @param {boolean} params.encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeMediumtext>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createMediumtextColumn` instead.
      */
     createMediumtextAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean }): Promise<Models.AttributeMediumtext>;
     /**
@@ -3309,7 +3318,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -3354,6 +3363,7 @@ export class Databases {
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeMediumtext>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateMediumtextColumn` instead.
      */
     updateMediumtextAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string }): Promise<Models.AttributeMediumtext>;
     /**
@@ -3413,7 +3423,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -3447,12 +3457,12 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {any[]} params.xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
+     * @param {number[]} params.xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePoint>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createPointColumn` instead.
      */
-    createPointAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] }): Promise<Models.AttributePoint>;
+    createPointAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number[] }): Promise<Models.AttributePoint>;
     /**
      * Create a geometric point attribute.
      *
@@ -3460,27 +3470,27 @@ export class Databases {
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {any[]} xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
+     * @param {number[]} xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePoint>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createPointAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[]): Promise<Models.AttributePoint>;
+    createPointAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number[]): Promise<Models.AttributePoint>;
     createPointAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (any[])?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number[] } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (number[])?]    
     ): Promise<Models.AttributePoint> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number[] };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number[] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as any[]            
+                xdefault: rest[3] as number[]            
             };
         }
         
@@ -3503,7 +3513,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/point'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/point'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -3537,13 +3547,13 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#createCollection).
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {any[]} params.xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
+     * @param {number[]} params.xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
      * @param {string} params.newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePoint>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updatePointColumn` instead.
      */
-    updatePointAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string }): Promise<Models.AttributePoint>;
+    updatePointAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number[], newKey?: string }): Promise<Models.AttributePoint>;
     /**
      * Update a point attribute. Changing the `default` value will not update already existing documents.
      *
@@ -3551,28 +3561,28 @@ export class Databases {
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#createCollection).
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {any[]} xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
+     * @param {number[]} xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
      * @param {string} newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePoint>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePointAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string): Promise<Models.AttributePoint>;
+    updatePointAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number[], newKey?: string): Promise<Models.AttributePoint>;
     updatePointAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (any[])?, (string)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number[], newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (number[])?, (string)?]    
     ): Promise<Models.AttributePoint> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number[], newKey?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: number[], newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as any[],
+                xdefault: rest[3] as number[],
                 newKey: rest[4] as string            
             };
         }
@@ -3597,7 +3607,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/point/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/point/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -3631,12 +3641,12 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {any[]} params.xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
+     * @param {any[][]} params.xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePolygon>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createPolygonColumn` instead.
      */
-    createPolygonAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] }): Promise<Models.AttributePolygon>;
+    createPolygonAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][] }): Promise<Models.AttributePolygon>;
     /**
      * Create a geometric polygon attribute.
      *
@@ -3644,27 +3654,27 @@ export class Databases {
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {any[]} xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
+     * @param {any[][]} xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePolygon>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createPolygonAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[]): Promise<Models.AttributePolygon>;
+    createPolygonAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][]): Promise<Models.AttributePolygon>;
     createPolygonAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (any[])?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][] } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[][])?]    
     ): Promise<Models.AttributePolygon> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][] };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[] };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][] };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as any[]            
+                xdefault: rest[3] as any[][]            
             };
         }
         
@@ -3687,7 +3697,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/polygon'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/polygon'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -3721,13 +3731,13 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#createCollection).
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
-     * @param {any[]} params.xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
+     * @param {any[][]} params.xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
      * @param {string} params.newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePolygon>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updatePolygonColumn` instead.
      */
-    updatePolygonAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string }): Promise<Models.AttributePolygon>;
+    updatePolygonAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][], newKey?: string }): Promise<Models.AttributePolygon>;
     /**
      * Update a polygon attribute. Changing the `default` value will not update already existing documents.
      *
@@ -3735,28 +3745,28 @@ export class Databases {
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#createCollection).
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
-     * @param {any[]} xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
+     * @param {any[][]} xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
      * @param {string} newKey - New attribute key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePolygon>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePolygonAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string): Promise<Models.AttributePolygon>;
+    updatePolygonAttribute(databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][], newKey?: string): Promise<Models.AttributePolygon>;
     updatePolygonAttribute(
-        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string } | string,
-        ...rest: [(string)?, (string)?, (boolean)?, (any[])?, (string)?]    
+        paramsOrFirst: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][], newKey?: string } | string,
+        ...rest: [(string)?, (string)?, (boolean)?, (any[][])?, (string)?]    
     ): Promise<Models.AttributePolygon> {
-        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
+        let params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][], newKey?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[], newKey?: string };
+            params = (paramsOrFirst || {}) as { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: any[][], newKey?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 key: rest[1] as string,
                 required: rest[2] as boolean,
-                xdefault: rest[3] as any[],
+                xdefault: rest[3] as any[][],
                 newKey: rest[4] as string            
             };
         }
@@ -3781,7 +3791,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/polygon/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/polygon/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -3885,7 +3895,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "type"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/relationship'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/relationship'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof relatedCollectionId !== 'undefined') {
             payload['relatedCollectionId'] = relatedCollectionId;
@@ -3983,7 +3993,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "key"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/relationship/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/relationship/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof onDelete !== 'undefined') {
             payload['onDelete'] = onDelete;
@@ -4087,7 +4097,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/string'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/string'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -4199,7 +4209,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/string/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/string/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -4242,6 +4252,7 @@ export class Databases {
      * @param {boolean} params.encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeText>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createTextColumn` instead.
      */
     createTextAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean }): Promise<Models.AttributeText>;
     /**
@@ -4301,7 +4312,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/text'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/text'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -4346,6 +4357,7 @@ export class Databases {
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeText>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateTextColumn` instead.
      */
     updateTextAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, newKey?: string }): Promise<Models.AttributeText>;
     /**
@@ -4405,7 +4417,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/text/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/text/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -4501,7 +4513,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/url'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/url'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -4603,7 +4615,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/url/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/url/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -4644,6 +4656,7 @@ export class Databases {
      * @param {boolean} params.encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeVarchar>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createVarcharColumn` instead.
      */
     createVarcharAttribute(params: { databaseId: string, collectionId: string, key: string, size: number, required: boolean, xdefault?: string, array?: boolean, encrypt?: boolean }): Promise<Models.AttributeVarchar>;
     /**
@@ -4709,7 +4722,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "required"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/varchar'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/varchar'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -4758,6 +4771,7 @@ export class Databases {
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeVarchar>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateVarcharColumn` instead.
      */
     updateVarcharAttribute(params: { databaseId: string, collectionId: string, key: string, required: boolean, xdefault?: string, size?: number, newKey?: string }): Promise<Models.AttributeVarchar>;
     /**
@@ -4820,7 +4834,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "xdefault"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/varchar/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/varchar/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         if (typeof required !== 'undefined') {
             payload['required'] = required;
@@ -4902,7 +4916,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "key"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -4971,7 +4985,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "key"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/attributes/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -5049,7 +5063,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
@@ -5145,7 +5159,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "data"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof documentId !== 'undefined') {
             payload['documentId'] = documentId;
@@ -5231,7 +5245,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "documents"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof documents !== 'undefined') {
             payload['documents'] = documents;
@@ -5313,7 +5327,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "documents"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof documents !== 'undefined') {
             payload['documents'] = documents;
@@ -5394,7 +5408,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof data !== 'undefined') {
             payload['data'] = data;
@@ -5474,7 +5488,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
@@ -5558,7 +5572,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "documentId"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{documentId}', documentId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{documentId}', encodeURIComponent(String(documentId)));
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
@@ -5645,7 +5659,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "documentId"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{documentId}', documentId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{documentId}', encodeURIComponent(String(documentId)));
         const payload: Payload = {};
         if (typeof data !== 'undefined') {
             payload['data'] = data;
@@ -5736,7 +5750,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "documentId"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{documentId}', documentId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{documentId}', encodeURIComponent(String(documentId)));
         const payload: Payload = {};
         if (typeof data !== 'undefined') {
             payload['data'] = data;
@@ -5819,7 +5833,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "documentId"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{documentId}', documentId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{documentId}', encodeURIComponent(String(documentId)));
         const payload: Payload = {};
         if (typeof transactionId !== 'undefined') {
             payload['transactionId'] = transactionId;
@@ -5910,7 +5924,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "attribute"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{documentId}', documentId).replace('{attribute}', attribute);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{documentId}', encodeURIComponent(String(documentId))).replace('{attribute}', encodeURIComponent(String(attribute)));
         const payload: Payload = {};
         if (typeof value !== 'undefined') {
             payload['value'] = value;
@@ -6008,7 +6022,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "attribute"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{documentId}', documentId).replace('{attribute}', attribute);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{documentId}', encodeURIComponent(String(documentId))).replace('{attribute}', encodeURIComponent(String(attribute)));
         const payload: Payload = {};
         if (typeof value !== 'undefined') {
             payload['value'] = value;
@@ -6088,7 +6102,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/indexes'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/indexes'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
@@ -6187,7 +6201,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "attributes"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/indexes'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/indexes'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -6272,7 +6286,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "key"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/indexes/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/indexes/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -6341,7 +6355,7 @@ export class Databases {
             throw new AppwriteException('Missing required parameter: "key"');
         }
 
-        const apiPath = '/databases/{databaseId}/collections/{collectionId}/indexes/{key}'.replace('{databaseId}', databaseId).replace('{collectionId}', collectionId).replace('{key}', key);
+        const apiPath = '/databases/{databaseId}/collections/{collectionId}/indexes/{key}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{collectionId}', encodeURIComponent(String(collectionId))).replace('{key}', encodeURIComponent(String(key)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 

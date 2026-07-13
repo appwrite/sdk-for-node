@@ -6,10 +6,10 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const health = new sdk.Health(client);
+const organization = new sdk.Organization(client);
 
-const result = await health.getQueueDatabases({
-    name: '<NAME>', // optional
-    threshold: null // optional
+const result = await organization.updateMembership({
+    membershipId: '<MEMBERSHIP_ID>',
+    roles: []
 });
 ```

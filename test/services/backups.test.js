@@ -112,6 +112,7 @@ describe('Backups', () => {
             'resources': [],
             'retention': 7,
             'schedule': '0 * * * *',
+            'type': 'full',
             'enabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -138,6 +139,7 @@ describe('Backups', () => {
             'resources': [],
             'retention': 7,
             'schedule': '0 * * * *',
+            'type': 'full',
             'enabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -161,6 +163,7 @@ describe('Backups', () => {
             'resources': [],
             'retention': 7,
             'schedule': '0 * * * *',
+            'type': 'full',
             'enabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -200,7 +203,7 @@ describe('Backups', () => {
             'migrationId': 'did8jx6ws45jana098ab7',
             'services': [],
             'resources': [],
-            'options': '{databases.database[{oldId, newId, newName}]}',};
+            'options': '{databases.database[{oldId, newId, newName, newSpecification}]}',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await backups.createRestoration(
@@ -241,7 +244,7 @@ describe('Backups', () => {
             'migrationId': 'did8jx6ws45jana098ab7',
             'services': [],
             'resources': [],
-            'options': '{databases.database[{oldId, newId, newName}]}',};
+            'options': '{databases.database[{oldId, newId, newName, newSpecification}]}',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await backups.getRestoration(
