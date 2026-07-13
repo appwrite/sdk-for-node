@@ -6,11 +6,9 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const messaging = new sdk.Messaging(client);
+const organization = new sdk.Organization(client);
 
-const result = await messaging.listSubscriberLogs({
-    subscriberId: '<SUBSCRIBER_ID>',
-    queries: [], // optional
-    total: false // optional
+const result = await organization.update({
+    name: '<NAME>'
 });
 ```

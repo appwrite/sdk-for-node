@@ -6,7 +6,9 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const health = new sdk.Health(client);
+const project = new sdk.Project(client);
 
-const result = await health.getDB();
+const result = await project.updateDenyCorporateEmailPolicy({
+    enabled: false
+});
 ```

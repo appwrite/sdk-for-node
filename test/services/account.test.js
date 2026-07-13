@@ -62,7 +62,7 @@ describe('Account', () => {
         const response = await account.create(
             '<USER_ID>',
             'email@example.com',
-            '',
+            'password',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
@@ -605,7 +605,7 @@ describe('Account', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await account.updatePassword(
-            '',
+            'password',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
@@ -722,7 +722,7 @@ describe('Account', () => {
         const response = await account.updateRecovery(
             '<USER_ID>',
             '<SECRET>',
-            '',
+            'password',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.

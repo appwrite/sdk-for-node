@@ -12,7 +12,7 @@ const result = await project.updateSMTP({
     host: '', // optional
     port: null, // optional
     username: '<USERNAME>', // optional
-    password: '<PASSWORD>', // optional
+    password: 'password', // optional
     senderEmail: 'email@example.com', // optional
     senderName: '<SENDER_NAME>', // optional
     replyToEmail: 'email@example.com', // optional

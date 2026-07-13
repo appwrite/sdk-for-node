@@ -6,7 +6,11 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const health = new sdk.Health(client);
+const organization = new sdk.Organization(client);
 
-const result = await health.getAntivirus();
+const result = await organization.listMemberships({
+    queries: [], // optional
+    search: '<SEARCH>', // optional
+    total: false // optional
+});
 ```

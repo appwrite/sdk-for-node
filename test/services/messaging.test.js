@@ -259,22 +259,6 @@ describe('Messaging', () => {
         expect(response).toEqual(data);
     });
     
-    test('test method listMessageLogs()', async () => {
-                                                const data = {
-            'total': 5,
-            'logs': [],};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await messaging.listMessageLogs(
-            '<MESSAGE_ID>',
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
     test('test method listTargets()', async () => {
                                                 const data = {
             'total': 5,
@@ -1019,38 +1003,6 @@ describe('Messaging', () => {
         expect(response).toEqual(data);
     });
     
-    test('test method listProviderLogs()', async () => {
-                                                const data = {
-            'total': 5,
-            'logs': [],};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await messaging.listProviderLogs(
-            '<PROVIDER_ID>',
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
-    test('test method listSubscriberLogs()', async () => {
-                                                const data = {
-            'total': 5,
-            'logs': [],};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await messaging.listSubscriberLogs(
-            '<SUBSCRIBER_ID>',
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
     test('test method listTopics()', async () => {
                                                 const data = {
             'total': 5,
@@ -1138,22 +1090,6 @@ describe('Messaging', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await messaging.deleteTopic(
-            '<TOPIC_ID>',
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
-    test('test method listTopicLogs()', async () => {
-                                                const data = {
-            'total': 5,
-            'logs': [],};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await messaging.listTopicLogs(
             '<TOPIC_ID>',
         );
 

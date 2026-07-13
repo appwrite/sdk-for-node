@@ -771,7 +771,7 @@ describe('Users', () => {
 
         const response = await users.updatePassword(
             '<USER_ID>',
-            '',
+            'password',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.

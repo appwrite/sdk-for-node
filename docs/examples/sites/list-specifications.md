@@ -8,5 +8,7 @@ const client = new sdk.Client()
 
 const sites = new sdk.Sites(client);
 
-const result = await sites.listSpecifications();
+const result = await sites.listSpecifications({
+    type: 'runtimes' // optional
+});
 ```

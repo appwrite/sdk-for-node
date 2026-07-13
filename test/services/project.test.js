@@ -27,31 +27,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.get(
@@ -93,31 +80,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateAuthMethod(
@@ -274,31 +248,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateLabels(
@@ -428,31 +389,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Server(
@@ -494,6 +442,23 @@ describe('Project', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Apple(
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method updateOAuth2Appwrite()', async () => {
+                                                const data = {
+            '\$id': 'github',
+            'enabled': true,
+            'clientId': '6a42000000000000b5a0',
+            'clientSecret': 'b86afd000000000000000000000000000000000000000000000000000ced5f93',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await project.updateOAuth2Appwrite(
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
@@ -893,7 +858,8 @@ describe('Project', () => {
             'wellKnownURL': 'https://myoauth.com/.well-known/openid-configuration',
             'authorizationURL': 'https://myoauth.com/oauth2/authorize',
             'tokenURL': 'https://myoauth.com/oauth2/token',
-            'userInfoURL': 'https://myoauth.com/oauth2/userinfo',};
+            'userInfoURL': 'https://myoauth.com/oauth2/userinfo',
+            'prompt': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Oidc(
@@ -1516,34 +1482,62 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateDenyAliasedEmailPolicy(
+            true,
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method updateDenyCorporateEmailPolicy()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'name': 'New Project',
+            'teamId': '1592981250',
+            'region': 'fra',
+            'devKeys': [],
+            'smtpEnabled': true,
+            'smtpSenderName': 'John Appwrite',
+            'smtpSenderEmail': 'john@appwrite.io',
+            'smtpReplyToName': 'Support Team',
+            'smtpReplyToEmail': 'support@appwrite.io',
+            'smtpHost': 'mail.appwrite.io',
+            'smtpPort': 25,
+            'smtpUsername': 'emailuser',
+            'smtpPassword': 'smtp-password',
+            'smtpSecure': 'tls',
+            'pingCount': 1,
+            'pingedAt': '2020-10-15T06:38:00.000+00:00',
+            'labels': [],
+            'status': 'active',
+            'onboarding': {},
+            'authMethods': [],
+            'services': [],
+            'protocols': [],
+            'blocks': [],
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await project.updateDenyCorporateEmailPolicy(
             true,
         );
 
@@ -1570,31 +1564,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateDenyDisposableEmailPolicy(
@@ -1624,31 +1605,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateDenyFreeEmailPolicy(
@@ -1678,31 +1646,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateMembershipPrivacyPolicy(
@@ -1731,31 +1686,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updatePasswordDictionaryPolicy(
@@ -1785,31 +1727,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updatePasswordHistoryPolicy(
@@ -1839,31 +1768,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updatePasswordPersonalDataPolicy(
@@ -1912,31 +1828,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSessionAlertPolicy(
@@ -1966,31 +1869,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSessionDurationPolicy(
@@ -2020,31 +1910,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSessionInvalidationPolicy(
@@ -2074,31 +1951,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSessionLimitPolicy(
@@ -2128,31 +1992,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateUserLimitPolicy(
@@ -2198,31 +2049,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateProtocol(
@@ -2253,31 +2091,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateService(
@@ -2308,31 +2133,18 @@ describe('Project', () => {
             'smtpHost': 'mail.appwrite.io',
             'smtpPort': 25,
             'smtpUsername': 'emailuser',
-            'smtpPassword': '',
+            'smtpPassword': 'smtp-password',
             'smtpSecure': 'tls',
             'pingCount': 1,
             'pingedAt': '2020-10-15T06:38:00.000+00:00',
             'labels': [],
             'status': 'active',
+            'onboarding': {},
             'authMethods': [],
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
-            'oAuth2ServerEnabled': true,
-            'oAuth2ServerAuthorizationUrl': 'https://cloud.appwrite.io/oauth2/.well-known/openid-configuration',
-            'oAuth2ServerScopes': [],
-            'oAuth2ServerAuthorizationDetailsTypes': [],
-            'oAuth2ServerAccessTokenDuration': 3600,
-            'oAuth2ServerRefreshTokenDuration': 86400,
-            'oAuth2ServerPublicAccessTokenDuration': 3600,
-            'oAuth2ServerPublicRefreshTokenDuration': 2592000,
-            'oAuth2ServerConfidentialPkce': true,
-            'oAuth2ServerVerificationUrl': 'https://cloud.appwrite.io/device',
-            'oAuth2ServerUserCodeLength': 8,
-            'oAuth2ServerUserCodeFormat': 'alphanumeric',
-            'oAuth2ServerDeviceCodeDuration': 600,
-            'oAuth2ServerDiscoveryUrl': 'https://auth.example.com/.well-known/openid-configuration',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSMTP(

@@ -165,7 +165,7 @@ export class Backups {
             throw new AppwriteException('Missing required parameter: "archiveId"');
         }
 
-        const apiPath = '/backups/archives/{archiveId}'.replace('{archiveId}', archiveId);
+        const apiPath = '/backups/archives/{archiveId}'.replace('{archiveId}', encodeURIComponent(String(archiveId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -218,7 +218,7 @@ export class Backups {
             throw new AppwriteException('Missing required parameter: "archiveId"');
         }
 
-        const apiPath = '/backups/archives/{archiveId}'.replace('{archiveId}', archiveId);
+        const apiPath = '/backups/archives/{archiveId}'.replace('{archiveId}', encodeURIComponent(String(archiveId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -434,7 +434,7 @@ export class Backups {
             throw new AppwriteException('Missing required parameter: "policyId"');
         }
 
-        const apiPath = '/backups/policies/{policyId}'.replace('{policyId}', policyId);
+        const apiPath = '/backups/policies/{policyId}'.replace('{policyId}', encodeURIComponent(String(policyId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -504,7 +504,7 @@ export class Backups {
             throw new AppwriteException('Missing required parameter: "policyId"');
         }
 
-        const apiPath = '/backups/policies/{policyId}'.replace('{policyId}', policyId);
+        const apiPath = '/backups/policies/{policyId}'.replace('{policyId}', encodeURIComponent(String(policyId)));
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
@@ -570,7 +570,7 @@ export class Backups {
             throw new AppwriteException('Missing required parameter: "policyId"');
         }
 
-        const apiPath = '/backups/policies/{policyId}'.replace('{policyId}', policyId);
+        const apiPath = '/backups/policies/{policyId}'.replace('{policyId}', encodeURIComponent(String(policyId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -590,41 +590,50 @@ export class Backups {
 
     /**
      * Create and trigger a new restoration for a backup on a project.
+     * 
+     * When restoring a DocumentsDB or VectorsDB database to a new resource, pass `newSpecification` to provision the restored database on a different specification than the archived one (for example, restoring onto a larger or smaller dedicated database). Use `serverless` to restore onto the shared pool, or a dedicated specification slug to restore onto a dedicated database of that size. The specification must be permitted by the organization's plan. `newSpecification` is not supported for legacy/TablesDB databases or for bucket restores.
+     * 
      *
      * @param {string} params.archiveId - Backup archive ID to restore
      * @param {BackupServices[]} params.services - Array of services to restore
      * @param {string} params.newResourceId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.newResourceName - Database name. Max length: 128 chars.
+     * @param {string} params.newSpecification - Specification to provision the restored database on, when restoring a DocumentsDB or VectorsDB database to a new resource. Defaults to the archived database's specification. Use `serverless` for the shared pool or a dedicated specification slug.
      * @throws {AppwriteException}
      * @returns {Promise<Models.BackupRestoration>}
      */
-    createRestoration(params: { archiveId: string, services: BackupServices[], newResourceId?: string, newResourceName?: string }): Promise<Models.BackupRestoration>;
+    createRestoration(params: { archiveId: string, services: BackupServices[], newResourceId?: string, newResourceName?: string, newSpecification?: string }): Promise<Models.BackupRestoration>;
     /**
      * Create and trigger a new restoration for a backup on a project.
+     * 
+     * When restoring a DocumentsDB or VectorsDB database to a new resource, pass `newSpecification` to provision the restored database on a different specification than the archived one (for example, restoring onto a larger or smaller dedicated database). Use `serverless` to restore onto the shared pool, or a dedicated specification slug to restore onto a dedicated database of that size. The specification must be permitted by the organization's plan. `newSpecification` is not supported for legacy/TablesDB databases or for bucket restores.
+     * 
      *
      * @param {string} archiveId - Backup archive ID to restore
      * @param {BackupServices[]} services - Array of services to restore
      * @param {string} newResourceId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} newResourceName - Database name. Max length: 128 chars.
+     * @param {string} newSpecification - Specification to provision the restored database on, when restoring a DocumentsDB or VectorsDB database to a new resource. Defaults to the archived database's specification. Use `serverless` for the shared pool or a dedicated specification slug.
      * @throws {AppwriteException}
      * @returns {Promise<Models.BackupRestoration>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createRestoration(archiveId: string, services: BackupServices[], newResourceId?: string, newResourceName?: string): Promise<Models.BackupRestoration>;
+    createRestoration(archiveId: string, services: BackupServices[], newResourceId?: string, newResourceName?: string, newSpecification?: string): Promise<Models.BackupRestoration>;
     createRestoration(
-        paramsOrFirst: { archiveId: string, services: BackupServices[], newResourceId?: string, newResourceName?: string } | string,
-        ...rest: [(BackupServices[])?, (string)?, (string)?]    
+        paramsOrFirst: { archiveId: string, services: BackupServices[], newResourceId?: string, newResourceName?: string, newSpecification?: string } | string,
+        ...rest: [(BackupServices[])?, (string)?, (string)?, (string)?]    
     ): Promise<Models.BackupRestoration> {
-        let params: { archiveId: string, services: BackupServices[], newResourceId?: string, newResourceName?: string };
+        let params: { archiveId: string, services: BackupServices[], newResourceId?: string, newResourceName?: string, newSpecification?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { archiveId: string, services: BackupServices[], newResourceId?: string, newResourceName?: string };
+            params = (paramsOrFirst || {}) as { archiveId: string, services: BackupServices[], newResourceId?: string, newResourceName?: string, newSpecification?: string };
         } else {
             params = {
                 archiveId: paramsOrFirst as string,
                 services: rest[0] as BackupServices[],
                 newResourceId: rest[1] as string,
-                newResourceName: rest[2] as string            
+                newResourceName: rest[2] as string,
+                newSpecification: rest[3] as string            
             };
         }
         
@@ -632,6 +641,7 @@ export class Backups {
         const services = params.services;
         const newResourceId = params.newResourceId;
         const newResourceName = params.newResourceName;
+        const newSpecification = params.newSpecification;
 
         if (typeof archiveId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "archiveId"');
@@ -653,6 +663,9 @@ export class Backups {
         }
         if (typeof newResourceName !== 'undefined') {
             payload['newResourceName'] = newResourceName;
+        }
+        if (typeof newSpecification !== 'undefined') {
+            payload['newSpecification'] = newSpecification;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -759,7 +772,7 @@ export class Backups {
             throw new AppwriteException('Missing required parameter: "restorationId"');
         }
 
-        const apiPath = '/backups/restorations/{restorationId}'.replace('{restorationId}', restorationId);
+        const apiPath = '/backups/restorations/{restorationId}'.replace('{restorationId}', encodeURIComponent(String(restorationId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 

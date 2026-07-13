@@ -99,7 +99,7 @@ export class Functions {
      * @param {boolean} params.logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
      * @param {string} params.entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
      * @param {string} params.commands - Build Commands.
-     * @param {ProjectKeyScopes[]} params.scopes - List of scopes allowed for API key auto-generated for every execution. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} params.scopes - List of scopes allowed for API key auto-generated for every execution. Maximum of 200 scopes are allowed.
      * @param {string} params.installationId - Appwrite Installation ID for VCS (Version Control System) deployment.
      * @param {string} params.providerRepositoryId - Repository ID of the repo linked to the function.
      * @param {string} params.providerBranch - Production branch for the repo linked to the function.
@@ -128,7 +128,7 @@ export class Functions {
      * @param {boolean} logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
      * @param {string} entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
      * @param {string} commands - Build Commands.
-     * @param {ProjectKeyScopes[]} scopes - List of scopes allowed for API key auto-generated for every execution. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} scopes - List of scopes allowed for API key auto-generated for every execution. Maximum of 200 scopes are allowed.
      * @param {string} installationId - Appwrite Installation ID for VCS (Version Control System) deployment.
      * @param {string} providerRepositoryId - Repository ID of the repo linked to the function.
      * @param {string} providerBranch - Production branch for the repo linked to the function.
@@ -324,13 +324,41 @@ export class Functions {
     /**
      * List allowed function specifications for this instance.
      *
+     * @param {string} params.type - Specification type to list. Can be one of: runtimes, builds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SpecificationList>}
      */
-    listSpecifications(): Promise<Models.SpecificationList> {
+    listSpecifications(params?: { type?: string }): Promise<Models.SpecificationList>;
+    /**
+     * List allowed function specifications for this instance.
+     *
+     * @param {string} type - Specification type to list. Can be one of: runtimes, builds.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.SpecificationList>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    listSpecifications(type?: string): Promise<Models.SpecificationList>;
+    listSpecifications(
+        paramsOrFirst?: { type?: string } | string    
+    ): Promise<Models.SpecificationList> {
+        let params: { type?: string };
+        
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { type?: string };
+        } else {
+            params = {
+                type: paramsOrFirst as string            
+            };
+        }
+        
+        const type = params.type;
+
 
         const apiPath = '/functions/specifications';
         const payload: Payload = {};
+        if (typeof type !== 'undefined') {
+            payload['type'] = type;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -382,7 +410,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
 
-        const apiPath = '/functions/{functionId}'.replace('{functionId}', functionId);
+        const apiPath = '/functions/{functionId}'.replace('{functionId}', encodeURIComponent(String(functionId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -413,7 +441,7 @@ export class Functions {
      * @param {boolean} params.logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
      * @param {string} params.entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
      * @param {string} params.commands - Build Commands.
-     * @param {ProjectKeyScopes[]} params.scopes - List of scopes allowed for API Key auto-generated for every execution. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} params.scopes - List of scopes allowed for API Key auto-generated for every execution. Maximum of 200 scopes are allowed.
      * @param {string} params.installationId - Appwrite Installation ID for VCS (Version Controle System) deployment.
      * @param {string} params.providerRepositoryId - Repository ID of the repo linked to the function
      * @param {string} params.providerBranch - Production branch for the repo linked to the function
@@ -442,7 +470,7 @@ export class Functions {
      * @param {boolean} logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
      * @param {string} entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
      * @param {string} commands - Build Commands.
-     * @param {ProjectKeyScopes[]} scopes - List of scopes allowed for API Key auto-generated for every execution. Maximum of 100 scopes are allowed.
+     * @param {ProjectKeyScopes[]} scopes - List of scopes allowed for API Key auto-generated for every execution. Maximum of 200 scopes are allowed.
      * @param {string} installationId - Appwrite Installation ID for VCS (Version Controle System) deployment.
      * @param {string} providerRepositoryId - Repository ID of the repo linked to the function
      * @param {string} providerBranch - Production branch for the repo linked to the function
@@ -523,7 +551,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "name"');
         }
 
-        const apiPath = '/functions/{functionId}'.replace('{functionId}', functionId);
+        const apiPath = '/functions/{functionId}'.replace('{functionId}', encodeURIComponent(String(functionId)));
         const payload: Payload = {};
         if (typeof name !== 'undefined') {
             payload['name'] = name;
@@ -640,7 +668,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
 
-        const apiPath = '/functions/{functionId}'.replace('{functionId}', functionId);
+        const apiPath = '/functions/{functionId}'.replace('{functionId}', encodeURIComponent(String(functionId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -701,7 +729,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
 
-        const apiPath = '/functions/{functionId}/deployment'.replace('{functionId}', functionId);
+        const apiPath = '/functions/{functionId}/deployment'.replace('{functionId}', encodeURIComponent(String(functionId)));
         const payload: Payload = {};
         if (typeof deploymentId !== 'undefined') {
             payload['deploymentId'] = deploymentId;
@@ -771,7 +799,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
 
-        const apiPath = '/functions/{functionId}/deployments'.replace('{functionId}', functionId);
+        const apiPath = '/functions/{functionId}/deployments'.replace('{functionId}', encodeURIComponent(String(functionId)));
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
@@ -867,7 +895,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "activate"');
         }
 
-        const apiPath = '/functions/{functionId}/deployments'.replace('{functionId}', functionId);
+        const apiPath = '/functions/{functionId}/deployments'.replace('{functionId}', encodeURIComponent(String(functionId)));
         const payload: Payload = {};
         if (typeof entrypoint !== 'undefined') {
             payload['entrypoint'] = entrypoint;
@@ -946,7 +974,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
 
-        const apiPath = '/functions/{functionId}/deployments/duplicate'.replace('{functionId}', functionId);
+        const apiPath = '/functions/{functionId}/deployments/duplicate'.replace('{functionId}', encodeURIComponent(String(functionId)));
         const payload: Payload = {};
         if (typeof deploymentId !== 'undefined') {
             payload['deploymentId'] = deploymentId;
@@ -1050,7 +1078,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "reference"');
         }
 
-        const apiPath = '/functions/{functionId}/deployments/template'.replace('{functionId}', functionId);
+        const apiPath = '/functions/{functionId}/deployments/template'.replace('{functionId}', encodeURIComponent(String(functionId)));
         const payload: Payload = {};
         if (typeof repository !== 'undefined') {
             payload['repository'] = repository;
@@ -1145,7 +1173,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "reference"');
         }
 
-        const apiPath = '/functions/{functionId}/deployments/vcs'.replace('{functionId}', functionId);
+        const apiPath = '/functions/{functionId}/deployments/vcs'.replace('{functionId}', encodeURIComponent(String(functionId)));
         const payload: Payload = {};
         if (typeof type !== 'undefined') {
             payload['type'] = type;
@@ -1216,7 +1244,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
 
-        const apiPath = '/functions/{functionId}/deployments/{deploymentId}'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
+        const apiPath = '/functions/{functionId}/deployments/{deploymentId}'.replace('{functionId}', encodeURIComponent(String(functionId))).replace('{deploymentId}', encodeURIComponent(String(deploymentId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1277,7 +1305,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
 
-        const apiPath = '/functions/{functionId}/deployments/{deploymentId}'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
+        const apiPath = '/functions/{functionId}/deployments/{deploymentId}'.replace('{functionId}', encodeURIComponent(String(functionId))).replace('{deploymentId}', encodeURIComponent(String(deploymentId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1300,40 +1328,44 @@ export class Functions {
      * @param {string} params.functionId - Function ID.
      * @param {string} params.deploymentId - Deployment ID.
      * @param {DeploymentDownloadType} params.type - Deployment file to download. Can be: "source", "output".
+     * @param {string} params.token - Presigned source-download token for accessing this deployment without a session (jobs-service).
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    getDeploymentDownload(params: { functionId: string, deploymentId: string, type?: DeploymentDownloadType }): Promise<ArrayBuffer>;
+    getDeploymentDownload(params: { functionId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string }): Promise<ArrayBuffer>;
     /**
      * Get a function deployment content by its unique ID. The endpoint response return with a 'Content-Disposition: attachment' header that tells the browser to start downloading the file to user downloads directory.
      *
      * @param {string} functionId - Function ID.
      * @param {string} deploymentId - Deployment ID.
      * @param {DeploymentDownloadType} type - Deployment file to download. Can be: "source", "output".
+     * @param {string} token - Presigned source-download token for accessing this deployment without a session (jobs-service).
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getDeploymentDownload(functionId: string, deploymentId: string, type?: DeploymentDownloadType): Promise<ArrayBuffer>;
+    getDeploymentDownload(functionId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string): Promise<ArrayBuffer>;
     getDeploymentDownload(
-        paramsOrFirst: { functionId: string, deploymentId: string, type?: DeploymentDownloadType } | string,
-        ...rest: [(string)?, (DeploymentDownloadType)?]    
+        paramsOrFirst: { functionId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string } | string,
+        ...rest: [(string)?, (DeploymentDownloadType)?, (string)?]    
     ): Promise<ArrayBuffer> {
-        let params: { functionId: string, deploymentId: string, type?: DeploymentDownloadType };
+        let params: { functionId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { functionId: string, deploymentId: string, type?: DeploymentDownloadType };
+            params = (paramsOrFirst || {}) as { functionId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string };
         } else {
             params = {
                 functionId: paramsOrFirst as string,
                 deploymentId: rest[0] as string,
-                type: rest[1] as DeploymentDownloadType            
+                type: rest[1] as DeploymentDownloadType,
+                token: rest[2] as string            
             };
         }
         
         const functionId = params.functionId;
         const deploymentId = params.deploymentId;
         const type = params.type;
+        const token = params.token;
 
         if (typeof functionId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "functionId"');
@@ -1342,10 +1374,13 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
 
-        const apiPath = '/functions/{functionId}/deployments/{deploymentId}/download'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
+        const apiPath = '/functions/{functionId}/deployments/{deploymentId}/download'.replace('{functionId}', encodeURIComponent(String(functionId))).replace('{deploymentId}', encodeURIComponent(String(deploymentId)));
         const payload: Payload = {};
         if (typeof type !== 'undefined') {
             payload['type'] = type;
+        }
+        if (typeof token !== 'undefined') {
+            payload['token'] = token;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1407,7 +1442,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "deploymentId"');
         }
 
-        const apiPath = '/functions/{functionId}/deployments/{deploymentId}/status'.replace('{functionId}', functionId).replace('{deploymentId}', deploymentId);
+        const apiPath = '/functions/{functionId}/deployments/{deploymentId}/status'.replace('{functionId}', encodeURIComponent(String(functionId))).replace('{deploymentId}', encodeURIComponent(String(deploymentId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1470,7 +1505,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
 
-        const apiPath = '/functions/{functionId}/executions'.replace('{functionId}', functionId);
+        const apiPath = '/functions/{functionId}/executions'.replace('{functionId}', encodeURIComponent(String(functionId)));
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
@@ -1554,7 +1589,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
 
-        const apiPath = '/functions/{functionId}/executions'.replace('{functionId}', functionId);
+        const apiPath = '/functions/{functionId}/executions'.replace('{functionId}', encodeURIComponent(String(functionId)));
         const payload: Payload = {};
         if (typeof body !== 'undefined') {
             payload['body'] = body;
@@ -1634,7 +1669,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "executionId"');
         }
 
-        const apiPath = '/functions/{functionId}/executions/{executionId}'.replace('{functionId}', functionId).replace('{executionId}', executionId);
+        const apiPath = '/functions/{functionId}/executions/{executionId}'.replace('{functionId}', encodeURIComponent(String(functionId))).replace('{executionId}', encodeURIComponent(String(executionId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1695,7 +1730,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "executionId"');
         }
 
-        const apiPath = '/functions/{functionId}/executions/{executionId}'.replace('{functionId}', functionId).replace('{executionId}', executionId);
+        const apiPath = '/functions/{functionId}/executions/{executionId}'.replace('{functionId}', encodeURIComponent(String(functionId))).replace('{executionId}', encodeURIComponent(String(executionId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1757,7 +1792,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
 
-        const apiPath = '/functions/{functionId}/variables'.replace('{functionId}', functionId);
+        const apiPath = '/functions/{functionId}/variables'.replace('{functionId}', encodeURIComponent(String(functionId)));
         const payload: Payload = {};
         if (typeof queries !== 'undefined') {
             payload['queries'] = queries;
@@ -1842,7 +1877,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "value"');
         }
 
-        const apiPath = '/functions/{functionId}/variables'.replace('{functionId}', functionId);
+        const apiPath = '/functions/{functionId}/variables'.replace('{functionId}', encodeURIComponent(String(functionId)));
         const payload: Payload = {};
         if (typeof variableId !== 'undefined') {
             payload['variableId'] = variableId;
@@ -1916,7 +1951,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "variableId"');
         }
 
-        const apiPath = '/functions/{functionId}/variables/{variableId}'.replace('{functionId}', functionId).replace('{variableId}', variableId);
+        const apiPath = '/functions/{functionId}/variables/{variableId}'.replace('{functionId}', encodeURIComponent(String(functionId))).replace('{variableId}', encodeURIComponent(String(variableId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1989,7 +2024,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "variableId"');
         }
 
-        const apiPath = '/functions/{functionId}/variables/{variableId}'.replace('{functionId}', functionId).replace('{variableId}', variableId);
+        const apiPath = '/functions/{functionId}/variables/{variableId}'.replace('{functionId}', encodeURIComponent(String(functionId))).replace('{variableId}', encodeURIComponent(String(variableId)));
         const payload: Payload = {};
         if (typeof key !== 'undefined') {
             payload['key'] = key;
@@ -2060,7 +2095,7 @@ export class Functions {
             throw new AppwriteException('Missing required parameter: "variableId"');
         }
 
-        const apiPath = '/functions/{functionId}/variables/{variableId}'.replace('{functionId}', functionId).replace('{variableId}', variableId);
+        const apiPath = '/functions/{functionId}/variables/{variableId}'.replace('{functionId}', encodeURIComponent(String(functionId))).replace('{variableId}', encodeURIComponent(String(variableId)));
         const payload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
