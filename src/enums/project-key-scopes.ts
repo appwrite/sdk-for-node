@@ -94,10 +94,13 @@ export enum ProjectKeyScopes {
     DedicatedDatabasesExecute = 'dedicatedDatabases.execute',
     DomainsRead = 'domains.read',
     DomainsWrite = 'domains.write',
+    WafRulesRead = 'wafRules.read',
+    WafRulesWrite = 'wafRules.write',
     EventsRead = 'events.read',
     AppsRead = 'apps.read',
     AppsWrite = 'apps.write',
     Oauth2Read = 'oauth2.read',
     Oauth2Write = 'oauth2.write',
+    Oauth2Introspect = 'oauth2.introspect',
     UsageRead = 'usage.read',
 }

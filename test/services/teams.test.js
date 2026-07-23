@@ -101,6 +101,109 @@ describe('Teams', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method listInstallations()', async () => {
+                                                const data = {
+            'total': 5,
+            'installations': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await teams.listInstallations(
+            '<TEAM_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method createInstallation()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'appId': '5e5ea5c16897e',
+            'teamId': '5e5ea5c16897e',
+            'scopes': [],
+            'authorizationDetails': {},
+            'createdById': '5e5ea5c16897e',
+            'createdByName': 'Walter White',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await teams.createInstallation(
+            '<TEAM_ID>',
+            '<APP_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method getInstallation()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'appId': '5e5ea5c16897e',
+            'teamId': '5e5ea5c16897e',
+            'scopes': [],
+            'authorizationDetails': {},
+            'createdById': '5e5ea5c16897e',
+            'createdByName': 'Walter White',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await teams.getInstallation(
+            '<TEAM_ID>',
+            '<INSTALLATION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method updateInstallation()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'appId': '5e5ea5c16897e',
+            'teamId': '5e5ea5c16897e',
+            'scopes': [],
+            'authorizationDetails': {},
+            'createdById': '5e5ea5c16897e',
+            'createdByName': 'Walter White',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await teams.updateInstallation(
+            '<TEAM_ID>',
+            '<INSTALLATION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method deleteInstallation()', async () => {
+                                const data = {message: ""};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await teams.deleteInstallation(
+            '<TEAM_ID>',
+            '<INSTALLATION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method listMemberships()', async () => {
                                                 const data = {
             'total': 5,

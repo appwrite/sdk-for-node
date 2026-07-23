@@ -3,4 +3,7 @@ export enum DatabaseType {
     Tablesdb = 'tablesdb',
     Documentsdb = 'documentsdb',
     Vectorsdb = 'vectorsdb',
+    Mysql = 'mysql',
+    Postgresql = 'postgresql',
+    Mongodb = 'mongodb',
 }

@@ -974,6 +974,7 @@ export class Project {
      * @param {number} params.refreshTokenDuration - Refresh token duration in seconds for confidential clients (server-side apps that authenticate with a client secret). Leave empty to use default 1 year.
      * @param {number} params.publicAccessTokenDuration - Access token duration in seconds for public clients (SPAs, mobile, and native apps that cannot keep a client secret). Leave empty to use default 1 hour.
      * @param {number} params.publicRefreshTokenDuration - Refresh token duration in seconds for public clients (SPAs, mobile, and native apps that cannot keep a client secret). Leave empty to use default 30 days.
+     * @param {number} params.installationAccessTokenDuration - Access token duration in seconds for app installation access tokens. Leave empty to use default 1 hour.
      * @param {boolean} params.confidentialPkce - When enabled, PKCE is required for confidential clients (server-side flows using client_secret). PKCE is always required for public clients regardless of this setting.
      * @param {string} params.verificationUrl - URL to your application page where users enter the device flow user code. Required to enable the Device Authorization Grant.
      * @param {number} params.userCodeLength - Number of characters in the device flow user code, excluding the formatting separator. Shorter codes are easier to type but weaker; pair short codes with short expiry. Leave empty to use default 8.
@@ -983,7 +984,7 @@ export class Project {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
-    updateOAuth2Server(params: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] }): Promise<Models.Project>;
+    updateOAuth2Server(params: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] }): Promise<Models.Project>;
     /**
      * Update the OAuth2 server (OIDC provider) configuration.
      *
@@ -995,6 +996,7 @@ export class Project {
      * @param {number} refreshTokenDuration - Refresh token duration in seconds for confidential clients (server-side apps that authenticate with a client secret). Leave empty to use default 1 year.
      * @param {number} publicAccessTokenDuration - Access token duration in seconds for public clients (SPAs, mobile, and native apps that cannot keep a client secret). Leave empty to use default 1 hour.
      * @param {number} publicRefreshTokenDuration - Refresh token duration in seconds for public clients (SPAs, mobile, and native apps that cannot keep a client secret). Leave empty to use default 30 days.
+     * @param {number} installationAccessTokenDuration - Access token duration in seconds for app installation access tokens. Leave empty to use default 1 hour.
      * @param {boolean} confidentialPkce - When enabled, PKCE is required for confidential clients (server-side flows using client_secret). PKCE is always required for public clients regardless of this setting.
      * @param {string} verificationUrl - URL to your application page where users enter the device flow user code. Required to enable the Device Authorization Grant.
      * @param {number} userCodeLength - Number of characters in the device flow user code, excluding the formatting separator. Shorter codes are easier to type but weaker; pair short codes with short expiry. Leave empty to use default 8.
@@ -1005,15 +1007,15 @@ export class Project {
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateOAuth2Server(enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[]): Promise<Models.Project>;
+    updateOAuth2Server(enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[]): Promise<Models.Project>;
     updateOAuth2Server(
-        paramsOrFirst: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] } | boolean,
-        ...rest: [(string)?, (string[])?, (string[])?, (number)?, (number)?, (number)?, (number)?, (boolean)?, (string)?, (number)?, (string)?, (number)?, (string[])?]    
+        paramsOrFirst: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] } | boolean,
+        ...rest: [(string)?, (string[])?, (string[])?, (number)?, (number)?, (number)?, (number)?, (number)?, (boolean)?, (string)?, (number)?, (string)?, (number)?, (string[])?]    
     ): Promise<Models.Project> {
-        let params: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] };
+        let params: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] };
+            params = (paramsOrFirst || {}) as { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] };
         } else {
             params = {
                 enabled: paramsOrFirst as boolean,
@@ -1024,12 +1026,13 @@ export class Project {
                 refreshTokenDuration: rest[4] as number,
                 publicAccessTokenDuration: rest[5] as number,
                 publicRefreshTokenDuration: rest[6] as number,
-                confidentialPkce: rest[7] as boolean,
-                verificationUrl: rest[8] as string,
-                userCodeLength: rest[9] as number,
-                userCodeFormat: rest[10] as string,
-                deviceCodeDuration: rest[11] as number,
-                defaultScopes: rest[12] as string[]            
+                installationAccessTokenDuration: rest[7] as number,
+                confidentialPkce: rest[8] as boolean,
+                verificationUrl: rest[9] as string,
+                userCodeLength: rest[10] as number,
+                userCodeFormat: rest[11] as string,
+                deviceCodeDuration: rest[12] as number,
+                defaultScopes: rest[13] as string[]            
             };
         }
         
@@ -1041,6 +1044,7 @@ export class Project {
         const refreshTokenDuration = params.refreshTokenDuration;
         const publicAccessTokenDuration = params.publicAccessTokenDuration;
         const publicRefreshTokenDuration = params.publicRefreshTokenDuration;
+        const installationAccessTokenDuration = params.installationAccessTokenDuration;
         const confidentialPkce = params.confidentialPkce;
         const verificationUrl = params.verificationUrl;
         const userCodeLength = params.userCodeLength;
@@ -1080,6 +1084,9 @@ export class Project {
         }
         if (typeof publicRefreshTokenDuration !== 'undefined') {
             payload['publicRefreshTokenDuration'] = publicRefreshTokenDuration;
+        }
+        if (typeof installationAccessTokenDuration !== 'undefined') {
+            payload['installationAccessTokenDuration'] = installationAccessTokenDuration;
         }
         if (typeof confidentialPkce !== 'undefined') {
             payload['confidentialPkce'] = confidentialPkce;

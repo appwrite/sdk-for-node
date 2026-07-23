@@ -5,6 +5,8 @@ export enum OrganizationKeyScopes {
     DevKeysWrite = 'devKeys.write',
     OrganizationKeysRead = 'organization.keys.read',
     OrganizationKeysWrite = 'organization.keys.write',
+    OrganizationInstallationsRead = 'organization.installations.read',
+    OrganizationInstallationsWrite = 'organization.installations.write',
     OrganizationMembershipsRead = 'organization.memberships.read',
     OrganizationMembershipsWrite = 'organization.memberships.write',
     OrganizationRead = 'organization.read',

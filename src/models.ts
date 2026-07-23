@@ -697,17 +697,29 @@ export namespace Models {
          */
         type: DatabaseType;
         /**
-         * Database status. Possible values: `provisioning`, `ready` or `failed`
+         * Dedicated database lifecycle status. Null when the database has no valid dedicated backing.
          */
         status?: DatabaseStatus;
         /**
+         * Underlying engine of the dedicated backing: postgresql, mysql, mariadb, or mongodb. A managed product (tablesdb, documentsdb, vectorsdb) reports the engine it runs on, so its type and engine can differ. Null when the database has no dedicated backing.
+         */
+        engine?: string;
+        /**
+         * Compute specification identifier of the dedicated backing, e.g. s-2vcpu-2gb. Null when the database has no dedicated backing.
+         */
+        specification?: string;
+        /**
+         * Number of secondary high availability replicas, excluding the primary. Null when backing configuration is unavailable.
+         */
+        replicas?: number;
+        /**
          * Database backup policies.
          */
-        policies: BackupPolicy[];
+        policies?: BackupPolicy[];
         /**
          * Database backup archives.
          */
-        archives: BackupArchive[];
+        archives?: BackupArchive[];
     }
 
     /**
@@ -4312,6 +4324,10 @@ export namespace Models {
          */
         consoleAccessedAt: string;
         /**
+         * Whether WAF enforcement is enabled for the project.
+         */
+        wafEnabled: boolean;
+        /**
          * Billing limits reached
          */
         billingLimits?: BillingLimits;
@@ -4351,6 +4367,10 @@ export namespace Models {
          * OAuth2 server refresh token duration in seconds for public clients (SPAs, mobile, native)
          */
         oAuth2ServerPublicRefreshTokenDuration?: number;
+        /**
+         * OAuth2 server access token duration in seconds for app installation access tokens
+         */
+        oAuth2ServerInstallationAccessTokenDuration?: number;
         /**
          * When enabled, PKCE is required for confidential clients (server-side flows using client_secret). PKCE is always required for public clients regardless of this setting.
          */
@@ -6756,6 +6776,42 @@ export namespace Models {
          */
         country: string;
         /**
+         * Continent code.
+         */
+        continentCode: string;
+        /**
+         * City name.
+         */
+        city: string;
+        /**
+         * Region/state chain.
+         */
+        subdivisions: string;
+        /**
+         * Internet service provider.
+         */
+        isp: string;
+        /**
+         * Autonomous System Number (ASN).
+         */
+        autonomousSystemNumber: string;
+        /**
+         * Organization that owns the ASN.
+         */
+        autonomousSystemOrganization: string;
+        /**
+         * Connection type (e.g. cable, cellular, corporate).
+         */
+        connectionType: string;
+        /**
+         * User type (e.g. residential, business, hosting).
+         */
+        connectionUsageType: string;
+        /**
+         * Registered organization of the IP.
+         */
+        connectionOrganization: string;
+        /**
          * Log creation date in ISO 8601 format.
          */
         time: string;
@@ -6771,6 +6827,14 @@ export namespace Models {
          * Hostname.
          */
         hostname: string;
+        /**
+         * Name of the SDK that triggered the event.
+         */
+        sdk: string;
+        /**
+         * Version of the SDK that triggered the event.
+         */
+        sdkVersion: string;
     }
 
     /**
@@ -6947,6 +7011,10 @@ export namespace Models {
          * Webhooks
          */
         webhooks: number;
+        /**
+         * Maximum WAF rules per project
+         */
+        wafRules: number;
         /**
          * Projects
          */
@@ -7390,6 +7458,286 @@ export namespace Models {
     }
 
     /**
+     * DedicatedDatabase
+     */
+    export type DedicatedDatabase = {
+        /**
+         * Dedicated database ID.
+         */
+        $id: string;
+        /**
+         * Database creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Database update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Project ID that owns this database.
+         */
+        projectId: string;
+        /**
+         * Database display name.
+         */
+        name: string;
+        /**
+         * Product API that owns this database: tablesdb, documentsdb, vectorsdb, mysql, postgresql, or mongodb.
+         */
+        api: string;
+        /**
+         * Database engine: postgresql, mysql, mariadb, or mongodb.
+         */
+        engine: string;
+        /**
+         * Database engine version.
+         */
+        version: string;
+        /**
+         * Specification identifier.
+         */
+        specification: string;
+        /**
+         * Database backend provider. Possible values: prisma, edge.
+         */
+        backend: string;
+        /**
+         * Database hostname for connections.
+         */
+        hostname: string;
+        /**
+         * Database port for connections.
+         */
+        connectionPort: number;
+        /**
+         * Database username for connections.
+         */
+        connectionUser: string;
+        /**
+         * Database password for connections.
+         */
+        connectionPassword: string;
+        /**
+         * Full database connection string (URI format).
+         */
+        connectionString: string;
+        /**
+         * Whether SSL/TLS is required for client connections.
+         */
+        ssl: boolean;
+        /**
+         * Database status. Possible values: provisioning, ready, inactive, paused, failed, deleted, restoring, scaling.
+         */
+        status: string;
+        /**
+         * Container status for lifecycle-managed database runtimes: active or inactive.
+         */
+        containerStatus: string;
+        /**
+         * Last activity timestamp in ISO 8601 format.
+         */
+        lastAccessedAt?: string;
+        /**
+         * Display-only timestamp when the database is expected to be considered idle (ISO 8601 format). Derived from last activity; lifecycle transitions are driven by lifecycleState.
+         */
+        idleUntil?: string;
+        /**
+         * Idle-lifecycle state of the database. Possible values: active, warm, cold, hibernated.
+         */
+        lifecycleState: string;
+        /**
+         * Minutes of inactivity before container scales to zero.
+         */
+        idleTimeoutMinutes: number;
+        /**
+         * CPU allocated in millicores.
+         */
+        cpu: number;
+        /**
+         * Memory allocated in MB.
+         */
+        memory: number;
+        /**
+         * Storage allocated in GB.
+         */
+        storage: number;
+        /**
+         * Storage class. Currently always 'ssd'; DigitalOcean exposes a single block-storage class.
+         */
+        storageClass: string;
+        /**
+         * Maximum storage allowed in GB. 0 means use system default.
+         */
+        storageMaxGb: number;
+        /**
+         * Kubernetes node pool where the database is scheduled.
+         */
+        nodePool: string;
+        /**
+         * Number of high availability replicas. High availability is enabled when greater than 0.
+         */
+        replicas: number;
+        /**
+         * Replication sync mode: async, sync, or quorum.
+         */
+        syncMode: string;
+        /**
+         * Number of cross-region replicas. Cross-region availability is enabled when greater than 0.
+         */
+        crossRegionReplicas: number;
+        /**
+         * Maximum concurrent connections.
+         */
+        networkMaxConnections: number;
+        /**
+         * Connection idle timeout in seconds.
+         */
+        networkIdleTimeoutSeconds: number;
+        /**
+         * IP addresses/CIDR ranges allowed to connect.
+         */
+        networkIPAllowlist: string[];
+        /**
+         * Whether automatic backups are enabled.
+         */
+        backupEnabled: boolean;
+        /**
+         * Whether point-in-time recovery is enabled.
+         */
+        pitr: boolean;
+        /**
+         * Number of days to retain PITR data.
+         */
+        pitrRetentionDays: number;
+        /**
+         * Whether automatic storage expansion is enabled.
+         */
+        storageAutoscaling: boolean;
+        /**
+         * Storage usage percentage that triggers automatic expansion.
+         */
+        storageAutoscalingThresholdPercent: number;
+        /**
+         * Maximum storage size in GB for autoscaling. 0 means no limit.
+         */
+        storageAutoscalingMaxGb: number;
+        /**
+         * Day of the week for the maintenance window. Possible values: sun, mon, tue, wed, thu, fri, sat.
+         */
+        maintenanceWindowDay: string;
+        /**
+         * Hour in UTC (0-23) when the maintenance window starts.
+         */
+        maintenanceWindowHourUtc: number;
+        /**
+         * Whether metrics collection is enabled.
+         */
+        metricsEnabled: boolean;
+        /**
+         * Whether the SQL API sidecar is enabled for this database.
+         */
+        sqlApiEnabled: boolean;
+        /**
+         * Statement types accepted by the SQL API. Defaults to read/write DML only; DDL/DCL types (CREATE, ALTER, DROP, TRUNCATE, GRANT, REVOKE) are opt-in per database. Allowed values: SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, DROP, TRUNCATE, GRANT, REVOKE.
+         */
+        sqlApiAllowedStatements: string[];
+        /**
+         * Maximum rows returned per SQL API execution. Results larger than this are truncated.
+         */
+        sqlApiMaxRows: number;
+        /**
+         * Maximum serialised SQL API result payload in bytes. Results larger than this are truncated.
+         */
+        sqlApiMaxBytes: number;
+        /**
+         * Maximum server-side SQL API execution time in seconds before the query is cancelled.
+         */
+        sqlApiTimeoutSeconds: number;
+        /**
+         * Error message if status is failed.
+         */
+        error: string;
+    }
+
+    /**
+     * Status
+     */
+    export type DatabaseStatus = {
+        /**
+         * Overall health status: healthy, degraded, or unhealthy.
+         */
+        health: string;
+        /**
+         * Whether the database is ready to accept connections.
+         */
+        ready: boolean;
+        /**
+         * Database engine: postgresql, mysql, mariadb, or mongodb.
+         */
+        engine: string;
+        /**
+         * Database engine version.
+         */
+        version: string;
+        /**
+         * Database uptime in seconds.
+         */
+        uptime: number;
+        /**
+         * Connection statistics.
+         */
+        connections: DatabaseStatusConnections;
+        /**
+         * List of database replicas and their status.
+         */
+        replicas: DatabaseStatusReplica[];
+        /**
+         * Storage volume information.
+         */
+        volumes: DatabaseStatusVolume[];
+    }
+
+    /**
+     * Member
+     */
+    export type DedicatedDatabaseMember = {
+        /**
+         * Member identifier.
+         */
+        $id: string;
+        /**
+         * Member role. Possible values: primary (accepts reads and writes), replica (read-only follower).
+         */
+        role: string;
+        /**
+         * Member pod status. Possible values: provisioning (pod missing or Pending), starting (Running but not Ready), active (Running and Ready), failed (Failed phase or CrashLoopBackOff container), or the lowercased pod phase reported by the cluster.
+         */
+        status: string;
+        /**
+         * Replication lag in seconds.
+         */
+        lagSeconds: number;
+    }
+
+    /**
+     * Replicas
+     */
+    export type DedicatedDatabaseReplicas = {
+        /**
+         * Number of configured replicas. Zero means high availability is disabled.
+         */
+        replicas: number;
+        /**
+         * Replication sync mode. Possible values: async (asynchronous, fastest), sync (synchronous, strong consistency), quorum (quorum-based, majority of replicas must confirm).
+         */
+        syncMode: string;
+        /**
+         * Per-pod statuses for the primary and every replica.
+         */
+        members: DedicatedDatabaseMember[];
+    }
+
+    /**
      * Organization
      */
     export type Organization<Preferences extends Models.Preferences = Models.DefaultPreferences> = {
@@ -7738,6 +8086,150 @@ export namespace Models {
     }
 
     /**
+     * Specification
+     */
+    export type DedicatedDatabaseSpecification = {
+        /**
+         * Specification slug. Use this value when creating a dedicated database.
+         */
+        slug: string;
+        /**
+         * Human readable specification name.
+         */
+        name: string;
+        /**
+         * Monthly price of the specification in USD.
+         */
+        price: number;
+        /**
+         * Allocated CPU in millicores.
+         */
+        cpu: number;
+        /**
+         * Allocated memory in MB.
+         */
+        memory: number;
+        /**
+         * Maximum number of concurrent connections.
+         */
+        maxConnections: number;
+        /**
+         * Included storage in GB before overage charges apply.
+         */
+        includedStorage: number;
+        /**
+         * Included bandwidth in GB before overage charges apply.
+         */
+        includedBandwidth: number;
+        /**
+         * Whether the specification is available on the current plan.
+         */
+        enabled: boolean;
+    }
+
+    /**
+     * SpecificationList
+     */
+    export type DedicatedDatabaseSpecificationList = {
+        /**
+         * List of dedicated database specifications.
+         */
+        specifications: DedicatedDatabaseSpecification[];
+        /**
+         * Total number of specifications.
+         */
+        total: number;
+        /**
+         * Overage and add-on pricing shared across all specifications.
+         */
+        pricing: DedicatedDatabaseSpecificationPricing;
+    }
+
+    /**
+     * SpecificationPricing
+     */
+    export type DedicatedDatabaseSpecificationPricing = {
+        /**
+         * Price per GB of storage above the included amount, per month, in USD.
+         */
+        storageOverageRate: number;
+        /**
+         * Price per GB of bandwidth above the included amount, per month, in USD.
+         */
+        bandwidthOverageRate: number;
+        /**
+         * High availability replica price as a fraction of the specification cost.
+         */
+        replicaRate: number;
+        /**
+         * Cross-region replica price as a fraction of the specification cost.
+         */
+        crossRegionReplicaRate: number;
+        /**
+         * Point-in-time recovery price as a fraction of the specification cost.
+         */
+        pitrRate: number;
+    }
+
+    /**
+     * Connections
+     */
+    export type DatabaseStatusConnections = {
+        /**
+         * Current number of active connections.
+         */
+        current: number;
+        /**
+         * Maximum allowed connections.
+         */
+        max: number;
+    }
+
+    /**
+     * Replica
+     */
+    export type DatabaseStatusReplica = {
+        /**
+         * StatefulSet pod index (0 = primary, 1+ = replicas).
+         */
+        index: number;
+        /**
+         * Replica role: primary or replica.
+         */
+        role: string;
+        /**
+         * Whether the replica is healthy.
+         */
+        healthy: boolean;
+        /**
+         * Replication lag in seconds (null for primary).
+         */
+        lagSeconds?: number;
+    }
+
+    /**
+     * Volume
+     */
+    export type DatabaseStatusVolume = {
+        /**
+         * Mount path of the volume.
+         */
+        path: string;
+        /**
+         * Percentage of storage used.
+         */
+        usedPercent: string;
+        /**
+         * Available storage space.
+         */
+        available: string;
+        /**
+         * Whether the volume is mounted.
+         */
+        mounted: boolean;
+    }
+
+    /**
      * usageBillingPlan
      */
     export type UsageBillingPlan = {
@@ -7785,6 +8277,660 @@ export namespace Models {
          * Credits additional resources
          */
         credits: AdditionalResource;
+    }
+
+    /**
+     * App
+     */
+    export type App = {
+        /**
+         * App ID.
+         */
+        $id: string;
+        /**
+         * App creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * App update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Application name.
+         */
+        name: string;
+        /**
+         * Application description shown to users during OAuth2 consent.
+         */
+        description: string;
+        /**
+         * Application homepage URL shown to users during OAuth2 consent.
+         */
+        clientUri: string;
+        /**
+         * Application logo URL shown to users during OAuth2 consent.
+         */
+        logoUri: string;
+        /**
+         * Application privacy policy URL shown to users during OAuth2 consent.
+         */
+        privacyPolicyUrl: string;
+        /**
+         * Application terms of service URL shown to users during OAuth2 consent.
+         */
+        termsUrl: string;
+        /**
+         * Application support or security contact emails.
+         */
+        contacts: string[];
+        /**
+         * Application tagline shown to users during OAuth2 consent.
+         */
+        tagline: string;
+        /**
+         * Application tags shown to users during OAuth2 consent.
+         */
+        tags: string[];
+        /**
+         * Application labels. Read-only for clients; only a server SDK using a project API key can update them.
+         */
+        labels: string[];
+        /**
+         * Application image URLs shown to users during OAuth2 consent.
+         */
+        images: string[];
+        /**
+         * Application support URL shown to users during OAuth2 consent.
+         */
+        supportUrl: string;
+        /**
+         * Application data deletion URL shown to users during OAuth2 consent.
+         */
+        dataDeletionUrl: string;
+        /**
+         * List of authorized redirect URIs. These URIs can be used to redirect users after they authenticate.
+         */
+        redirectUris: string[];
+        /**
+         * List of authorized post-logout redirect URIs for OpenID Connect RP-Initiated Logout. The logout endpoint only redirects users to URIs in this list after ending their session.
+         */
+        postLogoutRedirectUris: string[];
+        /**
+         * Whether the app is enabled or not.
+         */
+        enabled: boolean;
+        /**
+         * OAuth2 client type. `public` for SPAs, mobile, and native apps that cannot keep a client secret (PKCE required); `confidential` for server-side clients that authenticate with a client secret.
+         */
+        type: string;
+        /**
+         * Whether this client may use the OAuth2 Device Authorization Grant (RFC 8628).
+         */
+        deviceFlow: boolean;
+        /**
+         * ID of team that owns the application, if owned by team. Otherwise, user ID will be used.
+         */
+        teamId: string;
+        /**
+         * ID of user who owns the application, if owned by user. Otherwise, team ID will be used.
+         */
+        userId: string;
+        /**
+         * Scopes the application requests when installed on a team. Organization-level and project-level scopes only.
+         */
+        installationScopes: string[];
+        /**
+         * URL users are redirected to after creating or updating an installation of this application. Empty for no redirect.
+         */
+        installationRedirectUrl: string;
+        /**
+         * List of application secrets.
+         */
+        secrets: AppSecret[];
+    }
+
+    /**
+     * AppSecret
+     */
+    export type AppSecret = {
+        /**
+         * Secret ID.
+         */
+        $id: string;
+        /**
+         * Secret creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Secret update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Application ID this secret belongs to.
+         */
+        appId: string;
+        /**
+         * Always empty. The application client secret is returned only once, in the response of the createSecret method.
+         */
+        secret: string;
+        /**
+         * Last few characters of the client secret, used to help identify it.
+         */
+        hint: string;
+        /**
+         * ID of the user who created the secret.
+         */
+        createdById: string;
+        /**
+         * Name of the user who created the secret.
+         */
+        createdByName: string;
+        /**
+         * Time the secret was last used for authentication in ISO 8601 format. Null if never used.
+         */
+        lastAccessedAt?: string;
+    }
+
+    /**
+     * AppSecretPlaintext
+     */
+    export type AppSecretPlaintext = {
+        /**
+         * Secret ID.
+         */
+        $id: string;
+        /**
+         * Secret creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Secret update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Application ID this secret belongs to.
+         */
+        appId: string;
+        /**
+         * Application client secret. Returned only when the secret is created; subsequent reads always return an empty value.
+         */
+        secret: string;
+        /**
+         * Last few characters of the client secret, used to help identify it.
+         */
+        hint: string;
+        /**
+         * ID of the user who created the secret.
+         */
+        createdById: string;
+        /**
+         * Name of the user who created the secret.
+         */
+        createdByName: string;
+        /**
+         * Time the secret was last used for authentication in ISO 8601 format. Null if never used.
+         */
+        lastAccessedAt?: string;
+    }
+
+    /**
+     * AppScope
+     */
+    export type AppScope = {
+        /**
+         * Scope value as requested by apps.
+         */
+        value: string;
+        /**
+         * Human-readable description of what the scope grants.
+         */
+        description: string;
+        /**
+         * What the scope grants access to. One of `account`, `project`, or `organization`. Only `project` and `organization` scopes are installable.
+         */
+        type: string;
+        /**
+         * Scope category, used to group scopes on consent and installation screens.
+         */
+        category: string;
+        /**
+         * Whether the scope is deprecated. Deprecated scopes can still be requested but should not be offered for new grants.
+         */
+        deprecated: boolean;
+    }
+
+    /**
+     * AppInstallation
+     */
+    export type AppInstallation = {
+        /**
+         * Installation ID.
+         */
+        $id: string;
+        /**
+         * Installation creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Installation update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * ID of the installed application.
+         */
+        appId: string;
+        /**
+         * ID of the team the application is installed on.
+         */
+        teamId: string;
+        /**
+         * Scopes granted to the application. Snapshot of the application's installation scopes taken when the installation was created or last updated.
+         */
+        scopes: string[];
+        /**
+         * Authorization details granted to the application. Rich authorization request (RFC 9396) style entries; the Appwrite Console stores authorized project IDs here.
+         */
+        authorizationDetails: object;
+        /**
+         * ID of the user who created the installation.
+         */
+        createdById: string;
+        /**
+         * Name of the user who created the installation.
+         */
+        createdByName: string;
+        /**
+         * Time an access token was last issued for the installation in ISO 8601 format. Null if never used.
+         */
+        lastAccessedAt?: string;
+    }
+
+    /**
+     * AppKey
+     */
+    export type AppKey = {
+        /**
+         * App key ID.
+         */
+        $id: string;
+        /**
+         * App key creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * App key update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Application ID this app key belongs to.
+         */
+        appId: string;
+        /**
+         * App key secret.
+         */
+        secret: string;
+        /**
+         * Last few characters of the app key secret, used to help identify it.
+         */
+        hint: string;
+        /**
+         * ID of the user who created the app key.
+         */
+        createdById: string;
+        /**
+         * Name of the user who created the app key.
+         */
+        createdByName: string;
+        /**
+         * Time the app key was last used for authentication in ISO 8601 format. Null if never used.
+         */
+        lastAccessedAt?: string;
+    }
+
+    /**
+     * OAuth2 Authorize
+     */
+    export type Oauth2Authorize = {
+        /**
+         * OAuth2 grant ID. Set when the user must give explicit consent; pass it to the approve or reject endpoint. Empty when a redirect URL is returned instead.
+         */
+        grantId: string;
+        /**
+         * URL the end user should be redirected to when the flow can complete without consent. Empty when consent is still required.
+         */
+        redirectUrl: string;
+    }
+
+    /**
+     * OAuth2 Approve
+     */
+    export type Oauth2Approve = {
+        /**
+         * URL the end user should be redirected to after the grant is approved, carrying the authorization `code` and/or `id_token` along with the original `state`.
+         */
+        redirectUrl: string;
+    }
+
+    /**
+     * OAuth2 Reject
+     */
+    export type Oauth2Reject = {
+        /**
+         * URL the end user should be redirected to after the grant is rejected, carrying an `access_denied` error.
+         */
+        redirectUrl: string;
+    }
+
+    /**
+     * OAuth2 Grant
+     */
+    export type Oauth2Grant = {
+        /**
+         * Grant ID.
+         */
+        $id: string;
+        /**
+         * Grant creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Grant update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * ID of the user the grant belongs to.
+         */
+        userId: string;
+        /**
+         * ID of the OAuth2 client (app) the grant was requested for.
+         */
+        appId: string;
+        /**
+         * Requested OAuth2 scopes the user is being asked to consent to.
+         */
+        scopes: string[];
+        /**
+         * Requested RFC 8707 resource indicators the user is being asked to consent to.
+         */
+        resources: string[];
+        /**
+         * Requested authorization_details the user is being asked to consent to, as a JSON string. Each entry has a `type` plus project-defined fields.
+         */
+        authorizationDetails: string;
+        /**
+         * OIDC prompt directive the consent screen should honor. Space-separated list of: login, consent, select_account.
+         */
+        prompt: string;
+        /**
+         * Redirect URI the user will be sent to after the flow completes.
+         */
+        redirectUri: string;
+        /**
+         * Unix timestamp of when the user last authenticated.
+         */
+        authTime: number;
+        /**
+         * Grant expiration time in ISO 8601 format.
+         */
+        expire: string;
+    }
+
+    /**
+     * OAuth2 Device Authorization
+     */
+    export type Oauth2DeviceAuthorization = {
+        /**
+         * Device verification code used by the client to poll the token endpoint.
+         */
+        device_code: string;
+        /**
+         * Short code the end user enters on the verification page.
+         */
+        user_code: string;
+        /**
+         * URL where the end user enters the user code.
+         */
+        verification_uri: string;
+        /**
+         * Verification URL with the user code prefilled as a query parameter.
+         */
+        verification_uri_complete: string;
+        /**
+         * Lifetime of the device code and user code in seconds.
+         */
+        expires_in: number;
+        /**
+         * Minimum polling interval for the token endpoint in seconds.
+         */
+        interval: number;
+    }
+
+    /**
+     * OAuth2 PAR
+     */
+    export type Oauth2PAR = {
+        /**
+         * Authorization request handle to pass to the authorize endpoint.
+         */
+        request_uri: string;
+        /**
+         * Lifetime of the authorization request handle in seconds.
+         */
+        expires_in: number;
+    }
+
+    /**
+     * OAuth2 Token
+     */
+    export type Oauth2Token = {
+        /**
+         * OAuth2 access token.
+         */
+        access_token: string;
+        /**
+         * OAuth2 token type.
+         */
+        token_type: string;
+        /**
+         * Access token lifetime in seconds.
+         */
+        expires_in: number;
+        /**
+         * OAuth2 refresh token.
+         */
+        refresh_token: string;
+        /**
+         * Space-separated scopes granted to the access token.
+         */
+        scope: string;
+        /**
+         * Granted RFC 9396 authorization details as a JSON string.
+         */
+        authorization_details?: string;
+        /**
+         * OpenID Connect ID token. Returned when the `openid` scope is granted.
+         */
+        id_token?: string;
+    }
+
+    /**
+     * OAuth2 Consent
+     */
+    export type Oauth2Consent = {
+        /**
+         * Consent ID.
+         */
+        $id: string;
+        /**
+         * Consent creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Consent update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * ID of the user the consent belongs to.
+         */
+        userId: string;
+        /**
+         * ID of the registered app the consent was given to. Empty for URL-form (CIMD) clients.
+         */
+        appId: string;
+        /**
+         * Client ID metadata document URL of the client the consent was given to. Empty for registered apps.
+         */
+        cimdUrl: string;
+        /**
+         * OAuth2 scopes the user consented to.
+         */
+        scopes: string[];
+        /**
+         * RFC 8707 resource indicators the user consented to.
+         */
+        resources: string[];
+        /**
+         * Authorization details the user consented to, as a JSON string. Each entry has a `type` plus project-defined fields.
+         */
+        authorizationDetails: string;
+        /**
+         * Consent expiration time in ISO 8601 format. Empty when the consent has no token-bound expiry yet.
+         */
+        expire: string;
+    }
+
+    /**
+     * OAuth2 Consent Token
+     */
+    export type Oauth2ConsentToken = {
+        /**
+         * Token family ID.
+         */
+        $id: string;
+        /**
+         * Token creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Token update date in ISO 8601 format. Refreshing the token family updates this.
+         */
+        $updatedAt: string;
+        /**
+         * ID of the consent the token family was issued under.
+         */
+        consentId: string;
+        /**
+         * ID of the user the token family belongs to.
+         */
+        userId: string;
+        /**
+         * ID of the registered app the token family was issued to. Empty for URL-form (CIMD) clients.
+         */
+        appId: string;
+        /**
+         * Client ID metadata document URL of the client the token family was issued to. Empty for registered apps.
+         */
+        cimdUrl: string;
+        /**
+         * OAuth2 scopes granted on the token family.
+         */
+        scopes: string[];
+        /**
+         * RFC 8707 resource indicators granted on the token family.
+         */
+        resources: string[];
+        /**
+         * Authorization details granted on the token family, as a JSON string. Each entry has a `type` plus project-defined fields.
+         */
+        authorizationDetails: string;
+        /**
+         * Expiration time of the current access token of this family in ISO 8601 format.
+         */
+        expire: string;
+    }
+
+    /**
+     * OAuth2 Project
+     */
+    export type Oauth2Project = {
+        /**
+         * Project ID.
+         */
+        $id: string;
+        /**
+         * Region ID the project is deployed in.
+         */
+        region: string;
+        /**
+         * API endpoint of the region the project is deployed in. Empty when the region has no public hostname configured.
+         */
+        endpoint: string;
+    }
+
+    /**
+     * OAuth2 Organization
+     */
+    export type Oauth2Organization = {
+        /**
+         * Organization ID.
+         */
+        $id: string;
+    }
+
+    /**
+     * OAuth2 accessible projects list
+     */
+    export type Oauth2ProjectList = {
+        /**
+         * Total number of projects that matched your query.
+         */
+        total: number;
+        /**
+         * List of projects.
+         */
+        projects: Oauth2Project[];
+    }
+
+    /**
+     * OAuth2 accessible organizations list
+     */
+    export type Oauth2OrganizationList = {
+        /**
+         * Total number of organizations that matched your query.
+         */
+        total: number;
+        /**
+         * List of organizations.
+         */
+        organizations: Oauth2Organization[];
+    }
+
+    /**
+     * OAuth2 consents list
+     */
+    export type Oauth2ConsentList = {
+        /**
+         * Total number of consents that matched your query.
+         */
+        total: number;
+        /**
+         * List of consents.
+         */
+        consents: Oauth2Consent[];
+    }
+
+    /**
+     * OAuth2 consent tokens list
+     */
+    export type Oauth2ConsentTokenList = {
+        /**
+         * Total number of tokens that matched your query.
+         */
+        total: number;
+        /**
+         * List of tokens.
+         */
+        tokens: Oauth2ConsentToken[];
     }
 
     /**
@@ -7841,5 +8987,75 @@ export namespace Models {
          * List of restorations.
          */
         restorations: BackupRestoration[];
+    }
+
+    /**
+     * Apps list
+     */
+    export type AppsList = {
+        /**
+         * Total number of apps that matched your query.
+         */
+        total: number;
+        /**
+         * List of apps.
+         */
+        apps: App[];
+    }
+
+    /**
+     * App secrets list
+     */
+    export type AppSecretList = {
+        /**
+         * Total number of secrets that matched your query.
+         */
+        total: number;
+        /**
+         * List of secrets.
+         */
+        secrets: AppSecret[];
+    }
+
+    /**
+     * App scopes list
+     */
+    export type AppScopeList = {
+        /**
+         * Total number of scopes that matched your query.
+         */
+        total: number;
+        /**
+         * List of scopes.
+         */
+        scopes: AppScope[];
+    }
+
+    /**
+     * App installations list
+     */
+    export type AppInstallationList = {
+        /**
+         * Total number of installations that matched your query.
+         */
+        total: number;
+        /**
+         * List of installations.
+         */
+        installations: AppInstallation[];
+    }
+
+    /**
+     * App keys list
+     */
+    export type AppKeyList = {
+        /**
+         * Total number of keys that matched your query.
+         */
+        total: number;
+        /**
+         * List of keys.
+         */
+        keys: AppKey[];
     }
 }

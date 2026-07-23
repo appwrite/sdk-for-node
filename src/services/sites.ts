@@ -1337,40 +1337,44 @@ export class Sites {
      * @param {string} params.siteId - Site ID.
      * @param {string} params.deploymentId - Deployment ID.
      * @param {DeploymentDownloadType} params.type - Deployment file to download. Can be: "source", "output".
+     * @param {string} params.token - Presigned source-download token for accessing this deployment without a session (jobs-service).
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    getDeploymentDownload(params: { siteId: string, deploymentId: string, type?: DeploymentDownloadType }): Promise<ArrayBuffer>;
+    getDeploymentDownload(params: { siteId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string }): Promise<ArrayBuffer>;
     /**
      * Get a site deployment content by its unique ID. The endpoint response return with a 'Content-Disposition: attachment' header that tells the browser to start downloading the file to user downloads directory.
      *
      * @param {string} siteId - Site ID.
      * @param {string} deploymentId - Deployment ID.
      * @param {DeploymentDownloadType} type - Deployment file to download. Can be: "source", "output".
+     * @param {string} token - Presigned source-download token for accessing this deployment without a session (jobs-service).
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getDeploymentDownload(siteId: string, deploymentId: string, type?: DeploymentDownloadType): Promise<ArrayBuffer>;
+    getDeploymentDownload(siteId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string): Promise<ArrayBuffer>;
     getDeploymentDownload(
-        paramsOrFirst: { siteId: string, deploymentId: string, type?: DeploymentDownloadType } | string,
-        ...rest: [(string)?, (DeploymentDownloadType)?]    
+        paramsOrFirst: { siteId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string } | string,
+        ...rest: [(string)?, (DeploymentDownloadType)?, (string)?]    
     ): Promise<ArrayBuffer> {
-        let params: { siteId: string, deploymentId: string, type?: DeploymentDownloadType };
+        let params: { siteId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, deploymentId: string, type?: DeploymentDownloadType };
+            params = (paramsOrFirst || {}) as { siteId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
                 deploymentId: rest[0] as string,
-                type: rest[1] as DeploymentDownloadType            
+                type: rest[1] as DeploymentDownloadType,
+                token: rest[2] as string            
             };
         }
         
         const siteId = params.siteId;
         const deploymentId = params.deploymentId;
         const type = params.type;
+        const token = params.token;
 
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
@@ -1383,6 +1387,9 @@ export class Sites {
         const payload: Payload = {};
         if (typeof type !== 'undefined') {
             payload['type'] = type;
+        }
+        if (typeof token !== 'undefined') {
+            payload['token'] = token;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

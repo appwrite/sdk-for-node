@@ -32,9 +32,7 @@ describe('Databases', () => {
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'enabled': true,
-            'type': 'legacy',
-            'policies': [],
-            'archives': [],};
+            'type': 'legacy',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await databases.create(
@@ -163,9 +161,7 @@ describe('Databases', () => {
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'enabled': true,
-            'type': 'legacy',
-            'policies': [],
-            'archives': [],};
+            'type': 'legacy',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await databases.get(
@@ -185,9 +181,7 @@ describe('Databases', () => {
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'enabled': true,
-            'type': 'legacy',
-            'policies': [],
-            'archives': [],};
+            'type': 'legacy',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await databases.update(

@@ -38,7 +38,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.get(
@@ -91,7 +92,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateAuthMethod(
@@ -259,7 +261,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateLabels(
@@ -400,7 +403,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateOAuth2Server(
@@ -1493,7 +1497,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateDenyAliasedEmailPolicy(
@@ -1534,7 +1539,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateDenyCorporateEmailPolicy(
@@ -1575,7 +1581,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateDenyDisposableEmailPolicy(
@@ -1616,7 +1623,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateDenyFreeEmailPolicy(
@@ -1657,7 +1665,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateMembershipPrivacyPolicy(
@@ -1697,7 +1706,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updatePasswordDictionaryPolicy(
@@ -1738,7 +1748,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updatePasswordHistoryPolicy(
@@ -1779,7 +1790,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updatePasswordPersonalDataPolicy(
@@ -1839,7 +1851,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSessionAlertPolicy(
@@ -1880,7 +1893,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSessionDurationPolicy(
@@ -1921,7 +1935,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSessionInvalidationPolicy(
@@ -1962,7 +1977,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSessionLimitPolicy(
@@ -2003,7 +2019,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateUserLimitPolicy(
@@ -2060,7 +2077,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateProtocol(
@@ -2102,7 +2120,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateService(
@@ -2144,7 +2163,8 @@ describe('Project', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateSMTP(

@@ -71,6 +71,116 @@ describe('Account', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method listConsents()', async () => {
+                                                const data = {
+            'total': 5,
+            'consents': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await account.listConsents(
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method getConsent()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'userId': '5e5ea5c16897e',
+            'appId': '5e5ea5c16897e',
+            'cimdUrl': 'https://example.com/.well-known/client-metadata.json',
+            'scopes': [],
+            'resources': [],
+            'authorizationDetails': '[{\"type\":\"calendar\",\"identifier\":\"primary\",\"actions\":[\"read_events\",\"create_event\"]}]',
+            'expire': '2020-10-15T06:38:00.000+00:00',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await account.getConsent(
+            '<CONSENT_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method deleteConsent()', async () => {
+                                const data = {message: ""};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await account.deleteConsent(
+            '<CONSENT_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method listConsentTokens()', async () => {
+                                                const data = {
+            'total': 5,
+            'tokens': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await account.listConsentTokens(
+            '<CONSENT_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method getConsentToken()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'consentId': '5e5ea5c16897e',
+            'userId': '5e5ea5c16897e',
+            'appId': '5e5ea5c16897e',
+            'cimdUrl': 'https://example.com/.well-known/client-metadata.json',
+            'scopes': [],
+            'resources': [],
+            'authorizationDetails': '[{\"type\":\"calendar\",\"identifier\":\"primary\",\"actions\":[\"read_events\",\"create_event\"]}]',
+            'expire': '2020-10-15T06:38:00.000+00:00',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await account.getConsentToken(
+            '<CONSENT_ID>',
+            '<TOKEN_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method deleteConsentToken()', async () => {
+                                const data = {message: ""};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await account.deleteConsentToken(
+            '<CONSENT_ID>',
+            '<TOKEN_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method updateEmail()', async () => {
                                                 const data = {
             '\$id': '5e5ea5c16897e',
