@@ -118,6 +118,104 @@ describe('Organization', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method listInstallations()', async () => {
+                                                const data = {
+            'total': 5,
+            'installations': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await organization.listInstallations(
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method createInstallation()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'appId': '5e5ea5c16897e',
+            'teamId': '5e5ea5c16897e',
+            'scopes': [],
+            'authorizationDetails': {},
+            'createdById': '5e5ea5c16897e',
+            'createdByName': 'Walter White',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await organization.createInstallation(
+            '<APP_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method getInstallation()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'appId': '5e5ea5c16897e',
+            'teamId': '5e5ea5c16897e',
+            'scopes': [],
+            'authorizationDetails': {},
+            'createdById': '5e5ea5c16897e',
+            'createdByName': 'Walter White',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await organization.getInstallation(
+            '<INSTALLATION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method updateInstallation()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'appId': '5e5ea5c16897e',
+            'teamId': '5e5ea5c16897e',
+            'scopes': [],
+            'authorizationDetails': {},
+            'createdById': '5e5ea5c16897e',
+            'createdByName': 'Walter White',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await organization.updateInstallation(
+            '<INSTALLATION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method deleteInstallation()', async () => {
+                                const data = {message: ""};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await organization.deleteInstallation(
+            '<INSTALLATION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method listKeys()', async () => {
                                                 const data = {
             'total': 5,
@@ -380,7 +478,8 @@ describe('Organization', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await organization.createProject(
@@ -422,7 +521,8 @@ describe('Organization', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await organization.getProject(
@@ -463,7 +563,8 @@ describe('Organization', () => {
             'services': [],
             'protocols': [],
             'blocks': [],
-            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',};
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await organization.updateProject(

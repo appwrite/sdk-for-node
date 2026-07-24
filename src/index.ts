@@ -1,6 +1,7 @@
 export { Client, Query, AppwriteException } from './client';
 export { Account } from './services/account';
 export { Activities } from './services/activities';
+export { Apps } from './services/apps';
 export { Avatars } from './services/avatars';
 export { Backups } from './services/backups';
 export { Databases } from './services/databases';
@@ -8,6 +9,7 @@ export { Functions } from './services/functions';
 export { Graphql } from './services/graphql';
 export { Locale } from './services/locale';
 export { Messaging } from './services/messaging';
+export { Oauth2 } from './services/oauth-2';
 export { Organization } from './services/organization';
 export { Presences } from './services/presences';
 export { Project } from './services/project';

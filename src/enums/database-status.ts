@@ -1,5 +1,16 @@
 export enum DatabaseStatus {
     Provisioning = 'provisioning',
     Ready = 'ready',
+    Inactive = 'inactive',
+    Paused = 'paused',
     Failed = 'failed',
+    Deleting = 'deleting',
+    Deleted = 'deleted',
+    Restoring = 'restoring',
+    Scaling = 'scaling',
+    Upgrading = 'upgrading',
+    Migrating = 'migrating',
+    Pausing = 'pausing',
+    Resuming = 'resuming',
+    Failingover = 'failing-over',
 }

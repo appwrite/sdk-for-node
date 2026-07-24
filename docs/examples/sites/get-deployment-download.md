@@ -11,6 +11,7 @@ const sites = new sdk.Sites(client);
 const result = await sites.getDeploymentDownload({
     siteId: '<SITE_ID>',
     deploymentId: '<DEPLOYMENT_ID>',
-    type: sdk.DeploymentDownloadType.Source // optional
+    type: sdk.DeploymentDownloadType.Source, // optional
+    token: '<TOKEN>' // optional
 });
 ```

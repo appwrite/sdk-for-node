@@ -17,6 +17,7 @@ const result = await project.updateOAuth2Server({
     refreshTokenDuration: 60, // optional
     publicAccessTokenDuration: 60, // optional
     publicRefreshTokenDuration: 60, // optional
+    installationAccessTokenDuration: 60, // optional
     confidentialPkce: false, // optional
     verificationUrl: 'https://example.com', // optional
     userCodeLength: 6, // optional

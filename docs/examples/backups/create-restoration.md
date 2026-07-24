@@ -12,7 +12,6 @@ const result = await backups.createRestoration({
     archiveId: '<ARCHIVE_ID>',
     services: [sdk.BackupServices.Databases],
     newResourceId: '<NEW_RESOURCE_ID>', // optional
-    newResourceName: '<NEW_RESOURCE_NAME>', // optional
-    newSpecification: 'serverless' // optional
+    newResourceName: '<NEW_RESOURCE_NAME>' // optional
 });
 ```

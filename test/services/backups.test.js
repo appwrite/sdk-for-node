@@ -203,7 +203,7 @@ describe('Backups', () => {
             'migrationId': 'did8jx6ws45jana098ab7',
             'services': [],
             'resources': [],
-            'options': '{databases.database[{oldId, newId, newName, newSpecification}]}',};
+            'options': '{databases.database[{oldId, newId, newName}]}',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await backups.createRestoration(
@@ -244,7 +244,7 @@ describe('Backups', () => {
             'migrationId': 'did8jx6ws45jana098ab7',
             'services': [],
             'resources': [],
-            'options': '{databases.database[{oldId, newId, newName, newSpecification}]}',};
+            'options': '{databases.database[{oldId, newId, newName}]}',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await backups.getRestoration(

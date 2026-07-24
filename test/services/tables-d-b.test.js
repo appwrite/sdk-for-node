@@ -32,14 +32,28 @@ describe('TablesDB', () => {
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'enabled': true,
-            'type': 'legacy',
-            'policies': [],
-            'archives': [],};
+            'type': 'legacy',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await tablesDB.create(
             '<DATABASE_ID>',
             '<NAME>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method listSpecifications()', async () => {
+                                                const data = {
+            'specifications': [],
+            'total': 9,
+            'pricing': {},};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await tablesDB.listSpecifications(
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
@@ -163,9 +177,7 @@ describe('TablesDB', () => {
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'enabled': true,
-            'type': 'legacy',
-            'policies': [],
-            'archives': [],};
+            'type': 'legacy',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await tablesDB.get(
@@ -185,9 +197,7 @@ describe('TablesDB', () => {
             '\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             'enabled': true,
-            'type': 'legacy',
-            'policies': [],
-            'archives': [],};
+            'type': 'legacy',};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await tablesDB.update(
@@ -205,6 +215,106 @@ describe('TablesDB', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await tablesDB.delete(
+            '<DATABASE_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method createFailover()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'projectId': '5e5ea5c16897e',
+            'name': 'My Production Database',
+            'api': 'postgresql',
+            'engine': 'postgresql',
+            'version': '16',
+            'specification': 's-2vcpu-2gb',
+            'backend': 'edge',
+            'hostname': 'db-myproject-mydb.fra.appwrite.center',
+            'connectionPort': 5432,
+            'connectionUser': 'appwrite_user',
+            'connectionPassword': '••••••••',
+            'connectionString': 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
+            'ssl': true,
+            'status': 'ready',
+            'containerStatus': 'active',
+            'lifecycleState': 'active',
+            'idleTimeoutMinutes': 15,
+            'cpu': 2000,
+            'memory': 4096,
+            'storage': 100,
+            'storageClass': 'ssd',
+            'storageMaxGb': 100,
+            'nodePool': 'db-pool-4vcpu-8gb',
+            'replicas': 2,
+            'syncMode': 'async',
+            'crossRegionReplicas': 1,
+            'networkMaxConnections': 500,
+            'networkIdleTimeoutSeconds': 900,
+            'networkIPAllowlist': [],
+            'backupEnabled': true,
+            'pitr': true,
+            'pitrRetentionDays': 14,
+            'storageAutoscaling': true,
+            'storageAutoscalingThresholdPercent': 85,
+            'storageAutoscalingMaxGb': 500,
+            'maintenanceWindowDay': 'sun',
+            'maintenanceWindowHourUtc': 3,
+            'metricsEnabled': true,
+            'sqlApiEnabled': true,
+            'sqlApiAllowedStatements': [],
+            'sqlApiMaxRows': 10000,
+            'sqlApiMaxBytes': 10485760,
+            'sqlApiTimeoutSeconds': 30,
+            'error': '',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await tablesDB.createFailover(
+            '<DATABASE_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method getReplicas()', async () => {
+                                                const data = {
+            'replicas': 2,
+            'syncMode': 'async',
+            'members': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await tablesDB.getReplicas(
+            '<DATABASE_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method getStatus()', async () => {
+                                                const data = {
+            'health': 'healthy',
+            'ready': true,
+            'engine': 'postgresql',
+            'version': '17',
+            'uptime': 86400,
+            'connections': {},
+            'replicas': [],
+            'volumes': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await tablesDB.getStatus(
             '<DATABASE_ID>',
         );
 

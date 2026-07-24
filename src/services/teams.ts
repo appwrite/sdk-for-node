@@ -325,6 +325,338 @@ export class Teams {
     }
 
     /**
+     * List app installations on a team. Any team member can read installations.
+     *
+     * @param {string} params.teamId - Team ID.
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AppInstallationList>}
+     */
+    listInstallations(params: { teamId: string, queries?: string[], total?: boolean }): Promise<Models.AppInstallationList>;
+    /**
+     * List app installations on a team. Any team member can read installations.
+     *
+     * @param {string} teamId - Team ID.
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AppInstallationList>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    listInstallations(teamId: string, queries?: string[], total?: boolean): Promise<Models.AppInstallationList>;
+    listInstallations(
+        paramsOrFirst: { teamId: string, queries?: string[], total?: boolean } | string,
+        ...rest: [(string[])?, (boolean)?]    
+    ): Promise<Models.AppInstallationList> {
+        let params: { teamId: string, queries?: string[], total?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { teamId: string, queries?: string[], total?: boolean };
+        } else {
+            params = {
+                teamId: paramsOrFirst as string,
+                queries: rest[0] as string[],
+                total: rest[1] as boolean            
+            };
+        }
+        
+        const teamId = params.teamId;
+        const queries = params.queries;
+        const total = params.total;
+
+        if (typeof teamId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "teamId"');
+        }
+
+        const apiPath = '/teams/{teamId}/installations'.replace('{teamId}', encodeURIComponent(String(teamId)));
+        const payload: Payload = {};
+        if (typeof queries !== 'undefined') {
+            payload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            payload['total'] = total;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Install an app on a team. When authenticated as a user, only team members with the owner role can install apps. Requests using an API key or in admin mode can install apps on any team. The installation is granted the scopes the app currently requests.
+     *
+     * @param {string} params.teamId - Team ID.
+     * @param {string} params.appId - Application unique ID.
+     * @param {string} params.authorizationDetails - Authorization details granted to the installation as a JSON array of objects, each with a `type` and app-defined fields. The Appwrite Console stores authorized project IDs here.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AppInstallation>}
+     */
+    createInstallation(params: { teamId: string, appId: string, authorizationDetails?: string }): Promise<Models.AppInstallation>;
+    /**
+     * Install an app on a team. When authenticated as a user, only team members with the owner role can install apps. Requests using an API key or in admin mode can install apps on any team. The installation is granted the scopes the app currently requests.
+     *
+     * @param {string} teamId - Team ID.
+     * @param {string} appId - Application unique ID.
+     * @param {string} authorizationDetails - Authorization details granted to the installation as a JSON array of objects, each with a `type` and app-defined fields. The Appwrite Console stores authorized project IDs here.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AppInstallation>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createInstallation(teamId: string, appId: string, authorizationDetails?: string): Promise<Models.AppInstallation>;
+    createInstallation(
+        paramsOrFirst: { teamId: string, appId: string, authorizationDetails?: string } | string,
+        ...rest: [(string)?, (string)?]    
+    ): Promise<Models.AppInstallation> {
+        let params: { teamId: string, appId: string, authorizationDetails?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { teamId: string, appId: string, authorizationDetails?: string };
+        } else {
+            params = {
+                teamId: paramsOrFirst as string,
+                appId: rest[0] as string,
+                authorizationDetails: rest[1] as string            
+            };
+        }
+        
+        const teamId = params.teamId;
+        const appId = params.appId;
+        const authorizationDetails = params.authorizationDetails;
+
+        if (typeof teamId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "teamId"');
+        }
+        if (typeof appId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "appId"');
+        }
+
+        const apiPath = '/teams/{teamId}/installations'.replace('{teamId}', encodeURIComponent(String(teamId)));
+        const payload: Payload = {};
+        if (typeof appId !== 'undefined') {
+            payload['appId'] = appId;
+        }
+        if (typeof authorizationDetails !== 'undefined') {
+            payload['authorizationDetails'] = authorizationDetails;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Get an app installation on a team by its unique ID. Any team member can read installations.
+     *
+     * @param {string} params.teamId - Team ID.
+     * @param {string} params.installationId - Installation unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AppInstallation>}
+     */
+    getInstallation(params: { teamId: string, installationId: string }): Promise<Models.AppInstallation>;
+    /**
+     * Get an app installation on a team by its unique ID. Any team member can read installations.
+     *
+     * @param {string} teamId - Team ID.
+     * @param {string} installationId - Installation unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AppInstallation>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getInstallation(teamId: string, installationId: string): Promise<Models.AppInstallation>;
+    getInstallation(
+        paramsOrFirst: { teamId: string, installationId: string } | string,
+        ...rest: [(string)?]    
+    ): Promise<Models.AppInstallation> {
+        let params: { teamId: string, installationId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { teamId: string, installationId: string };
+        } else {
+            params = {
+                teamId: paramsOrFirst as string,
+                installationId: rest[0] as string            
+            };
+        }
+        
+        const teamId = params.teamId;
+        const installationId = params.installationId;
+
+        if (typeof teamId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "teamId"');
+        }
+        if (typeof installationId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "installationId"');
+        }
+
+        const apiPath = '/teams/{teamId}/installations/{installationId}'.replace('{teamId}', encodeURIComponent(String(teamId))).replace('{installationId}', encodeURIComponent(String(installationId)));
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Update an app installation on a team. Only team members with the owner role can update installations. The installation's granted scopes are refreshed to the scopes the app currently requests; previously issued installation access tokens are revoked.
+     *
+     * @param {string} params.teamId - Team ID.
+     * @param {string} params.installationId - Installation unique ID.
+     * @param {string} params.authorizationDetails - Authorization details granted to the installation as a JSON array of objects, each with a `type` and app-defined fields. Omit to keep the current value.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AppInstallation>}
+     */
+    updateInstallation(params: { teamId: string, installationId: string, authorizationDetails?: string }): Promise<Models.AppInstallation>;
+    /**
+     * Update an app installation on a team. Only team members with the owner role can update installations. The installation's granted scopes are refreshed to the scopes the app currently requests; previously issued installation access tokens are revoked.
+     *
+     * @param {string} teamId - Team ID.
+     * @param {string} installationId - Installation unique ID.
+     * @param {string} authorizationDetails - Authorization details granted to the installation as a JSON array of objects, each with a `type` and app-defined fields. Omit to keep the current value.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.AppInstallation>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateInstallation(teamId: string, installationId: string, authorizationDetails?: string): Promise<Models.AppInstallation>;
+    updateInstallation(
+        paramsOrFirst: { teamId: string, installationId: string, authorizationDetails?: string } | string,
+        ...rest: [(string)?, (string)?]    
+    ): Promise<Models.AppInstallation> {
+        let params: { teamId: string, installationId: string, authorizationDetails?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { teamId: string, installationId: string, authorizationDetails?: string };
+        } else {
+            params = {
+                teamId: paramsOrFirst as string,
+                installationId: rest[0] as string,
+                authorizationDetails: rest[1] as string            
+            };
+        }
+        
+        const teamId = params.teamId;
+        const installationId = params.installationId;
+        const authorizationDetails = params.authorizationDetails;
+
+        if (typeof teamId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "teamId"');
+        }
+        if (typeof installationId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "installationId"');
+        }
+
+        const apiPath = '/teams/{teamId}/installations/{installationId}'.replace('{teamId}', encodeURIComponent(String(teamId))).replace('{installationId}', encodeURIComponent(String(installationId)));
+        const payload: Payload = {};
+        if (typeof authorizationDetails !== 'undefined') {
+            payload['authorizationDetails'] = authorizationDetails;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'put',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Uninstall an app from a team by its installation ID. Only team members with the owner role can remove installations. Previously issued installation access tokens are revoked.
+     *
+     * @param {string} params.teamId - Team ID.
+     * @param {string} params.installationId - Installation unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deleteInstallation(params: { teamId: string, installationId: string }): Promise<{}>;
+    /**
+     * Uninstall an app from a team by its installation ID. Only team members with the owner role can remove installations. Previously issued installation access tokens are revoked.
+     *
+     * @param {string} teamId - Team ID.
+     * @param {string} installationId - Installation unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    deleteInstallation(teamId: string, installationId: string): Promise<{}>;
+    deleteInstallation(
+        paramsOrFirst: { teamId: string, installationId: string } | string,
+        ...rest: [(string)?]    
+    ): Promise<{}> {
+        let params: { teamId: string, installationId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { teamId: string, installationId: string };
+        } else {
+            params = {
+                teamId: paramsOrFirst as string,
+                installationId: rest[0] as string            
+            };
+        }
+        
+        const teamId = params.teamId;
+        const installationId = params.installationId;
+
+        if (typeof teamId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "teamId"');
+        }
+        if (typeof installationId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "installationId"');
+        }
+
+        const apiPath = '/teams/{teamId}/installations/{installationId}'.replace('{teamId}', encodeURIComponent(String(teamId))).replace('{installationId}', encodeURIComponent(String(installationId)));
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'delete',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Use this endpoint to list a team's members using the team's ID. All team members have read access to this endpoint. Hide sensitive attributes from the response by toggling membership privacy in the Console.
      *
      * @param {string} params.teamId - Team ID.
