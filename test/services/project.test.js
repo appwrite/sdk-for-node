@@ -122,31 +122,6 @@ describe('Project', () => {
         expect(response).toEqual(data);
     });
     
-    test('test method createKey()', async () => {
-                                                const data = {
-            '\$id': '5e5ea5c16897e',
-            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            'name': 'My API Key',
-            'expire': '2020-10-15T06:38:00.000+00:00',
-            'scopes': [],
-            'secret': '919c2d18fb5d4...a2ae413da83346ad2',
-            'accessedAt': '2020-10-15T06:38:00.000+00:00',
-            'sdks': [],};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await project.createKey(
-            '<KEY_ID>',
-            '<NAME>',
-            [],
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
     test('test method createEphemeralKey()', async () => {
                                                 const data = {
             '\$id': '5e5ea5c16897e',
@@ -1670,6 +1645,47 @@ describe('Project', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await project.updateMembershipPrivacyPolicy(
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method updateMFAFactorsPolicy()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'name': 'New Project',
+            'teamId': '1592981250',
+            'region': 'fra',
+            'devKeys': [],
+            'smtpEnabled': true,
+            'smtpSenderName': 'John Appwrite',
+            'smtpSenderEmail': 'john@appwrite.io',
+            'smtpReplyToName': 'Support Team',
+            'smtpReplyToEmail': 'support@appwrite.io',
+            'smtpHost': 'mail.appwrite.io',
+            'smtpPort': 25,
+            'smtpUsername': 'emailuser',
+            'smtpPassword': 'smtp-password',
+            'smtpSecure': 'tls',
+            'pingCount': 1,
+            'pingedAt': '2020-10-15T06:38:00.000+00:00',
+            'labels': [],
+            'status': 'active',
+            'onboarding': {},
+            'authMethods': [],
+            'services': [],
+            'protocols': [],
+            'blocks': [],
+            'consoleAccessedAt': '2020-10-15T06:38:00.000+00:00',
+            'wafEnabled': true,};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await project.updateMFAFactorsPolicy(
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.

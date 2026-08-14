@@ -91,10 +91,11 @@ export class TablesDB {
      * @param {boolean} params.enabled - Is the database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
      * @param {string} params.specification - Database specification. Defaults to `serverless`, which creates the database on the shared pool. Any other value provisions a dedicated database on that specification.
      * @param {number} params.replicas - Number of high availability replicas (0-5) for the dedicated database backing this database. Requires a dedicated `specification`; must be 0 for a serverless database. High availability is enabled when greater than 0.
+     * @param {string} params.syncMode - Replication sync mode for the dedicated database backing this database. Requires a dedicated `specification`; the mode is only in force once there is at least one replica. Allowed values: async, sync, quorum.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      */
-    create(params: { databaseId: string, name: string, enabled?: boolean, specification?: string, replicas?: number }): Promise<Models.Database>;
+    create(params: { databaseId: string, name: string, enabled?: boolean, specification?: string, replicas?: number, syncMode?: string }): Promise<Models.Database>;
     /**
      * Create a new Database.
      * 
@@ -104,26 +105,28 @@ export class TablesDB {
      * @param {boolean} enabled - Is the database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
      * @param {string} specification - Database specification. Defaults to `serverless`, which creates the database on the shared pool. Any other value provisions a dedicated database on that specification.
      * @param {number} replicas - Number of high availability replicas (0-5) for the dedicated database backing this database. Requires a dedicated `specification`; must be 0 for a serverless database. High availability is enabled when greater than 0.
+     * @param {string} syncMode - Replication sync mode for the dedicated database backing this database. Requires a dedicated `specification`; the mode is only in force once there is at least one replica. Allowed values: async, sync, quorum.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    create(databaseId: string, name: string, enabled?: boolean, specification?: string, replicas?: number): Promise<Models.Database>;
+    create(databaseId: string, name: string, enabled?: boolean, specification?: string, replicas?: number, syncMode?: string): Promise<Models.Database>;
     create(
-        paramsOrFirst: { databaseId: string, name: string, enabled?: boolean, specification?: string, replicas?: number } | string,
-        ...rest: [(string)?, (boolean)?, (string)?, (number)?]    
+        paramsOrFirst: { databaseId: string, name: string, enabled?: boolean, specification?: string, replicas?: number, syncMode?: string } | string,
+        ...rest: [(string)?, (boolean)?, (string)?, (number)?, (string)?]    
     ): Promise<Models.Database> {
-        let params: { databaseId: string, name: string, enabled?: boolean, specification?: string, replicas?: number };
+        let params: { databaseId: string, name: string, enabled?: boolean, specification?: string, replicas?: number, syncMode?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, name: string, enabled?: boolean, specification?: string, replicas?: number };
+            params = (paramsOrFirst || {}) as { databaseId: string, name: string, enabled?: boolean, specification?: string, replicas?: number, syncMode?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 name: rest[0] as string,
                 enabled: rest[1] as boolean,
                 specification: rest[2] as string,
-                replicas: rest[3] as number            
+                replicas: rest[3] as number,
+                syncMode: rest[4] as string            
             };
         }
         
@@ -132,6 +135,7 @@ export class TablesDB {
         const enabled = params.enabled;
         const specification = params.specification;
         const replicas = params.replicas;
+        const syncMode = params.syncMode;
 
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
@@ -156,6 +160,9 @@ export class TablesDB {
         }
         if (typeof replicas !== 'undefined') {
             payload['replicas'] = replicas;
+        }
+        if (typeof syncMode !== 'undefined') {
+            payload['syncMode'] = syncMode;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -601,44 +608,52 @@ export class TablesDB {
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.name - Database name. Max length: 128 chars.
      * @param {boolean} params.enabled - Is database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @param {string} params.specification - Database specification. Resizing between dedicated specifications changes cpu, memory, storage and the connection ceiling via a rolling cutover with zero downtime. Moving a `serverless` database onto a dedicated specification is a data migration, not a resize.
      * @param {number} params.replicas - Number of high availability replicas (0-5) for the dedicated database backing this database. Only valid when the database is backed by a dedicated specification. High availability is enabled when greater than 0.
+     * @param {string} params.syncMode - Replication sync mode for the dedicated database backing this database. Only valid when the database is backed by a dedicated specification; the mode is only in force once there is at least one replica. Allowed values: async, sync, quorum.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      */
-    update(params: { databaseId: string, name?: string, enabled?: boolean, replicas?: number }): Promise<Models.Database>;
+    update(params: { databaseId: string, name?: string, enabled?: boolean, specification?: string, replicas?: number, syncMode?: string }): Promise<Models.Database>;
     /**
      * Update a database by its unique ID.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} name - Database name. Max length: 128 chars.
      * @param {boolean} enabled - Is database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @param {string} specification - Database specification. Resizing between dedicated specifications changes cpu, memory, storage and the connection ceiling via a rolling cutover with zero downtime. Moving a `serverless` database onto a dedicated specification is a data migration, not a resize.
      * @param {number} replicas - Number of high availability replicas (0-5) for the dedicated database backing this database. Only valid when the database is backed by a dedicated specification. High availability is enabled when greater than 0.
+     * @param {string} syncMode - Replication sync mode for the dedicated database backing this database. Only valid when the database is backed by a dedicated specification; the mode is only in force once there is at least one replica. Allowed values: async, sync, quorum.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    update(databaseId: string, name?: string, enabled?: boolean, replicas?: number): Promise<Models.Database>;
+    update(databaseId: string, name?: string, enabled?: boolean, specification?: string, replicas?: number, syncMode?: string): Promise<Models.Database>;
     update(
-        paramsOrFirst: { databaseId: string, name?: string, enabled?: boolean, replicas?: number } | string,
-        ...rest: [(string)?, (boolean)?, (number)?]    
+        paramsOrFirst: { databaseId: string, name?: string, enabled?: boolean, specification?: string, replicas?: number, syncMode?: string } | string,
+        ...rest: [(string)?, (boolean)?, (string)?, (number)?, (string)?]    
     ): Promise<Models.Database> {
-        let params: { databaseId: string, name?: string, enabled?: boolean, replicas?: number };
+        let params: { databaseId: string, name?: string, enabled?: boolean, specification?: string, replicas?: number, syncMode?: string };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { databaseId: string, name?: string, enabled?: boolean, replicas?: number };
+            params = (paramsOrFirst || {}) as { databaseId: string, name?: string, enabled?: boolean, specification?: string, replicas?: number, syncMode?: string };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 name: rest[0] as string,
                 enabled: rest[1] as boolean,
-                replicas: rest[2] as number            
+                specification: rest[2] as string,
+                replicas: rest[3] as number,
+                syncMode: rest[4] as string            
             };
         }
         
         const databaseId = params.databaseId;
         const name = params.name;
         const enabled = params.enabled;
+        const specification = params.specification;
         const replicas = params.replicas;
+        const syncMode = params.syncMode;
 
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "databaseId"');
@@ -652,8 +667,14 @@ export class TablesDB {
         if (typeof enabled !== 'undefined') {
             payload['enabled'] = enabled;
         }
+        if (typeof specification !== 'undefined') {
+            payload['specification'] = specification;
+        }
         if (typeof replicas !== 'undefined') {
             payload['replicas'] = replicas;
+        }
+        if (typeof syncMode !== 'undefined') {
+            payload['syncMode'] = syncMode;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -725,7 +746,7 @@ export class TablesDB {
     }
 
     /**
-     * Trigger a manual failover for a dedicated database with high availability enabled. Promotes a replica to primary. The failover runs asynchronously; poll the database document for status updates.
+     * Trigger a manual failover for a dedicated database with high availability enabled. Promotes a replica to primary. The failover runs asynchronously; poll the database document for status updates. A database left mid-operation by a failover that did not finish also accepts this call as a repair, provided `targetReplicaId` names the member to promote.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.targetReplicaId - Target replica ID to promote. If not specified, the healthiest replica is selected.
@@ -734,7 +755,7 @@ export class TablesDB {
      */
     createFailover(params: { databaseId: string, targetReplicaId?: string }): Promise<Models.DedicatedDatabase>;
     /**
-     * Trigger a manual failover for a dedicated database with high availability enabled. Promotes a replica to primary. The failover runs asynchronously; poll the database document for status updates.
+     * Trigger a manual failover for a dedicated database with high availability enabled. Promotes a replica to primary. The failover runs asynchronously; poll the database document for status updates. A database left mid-operation by a failover that did not finish also accepts this call as a repair, provided `targetReplicaId` names the member to promote.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} targetReplicaId - Target replica ID to promote. If not specified, the healthiest replica is selected.
@@ -780,6 +801,391 @@ export class TablesDB {
 
         return this.client.call(
             'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * List the dedicated migrations for a TablesDB database. A database has at most one in-flight migration.
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DatabaseMigrationList>}
+     */
+    listMigrations(params: { databaseId: string }): Promise<Models.DatabaseMigrationList>;
+    /**
+     * List the dedicated migrations for a TablesDB database. A database has at most one in-flight migration.
+     *
+     * @param {string} databaseId - Database ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DatabaseMigrationList>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    listMigrations(databaseId: string): Promise<Models.DatabaseMigrationList>;
+    listMigrations(
+        paramsOrFirst: { databaseId: string } | string    
+    ): Promise<Models.DatabaseMigrationList> {
+        let params: { databaseId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/migrations'.replace('{databaseId}', encodeURIComponent(String(databaseId)));
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Start migrating a serverless TablesDB database onto a dedicated MySQL compute. Data is copied to the target while the source stays live, with a brief read-only window during cutover.
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.specification - Dedicated compute specification to provision as the migration target (e.g. s-2vcpu-4gb). The migration always targets a dedicated compute, so `serverless` is not accepted.
+     * @param {boolean} params.autoCutover - Whether to cut over automatically once the copy is verified. When disabled the migration parks at ready_to_cutover and holds there until the cutover is performed manually.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DatabaseMigration>}
+     */
+    createMigration(params: { databaseId: string, specification: string, autoCutover?: boolean }): Promise<Models.DatabaseMigration>;
+    /**
+     * Start migrating a serverless TablesDB database onto a dedicated MySQL compute. Data is copied to the target while the source stays live, with a brief read-only window during cutover.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} specification - Dedicated compute specification to provision as the migration target (e.g. s-2vcpu-4gb). The migration always targets a dedicated compute, so `serverless` is not accepted.
+     * @param {boolean} autoCutover - Whether to cut over automatically once the copy is verified. When disabled the migration parks at ready_to_cutover and holds there until the cutover is performed manually.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DatabaseMigration>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createMigration(databaseId: string, specification: string, autoCutover?: boolean): Promise<Models.DatabaseMigration>;
+    createMigration(
+        paramsOrFirst: { databaseId: string, specification: string, autoCutover?: boolean } | string,
+        ...rest: [(string)?, (boolean)?]    
+    ): Promise<Models.DatabaseMigration> {
+        let params: { databaseId: string, specification: string, autoCutover?: boolean };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, specification: string, autoCutover?: boolean };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                specification: rest[0] as string,
+                autoCutover: rest[1] as boolean            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const specification = params.specification;
+        const autoCutover = params.autoCutover;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof specification === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "specification"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/migrations'.replace('{databaseId}', encodeURIComponent(String(databaseId)));
+        const payload: Payload = {};
+        if (typeof specification !== 'undefined') {
+            payload['specification'] = specification;
+        }
+        if (typeof autoCutover !== 'undefined') {
+            payload['autoCutover'] = autoCutover;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Get a single dedicated migration for a TablesDB database by its ID.
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.migrationId - Migration ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DatabaseMigration>}
+     */
+    getMigration(params: { databaseId: string, migrationId: string }): Promise<Models.DatabaseMigration>;
+    /**
+     * Get a single dedicated migration for a TablesDB database by its ID.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} migrationId - Migration ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DatabaseMigration>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getMigration(databaseId: string, migrationId: string): Promise<Models.DatabaseMigration>;
+    getMigration(
+        paramsOrFirst: { databaseId: string, migrationId: string } | string,
+        ...rest: [(string)?]    
+    ): Promise<Models.DatabaseMigration> {
+        let params: { databaseId: string, migrationId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, migrationId: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                migrationId: rest[0] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const migrationId = params.migrationId;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof migrationId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "migrationId"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/migrations/{migrationId}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{migrationId}', encodeURIComponent(String(migrationId)));
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Abort an in-flight TablesDB dedicated migration. Only allowed before cutover; once the migration has cut over it cannot be aborted.
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.migrationId - Migration ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deleteMigration(params: { databaseId: string, migrationId: string }): Promise<{}>;
+    /**
+     * Abort an in-flight TablesDB dedicated migration. Only allowed before cutover; once the migration has cut over it cannot be aborted.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} migrationId - Migration ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    deleteMigration(databaseId: string, migrationId: string): Promise<{}>;
+    deleteMigration(
+        paramsOrFirst: { databaseId: string, migrationId: string } | string,
+        ...rest: [(string)?]    
+    ): Promise<{}> {
+        let params: { databaseId: string, migrationId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, migrationId: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                migrationId: rest[0] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const migrationId = params.migrationId;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof migrationId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "migrationId"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/migrations/{migrationId}'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{migrationId}', encodeURIComponent(String(migrationId)));
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'delete',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Cut a verified TablesDB migration over to its dedicated compute. Only applies to a migration created with `autoCutover` disabled, which waits at `ready_to_cutover` until this is called. The routing flip happens shortly after this returns, with a brief read-only window. One call buys one attempt: a cutover that fails a check returns the migration to `verifying` and parks it again, so call this once more to retry.
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.migrationId - Migration ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DatabaseMigration>}
+     */
+    cutoverMigration(params: { databaseId: string, migrationId: string }): Promise<Models.DatabaseMigration>;
+    /**
+     * Cut a verified TablesDB migration over to its dedicated compute. Only applies to a migration created with `autoCutover` disabled, which waits at `ready_to_cutover` until this is called. The routing flip happens shortly after this returns, with a brief read-only window. One call buys one attempt: a cutover that fails a check returns the migration to `verifying` and parks it again, so call this once more to retry.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} migrationId - Migration ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DatabaseMigration>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    cutoverMigration(databaseId: string, migrationId: string): Promise<Models.DatabaseMigration>;
+    cutoverMigration(
+        paramsOrFirst: { databaseId: string, migrationId: string } | string,
+        ...rest: [(string)?]    
+    ): Promise<Models.DatabaseMigration> {
+        let params: { databaseId: string, migrationId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, migrationId: string };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                migrationId: rest[0] as string            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const migrationId = params.migrationId;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+        if (typeof migrationId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "migrationId"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/migrations/{migrationId}/cutover'.replace('{databaseId}', encodeURIComponent(String(databaseId))).replace('{migrationId}', encodeURIComponent(String(migrationId)));
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * List the lifecycle operations recorded for a dedicated database, newest first. Every provision, update, restore, backup and replication action is recorded here with its outcome, including an attempt that was abandoned because another worker took over the database.
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.status - Filter by operation status.
+     * @param {number} params.limit - Maximum number of operations to return.
+     * @param {number} params.offset - Number of operations to skip.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DedicatedDatabaseOperationList>}
+     */
+    listOperations(params: { databaseId: string, status?: string, limit?: number, offset?: number }): Promise<Models.DedicatedDatabaseOperationList>;
+    /**
+     * List the lifecycle operations recorded for a dedicated database, newest first. Every provision, update, restore, backup and replication action is recorded here with its outcome, including an attempt that was abandoned because another worker took over the database.
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} status - Filter by operation status.
+     * @param {number} limit - Maximum number of operations to return.
+     * @param {number} offset - Number of operations to skip.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DedicatedDatabaseOperationList>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    listOperations(databaseId: string, status?: string, limit?: number, offset?: number): Promise<Models.DedicatedDatabaseOperationList>;
+    listOperations(
+        paramsOrFirst: { databaseId: string, status?: string, limit?: number, offset?: number } | string,
+        ...rest: [(string)?, (number)?, (number)?]    
+    ): Promise<Models.DedicatedDatabaseOperationList> {
+        let params: { databaseId: string, status?: string, limit?: number, offset?: number };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { databaseId: string, status?: string, limit?: number, offset?: number };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                status: rest[0] as string,
+                limit: rest[1] as number,
+                offset: rest[2] as number            
+            };
+        }
+        
+        const databaseId = params.databaseId;
+        const status = params.status;
+        const limit = params.limit;
+        const offset = params.offset;
+
+        if (typeof databaseId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "databaseId"');
+        }
+
+        const apiPath = '/tablesdb/{databaseId}/operations'.replace('{databaseId}', encodeURIComponent(String(databaseId)));
+        const payload: Payload = {};
+        if (typeof status !== 'undefined') {
+            payload['status'] = status;
+        }
+        if (typeof limit !== 'undefined') {
+            payload['limit'] = limit;
+        }
+        if (typeof offset !== 'undefined') {
+            payload['offset'] = offset;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'get',
             uri,
             apiHeaders,
             payload,
@@ -976,7 +1382,7 @@ export class TablesDB {
      * @param {string[]} params.permissions - An array of permissions strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.rowSecurity - Enables configuring permissions for individual rows. A user needs one of row or table level permissions to access a row. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.enabled - Is table enabled? When set to 'disabled', users cannot access the table but Server SDKs with and API key can still read and write to the table. No data is lost when this is toggled.
-     * @param {object[]} params.columns - Array of column definitions to create. Each column should contain: key (string), type (string: string, integer, float, boolean, datetime, relationship), size (integer, required for string type), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
+     * @param {object[]} params.columns - Array of column definitions to create. Each column should contain: key (string), type (string: string, varchar, text, mediumtext, longtext, integer, bigint, double, boolean, datetime, point, linestring, polygon, email, url, ip, enum), size (integer, required for string and varchar types), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
      * @param {object[]} params.indexes - Array of index definitions to create. Each index should contain: key (string), type (string: key, fulltext, unique, spatial), attributes (array of column keys), orders (array of ASC/DESC, optional), and lengths (array of integers, optional).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Table>}
@@ -991,7 +1397,7 @@ export class TablesDB {
      * @param {string[]} permissions - An array of permissions strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} rowSecurity - Enables configuring permissions for individual rows. A user needs one of row or table level permissions to access a row. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} enabled - Is table enabled? When set to 'disabled', users cannot access the table but Server SDKs with and API key can still read and write to the table. No data is lost when this is toggled.
-     * @param {object[]} columns - Array of column definitions to create. Each column should contain: key (string), type (string: string, integer, float, boolean, datetime, relationship), size (integer, required for string type), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
+     * @param {object[]} columns - Array of column definitions to create. Each column should contain: key (string), type (string: string, varchar, text, mediumtext, longtext, integer, bigint, double, boolean, datetime, point, linestring, polygon, email, url, ip, enum), size (integer, required for string and varchar types), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
      * @param {object[]} indexes - Array of index definitions to create. Each index should contain: key (string), type (string: key, fulltext, unique, spatial), attributes (array of column keys), orders (array of ASC/DESC, optional), and lengths (array of integers, optional).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Table>}
@@ -3994,11 +4400,11 @@ export class TablesDB {
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID.
      * @param {string} params.relatedTableId - Related Table ID.
-     * @param {RelationshipType} params.type - Relation type
+     * @param {RelationshipType} params.type - Relationship type. Possible values are: oneToOne, oneToMany, manyToOne, manyToMany.
      * @param {boolean} params.twoWay - Is Two Way?
      * @param {string} params.key - Column Key.
      * @param {string} params.twoWayKey - Two Way Column Key.
-     * @param {RelationMutate} params.onDelete - Constraints option
+     * @param {RelationMutate} params.onDelete - Delete constraint. Possible values are: cascade, restrict, setNull.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnRelationship>}
      */
@@ -4010,11 +4416,11 @@ export class TablesDB {
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} relatedTableId - Related Table ID.
-     * @param {RelationshipType} type - Relation type
+     * @param {RelationshipType} type - Relationship type. Possible values are: oneToOne, oneToMany, manyToOne, manyToMany.
      * @param {boolean} twoWay - Is Two Way?
      * @param {string} key - Column Key.
      * @param {string} twoWayKey - Two Way Column Key.
-     * @param {RelationMutate} onDelete - Constraints option
+     * @param {RelationMutate} onDelete - Delete constraint. Possible values are: cascade, restrict, setNull.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnRelationship>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5083,7 +5489,7 @@ export class TablesDB {
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.tableId - Table ID.
      * @param {string} params.key - Column Key.
-     * @param {RelationMutate} params.onDelete - Constraints option
+     * @param {RelationMutate} params.onDelete - Delete constraint. Possible values are: cascade, restrict, setNull.
      * @param {string} params.newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnRelationship>}
@@ -5096,7 +5502,7 @@ export class TablesDB {
      * @param {string} databaseId - Database ID.
      * @param {string} tableId - Table ID.
      * @param {string} key - Column Key.
-     * @param {RelationMutate} onDelete - Constraints option
+     * @param {RelationMutate} onDelete - Delete constraint. Possible values are: cascade, restrict, setNull.
      * @param {string} newKey - New Column Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ColumnRelationship>}

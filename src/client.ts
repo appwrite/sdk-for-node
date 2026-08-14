@@ -73,7 +73,7 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/27.1.0';
+    let ua = 'AppwriteNodeJSSDK/28.0.0';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
@@ -114,6 +114,7 @@ class Client {
         selfSigned: false,
         project: '',
         key: '',
+        organization: '',
         jwt: '',
         bearer: '',
         locale: '',
@@ -129,9 +130,9 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '27.1.0',
+        'x-sdk-version': '28.0.0',
         'user-agent' : getUserAgent(),
-        'X-Appwrite-Response-Format': '1.9.5',
+        'X-Appwrite-Response-Format': '1.9.6',
     };
 
     /**
@@ -230,6 +231,20 @@ class Client {
     setKey(value: string): this {
         this.headers['X-Appwrite-Key'] = value;
         this.config.key = value;
+        return this;
+    }
+    /**
+     * Set Organization
+     *
+     * Your organization ID
+     *
+     * @param value string
+     *
+     * @return {this}
+     */
+    setOrganization(value: string): this {
+        this.headers['X-Appwrite-Organization'] = value;
+        this.config.organization = value;
         return this;
     }
     /**

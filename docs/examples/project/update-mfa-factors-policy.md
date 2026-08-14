@@ -8,7 +8,10 @@ const client = new sdk.Client()
 
 const project = new sdk.Project(client);
 
-const result = await project.updateSessionDurationPolicy({
-    duration: 60
+const result = await project.updateMFAFactorsPolicy({
+    totp: false, // optional
+    email: false, // optional
+    phone: false, // optional
+    custom: false // optional
 });
 ```

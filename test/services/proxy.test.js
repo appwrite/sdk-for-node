@@ -10,6 +10,25 @@ describe('Proxy', () => {
     const proxy = new Proxy(client);
 
     
+    test('test method createInvalidation()', async () => {
+                                                const data = {
+            'domain': 'appwrite.company.com',
+            'type': 'tag',
+            'reference': 'products',
+            'status': 'success',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await proxy.createInvalidation(
+            '',
+            'tag',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method listRules()', async () => {
                                                 const data = {
             'total': 5,

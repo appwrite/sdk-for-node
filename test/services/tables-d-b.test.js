@@ -254,7 +254,6 @@ describe('TablesDB', () => {
             'nodePool': 'db-pool-4vcpu-8gb',
             'replicas': 2,
             'syncMode': 'async',
-            'crossRegionReplicas': 1,
             'networkMaxConnections': 500,
             'networkIdleTimeoutSeconds': 900,
             'networkIPAllowlist': [],
@@ -285,10 +284,153 @@ describe('TablesDB', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method listMigrations()', async () => {
+                                                const data = {
+            'total': 5,
+            'migrations': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await tablesDB.listMigrations(
+            '<DATABASE_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method createMigration()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'projectId': '5e5ea5c16897e',
+            'databaseId': '5e5ea5c16897e',
+            'specification': 's-2vcpu-4gb',
+            'phase': 'pending',
+            'attempt': 0,
+            'lastError': '',
+            'lagDocuments': 0,
+            'verifiedAt': '2020-10-15T06:38:00.000+00:00',
+            'cutoverAt': '2020-10-15T06:38:00.000+00:00',
+            'soakUntil': '2020-10-15T06:38:00.000+00:00',
+            'autoCutover': true,
+            'cutoverRequested': true,
+            'paused': true,};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await tablesDB.createMigration(
+            '<DATABASE_ID>',
+            's-1vcpu-1gb',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method getMigration()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'projectId': '5e5ea5c16897e',
+            'databaseId': '5e5ea5c16897e',
+            'specification': 's-2vcpu-4gb',
+            'phase': 'pending',
+            'attempt': 0,
+            'lastError': '',
+            'lagDocuments': 0,
+            'verifiedAt': '2020-10-15T06:38:00.000+00:00',
+            'cutoverAt': '2020-10-15T06:38:00.000+00:00',
+            'soakUntil': '2020-10-15T06:38:00.000+00:00',
+            'autoCutover': true,
+            'cutoverRequested': true,
+            'paused': true,};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await tablesDB.getMigration(
+            '<DATABASE_ID>',
+            '<MIGRATION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method deleteMigration()', async () => {
+                                const data = {message: ""};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await tablesDB.deleteMigration(
+            '<DATABASE_ID>',
+            '<MIGRATION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method cutoverMigration()', async () => {
+                                                const data = {
+            '\$id': '5e5ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            'projectId': '5e5ea5c16897e',
+            'databaseId': '5e5ea5c16897e',
+            'specification': 's-2vcpu-4gb',
+            'phase': 'pending',
+            'attempt': 0,
+            'lastError': '',
+            'lagDocuments': 0,
+            'verifiedAt': '2020-10-15T06:38:00.000+00:00',
+            'cutoverAt': '2020-10-15T06:38:00.000+00:00',
+            'soakUntil': '2020-10-15T06:38:00.000+00:00',
+            'autoCutover': true,
+            'cutoverRequested': true,
+            'paused': true,};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await tablesDB.cutoverMigration(
+            '<DATABASE_ID>',
+            '<MIGRATION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
+    test('test method listOperations()', async () => {
+                                                const data = {
+            'total': 5,
+            'operations': [],};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await tablesDB.listOperations(
+            '<DATABASE_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method getReplicas()', async () => {
                                                 const data = {
             'replicas': 2,
             'syncMode': 'async',
+            'syncDegraded': true,
+            'syncAcknowledgements': 1,
+            'syncStandbyCount': 2,
             'members': [],};
         mockedFetch.mockImplementation(() => Response.json(data));
 
@@ -310,6 +452,10 @@ describe('TablesDB', () => {
             'version': '17',
             'uptime': 86400,
             'connections': {},
+            'syncMode': 'async',
+            'syncDegraded': true,
+            'syncAcknowledgements': 1,
+            'syncStandbyCount': 2,
             'replicas': [],
             'volumes': [],};
         mockedFetch.mockImplementation(() => Response.json(data));

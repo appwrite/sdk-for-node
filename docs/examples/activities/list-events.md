@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const activities = new sdk.Activities(client);
 
 const result = await activities.listEvents({
-    queries: '' // optional
+    queries: [] // optional
 });
 ```

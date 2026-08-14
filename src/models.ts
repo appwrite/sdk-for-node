@@ -497,7 +497,7 @@ export namespace Models {
         /**
          * List of policies.
          */
-        policies: (Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail)[];
+        policies: (Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail)[];
     }
 
     /**
@@ -641,6 +641,20 @@ export namespace Models {
     }
 
     /**
+     * Embedding list
+     */
+    export type EmbeddingList = {
+        /**
+         * Total number of embeddings that matched your query.
+         */
+        total: number;
+        /**
+         * List of embeddings.
+         */
+        embeddings: Embedding[];
+    }
+
+    /**
      * Insights List
      */
     export type InsightList = {
@@ -701,7 +715,7 @@ export namespace Models {
          */
         status?: DatabaseStatus;
         /**
-         * Underlying engine of the dedicated backing: postgresql, mysql, mariadb, or mongodb. A managed product (tablesdb, documentsdb, vectorsdb) reports the engine it runs on, so its type and engine can differ. Null when the database has no dedicated backing.
+         * Underlying engine of the dedicated backing: postgresql, mysql, or mongodb. A managed product (tablesdb, documentsdb, vectorsdb) reports the engine it runs on, so its type and engine can differ. Null when the database has no dedicated backing.
          */
         engine?: string;
         /**
@@ -720,6 +734,28 @@ export namespace Models {
          * Database backup archives.
          */
         archives?: BackupArchive[];
+    }
+
+    /**
+     * Embedding
+     */
+    export type Embedding = {
+        /**
+         * Embedding model used to generate embeddings.
+         */
+        model: string;
+        /**
+         * Number of dimensions for each embedding vector.
+         */
+        dimension: number;
+        /**
+         * Embedding vector values. If an error occurs, this will be an empty array.
+         */
+        embedding: number[];
+        /**
+         * Error message if embedding generation fails. Empty string if no error.
+         */
+        error: string;
     }
 
     /**
@@ -3428,6 +3464,14 @@ export namespace Models {
          */
         name: string;
         /**
+         * Virtual folder containing the file, with a trailing slash. Empty for the bucket root.
+         */
+        folder: string;
+        /**
+         * Full virtual path of the file: the folder followed by the file name.
+         */
+        key: string;
+        /**
          * File MD5 signature.
          */
         signature: string;
@@ -4347,6 +4391,10 @@ export namespace Models {
          * OAuth2 server scopes used when an authorization request omits the scope parameter
          */
         oAuth2ServerDefaultScopes?: string[];
+        /**
+         * Scopes an application may request when installed on a team
+         */
+        oAuth2ServerInstallationScopes?: string[];
         /**
          * OAuth2 server accepted RFC 9396 authorization_details types
          */
@@ -5806,6 +5854,32 @@ export namespace Models {
     }
 
     /**
+     * Policy MFA Factors
+     */
+    export type PolicyMfaFactors = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether TOTP can be used to complete an MFA challenge.
+         */
+        totp: boolean;
+        /**
+         * Whether email can be used to complete an MFA challenge.
+         */
+        email: boolean;
+        /**
+         * Whether phone (SMS) can be used to complete an MFA challenge.
+         */
+        phone: boolean;
+        /**
+         * Whether the custom factor can be used to complete an MFA challenge.
+         */
+        custom: boolean;
+    }
+
+    /**
      * Platform Web
      */
     export type PlatformWeb = {
@@ -6268,6 +6342,32 @@ export namespace Models {
     }
 
     /**
+     * MFA Challenge Secret
+     */
+    export type MfaChallengeSecret = {
+        /**
+         * Token ID.
+         */
+        $id: string;
+        /**
+         * Token creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * User ID.
+         */
+        userId: string;
+        /**
+         * Token expiration date in ISO 8601 format.
+         */
+        expire: string;
+        /**
+         * Challenge code to be delivered to the end user through a custom channel.
+         */
+        code: string;
+    }
+
+    /**
      * MFA Recovery Codes
      */
     export type MfaRecoveryCodes = {
@@ -6311,6 +6411,10 @@ export namespace Models {
          * Can recovery code be used for MFA challenge for this account.
          */
         recoveryCode: boolean;
+        /**
+         * Can custom factor be used for MFA challenge for this account.
+         */
+        custom: boolean;
     }
 
     /**
@@ -7006,7 +7110,7 @@ export namespace Models {
         /**
          * Members
          */
-        members: number;
+        members?: number;
         /**
          * Webhooks
          */
@@ -7102,7 +7206,7 @@ export namespace Models {
         /**
          * Activity log days
          */
-        activityLogs: number;
+        activityLogs?: number;
         /**
          * Usage history days
          */
@@ -7198,7 +7302,7 @@ export namespace Models {
         /**
          * Does plan support backup policies.
          */
-        backupsEnabled: boolean;
+        backupsEnabled?: boolean;
         /**
          * Whether usage addons are calculated per project.
          */
@@ -7210,7 +7314,7 @@ export namespace Models {
         /**
          * How many policies does plan support
          */
-        backupPolicies: number;
+        backupPolicies?: number;
         /**
          * Maximum function and site deployment size in MB
          */
@@ -7248,11 +7352,11 @@ export namespace Models {
         /**
          * Addon seats
          */
-        seats: BillingPlanAddonDetails;
+        seats?: BillingPlanAddonDetails;
         /**
          * Addon projects
          */
-        projects: BillingPlanAddonDetails;
+        projects?: BillingPlanAddonDetails;
     }
 
     /**
@@ -7278,7 +7382,7 @@ export namespace Models {
         /**
          * Price currency
          */
-        currency: string;
+        currency?: string;
         /**
          * Price
          */
@@ -7458,6 +7562,76 @@ export namespace Models {
     }
 
     /**
+     * Database Migration
+     */
+    export type DatabaseMigration = {
+        /**
+         * Database migration ID.
+         */
+        $id: string;
+        /**
+         * Migration creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Migration update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Project ID that owns the migrating database.
+         */
+        projectId: string;
+        /**
+         * Logical database ID being migrated.
+         */
+        databaseId: string;
+        /**
+         * Dedicated compute specification provisioned for the migration target.
+         */
+        specification: string;
+        /**
+         * Migration phase. Possible values: pending, provisioned, capturing, backfilling, catching_up, verifying, ready_to_cutover, cutover, soaking, done, failed, rolled_back.
+         */
+        phase: string;
+        /**
+         * Number of times a migration step has failed and been recorded.
+         */
+        attempt: number;
+        /**
+         * Reason the most recent migration step failed, empty while none has.
+         */
+        lastError: string;
+        /**
+         * Number of documents still pending replication to the target.
+         */
+        lagDocuments: number;
+        /**
+         * Time the migrated data was verified against the source in ISO 8601 format.
+         */
+        verifiedAt: string;
+        /**
+         * Time routing was flipped to the target in ISO 8601 format.
+         */
+        cutoverAt: string;
+        /**
+         * Time the post-cutover soak window ends in ISO 8601 format.
+         */
+        soakUntil: string;
+        /**
+         * Whether the migration cuts over automatically once ready. Set when the migration is created and never changed afterwards, so it always reports what was asked for.
+         */
+        autoCutover: boolean;
+        /**
+         * Whether a cutover has been requested and not yet attempted. Set by the cutover endpoint and cleared when the attempt is made, so a cutover that fails a check parks the migration again rather than retrying on its own.
+         */
+        cutoverRequested: boolean;
+        /**
+         * Whether the migration is paused.
+         */
+        paused: boolean;
+    }
+
+    /**
      * DedicatedDatabase
      */
     export type DedicatedDatabase = {
@@ -7486,7 +7660,7 @@ export namespace Models {
          */
         api: string;
         /**
-         * Database engine: postgresql, mysql, mariadb, or mongodb.
+         * Database engine: postgresql, mysql, or mongodb. Null until the backing reports one.
          */
         engine: string;
         /**
@@ -7506,7 +7680,7 @@ export namespace Models {
          */
         hostname: string;
         /**
-         * Database port for connections.
+         * Database port for connections. Derived from the engine when the backing has not reported one yet.
          */
         connectionPort: number;
         /**
@@ -7582,11 +7756,7 @@ export namespace Models {
          */
         syncMode: string;
         /**
-         * Number of cross-region replicas. Cross-region availability is enabled when greater than 0.
-         */
-        crossRegionReplicas: number;
-        /**
-         * Maximum concurrent connections.
+         * Maximum concurrent client connections. This is the limit a client pool may reach; the engine's own max_connections reported by the status endpoint is a smaller backend limit the pooler multiplexes onto and does not constrain a client pool.
          */
         networkMaxConnections: number;
         /**
@@ -7664,7 +7834,7 @@ export namespace Models {
      */
     export type DatabaseStatus = {
         /**
-         * Overall health status: healthy, degraded, or unhealthy.
+         * Overall health status: healthy, degraded, unhealthy, or unknown when nothing could be measured.
          */
         health: string;
         /**
@@ -7672,7 +7842,7 @@ export namespace Models {
          */
         ready: boolean;
         /**
-         * Database engine: postgresql, mysql, mariadb, or mongodb.
+         * Database engine: postgresql, mysql, or mongodb.
          */
         engine: string;
         /**
@@ -7688,7 +7858,31 @@ export namespace Models {
          */
         connections: DatabaseStatusConnections;
         /**
-         * List of database replicas and their status.
+         * Requested replication sync mode. Possible values: async, sync, quorum. Compare with effectiveSyncMode for what the primary is enforcing.
+         */
+        syncMode: string;
+        /**
+         * Replication sync mode the primary is actually enforcing. Null when high availability is disabled or the state could not be read.
+         */
+        effectiveSyncMode?: string;
+        /**
+         * Whether the enforced replication is weaker than the requested syncMode.
+         */
+        syncDegraded: boolean;
+        /**
+         * Number of standby acknowledgements the primary waits for before a write is committed.
+         */
+        syncAcknowledgements: number;
+        /**
+         * Number of standbys registered with the primary for synchronous replication.
+         */
+        syncStandbyCount: number;
+        /**
+         * Whether the other sync fields are an engine reading rather than a recorded estimate. True when the primary answered what it is enforcing, including when that answer contradicted the record, in which case the contradicted values are replaced by the ones the engine reports. False when the reading could not be taken: the probe did not answer, there was no engine to ask, or the values describe a configuration change just applied rather than anything measured. Absent when no engine was asked at all, so an unprobed database is distinguishable from an unconfirmed one. False never means a standby was found lagging, because it is the absence of a reading rather than a negative one, so draw no conclusion about replication health from it or from a response that omits it.
+         */
+        syncStateConfirmed?: boolean;
+        /**
+         * List of database replicas and their status. Every configured member appears, including one the backend has not brought up, which is reported as not healthy.
          */
         replicas: DatabaseStatusReplica[];
         /**
@@ -7706,17 +7900,81 @@ export namespace Models {
          */
         $id: string;
         /**
-         * Member role. Possible values: primary (accepts reads and writes), replica (read-only follower).
+         * Member role. Possible values: primary (accepts reads and writes), replica (read-only follower), unknown (placement not established; reported while a transition is moving or restarting the topology and this member has not been probed, so no member can be named the write target).
          */
         role: string;
         /**
-         * Member pod status. Possible values: provisioning (pod missing or Pending), starting (Running but not Ready), active (Running and Ready), failed (Failed phase or CrashLoopBackOff container), or the lowercased pod phase reported by the cluster.
+         * Member pod status. Possible values: pending (configured but absent from the backend topology, so nothing is bringing it up), provisioning (pod missing or Pending), starting (Running but not Ready), active (Running and Ready), failed (Failed phase or CrashLoopBackOff container), or the lowercased pod phase reported by the cluster.
          */
         status: string;
         /**
-         * Replication lag in seconds.
+         * Replication lag in seconds. Null when the lag is not known: a primary has none to report, and a member the backend has not probed has none yet.
          */
-        lagSeconds: number;
+        lagSeconds?: number;
+    }
+
+    /**
+     * Operation
+     */
+    export type DedicatedDatabaseOperation = {
+        /**
+         * Operation ID.
+         */
+        $id: string;
+        /**
+         * Operation creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Database ID the operation ran against.
+         */
+        databaseId: string;
+        /**
+         * Operation type, such as provision, update, restore, pausing, resuming, failover, backup-create or cross-region-enable.
+         */
+        type: string;
+        /**
+         * Operation status. Possible values: running (in progress), completed (finished successfully), failed (ended in an error).
+         */
+        status: string;
+        /**
+         * Number of times this operation has been attempted.
+         */
+        attempts: number;
+        /**
+         * Time the operation was requested, in ISO 8601 format.
+         */
+        requestedAt?: string;
+        /**
+         * Time the operation started, in ISO 8601 format.
+         */
+        startedAt?: string;
+        /**
+         * Time the operation reached a terminal state, in ISO 8601 format.
+         */
+        completedAt?: string;
+        /**
+         * Machine-readable failure code. `Interrupted` marks an attempt that ended before its outcome could be confirmed.
+         */
+        errorCode: string;
+        /**
+         * Failure message if the operation failed.
+         */
+        errorMessage: string;
+    }
+
+    /**
+     * OperationList
+     */
+    export type DedicatedDatabaseOperationList = {
+        /**
+         * Total number of operations.
+         */
+        total: number;
+        /**
+         * List of operations.
+         */
+        operations: DedicatedDatabaseOperation[];
     }
 
     /**
@@ -7728,13 +7986,55 @@ export namespace Models {
          */
         replicas: number;
         /**
-         * Replication sync mode. Possible values: async (asynchronous, fastest), sync (synchronous, strong consistency), quorum (quorum-based, majority of replicas must confirm).
+         * Requested replication sync mode. Possible values: async (asynchronous, fastest), sync (synchronous, strong consistency), quorum (quorum-based, majority of replicas must confirm). This is what was asked for; compare it with effectiveSyncMode for what the primary is enforcing.
          */
         syncMode: string;
+        /**
+         * Replication sync mode the primary is actually enforcing. Null when high availability is disabled or the state could not be read. A value below the requested syncMode means writes are being acknowledged with weaker durability than configured.
+         */
+        effectiveSyncMode?: string;
+        /**
+         * Whether the enforced replication is weaker than the requested syncMode.
+         */
+        syncDegraded: boolean;
+        /**
+         * Number of standby acknowledgements the primary waits for before a write is committed. Zero means writes are acknowledged locally.
+         */
+        syncAcknowledgements: number;
+        /**
+         * Number of standbys registered with the primary for synchronous replication.
+         */
+        syncStandbyCount: number;
+        /**
+         * Whether the other sync fields are an engine reading rather than a recorded estimate. True when the primary answered what it is enforcing, including when that answer contradicted the record, in which case the contradicted values are replaced by the ones the engine reports. False when the reading could not be taken: the probe did not answer, there was no engine to ask, or the values describe a configuration change just applied rather than anything measured. Absent when no engine was asked at all, so an unprobed database is distinguishable from an unconfirmed one. False never means a standby was found lagging, because it is the absence of a reading rather than a negative one, so draw no conclusion about replication health from it or from a response that omits it.
+         */
+        syncStateConfirmed?: boolean;
         /**
          * Per-pod statuses for the primary and every replica.
          */
         members: DedicatedDatabaseMember[];
+    }
+
+    /**
+     * Invalidation
+     */
+    export type ProxyInvalidation = {
+        /**
+         * Domain name.
+         */
+        domain: string;
+        /**
+         * Invalidation type. Possible values are "tag", "path", or "all".
+         */
+        type: string;
+        /**
+         * Invalidated reference. Depending on type this is a cache tag name, a URL path, or empty when type is all.
+         */
+        reference: string;
+        /**
+         * Invalidation status.
+         */
+        status: string;
     }
 
     /**
@@ -7766,9 +8066,9 @@ export namespace Models {
          */
         prefs: Preferences;
         /**
-         * Project budget limit
+         * Project budget limit. Null when no budget is set.
          */
-        billingBudget: number;
+        billingBudget?: number;
         /**
          * Project budget limit
          */
@@ -7804,7 +8104,7 @@ export namespace Models {
         /**
          * Start date of trial.
          */
-        billingTrialStartDate: string;
+        billingTrialStartDate?: string;
         /**
          * Number of trial days.
          */
@@ -7824,11 +8124,11 @@ export namespace Models {
         /**
          * Default payment method.
          */
-        billingAddressId: string;
+        billingAddressId?: string;
         /**
          * Backup payment method.
          */
-        backupPaymentMethodId: string;
+        backupPaymentMethodId?: string;
         /**
          * Team status.
          */
@@ -7836,27 +8136,27 @@ export namespace Models {
         /**
          * Remarks on team status.
          */
-        remarks: string;
+        remarks?: string;
         /**
          * Organization agreements
          */
-        agreementBAA: string;
+        agreementBAA?: string;
         /**
          * Program manager's name.
          */
-        programManagerName: string;
+        programManagerName?: string;
         /**
          * Program manager's calendar link.
          */
-        programManagerCalendar: string;
+        programManagerCalendar?: string;
         /**
          * Program's discord channel name.
          */
-        programDiscordChannelName: string;
+        programDiscordChannelName?: string;
         /**
          * Program's discord channel URL.
          */
-        programDiscordChannelUrl: string;
+        programDiscordChannelUrl?: string;
         /**
          * Billing limits reached
          */
@@ -7864,11 +8164,11 @@ export namespace Models {
         /**
          * Billing plan selected for downgrade.
          */
-        billingPlanDowngrade: string;
+        billingPlanDowngrade?: string;
         /**
          * Tax Id
          */
-        billingTaxId: string;
+        billingTaxId?: string;
         /**
          * Marked for deletion
          */
@@ -8162,10 +8462,6 @@ export namespace Models {
          */
         replicaRate: number;
         /**
-         * Cross-region replica price as a fraction of the specification cost.
-         */
-        crossRegionReplicaRate: number;
-        /**
          * Point-in-time recovery price as a fraction of the specification cost.
          */
         pitrRate: number;
@@ -8180,7 +8476,7 @@ export namespace Models {
          */
         current: number;
         /**
-         * Maximum allowed connections.
+         * The engine's own max_connections. On a pooled database this is the backend limit the pooler multiplexes onto, not the ceiling a client pool may reach — that is networkMaxConnections on the database resource.
          */
         max: number;
     }
@@ -8190,11 +8486,11 @@ export namespace Models {
      */
     export type DatabaseStatusReplica = {
         /**
-         * StatefulSet pod index (0 = primary, 1+ = replicas).
+         * Member index within the database. Read `role` for which member accepts writes: a failover moves the primary without renumbering the indexes.
          */
         index: number;
         /**
-         * Replica role: primary or replica.
+         * Member role. Possible values: primary (accepts reads and writes), replica (read-only follower), unknown (placement not established; reported while a transition is moving or restarting the topology, so no member can be named the write target).
          */
         role: string;
         /**
@@ -8244,7 +8540,7 @@ export namespace Models {
         /**
          * Member additional resources
          */
-        member: AdditionalResource;
+        member?: AdditionalResource;
         /**
          * Realtime additional resources
          */
@@ -8256,7 +8552,7 @@ export namespace Models {
         /**
          * Realtime bandwidth additional resources
          */
-        realtimeBandwidth: AdditionalResource;
+        realtimeBandwidth?: AdditionalResource;
         /**
          * Storage additional resources
          */
@@ -8276,7 +8572,7 @@ export namespace Models {
         /**
          * Credits additional resources
          */
-        credits: AdditionalResource;
+        credits?: AdditionalResource;
     }
 
     /**
@@ -8987,6 +9283,20 @@ export namespace Models {
          * List of restorations.
          */
         restorations: BackupRestoration[];
+    }
+
+    /**
+     * Database Migrations List
+     */
+    export type DatabaseMigrationList = {
+        /**
+         * Total number of migrations that matched your query.
+         */
+        total: number;
+        /**
+         * List of migrations.
+         */
+        migrations: DatabaseMigration[];
     }
 
     /**

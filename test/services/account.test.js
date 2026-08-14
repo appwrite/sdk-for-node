@@ -241,20 +241,6 @@ describe('Account', () => {
         expect(response).toEqual(data);
     });
     
-    test('test method createJWT()', async () => {
-                                                const data = {
-            'jwt': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',};
-        mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await account.createJWT(
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    
     test('test method listLogs()', async () => {
                                                 const data = {
             'total': 5,
@@ -551,7 +537,8 @@ describe('Account', () => {
             'totp': true,
             'phone': true,
             'email': true,
-            'recoveryCode': true,};
+            'recoveryCode': true,
+            'custom': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await account.listMfaFactors(
@@ -568,7 +555,8 @@ describe('Account', () => {
             'totp': true,
             'phone': true,
             'email': true,
-            'recoveryCode': true,};
+            'recoveryCode': true,
+            'custom': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await account.listMFAFactors(

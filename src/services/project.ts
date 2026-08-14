@@ -197,95 +197,6 @@ export class Project {
     }
 
     /**
-     * Create a new API key. It's recommended to have multiple API keys with strict scopes for separate functions within your project.
-     * 
-     * You can also create an ephemeral API key if you need a short-lived key instead.
-     *
-     * @param {string} params.keyId - Key ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
-     * @param {string} params.name - Key name. Max length: 128 chars.
-     * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 200 scopes are allowed.
-     * @param {string} params.expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.Key>}
-     */
-    createKey(params: { keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string }): Promise<Models.Key>;
-    /**
-     * Create a new API key. It's recommended to have multiple API keys with strict scopes for separate functions within your project.
-     * 
-     * You can also create an ephemeral API key if you need a short-lived key instead.
-     *
-     * @param {string} keyId - Key ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
-     * @param {string} name - Key name. Max length: 128 chars.
-     * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 200 scopes are allowed.
-     * @param {string} expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.Key>}
-     * @deprecated Use the object parameter style method for a better developer experience.
-     */
-    createKey(keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string): Promise<Models.Key>;
-    createKey(
-        paramsOrFirst: { keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string } | string,
-        ...rest: [(string)?, (ProjectKeyScopes[])?, (string)?]    
-    ): Promise<Models.Key> {
-        let params: { keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { keyId: string, name: string, scopes: ProjectKeyScopes[], expire?: string };
-        } else {
-            params = {
-                keyId: paramsOrFirst as string,
-                name: rest[0] as string,
-                scopes: rest[1] as ProjectKeyScopes[],
-                expire: rest[2] as string            
-            };
-        }
-        
-        const keyId = params.keyId;
-        const name = params.name;
-        const scopes = params.scopes;
-        const expire = params.expire;
-
-        if (typeof keyId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "keyId"');
-        }
-        if (typeof name === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "name"');
-        }
-        if (typeof scopes === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "scopes"');
-        }
-
-        const apiPath = '/project/keys';
-        const payload: Payload = {};
-        if (typeof keyId !== 'undefined') {
-            payload['keyId'] = keyId;
-        }
-        if (typeof name !== 'undefined') {
-            payload['name'] = name;
-        }
-        if (typeof scopes !== 'undefined') {
-            payload['scopes'] = scopes;
-        }
-        if (typeof expire !== 'undefined') {
-            payload['expire'] = expire;
-        }
-        const uri = new URL(this.client.config.endpoint + apiPath);
-
-        const apiHeaders: { [header: string]: string } = {
-            'X-Appwrite-Project': this.client.config.project,
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }
-
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
-    }
-
-    /**
      * Create a new ephemeral API key. It's recommended to have multiple API keys with strict scopes for separate functions within your project.
      * 
      * You can also create a standard API key if you need a longer-lived key instead.
@@ -981,10 +892,11 @@ export class Project {
      * @param {string} params.userCodeFormat - Character set for device flow user codes: `numeric` (digits only — best for numeric keypads and TV remotes), `alphabetic` (letters only), or `alphanumeric` (letters and digits — highest entropy per character). Defaults to `alphanumeric`.
      * @param {number} params.deviceCodeDuration - Lifetime in seconds of device flow device codes and user codes. Device codes are intentionally short-lived. Leave empty to use default 600.
      * @param {string[]} params.defaultScopes - List of OAuth2 scopes used when an authorization request omits the scope parameter. Every default scope must also be allowed by the OAuth2 server. Maximum of 100 scopes are allowed, each up to 128 characters long.
+     * @param {string[]} params.installationScopes - List of scopes an application may request when installed on a team. Omitting the parameter clears the list, so no installation scopes can be granted. Maximum of 100 scopes are allowed, each up to 128 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
-    updateOAuth2Server(params: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] }): Promise<Models.Project>;
+    updateOAuth2Server(params: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[], installationScopes?: string[] }): Promise<Models.Project>;
     /**
      * Update the OAuth2 server (OIDC provider) configuration.
      *
@@ -1003,19 +915,20 @@ export class Project {
      * @param {string} userCodeFormat - Character set for device flow user codes: `numeric` (digits only — best for numeric keypads and TV remotes), `alphabetic` (letters only), or `alphanumeric` (letters and digits — highest entropy per character). Defaults to `alphanumeric`.
      * @param {number} deviceCodeDuration - Lifetime in seconds of device flow device codes and user codes. Device codes are intentionally short-lived. Leave empty to use default 600.
      * @param {string[]} defaultScopes - List of OAuth2 scopes used when an authorization request omits the scope parameter. Every default scope must also be allowed by the OAuth2 server. Maximum of 100 scopes are allowed, each up to 128 characters long.
+     * @param {string[]} installationScopes - List of scopes an application may request when installed on a team. Omitting the parameter clears the list, so no installation scopes can be granted. Maximum of 100 scopes are allowed, each up to 128 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateOAuth2Server(enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[]): Promise<Models.Project>;
+    updateOAuth2Server(enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[], installationScopes?: string[]): Promise<Models.Project>;
     updateOAuth2Server(
-        paramsOrFirst: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] } | boolean,
-        ...rest: [(string)?, (string[])?, (string[])?, (number)?, (number)?, (number)?, (number)?, (number)?, (boolean)?, (string)?, (number)?, (string)?, (number)?, (string[])?]    
+        paramsOrFirst: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[], installationScopes?: string[] } | boolean,
+        ...rest: [(string)?, (string[])?, (string[])?, (number)?, (number)?, (number)?, (number)?, (number)?, (boolean)?, (string)?, (number)?, (string)?, (number)?, (string[])?, (string[])?]    
     ): Promise<Models.Project> {
-        let params: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] };
+        let params: { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[], installationScopes?: string[] };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[] };
+            params = (paramsOrFirst || {}) as { enabled: boolean, authorizationUrl: string, scopes?: string[], authorizationDetailsTypes?: string[], accessTokenDuration?: number, refreshTokenDuration?: number, publicAccessTokenDuration?: number, publicRefreshTokenDuration?: number, installationAccessTokenDuration?: number, confidentialPkce?: boolean, verificationUrl?: string, userCodeLength?: number, userCodeFormat?: string, deviceCodeDuration?: number, defaultScopes?: string[], installationScopes?: string[] };
         } else {
             params = {
                 enabled: paramsOrFirst as boolean,
@@ -1032,7 +945,8 @@ export class Project {
                 userCodeLength: rest[10] as number,
                 userCodeFormat: rest[11] as string,
                 deviceCodeDuration: rest[12] as number,
-                defaultScopes: rest[13] as string[]            
+                defaultScopes: rest[13] as string[],
+                installationScopes: rest[14] as string[]            
             };
         }
         
@@ -1051,6 +965,7 @@ export class Project {
         const userCodeFormat = params.userCodeFormat;
         const deviceCodeDuration = params.deviceCodeDuration;
         const defaultScopes = params.defaultScopes;
+        const installationScopes = params.installationScopes;
 
         if (typeof enabled === 'undefined') {
             throw new AppwriteException('Missing required parameter: "enabled"');
@@ -1105,6 +1020,9 @@ export class Project {
         }
         if (typeof defaultScopes !== 'undefined') {
             payload['defaultScopes'] = defaultScopes;
+        }
+        if (typeof installationScopes !== 'undefined') {
+            payload['installationScopes'] = installationScopes;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -5580,6 +5498,82 @@ export class Project {
     }
 
     /**
+     * Updating this policy allows you to control which factors users can use to complete an MFA challenge. Disabled factors cannot be used to create a challenge and are reported as unavailable when listing factors. The custom factor is disabled by default; enable it to deliver challenge codes through your own channel. Recovery codes always remain available as a fallback.
+     *
+     * @param {boolean} params.totp - Set to true to allow TOTP to complete an MFA challenge, or false to disable it.
+     * @param {boolean} params.email - Set to true to allow email to complete an MFA challenge, or false to disable it.
+     * @param {boolean} params.phone - Set to true to allow phone (SMS) to complete an MFA challenge, or false to disable it.
+     * @param {boolean} params.custom - Set to true to allow the custom factor to complete an MFA challenge, or false to disable it.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    updateMFAFactorsPolicy(params?: { totp?: boolean, email?: boolean, phone?: boolean, custom?: boolean }): Promise<Models.Project>;
+    /**
+     * Updating this policy allows you to control which factors users can use to complete an MFA challenge. Disabled factors cannot be used to create a challenge and are reported as unavailable when listing factors. The custom factor is disabled by default; enable it to deliver challenge codes through your own channel. Recovery codes always remain available as a fallback.
+     *
+     * @param {boolean} totp - Set to true to allow TOTP to complete an MFA challenge, or false to disable it.
+     * @param {boolean} email - Set to true to allow email to complete an MFA challenge, or false to disable it.
+     * @param {boolean} phone - Set to true to allow phone (SMS) to complete an MFA challenge, or false to disable it.
+     * @param {boolean} custom - Set to true to allow the custom factor to complete an MFA challenge, or false to disable it.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateMFAFactorsPolicy(totp?: boolean, email?: boolean, phone?: boolean, custom?: boolean): Promise<Models.Project>;
+    updateMFAFactorsPolicy(
+        paramsOrFirst?: { totp?: boolean, email?: boolean, phone?: boolean, custom?: boolean } | boolean,
+        ...rest: [(boolean)?, (boolean)?, (boolean)?]    
+    ): Promise<Models.Project> {
+        let params: { totp?: boolean, email?: boolean, phone?: boolean, custom?: boolean };
+        
+        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { totp?: boolean, email?: boolean, phone?: boolean, custom?: boolean };
+        } else {
+            params = {
+                totp: paramsOrFirst as boolean,
+                email: rest[0] as boolean,
+                phone: rest[1] as boolean,
+                custom: rest[2] as boolean            
+            };
+        }
+        
+        const totp = params.totp;
+        const email = params.email;
+        const phone = params.phone;
+        const custom = params.custom;
+
+
+        const apiPath = '/project/policies/mfa-factors';
+        const payload: Payload = {};
+        if (typeof totp !== 'undefined') {
+            payload['totp'] = totp;
+        }
+        if (typeof email !== 'undefined') {
+            payload['email'] = email;
+        }
+        if (typeof phone !== 'undefined') {
+            payload['phone'] = phone;
+        }
+        if (typeof custom !== 'undefined') {
+            payload['custom'] = custom;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'patch',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * Updating this policy allows you to control if new passwords are checked against most common passwords dictionary. When enabled, and user changes their password, password must not be contained in the dictionary.
      *
      * @param {boolean} params.enabled - Toggle password dictionary policy. Set to true if you want password change to block passwords in the dictionary, or false to allow them. When changing this policy, existing passwords remain valid.
@@ -5641,7 +5635,7 @@ export class Project {
      * 
      * Keep in mind, while password history policy is disabled, the history is not being stored. Enabling the policy will not have any history on existing users, and it will only start to collect and enforce the policy on password changes since the policy is enabled.
      *
-     * @param {number} params.total - Set the password history length per user. Value can be between 1 and 5000, or null to disable the limit.
+     * @param {number} params.total - Set the password history length per user. Value can be between 1 and 20, or null to disable the limit.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
@@ -5651,7 +5645,7 @@ export class Project {
      * 
      * Keep in mind, while password history policy is disabled, the history is not being stored. Enabling the policy will not have any history on existing users, and it will only start to collect and enforce the policy on password changes since the policy is enabled.
      *
-     * @param {number} total - Set the password history length per user. Value can be between 1 and 5000, or null to disable the limit.
+     * @param {number} total - Set the password history length per user. Value can be between 1 and 20, or null to disable the limit.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5897,7 +5891,7 @@ export class Project {
     /**
      * Update maximum duration how long sessions created within a project should stay active for.
      *
-     * @param {number} params.duration - Maximum session length in seconds. Minium allowed value is 5 second, and maximum is 1 year, which is 31536000 seconds.
+     * @param {number} params.duration - Maximum session length in seconds. Minium allowed value is 60 seconds, and maximum is 1 year, which is 31536000 seconds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
@@ -5905,7 +5899,7 @@ export class Project {
     /**
      * Update maximum duration how long sessions created within a project should stay active for.
      *
-     * @param {number} duration - Maximum session length in seconds. Minium allowed value is 5 second, and maximum is 1 year, which is 31536000 seconds.
+     * @param {number} duration - Maximum session length in seconds. Minium allowed value is 60 seconds, and maximum is 1 year, which is 31536000 seconds.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6011,27 +6005,27 @@ export class Project {
     /**
      * Update the maximum number of sessions allowed per user. When the limit is hit, the oldest session will be deleted to make room for new one.
      *
-     * @param {number} params.total - Set the maximum number of sessions allowed per user. Value can be between 1 and 5000, or null to disable the limit.
+     * @param {number} params.total - Set the maximum number of sessions allowed per user. Value can be between 1 and 100.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
-    updateSessionLimitPolicy(params: { total?: number }): Promise<Models.Project>;
+    updateSessionLimitPolicy(params: { total: number }): Promise<Models.Project>;
     /**
      * Update the maximum number of sessions allowed per user. When the limit is hit, the oldest session will be deleted to make room for new one.
      *
-     * @param {number} total - Set the maximum number of sessions allowed per user. Value can be between 1 and 5000, or null to disable the limit.
+     * @param {number} total - Set the maximum number of sessions allowed per user. Value can be between 1 and 100.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateSessionLimitPolicy(total?: number): Promise<Models.Project>;
+    updateSessionLimitPolicy(total: number): Promise<Models.Project>;
     updateSessionLimitPolicy(
-        paramsOrFirst?: { total?: number } | number    
+        paramsOrFirst: { total: number } | number    
     ): Promise<Models.Project> {
-        let params: { total?: number };
+        let params: { total: number };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { total?: number };
+            params = (paramsOrFirst || {}) as { total: number };
         } else {
             params = {
                 total: paramsOrFirst as number            
@@ -6068,7 +6062,7 @@ export class Project {
     /**
      * Update the maximum number of users in the project. When the limit is hit or amount of existing users already exceeded the limit, all users remain active, but new user sign up will be prohibited.
      *
-     * @param {number} params.total - Set the maximum number of users allowed in the project. Value can be between 1 and 5000, or null to disable the limit.
+     * @param {number} params.total - Set the maximum number of users allowed in the project. Value can be between 0 and 10000. Use 0 or null to disable the limit.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
@@ -6076,7 +6070,7 @@ export class Project {
     /**
      * Update the maximum number of users in the project. When the limit is hit or amount of existing users already exceeded the limit, all users remain active, but new user sign up will be prohibited.
      *
-     * @param {number} total - Set the maximum number of users allowed in the project. Value can be between 1 and 5000, or null to disable the limit.
+     * @param {number} total - Set the maximum number of users allowed in the project. Value can be between 0 and 10000. Use 0 or null to disable the limit.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6125,23 +6119,23 @@ export class Project {
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
+     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>}
      */
-    getPolicy(params: { policyId: ProjectPolicyId }): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>;
+    getPolicy(params: { policyId: ProjectPolicyId }): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>;
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
+     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getPolicy(policyId: ProjectPolicyId): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>;
+    getPolicy(policyId: ProjectPolicyId): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>;
     getPolicy(
         paramsOrFirst: { policyId: ProjectPolicyId } | ProjectPolicyId    
-    ): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail> {
+    ): Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail> {
         let params: { policyId: ProjectPolicyId };
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst) && ('policyId' in paramsOrFirst))) {

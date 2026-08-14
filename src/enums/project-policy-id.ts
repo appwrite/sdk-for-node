@@ -9,6 +9,7 @@ export enum ProjectPolicyId {
     Sessionlimit = 'session-limit',
     Userlimit = 'user-limit',
     Membershipprivacy = 'membership-privacy',
+    Mfafactors = 'mfa-factors',
     Denyaliasedemail = 'deny-aliased-email',
     Denydisposableemail = 'deny-disposable-email',
     Denyfreeemail = 'deny-free-email',

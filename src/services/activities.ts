@@ -13,30 +13,30 @@ export class Activities {
     /**
      * List all events for selected filters.
      *
-     * @param {string} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on attributes such as userId, teamId, etc.
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on attributes such as userId, teamId, etc.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ActivityEventList>}
      */
-    listEvents(params?: { queries?: string }): Promise<Models.ActivityEventList>;
+    listEvents(params?: { queries?: string[] }): Promise<Models.ActivityEventList>;
     /**
      * List all events for selected filters.
      *
-     * @param {string} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on attributes such as userId, teamId, etc.
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on attributes such as userId, teamId, etc.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ActivityEventList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listEvents(queries?: string): Promise<Models.ActivityEventList>;
+    listEvents(queries?: string[]): Promise<Models.ActivityEventList>;
     listEvents(
-        paramsOrFirst?: { queries?: string } | string    
+        paramsOrFirst?: { queries?: string[] } | string[]    
     ): Promise<Models.ActivityEventList> {
-        let params: { queries?: string };
+        let params: { queries?: string[] };
         
         if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string };
+            params = (paramsOrFirst || {}) as { queries?: string[] };
         } else {
             params = {
-                queries: paramsOrFirst as string            
+                queries: paramsOrFirst as string[]            
             };
         }
         

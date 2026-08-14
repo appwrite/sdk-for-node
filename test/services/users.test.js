@@ -592,12 +592,33 @@ describe('Users', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method getMFAChallenge()', async () => {
+                                                const data = {
+            '\$id': 'bb8ea5c16897e',
+            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            'userId': '5e5ea5c168bb8',
+            'expire': '2020-10-15T06:38:00.000+00:00',
+            'code': '446372',};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await users.getMFAChallenge(
+            '<USER_ID>',
+            '<CHALLENGE_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method listMfaFactors()', async () => {
                                                 const data = {
             'totp': true,
             'phone': true,
             'email': true,
-            'recoveryCode': true,};
+            'recoveryCode': true,
+            'custom': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await users.listMfaFactors(
@@ -615,7 +636,8 @@ describe('Users', () => {
             'totp': true,
             'phone': true,
             'email': true,
-            'recoveryCode': true,};
+            'recoveryCode': true,
+            'custom': true,};
         mockedFetch.mockImplementation(() => Response.json(data));
 
         const response = await users.listMFAFactors(

@@ -4,12 +4,12 @@ const sdk = require('node-appwrite');
 const client = new sdk.Client()
     .setEndpoint('https://<REGION>.cloud.appwrite.io/v1') // Your API Endpoint
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
-    .setSession(''); // The user session to authenticate with
+    .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const apps = new sdk.Apps(client);
+const users = new sdk.Users(client);
 
-const result = await apps.createInstallationToken({
-    appId: '<APP_ID>',
-    installationId: '<INSTALLATION_ID>'
+const result = await users.getMFAChallenge({
+    userId: '<USER_ID>',
+    challengeId: '<CHALLENGE_ID>'
 });
 ```
