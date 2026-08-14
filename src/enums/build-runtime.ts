@@ -9,6 +9,7 @@ export enum BuildRuntime {
     Node23 = 'node-23',
     Node24 = 'node-24',
     Node25 = 'node-25',
+    Node26 = 'node-26',
     Php80 = 'php-8.0',
     Php81 = 'php-8.1',
     Php82 = 'php-8.2',

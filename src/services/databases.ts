@@ -774,7 +774,7 @@ export class Databases {
      * @param {string[]} params.permissions - An array of permissions strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.documentSecurity - Enables configuring permissions for individual documents. A user needs one of document or collection level permissions to access a document. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
-     * @param {object[]} params.attributes - Array of attribute definitions to create. Each attribute should contain: key (string), type (string: string, integer, float, boolean, datetime), size (integer, required for string type), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
+     * @param {object[]} params.attributes - Array of attribute definitions to create. Each attribute should contain: key (string), type (string: string, varchar, text, mediumtext, longtext, integer, bigint, double, boolean, datetime, point, linestring, polygon, email, url, ip, enum), size (integer, required for string and varchar types), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
      * @param {object[]} params.indexes - Array of index definitions to create. Each index should contain: key (string), type (string: key, fulltext, unique, spatial), attributes (array of attribute keys), orders (array of ASC/DESC, optional), and lengths (array of integers, optional).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
@@ -790,7 +790,7 @@ export class Databases {
      * @param {string[]} permissions - An array of permissions strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} documentSecurity - Enables configuring permissions for individual documents. A user needs one of document or collection level permissions to access a document. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
-     * @param {object[]} attributes - Array of attribute definitions to create. Each attribute should contain: key (string), type (string: string, integer, float, boolean, datetime), size (integer, required for string type), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
+     * @param {object[]} attributes - Array of attribute definitions to create. Each attribute should contain: key (string), type (string: string, varchar, text, mediumtext, longtext, integer, bigint, double, boolean, datetime, point, linestring, polygon, email, url, ip, enum), size (integer, required for string and varchar types), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
      * @param {object[]} indexes - Array of index definitions to create. Each index should contain: key (string), type (string: key, fulltext, unique, spatial), attributes (array of attribute keys), orders (array of ASC/DESC, optional), and lengths (array of integers, optional).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
@@ -3825,11 +3825,11 @@ export class Databases {
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.collectionId - Collection ID.
      * @param {string} params.relatedCollectionId - Related Collection ID.
-     * @param {RelationshipType} params.type - Relation type
+     * @param {RelationshipType} params.type - Relationship type. Possible values are: oneToOne, oneToMany, manyToOne, manyToMany.
      * @param {boolean} params.twoWay - Is Two Way?
      * @param {string} params.key - Attribute Key.
      * @param {string} params.twoWayKey - Two Way Attribute Key.
-     * @param {RelationMutate} params.onDelete - Constraints option
+     * @param {RelationMutate} params.onDelete - Delete constraint. Possible values are: cascade, restrict, setNull.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createRelationshipColumn` instead.
@@ -3842,11 +3842,11 @@ export class Databases {
      * @param {string} databaseId - Database ID.
      * @param {string} collectionId - Collection ID.
      * @param {string} relatedCollectionId - Related Collection ID.
-     * @param {RelationshipType} type - Relation type
+     * @param {RelationshipType} type - Relationship type. Possible values are: oneToOne, oneToMany, manyToOne, manyToMany.
      * @param {boolean} twoWay - Is Two Way?
      * @param {string} key - Attribute Key.
      * @param {string} twoWayKey - Two Way Attribute Key.
-     * @param {RelationMutate} onDelete - Constraints option
+     * @param {RelationMutate} onDelete - Delete constraint. Possible values are: cascade, restrict, setNull.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3938,7 +3938,7 @@ export class Databases {
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.collectionId - Collection ID.
      * @param {string} params.key - Attribute Key.
-     * @param {RelationMutate} params.onDelete - Constraints option
+     * @param {RelationMutate} params.onDelete - Delete constraint. Possible values are: cascade, restrict, setNull.
      * @param {string} params.newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
@@ -3952,7 +3952,7 @@ export class Databases {
      * @param {string} databaseId - Database ID.
      * @param {string} collectionId - Collection ID.
      * @param {string} key - Attribute Key.
-     * @param {RelationMutate} onDelete - Constraints option
+     * @param {RelationMutate} onDelete - Delete constraint. Possible values are: cascade, restrict, setNull.
      * @param {string} newKey - New Attribute Key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}

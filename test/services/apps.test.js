@@ -232,6 +232,21 @@ describe('Apps', () => {
         expect(response).toEqual(data);
     });
     
+    test('test method deleteInstallation()', async () => {
+                                const data = {message: ""};
+        mockedFetch.mockImplementation(() => Response.json(data));
+
+        const response = await apps.deleteInstallation(
+            '<APP_ID>',
+            '<INSTALLATION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    
     test('test method createInstallationToken()', async () => {
                                                 const data = {
             'access_token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...',

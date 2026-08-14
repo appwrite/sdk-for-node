@@ -6,9 +6,11 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const project = new sdk.Project(client);
+const proxy = new sdk.Proxy(client);
 
-const result = await project.updateSessionDurationPolicy({
-    duration: 60
+const result = await proxy.createInvalidation({
+    domain: '',
+    type: sdk.InvalidationType.Tag,
+    reference: '<REFERENCE>' // optional
 });
 ```

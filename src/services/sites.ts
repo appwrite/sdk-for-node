@@ -334,7 +334,7 @@ export class Sites {
     /**
      * List allowed site specifications for this instance.
      *
-     * @param {string} params.type - Specification type to list. Can be one of: runtimes, builds.
+     * @param {string} params.type - Specification type to list. Can be one of: runtimes, builds. Defaults to runtimes.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SpecificationList>}
      */
@@ -342,7 +342,7 @@ export class Sites {
     /**
      * List allowed site specifications for this instance.
      *
-     * @param {string} type - Specification type to list. Can be one of: runtimes, builds.
+     * @param {string} type - Specification type to list. Can be one of: runtimes, builds. Defaults to runtimes.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SpecificationList>}
      * @deprecated Use the object parameter style method for a better developer experience.

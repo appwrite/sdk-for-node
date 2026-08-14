@@ -13,6 +13,7 @@ const result = await storage.createFile({
     bucketId: '<BUCKET_ID>',
     fileId: '<FILE_ID>',
     file: InputFile.fromPath('/path/to/file', 'filename'),
-    permissions: [sdk.Permission.read(sdk.Role.any())] // optional
+    permissions: [sdk.Permission.read(sdk.Role.any())], // optional
+    folder: '' // optional
 });
 ```

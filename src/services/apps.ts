@@ -314,7 +314,7 @@ export class Apps {
     /**
      * Get an application by its unique ID.
      *
-     * @param {string} params.appId - Application unique ID or HTTPS client ID metadata document URL.
+     * @param {string} params.appId - Application unique ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.App>}
      */
@@ -322,7 +322,7 @@ export class Apps {
     /**
      * Get an application by its unique ID.
      *
-     * @param {string} appId - Application unique ID or HTTPS client ID metadata document URL.
+     * @param {string} appId - Application unique ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.App>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -385,7 +385,7 @@ export class Apps {
      * @param {string[]} params.postLogoutRedirectUris - Post-logout redirect URIs for OpenID Connect RP-Initiated Logout. Each must be an https URL, an http loopback URL, or a private-use scheme URI, and must not contain a fragment. After ending the user session, the logout endpoint only redirects to URIs in this list.
      * @param {string} params.type - OAuth2 client type. Use `public` for SPAs, mobile, and native apps that cannot keep a `client_secret` — PKCE is then required at the token endpoint. Use `confidential` for server-side clients that present a `client_secret`. Defaults to `confidential`.
      * @param {boolean} params.deviceFlow - Allow this client to use the OAuth2 Device Authorization Grant (RFC 8628) for input-constrained devices such as TVs and CLIs. Defaults to false.
-     * @param {string[]} params.installationScopes - Scopes the application requests when installed on a team. Organization-level and project-level scopes only; use the list scopes endpoint with `type=installation` to discover available values. Maximum of 100 scopes are allowed.
+     * @param {string[]} params.installationScopes - Scopes the application requests when installed on a team. Only scopes allowed by the project's OAuth2 server installation scopes configuration are accepted; use the list installation scopes endpoint to discover available values. Maximum of 100 scopes are allowed.
      * @param {string} params.installationRedirectUrl - URL users are redirected to after creating or updating an installation of this application. Must be an https URL, an http loopback URL (localhost, 127.0.0.1, [::1]), or a private-use scheme URI, and must not contain a fragment. Leave empty for no redirect.
      * @throws {AppwriteException}
      * @returns {Promise<Models.App>}
@@ -412,7 +412,7 @@ export class Apps {
      * @param {string[]} postLogoutRedirectUris - Post-logout redirect URIs for OpenID Connect RP-Initiated Logout. Each must be an https URL, an http loopback URL, or a private-use scheme URI, and must not contain a fragment. After ending the user session, the logout endpoint only redirects to URIs in this list.
      * @param {string} type - OAuth2 client type. Use `public` for SPAs, mobile, and native apps that cannot keep a `client_secret` — PKCE is then required at the token endpoint. Use `confidential` for server-side clients that present a `client_secret`. Defaults to `confidential`.
      * @param {boolean} deviceFlow - Allow this client to use the OAuth2 Device Authorization Grant (RFC 8628) for input-constrained devices such as TVs and CLIs. Defaults to false.
-     * @param {string[]} installationScopes - Scopes the application requests when installed on a team. Organization-level and project-level scopes only; use the list scopes endpoint with `type=installation` to discover available values. Maximum of 100 scopes are allowed.
+     * @param {string[]} installationScopes - Scopes the application requests when installed on a team. Only scopes allowed by the project's OAuth2 server installation scopes configuration are accepted; use the list installation scopes endpoint to discover available values. Maximum of 100 scopes are allowed.
      * @param {string} installationRedirectUrl - URL users are redirected to after creating or updating an installation of this application. Must be an https URL, an http loopback URL (localhost, 127.0.0.1, [::1]), or a private-use scheme URI, and must not contain a fragment. Leave empty for no redirect.
      * @throws {AppwriteException}
      * @returns {Promise<Models.App>}
@@ -610,7 +610,7 @@ export class Apps {
     }
 
     /**
-     * List installations of an application. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header.
+     * List installations of an application. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header, or a caller with update access to the app.
      *
      * @param {string} params.appId - Application unique ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
@@ -620,7 +620,7 @@ export class Apps {
      */
     listInstallations(params: { appId: string, queries?: string[], total?: boolean }): Promise<Models.AppInstallationList>;
     /**
-     * List installations of an application. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header.
+     * List installations of an application. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header, or a caller with update access to the app.
      *
      * @param {string} appId - Application unique ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
@@ -678,7 +678,7 @@ export class Apps {
     }
 
     /**
-     * Get an installation of an application by its unique ID. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header.
+     * Get an installation of an application by its unique ID. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header, or a caller with update access to the app.
      *
      * @param {string} params.appId - Application unique ID.
      * @param {string} params.installationId - Installation unique ID.
@@ -687,7 +687,7 @@ export class Apps {
      */
     getInstallation(params: { appId: string, installationId: string }): Promise<Models.AppInstallation>;
     /**
-     * Get an installation of an application by its unique ID. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header.
+     * Get an installation of an application by its unique ID. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header, or a caller with update access to the app.
      *
      * @param {string} appId - Application unique ID.
      * @param {string} installationId - Installation unique ID.
@@ -739,7 +739,69 @@ export class Apps {
     }
 
     /**
-     * Create a token for an installation of an application. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header. The returned token carries the scopes and authorization details granted to the installation, and can be used as an `Authorization: Bearer` header everywhere OAuth2 access tokens are accepted. Multiple tokens can be active for the same installation at once; each token stays valid until it expires or the installation is updated or deleted.
+     * Delete an installation of an application by its unique ID. Requires a caller with update access to the app. Previously issued installation access tokens are revoked.
+     *
+     * @param {string} params.appId - Application unique ID.
+     * @param {string} params.installationId - Installation unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deleteInstallation(params: { appId: string, installationId: string }): Promise<{}>;
+    /**
+     * Delete an installation of an application by its unique ID. Requires a caller with update access to the app. Previously issued installation access tokens are revoked.
+     *
+     * @param {string} appId - Application unique ID.
+     * @param {string} installationId - Installation unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    deleteInstallation(appId: string, installationId: string): Promise<{}>;
+    deleteInstallation(
+        paramsOrFirst: { appId: string, installationId: string } | string,
+        ...rest: [(string)?]    
+    ): Promise<{}> {
+        let params: { appId: string, installationId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { appId: string, installationId: string };
+        } else {
+            params = {
+                appId: paramsOrFirst as string,
+                installationId: rest[0] as string            
+            };
+        }
+        
+        const appId = params.appId;
+        const installationId = params.installationId;
+
+        if (typeof appId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "appId"');
+        }
+        if (typeof installationId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "installationId"');
+        }
+
+        const apiPath = '/apps/{appId}/installations/{installationId}'.replace('{appId}', encodeURIComponent(String(appId))).replace('{installationId}', encodeURIComponent(String(installationId)));
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'delete',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
+     * Create a token for an installation of an application. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header, or a caller with update access to the app. The returned token carries the scopes and authorization details granted to the installation, and can be used as an `Authorization: Bearer` header everywhere OAuth2 access tokens are accepted. Multiple tokens can be active for the same installation at once; each token stays valid until it expires or the installation is updated or deleted.
      *
      * @param {string} params.appId - Application unique ID.
      * @param {string} params.installationId - Installation unique ID.
@@ -748,7 +810,7 @@ export class Apps {
      */
     createInstallationToken(params: { appId: string, installationId: string }): Promise<Models.Oauth2Token>;
     /**
-     * Create a token for an installation of an application. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header. The returned token carries the scopes and authorization details granted to the installation, and can be used as an `Authorization: Bearer` header everywhere OAuth2 access tokens are accepted. Multiple tokens can be active for the same installation at once; each token stays valid until it expires or the installation is updated or deleted.
+     * Create a token for an installation of an application. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header, or a caller with update access to the app. The returned token carries the scopes and authorization details granted to the installation, and can be used as an `Authorization: Bearer` header everywhere OAuth2 access tokens are accepted. Multiple tokens can be active for the same installation at once; each token stays valid until it expires or the installation is updated or deleted.
      *
      * @param {string} appId - Application unique ID.
      * @param {string} installationId - Installation unique ID.

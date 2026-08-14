@@ -6,9 +6,12 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const project = new sdk.Project(client);
+const tablesDB = new sdk.TablesDB(client);
 
-const result = await project.updateSessionDurationPolicy({
-    duration: 60
+const result = await tablesDB.listOperations({
+    databaseId: '<DATABASE_ID>',
+    status: 'running', // optional
+    limit: 1, // optional
+    offset: 0 // optional
 });
 ```

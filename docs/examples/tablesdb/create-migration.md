@@ -6,9 +6,11 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const project = new sdk.Project(client);
+const tablesDB = new sdk.TablesDB(client);
 
-const result = await project.updateSessionDurationPolicy({
-    duration: 60
+const result = await tablesDB.createMigration({
+    databaseId: '<DATABASE_ID>',
+    specification: 's-1vcpu-1gb',
+    autoCutover: false // optional
 });
 ```

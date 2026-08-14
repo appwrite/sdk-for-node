@@ -451,7 +451,7 @@ export class Storage {
      * Get a list of all the user files. You can use the query params to filter your results.
      *
      * @param {string} params.bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
-     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, signature, mimeType, sizeOriginal, chunksTotal, chunksUploaded
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, folder, signature, mimeType, sizeOriginal, chunksTotal, chunksUploaded
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
      * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
@@ -462,7 +462,7 @@ export class Storage {
      * Get a list of all the user files. You can use the query params to filter your results.
      *
      * @param {string} bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, signature, mimeType, sizeOriginal, chunksTotal, chunksUploaded
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, folder, signature, mimeType, sizeOriginal, chunksTotal, chunksUploaded
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
@@ -536,10 +536,11 @@ export class Storage {
      * @param {string} params.fileId - File ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {File | InputFile} params.file - Binary file. Appwrite SDKs provide helpers to handle file input. [Learn about file input](https://appwrite.io/docs/products/storage/upload-download#input-file).
      * @param {string[]} params.permissions - An array of permission strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string} params.folder - Virtual folder to place the file in, for example "photos/2026". Nest folders with `/`. Defaults to the bucket root.
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
-    createFile(params: { bucketId: string, fileId: string, file: File | InputFile, permissions?: string[], onProgress?: (progress: UploadProgress) => void }): Promise<Models.File>;
+    createFile(params: { bucketId: string, fileId: string, file: File | InputFile, permissions?: string[], folder?: string, onProgress?: (progress: UploadProgress) => void }): Promise<Models.File>;
     /**
      * Create a new file. Before using this route, you should create a new bucket resource using either a [server integration](https://appwrite.io/docs/server/storage#storageCreateBucket) API or directly from your Appwrite console.
      * 
@@ -554,35 +555,38 @@ export class Storage {
      * @param {string} fileId - File ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {File | InputFile} file - Binary file. Appwrite SDKs provide helpers to handle file input. [Learn about file input](https://appwrite.io/docs/products/storage/upload-download#input-file).
      * @param {string[]} permissions - An array of permission strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string} folder - Virtual folder to place the file in, for example "photos/2026". Nest folders with `/`. Defaults to the bucket root.
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createFile(bucketId: string, fileId: string, file: File | InputFile, permissions?: string[], onProgress?: (progress: UploadProgress) => void): Promise<Models.File>;
+    createFile(bucketId: string, fileId: string, file: File | InputFile, permissions?: string[], folder?: string, onProgress?: (progress: UploadProgress) => void): Promise<Models.File>;
     createFile(
-        paramsOrFirst: { bucketId: string, fileId: string, file: File | InputFile, permissions?: string[], onProgress?: (progress: UploadProgress) => void } | string,
-        ...rest: [(string)?, (File | InputFile)?, (string[])?,((progress: UploadProgress) => void)?]    
+        paramsOrFirst: { bucketId: string, fileId: string, file: File | InputFile, permissions?: string[], folder?: string, onProgress?: (progress: UploadProgress) => void } | string,
+        ...rest: [(string)?, (File | InputFile)?, (string[])?, (string)?,((progress: UploadProgress) => void)?]    
     ): Promise<Models.File> {
-        let params: { bucketId: string, fileId: string, file: File | InputFile, permissions?: string[] };
+        let params: { bucketId: string, fileId: string, file: File | InputFile, permissions?: string[], folder?: string };
         let onProgress: ((progress: UploadProgress) => void);
         
         if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, file: File | InputFile, permissions?: string[] };
+            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, file: File | InputFile, permissions?: string[], folder?: string };
             onProgress = paramsOrFirst?.onProgress as ((progress: UploadProgress) => void);
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
                 fileId: rest[0] as string,
                 file: rest[1] as File | InputFile,
-                permissions: rest[2] as string[]            
+                permissions: rest[2] as string[],
+                folder: rest[3] as string            
             };
-            onProgress = rest[3] as ((progress: UploadProgress) => void);
+            onProgress = rest[4] as ((progress: UploadProgress) => void);
         }
         
         const bucketId = params.bucketId;
         const fileId = params.fileId;
         const file = params.file;
         const permissions = params.permissions;
+        const folder = params.folder;
 
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "bucketId"');
@@ -604,6 +608,9 @@ export class Storage {
         }
         if (typeof permissions !== 'undefined') {
             payload['permissions'] = permissions;
+        }
+        if (typeof folder !== 'undefined') {
+            payload['folder'] = folder;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

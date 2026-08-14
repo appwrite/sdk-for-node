@@ -669,60 +669,6 @@ export class Account {
     }
 
     /**
-     * Use this endpoint to create a JSON Web Token. You can use the resulting JWT to authenticate on behalf of the current user when working with the Appwrite server-side API and SDKs. The JWT secret is valid for 15 minutes from its creation and will be invalid if the user will logout in that time frame.
-     *
-     * @param {number} params.duration - Time in seconds before JWT expires. Default duration is 900 seconds, and maximum is 3600 seconds.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.Jwt>}
-     */
-    createJWT(params?: { duration?: number }): Promise<Models.Jwt>;
-    /**
-     * Use this endpoint to create a JSON Web Token. You can use the resulting JWT to authenticate on behalf of the current user when working with the Appwrite server-side API and SDKs. The JWT secret is valid for 15 minutes from its creation and will be invalid if the user will logout in that time frame.
-     *
-     * @param {number} duration - Time in seconds before JWT expires. Default duration is 900 seconds, and maximum is 3600 seconds.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.Jwt>}
-     * @deprecated Use the object parameter style method for a better developer experience.
-     */
-    createJWT(duration?: number): Promise<Models.Jwt>;
-    createJWT(
-        paramsOrFirst?: { duration?: number } | number    
-    ): Promise<Models.Jwt> {
-        let params: { duration?: number };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { duration?: number };
-        } else {
-            params = {
-                duration: paramsOrFirst as number            
-            };
-        }
-        
-        const duration = params.duration;
-
-
-        const apiPath = '/account/jwts';
-        const payload: Payload = {};
-        if (typeof duration !== 'undefined') {
-            payload['duration'] = duration;
-        }
-        const uri = new URL(this.client.config.endpoint + apiPath);
-
-        const apiHeaders: { [header: string]: string } = {
-            'X-Appwrite-Project': this.client.config.project,
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }
-
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
-    }
-
-    /**
      * Get the list of latest security activity logs for the currently logged in user. Each log returns user IP address, location and date and time of log.
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
@@ -1190,7 +1136,7 @@ export class Account {
     /**
      * Begin the process of MFA verification after sign-in. Finish the flow with [updateMfaChallenge](/docs/references/cloud/client-web/account#updateMfaChallenge) method.
      *
-     * @param {AuthenticationFactor} params.factor - Factor used for verification. Must be one of following: `email`, `phone`, `totp`, `recoveryCode`.
+     * @param {AuthenticationFactor} params.factor - Factor used for verification. Must be one of following: `email`, `phone`, `totp`, `recoveryCode`, `custom`.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaChallenge>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Account.createMFAChallenge` instead.
@@ -1199,7 +1145,7 @@ export class Account {
     /**
      * Begin the process of MFA verification after sign-in. Finish the flow with [updateMfaChallenge](/docs/references/cloud/client-web/account#updateMfaChallenge) method.
      *
-     * @param {AuthenticationFactor} factor - Factor used for verification. Must be one of following: `email`, `phone`, `totp`, `recoveryCode`.
+     * @param {AuthenticationFactor} factor - Factor used for verification. Must be one of following: `email`, `phone`, `totp`, `recoveryCode`, `custom`.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaChallenge>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1248,7 +1194,7 @@ export class Account {
     /**
      * Begin the process of MFA verification after sign-in. Finish the flow with [updateMfaChallenge](/docs/references/cloud/client-web/account#updateMfaChallenge) method.
      *
-     * @param {AuthenticationFactor} params.factor - Factor used for verification. Must be one of following: `email`, `phone`, `totp`, `recoveryCode`.
+     * @param {AuthenticationFactor} params.factor - Factor used for verification. Must be one of following: `email`, `phone`, `totp`, `recoveryCode`, `custom`.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaChallenge>}
      */
@@ -1256,7 +1202,7 @@ export class Account {
     /**
      * Begin the process of MFA verification after sign-in. Finish the flow with [updateMfaChallenge](/docs/references/cloud/client-web/account#updateMfaChallenge) method.
      *
-     * @param {AuthenticationFactor} factor - Factor used for verification. Must be one of following: `email`, `phone`, `totp`, `recoveryCode`.
+     * @param {AuthenticationFactor} factor - Factor used for verification. Must be one of following: `email`, `phone`, `totp`, `recoveryCode`, `custom`.
      * @throws {AppwriteException}
      * @returns {Promise<Models.MfaChallenge>}
      * @deprecated Use the object parameter style method for a better developer experience.

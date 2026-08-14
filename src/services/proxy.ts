@@ -2,6 +2,7 @@ import { AppwriteException, Client, type Payload, UploadProgress } from '../clie
 import type { Models } from '../models';
 
 
+import { InvalidationType } from '../enums/invalidation-type';
 import { StatusCode } from '../enums/status-code';
 import { ProxyResourceType } from '../enums/proxy-resource-type';
 
@@ -10,6 +11,85 @@ export class Proxy {
 
     constructor(client: Client) {
         this.client = client;
+    }
+
+    /**
+     * Create a new CDN cache invalidation for a domain. Executes a hard purge of cached content.
+     * 
+     * Depending on type, the invalidation purges a single cache tag, a single URL path, or all cached content for the domain.
+     *
+     * @param {string} params.domain - Domain name.
+     * @param {InvalidationType} params.type - Type of reference passed. Allowed values are: tag, path, all
+     * @param {string} params.reference - Reference to invalidate. Depending on type this can be: cache tag name (up to 128 characters), URL path (up to 2048 characters). Not required when type is all.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ProxyInvalidation>}
+     */
+    createInvalidation(params: { domain: string, type: InvalidationType, reference?: string }): Promise<Models.ProxyInvalidation>;
+    /**
+     * Create a new CDN cache invalidation for a domain. Executes a hard purge of cached content.
+     * 
+     * Depending on type, the invalidation purges a single cache tag, a single URL path, or all cached content for the domain.
+     *
+     * @param {string} domain - Domain name.
+     * @param {InvalidationType} type - Type of reference passed. Allowed values are: tag, path, all
+     * @param {string} reference - Reference to invalidate. Depending on type this can be: cache tag name (up to 128 characters), URL path (up to 2048 characters). Not required when type is all.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ProxyInvalidation>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createInvalidation(domain: string, type: InvalidationType, reference?: string): Promise<Models.ProxyInvalidation>;
+    createInvalidation(
+        paramsOrFirst: { domain: string, type: InvalidationType, reference?: string } | string,
+        ...rest: [(InvalidationType)?, (string)?]    
+    ): Promise<Models.ProxyInvalidation> {
+        let params: { domain: string, type: InvalidationType, reference?: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { domain: string, type: InvalidationType, reference?: string };
+        } else {
+            params = {
+                domain: paramsOrFirst as string,
+                type: rest[0] as InvalidationType,
+                reference: rest[1] as string            
+            };
+        }
+        
+        const domain = params.domain;
+        const type = params.type;
+        const reference = params.reference;
+
+        if (typeof domain === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "domain"');
+        }
+        if (typeof type === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "type"');
+        }
+
+        const apiPath = '/proxy/invalidations';
+        const payload: Payload = {};
+        if (typeof domain !== 'undefined') {
+            payload['domain'] = domain;
+        }
+        if (typeof type !== 'undefined') {
+            payload['type'] = type;
+        }
+        if (typeof reference !== 'undefined') {
+            payload['reference'] = reference;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'post',
+            uri,
+            apiHeaders,
+            payload,
+        );
     }
 
     /**

@@ -1744,6 +1744,67 @@ export class Users {
     }
 
     /**
+     * Get a custom MFA challenge for a user, including the code to be delivered through your own channel.
+     *
+     * @param {string} params.userId - User ID.
+     * @param {string} params.challengeId - ID of the challenge.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.MfaChallengeSecret>}
+     */
+    getMFAChallenge(params: { userId: string, challengeId: string }): Promise<Models.MfaChallengeSecret>;
+    /**
+     * Get a custom MFA challenge for a user, including the code to be delivered through your own channel.
+     *
+     * @param {string} userId - User ID.
+     * @param {string} challengeId - ID of the challenge.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.MfaChallengeSecret>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getMFAChallenge(userId: string, challengeId: string): Promise<Models.MfaChallengeSecret>;
+    getMFAChallenge(
+        paramsOrFirst: { userId: string, challengeId: string } | string,
+        ...rest: [(string)?]    
+    ): Promise<Models.MfaChallengeSecret> {
+        let params: { userId: string, challengeId: string };
+        
+        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+            params = (paramsOrFirst || {}) as { userId: string, challengeId: string };
+        } else {
+            params = {
+                userId: paramsOrFirst as string,
+                challengeId: rest[0] as string            
+            };
+        }
+        
+        const userId = params.userId;
+        const challengeId = params.challengeId;
+
+        if (typeof userId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+        if (typeof challengeId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "challengeId"');
+        }
+
+        const apiPath = '/users/{userId}/mfa/challenges/{challengeId}'.replace('{userId}', encodeURIComponent(String(userId))).replace('{challengeId}', encodeURIComponent(String(challengeId)));
+        const payload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'accept': 'application/json',
+        }
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            payload,
+        );
+    }
+
+    /**
      * List the factors available on the account to be used as a MFA challange.
      *
      * @param {string} params.userId - User ID.
