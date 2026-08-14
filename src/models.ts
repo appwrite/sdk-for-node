@@ -641,6 +641,20 @@ export namespace Models {
     }
 
     /**
+     * Embedding list
+     */
+    export type EmbeddingList = {
+        /**
+         * Total number of embeddings that matched your query.
+         */
+        total: number;
+        /**
+         * List of embeddings.
+         */
+        embeddings: Embedding[];
+    }
+
+    /**
      * Insights List
      */
     export type InsightList = {
@@ -720,6 +734,28 @@ export namespace Models {
          * Database backup archives.
          */
         archives?: BackupArchive[];
+    }
+
+    /**
+     * Embedding
+     */
+    export type Embedding = {
+        /**
+         * Embedding model used to generate embeddings.
+         */
+        model: string;
+        /**
+         * Number of dimensions for each embedding vector.
+         */
+        dimension: number;
+        /**
+         * Embedding vector values. If an error occurs, this will be an empty array.
+         */
+        embedding: number[];
+        /**
+         * Error message if embedding generation fails. Empty string if no error.
+         */
+        error: string;
     }
 
     /**
