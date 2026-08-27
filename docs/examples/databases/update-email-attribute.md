@@ -11,9 +11,9 @@ const databases = new sdk.Databases(client);
 const result = await databases.updateEmailAttribute({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
     xdefault: 'email@example.com',
-    newKey: '' // optional
+    newKey: '<NEW_KEY>', // optional
 });
 ```

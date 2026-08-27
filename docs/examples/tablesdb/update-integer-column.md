@@ -11,11 +11,11 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.updateIntegerColumn({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: null,
-    min: null, // optional
-    max: null, // optional
-    newKey: '' // optional
+    xdefault: 10,
+    min: 0, // optional
+    max: 100, // optional
+    newKey: '<NEW_KEY>', // optional
 });
 ```

@@ -27,6 +27,6 @@ const result = await apps.create({
     enabled: false, // optional
     type: 'public', // optional
     deviceFlow: false, // optional
-    teamId: '<TEAM_ID>' // optional
+    teamId: '<TEAM_ID>', // optional
 });
 ```

@@ -14,6 +14,6 @@ const result = await messaging.updateTelesignProvider({
     enabled: false, // optional
     customerId: '<CUSTOMER_ID>', // optional
     apiKey: '<API_KEY>', // optional
-    from: '<FROM>' // optional
+    from: '<FROM>', // optional
 });
 ```

@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const presences = new sdk.Presences(client);
 
 const result = await presences.delete({
-    presenceId: '<PRESENCE_ID>'
+    presenceId: '<PRESENCE_ID>',
 });
 ```

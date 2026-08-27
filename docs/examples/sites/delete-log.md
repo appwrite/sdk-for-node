@@ -10,6 +10,6 @@ const sites = new sdk.Sites(client);
 
 const result = await sites.deleteLog({
     siteId: '<SITE_ID>',
-    logId: '<LOG_ID>'
+    logId: '<LOG_ID>',
 });
 ```

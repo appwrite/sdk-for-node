@@ -10,6 +10,6 @@ const teams = new sdk.Teams(client);
 
 const result = await teams.getInstallation({
     teamId: '<TEAM_ID>',
-    installationId: '<INSTALLATION_ID>'
+    installationId: '<INSTALLATION_ID>',
 });
 ```

@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const backups = new sdk.Backups(client);
 
 const result = await backups.listRestorations({
-    queries: [] // optional
+    queries: [], // optional
 });
 ```

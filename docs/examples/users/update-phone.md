@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.updatePhone({
     userId: '<USER_ID>',
-    number: '+12065550100'
+    number: '+12065550100',
 });
 ```

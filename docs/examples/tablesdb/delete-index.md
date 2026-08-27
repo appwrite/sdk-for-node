@@ -11,6 +11,6 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.deleteIndex({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: ''
+    key: '<KEY>',
 });
 ```

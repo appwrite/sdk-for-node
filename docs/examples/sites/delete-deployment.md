@@ -10,6 +10,6 @@ const sites = new sdk.Sites(client);
 
 const result = await sites.deleteDeployment({
     siteId: '<SITE_ID>',
-    deploymentId: '<DEPLOYMENT_ID>'
+    deploymentId: '<DEPLOYMENT_ID>',
 });
 ```

@@ -22,6 +22,6 @@ const result = await oauth2.authorizePost({
     authorizationDetails: '<AUTHORIZATION_DETAILS>', // optional
     resource: '', // optional
     audience: '<AUDIENCE>', // optional
-    requestUri: '<REQUEST_URI>' // optional
+    requestUri: '<REQUEST_URI>', // optional
 });
 ```

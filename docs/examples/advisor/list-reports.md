@@ -10,6 +10,6 @@ const advisor = new sdk.Advisor(client);
 
 const result = await advisor.listReports({
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

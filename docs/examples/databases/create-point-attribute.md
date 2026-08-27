@@ -11,8 +11,8 @@ const databases = new sdk.Databases(client);
 const result = await databases.createPointAttribute({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: [1, 2] // optional
+    xdefault: [1, 2], // optional
 });
 ```

@@ -12,6 +12,6 @@ const result = await organization.createKey({
     keyId: '<KEY_ID>',
     name: '<NAME>',
     scopes: [sdk.OrganizationKeyScopes.ProjectsRead],
-    expire: '2020-10-15T06:38:00.000+00:00' // optional
+    expire: '2020-10-15T06:38:00.000+00:00', // optional
 });
 ```

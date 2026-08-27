@@ -12,6 +12,6 @@ const result = await messaging.createFCMProvider({
     providerId: '<PROVIDER_ID>',
     name: '<NAME>',
     serviceAccountJSON: {}, // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

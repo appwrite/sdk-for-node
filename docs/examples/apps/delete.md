@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const apps = new sdk.Apps(client);
 
 const result = await apps.delete({
-    appId: '<APP_ID>'
+    appId: '<APP_ID>',
 });
 ```

@@ -11,9 +11,9 @@ const databases = new sdk.Databases(client);
 const result = await databases.updateTextAttribute({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: '<DEFAULT>',
-    newKey: '' // optional
+    xdefault: 'Hello World',
+    newKey: '<NEW_KEY>', // optional
 });
 ```

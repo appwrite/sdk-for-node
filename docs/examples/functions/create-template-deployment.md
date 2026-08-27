@@ -15,6 +15,6 @@ const result = await functions.createTemplateDeployment({
     rootDirectory: '<ROOT_DIRECTORY>',
     type: sdk.TemplateReferenceType.Commit,
     reference: '<REFERENCE>',
-    activate: false // optional
+    activate: false, // optional
 });
 ```

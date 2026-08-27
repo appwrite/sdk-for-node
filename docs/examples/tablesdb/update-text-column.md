@@ -11,9 +11,9 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.updateTextColumn({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: '<DEFAULT>',
-    newKey: '' // optional
+    xdefault: 'Hello World',
+    newKey: '<NEW_KEY>', // optional
 });
 ```

@@ -11,6 +11,6 @@ const project = new sdk.Project(client);
 const result = await project.updateOAuth2Stripe({
     clientId: '<CLIENT_ID>', // optional
     apiSecretKey: '<API_SECRET_KEY>', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

@@ -10,6 +10,6 @@ const apps = new sdk.Apps(client);
 
 const result = await apps.deleteInstallation({
     appId: '<APP_ID>',
-    installationId: '<INSTALLATION_ID>'
+    installationId: '<INSTALLATION_ID>',
 });
 ```

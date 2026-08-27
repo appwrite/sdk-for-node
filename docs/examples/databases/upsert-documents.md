@@ -12,6 +12,6 @@ const result = await databases.upsertDocuments({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
     documents: [],
-    transactionId: '<TRANSACTION_ID>' // optional
+    transactionId: '<TRANSACTION_ID>', // optional
 });
 ```

@@ -19,6 +19,6 @@ const result = await storage.createBucket({
     compression: sdk.Compression.None, // optional
     encryption: false, // optional
     antivirus: false, // optional
-    transformations: false // optional
+    transformations: false, // optional
 });
 ```

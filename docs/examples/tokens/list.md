@@ -12,6 +12,6 @@ const result = await tokens.list({
     bucketId: '<BUCKET_ID>',
     fileId: '<FILE_ID>',
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

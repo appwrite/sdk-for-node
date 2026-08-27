@@ -15,6 +15,6 @@ const result = await databases.updateCollection({
     permissions: [sdk.Permission.read(sdk.Role.any())], // optional
     documentSecurity: false, // optional
     enabled: false, // optional
-    purge: false // optional
+    purge: false, // optional
 });
 ```

@@ -13,6 +13,6 @@ const result = await functions.updateVariable({
     variableId: '<VARIABLE_ID>',
     key: '<KEY>', // optional
     value: '<VALUE>', // optional
-    secret: false // optional
+    secret: false, // optional
 });
 ```

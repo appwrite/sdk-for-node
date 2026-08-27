@@ -1,7 +1,5 @@
-import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
+import { AppwriteException, Client, type Payload } from '../client';
 import type { Models } from '../models';
-
-
 
 export class Oauth2 {
     client: Client;
@@ -19,7 +17,11 @@ export class Oauth2 {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Oauth2Approve>}
      */
-    approve(params: { grantId: string, authorizationDetails?: string, scope?: string }): Promise<Models.Oauth2Approve>;
+    approve(params: {
+        grantId: string;
+        authorizationDetails?: string;
+        scope?: string;
+    }): Promise<Models.Oauth2Approve>;
     /**
      * Approve an OAuth2 grant after the user gives consent. Returns the `redirectUrl` the end user should be sent to. The consent screen may optionally pass enriched `authorization_details` to record the concrete resources the user selected. You can pass Accept header of `application/json` to receive a JSON response instead of a redirect.
      *
@@ -30,55 +32,71 @@ export class Oauth2 {
      * @returns {Promise<Models.Oauth2Approve>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    approve(grantId: string, authorizationDetails?: string, scope?: string): Promise<Models.Oauth2Approve>;
     approve(
-        paramsOrFirst: { grantId: string, authorizationDetails?: string, scope?: string } | string,
-        ...rest: [(string)?, (string)?]    
+        grantId: string,
+        authorizationDetails?: string,
+        scope?: string,
+    ): Promise<Models.Oauth2Approve>;
+    approve(
+        paramsOrFirst:
+            | { grantId: string; authorizationDetails?: string; scope?: string }
+            | string,
+        ...rest: [string?, string?]
     ): Promise<Models.Oauth2Approve> {
-        let params: { grantId: string, authorizationDetails?: string, scope?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { grantId: string, authorizationDetails?: string, scope?: string };
+        let params: {
+            grantId: string;
+            authorizationDetails?: string;
+            scope?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                grantId: string;
+                authorizationDetails?: string;
+                scope?: string;
+            };
         } else {
             params = {
                 grantId: paramsOrFirst as string,
                 authorizationDetails: rest[0] as string,
-                scope: rest[1] as string            
+                scope: rest[1] as string,
             };
         }
-        
+
         const grantId = params.grantId;
         const authorizationDetails = params.authorizationDetails;
         const scope = params.scope;
-
         if (typeof grantId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "grantId"');
+            throw new AppwriteException(
+                'Missing required parameter: "grantId"',
+            );
         }
-
-        const apiPath = '/oauth2/{project_id}/approve'.replace('{project_id}', encodeURIComponent(String(this.client.config.project)));
-        const payload: Payload = {};
+        const apiPath = '/oauth2/{project_id}/approve'.replace(
+            '{project_id}',
+            encodeURIComponent(String(this.client.config.project)),
+        );
+        const apiPayload: Payload = {};
         if (typeof grantId !== 'undefined') {
-            payload['grant_id'] = grantId;
+            apiPayload['grant_id'] = grantId;
         }
         if (typeof authorizationDetails !== 'undefined') {
-            payload['authorization_details'] = authorizationDetails;
+            apiPayload['authorization_details'] = authorizationDetails;
         }
         if (typeof scope !== 'undefined') {
-            payload['scope'] = scope;
+            apiPayload['scope'] = scope;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -101,7 +119,22 @@ export class Oauth2 {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Oauth2Authorize>}
      */
-    authorize(params?: { clientId?: string, redirectUri?: string, responseType?: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string, requestUri?: string }): Promise<Models.Oauth2Authorize>;
+    authorize(params?: {
+        clientId?: string;
+        redirectUri?: string;
+        responseType?: string;
+        scope?: string;
+        state?: string;
+        nonce?: string;
+        codeChallenge?: string;
+        codeChallengeMethod?: string;
+        prompt?: string;
+        maxAge?: number;
+        authorizationDetails?: string;
+        resource?: string;
+        audience?: string;
+        requestUri?: string;
+    }): Promise<Models.Oauth2Authorize>;
     /**
      * Begin the OAuth2 authorization flow. When called without a session, the user is redirected to the consent screen without grant ID. When called with a session, the redirect URL includes param for grant ID. You can pass Accept header of `application/json` to receive a JSON response instead of a redirect.
      *
@@ -123,15 +156,96 @@ export class Oauth2 {
      * @returns {Promise<Models.Oauth2Authorize>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    authorize(clientId?: string, redirectUri?: string, responseType?: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string, requestUri?: string): Promise<Models.Oauth2Authorize>;
     authorize(
-        paramsOrFirst?: { clientId?: string, redirectUri?: string, responseType?: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string, requestUri?: string } | string,
-        ...rest: [(string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (number)?, (string)?, (string)?, (string)?, (string)?]    
+        clientId?: string,
+        redirectUri?: string,
+        responseType?: string,
+        scope?: string,
+        state?: string,
+        nonce?: string,
+        codeChallenge?: string,
+        codeChallengeMethod?: string,
+        prompt?: string,
+        maxAge?: number,
+        authorizationDetails?: string,
+        resource?: string,
+        audience?: string,
+        requestUri?: string,
+    ): Promise<Models.Oauth2Authorize>;
+    authorize(
+        paramsOrFirst?:
+            | {
+                  clientId?: string;
+                  redirectUri?: string;
+                  responseType?: string;
+                  scope?: string;
+                  state?: string;
+                  nonce?: string;
+                  codeChallenge?: string;
+                  codeChallengeMethod?: string;
+                  prompt?: string;
+                  maxAge?: number;
+                  authorizationDetails?: string;
+                  resource?: string;
+                  audience?: string;
+                  requestUri?: string;
+              }
+            | string,
+        ...rest: [
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            number?,
+            string?,
+            string?,
+            string?,
+            string?,
+        ]
     ): Promise<Models.Oauth2Authorize> {
-        let params: { clientId?: string, redirectUri?: string, responseType?: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string, requestUri?: string };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { clientId?: string, redirectUri?: string, responseType?: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string, requestUri?: string };
+        let params: {
+            clientId?: string;
+            redirectUri?: string;
+            responseType?: string;
+            scope?: string;
+            state?: string;
+            nonce?: string;
+            codeChallenge?: string;
+            codeChallengeMethod?: string;
+            prompt?: string;
+            maxAge?: number;
+            authorizationDetails?: string;
+            resource?: string;
+            audience?: string;
+            requestUri?: string;
+        };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string;
+                redirectUri?: string;
+                responseType?: string;
+                scope?: string;
+                state?: string;
+                nonce?: string;
+                codeChallenge?: string;
+                codeChallengeMethod?: string;
+                prompt?: string;
+                maxAge?: number;
+                authorizationDetails?: string;
+                resource?: string;
+                audience?: string;
+                requestUri?: string;
+            };
         } else {
             params = {
                 clientId: paramsOrFirst as string,
@@ -147,10 +261,10 @@ export class Oauth2 {
                 authorizationDetails: rest[9] as string,
                 resource: rest[10] as string,
                 audience: rest[11] as string,
-                requestUri: rest[12] as string            
+                requestUri: rest[12] as string,
             };
         }
-        
+
         const clientId = params.clientId;
         const redirectUri = params.redirectUri;
         const responseType = params.responseType;
@@ -165,64 +279,60 @@ export class Oauth2 {
         const resource = params.resource;
         const audience = params.audience;
         const requestUri = params.requestUri;
-
-
-        const apiPath = '/oauth2/{project_id}/authorize'.replace('{project_id}', encodeURIComponent(String(this.client.config.project)));
-        const payload: Payload = {};
+        const apiPath = '/oauth2/{project_id}/authorize'.replace(
+            '{project_id}',
+            encodeURIComponent(String(this.client.config.project)),
+        );
+        const apiPayload: Payload = {};
         if (typeof clientId !== 'undefined') {
-            payload['client_id'] = clientId;
+            apiPayload['client_id'] = clientId;
         }
         if (typeof redirectUri !== 'undefined') {
-            payload['redirect_uri'] = redirectUri;
+            apiPayload['redirect_uri'] = redirectUri;
         }
         if (typeof responseType !== 'undefined') {
-            payload['response_type'] = responseType;
+            apiPayload['response_type'] = responseType;
         }
         if (typeof scope !== 'undefined') {
-            payload['scope'] = scope;
+            apiPayload['scope'] = scope;
         }
         if (typeof state !== 'undefined') {
-            payload['state'] = state;
+            apiPayload['state'] = state;
         }
         if (typeof nonce !== 'undefined') {
-            payload['nonce'] = nonce;
+            apiPayload['nonce'] = nonce;
         }
         if (typeof codeChallenge !== 'undefined') {
-            payload['code_challenge'] = codeChallenge;
+            apiPayload['code_challenge'] = codeChallenge;
         }
         if (typeof codeChallengeMethod !== 'undefined') {
-            payload['code_challenge_method'] = codeChallengeMethod;
+            apiPayload['code_challenge_method'] = codeChallengeMethod;
         }
         if (typeof prompt !== 'undefined') {
-            payload['prompt'] = prompt;
+            apiPayload['prompt'] = prompt;
         }
         if (typeof maxAge !== 'undefined') {
-            payload['max_age'] = maxAge;
+            apiPayload['max_age'] = maxAge;
         }
         if (typeof authorizationDetails !== 'undefined') {
-            payload['authorization_details'] = authorizationDetails;
+            apiPayload['authorization_details'] = authorizationDetails;
         }
         if (typeof resource !== 'undefined') {
-            payload['resource'] = resource;
+            apiPayload['resource'] = resource;
         }
         if (typeof audience !== 'undefined') {
-            payload['audience'] = audience;
+            apiPayload['audience'] = audience;
         }
         if (typeof requestUri !== 'undefined') {
-            payload['request_uri'] = requestUri;
+            apiPayload['request_uri'] = requestUri;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -245,7 +355,22 @@ export class Oauth2 {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Oauth2Authorize>}
      */
-    authorizePost(params?: { clientId?: string, redirectUri?: string, responseType?: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string, requestUri?: string }): Promise<Models.Oauth2Authorize>;
+    authorizePost(params?: {
+        clientId?: string;
+        redirectUri?: string;
+        responseType?: string;
+        scope?: string;
+        state?: string;
+        nonce?: string;
+        codeChallenge?: string;
+        codeChallengeMethod?: string;
+        prompt?: string;
+        maxAge?: number;
+        authorizationDetails?: string;
+        resource?: string;
+        audience?: string;
+        requestUri?: string;
+    }): Promise<Models.Oauth2Authorize>;
     /**
      * Begin the OAuth2 authorization flow. When called without a session, the user is redirected to the consent screen without grant ID. When called with a session, the redirect URL includes param for grant ID. You can pass Accept header of `application/json` to receive a JSON response instead of a redirect.
      *
@@ -267,15 +392,96 @@ export class Oauth2 {
      * @returns {Promise<Models.Oauth2Authorize>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    authorizePost(clientId?: string, redirectUri?: string, responseType?: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string, requestUri?: string): Promise<Models.Oauth2Authorize>;
     authorizePost(
-        paramsOrFirst?: { clientId?: string, redirectUri?: string, responseType?: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string, requestUri?: string } | string,
-        ...rest: [(string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (number)?, (string)?, (string)?, (string)?, (string)?]    
+        clientId?: string,
+        redirectUri?: string,
+        responseType?: string,
+        scope?: string,
+        state?: string,
+        nonce?: string,
+        codeChallenge?: string,
+        codeChallengeMethod?: string,
+        prompt?: string,
+        maxAge?: number,
+        authorizationDetails?: string,
+        resource?: string,
+        audience?: string,
+        requestUri?: string,
+    ): Promise<Models.Oauth2Authorize>;
+    authorizePost(
+        paramsOrFirst?:
+            | {
+                  clientId?: string;
+                  redirectUri?: string;
+                  responseType?: string;
+                  scope?: string;
+                  state?: string;
+                  nonce?: string;
+                  codeChallenge?: string;
+                  codeChallengeMethod?: string;
+                  prompt?: string;
+                  maxAge?: number;
+                  authorizationDetails?: string;
+                  resource?: string;
+                  audience?: string;
+                  requestUri?: string;
+              }
+            | string,
+        ...rest: [
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            number?,
+            string?,
+            string?,
+            string?,
+            string?,
+        ]
     ): Promise<Models.Oauth2Authorize> {
-        let params: { clientId?: string, redirectUri?: string, responseType?: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string, requestUri?: string };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { clientId?: string, redirectUri?: string, responseType?: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string, requestUri?: string };
+        let params: {
+            clientId?: string;
+            redirectUri?: string;
+            responseType?: string;
+            scope?: string;
+            state?: string;
+            nonce?: string;
+            codeChallenge?: string;
+            codeChallengeMethod?: string;
+            prompt?: string;
+            maxAge?: number;
+            authorizationDetails?: string;
+            resource?: string;
+            audience?: string;
+            requestUri?: string;
+        };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string;
+                redirectUri?: string;
+                responseType?: string;
+                scope?: string;
+                state?: string;
+                nonce?: string;
+                codeChallenge?: string;
+                codeChallengeMethod?: string;
+                prompt?: string;
+                maxAge?: number;
+                authorizationDetails?: string;
+                resource?: string;
+                audience?: string;
+                requestUri?: string;
+            };
         } else {
             params = {
                 clientId: paramsOrFirst as string,
@@ -291,10 +497,10 @@ export class Oauth2 {
                 authorizationDetails: rest[9] as string,
                 resource: rest[10] as string,
                 audience: rest[11] as string,
-                requestUri: rest[12] as string            
+                requestUri: rest[12] as string,
             };
         }
-        
+
         const clientId = params.clientId;
         const redirectUri = params.redirectUri;
         const responseType = params.responseType;
@@ -309,65 +515,61 @@ export class Oauth2 {
         const resource = params.resource;
         const audience = params.audience;
         const requestUri = params.requestUri;
-
-
-        const apiPath = '/oauth2/{project_id}/authorize'.replace('{project_id}', encodeURIComponent(String(this.client.config.project)));
-        const payload: Payload = {};
+        const apiPath = '/oauth2/{project_id}/authorize'.replace(
+            '{project_id}',
+            encodeURIComponent(String(this.client.config.project)),
+        );
+        const apiPayload: Payload = {};
         if (typeof clientId !== 'undefined') {
-            payload['client_id'] = clientId;
+            apiPayload['client_id'] = clientId;
         }
         if (typeof redirectUri !== 'undefined') {
-            payload['redirect_uri'] = redirectUri;
+            apiPayload['redirect_uri'] = redirectUri;
         }
         if (typeof responseType !== 'undefined') {
-            payload['response_type'] = responseType;
+            apiPayload['response_type'] = responseType;
         }
         if (typeof scope !== 'undefined') {
-            payload['scope'] = scope;
+            apiPayload['scope'] = scope;
         }
         if (typeof state !== 'undefined') {
-            payload['state'] = state;
+            apiPayload['state'] = state;
         }
         if (typeof nonce !== 'undefined') {
-            payload['nonce'] = nonce;
+            apiPayload['nonce'] = nonce;
         }
         if (typeof codeChallenge !== 'undefined') {
-            payload['code_challenge'] = codeChallenge;
+            apiPayload['code_challenge'] = codeChallenge;
         }
         if (typeof codeChallengeMethod !== 'undefined') {
-            payload['code_challenge_method'] = codeChallengeMethod;
+            apiPayload['code_challenge_method'] = codeChallengeMethod;
         }
         if (typeof prompt !== 'undefined') {
-            payload['prompt'] = prompt;
+            apiPayload['prompt'] = prompt;
         }
         if (typeof maxAge !== 'undefined') {
-            payload['max_age'] = maxAge;
+            apiPayload['max_age'] = maxAge;
         }
         if (typeof authorizationDetails !== 'undefined') {
-            payload['authorization_details'] = authorizationDetails;
+            apiPayload['authorization_details'] = authorizationDetails;
         }
         if (typeof resource !== 'undefined') {
-            payload['resource'] = resource;
+            apiPayload['resource'] = resource;
         }
         if (typeof audience !== 'undefined') {
-            payload['audience'] = audience;
+            apiPayload['audience'] = audience;
         }
         if (typeof requestUri !== 'undefined') {
-            payload['request_uri'] = requestUri;
+            apiPayload['request_uri'] = requestUri;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -381,7 +583,13 @@ export class Oauth2 {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Oauth2DeviceAuthorization>}
      */
-    createDeviceAuthorization(params?: { clientId?: string, scope?: string, authorizationDetails?: string, resource?: string, audience?: string }): Promise<Models.Oauth2DeviceAuthorization>;
+    createDeviceAuthorization(params?: {
+        clientId?: string;
+        scope?: string;
+        authorizationDetails?: string;
+        resource?: string;
+        audience?: string;
+    }): Promise<Models.Oauth2DeviceAuthorization>;
     /**
      * Start the OAuth2 Device Authorization Grant. Returns the device code, user code, verification URL, expiration, and polling interval.
      *
@@ -394,62 +602,89 @@ export class Oauth2 {
      * @returns {Promise<Models.Oauth2DeviceAuthorization>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createDeviceAuthorization(clientId?: string, scope?: string, authorizationDetails?: string, resource?: string, audience?: string): Promise<Models.Oauth2DeviceAuthorization>;
     createDeviceAuthorization(
-        paramsOrFirst?: { clientId?: string, scope?: string, authorizationDetails?: string, resource?: string, audience?: string } | string,
-        ...rest: [(string)?, (string)?, (string)?, (string)?]    
+        clientId?: string,
+        scope?: string,
+        authorizationDetails?: string,
+        resource?: string,
+        audience?: string,
+    ): Promise<Models.Oauth2DeviceAuthorization>;
+    createDeviceAuthorization(
+        paramsOrFirst?:
+            | {
+                  clientId?: string;
+                  scope?: string;
+                  authorizationDetails?: string;
+                  resource?: string;
+                  audience?: string;
+              }
+            | string,
+        ...rest: [string?, string?, string?, string?]
     ): Promise<Models.Oauth2DeviceAuthorization> {
-        let params: { clientId?: string, scope?: string, authorizationDetails?: string, resource?: string, audience?: string };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { clientId?: string, scope?: string, authorizationDetails?: string, resource?: string, audience?: string };
+        let params: {
+            clientId?: string;
+            scope?: string;
+            authorizationDetails?: string;
+            resource?: string;
+            audience?: string;
+        };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string;
+                scope?: string;
+                authorizationDetails?: string;
+                resource?: string;
+                audience?: string;
+            };
         } else {
             params = {
                 clientId: paramsOrFirst as string,
                 scope: rest[0] as string,
                 authorizationDetails: rest[1] as string,
                 resource: rest[2] as string,
-                audience: rest[3] as string            
+                audience: rest[3] as string,
             };
         }
-        
+
         const clientId = params.clientId;
         const scope = params.scope;
         const authorizationDetails = params.authorizationDetails;
         const resource = params.resource;
         const audience = params.audience;
-
-
-        const apiPath = '/oauth2/{project_id}/device_authorization'.replace('{project_id}', encodeURIComponent(String(this.client.config.project)));
-        const payload: Payload = {};
+        const apiPath = '/oauth2/{project_id}/device_authorization'.replace(
+            '{project_id}',
+            encodeURIComponent(String(this.client.config.project)),
+        );
+        const apiPayload: Payload = {};
         if (typeof clientId !== 'undefined') {
-            payload['client_id'] = clientId;
+            apiPayload['client_id'] = clientId;
         }
         if (typeof scope !== 'undefined') {
-            payload['scope'] = scope;
+            apiPayload['scope'] = scope;
         }
         if (typeof authorizationDetails !== 'undefined') {
-            payload['authorization_details'] = authorizationDetails;
+            apiPayload['authorization_details'] = authorizationDetails;
         }
         if (typeof resource !== 'undefined') {
-            payload['resource'] = resource;
+            apiPayload['resource'] = resource;
         }
         if (typeof audience !== 'undefined') {
-            payload['audience'] = audience;
+            apiPayload['audience'] = audience;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -470,42 +705,44 @@ export class Oauth2 {
      */
     createGrant(userCode: string): Promise<Models.Oauth2Grant>;
     createGrant(
-        paramsOrFirst: { userCode: string } | string    
+        paramsOrFirst: { userCode: string } | string,
     ): Promise<Models.Oauth2Grant> {
         let params: { userCode: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { userCode: string };
         } else {
             params = {
-                userCode: paramsOrFirst as string            
+                userCode: paramsOrFirst as string,
             };
         }
-        
+
         const userCode = params.userCode;
-
         if (typeof userCode === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "userCode"');
+            throw new AppwriteException(
+                'Missing required parameter: "userCode"',
+            );
         }
-
-        const apiPath = '/oauth2/{project_id}/grants'.replace('{project_id}', encodeURIComponent(String(this.client.config.project)));
-        const payload: Payload = {};
+        const apiPath = '/oauth2/{project_id}/grants'.replace(
+            '{project_id}',
+            encodeURIComponent(String(this.client.config.project)),
+        );
+        const apiPayload: Payload = {};
         if (typeof userCode !== 'undefined') {
-            payload['user_code'] = userCode;
+            apiPayload['user_code'] = userCode;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -526,38 +763,42 @@ export class Oauth2 {
      */
     getGrant(grantId: string): Promise<Models.Oauth2Grant>;
     getGrant(
-        paramsOrFirst: { grantId: string } | string    
+        paramsOrFirst: { grantId: string } | string,
     ): Promise<Models.Oauth2Grant> {
         let params: { grantId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { grantId: string };
         } else {
             params = {
-                grantId: paramsOrFirst as string            
+                grantId: paramsOrFirst as string,
             };
         }
-        
+
         const grantId = params.grantId;
-
         if (typeof grantId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "grantId"');
+            throw new AppwriteException(
+                'Missing required parameter: "grantId"',
+            );
         }
-
-        const apiPath = '/oauth2/{project_id}/grants/{grant_id}'.replace('{project_id}', encodeURIComponent(String(this.client.config.project))).replace('{grant_id}', encodeURIComponent(String(grantId)));
-        const payload: Payload = {};
+        const apiPath = '/oauth2/{project_id}/grants/{grant_id}'
+            .replace(
+                '{project_id}',
+                encodeURIComponent(String(this.client.config.project)),
+            )
+            .replace('{grant_id}', encodeURIComponent(String(grantId)));
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -569,7 +810,11 @@ export class Oauth2 {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Oauth2OrganizationList>}
      */
-    listOrganizations(params?: { limit?: number, offset?: number, search?: string }): Promise<Models.Oauth2OrganizationList>;
+    listOrganizations(params?: {
+        limit?: number;
+        offset?: number;
+        search?: string;
+    }): Promise<Models.Oauth2OrganizationList>;
     /**
      * List the organizations the OAuth2 access token can access. Resolves the token's `organization` authorization details, expanding the `*` wildcard into the concrete set of organizations the user can see.
      *
@@ -580,51 +825,61 @@ export class Oauth2 {
      * @returns {Promise<Models.Oauth2OrganizationList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listOrganizations(limit?: number, offset?: number, search?: string): Promise<Models.Oauth2OrganizationList>;
     listOrganizations(
-        paramsOrFirst?: { limit?: number, offset?: number, search?: string } | number,
-        ...rest: [(number)?, (string)?]    
+        limit?: number,
+        offset?: number,
+        search?: string,
+    ): Promise<Models.Oauth2OrganizationList>;
+    listOrganizations(
+        paramsOrFirst?:
+            { limit?: number; offset?: number; search?: string } | number,
+        ...rest: [number?, string?]
     ): Promise<Models.Oauth2OrganizationList> {
-        let params: { limit?: number, offset?: number, search?: string };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { limit?: number, offset?: number, search?: string };
+        let params: { limit?: number; offset?: number; search?: string };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                limit?: number;
+                offset?: number;
+                search?: string;
+            };
         } else {
             params = {
                 limit: paramsOrFirst as number,
                 offset: rest[0] as number,
-                search: rest[1] as string            
+                search: rest[1] as string,
             };
         }
-        
+
         const limit = params.limit;
         const offset = params.offset;
         const search = params.search;
-
-
-        const apiPath = '/oauth2/{project_id}/organizations'.replace('{project_id}', encodeURIComponent(String(this.client.config.project)));
-        const payload: Payload = {};
+        const apiPath = '/oauth2/{project_id}/organizations'.replace(
+            '{project_id}',
+            encodeURIComponent(String(this.client.config.project)),
+        );
+        const apiPayload: Payload = {};
         if (typeof limit !== 'undefined') {
-            payload['limit'] = limit;
+            apiPayload['limit'] = limit;
         }
         if (typeof offset !== 'undefined') {
-            payload['offset'] = offset;
+            apiPayload['offset'] = offset;
         }
         if (typeof search !== 'undefined') {
-            payload['search'] = search;
+            apiPayload['search'] = search;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -646,7 +901,21 @@ export class Oauth2 {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Oauth2PAR>}
      */
-    createPAR(params: { clientId: string, redirectUri: string, responseType: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string }): Promise<Models.Oauth2PAR>;
+    createPAR(params: {
+        clientId: string;
+        redirectUri: string;
+        responseType: string;
+        scope?: string;
+        state?: string;
+        nonce?: string;
+        codeChallenge?: string;
+        codeChallengeMethod?: string;
+        prompt?: string;
+        maxAge?: number;
+        authorizationDetails?: string;
+        resource?: string;
+        audience?: string;
+    }): Promise<Models.Oauth2PAR>;
     /**
      * Store an OAuth2 authorization request server-side and receive a short-lived request_uri handle for the authorize endpoint.
      *
@@ -667,15 +936,90 @@ export class Oauth2 {
      * @returns {Promise<Models.Oauth2PAR>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createPAR(clientId: string, redirectUri: string, responseType: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string): Promise<Models.Oauth2PAR>;
     createPAR(
-        paramsOrFirst: { clientId: string, redirectUri: string, responseType: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string } | string,
-        ...rest: [(string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (number)?, (string)?, (string)?, (string)?]    
+        clientId: string,
+        redirectUri: string,
+        responseType: string,
+        scope?: string,
+        state?: string,
+        nonce?: string,
+        codeChallenge?: string,
+        codeChallengeMethod?: string,
+        prompt?: string,
+        maxAge?: number,
+        authorizationDetails?: string,
+        resource?: string,
+        audience?: string,
+    ): Promise<Models.Oauth2PAR>;
+    createPAR(
+        paramsOrFirst:
+            | {
+                  clientId: string;
+                  redirectUri: string;
+                  responseType: string;
+                  scope?: string;
+                  state?: string;
+                  nonce?: string;
+                  codeChallenge?: string;
+                  codeChallengeMethod?: string;
+                  prompt?: string;
+                  maxAge?: number;
+                  authorizationDetails?: string;
+                  resource?: string;
+                  audience?: string;
+              }
+            | string,
+        ...rest: [
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            number?,
+            string?,
+            string?,
+            string?,
+        ]
     ): Promise<Models.Oauth2PAR> {
-        let params: { clientId: string, redirectUri: string, responseType: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { clientId: string, redirectUri: string, responseType: string, scope?: string, state?: string, nonce?: string, codeChallenge?: string, codeChallengeMethod?: string, prompt?: string, maxAge?: number, authorizationDetails?: string, resource?: string, audience?: string };
+        let params: {
+            clientId: string;
+            redirectUri: string;
+            responseType: string;
+            scope?: string;
+            state?: string;
+            nonce?: string;
+            codeChallenge?: string;
+            codeChallengeMethod?: string;
+            prompt?: string;
+            maxAge?: number;
+            authorizationDetails?: string;
+            resource?: string;
+            audience?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId: string;
+                redirectUri: string;
+                responseType: string;
+                scope?: string;
+                state?: string;
+                nonce?: string;
+                codeChallenge?: string;
+                codeChallengeMethod?: string;
+                prompt?: string;
+                maxAge?: number;
+                authorizationDetails?: string;
+                resource?: string;
+                audience?: string;
+            };
         } else {
             params = {
                 clientId: paramsOrFirst as string,
@@ -690,10 +1034,10 @@ export class Oauth2 {
                 maxAge: rest[8] as number,
                 authorizationDetails: rest[9] as string,
                 resource: rest[10] as string,
-                audience: rest[11] as string            
+                audience: rest[11] as string,
             };
         }
-        
+
         const clientId = params.clientId;
         const redirectUri = params.redirectUri;
         const responseType = params.responseType;
@@ -707,71 +1051,73 @@ export class Oauth2 {
         const authorizationDetails = params.authorizationDetails;
         const resource = params.resource;
         const audience = params.audience;
-
         if (typeof clientId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "clientId"');
+            throw new AppwriteException(
+                'Missing required parameter: "clientId"',
+            );
         }
         if (typeof redirectUri === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "redirectUri"');
+            throw new AppwriteException(
+                'Missing required parameter: "redirectUri"',
+            );
         }
         if (typeof responseType === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "responseType"');
+            throw new AppwriteException(
+                'Missing required parameter: "responseType"',
+            );
         }
-
-        const apiPath = '/oauth2/{project_id}/par'.replace('{project_id}', encodeURIComponent(String(this.client.config.project)));
-        const payload: Payload = {};
+        const apiPath = '/oauth2/{project_id}/par'.replace(
+            '{project_id}',
+            encodeURIComponent(String(this.client.config.project)),
+        );
+        const apiPayload: Payload = {};
         if (typeof clientId !== 'undefined') {
-            payload['client_id'] = clientId;
+            apiPayload['client_id'] = clientId;
         }
         if (typeof redirectUri !== 'undefined') {
-            payload['redirect_uri'] = redirectUri;
+            apiPayload['redirect_uri'] = redirectUri;
         }
         if (typeof responseType !== 'undefined') {
-            payload['response_type'] = responseType;
+            apiPayload['response_type'] = responseType;
         }
         if (typeof scope !== 'undefined') {
-            payload['scope'] = scope;
+            apiPayload['scope'] = scope;
         }
         if (typeof state !== 'undefined') {
-            payload['state'] = state;
+            apiPayload['state'] = state;
         }
         if (typeof nonce !== 'undefined') {
-            payload['nonce'] = nonce;
+            apiPayload['nonce'] = nonce;
         }
         if (typeof codeChallenge !== 'undefined') {
-            payload['code_challenge'] = codeChallenge;
+            apiPayload['code_challenge'] = codeChallenge;
         }
         if (typeof codeChallengeMethod !== 'undefined') {
-            payload['code_challenge_method'] = codeChallengeMethod;
+            apiPayload['code_challenge_method'] = codeChallengeMethod;
         }
         if (typeof prompt !== 'undefined') {
-            payload['prompt'] = prompt;
+            apiPayload['prompt'] = prompt;
         }
         if (typeof maxAge !== 'undefined') {
-            payload['max_age'] = maxAge;
+            apiPayload['max_age'] = maxAge;
         }
         if (typeof authorizationDetails !== 'undefined') {
-            payload['authorization_details'] = authorizationDetails;
+            apiPayload['authorization_details'] = authorizationDetails;
         }
         if (typeof resource !== 'undefined') {
-            payload['resource'] = resource;
+            apiPayload['resource'] = resource;
         }
         if (typeof audience !== 'undefined') {
-            payload['audience'] = audience;
+            apiPayload['audience'] = audience;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -783,7 +1129,11 @@ export class Oauth2 {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Oauth2ProjectList>}
      */
-    listProjects(params?: { limit?: number, offset?: number, search?: string }): Promise<Models.Oauth2ProjectList>;
+    listProjects(params?: {
+        limit?: number;
+        offset?: number;
+        search?: string;
+    }): Promise<Models.Oauth2ProjectList>;
     /**
      * List the projects the OAuth2 access token can access. Resolves the token's `project` authorization details, expanding the `*` wildcard into the concrete set of projects the user can see.
      *
@@ -794,51 +1144,61 @@ export class Oauth2 {
      * @returns {Promise<Models.Oauth2ProjectList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listProjects(limit?: number, offset?: number, search?: string): Promise<Models.Oauth2ProjectList>;
     listProjects(
-        paramsOrFirst?: { limit?: number, offset?: number, search?: string } | number,
-        ...rest: [(number)?, (string)?]    
+        limit?: number,
+        offset?: number,
+        search?: string,
+    ): Promise<Models.Oauth2ProjectList>;
+    listProjects(
+        paramsOrFirst?:
+            { limit?: number; offset?: number; search?: string } | number,
+        ...rest: [number?, string?]
     ): Promise<Models.Oauth2ProjectList> {
-        let params: { limit?: number, offset?: number, search?: string };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { limit?: number, offset?: number, search?: string };
+        let params: { limit?: number; offset?: number; search?: string };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                limit?: number;
+                offset?: number;
+                search?: string;
+            };
         } else {
             params = {
                 limit: paramsOrFirst as number,
                 offset: rest[0] as number,
-                search: rest[1] as string            
+                search: rest[1] as string,
             };
         }
-        
+
         const limit = params.limit;
         const offset = params.offset;
         const search = params.search;
-
-
-        const apiPath = '/oauth2/{project_id}/projects'.replace('{project_id}', encodeURIComponent(String(this.client.config.project)));
-        const payload: Payload = {};
+        const apiPath = '/oauth2/{project_id}/projects'.replace(
+            '{project_id}',
+            encodeURIComponent(String(this.client.config.project)),
+        );
+        const apiPayload: Payload = {};
         if (typeof limit !== 'undefined') {
-            payload['limit'] = limit;
+            apiPayload['limit'] = limit;
         }
         if (typeof offset !== 'undefined') {
-            payload['offset'] = offset;
+            apiPayload['offset'] = offset;
         }
         if (typeof search !== 'undefined') {
-            payload['search'] = search;
+            apiPayload['search'] = search;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -859,42 +1219,44 @@ export class Oauth2 {
      */
     reject(grantId: string): Promise<Models.Oauth2Reject>;
     reject(
-        paramsOrFirst: { grantId: string } | string    
+        paramsOrFirst: { grantId: string } | string,
     ): Promise<Models.Oauth2Reject> {
         let params: { grantId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { grantId: string };
         } else {
             params = {
-                grantId: paramsOrFirst as string            
+                grantId: paramsOrFirst as string,
             };
         }
-        
+
         const grantId = params.grantId;
-
         if (typeof grantId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "grantId"');
+            throw new AppwriteException(
+                'Missing required parameter: "grantId"',
+            );
         }
-
-        const apiPath = '/oauth2/{project_id}/reject'.replace('{project_id}', encodeURIComponent(String(this.client.config.project)));
-        const payload: Payload = {};
+        const apiPath = '/oauth2/{project_id}/reject'.replace(
+            '{project_id}',
+            encodeURIComponent(String(this.client.config.project)),
+        );
+        const apiPayload: Payload = {};
         if (typeof grantId !== 'undefined') {
-            payload['grant_id'] = grantId;
+            apiPayload['grant_id'] = grantId;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -907,7 +1269,12 @@ export class Oauth2 {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    revoke(params: { token: string, tokenTypeHint?: string, clientId?: string, clientSecret?: string }): Promise<{}>;
+    revoke(params: {
+        token: string;
+        tokenTypeHint?: string;
+        clientId?: string;
+        clientSecret?: string;
+    }): Promise<{}>;
     /**
      * Revoke an OAuth2 access token or refresh token.
      *
@@ -919,60 +1286,82 @@ export class Oauth2 {
      * @returns {Promise<{}>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    revoke(token: string, tokenTypeHint?: string, clientId?: string, clientSecret?: string): Promise<{}>;
     revoke(
-        paramsOrFirst: { token: string, tokenTypeHint?: string, clientId?: string, clientSecret?: string } | string,
-        ...rest: [(string)?, (string)?, (string)?]    
+        token: string,
+        tokenTypeHint?: string,
+        clientId?: string,
+        clientSecret?: string,
+    ): Promise<{}>;
+    revoke(
+        paramsOrFirst:
+            | {
+                  token: string;
+                  tokenTypeHint?: string;
+                  clientId?: string;
+                  clientSecret?: string;
+              }
+            | string,
+        ...rest: [string?, string?, string?]
     ): Promise<{}> {
-        let params: { token: string, tokenTypeHint?: string, clientId?: string, clientSecret?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { token: string, tokenTypeHint?: string, clientId?: string, clientSecret?: string };
+        let params: {
+            token: string;
+            tokenTypeHint?: string;
+            clientId?: string;
+            clientSecret?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                token: string;
+                tokenTypeHint?: string;
+                clientId?: string;
+                clientSecret?: string;
+            };
         } else {
             params = {
                 token: paramsOrFirst as string,
                 tokenTypeHint: rest[0] as string,
                 clientId: rest[1] as string,
-                clientSecret: rest[2] as string            
+                clientSecret: rest[2] as string,
             };
         }
-        
+
         const token = params.token;
         const tokenTypeHint = params.tokenTypeHint;
         const clientId = params.clientId;
         const clientSecret = params.clientSecret;
-
         if (typeof token === 'undefined') {
             throw new AppwriteException('Missing required parameter: "token"');
         }
-
-        const apiPath = '/oauth2/{project_id}/revoke'.replace('{project_id}', encodeURIComponent(String(this.client.config.project)));
-        const payload: Payload = {};
+        const apiPath = '/oauth2/{project_id}/revoke'.replace(
+            '{project_id}',
+            encodeURIComponent(String(this.client.config.project)),
+        );
+        const apiPayload: Payload = {};
         if (typeof token !== 'undefined') {
-            payload['token'] = token;
+            apiPayload['token'] = token;
         }
         if (typeof tokenTypeHint !== 'undefined') {
-            payload['token_type_hint'] = tokenTypeHint;
+            apiPayload['token_type_hint'] = tokenTypeHint;
         }
         if (typeof clientId !== 'undefined') {
-            payload['client_id'] = clientId;
+            apiPayload['client_id'] = clientId;
         }
         if (typeof clientSecret !== 'undefined') {
-            payload['client_secret'] = clientSecret;
+            apiPayload['client_secret'] = clientSecret;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -991,7 +1380,18 @@ export class Oauth2 {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Oauth2Token>}
      */
-    createToken(params: { grantType: string, code?: string, refreshToken?: string, deviceCode?: string, clientId?: string, clientSecret?: string, codeVerifier?: string, redirectUri?: string, resource?: string, audience?: string }): Promise<Models.Oauth2Token>;
+    createToken(params: {
+        grantType: string;
+        code?: string;
+        refreshToken?: string;
+        deviceCode?: string;
+        clientId?: string;
+        clientSecret?: string;
+        codeVerifier?: string;
+        redirectUri?: string;
+        resource?: string;
+        audience?: string;
+    }): Promise<Models.Oauth2Token>;
     /**
      * Exchange an OAuth2 authorization code, refresh token, or device code for access and refresh tokens.
      *
@@ -1009,15 +1409,75 @@ export class Oauth2 {
      * @returns {Promise<Models.Oauth2Token>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createToken(grantType: string, code?: string, refreshToken?: string, deviceCode?: string, clientId?: string, clientSecret?: string, codeVerifier?: string, redirectUri?: string, resource?: string, audience?: string): Promise<Models.Oauth2Token>;
     createToken(
-        paramsOrFirst: { grantType: string, code?: string, refreshToken?: string, deviceCode?: string, clientId?: string, clientSecret?: string, codeVerifier?: string, redirectUri?: string, resource?: string, audience?: string } | string,
-        ...rest: [(string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string)?]    
+        grantType: string,
+        code?: string,
+        refreshToken?: string,
+        deviceCode?: string,
+        clientId?: string,
+        clientSecret?: string,
+        codeVerifier?: string,
+        redirectUri?: string,
+        resource?: string,
+        audience?: string,
+    ): Promise<Models.Oauth2Token>;
+    createToken(
+        paramsOrFirst:
+            | {
+                  grantType: string;
+                  code?: string;
+                  refreshToken?: string;
+                  deviceCode?: string;
+                  clientId?: string;
+                  clientSecret?: string;
+                  codeVerifier?: string;
+                  redirectUri?: string;
+                  resource?: string;
+                  audience?: string;
+              }
+            | string,
+        ...rest: [
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+        ]
     ): Promise<Models.Oauth2Token> {
-        let params: { grantType: string, code?: string, refreshToken?: string, deviceCode?: string, clientId?: string, clientSecret?: string, codeVerifier?: string, redirectUri?: string, resource?: string, audience?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { grantType: string, code?: string, refreshToken?: string, deviceCode?: string, clientId?: string, clientSecret?: string, codeVerifier?: string, redirectUri?: string, resource?: string, audience?: string };
+        let params: {
+            grantType: string;
+            code?: string;
+            refreshToken?: string;
+            deviceCode?: string;
+            clientId?: string;
+            clientSecret?: string;
+            codeVerifier?: string;
+            redirectUri?: string;
+            resource?: string;
+            audience?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                grantType: string;
+                code?: string;
+                refreshToken?: string;
+                deviceCode?: string;
+                clientId?: string;
+                clientSecret?: string;
+                codeVerifier?: string;
+                redirectUri?: string;
+                resource?: string;
+                audience?: string;
+            };
         } else {
             params = {
                 grantType: paramsOrFirst as string,
@@ -1029,10 +1489,10 @@ export class Oauth2 {
                 codeVerifier: rest[5] as string,
                 redirectUri: rest[6] as string,
                 resource: rest[7] as string,
-                audience: rest[8] as string            
+                audience: rest[8] as string,
             };
         }
-        
+
         const grantType = params.grantType;
         const code = params.code;
         const refreshToken = params.refreshToken;
@@ -1043,55 +1503,53 @@ export class Oauth2 {
         const redirectUri = params.redirectUri;
         const resource = params.resource;
         const audience = params.audience;
-
         if (typeof grantType === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "grantType"');
+            throw new AppwriteException(
+                'Missing required parameter: "grantType"',
+            );
         }
-
-        const apiPath = '/oauth2/{project_id}/token'.replace('{project_id}', encodeURIComponent(String(this.client.config.project)));
-        const payload: Payload = {};
+        const apiPath = '/oauth2/{project_id}/token'.replace(
+            '{project_id}',
+            encodeURIComponent(String(this.client.config.project)),
+        );
+        const apiPayload: Payload = {};
         if (typeof grantType !== 'undefined') {
-            payload['grant_type'] = grantType;
+            apiPayload['grant_type'] = grantType;
         }
         if (typeof code !== 'undefined') {
-            payload['code'] = code;
+            apiPayload['code'] = code;
         }
         if (typeof refreshToken !== 'undefined') {
-            payload['refresh_token'] = refreshToken;
+            apiPayload['refresh_token'] = refreshToken;
         }
         if (typeof deviceCode !== 'undefined') {
-            payload['device_code'] = deviceCode;
+            apiPayload['device_code'] = deviceCode;
         }
         if (typeof clientId !== 'undefined') {
-            payload['client_id'] = clientId;
+            apiPayload['client_id'] = clientId;
         }
         if (typeof clientSecret !== 'undefined') {
-            payload['client_secret'] = clientSecret;
+            apiPayload['client_secret'] = clientSecret;
         }
         if (typeof codeVerifier !== 'undefined') {
-            payload['code_verifier'] = codeVerifier;
+            apiPayload['code_verifier'] = codeVerifier;
         }
         if (typeof redirectUri !== 'undefined') {
-            payload['redirect_uri'] = redirectUri;
+            apiPayload['redirect_uri'] = redirectUri;
         }
         if (typeof resource !== 'undefined') {
-            payload['resource'] = resource;
+            apiPayload['resource'] = resource;
         }
         if (typeof audience !== 'undefined') {
-            payload['audience'] = audience;
+            apiPayload['audience'] = audience;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 }

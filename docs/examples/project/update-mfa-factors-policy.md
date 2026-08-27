@@ -12,6 +12,6 @@ const result = await project.updateMFAFactorsPolicy({
     totp: false, // optional
     email: false, // optional
     phone: false, // optional
-    custom: false // optional
+    custom: false, // optional
 });
 ```

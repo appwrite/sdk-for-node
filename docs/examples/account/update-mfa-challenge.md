@@ -10,6 +10,6 @@ const account = new sdk.Account(client);
 
 const result = await account.updateMFAChallenge({
     challengeId: '<CHALLENGE_ID>',
-    otp: '<OTP>'
+    otp: '<OTP>',
 });
 ```

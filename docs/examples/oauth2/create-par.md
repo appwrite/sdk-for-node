@@ -21,6 +21,6 @@ const result = await oauth2.createPAR({
     maxAge: 0, // optional
     authorizationDetails: '<AUTHORIZATION_DETAILS>', // optional
     resource: '', // optional
-    audience: '<AUDIENCE>' // optional
+    audience: '<AUDIENCE>', // optional
 });
 ```

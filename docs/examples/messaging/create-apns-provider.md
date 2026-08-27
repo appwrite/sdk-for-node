@@ -16,6 +16,6 @@ const result = await messaging.createAPNSProvider({
     teamId: '<TEAM_ID>', // optional
     bundleId: '<BUNDLE_ID>', // optional
     sandbox: false, // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

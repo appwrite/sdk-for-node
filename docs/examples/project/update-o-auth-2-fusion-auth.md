@@ -12,6 +12,6 @@ const result = await project.updateOAuth2FusionAuth({
     clientId: '<CLIENT_ID>', // optional
     clientSecret: '<CLIENT_SECRET>', // optional
     endpoint: '<ENDPOINT>', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

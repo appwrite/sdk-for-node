@@ -11,8 +11,12 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.createLineColumn({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: [[1, 2], [3, 4], [5, 6]] // optional
+    xdefault: [
+        [1, 2],
+        [3, 4],
+        [5, 6],
+    ], // optional
 });
 ```

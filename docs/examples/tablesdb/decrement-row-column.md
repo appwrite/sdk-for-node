@@ -12,9 +12,9 @@ const result = await tablesDB.decrementRowColumn({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
     rowId: '<ROW_ID>',
-    column: '',
-    value: null, // optional
-    min: null, // optional
-    transactionId: '<TRANSACTION_ID>' // optional
+    column: '<COLUMN>',
+    value: 1, // optional
+    min: 0, // optional
+    transactionId: '<TRANSACTION_ID>', // optional
 });
 ```

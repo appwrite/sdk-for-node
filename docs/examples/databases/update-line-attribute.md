@@ -11,9 +11,13 @@ const databases = new sdk.Databases(client);
 const result = await databases.updateLineAttribute({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: [[1, 2], [3, 4], [5, 6]], // optional
-    newKey: '' // optional
+    xdefault: [
+        [1, 2],
+        [3, 4],
+        [5, 6],
+    ], // optional
+    newKey: '<NEW_KEY>', // optional
 });
 ```

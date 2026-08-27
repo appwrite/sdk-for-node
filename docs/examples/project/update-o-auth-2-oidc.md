@@ -17,6 +17,6 @@ const result = await project.updateOAuth2Oidc({
     userInfoURL: 'https://example.com', // optional
     prompt: [sdk.ProjectOAuth2OidcPrompt.None], // optional
     maxAge: 0, // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

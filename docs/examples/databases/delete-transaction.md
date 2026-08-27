@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const databases = new sdk.Databases(client);
 
 const result = await databases.deleteTransaction({
-    transactionId: '<TRANSACTION_ID>'
+    transactionId: '<TRANSACTION_ID>',
 });
 ```

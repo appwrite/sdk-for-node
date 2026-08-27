@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const messaging = new sdk.Messaging(client);
 
 const result = await messaging.delete({
-    messageId: '<MESSAGE_ID>'
+    messageId: '<MESSAGE_ID>',
 });
 ```

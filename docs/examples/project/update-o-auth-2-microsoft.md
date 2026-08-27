@@ -12,6 +12,6 @@ const result = await project.updateOAuth2Microsoft({
     applicationId: '<APPLICATION_ID>', // optional
     applicationSecret: '<APPLICATION_SECRET>', // optional
     tenant: '<TENANT>', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

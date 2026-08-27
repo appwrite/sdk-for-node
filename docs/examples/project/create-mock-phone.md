@@ -10,6 +10,6 @@ const project = new sdk.Project(client);
 
 const result = await project.createMockPhone({
     number: '+12065550100',
-    otp: '<OTP>'
+    otp: '<OTP>',
 });
 ```

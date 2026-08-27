@@ -11,6 +11,6 @@ const users = new sdk.Users(client);
 const result = await users.listLogs({
     userId: '<USER_ID>',
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

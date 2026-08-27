@@ -11,9 +11,9 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.createEmailColumn({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
     xdefault: 'email@example.com', // optional
-    array: false // optional
+    array: false, // optional
 });
 ```

@@ -10,6 +10,6 @@ const apps = new sdk.Apps(client);
 
 const result = await apps.deleteKey({
     appId: '<APP_ID>',
-    keyId: '<KEY_ID>'
+    keyId: '<KEY_ID>',
 });
 ```

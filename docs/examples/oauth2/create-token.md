@@ -18,6 +18,6 @@ const result = await oauth2.createToken({
     codeVerifier: '<CODE_VERIFIER>', // optional
     redirectUri: 'https://example.com', // optional
     resource: '', // optional
-    audience: '<AUDIENCE>' // optional
+    audience: '<AUDIENCE>', // optional
 });
 ```

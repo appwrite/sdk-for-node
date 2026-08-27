@@ -11,11 +11,11 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.createStringColumn({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: '',
+    key: '<KEY>',
     size: 1,
     required: false,
-    xdefault: '<DEFAULT>', // optional
+    xdefault: 'Hello World', // optional
     array: false, // optional
-    encrypt: false // optional
+    encrypt: false, // optional
 });
 ```

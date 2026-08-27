@@ -13,6 +13,6 @@ const result = await users.createSHAUser({
     email: 'email@example.com',
     password: 'password',
     passwordVersion: sdk.PasswordHash.Sha1, // optional
-    name: '<NAME>' // optional
+    name: '<NAME>', // optional
 });
 ```

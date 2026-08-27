@@ -10,6 +10,6 @@ const account = new sdk.Account(client);
 
 const result = await account.createEmailPasswordSession({
     email: 'email@example.com',
-    password: 'password'
+    password: 'password',
 });
 ```

@@ -11,6 +11,6 @@ const project = new sdk.Project(client);
 const result = await project.updateOAuth2Linkedin({
     clientId: '<CLIENT_ID>', // optional
     primaryClientSecret: '<PRIMARY_CLIENT_SECRET>', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

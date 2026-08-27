@@ -13,6 +13,6 @@ const result = await project.updatePasswordStrengthPolicy({
     uppercase: false, // optional
     lowercase: false, // optional
     number: false, // optional
-    symbols: false // optional
+    symbols: false, // optional
 });
 ```

@@ -11,6 +11,6 @@ const storage = new sdk.Storage(client);
 const result = await storage.getFileView({
     bucketId: '<BUCKET_ID>',
     fileId: '<FILE_ID>',
-    token: '<TOKEN>' // optional
+    token: '<TOKEN>', // optional
 });
 ```

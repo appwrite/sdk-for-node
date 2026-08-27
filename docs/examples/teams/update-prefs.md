@@ -10,6 +10,6 @@ const teams = new sdk.Teams(client);
 
 const result = await teams.updatePrefs({
     teamId: '<TEAM_ID>',
-    prefs: {}
+    prefs: {},
 });
 ```

@@ -13,6 +13,6 @@ const result = await users.create({
     email: 'email@example.com', // optional
     phone: '+12065550100', // optional
     password: 'password', // optional
-    name: '<NAME>' // optional
+    name: '<NAME>', // optional
 });
 ```

@@ -10,6 +10,6 @@ const apps = new sdk.Apps(client);
 
 const result = await apps.updateLabels({
     appId: '<APP_ID>',
-    labels: []
+    labels: [],
 });
 ```

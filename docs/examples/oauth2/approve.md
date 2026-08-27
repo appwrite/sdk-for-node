@@ -11,6 +11,6 @@ const oauth2 = new sdk.Oauth2(client);
 const result = await oauth2.approve({
     grantId: '<GRANT_ID>',
     authorizationDetails: '<AUTHORIZATION_DETAILS>', // optional
-    scope: '<SCOPE>' // optional
+    scope: '<SCOPE>', // optional
 });
 ```

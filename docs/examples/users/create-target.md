@@ -14,6 +14,6 @@ const result = await users.createTarget({
     providerType: sdk.MessagingProviderType.Email,
     identifier: '<IDENTIFIER>',
     providerId: '<PROVIDER_ID>', // optional
-    name: '<NAME>' // optional
+    name: '<NAME>', // optional
 });
 ```

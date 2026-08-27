@@ -16,6 +16,6 @@ const result = await project.updateEmailTemplate({
     senderName: '<SENDER_NAME>', // optional
     senderEmail: 'email@example.com', // optional
     replyToEmail: 'email@example.com', // optional
-    replyToName: '<REPLY_TO_NAME>' // optional
+    replyToName: '<REPLY_TO_NAME>', // optional
 });
 ```

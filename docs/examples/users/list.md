@@ -11,6 +11,6 @@ const users = new sdk.Users(client);
 const result = await users.list({
     queries: [], // optional
     search: '<SEARCH>', // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

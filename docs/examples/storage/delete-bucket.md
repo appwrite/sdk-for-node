@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const storage = new sdk.Storage(client);
 
 const result = await storage.deleteBucket({
-    bucketId: '<BUCKET_ID>'
+    bucketId: '<BUCKET_ID>',
 });
 ```

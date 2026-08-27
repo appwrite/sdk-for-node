@@ -11,6 +11,6 @@ const project = new sdk.Project(client);
 const result = await project.createLinuxPlatform({
     platformId: '<PLATFORM_ID>',
     name: '<NAME>',
-    packageName: '<PACKAGE_NAME>'
+    packageName: '<PACKAGE_NAME>',
 });
 ```

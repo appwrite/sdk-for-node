@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const organization = new sdk.Organization(client);
 
 const result = await organization.deleteMembership({
-    membershipId: '<MEMBERSHIP_ID>'
+    membershipId: '<MEMBERSHIP_ID>',
 });
 ```

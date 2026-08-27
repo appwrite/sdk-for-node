@@ -10,6 +10,6 @@ const account = new sdk.Account(client);
 
 const result = await account.updatePassword({
     password: 'password',
-    oldPassword: 'password' // optional
+    oldPassword: 'password', // optional
 });
 ```

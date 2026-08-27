@@ -12,9 +12,9 @@ const result = await tablesDB.incrementRowColumn({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
     rowId: '<ROW_ID>',
-    column: '',
-    value: null, // optional
-    max: null, // optional
-    transactionId: '<TRANSACTION_ID>' // optional
+    column: '<COLUMN>',
+    value: 1, // optional
+    max: 100, // optional
+    transactionId: '<TRANSACTION_ID>', // optional
 });
 ```

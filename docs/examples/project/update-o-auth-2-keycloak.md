@@ -13,6 +13,6 @@ const result = await project.updateOAuth2Keycloak({
     clientSecret: '<CLIENT_SECRET>', // optional
     endpoint: '<ENDPOINT>', // optional
     realmName: '<REALM_NAME>', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

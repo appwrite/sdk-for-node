@@ -12,6 +12,6 @@ const result = await messaging.updateFCMProvider({
     providerId: '<PROVIDER_ID>',
     name: '<NAME>', // optional
     enabled: false, // optional
-    serviceAccountJSON: {} // optional
+    serviceAccountJSON: {}, // optional
 });
 ```

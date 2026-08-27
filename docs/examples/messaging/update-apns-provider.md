@@ -16,6 +16,6 @@ const result = await messaging.updateAPNSProvider({
     authKeyId: '<AUTH_KEY_ID>', // optional
     teamId: '<TEAM_ID>', // optional
     bundleId: '<BUNDLE_ID>', // optional
-    sandbox: false // optional
+    sandbox: false, // optional
 });
 ```

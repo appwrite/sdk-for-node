@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.updatePhoneVerification({
     userId: '<USER_ID>',
-    phoneVerification: false
+    phoneVerification: false,
 });
 ```

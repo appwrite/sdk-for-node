@@ -1,10 +1,8 @@
-import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
+import { AppwriteException, Client, type Payload } from '../client';
 import type { Models } from '../models';
-
 
 import { OrganizationKeyScopes } from '../enums/organization-key-scopes';
 import { Region } from '../enums/region';
-
 export class Organization {
     client: Client;
 
@@ -18,23 +16,19 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Organization<Preferences>>}
      */
-    get<Preferences extends Models.Preferences = Models.DefaultPreferences>(): Promise<Models.Organization<Preferences>> {
-
+    get<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(): Promise<Models.Organization<Preferences>> {
         const apiPath = '/organization';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -44,7 +38,9 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Organization<Preferences>>}
      */
-    update<Preferences extends Models.Preferences = Models.DefaultPreferences>(params: { name: string }): Promise<Models.Organization<Preferences>>;
+    update<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { name: string }): Promise<Models.Organization<Preferences>>;
     /**
      * Update the current organization's name.
      *
@@ -53,45 +49,44 @@ export class Organization {
      * @returns {Promise<Models.Organization<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    update<Preferences extends Models.Preferences = Models.DefaultPreferences>(name: string): Promise<Models.Organization<Preferences>>;
     update<Preferences extends Models.Preferences = Models.DefaultPreferences>(
-        paramsOrFirst: { name: string } | string    
+        name: string,
+    ): Promise<Models.Organization<Preferences>>;
+    update<Preferences extends Models.Preferences = Models.DefaultPreferences>(
+        paramsOrFirst: { name: string } | string,
     ): Promise<Models.Organization<Preferences>> {
         let params: { name: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { name: string };
         } else {
             params = {
-                name: paramsOrFirst as string            
+                name: paramsOrFirst as string,
             };
         }
-        
-        const name = params.name;
 
+        const name = params.name;
         if (typeof name === 'undefined') {
             throw new AppwriteException('Missing required parameter: "name"');
         }
-
         const apiPath = '/organization';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'put',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -101,22 +96,16 @@ export class Organization {
      * @returns {Promise<{}>}
      */
     delete(): Promise<{}> {
-
         const apiPath = '/organization';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-        }
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -127,7 +116,10 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AppInstallationList>}
      */
-    listInstallations(params?: { queries?: string[], total?: boolean }): Promise<Models.AppInstallationList>;
+    listInstallations(params?: {
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.AppInstallationList>;
     /**
      * List app installations on the organization. Any organization member can read installations.
      *
@@ -137,47 +129,51 @@ export class Organization {
      * @returns {Promise<Models.AppInstallationList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listInstallations(queries?: string[], total?: boolean): Promise<Models.AppInstallationList>;
     listInstallations(
-        paramsOrFirst?: { queries?: string[], total?: boolean } | string[],
-        ...rest: [(boolean)?]    
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.AppInstallationList>;
+    listInstallations(
+        paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
+        ...rest: [boolean?]
     ): Promise<Models.AppInstallationList> {
-        let params: { queries?: string[], total?: boolean };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], total?: boolean };
+        let params: { queries?: string[]; total?: boolean };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
-                total: rest[0] as boolean            
+                total: rest[0] as boolean,
             };
         }
-        
+
         const queries = params.queries;
         const total = params.total;
-
-
         const apiPath = '/organization/installations';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -188,7 +184,10 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AppInstallation>}
      */
-    createInstallation(params: { appId: string, authorizationDetails?: string }): Promise<Models.AppInstallation>;
+    createInstallation(params: {
+        appId: string;
+        authorizationDetails?: string;
+    }): Promise<Models.AppInstallation>;
     /**
      * Install an app on the organization. Only organization members with the owner role can install apps. The installation is granted the scopes the app currently requests.
      *
@@ -198,51 +197,55 @@ export class Organization {
      * @returns {Promise<Models.AppInstallation>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createInstallation(appId: string, authorizationDetails?: string): Promise<Models.AppInstallation>;
     createInstallation(
-        paramsOrFirst: { appId: string, authorizationDetails?: string } | string,
-        ...rest: [(string)?]    
+        appId: string,
+        authorizationDetails?: string,
+    ): Promise<Models.AppInstallation>;
+    createInstallation(
+        paramsOrFirst:
+            { appId: string; authorizationDetails?: string } | string,
+        ...rest: [string?]
     ): Promise<Models.AppInstallation> {
-        let params: { appId: string, authorizationDetails?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, authorizationDetails?: string };
+        let params: { appId: string; authorizationDetails?: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                appId: string;
+                authorizationDetails?: string;
+            };
         } else {
             params = {
                 appId: paramsOrFirst as string,
-                authorizationDetails: rest[0] as string            
+                authorizationDetails: rest[0] as string,
             };
         }
-        
+
         const appId = params.appId;
         const authorizationDetails = params.authorizationDetails;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-
         const apiPath = '/organization/installations';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof appId !== 'undefined') {
-            payload['appId'] = appId;
+            apiPayload['appId'] = appId;
         }
         if (typeof authorizationDetails !== 'undefined') {
-            payload['authorizationDetails'] = authorizationDetails;
+            apiPayload['authorizationDetails'] = authorizationDetails;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -252,7 +255,9 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AppInstallation>}
      */
-    getInstallation(params: { installationId: string }): Promise<Models.AppInstallation>;
+    getInstallation(params: {
+        installationId: string;
+    }): Promise<Models.AppInstallation>;
     /**
      * Get an app installation on the organization by its unique ID. Any organization member can read installations.
      *
@@ -263,39 +268,41 @@ export class Organization {
      */
     getInstallation(installationId: string): Promise<Models.AppInstallation>;
     getInstallation(
-        paramsOrFirst: { installationId: string } | string    
+        paramsOrFirst: { installationId: string } | string,
     ): Promise<Models.AppInstallation> {
         let params: { installationId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { installationId: string };
         } else {
             params = {
-                installationId: paramsOrFirst as string            
+                installationId: paramsOrFirst as string,
             };
         }
-        
+
         const installationId = params.installationId;
-
         if (typeof installationId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "installationId"');
+            throw new AppwriteException(
+                'Missing required parameter: "installationId"',
+            );
         }
-
-        const apiPath = '/organization/installations/{installationId}'.replace('{installationId}', encodeURIComponent(String(installationId)));
-        const payload: Payload = {};
+        const apiPath = '/organization/installations/{installationId}'.replace(
+            '{installationId}',
+            encodeURIComponent(String(installationId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -306,7 +313,10 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AppInstallation>}
      */
-    updateInstallation(params: { installationId: string, authorizationDetails?: string }): Promise<Models.AppInstallation>;
+    updateInstallation(params: {
+        installationId: string;
+        authorizationDetails?: string;
+    }): Promise<Models.AppInstallation>;
     /**
      * Update an app installation on the organization. Only organization members with the owner role can update installations. The installation's granted scopes are refreshed to the scopes the app currently requests; previously issued installation access tokens are revoked.
      *
@@ -316,48 +326,57 @@ export class Organization {
      * @returns {Promise<Models.AppInstallation>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateInstallation(installationId: string, authorizationDetails?: string): Promise<Models.AppInstallation>;
     updateInstallation(
-        paramsOrFirst: { installationId: string, authorizationDetails?: string } | string,
-        ...rest: [(string)?]    
+        installationId: string,
+        authorizationDetails?: string,
+    ): Promise<Models.AppInstallation>;
+    updateInstallation(
+        paramsOrFirst:
+            { installationId: string; authorizationDetails?: string } | string,
+        ...rest: [string?]
     ): Promise<Models.AppInstallation> {
-        let params: { installationId: string, authorizationDetails?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { installationId: string, authorizationDetails?: string };
+        let params: { installationId: string; authorizationDetails?: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                installationId: string;
+                authorizationDetails?: string;
+            };
         } else {
             params = {
                 installationId: paramsOrFirst as string,
-                authorizationDetails: rest[0] as string            
+                authorizationDetails: rest[0] as string,
             };
         }
-        
+
         const installationId = params.installationId;
         const authorizationDetails = params.authorizationDetails;
-
         if (typeof installationId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "installationId"');
+            throw new AppwriteException(
+                'Missing required parameter: "installationId"',
+            );
         }
-
-        const apiPath = '/organization/installations/{installationId}'.replace('{installationId}', encodeURIComponent(String(installationId)));
-        const payload: Payload = {};
+        const apiPath = '/organization/installations/{installationId}'.replace(
+            '{installationId}',
+            encodeURIComponent(String(installationId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof authorizationDetails !== 'undefined') {
-            payload['authorizationDetails'] = authorizationDetails;
+            apiPayload['authorizationDetails'] = authorizationDetails;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'put',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -378,40 +397,42 @@ export class Organization {
      */
     deleteInstallation(installationId: string): Promise<{}>;
     deleteInstallation(
-        paramsOrFirst: { installationId: string } | string    
+        paramsOrFirst: { installationId: string } | string,
     ): Promise<{}> {
         let params: { installationId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { installationId: string };
         } else {
             params = {
-                installationId: paramsOrFirst as string            
+                installationId: paramsOrFirst as string,
             };
         }
-        
+
         const installationId = params.installationId;
-
         if (typeof installationId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "installationId"');
+            throw new AppwriteException(
+                'Missing required parameter: "installationId"',
+            );
         }
-
-        const apiPath = '/organization/installations/{installationId}'.replace('{installationId}', encodeURIComponent(String(installationId)));
-        const payload: Payload = {};
+        const apiPath = '/organization/installations/{installationId}'.replace(
+            '{installationId}',
+            encodeURIComponent(String(installationId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -422,7 +443,10 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.KeyList>}
      */
-    listKeys(params?: { queries?: string[], total?: boolean }): Promise<Models.KeyList>;
+    listKeys(params?: {
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.KeyList>;
     /**
      * Get a list of all API keys from the current organization.
      *
@@ -434,45 +458,46 @@ export class Organization {
      */
     listKeys(queries?: string[], total?: boolean): Promise<Models.KeyList>;
     listKeys(
-        paramsOrFirst?: { queries?: string[], total?: boolean } | string[],
-        ...rest: [(boolean)?]    
+        paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
+        ...rest: [boolean?]
     ): Promise<Models.KeyList> {
-        let params: { queries?: string[], total?: boolean };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], total?: boolean };
+        let params: { queries?: string[]; total?: boolean };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
-                total: rest[0] as boolean            
+                total: rest[0] as boolean,
             };
         }
-        
+
         const queries = params.queries;
         const total = params.total;
-
-
         const apiPath = '/organization/keys';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -485,7 +510,12 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
      */
-    createKey(params: { keyId: string, name: string, scopes: OrganizationKeyScopes[], expire?: string }): Promise<Models.Key>;
+    createKey(params: {
+        keyId: string;
+        name: string;
+        scopes: OrganizationKeyScopes[];
+        expire?: string;
+    }): Promise<Models.Key>;
     /**
      * Create a new organization API key.
      *
@@ -497,29 +527,54 @@ export class Organization {
      * @returns {Promise<Models.Key>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createKey(keyId: string, name: string, scopes: OrganizationKeyScopes[], expire?: string): Promise<Models.Key>;
     createKey(
-        paramsOrFirst: { keyId: string, name: string, scopes: OrganizationKeyScopes[], expire?: string } | string,
-        ...rest: [(string)?, (OrganizationKeyScopes[])?, (string)?]    
+        keyId: string,
+        name: string,
+        scopes: OrganizationKeyScopes[],
+        expire?: string,
+    ): Promise<Models.Key>;
+    createKey(
+        paramsOrFirst:
+            | {
+                  keyId: string;
+                  name: string;
+                  scopes: OrganizationKeyScopes[];
+                  expire?: string;
+              }
+            | string,
+        ...rest: [string?, OrganizationKeyScopes[]?, string?]
     ): Promise<Models.Key> {
-        let params: { keyId: string, name: string, scopes: OrganizationKeyScopes[], expire?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { keyId: string, name: string, scopes: OrganizationKeyScopes[], expire?: string };
+        let params: {
+            keyId: string;
+            name: string;
+            scopes: OrganizationKeyScopes[];
+            expire?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                keyId: string;
+                name: string;
+                scopes: OrganizationKeyScopes[];
+                expire?: string;
+            };
         } else {
             params = {
                 keyId: paramsOrFirst as string,
                 name: rest[0] as string,
                 scopes: rest[1] as OrganizationKeyScopes[],
-                expire: rest[2] as string            
+                expire: rest[2] as string,
             };
         }
-        
+
         const keyId = params.keyId;
         const name = params.name;
         const scopes = params.scopes;
         const expire = params.expire;
-
         if (typeof keyId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
@@ -529,35 +584,29 @@ export class Organization {
         if (typeof scopes === 'undefined') {
             throw new AppwriteException('Missing required parameter: "scopes"');
         }
-
         const apiPath = '/organization/keys';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof keyId !== 'undefined') {
-            payload['keyId'] = keyId;
+            apiPayload['keyId'] = keyId;
         }
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         if (typeof scopes !== 'undefined') {
-            payload['scopes'] = scopes;
+            apiPayload['scopes'] = scopes;
         }
         if (typeof expire !== 'undefined') {
-            payload['expire'] = expire;
+            apiPayload['expire'] = expire;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -577,40 +626,38 @@ export class Organization {
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     getKey(keyId: string): Promise<Models.Key>;
-    getKey(
-        paramsOrFirst: { keyId: string } | string    
-    ): Promise<Models.Key> {
+    getKey(paramsOrFirst: { keyId: string } | string): Promise<Models.Key> {
         let params: { keyId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { keyId: string };
         } else {
             params = {
-                keyId: paramsOrFirst as string            
+                keyId: paramsOrFirst as string,
             };
         }
-        
-        const keyId = params.keyId;
 
+        const keyId = params.keyId;
         if (typeof keyId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
-
-        const apiPath = '/organization/keys/{keyId}'.replace('{keyId}', encodeURIComponent(String(keyId)));
-        const payload: Payload = {};
+        const apiPath = '/organization/keys/{keyId}'.replace(
+            '{keyId}',
+            encodeURIComponent(String(keyId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -623,7 +670,12 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
      */
-    updateKey(params: { keyId: string, name: string, scopes: OrganizationKeyScopes[], expire?: string }): Promise<Models.Key>;
+    updateKey(params: {
+        keyId: string;
+        name: string;
+        scopes: OrganizationKeyScopes[];
+        expire?: string;
+    }): Promise<Models.Key>;
     /**
      * Update a key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
      *
@@ -635,29 +687,54 @@ export class Organization {
      * @returns {Promise<Models.Key>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateKey(keyId: string, name: string, scopes: OrganizationKeyScopes[], expire?: string): Promise<Models.Key>;
     updateKey(
-        paramsOrFirst: { keyId: string, name: string, scopes: OrganizationKeyScopes[], expire?: string } | string,
-        ...rest: [(string)?, (OrganizationKeyScopes[])?, (string)?]    
+        keyId: string,
+        name: string,
+        scopes: OrganizationKeyScopes[],
+        expire?: string,
+    ): Promise<Models.Key>;
+    updateKey(
+        paramsOrFirst:
+            | {
+                  keyId: string;
+                  name: string;
+                  scopes: OrganizationKeyScopes[];
+                  expire?: string;
+              }
+            | string,
+        ...rest: [string?, OrganizationKeyScopes[]?, string?]
     ): Promise<Models.Key> {
-        let params: { keyId: string, name: string, scopes: OrganizationKeyScopes[], expire?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { keyId: string, name: string, scopes: OrganizationKeyScopes[], expire?: string };
+        let params: {
+            keyId: string;
+            name: string;
+            scopes: OrganizationKeyScopes[];
+            expire?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                keyId: string;
+                name: string;
+                scopes: OrganizationKeyScopes[];
+                expire?: string;
+            };
         } else {
             params = {
                 keyId: paramsOrFirst as string,
                 name: rest[0] as string,
                 scopes: rest[1] as OrganizationKeyScopes[],
-                expire: rest[2] as string            
+                expire: rest[2] as string,
             };
         }
-        
+
         const keyId = params.keyId;
         const name = params.name;
         const scopes = params.scopes;
         const expire = params.expire;
-
         if (typeof keyId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
@@ -667,32 +744,29 @@ export class Organization {
         if (typeof scopes === 'undefined') {
             throw new AppwriteException('Missing required parameter: "scopes"');
         }
-
-        const apiPath = '/organization/keys/{keyId}'.replace('{keyId}', encodeURIComponent(String(keyId)));
-        const payload: Payload = {};
+        const apiPath = '/organization/keys/{keyId}'.replace(
+            '{keyId}',
+            encodeURIComponent(String(keyId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         if (typeof scopes !== 'undefined') {
-            payload['scopes'] = scopes;
+            apiPayload['scopes'] = scopes;
         }
         if (typeof expire !== 'undefined') {
-            payload['expire'] = expire;
+            apiPayload['expire'] = expire;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'put',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -712,40 +786,38 @@ export class Organization {
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteKey(keyId: string): Promise<{}>;
-    deleteKey(
-        paramsOrFirst: { keyId: string } | string    
-    ): Promise<{}> {
+    deleteKey(paramsOrFirst: { keyId: string } | string): Promise<{}> {
         let params: { keyId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { keyId: string };
         } else {
             params = {
-                keyId: paramsOrFirst as string            
+                keyId: paramsOrFirst as string,
             };
         }
-        
-        const keyId = params.keyId;
 
+        const keyId = params.keyId;
         if (typeof keyId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
-
-        const apiPath = '/organization/keys/{keyId}'.replace('{keyId}', encodeURIComponent(String(keyId)));
-        const payload: Payload = {};
+        const apiPath = '/organization/keys/{keyId}'.replace(
+            '{keyId}',
+            encodeURIComponent(String(keyId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-        }
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -757,7 +829,11 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.MembershipList>}
      */
-    listMemberships(params?: { queries?: string[], search?: string, total?: boolean }): Promise<Models.MembershipList>;
+    listMemberships(params?: {
+        queries?: string[];
+        search?: string;
+        total?: boolean;
+    }): Promise<Models.MembershipList>;
     /**
      * Get a list of all memberships from the current organization.
      *
@@ -768,52 +844,59 @@ export class Organization {
      * @returns {Promise<Models.MembershipList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listMemberships(queries?: string[], search?: string, total?: boolean): Promise<Models.MembershipList>;
     listMemberships(
-        paramsOrFirst?: { queries?: string[], search?: string, total?: boolean } | string[],
-        ...rest: [(string)?, (boolean)?]    
+        queries?: string[],
+        search?: string,
+        total?: boolean,
+    ): Promise<Models.MembershipList>;
+    listMemberships(
+        paramsOrFirst?:
+            { queries?: string[]; search?: string; total?: boolean } | string[],
+        ...rest: [string?, boolean?]
     ): Promise<Models.MembershipList> {
-        let params: { queries?: string[], search?: string, total?: boolean };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], search?: string, total?: boolean };
+        let params: { queries?: string[]; search?: string; total?: boolean };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                search?: string;
+                total?: boolean;
+            };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
                 search: rest[0] as string,
-                total: rest[1] as boolean            
+                total: rest[1] as boolean,
             };
         }
-        
+
         const queries = params.queries;
         const search = params.search;
         const total = params.total;
-
-
         const apiPath = '/organization/memberships';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof search !== 'undefined') {
-            payload['search'] = search;
+            apiPayload['search'] = search;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -828,7 +911,14 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Membership>}
      */
-    createMembership(params: { roles: string[], email?: string, userId?: string, phone?: string, url?: string, name?: string }): Promise<Models.Membership>;
+    createMembership(params: {
+        roles: string[];
+        email?: string;
+        userId?: string;
+        phone?: string;
+        url?: string;
+        name?: string;
+    }): Promise<Models.Membership>;
     /**
      * Invite a new member to join the current organization. An email with a link to join the organization will be sent to the new member's email address. If member doesn't exist in the project it will be automatically created.
      *
@@ -842,15 +932,49 @@ export class Organization {
      * @returns {Promise<Models.Membership>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createMembership(roles: string[], email?: string, userId?: string, phone?: string, url?: string, name?: string): Promise<Models.Membership>;
     createMembership(
-        paramsOrFirst: { roles: string[], email?: string, userId?: string, phone?: string, url?: string, name?: string } | string[],
-        ...rest: [(string)?, (string)?, (string)?, (string)?, (string)?]    
+        roles: string[],
+        email?: string,
+        userId?: string,
+        phone?: string,
+        url?: string,
+        name?: string,
+    ): Promise<Models.Membership>;
+    createMembership(
+        paramsOrFirst:
+            | {
+                  roles: string[];
+                  email?: string;
+                  userId?: string;
+                  phone?: string;
+                  url?: string;
+                  name?: string;
+              }
+            | string[],
+        ...rest: [string?, string?, string?, string?, string?]
     ): Promise<Models.Membership> {
-        let params: { roles: string[], email?: string, userId?: string, phone?: string, url?: string, name?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { roles: string[], email?: string, userId?: string, phone?: string, url?: string, name?: string };
+        let params: {
+            roles: string[];
+            email?: string;
+            userId?: string;
+            phone?: string;
+            url?: string;
+            name?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                roles: string[];
+                email?: string;
+                userId?: string;
+                phone?: string;
+                url?: string;
+                name?: string;
+            };
         } else {
             params = {
                 roles: paramsOrFirst as string[],
@@ -858,55 +982,48 @@ export class Organization {
                 userId: rest[1] as string,
                 phone: rest[2] as string,
                 url: rest[3] as string,
-                name: rest[4] as string            
+                name: rest[4] as string,
             };
         }
-        
+
         const roles = params.roles;
         const email = params.email;
         const userId = params.userId;
         const phone = params.phone;
         const url = params.url;
         const name = params.name;
-
         if (typeof roles === 'undefined') {
             throw new AppwriteException('Missing required parameter: "roles"');
         }
-
         const apiPath = '/organization/memberships';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof email !== 'undefined') {
-            payload['email'] = email;
+            apiPayload['email'] = email;
         }
         if (typeof userId !== 'undefined') {
-            payload['userId'] = userId;
+            apiPayload['userId'] = userId;
         }
         if (typeof phone !== 'undefined') {
-            payload['phone'] = phone;
+            apiPayload['phone'] = phone;
         }
         if (typeof roles !== 'undefined') {
-            payload['roles'] = roles;
+            apiPayload['roles'] = roles;
         }
         if (typeof url !== 'undefined') {
-            payload['url'] = url;
+            apiPayload['url'] = url;
         }
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -927,39 +1044,41 @@ export class Organization {
      */
     getMembership(membershipId: string): Promise<Models.Membership>;
     getMembership(
-        paramsOrFirst: { membershipId: string } | string    
+        paramsOrFirst: { membershipId: string } | string,
     ): Promise<Models.Membership> {
         let params: { membershipId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { membershipId: string };
         } else {
             params = {
-                membershipId: paramsOrFirst as string            
+                membershipId: paramsOrFirst as string,
             };
         }
-        
+
         const membershipId = params.membershipId;
-
         if (typeof membershipId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "membershipId"');
+            throw new AppwriteException(
+                'Missing required parameter: "membershipId"',
+            );
         }
-
-        const apiPath = '/organization/memberships/{membershipId}'.replace('{membershipId}', encodeURIComponent(String(membershipId)));
-        const payload: Payload = {};
+        const apiPath = '/organization/memberships/{membershipId}'.replace(
+            '{membershipId}',
+            encodeURIComponent(String(membershipId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -970,7 +1089,10 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Membership>}
      */
-    updateMembership(params: { membershipId: string, roles: string[] }): Promise<Models.Membership>;
+    updateMembership(params: {
+        membershipId: string;
+        roles: string[];
+    }): Promise<Models.Membership>;
     /**
      * Modify the roles of a member in the current organization.
      *
@@ -980,51 +1102,59 @@ export class Organization {
      * @returns {Promise<Models.Membership>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateMembership(membershipId: string, roles: string[]): Promise<Models.Membership>;
     updateMembership(
-        paramsOrFirst: { membershipId: string, roles: string[] } | string,
-        ...rest: [(string[])?]    
+        membershipId: string,
+        roles: string[],
+    ): Promise<Models.Membership>;
+    updateMembership(
+        paramsOrFirst: { membershipId: string; roles: string[] } | string,
+        ...rest: [string[]?]
     ): Promise<Models.Membership> {
-        let params: { membershipId: string, roles: string[] };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { membershipId: string, roles: string[] };
+        let params: { membershipId: string; roles: string[] };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                membershipId: string;
+                roles: string[];
+            };
         } else {
             params = {
                 membershipId: paramsOrFirst as string,
-                roles: rest[0] as string[]            
+                roles: rest[0] as string[],
             };
         }
-        
+
         const membershipId = params.membershipId;
         const roles = params.roles;
-
         if (typeof membershipId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "membershipId"');
+            throw new AppwriteException(
+                'Missing required parameter: "membershipId"',
+            );
         }
         if (typeof roles === 'undefined') {
             throw new AppwriteException('Missing required parameter: "roles"');
         }
-
-        const apiPath = '/organization/memberships/{membershipId}'.replace('{membershipId}', encodeURIComponent(String(membershipId)));
-        const payload: Payload = {};
+        const apiPath = '/organization/memberships/{membershipId}'.replace(
+            '{membershipId}',
+            encodeURIComponent(String(membershipId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof roles !== 'undefined') {
-            payload['roles'] = roles;
+            apiPayload['roles'] = roles;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'patch',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1045,39 +1175,41 @@ export class Organization {
      */
     deleteMembership(membershipId: string): Promise<{}>;
     deleteMembership(
-        paramsOrFirst: { membershipId: string } | string    
+        paramsOrFirst: { membershipId: string } | string,
     ): Promise<{}> {
         let params: { membershipId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { membershipId: string };
         } else {
             params = {
-                membershipId: paramsOrFirst as string            
+                membershipId: paramsOrFirst as string,
             };
         }
-        
+
         const membershipId = params.membershipId;
-
         if (typeof membershipId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "membershipId"');
+            throw new AppwriteException(
+                'Missing required parameter: "membershipId"',
+            );
         }
-
-        const apiPath = '/organization/memberships/{membershipId}'.replace('{membershipId}', encodeURIComponent(String(membershipId)));
-        const payload: Payload = {};
+        const apiPath = '/organization/memberships/{membershipId}'.replace(
+            '{membershipId}',
+            encodeURIComponent(String(membershipId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-        }
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1089,7 +1221,11 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.ProjectList>}
      */
-    listProjects(params?: { queries?: string[], search?: string, total?: boolean }): Promise<Models.ProjectList>;
+    listProjects(params?: {
+        queries?: string[];
+        search?: string;
+        total?: boolean;
+    }): Promise<Models.ProjectList>;
     /**
      * Get a list of all projects. You can use the query params to filter your results.
      *
@@ -1100,52 +1236,59 @@ export class Organization {
      * @returns {Promise<Models.ProjectList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listProjects(queries?: string[], search?: string, total?: boolean): Promise<Models.ProjectList>;
     listProjects(
-        paramsOrFirst?: { queries?: string[], search?: string, total?: boolean } | string[],
-        ...rest: [(string)?, (boolean)?]    
+        queries?: string[],
+        search?: string,
+        total?: boolean,
+    ): Promise<Models.ProjectList>;
+    listProjects(
+        paramsOrFirst?:
+            { queries?: string[]; search?: string; total?: boolean } | string[],
+        ...rest: [string?, boolean?]
     ): Promise<Models.ProjectList> {
-        let params: { queries?: string[], search?: string, total?: boolean };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], search?: string, total?: boolean };
+        let params: { queries?: string[]; search?: string; total?: boolean };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                search?: string;
+                total?: boolean;
+            };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
                 search: rest[0] as string,
-                total: rest[1] as boolean            
+                total: rest[1] as boolean,
             };
         }
-        
+
         const queries = params.queries;
         const search = params.search;
         const total = params.total;
-
-
         const apiPath = '/organization/projects';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof search !== 'undefined') {
-            payload['search'] = search;
+            apiPayload['search'] = search;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1157,7 +1300,11 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
-    createProject(params: { projectId: string, name: string, region?: Region }): Promise<Models.Project>;
+    createProject(params: {
+        projectId: string;
+        name: string;
+        region?: Region;
+    }): Promise<Models.Project>;
     /**
      * Create a new project.
      *
@@ -1168,59 +1315,67 @@ export class Organization {
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createProject(projectId: string, name: string, region?: Region): Promise<Models.Project>;
     createProject(
-        paramsOrFirst: { projectId: string, name: string, region?: Region } | string,
-        ...rest: [(string)?, (Region)?]    
+        projectId: string,
+        name: string,
+        region?: Region,
+    ): Promise<Models.Project>;
+    createProject(
+        paramsOrFirst:
+            { projectId: string; name: string; region?: Region } | string,
+        ...rest: [string?, Region?]
     ): Promise<Models.Project> {
-        let params: { projectId: string, name: string, region?: Region };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { projectId: string, name: string, region?: Region };
+        let params: { projectId: string; name: string; region?: Region };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                projectId: string;
+                name: string;
+                region?: Region;
+            };
         } else {
             params = {
                 projectId: paramsOrFirst as string,
                 name: rest[0] as string,
-                region: rest[1] as Region            
+                region: rest[1] as Region,
             };
         }
-        
+
         const projectId = params.projectId;
         const name = params.name;
         const region = params.region;
-
         if (typeof projectId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "projectId"');
+            throw new AppwriteException(
+                'Missing required parameter: "projectId"',
+            );
         }
         if (typeof name === 'undefined') {
             throw new AppwriteException('Missing required parameter: "name"');
         }
-
         const apiPath = '/organization/projects';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof projectId !== 'undefined') {
-            payload['projectId'] = projectId;
+            apiPayload['projectId'] = projectId;
         }
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         if (typeof region !== 'undefined') {
-            payload['region'] = region;
+            apiPayload['region'] = region;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1241,38 +1396,40 @@ export class Organization {
      */
     getProject(projectId: string): Promise<Models.Project>;
     getProject(
-        paramsOrFirst: { projectId: string } | string    
+        paramsOrFirst: { projectId: string } | string,
     ): Promise<Models.Project> {
         let params: { projectId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { projectId: string };
         } else {
             params = {
-                projectId: paramsOrFirst as string            
+                projectId: paramsOrFirst as string,
             };
         }
-        
+
         const projectId = params.projectId;
-
         if (typeof projectId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "projectId"');
+            throw new AppwriteException(
+                'Missing required parameter: "projectId"',
+            );
         }
-
-        const apiPath = '/organization/projects/{projectId}'.replace('{projectId}', encodeURIComponent(String(projectId)));
-        const payload: Payload = {};
+        const apiPath = '/organization/projects/{projectId}'.replace(
+            '{projectId}',
+            encodeURIComponent(String(projectId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-        }
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1283,7 +1440,10 @@ export class Organization {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
-    updateProject(params: { projectId: string, name: string }): Promise<Models.Project>;
+    updateProject(params: {
+        projectId: string;
+        name: string;
+    }): Promise<Models.Project>;
     /**
      * Update a project by its unique ID.
      *
@@ -1295,49 +1455,54 @@ export class Organization {
      */
     updateProject(projectId: string, name: string): Promise<Models.Project>;
     updateProject(
-        paramsOrFirst: { projectId: string, name: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { projectId: string; name: string } | string,
+        ...rest: [string?]
     ): Promise<Models.Project> {
-        let params: { projectId: string, name: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { projectId: string, name: string };
+        let params: { projectId: string; name: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                projectId: string;
+                name: string;
+            };
         } else {
             params = {
                 projectId: paramsOrFirst as string,
-                name: rest[0] as string            
+                name: rest[0] as string,
             };
         }
-        
+
         const projectId = params.projectId;
         const name = params.name;
-
         if (typeof projectId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "projectId"');
+            throw new AppwriteException(
+                'Missing required parameter: "projectId"',
+            );
         }
         if (typeof name === 'undefined') {
             throw new AppwriteException('Missing required parameter: "name"');
         }
-
-        const apiPath = '/organization/projects/{projectId}'.replace('{projectId}', encodeURIComponent(String(projectId)));
-        const payload: Payload = {};
+        const apiPath = '/organization/projects/{projectId}'.replace(
+            '{projectId}',
+            encodeURIComponent(String(projectId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'patch',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1357,39 +1522,39 @@ export class Organization {
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteProject(projectId: string): Promise<{}>;
-    deleteProject(
-        paramsOrFirst: { projectId: string } | string    
-    ): Promise<{}> {
+    deleteProject(paramsOrFirst: { projectId: string } | string): Promise<{}> {
         let params: { projectId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { projectId: string };
         } else {
             params = {
-                projectId: paramsOrFirst as string            
+                projectId: paramsOrFirst as string,
             };
         }
-        
+
         const projectId = params.projectId;
-
         if (typeof projectId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "projectId"');
+            throw new AppwriteException(
+                'Missing required parameter: "projectId"',
+            );
         }
-
-        const apiPath = '/organization/projects/{projectId}'.replace('{projectId}', encodeURIComponent(String(projectId)));
-        const payload: Payload = {};
+        const apiPath = '/organization/projects/{projectId}'.replace(
+            '{projectId}',
+            encodeURIComponent(String(projectId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-        }
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 }

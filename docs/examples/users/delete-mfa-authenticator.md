@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.deleteMFAAuthenticator({
     userId: '<USER_ID>',
-    type: sdk.AuthenticatorType.Totp
+    type: sdk.AuthenticatorType.Totp,
 });
 ```

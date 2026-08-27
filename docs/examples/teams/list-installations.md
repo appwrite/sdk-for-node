@@ -11,6 +11,6 @@ const teams = new sdk.Teams(client);
 const result = await teams.listInstallations({
     teamId: '<TEAM_ID>',
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

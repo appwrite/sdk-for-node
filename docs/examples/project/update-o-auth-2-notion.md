@@ -11,6 +11,6 @@ const project = new sdk.Project(client);
 const result = await project.updateOAuth2Notion({
     oauthClientId: '<OAUTH_CLIENT_ID>', // optional
     oauthClientSecret: '<OAUTH_CLIENT_SECRET>', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

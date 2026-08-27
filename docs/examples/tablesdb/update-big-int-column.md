@@ -11,11 +11,11 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.updateBigIntColumn({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: null,
-    min: null, // optional
-    max: null, // optional
-    newKey: '' // optional
+    xdefault: 0,
+    min: 0, // optional
+    max: 1000000, // optional
+    newKey: '<NEW_KEY>', // optional
 });
 ```

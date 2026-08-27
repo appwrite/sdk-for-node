@@ -14,6 +14,6 @@ const result = await storage.createFile({
     fileId: '<FILE_ID>',
     file: InputFile.fromPath('/path/to/file', 'filename'),
     permissions: [sdk.Permission.read(sdk.Role.any())], // optional
-    folder: '' // optional
+    folder: 'photos/2026', // optional
 });
 ```

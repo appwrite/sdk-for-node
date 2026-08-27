@@ -11,6 +11,6 @@ const teams = new sdk.Teams(client);
 const result = await teams.updateInstallation({
     teamId: '<TEAM_ID>',
     installationId: '<INSTALLATION_ID>',
-    authorizationDetails: '<AUTHORIZATION_DETAILS>' // optional
+    authorizationDetails: '<AUTHORIZATION_DETAILS>', // optional
 });
 ```

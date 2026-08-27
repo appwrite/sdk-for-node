@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const activities = new sdk.Activities(client);
 
 const result = await activities.getEvent({
-    eventId: '<EVENT_ID>'
+    eventId: '<EVENT_ID>',
 });
 ```

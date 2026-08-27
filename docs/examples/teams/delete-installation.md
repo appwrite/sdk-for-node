@@ -10,6 +10,6 @@ const teams = new sdk.Teams(client);
 
 const result = await teams.deleteInstallation({
     teamId: '<TEAM_ID>',
-    installationId: '<INSTALLATION_ID>'
+    installationId: '<INSTALLATION_ID>',
 });
 ```

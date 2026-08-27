@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.updatePrefs({
     userId: '<USER_ID>',
-    prefs: {}
+    prefs: {},
 });
 ```

@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const proxy = new sdk.Proxy(client);
 
 const result = await proxy.getRule({
-    ruleId: '<RULE_ID>'
+    ruleId: '<RULE_ID>',
 });
 ```

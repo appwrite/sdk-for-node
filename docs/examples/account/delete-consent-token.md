@@ -10,6 +10,6 @@ const account = new sdk.Account(client);
 
 const result = await account.deleteConsentToken({
     consentId: '<CONSENT_ID>',
-    tokenId: '<TOKEN_ID>'
+    tokenId: '<TOKEN_ID>',
 });
 ```

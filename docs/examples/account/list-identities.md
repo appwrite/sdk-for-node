@@ -10,6 +10,6 @@ const account = new sdk.Account(client);
 
 const result = await account.listIdentities({
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

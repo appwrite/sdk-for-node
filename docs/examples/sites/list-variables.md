@@ -11,6 +11,6 @@ const sites = new sdk.Sites(client);
 const result = await sites.listVariables({
     siteId: '<SITE_ID>',
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

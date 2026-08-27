@@ -11,6 +11,6 @@ const messaging = new sdk.Messaging(client);
 const result = await messaging.updateTopic({
     topicId: '<TOPIC_ID>',
     name: '<NAME>', // optional
-    subscribe: ["any"] // optional
+    subscribe: ['any'], // optional
 });
 ```

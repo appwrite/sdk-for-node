@@ -11,6 +11,6 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.list({
     queries: [], // optional
     search: '<SEARCH>', // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

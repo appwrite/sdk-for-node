@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const advisor = new sdk.Advisor(client);
 
 const result = await advisor.getReport({
-    reportId: '<REPORT_ID>'
+    reportId: '<REPORT_ID>',
 });
 ```

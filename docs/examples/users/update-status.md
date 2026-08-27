@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.updateStatus({
     userId: '<USER_ID>',
-    status: false
+    status: false,
 });
 ```

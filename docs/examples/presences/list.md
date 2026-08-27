@@ -11,6 +11,6 @@ const presences = new sdk.Presences(client);
 const result = await presences.list({
     queries: [], // optional
     total: false, // optional
-    ttl: 0 // optional
+    ttl: 0, // optional
 });
 ```

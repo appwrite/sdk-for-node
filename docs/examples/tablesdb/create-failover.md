@@ -10,6 +10,6 @@ const tablesDB = new sdk.TablesDB(client);
 
 const result = await tablesDB.createFailover({
     databaseId: '<DATABASE_ID>',
-    targetReplicaId: '<TARGET_REPLICA_ID>' // optional
+    targetReplicaId: '<TARGET_REPLICA_ID>', // optional
 });
 ```

@@ -11,9 +11,9 @@ const databases = new sdk.Databases(client);
 const result = await databases.updateDatetimeAttribute({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
     xdefault: '2020-10-15T06:38:00.000+00:00',
-    newKey: '' // optional
+    newKey: '<NEW_KEY>', // optional
 });
 ```

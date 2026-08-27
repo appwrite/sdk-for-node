@@ -14,6 +14,6 @@ const result = await messaging.updateMsg91Provider({
     enabled: false, // optional
     templateId: '<TEMPLATE_ID>', // optional
     senderId: '<SENDER_ID>', // optional
-    authKey: '<AUTH_KEY>' // optional
+    authKey: '<AUTH_KEY>', // optional
 });
 ```

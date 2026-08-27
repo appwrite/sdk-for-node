@@ -11,9 +11,9 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.createIpColumn({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: '', // optional
-    array: false // optional
+    xdefault: '192.0.2.0', // optional
+    array: false, // optional
 });
 ```

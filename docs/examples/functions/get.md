@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const functions = new sdk.Functions(client);
 
 const result = await functions.get({
-    functionId: '<FUNCTION_ID>'
+    functionId: '<FUNCTION_ID>',
 });
 ```

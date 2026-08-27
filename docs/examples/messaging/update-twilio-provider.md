@@ -14,6 +14,6 @@ const result = await messaging.updateTwilioProvider({
     enabled: false, // optional
     accountSid: '<ACCOUNT_SID>', // optional
     authToken: '<AUTH_TOKEN>', // optional
-    from: '<FROM>' // optional
+    from: '<FROM>', // optional
 });
 ```

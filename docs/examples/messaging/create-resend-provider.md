@@ -16,6 +16,6 @@ const result = await messaging.createResendProvider({
     fromEmail: 'email@example.com', // optional
     replyToName: '<REPLY_TO_NAME>', // optional
     replyToEmail: 'email@example.com', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

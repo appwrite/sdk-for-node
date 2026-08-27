@@ -12,9 +12,9 @@ const result = await functions.create({
     functionId: '<FUNCTION_ID>',
     name: '<NAME>',
     runtime: sdk.Runtime.Node145,
-    execute: ["any"], // optional
+    execute: ['any'], // optional
     events: [], // optional
-    schedule: '', // optional
+    schedule: '0 0 * * *', // optional
     timeout: 1, // optional
     enabled: false, // optional
     logging: false, // optional
@@ -28,8 +28,8 @@ const result = await functions.create({
     providerRootDirectory: '<PROVIDER_ROOT_DIRECTORY>', // optional
     providerBranches: [], // optional
     providerPaths: [], // optional
-    buildSpecification: '', // optional
-    runtimeSpecification: '', // optional
-    deploymentRetention: 0 // optional
+    buildSpecification: 's-1vcpu-512mb', // optional
+    runtimeSpecification: 's-1vcpu-512mb', // optional
+    deploymentRetention: 0, // optional
 });
 ```

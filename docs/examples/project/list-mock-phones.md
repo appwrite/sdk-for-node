@@ -10,6 +10,6 @@ const project = new sdk.Project(client);
 
 const result = await project.listMockPhones({
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

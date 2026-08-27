@@ -10,6 +10,6 @@ const functions = new sdk.Functions(client);
 
 const result = await functions.getVariable({
     functionId: '<FUNCTION_ID>',
-    variableId: '<VARIABLE_ID>'
+    variableId: '<VARIABLE_ID>',
 });
 ```

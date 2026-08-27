@@ -11,6 +11,6 @@ const functions = new sdk.Functions(client);
 const result = await functions.createDuplicateDeployment({
     functionId: '<FUNCTION_ID>',
     deploymentId: '<DEPLOYMENT_ID>',
-    buildId: '<BUILD_ID>' // optional
+    buildId: '<BUILD_ID>', // optional
 });
 ```

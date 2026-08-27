@@ -14,6 +14,6 @@ const result = await messaging.createTelesignProvider({
     from: '+12065550100', // optional
     customerId: '<CUSTOMER_ID>', // optional
     apiKey: '<API_KEY>', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

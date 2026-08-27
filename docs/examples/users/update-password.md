@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.updatePassword({
     userId: '<USER_ID>',
-    password: 'password'
+    password: 'password',
 });
 ```

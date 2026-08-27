@@ -11,10 +11,10 @@ const databases = new sdk.Databases(client);
 const result = await databases.updateVarcharAttribute({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: '<DEFAULT>',
+    xdefault: 'Hello World',
     size: 1, // optional
-    newKey: '' // optional
+    newKey: '<NEW_KEY>', // optional
 });
 ```

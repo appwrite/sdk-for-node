@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const project = new sdk.Project(client);
 
 const result = await project.getKey({
-    keyId: '<KEY_ID>'
+    keyId: '<KEY_ID>',
 });
 ```
