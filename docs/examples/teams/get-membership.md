@@ -10,6 +10,6 @@ const teams = new sdk.Teams(client);
 
 const result = await teams.getMembership({
     teamId: '<TEAM_ID>',
-    membershipId: '<MEMBERSHIP_ID>'
+    membershipId: '<MEMBERSHIP_ID>',
 });
 ```

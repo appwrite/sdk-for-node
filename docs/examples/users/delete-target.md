@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.deleteTarget({
     userId: '<USER_ID>',
-    targetId: '<TARGET_ID>'
+    targetId: '<TARGET_ID>',
 });
 ```

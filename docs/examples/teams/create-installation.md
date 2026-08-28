@@ -11,6 +11,6 @@ const teams = new sdk.Teams(client);
 const result = await teams.createInstallation({
     teamId: '<TEAM_ID>',
     appId: '<APP_ID>',
-    authorizationDetails: '<AUTHORIZATION_DETAILS>' // optional
+    authorizationDetails: '<AUTHORIZATION_DETAILS>', // optional
 });
 ```

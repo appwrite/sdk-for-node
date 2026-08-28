@@ -12,6 +12,6 @@ const result = await avatars.getCreditCard({
     code: sdk.CreditCard.AmericanExpress,
     width: 0, // optional
     height: 0, // optional
-    quality: -1 // optional
+    quality: -1, // optional
 });
 ```

@@ -15,6 +15,6 @@ const result = await sites.createTemplateDeployment({
     rootDirectory: '<ROOT_DIRECTORY>',
     type: sdk.TemplateReferenceType.Branch,
     reference: '<REFERENCE>',
-    activate: false // optional
+    activate: false, // optional
 });
 ```

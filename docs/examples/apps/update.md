@@ -28,6 +28,6 @@ const result = await apps.update({
     type: 'public', // optional
     deviceFlow: false, // optional
     installationScopes: [], // optional
-    installationRedirectUrl: 'https://example.com' // optional
+    installationRedirectUrl: 'https://example.com', // optional
 });
 ```

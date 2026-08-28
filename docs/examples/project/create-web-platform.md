@@ -11,6 +11,6 @@ const project = new sdk.Project(client);
 const result = await project.createWebPlatform({
     platformId: '<PLATFORM_ID>',
     name: '<NAME>',
-    hostname: 'app.example.com'
+    hostname: 'app.example.com',
 });
 ```

@@ -1,15 +1,19 @@
-import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
+import {
+    AppwriteException,
+    Client,
+    type Payload,
+    UploadProgress,
+} from '../client';
 import type { Models } from '../models';
-
 import { InputFile } from '../inputFile';
 
 import { Framework } from '../enums/framework';
 import { BuildRuntime } from '../enums/build-runtime';
 import { Adapter } from '../enums/adapter';
+import { ProjectKeyScopes } from '../enums/project-key-scopes';
 import { TemplateReferenceType } from '../enums/template-reference-type';
 import { VCSReferenceType } from '../enums/vcs-reference-type';
 import { DeploymentDownloadType } from '../enums/deployment-download-type';
-
 export class Sites {
     client: Client;
 
@@ -26,7 +30,11 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.SiteList>}
      */
-    list(params?: { queries?: string[], search?: string, total?: boolean }): Promise<Models.SiteList>;
+    list(params?: {
+        queries?: string[];
+        search?: string;
+        total?: boolean;
+    }): Promise<Models.SiteList>;
     /**
      * Get a list of all the project's sites. You can use the query params to filter your results.
      *
@@ -37,52 +45,59 @@ export class Sites {
      * @returns {Promise<Models.SiteList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    list(queries?: string[], search?: string, total?: boolean): Promise<Models.SiteList>;
     list(
-        paramsOrFirst?: { queries?: string[], search?: string, total?: boolean } | string[],
-        ...rest: [(string)?, (boolean)?]    
+        queries?: string[],
+        search?: string,
+        total?: boolean,
+    ): Promise<Models.SiteList>;
+    list(
+        paramsOrFirst?:
+            { queries?: string[]; search?: string; total?: boolean } | string[],
+        ...rest: [string?, boolean?]
     ): Promise<Models.SiteList> {
-        let params: { queries?: string[], search?: string, total?: boolean };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], search?: string, total?: boolean };
+        let params: { queries?: string[]; search?: string; total?: boolean };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                search?: string;
+                total?: boolean;
+            };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
                 search: rest[0] as string,
-                total: rest[1] as boolean            
+                total: rest[1] as boolean,
             };
         }
-        
+
         const queries = params.queries;
         const search = params.search;
         const total = params.total;
-
-
         const apiPath = '/sites';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof search !== 'undefined') {
-            payload['search'] = search;
+            apiPayload['search'] = search;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -111,10 +126,36 @@ export class Sites {
      * @param {string} params.buildSpecification - Build specification for the site deployments.
      * @param {string} params.runtimeSpecification - Runtime specification for the SSR executions.
      * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
+     * @param {ProjectKeyScopes[]} params.scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Site>}
      */
-    create(params: { siteId: string, name: string, framework: Framework, buildRuntime: BuildRuntime, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, startCommand?: string, outputDirectory?: string, adapter?: Adapter, installationId?: string, fallbackFile?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, providerBranches?: string[], providerPaths?: string[], buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number }): Promise<Models.Site>;
+    create(params: {
+        siteId: string;
+        name: string;
+        framework: Framework;
+        buildRuntime: BuildRuntime;
+        enabled?: boolean;
+        logging?: boolean;
+        timeout?: number;
+        installCommand?: string;
+        buildCommand?: string;
+        startCommand?: string;
+        outputDirectory?: string;
+        adapter?: Adapter;
+        installationId?: string;
+        fallbackFile?: string;
+        providerRepositoryId?: string;
+        providerBranch?: string;
+        providerSilentMode?: boolean;
+        providerRootDirectory?: string;
+        providerBranches?: string[];
+        providerPaths?: string[];
+        buildSpecification?: string;
+        runtimeSpecification?: string;
+        deploymentRetention?: number;
+        scopes?: ProjectKeyScopes[];
+    }): Promise<Models.Site>;
     /**
      * Create a new site.
      *
@@ -141,19 +182,150 @@ export class Sites {
      * @param {string} buildSpecification - Build specification for the site deployments.
      * @param {string} runtimeSpecification - Runtime specification for the SSR executions.
      * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
+     * @param {ProjectKeyScopes[]} scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Site>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    create(siteId: string, name: string, framework: Framework, buildRuntime: BuildRuntime, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, startCommand?: string, outputDirectory?: string, adapter?: Adapter, installationId?: string, fallbackFile?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, providerBranches?: string[], providerPaths?: string[], buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number): Promise<Models.Site>;
     create(
-        paramsOrFirst: { siteId: string, name: string, framework: Framework, buildRuntime: BuildRuntime, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, startCommand?: string, outputDirectory?: string, adapter?: Adapter, installationId?: string, fallbackFile?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, providerBranches?: string[], providerPaths?: string[], buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number } | string,
-        ...rest: [(string)?, (Framework)?, (BuildRuntime)?, (boolean)?, (boolean)?, (number)?, (string)?, (string)?, (string)?, (string)?, (Adapter)?, (string)?, (string)?, (string)?, (string)?, (boolean)?, (string)?, (string[])?, (string[])?, (string)?, (string)?, (number)?]    
+        siteId: string,
+        name: string,
+        framework: Framework,
+        buildRuntime: BuildRuntime,
+        enabled?: boolean,
+        logging?: boolean,
+        timeout?: number,
+        installCommand?: string,
+        buildCommand?: string,
+        startCommand?: string,
+        outputDirectory?: string,
+        adapter?: Adapter,
+        installationId?: string,
+        fallbackFile?: string,
+        providerRepositoryId?: string,
+        providerBranch?: string,
+        providerSilentMode?: boolean,
+        providerRootDirectory?: string,
+        providerBranches?: string[],
+        providerPaths?: string[],
+        buildSpecification?: string,
+        runtimeSpecification?: string,
+        deploymentRetention?: number,
+        scopes?: ProjectKeyScopes[],
+    ): Promise<Models.Site>;
+    create(
+        paramsOrFirst:
+            | {
+                  siteId: string;
+                  name: string;
+                  framework: Framework;
+                  buildRuntime: BuildRuntime;
+                  enabled?: boolean;
+                  logging?: boolean;
+                  timeout?: number;
+                  installCommand?: string;
+                  buildCommand?: string;
+                  startCommand?: string;
+                  outputDirectory?: string;
+                  adapter?: Adapter;
+                  installationId?: string;
+                  fallbackFile?: string;
+                  providerRepositoryId?: string;
+                  providerBranch?: string;
+                  providerSilentMode?: boolean;
+                  providerRootDirectory?: string;
+                  providerBranches?: string[];
+                  providerPaths?: string[];
+                  buildSpecification?: string;
+                  runtimeSpecification?: string;
+                  deploymentRetention?: number;
+                  scopes?: ProjectKeyScopes[];
+              }
+            | string,
+        ...rest: [
+            string?,
+            Framework?,
+            BuildRuntime?,
+            boolean?,
+            boolean?,
+            number?,
+            string?,
+            string?,
+            string?,
+            string?,
+            Adapter?,
+            string?,
+            string?,
+            string?,
+            string?,
+            boolean?,
+            string?,
+            string[]?,
+            string[]?,
+            string?,
+            string?,
+            number?,
+            ProjectKeyScopes[]?,
+        ]
     ): Promise<Models.Site> {
-        let params: { siteId: string, name: string, framework: Framework, buildRuntime: BuildRuntime, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, startCommand?: string, outputDirectory?: string, adapter?: Adapter, installationId?: string, fallbackFile?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, providerBranches?: string[], providerPaths?: string[], buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, name: string, framework: Framework, buildRuntime: BuildRuntime, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, startCommand?: string, outputDirectory?: string, adapter?: Adapter, installationId?: string, fallbackFile?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, providerBranches?: string[], providerPaths?: string[], buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number };
+        let params: {
+            siteId: string;
+            name: string;
+            framework: Framework;
+            buildRuntime: BuildRuntime;
+            enabled?: boolean;
+            logging?: boolean;
+            timeout?: number;
+            installCommand?: string;
+            buildCommand?: string;
+            startCommand?: string;
+            outputDirectory?: string;
+            adapter?: Adapter;
+            installationId?: string;
+            fallbackFile?: string;
+            providerRepositoryId?: string;
+            providerBranch?: string;
+            providerSilentMode?: boolean;
+            providerRootDirectory?: string;
+            providerBranches?: string[];
+            providerPaths?: string[];
+            buildSpecification?: string;
+            runtimeSpecification?: string;
+            deploymentRetention?: number;
+            scopes?: ProjectKeyScopes[];
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                name: string;
+                framework: Framework;
+                buildRuntime: BuildRuntime;
+                enabled?: boolean;
+                logging?: boolean;
+                timeout?: number;
+                installCommand?: string;
+                buildCommand?: string;
+                startCommand?: string;
+                outputDirectory?: string;
+                adapter?: Adapter;
+                installationId?: string;
+                fallbackFile?: string;
+                providerRepositoryId?: string;
+                providerBranch?: string;
+                providerSilentMode?: boolean;
+                providerRootDirectory?: string;
+                providerBranches?: string[];
+                providerPaths?: string[];
+                buildSpecification?: string;
+                runtimeSpecification?: string;
+                deploymentRetention?: number;
+                scopes?: ProjectKeyScopes[];
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
@@ -178,10 +350,11 @@ export class Sites {
                 providerPaths: rest[18] as string[],
                 buildSpecification: rest[19] as string,
                 runtimeSpecification: rest[20] as string,
-                deploymentRetention: rest[21] as number            
+                deploymentRetention: rest[21] as number,
+                scopes: rest[22] as ProjectKeyScopes[],
             };
         }
-        
+
         const siteId = params.siteId;
         const name = params.name;
         const framework = params.framework;
@@ -205,7 +378,7 @@ export class Sites {
         const buildSpecification = params.buildSpecification;
         const runtimeSpecification = params.runtimeSpecification;
         const deploymentRetention = params.deploymentRetention;
-
+        const scopes = params.scopes;
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
@@ -213,97 +386,98 @@ export class Sites {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         if (typeof framework === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "framework"');
+            throw new AppwriteException(
+                'Missing required parameter: "framework"',
+            );
         }
         if (typeof buildRuntime === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "buildRuntime"');
+            throw new AppwriteException(
+                'Missing required parameter: "buildRuntime"',
+            );
         }
-
         const apiPath = '/sites';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof siteId !== 'undefined') {
-            payload['siteId'] = siteId;
+            apiPayload['siteId'] = siteId;
         }
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         if (typeof framework !== 'undefined') {
-            payload['framework'] = framework;
+            apiPayload['framework'] = framework;
         }
         if (typeof enabled !== 'undefined') {
-            payload['enabled'] = enabled;
+            apiPayload['enabled'] = enabled;
         }
         if (typeof logging !== 'undefined') {
-            payload['logging'] = logging;
+            apiPayload['logging'] = logging;
         }
         if (typeof timeout !== 'undefined') {
-            payload['timeout'] = timeout;
+            apiPayload['timeout'] = timeout;
         }
         if (typeof installCommand !== 'undefined') {
-            payload['installCommand'] = installCommand;
+            apiPayload['installCommand'] = installCommand;
         }
         if (typeof buildCommand !== 'undefined') {
-            payload['buildCommand'] = buildCommand;
+            apiPayload['buildCommand'] = buildCommand;
         }
         if (typeof startCommand !== 'undefined') {
-            payload['startCommand'] = startCommand;
+            apiPayload['startCommand'] = startCommand;
         }
         if (typeof outputDirectory !== 'undefined') {
-            payload['outputDirectory'] = outputDirectory;
+            apiPayload['outputDirectory'] = outputDirectory;
         }
         if (typeof buildRuntime !== 'undefined') {
-            payload['buildRuntime'] = buildRuntime;
+            apiPayload['buildRuntime'] = buildRuntime;
         }
         if (typeof adapter !== 'undefined') {
-            payload['adapter'] = adapter;
+            apiPayload['adapter'] = adapter;
         }
         if (typeof installationId !== 'undefined') {
-            payload['installationId'] = installationId;
+            apiPayload['installationId'] = installationId;
         }
         if (typeof fallbackFile !== 'undefined') {
-            payload['fallbackFile'] = fallbackFile;
+            apiPayload['fallbackFile'] = fallbackFile;
         }
         if (typeof providerRepositoryId !== 'undefined') {
-            payload['providerRepositoryId'] = providerRepositoryId;
+            apiPayload['providerRepositoryId'] = providerRepositoryId;
         }
         if (typeof providerBranch !== 'undefined') {
-            payload['providerBranch'] = providerBranch;
+            apiPayload['providerBranch'] = providerBranch;
         }
         if (typeof providerSilentMode !== 'undefined') {
-            payload['providerSilentMode'] = providerSilentMode;
+            apiPayload['providerSilentMode'] = providerSilentMode;
         }
         if (typeof providerRootDirectory !== 'undefined') {
-            payload['providerRootDirectory'] = providerRootDirectory;
+            apiPayload['providerRootDirectory'] = providerRootDirectory;
         }
         if (typeof providerBranches !== 'undefined') {
-            payload['providerBranches'] = providerBranches;
+            apiPayload['providerBranches'] = providerBranches;
         }
         if (typeof providerPaths !== 'undefined') {
-            payload['providerPaths'] = providerPaths;
+            apiPayload['providerPaths'] = providerPaths;
         }
         if (typeof buildSpecification !== 'undefined') {
-            payload['buildSpecification'] = buildSpecification;
+            apiPayload['buildSpecification'] = buildSpecification;
         }
         if (typeof runtimeSpecification !== 'undefined') {
-            payload['runtimeSpecification'] = runtimeSpecification;
+            apiPayload['runtimeSpecification'] = runtimeSpecification;
         }
         if (typeof deploymentRetention !== 'undefined') {
-            payload['deploymentRetention'] = deploymentRetention;
+            apiPayload['deploymentRetention'] = deploymentRetention;
+        }
+        if (typeof scopes !== 'undefined') {
+            apiPayload['scopes'] = scopes;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -313,22 +487,16 @@ export class Sites {
      * @returns {Promise<Models.FrameworkList>}
      */
     listFrameworks(): Promise<Models.FrameworkList> {
-
         const apiPath = '/sites/frameworks';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -338,7 +506,9 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.SpecificationList>}
      */
-    listSpecifications(params?: { type?: string }): Promise<Models.SpecificationList>;
+    listSpecifications(params?: {
+        type?: string;
+    }): Promise<Models.SpecificationList>;
     /**
      * List allowed site specifications for this instance.
      *
@@ -349,39 +519,37 @@ export class Sites {
      */
     listSpecifications(type?: string): Promise<Models.SpecificationList>;
     listSpecifications(
-        paramsOrFirst?: { type?: string } | string    
+        paramsOrFirst?: { type?: string } | string,
     ): Promise<Models.SpecificationList> {
         let params: { type?: string };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
             params = (paramsOrFirst || {}) as { type?: string };
         } else {
             params = {
-                type: paramsOrFirst as string            
+                type: paramsOrFirst as string,
             };
         }
-        
+
         const type = params.type;
-
-
         const apiPath = '/sites/specifications';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof type !== 'undefined') {
-            payload['type'] = type;
+            apiPayload['type'] = type;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -401,40 +569,38 @@ export class Sites {
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     get(siteId: string): Promise<Models.Site>;
-    get(
-        paramsOrFirst: { siteId: string } | string    
-    ): Promise<Models.Site> {
+    get(paramsOrFirst: { siteId: string } | string): Promise<Models.Site> {
         let params: { siteId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { siteId: string };
         } else {
             params = {
-                siteId: paramsOrFirst as string            
+                siteId: paramsOrFirst as string,
             };
         }
-        
-        const siteId = params.siteId;
 
+        const siteId = params.siteId;
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-
-        const apiPath = '/sites/{siteId}'.replace('{siteId}', encodeURIComponent(String(siteId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}'.replace(
+            '{siteId}',
+            encodeURIComponent(String(siteId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -463,10 +629,36 @@ export class Sites {
      * @param {string} params.buildSpecification - Build specification for the site deployments.
      * @param {string} params.runtimeSpecification - Runtime specification for the SSR executions.
      * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
+     * @param {ProjectKeyScopes[]} params.scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Site>}
      */
-    update(params: { siteId: string, name: string, framework: Framework, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, startCommand?: string, outputDirectory?: string, buildRuntime?: BuildRuntime, adapter?: Adapter, fallbackFile?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, providerBranches?: string[], providerPaths?: string[], buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number }): Promise<Models.Site>;
+    update(params: {
+        siteId: string;
+        name: string;
+        framework: Framework;
+        enabled?: boolean;
+        logging?: boolean;
+        timeout?: number;
+        installCommand?: string;
+        buildCommand?: string;
+        startCommand?: string;
+        outputDirectory?: string;
+        buildRuntime?: BuildRuntime;
+        adapter?: Adapter;
+        fallbackFile?: string;
+        installationId?: string;
+        providerRepositoryId?: string;
+        providerBranch?: string;
+        providerSilentMode?: boolean;
+        providerRootDirectory?: string;
+        providerBranches?: string[];
+        providerPaths?: string[];
+        buildSpecification?: string;
+        runtimeSpecification?: string;
+        deploymentRetention?: number;
+        scopes?: ProjectKeyScopes[];
+    }): Promise<Models.Site>;
     /**
      * Update site by its unique ID.
      *
@@ -493,19 +685,150 @@ export class Sites {
      * @param {string} buildSpecification - Build specification for the site deployments.
      * @param {string} runtimeSpecification - Runtime specification for the SSR executions.
      * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
+     * @param {ProjectKeyScopes[]} scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Site>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    update(siteId: string, name: string, framework: Framework, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, startCommand?: string, outputDirectory?: string, buildRuntime?: BuildRuntime, adapter?: Adapter, fallbackFile?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, providerBranches?: string[], providerPaths?: string[], buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number): Promise<Models.Site>;
     update(
-        paramsOrFirst: { siteId: string, name: string, framework: Framework, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, startCommand?: string, outputDirectory?: string, buildRuntime?: BuildRuntime, adapter?: Adapter, fallbackFile?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, providerBranches?: string[], providerPaths?: string[], buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number } | string,
-        ...rest: [(string)?, (Framework)?, (boolean)?, (boolean)?, (number)?, (string)?, (string)?, (string)?, (string)?, (BuildRuntime)?, (Adapter)?, (string)?, (string)?, (string)?, (string)?, (boolean)?, (string)?, (string[])?, (string[])?, (string)?, (string)?, (number)?]    
+        siteId: string,
+        name: string,
+        framework: Framework,
+        enabled?: boolean,
+        logging?: boolean,
+        timeout?: number,
+        installCommand?: string,
+        buildCommand?: string,
+        startCommand?: string,
+        outputDirectory?: string,
+        buildRuntime?: BuildRuntime,
+        adapter?: Adapter,
+        fallbackFile?: string,
+        installationId?: string,
+        providerRepositoryId?: string,
+        providerBranch?: string,
+        providerSilentMode?: boolean,
+        providerRootDirectory?: string,
+        providerBranches?: string[],
+        providerPaths?: string[],
+        buildSpecification?: string,
+        runtimeSpecification?: string,
+        deploymentRetention?: number,
+        scopes?: ProjectKeyScopes[],
+    ): Promise<Models.Site>;
+    update(
+        paramsOrFirst:
+            | {
+                  siteId: string;
+                  name: string;
+                  framework: Framework;
+                  enabled?: boolean;
+                  logging?: boolean;
+                  timeout?: number;
+                  installCommand?: string;
+                  buildCommand?: string;
+                  startCommand?: string;
+                  outputDirectory?: string;
+                  buildRuntime?: BuildRuntime;
+                  adapter?: Adapter;
+                  fallbackFile?: string;
+                  installationId?: string;
+                  providerRepositoryId?: string;
+                  providerBranch?: string;
+                  providerSilentMode?: boolean;
+                  providerRootDirectory?: string;
+                  providerBranches?: string[];
+                  providerPaths?: string[];
+                  buildSpecification?: string;
+                  runtimeSpecification?: string;
+                  deploymentRetention?: number;
+                  scopes?: ProjectKeyScopes[];
+              }
+            | string,
+        ...rest: [
+            string?,
+            Framework?,
+            boolean?,
+            boolean?,
+            number?,
+            string?,
+            string?,
+            string?,
+            string?,
+            BuildRuntime?,
+            Adapter?,
+            string?,
+            string?,
+            string?,
+            string?,
+            boolean?,
+            string?,
+            string[]?,
+            string[]?,
+            string?,
+            string?,
+            number?,
+            ProjectKeyScopes[]?,
+        ]
     ): Promise<Models.Site> {
-        let params: { siteId: string, name: string, framework: Framework, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, startCommand?: string, outputDirectory?: string, buildRuntime?: BuildRuntime, adapter?: Adapter, fallbackFile?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, providerBranches?: string[], providerPaths?: string[], buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, name: string, framework: Framework, enabled?: boolean, logging?: boolean, timeout?: number, installCommand?: string, buildCommand?: string, startCommand?: string, outputDirectory?: string, buildRuntime?: BuildRuntime, adapter?: Adapter, fallbackFile?: string, installationId?: string, providerRepositoryId?: string, providerBranch?: string, providerSilentMode?: boolean, providerRootDirectory?: string, providerBranches?: string[], providerPaths?: string[], buildSpecification?: string, runtimeSpecification?: string, deploymentRetention?: number };
+        let params: {
+            siteId: string;
+            name: string;
+            framework: Framework;
+            enabled?: boolean;
+            logging?: boolean;
+            timeout?: number;
+            installCommand?: string;
+            buildCommand?: string;
+            startCommand?: string;
+            outputDirectory?: string;
+            buildRuntime?: BuildRuntime;
+            adapter?: Adapter;
+            fallbackFile?: string;
+            installationId?: string;
+            providerRepositoryId?: string;
+            providerBranch?: string;
+            providerSilentMode?: boolean;
+            providerRootDirectory?: string;
+            providerBranches?: string[];
+            providerPaths?: string[];
+            buildSpecification?: string;
+            runtimeSpecification?: string;
+            deploymentRetention?: number;
+            scopes?: ProjectKeyScopes[];
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                name: string;
+                framework: Framework;
+                enabled?: boolean;
+                logging?: boolean;
+                timeout?: number;
+                installCommand?: string;
+                buildCommand?: string;
+                startCommand?: string;
+                outputDirectory?: string;
+                buildRuntime?: BuildRuntime;
+                adapter?: Adapter;
+                fallbackFile?: string;
+                installationId?: string;
+                providerRepositoryId?: string;
+                providerBranch?: string;
+                providerSilentMode?: boolean;
+                providerRootDirectory?: string;
+                providerBranches?: string[];
+                providerPaths?: string[];
+                buildSpecification?: string;
+                runtimeSpecification?: string;
+                deploymentRetention?: number;
+                scopes?: ProjectKeyScopes[];
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
@@ -530,10 +853,11 @@ export class Sites {
                 providerPaths: rest[18] as string[],
                 buildSpecification: rest[19] as string,
                 runtimeSpecification: rest[20] as string,
-                deploymentRetention: rest[21] as number            
+                deploymentRetention: rest[21] as number,
+                scopes: rest[22] as ProjectKeyScopes[],
             };
         }
-        
+
         const siteId = params.siteId;
         const name = params.name;
         const framework = params.framework;
@@ -557,7 +881,7 @@ export class Sites {
         const buildSpecification = params.buildSpecification;
         const runtimeSpecification = params.runtimeSpecification;
         const deploymentRetention = params.deploymentRetention;
-
+        const scopes = params.scopes;
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
@@ -565,91 +889,93 @@ export class Sites {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         if (typeof framework === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "framework"');
+            throw new AppwriteException(
+                'Missing required parameter: "framework"',
+            );
         }
-
-        const apiPath = '/sites/{siteId}'.replace('{siteId}', encodeURIComponent(String(siteId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}'.replace(
+            '{siteId}',
+            encodeURIComponent(String(siteId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         if (typeof framework !== 'undefined') {
-            payload['framework'] = framework;
+            apiPayload['framework'] = framework;
         }
         if (typeof enabled !== 'undefined') {
-            payload['enabled'] = enabled;
+            apiPayload['enabled'] = enabled;
         }
         if (typeof logging !== 'undefined') {
-            payload['logging'] = logging;
+            apiPayload['logging'] = logging;
         }
         if (typeof timeout !== 'undefined') {
-            payload['timeout'] = timeout;
+            apiPayload['timeout'] = timeout;
         }
         if (typeof installCommand !== 'undefined') {
-            payload['installCommand'] = installCommand;
+            apiPayload['installCommand'] = installCommand;
         }
         if (typeof buildCommand !== 'undefined') {
-            payload['buildCommand'] = buildCommand;
+            apiPayload['buildCommand'] = buildCommand;
         }
         if (typeof startCommand !== 'undefined') {
-            payload['startCommand'] = startCommand;
+            apiPayload['startCommand'] = startCommand;
         }
         if (typeof outputDirectory !== 'undefined') {
-            payload['outputDirectory'] = outputDirectory;
+            apiPayload['outputDirectory'] = outputDirectory;
         }
         if (typeof buildRuntime !== 'undefined') {
-            payload['buildRuntime'] = buildRuntime;
+            apiPayload['buildRuntime'] = buildRuntime;
         }
         if (typeof adapter !== 'undefined') {
-            payload['adapter'] = adapter;
+            apiPayload['adapter'] = adapter;
         }
         if (typeof fallbackFile !== 'undefined') {
-            payload['fallbackFile'] = fallbackFile;
+            apiPayload['fallbackFile'] = fallbackFile;
         }
         if (typeof installationId !== 'undefined') {
-            payload['installationId'] = installationId;
+            apiPayload['installationId'] = installationId;
         }
         if (typeof providerRepositoryId !== 'undefined') {
-            payload['providerRepositoryId'] = providerRepositoryId;
+            apiPayload['providerRepositoryId'] = providerRepositoryId;
         }
         if (typeof providerBranch !== 'undefined') {
-            payload['providerBranch'] = providerBranch;
+            apiPayload['providerBranch'] = providerBranch;
         }
         if (typeof providerSilentMode !== 'undefined') {
-            payload['providerSilentMode'] = providerSilentMode;
+            apiPayload['providerSilentMode'] = providerSilentMode;
         }
         if (typeof providerRootDirectory !== 'undefined') {
-            payload['providerRootDirectory'] = providerRootDirectory;
+            apiPayload['providerRootDirectory'] = providerRootDirectory;
         }
         if (typeof providerBranches !== 'undefined') {
-            payload['providerBranches'] = providerBranches;
+            apiPayload['providerBranches'] = providerBranches;
         }
         if (typeof providerPaths !== 'undefined') {
-            payload['providerPaths'] = providerPaths;
+            apiPayload['providerPaths'] = providerPaths;
         }
         if (typeof buildSpecification !== 'undefined') {
-            payload['buildSpecification'] = buildSpecification;
+            apiPayload['buildSpecification'] = buildSpecification;
         }
         if (typeof runtimeSpecification !== 'undefined') {
-            payload['runtimeSpecification'] = runtimeSpecification;
+            apiPayload['runtimeSpecification'] = runtimeSpecification;
         }
         if (typeof deploymentRetention !== 'undefined') {
-            payload['deploymentRetention'] = deploymentRetention;
+            apiPayload['deploymentRetention'] = deploymentRetention;
+        }
+        if (typeof scopes !== 'undefined') {
+            apiPayload['scopes'] = scopes;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'put',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -669,40 +995,38 @@ export class Sites {
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     delete(siteId: string): Promise<{}>;
-    delete(
-        paramsOrFirst: { siteId: string } | string    
-    ): Promise<{}> {
+    delete(paramsOrFirst: { siteId: string } | string): Promise<{}> {
         let params: { siteId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { siteId: string };
         } else {
             params = {
-                siteId: paramsOrFirst as string            
+                siteId: paramsOrFirst as string,
             };
         }
-        
-        const siteId = params.siteId;
 
+        const siteId = params.siteId;
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-
-        const apiPath = '/sites/{siteId}'.replace('{siteId}', encodeURIComponent(String(siteId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}'.replace(
+            '{siteId}',
+            encodeURIComponent(String(siteId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-        }
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -713,7 +1037,10 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Site>}
      */
-    updateSiteDeployment(params: { siteId: string, deploymentId: string }): Promise<Models.Site>;
+    updateSiteDeployment(params: {
+        siteId: string;
+        deploymentId: string;
+    }): Promise<Models.Site>;
     /**
      * Update the site active deployment. Use this endpoint to switch the code deployment that should be used when visitor opens your site.
      *
@@ -723,51 +1050,59 @@ export class Sites {
      * @returns {Promise<Models.Site>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateSiteDeployment(siteId: string, deploymentId: string): Promise<Models.Site>;
     updateSiteDeployment(
-        paramsOrFirst: { siteId: string, deploymentId: string } | string,
-        ...rest: [(string)?]    
+        siteId: string,
+        deploymentId: string,
+    ): Promise<Models.Site>;
+    updateSiteDeployment(
+        paramsOrFirst: { siteId: string; deploymentId: string } | string,
+        ...rest: [string?]
     ): Promise<Models.Site> {
-        let params: { siteId: string, deploymentId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, deploymentId: string };
+        let params: { siteId: string; deploymentId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                deploymentId: string;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
-                deploymentId: rest[0] as string            
+                deploymentId: rest[0] as string,
             };
         }
-        
+
         const siteId = params.siteId;
         const deploymentId = params.deploymentId;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof deploymentId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "deploymentId"');
+            throw new AppwriteException(
+                'Missing required parameter: "deploymentId"',
+            );
         }
-
-        const apiPath = '/sites/{siteId}/deployment'.replace('{siteId}', encodeURIComponent(String(siteId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/deployment'.replace(
+            '{siteId}',
+            encodeURIComponent(String(siteId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof deploymentId !== 'undefined') {
-            payload['deploymentId'] = deploymentId;
+            apiPayload['deploymentId'] = deploymentId;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'patch',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -780,7 +1115,12 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.DeploymentList>}
      */
-    listDeployments(params: { siteId: string, queries?: string[], search?: string, total?: boolean }): Promise<Models.DeploymentList>;
+    listDeployments(params: {
+        siteId: string;
+        queries?: string[];
+        search?: string;
+        total?: boolean;
+    }): Promise<Models.DeploymentList>;
     /**
      * Get a list of all the site's code deployments. You can use the query params to filter your results.
      *
@@ -792,57 +1132,79 @@ export class Sites {
      * @returns {Promise<Models.DeploymentList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listDeployments(siteId: string, queries?: string[], search?: string, total?: boolean): Promise<Models.DeploymentList>;
     listDeployments(
-        paramsOrFirst: { siteId: string, queries?: string[], search?: string, total?: boolean } | string,
-        ...rest: [(string[])?, (string)?, (boolean)?]    
+        siteId: string,
+        queries?: string[],
+        search?: string,
+        total?: boolean,
+    ): Promise<Models.DeploymentList>;
+    listDeployments(
+        paramsOrFirst:
+            | {
+                  siteId: string;
+                  queries?: string[];
+                  search?: string;
+                  total?: boolean;
+              }
+            | string,
+        ...rest: [string[]?, string?, boolean?]
     ): Promise<Models.DeploymentList> {
-        let params: { siteId: string, queries?: string[], search?: string, total?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, queries?: string[], search?: string, total?: boolean };
+        let params: {
+            siteId: string;
+            queries?: string[];
+            search?: string;
+            total?: boolean;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                queries?: string[];
+                search?: string;
+                total?: boolean;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
                 queries: rest[0] as string[],
                 search: rest[1] as string,
-                total: rest[2] as boolean            
+                total: rest[2] as boolean,
             };
         }
-        
+
         const siteId = params.siteId;
         const queries = params.queries;
         const search = params.search;
         const total = params.total;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-
-        const apiPath = '/sites/{siteId}/deployments'.replace('{siteId}', encodeURIComponent(String(siteId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/deployments'.replace(
+            '{siteId}',
+            encodeURIComponent(String(siteId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof search !== 'undefined') {
-            payload['search'] = search;
+            apiPayload['search'] = search;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -857,7 +1219,15 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createDeployment(params: { siteId: string, code: File | InputFile, installCommand?: string, buildCommand?: string, outputDirectory?: string, activate?: boolean, onProgress?: (progress: UploadProgress) => void }): Promise<Models.Deployment>;
+    createDeployment(params: {
+        siteId: string;
+        code: File | InputFile;
+        installCommand?: string;
+        buildCommand?: string;
+        outputDirectory?: string;
+        activate?: boolean;
+        onProgress?: (progress: UploadProgress) => void;
+    }): Promise<Models.Deployment>;
     /**
      * Create a new site code deployment. Use this endpoint to upload a new version of your site code. To activate your newly uploaded code, you'll need to update the site's deployment to use your new deployment ID.
      *
@@ -871,17 +1241,62 @@ export class Sites {
      * @returns {Promise<Models.Deployment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createDeployment(siteId: string, code: File | InputFile, installCommand?: string, buildCommand?: string, outputDirectory?: string, activate?: boolean, onProgress?: (progress: UploadProgress) => void): Promise<Models.Deployment>;
     createDeployment(
-        paramsOrFirst: { siteId: string, code: File | InputFile, installCommand?: string, buildCommand?: string, outputDirectory?: string, activate?: boolean, onProgress?: (progress: UploadProgress) => void } | string,
-        ...rest: [(File | InputFile)?, (string)?, (string)?, (string)?, (boolean)?,((progress: UploadProgress) => void)?]    
+        siteId: string,
+        code: File | InputFile,
+        installCommand?: string,
+        buildCommand?: string,
+        outputDirectory?: string,
+        activate?: boolean,
+        onProgress?: (progress: UploadProgress) => void,
+    ): Promise<Models.Deployment>;
+    createDeployment(
+        paramsOrFirst:
+            | {
+                  siteId: string;
+                  code: File | InputFile;
+                  installCommand?: string;
+                  buildCommand?: string;
+                  outputDirectory?: string;
+                  activate?: boolean;
+                  onProgress?: (progress: UploadProgress) => void;
+              }
+            | string,
+        ...rest: [
+            (File | InputFile)?,
+            string?,
+            string?,
+            string?,
+            boolean?,
+            ((progress: UploadProgress) => void)?,
+        ]
     ): Promise<Models.Deployment> {
-        let params: { siteId: string, code: File | InputFile, installCommand?: string, buildCommand?: string, outputDirectory?: string, activate?: boolean };
-        let onProgress: ((progress: UploadProgress) => void);
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, code: File | InputFile, installCommand?: string, buildCommand?: string, outputDirectory?: string, activate?: boolean };
-            onProgress = paramsOrFirst?.onProgress as ((progress: UploadProgress) => void);
+        let params: {
+            siteId: string;
+            code: File | InputFile;
+            installCommand?: string;
+            buildCommand?: string;
+            outputDirectory?: string;
+            activate?: boolean;
+        };
+        let onProgress: (progress: UploadProgress) => void;
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                code: File | InputFile;
+                installCommand?: string;
+                buildCommand?: string;
+                outputDirectory?: string;
+                activate?: boolean;
+            };
+            onProgress = paramsOrFirst?.onProgress as (
+                progress: UploadProgress,
+            ) => void;
         } else {
             params = {
                 siteId: paramsOrFirst as string,
@@ -889,56 +1304,57 @@ export class Sites {
                 installCommand: rest[1] as string,
                 buildCommand: rest[2] as string,
                 outputDirectory: rest[3] as string,
-                activate: rest[4] as boolean            
+                activate: rest[4] as boolean,
             };
-            onProgress = rest[5] as ((progress: UploadProgress) => void);
+            onProgress = rest[5] as (progress: UploadProgress) => void;
         }
-        
+
         const siteId = params.siteId;
         const code = params.code;
         const installCommand = params.installCommand;
         const buildCommand = params.buildCommand;
         const outputDirectory = params.outputDirectory;
         const activate = params.activate;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof code === 'undefined') {
             throw new AppwriteException('Missing required parameter: "code"');
         }
-
-        const apiPath = '/sites/{siteId}/deployments'.replace('{siteId}', encodeURIComponent(String(siteId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/deployments'.replace(
+            '{siteId}',
+            encodeURIComponent(String(siteId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof installCommand !== 'undefined') {
-            payload['installCommand'] = installCommand;
+            apiPayload['installCommand'] = installCommand;
         }
         if (typeof buildCommand !== 'undefined') {
-            payload['buildCommand'] = buildCommand;
+            apiPayload['buildCommand'] = buildCommand;
         }
         if (typeof outputDirectory !== 'undefined') {
-            payload['outputDirectory'] = outputDirectory;
+            apiPayload['outputDirectory'] = outputDirectory;
         }
         if (typeof code !== 'undefined') {
-            payload['code'] = code;
+            apiPayload['code'] = code;
         }
         if (typeof activate !== 'undefined') {
-            payload['activate'] = activate;
+            apiPayload['activate'] = activate;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'multipart/form-data',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
         return this.client.chunkedUpload(
             'post',
             uri,
             apiHeaders,
-            payload,
-            onProgress
+            apiPayload,
+            onProgress,
         );
     }
 
@@ -950,7 +1366,10 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createDuplicateDeployment(params: { siteId: string, deploymentId: string }): Promise<Models.Deployment>;
+    createDuplicateDeployment(params: {
+        siteId: string;
+        deploymentId: string;
+    }): Promise<Models.Deployment>;
     /**
      * Create a new build for an existing site deployment. This endpoint allows you to rebuild a deployment with the updated site configuration, including its commands and output directory if they have been modified. The build process will be queued and executed asynchronously. The original deployment's code will be preserved and used for the new build.
      *
@@ -960,56 +1379,64 @@ export class Sites {
      * @returns {Promise<Models.Deployment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createDuplicateDeployment(siteId: string, deploymentId: string): Promise<Models.Deployment>;
     createDuplicateDeployment(
-        paramsOrFirst: { siteId: string, deploymentId: string } | string,
-        ...rest: [(string)?]    
+        siteId: string,
+        deploymentId: string,
+    ): Promise<Models.Deployment>;
+    createDuplicateDeployment(
+        paramsOrFirst: { siteId: string; deploymentId: string } | string,
+        ...rest: [string?]
     ): Promise<Models.Deployment> {
-        let params: { siteId: string, deploymentId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, deploymentId: string };
+        let params: { siteId: string; deploymentId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                deploymentId: string;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
-                deploymentId: rest[0] as string            
+                deploymentId: rest[0] as string,
             };
         }
-        
+
         const siteId = params.siteId;
         const deploymentId = params.deploymentId;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof deploymentId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "deploymentId"');
+            throw new AppwriteException(
+                'Missing required parameter: "deploymentId"',
+            );
         }
-
-        const apiPath = '/sites/{siteId}/deployments/duplicate'.replace('{siteId}', encodeURIComponent(String(siteId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/deployments/duplicate'.replace(
+            '{siteId}',
+            encodeURIComponent(String(siteId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof deploymentId !== 'undefined') {
-            payload['deploymentId'] = deploymentId;
+            apiPayload['deploymentId'] = deploymentId;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
      * Create a deployment based on a template.
-     * 
+     *
      * Use this endpoint with combination of [listTemplates](https://appwrite.io/docs/products/sites/templates) to find the template details.
      *
      * @param {string} params.siteId - Site ID.
@@ -1022,10 +1449,18 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createTemplateDeployment(params: { siteId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean }): Promise<Models.Deployment>;
+    createTemplateDeployment(params: {
+        siteId: string;
+        repository: string;
+        owner: string;
+        rootDirectory: string;
+        type: TemplateReferenceType;
+        reference: string;
+        activate?: boolean;
+    }): Promise<Models.Deployment>;
     /**
      * Create a deployment based on a template.
-     * 
+     *
      * Use this endpoint with combination of [listTemplates](https://appwrite.io/docs/products/sites/templates) to find the template details.
      *
      * @param {string} siteId - Site ID.
@@ -1039,15 +1474,60 @@ export class Sites {
      * @returns {Promise<Models.Deployment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createTemplateDeployment(siteId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean): Promise<Models.Deployment>;
     createTemplateDeployment(
-        paramsOrFirst: { siteId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean } | string,
-        ...rest: [(string)?, (string)?, (string)?, (TemplateReferenceType)?, (string)?, (boolean)?]    
+        siteId: string,
+        repository: string,
+        owner: string,
+        rootDirectory: string,
+        type: TemplateReferenceType,
+        reference: string,
+        activate?: boolean,
+    ): Promise<Models.Deployment>;
+    createTemplateDeployment(
+        paramsOrFirst:
+            | {
+                  siteId: string;
+                  repository: string;
+                  owner: string;
+                  rootDirectory: string;
+                  type: TemplateReferenceType;
+                  reference: string;
+                  activate?: boolean;
+              }
+            | string,
+        ...rest: [
+            string?,
+            string?,
+            string?,
+            TemplateReferenceType?,
+            string?,
+            boolean?,
+        ]
     ): Promise<Models.Deployment> {
-        let params: { siteId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, repository: string, owner: string, rootDirectory: string, type: TemplateReferenceType, reference: string, activate?: boolean };
+        let params: {
+            siteId: string;
+            repository: string;
+            owner: string;
+            rootDirectory: string;
+            type: TemplateReferenceType;
+            reference: string;
+            activate?: boolean;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                repository: string;
+                owner: string;
+                rootDirectory: string;
+                type: TemplateReferenceType;
+                reference: string;
+                activate?: boolean;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
@@ -1056,10 +1536,10 @@ export class Sites {
                 rootDirectory: rest[2] as string,
                 type: rest[3] as TemplateReferenceType,
                 reference: rest[4] as string,
-                activate: rest[5] as boolean            
+                activate: rest[5] as boolean,
             };
         }
-        
+
         const siteId = params.siteId;
         const repository = params.repository;
         const owner = params.owner;
@@ -1067,65 +1547,67 @@ export class Sites {
         const type = params.type;
         const reference = params.reference;
         const activate = params.activate;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof repository === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "repository"');
+            throw new AppwriteException(
+                'Missing required parameter: "repository"',
+            );
         }
         if (typeof owner === 'undefined') {
             throw new AppwriteException('Missing required parameter: "owner"');
         }
         if (typeof rootDirectory === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "rootDirectory"');
+            throw new AppwriteException(
+                'Missing required parameter: "rootDirectory"',
+            );
         }
         if (typeof type === 'undefined') {
             throw new AppwriteException('Missing required parameter: "type"');
         }
         if (typeof reference === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "reference"');
+            throw new AppwriteException(
+                'Missing required parameter: "reference"',
+            );
         }
-
-        const apiPath = '/sites/{siteId}/deployments/template'.replace('{siteId}', encodeURIComponent(String(siteId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/deployments/template'.replace(
+            '{siteId}',
+            encodeURIComponent(String(siteId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof repository !== 'undefined') {
-            payload['repository'] = repository;
+            apiPayload['repository'] = repository;
         }
         if (typeof owner !== 'undefined') {
-            payload['owner'] = owner;
+            apiPayload['owner'] = owner;
         }
         if (typeof rootDirectory !== 'undefined') {
-            payload['rootDirectory'] = rootDirectory;
+            apiPayload['rootDirectory'] = rootDirectory;
         }
         if (typeof type !== 'undefined') {
-            payload['type'] = type;
+            apiPayload['type'] = type;
         }
         if (typeof reference !== 'undefined') {
-            payload['reference'] = reference;
+            apiPayload['reference'] = reference;
         }
         if (typeof activate !== 'undefined') {
-            payload['activate'] = activate;
+            apiPayload['activate'] = activate;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
      * Create a deployment when a site is connected to VCS.
-     * 
+     *
      * This endpoint lets you create deployment from a branch, commit, or a tag.
      *
      * @param {string} params.siteId - Site ID.
@@ -1135,10 +1617,15 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    createVcsDeployment(params: { siteId: string, type: VCSReferenceType, reference: string, activate?: boolean }): Promise<Models.Deployment>;
+    createVcsDeployment(params: {
+        siteId: string;
+        type: VCSReferenceType;
+        reference: string;
+        activate?: boolean;
+    }): Promise<Models.Deployment>;
     /**
      * Create a deployment when a site is connected to VCS.
-     * 
+     *
      * This endpoint lets you create deployment from a branch, commit, or a tag.
      *
      * @param {string} siteId - Site ID.
@@ -1149,29 +1636,54 @@ export class Sites {
      * @returns {Promise<Models.Deployment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createVcsDeployment(siteId: string, type: VCSReferenceType, reference: string, activate?: boolean): Promise<Models.Deployment>;
     createVcsDeployment(
-        paramsOrFirst: { siteId: string, type: VCSReferenceType, reference: string, activate?: boolean } | string,
-        ...rest: [(VCSReferenceType)?, (string)?, (boolean)?]    
+        siteId: string,
+        type: VCSReferenceType,
+        reference: string,
+        activate?: boolean,
+    ): Promise<Models.Deployment>;
+    createVcsDeployment(
+        paramsOrFirst:
+            | {
+                  siteId: string;
+                  type: VCSReferenceType;
+                  reference: string;
+                  activate?: boolean;
+              }
+            | string,
+        ...rest: [VCSReferenceType?, string?, boolean?]
     ): Promise<Models.Deployment> {
-        let params: { siteId: string, type: VCSReferenceType, reference: string, activate?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, type: VCSReferenceType, reference: string, activate?: boolean };
+        let params: {
+            siteId: string;
+            type: VCSReferenceType;
+            reference: string;
+            activate?: boolean;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                type: VCSReferenceType;
+                reference: string;
+                activate?: boolean;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
                 type: rest[0] as VCSReferenceType,
                 reference: rest[1] as string,
-                activate: rest[2] as boolean            
+                activate: rest[2] as boolean,
             };
         }
-        
+
         const siteId = params.siteId;
         const type = params.type;
         const reference = params.reference;
         const activate = params.activate;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
@@ -1179,34 +1691,33 @@ export class Sites {
             throw new AppwriteException('Missing required parameter: "type"');
         }
         if (typeof reference === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "reference"');
+            throw new AppwriteException(
+                'Missing required parameter: "reference"',
+            );
         }
-
-        const apiPath = '/sites/{siteId}/deployments/vcs'.replace('{siteId}', encodeURIComponent(String(siteId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/deployments/vcs'.replace(
+            '{siteId}',
+            encodeURIComponent(String(siteId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof type !== 'undefined') {
-            payload['type'] = type;
+            apiPayload['type'] = type;
         }
         if (typeof reference !== 'undefined') {
-            payload['reference'] = reference;
+            apiPayload['reference'] = reference;
         }
         if (typeof activate !== 'undefined') {
-            payload['activate'] = activate;
+            apiPayload['activate'] = activate;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1217,7 +1728,10 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    getDeployment(params: { siteId: string, deploymentId: string }): Promise<Models.Deployment>;
+    getDeployment(params: {
+        siteId: string;
+        deploymentId: string;
+    }): Promise<Models.Deployment>;
     /**
      * Get a site deployment by its unique ID.
      *
@@ -1227,47 +1741,57 @@ export class Sites {
      * @returns {Promise<Models.Deployment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getDeployment(siteId: string, deploymentId: string): Promise<Models.Deployment>;
     getDeployment(
-        paramsOrFirst: { siteId: string, deploymentId: string } | string,
-        ...rest: [(string)?]    
+        siteId: string,
+        deploymentId: string,
+    ): Promise<Models.Deployment>;
+    getDeployment(
+        paramsOrFirst: { siteId: string; deploymentId: string } | string,
+        ...rest: [string?]
     ): Promise<Models.Deployment> {
-        let params: { siteId: string, deploymentId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, deploymentId: string };
+        let params: { siteId: string; deploymentId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                deploymentId: string;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
-                deploymentId: rest[0] as string            
+                deploymentId: rest[0] as string,
             };
         }
-        
+
         const siteId = params.siteId;
         const deploymentId = params.deploymentId;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof deploymentId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "deploymentId"');
+            throw new AppwriteException(
+                'Missing required parameter: "deploymentId"',
+            );
         }
-
-        const apiPath = '/sites/{siteId}/deployments/{deploymentId}'.replace('{siteId}', encodeURIComponent(String(siteId))).replace('{deploymentId}', encodeURIComponent(String(deploymentId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/deployments/{deploymentId}'
+            .replace('{siteId}', encodeURIComponent(String(siteId)))
+            .replace(
+                '{deploymentId}',
+                encodeURIComponent(String(deploymentId)),
+            );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1278,7 +1802,10 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteDeployment(params: { siteId: string, deploymentId: string }): Promise<{}>;
+    deleteDeployment(params: {
+        siteId: string;
+        deploymentId: string;
+    }): Promise<{}>;
     /**
      * Delete a site deployment by its unique ID.
      *
@@ -1290,45 +1817,52 @@ export class Sites {
      */
     deleteDeployment(siteId: string, deploymentId: string): Promise<{}>;
     deleteDeployment(
-        paramsOrFirst: { siteId: string, deploymentId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { siteId: string; deploymentId: string } | string,
+        ...rest: [string?]
     ): Promise<{}> {
-        let params: { siteId: string, deploymentId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, deploymentId: string };
+        let params: { siteId: string; deploymentId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                deploymentId: string;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
-                deploymentId: rest[0] as string            
+                deploymentId: rest[0] as string,
             };
         }
-        
+
         const siteId = params.siteId;
         const deploymentId = params.deploymentId;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof deploymentId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "deploymentId"');
+            throw new AppwriteException(
+                'Missing required parameter: "deploymentId"',
+            );
         }
-
-        const apiPath = '/sites/{siteId}/deployments/{deploymentId}'.replace('{siteId}', encodeURIComponent(String(siteId))).replace('{deploymentId}', encodeURIComponent(String(deploymentId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/deployments/{deploymentId}'
+            .replace('{siteId}', encodeURIComponent(String(siteId)))
+            .replace(
+                '{deploymentId}',
+                encodeURIComponent(String(deploymentId)),
+            );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-        }
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1341,7 +1875,12 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    getDeploymentDownload(params: { siteId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string }): Promise<ArrayBuffer>;
+    getDeploymentDownload(params: {
+        siteId: string;
+        deploymentId: string;
+        type?: DeploymentDownloadType;
+        token?: string;
+    }): Promise<ArrayBuffer>;
     /**
      * Get a site deployment content by its unique ID. The endpoint response return with a 'Content-Disposition: attachment' header that tells the browser to start downloading the file to user downloads directory.
      *
@@ -1353,57 +1892,88 @@ export class Sites {
      * @returns {Promise<ArrayBuffer>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getDeploymentDownload(siteId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string): Promise<ArrayBuffer>;
     getDeploymentDownload(
-        paramsOrFirst: { siteId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string } | string,
-        ...rest: [(string)?, (DeploymentDownloadType)?, (string)?]    
+        siteId: string,
+        deploymentId: string,
+        type?: DeploymentDownloadType,
+        token?: string,
+    ): Promise<ArrayBuffer>;
+    getDeploymentDownload(
+        paramsOrFirst:
+            | {
+                  siteId: string;
+                  deploymentId: string;
+                  type?: DeploymentDownloadType;
+                  token?: string;
+              }
+            | string,
+        ...rest: [string?, DeploymentDownloadType?, string?]
     ): Promise<ArrayBuffer> {
-        let params: { siteId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, deploymentId: string, type?: DeploymentDownloadType, token?: string };
+        let params: {
+            siteId: string;
+            deploymentId: string;
+            type?: DeploymentDownloadType;
+            token?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                deploymentId: string;
+                type?: DeploymentDownloadType;
+                token?: string;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
                 deploymentId: rest[0] as string,
                 type: rest[1] as DeploymentDownloadType,
-                token: rest[2] as string            
+                token: rest[2] as string,
             };
         }
-        
+
         const siteId = params.siteId;
         const deploymentId = params.deploymentId;
         const type = params.type;
         const token = params.token;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof deploymentId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "deploymentId"');
+            throw new AppwriteException(
+                'Missing required parameter: "deploymentId"',
+            );
         }
-
-        const apiPath = '/sites/{siteId}/deployments/{deploymentId}/download'.replace('{siteId}', encodeURIComponent(String(siteId))).replace('{deploymentId}', encodeURIComponent(String(deploymentId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/deployments/{deploymentId}/download'
+            .replace('{siteId}', encodeURIComponent(String(siteId)))
+            .replace(
+                '{deploymentId}',
+                encodeURIComponent(String(deploymentId)),
+            );
+        const apiPayload: Payload = {};
         if (typeof type !== 'undefined') {
-            payload['type'] = type;
+            apiPayload['type'] = type;
         }
         if (typeof token !== 'undefined') {
-            payload['token'] = token;
+            apiPayload['token'] = token;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': '*/*',
-        }
+            accept: '*/*',
+        };
 
         return this.client.call(
             'get',
             uri,
             apiHeaders,
-            payload,
-            'arrayBuffer'
+            apiPayload,
+            'arrayBuffer',
         );
     }
 
@@ -1415,7 +1985,10 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Deployment>}
      */
-    updateDeploymentStatus(params: { siteId: string, deploymentId: string }): Promise<Models.Deployment>;
+    updateDeploymentStatus(params: {
+        siteId: string;
+        deploymentId: string;
+    }): Promise<Models.Deployment>;
     /**
      * Cancel an ongoing site deployment build. If the build is already in progress, it will be stopped and marked as canceled. If the build hasn't started yet, it will be marked as canceled without executing. You cannot cancel builds that have already completed (status 'ready') or failed. The response includes the final build status and details.
      *
@@ -1425,48 +1998,58 @@ export class Sites {
      * @returns {Promise<Models.Deployment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateDeploymentStatus(siteId: string, deploymentId: string): Promise<Models.Deployment>;
     updateDeploymentStatus(
-        paramsOrFirst: { siteId: string, deploymentId: string } | string,
-        ...rest: [(string)?]    
+        siteId: string,
+        deploymentId: string,
+    ): Promise<Models.Deployment>;
+    updateDeploymentStatus(
+        paramsOrFirst: { siteId: string; deploymentId: string } | string,
+        ...rest: [string?]
     ): Promise<Models.Deployment> {
-        let params: { siteId: string, deploymentId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, deploymentId: string };
+        let params: { siteId: string; deploymentId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                deploymentId: string;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
-                deploymentId: rest[0] as string            
+                deploymentId: rest[0] as string,
             };
         }
-        
+
         const siteId = params.siteId;
         const deploymentId = params.deploymentId;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof deploymentId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "deploymentId"');
+            throw new AppwriteException(
+                'Missing required parameter: "deploymentId"',
+            );
         }
-
-        const apiPath = '/sites/{siteId}/deployments/{deploymentId}/status'.replace('{siteId}', encodeURIComponent(String(siteId))).replace('{deploymentId}', encodeURIComponent(String(deploymentId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/deployments/{deploymentId}/status'
+            .replace('{siteId}', encodeURIComponent(String(siteId)))
+            .replace(
+                '{deploymentId}',
+                encodeURIComponent(String(deploymentId)),
+            );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'patch',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1478,7 +2061,11 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.ExecutionList>}
      */
-    listLogs(params: { siteId: string, queries?: string[], total?: boolean }): Promise<Models.ExecutionList>;
+    listLogs(params: {
+        siteId: string;
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.ExecutionList>;
     /**
      * Get a list of all site logs. You can use the query params to filter your results.
      *
@@ -1489,52 +2076,61 @@ export class Sites {
      * @returns {Promise<Models.ExecutionList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listLogs(siteId: string, queries?: string[], total?: boolean): Promise<Models.ExecutionList>;
     listLogs(
-        paramsOrFirst: { siteId: string, queries?: string[], total?: boolean } | string,
-        ...rest: [(string[])?, (boolean)?]    
+        siteId: string,
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.ExecutionList>;
+    listLogs(
+        paramsOrFirst:
+            { siteId: string; queries?: string[]; total?: boolean } | string,
+        ...rest: [string[]?, boolean?]
     ): Promise<Models.ExecutionList> {
-        let params: { siteId: string, queries?: string[], total?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, queries?: string[], total?: boolean };
+        let params: { siteId: string; queries?: string[]; total?: boolean };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
                 queries: rest[0] as string[],
-                total: rest[1] as boolean            
+                total: rest[1] as boolean,
             };
         }
-        
+
         const siteId = params.siteId;
         const queries = params.queries;
         const total = params.total;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-
-        const apiPath = '/sites/{siteId}/logs'.replace('{siteId}', encodeURIComponent(String(siteId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/logs'.replace(
+            '{siteId}',
+            encodeURIComponent(String(siteId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1545,7 +2141,10 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Execution>}
      */
-    getLog(params: { siteId: string, logId: string }): Promise<Models.Execution>;
+    getLog(params: {
+        siteId: string;
+        logId: string;
+    }): Promise<Models.Execution>;
     /**
      * Get a site request log by its unique ID.
      *
@@ -1557,45 +2156,44 @@ export class Sites {
      */
     getLog(siteId: string, logId: string): Promise<Models.Execution>;
     getLog(
-        paramsOrFirst: { siteId: string, logId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { siteId: string; logId: string } | string,
+        ...rest: [string?]
     ): Promise<Models.Execution> {
-        let params: { siteId: string, logId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, logId: string };
+        let params: { siteId: string; logId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { siteId: string; logId: string };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
-                logId: rest[0] as string            
+                logId: rest[0] as string,
             };
         }
-        
+
         const siteId = params.siteId;
         const logId = params.logId;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof logId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "logId"');
         }
-
-        const apiPath = '/sites/{siteId}/logs/{logId}'.replace('{siteId}', encodeURIComponent(String(siteId))).replace('{logId}', encodeURIComponent(String(logId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/logs/{logId}'
+            .replace('{siteId}', encodeURIComponent(String(siteId)))
+            .replace('{logId}', encodeURIComponent(String(logId)));
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1606,7 +2204,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteLog(params: { siteId: string, logId: string }): Promise<{}>;
+    deleteLog(params: { siteId: string; logId: string }): Promise<{}>;
     /**
      * Delete a site log by its unique ID.
      *
@@ -1618,46 +2216,45 @@ export class Sites {
      */
     deleteLog(siteId: string, logId: string): Promise<{}>;
     deleteLog(
-        paramsOrFirst: { siteId: string, logId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { siteId: string; logId: string } | string,
+        ...rest: [string?]
     ): Promise<{}> {
-        let params: { siteId: string, logId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, logId: string };
+        let params: { siteId: string; logId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { siteId: string; logId: string };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
-                logId: rest[0] as string            
+                logId: rest[0] as string,
             };
         }
-        
+
         const siteId = params.siteId;
         const logId = params.logId;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof logId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "logId"');
         }
-
-        const apiPath = '/sites/{siteId}/logs/{logId}'.replace('{siteId}', encodeURIComponent(String(siteId))).replace('{logId}', encodeURIComponent(String(logId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/logs/{logId}'
+            .replace('{siteId}', encodeURIComponent(String(siteId)))
+            .replace('{logId}', encodeURIComponent(String(logId)));
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1669,7 +2266,11 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.VariableList>}
      */
-    listVariables(params: { siteId: string, queries?: string[], total?: boolean }): Promise<Models.VariableList>;
+    listVariables(params: {
+        siteId: string;
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.VariableList>;
     /**
      * Get a list of all variables of a specific site.
      *
@@ -1680,52 +2281,61 @@ export class Sites {
      * @returns {Promise<Models.VariableList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listVariables(siteId: string, queries?: string[], total?: boolean): Promise<Models.VariableList>;
     listVariables(
-        paramsOrFirst: { siteId: string, queries?: string[], total?: boolean } | string,
-        ...rest: [(string[])?, (boolean)?]    
+        siteId: string,
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.VariableList>;
+    listVariables(
+        paramsOrFirst:
+            { siteId: string; queries?: string[]; total?: boolean } | string,
+        ...rest: [string[]?, boolean?]
     ): Promise<Models.VariableList> {
-        let params: { siteId: string, queries?: string[], total?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, queries?: string[], total?: boolean };
+        let params: { siteId: string; queries?: string[]; total?: boolean };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
                 queries: rest[0] as string[],
-                total: rest[1] as boolean            
+                total: rest[1] as boolean,
             };
         }
-        
+
         const siteId = params.siteId;
         const queries = params.queries;
         const total = params.total;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-
-        const apiPath = '/sites/{siteId}/variables'.replace('{siteId}', encodeURIComponent(String(siteId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/variables'.replace(
+            '{siteId}',
+            encodeURIComponent(String(siteId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1733,55 +2343,92 @@ export class Sites {
      *
      * @param {string} params.siteId - Site unique ID.
      * @param {string} params.variableId - Variable ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
-     * @param {string} params.key - Variable key. Max length: 255 chars.
+     * @param {string} params.key - Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
      * @param {string} params.value - Variable value. Max length: 8192 chars.
      * @param {boolean} params.secret - Secret variables can be updated or deleted, but only sites can read them during build and runtime.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-    createVariable(params: { siteId: string, variableId: string, key: string, value: string, secret?: boolean }): Promise<Models.Variable>;
+    createVariable(params: {
+        siteId: string;
+        variableId: string;
+        key: string;
+        value: string;
+        secret?: boolean;
+    }): Promise<Models.Variable>;
     /**
      * Create a new site variable. These variables can be accessed during build and runtime (server-side rendering) as environment variables.
      *
      * @param {string} siteId - Site unique ID.
      * @param {string} variableId - Variable ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
-     * @param {string} key - Variable key. Max length: 255 chars.
+     * @param {string} key - Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
      * @param {string} value - Variable value. Max length: 8192 chars.
      * @param {boolean} secret - Secret variables can be updated or deleted, but only sites can read them during build and runtime.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createVariable(siteId: string, variableId: string, key: string, value: string, secret?: boolean): Promise<Models.Variable>;
     createVariable(
-        paramsOrFirst: { siteId: string, variableId: string, key: string, value: string, secret?: boolean } | string,
-        ...rest: [(string)?, (string)?, (string)?, (boolean)?]    
+        siteId: string,
+        variableId: string,
+        key: string,
+        value: string,
+        secret?: boolean,
+    ): Promise<Models.Variable>;
+    createVariable(
+        paramsOrFirst:
+            | {
+                  siteId: string;
+                  variableId: string;
+                  key: string;
+                  value: string;
+                  secret?: boolean;
+              }
+            | string,
+        ...rest: [string?, string?, string?, boolean?]
     ): Promise<Models.Variable> {
-        let params: { siteId: string, variableId: string, key: string, value: string, secret?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, variableId: string, key: string, value: string, secret?: boolean };
+        let params: {
+            siteId: string;
+            variableId: string;
+            key: string;
+            value: string;
+            secret?: boolean;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                variableId: string;
+                key: string;
+                value: string;
+                secret?: boolean;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
                 variableId: rest[0] as string,
                 key: rest[1] as string,
                 value: rest[2] as string,
-                secret: rest[3] as boolean            
+                secret: rest[3] as boolean,
             };
         }
-        
+
         const siteId = params.siteId;
         const variableId = params.variableId;
         const key = params.key;
         const value = params.value;
         const secret = params.secret;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof variableId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "variableId"');
+            throw new AppwriteException(
+                'Missing required parameter: "variableId"',
+            );
         }
         if (typeof key === 'undefined') {
             throw new AppwriteException('Missing required parameter: "key"');
@@ -1789,35 +2436,32 @@ export class Sites {
         if (typeof value === 'undefined') {
             throw new AppwriteException('Missing required parameter: "value"');
         }
-
-        const apiPath = '/sites/{siteId}/variables'.replace('{siteId}', encodeURIComponent(String(siteId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/variables'.replace(
+            '{siteId}',
+            encodeURIComponent(String(siteId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof variableId !== 'undefined') {
-            payload['variableId'] = variableId;
+            apiPayload['variableId'] = variableId;
         }
         if (typeof key !== 'undefined') {
-            payload['key'] = key;
+            apiPayload['key'] = key;
         }
         if (typeof value !== 'undefined') {
-            payload['value'] = value;
+            apiPayload['value'] = value;
         }
         if (typeof secret !== 'undefined') {
-            payload['secret'] = secret;
+            apiPayload['secret'] = secret;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1828,7 +2472,10 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-    getVariable(params: { siteId: string, variableId: string }): Promise<Models.Variable>;
+    getVariable(params: {
+        siteId: string;
+        variableId: string;
+    }): Promise<Models.Variable>;
     /**
      * Get a variable by its unique ID.
      *
@@ -1840,45 +2487,49 @@ export class Sites {
      */
     getVariable(siteId: string, variableId: string): Promise<Models.Variable>;
     getVariable(
-        paramsOrFirst: { siteId: string, variableId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { siteId: string; variableId: string } | string,
+        ...rest: [string?]
     ): Promise<Models.Variable> {
-        let params: { siteId: string, variableId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, variableId: string };
+        let params: { siteId: string; variableId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                variableId: string;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
-                variableId: rest[0] as string            
+                variableId: rest[0] as string,
             };
         }
-        
+
         const siteId = params.siteId;
         const variableId = params.variableId;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof variableId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "variableId"');
+            throw new AppwriteException(
+                'Missing required parameter: "variableId"',
+            );
         }
-
-        const apiPath = '/sites/{siteId}/variables/{variableId}'.replace('{siteId}', encodeURIComponent(String(siteId))).replace('{variableId}', encodeURIComponent(String(variableId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/variables/{variableId}'
+            .replace('{siteId}', encodeURIComponent(String(siteId)))
+            .replace('{variableId}', encodeURIComponent(String(variableId)));
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1886,82 +2537,115 @@ export class Sites {
      *
      * @param {string} params.siteId - Site unique ID.
      * @param {string} params.variableId - Variable unique ID.
-     * @param {string} params.key - Variable key. Max length: 255 chars.
+     * @param {string} params.key - Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
      * @param {string} params.value - Variable value. Max length: 8192 chars.
      * @param {boolean} params.secret - Secret variables can be updated or deleted, but only sites can read them during build and runtime.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
-    updateVariable(params: { siteId: string, variableId: string, key?: string, value?: string, secret?: boolean }): Promise<Models.Variable>;
+    updateVariable(params: {
+        siteId: string;
+        variableId: string;
+        key?: string;
+        value?: string;
+        secret?: boolean;
+    }): Promise<Models.Variable>;
     /**
      * Update variable by its unique ID.
      *
      * @param {string} siteId - Site unique ID.
      * @param {string} variableId - Variable unique ID.
-     * @param {string} key - Variable key. Max length: 255 chars.
+     * @param {string} key - Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
      * @param {string} value - Variable value. Max length: 8192 chars.
      * @param {boolean} secret - Secret variables can be updated or deleted, but only sites can read them during build and runtime.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateVariable(siteId: string, variableId: string, key?: string, value?: string, secret?: boolean): Promise<Models.Variable>;
     updateVariable(
-        paramsOrFirst: { siteId: string, variableId: string, key?: string, value?: string, secret?: boolean } | string,
-        ...rest: [(string)?, (string)?, (string)?, (boolean)?]    
+        siteId: string,
+        variableId: string,
+        key?: string,
+        value?: string,
+        secret?: boolean,
+    ): Promise<Models.Variable>;
+    updateVariable(
+        paramsOrFirst:
+            | {
+                  siteId: string;
+                  variableId: string;
+                  key?: string;
+                  value?: string;
+                  secret?: boolean;
+              }
+            | string,
+        ...rest: [string?, string?, string?, boolean?]
     ): Promise<Models.Variable> {
-        let params: { siteId: string, variableId: string, key?: string, value?: string, secret?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, variableId: string, key?: string, value?: string, secret?: boolean };
+        let params: {
+            siteId: string;
+            variableId: string;
+            key?: string;
+            value?: string;
+            secret?: boolean;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                variableId: string;
+                key?: string;
+                value?: string;
+                secret?: boolean;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
                 variableId: rest[0] as string,
                 key: rest[1] as string,
                 value: rest[2] as string,
-                secret: rest[3] as boolean            
+                secret: rest[3] as boolean,
             };
         }
-        
+
         const siteId = params.siteId;
         const variableId = params.variableId;
         const key = params.key;
         const value = params.value;
         const secret = params.secret;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof variableId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "variableId"');
+            throw new AppwriteException(
+                'Missing required parameter: "variableId"',
+            );
         }
-
-        const apiPath = '/sites/{siteId}/variables/{variableId}'.replace('{siteId}', encodeURIComponent(String(siteId))).replace('{variableId}', encodeURIComponent(String(variableId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/variables/{variableId}'
+            .replace('{siteId}', encodeURIComponent(String(siteId)))
+            .replace('{variableId}', encodeURIComponent(String(variableId)));
+        const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
-            payload['key'] = key;
+            apiPayload['key'] = key;
         }
         if (typeof value !== 'undefined') {
-            payload['value'] = value;
+            apiPayload['value'] = value;
         }
         if (typeof secret !== 'undefined') {
-            payload['secret'] = secret;
+            apiPayload['secret'] = secret;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'put',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1972,7 +2656,7 @@ export class Sites {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteVariable(params: { siteId: string, variableId: string }): Promise<{}>;
+    deleteVariable(params: { siteId: string; variableId: string }): Promise<{}>;
     /**
      * Delete a variable by its unique ID.
      *
@@ -1984,44 +2668,48 @@ export class Sites {
      */
     deleteVariable(siteId: string, variableId: string): Promise<{}>;
     deleteVariable(
-        paramsOrFirst: { siteId: string, variableId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { siteId: string; variableId: string } | string,
+        ...rest: [string?]
     ): Promise<{}> {
-        let params: { siteId: string, variableId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { siteId: string, variableId: string };
+        let params: { siteId: string; variableId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                variableId: string;
+            };
         } else {
             params = {
                 siteId: paramsOrFirst as string,
-                variableId: rest[0] as string            
+                variableId: rest[0] as string,
             };
         }
-        
+
         const siteId = params.siteId;
         const variableId = params.variableId;
-
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof variableId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "variableId"');
+            throw new AppwriteException(
+                'Missing required parameter: "variableId"',
+            );
         }
-
-        const apiPath = '/sites/{siteId}/variables/{variableId}'.replace('{siteId}', encodeURIComponent(String(siteId))).replace('{variableId}', encodeURIComponent(String(variableId)));
-        const payload: Payload = {};
+        const apiPath = '/sites/{siteId}/variables/{variableId}'
+            .replace('{siteId}', encodeURIComponent(String(siteId)))
+            .replace('{variableId}', encodeURIComponent(String(variableId)));
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-        }
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 }

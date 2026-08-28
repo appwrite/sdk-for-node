@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const tokens = new sdk.Tokens(client);
 
 const result = await tokens.delete({
-    tokenId: '<TOKEN_ID>'
+    tokenId: '<TOKEN_ID>',
 });
 ```

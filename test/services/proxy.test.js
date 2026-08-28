@@ -1,97 +1,89 @@
-const { Client } = require("../../dist/client");
-const { InputFile } = require("../../dist/inputFile");
-const { Proxy } = require("../../dist/services/proxy");
+const { Client } = require('../../dist/client');
+const { Proxy } = require('../../dist/services/proxy');
 
-const { fetch: mockedFetch, Response } = require("undici");
-jest.mock('undici', () => ({ ...jest.requireActual('undici'), fetch: jest.fn() }));
+const { fetch: mockedFetch, Response } = require('undici');
+jest.mock('undici', () => ({
+    ...jest.requireActual('undici'),
+    fetch: jest.fn(),
+}));
 
 describe('Proxy', () => {
     const client = new Client();
     const proxy = new Proxy(client);
 
-    
     test('test method createInvalidation()', async () => {
-                                                const data = {
-            'domain': 'appwrite.company.com',
-            'type': 'tag',
-            'reference': 'products',
-            'status': 'success',};
+        const data = {
+            domain: 'appwrite.company.com',
+            type: 'tag',
+            reference: 'products',
+            status: 'success',
+        };
         mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await proxy.createInvalidation(
-            '',
-            'tag',
-        );
+        const response = await proxy.createInvalidation('example.com', 'tag');
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
 
         expect(response).toEqual(data);
     });
-    
     test('test method listRules()', async () => {
-                                                const data = {
-            'total': 5,
-            'rules': [],};
+        const data = {
+            total: 5,
+            rules: [],
+        };
         mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await proxy.listRules(
-        );
+        const response = await proxy.listRules();
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
 
         expect(response).toEqual(data);
     });
-    
     test('test method createAPIRule()', async () => {
-                                                const data = {
-            '\$id': '5e5ea5c16897e',
-            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            'domain': 'appwrite.company.com',
-            'type': 'deployment',
-            'trigger': 'manual',
-            'redirectUrl': 'https://appwrite.io/docs',
-            'redirectStatusCode': 301,
-            'deploymentId': 'n3u9feiwmf',
-            'deploymentResourceId': 'n3u9feiwmf',
-            'deploymentVcsProviderBranch': 'main',
-            'status': 'verified',
-            'logs': 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
-            'renewAt': 'datetime',};
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            domain: 'appwrite.company.com',
+            type: 'deployment',
+            trigger: 'manual',
+            redirectUrl: 'https://appwrite.io/docs',
+            redirectStatusCode: 301,
+            deploymentId: 'n3u9feiwmf',
+            deploymentResourceId: 'n3u9feiwmf',
+            deploymentVcsProviderBranch: 'main',
+            status: 'verified',
+            logs: 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
+            renewAt: 'datetime',
+        };
         mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await proxy.createAPIRule(
-            '',
-        );
+        const response = await proxy.createAPIRule('example.com');
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
 
         expect(response).toEqual(data);
     });
-    
     test('test method createFunctionRule()', async () => {
-                                                const data = {
-            '\$id': '5e5ea5c16897e',
-            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            'domain': 'appwrite.company.com',
-            'type': 'deployment',
-            'trigger': 'manual',
-            'redirectUrl': 'https://appwrite.io/docs',
-            'redirectStatusCode': 301,
-            'deploymentId': 'n3u9feiwmf',
-            'deploymentResourceId': 'n3u9feiwmf',
-            'deploymentVcsProviderBranch': 'main',
-            'status': 'verified',
-            'logs': 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
-            'renewAt': 'datetime',};
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            domain: 'appwrite.company.com',
+            type: 'deployment',
+            trigger: 'manual',
+            redirectUrl: 'https://appwrite.io/docs',
+            redirectStatusCode: 301,
+            deploymentId: 'n3u9feiwmf',
+            deploymentResourceId: 'n3u9feiwmf',
+            deploymentVcsProviderBranch: 'main',
+            status: 'verified',
+            logs: 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
+            renewAt: 'datetime',
+        };
         mockedFetch.mockImplementation(() => Response.json(data));
-
         const response = await proxy.createFunctionRule(
-            '',
+            'example.com',
             '<FUNCTION_ID>',
         );
 
@@ -100,27 +92,26 @@ describe('Proxy', () => {
 
         expect(response).toEqual(data);
     });
-    
     test('test method createRedirectRule()', async () => {
-                                                const data = {
-            '\$id': '5e5ea5c16897e',
-            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            'domain': 'appwrite.company.com',
-            'type': 'deployment',
-            'trigger': 'manual',
-            'redirectUrl': 'https://appwrite.io/docs',
-            'redirectStatusCode': 301,
-            'deploymentId': 'n3u9feiwmf',
-            'deploymentResourceId': 'n3u9feiwmf',
-            'deploymentVcsProviderBranch': 'main',
-            'status': 'verified',
-            'logs': 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
-            'renewAt': 'datetime',};
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            domain: 'appwrite.company.com',
+            type: 'deployment',
+            trigger: 'manual',
+            redirectUrl: 'https://appwrite.io/docs',
+            redirectStatusCode: 301,
+            deploymentId: 'n3u9feiwmf',
+            deploymentResourceId: 'n3u9feiwmf',
+            deploymentVcsProviderBranch: 'main',
+            status: 'verified',
+            logs: 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
+            renewAt: 'datetime',
+        };
         mockedFetch.mockImplementation(() => Response.json(data));
-
         const response = await proxy.createRedirectRule(
-            '',
+            'example.com',
             'https://example.com',
             '301',
             '<RESOURCE_ID>',
@@ -132,103 +123,89 @@ describe('Proxy', () => {
 
         expect(response).toEqual(data);
     });
-    
     test('test method createSiteRule()', async () => {
-                                                const data = {
-            '\$id': '5e5ea5c16897e',
-            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            'domain': 'appwrite.company.com',
-            'type': 'deployment',
-            'trigger': 'manual',
-            'redirectUrl': 'https://appwrite.io/docs',
-            'redirectStatusCode': 301,
-            'deploymentId': 'n3u9feiwmf',
-            'deploymentResourceId': 'n3u9feiwmf',
-            'deploymentVcsProviderBranch': 'main',
-            'status': 'verified',
-            'logs': 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
-            'renewAt': 'datetime',};
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            domain: 'appwrite.company.com',
+            type: 'deployment',
+            trigger: 'manual',
+            redirectUrl: 'https://appwrite.io/docs',
+            redirectStatusCode: 301,
+            deploymentId: 'n3u9feiwmf',
+            deploymentResourceId: 'n3u9feiwmf',
+            deploymentVcsProviderBranch: 'main',
+            status: 'verified',
+            logs: 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
+            renewAt: 'datetime',
+        };
         mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await proxy.createSiteRule(
-            '',
-            '<SITE_ID>',
-        );
+        const response = await proxy.createSiteRule('example.com', '<SITE_ID>');
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
 
         expect(response).toEqual(data);
     });
-    
     test('test method getRule()', async () => {
-                                                const data = {
-            '\$id': '5e5ea5c16897e',
-            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            'domain': 'appwrite.company.com',
-            'type': 'deployment',
-            'trigger': 'manual',
-            'redirectUrl': 'https://appwrite.io/docs',
-            'redirectStatusCode': 301,
-            'deploymentId': 'n3u9feiwmf',
-            'deploymentResourceId': 'n3u9feiwmf',
-            'deploymentVcsProviderBranch': 'main',
-            'status': 'verified',
-            'logs': 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
-            'renewAt': 'datetime',};
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            domain: 'appwrite.company.com',
+            type: 'deployment',
+            trigger: 'manual',
+            redirectUrl: 'https://appwrite.io/docs',
+            redirectStatusCode: 301,
+            deploymentId: 'n3u9feiwmf',
+            deploymentResourceId: 'n3u9feiwmf',
+            deploymentVcsProviderBranch: 'main',
+            status: 'verified',
+            logs: 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
+            renewAt: 'datetime',
+        };
         mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await proxy.getRule(
-            '<RULE_ID>',
-        );
+        const response = await proxy.getRule('<RULE_ID>');
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
 
         expect(response).toEqual(data);
     });
-    
     test('test method deleteRule()', async () => {
-                                const data = {message: ""};
+        const data = { message: '' };
         mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await proxy.deleteRule(
-            '<RULE_ID>',
-        );
+        const response = await proxy.deleteRule('<RULE_ID>');
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
 
         expect(response).toEqual(data);
     });
-    
     test('test method updateRuleStatus()', async () => {
-                                                const data = {
-            '\$id': '5e5ea5c16897e',
-            '\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            'domain': 'appwrite.company.com',
-            'type': 'deployment',
-            'trigger': 'manual',
-            'redirectUrl': 'https://appwrite.io/docs',
-            'redirectStatusCode': 301,
-            'deploymentId': 'n3u9feiwmf',
-            'deploymentResourceId': 'n3u9feiwmf',
-            'deploymentVcsProviderBranch': 'main',
-            'status': 'verified',
-            'logs': 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
-            'renewAt': 'datetime',};
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            domain: 'appwrite.company.com',
+            type: 'deployment',
+            trigger: 'manual',
+            redirectUrl: 'https://appwrite.io/docs',
+            redirectStatusCode: 301,
+            deploymentId: 'n3u9feiwmf',
+            deploymentResourceId: 'n3u9feiwmf',
+            deploymentVcsProviderBranch: 'main',
+            status: 'verified',
+            logs: 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
+            renewAt: 'datetime',
+        };
         mockedFetch.mockImplementation(() => Response.json(data));
-
-        const response = await proxy.updateRuleStatus(
-            '<RULE_ID>',
-        );
+        const response = await proxy.updateRuleStatus('<RULE_ID>');
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
 
         expect(response).toEqual(data);
     });
-    })
+});

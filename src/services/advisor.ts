@@ -1,7 +1,5 @@
-import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
+import { AppwriteException, Client, type Payload } from '../client';
 import type { Models } from '../models';
-
-
 
 export class Advisor {
     client: Client;
@@ -12,17 +10,20 @@ export class Advisor {
 
     /**
      * Get a list of all the project's analyzer reports. You can use the query params to filter your results.
-     * 
+     *
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: appId, type, targetType, target, analyzedAt
      * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ReportList>}
      */
-    listReports(params?: { queries?: string[], total?: boolean }): Promise<Models.ReportList>;
+    listReports(params?: {
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.ReportList>;
     /**
      * Get a list of all the project's analyzer reports. You can use the query params to filter your results.
-     * 
+     *
      *
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: appId, type, targetType, target, analyzedAt
      * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
@@ -30,52 +31,56 @@ export class Advisor {
      * @returns {Promise<Models.ReportList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listReports(queries?: string[], total?: boolean): Promise<Models.ReportList>;
     listReports(
-        paramsOrFirst?: { queries?: string[], total?: boolean } | string[],
-        ...rest: [(boolean)?]    
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.ReportList>;
+    listReports(
+        paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
+        ...rest: [boolean?]
     ): Promise<Models.ReportList> {
-        let params: { queries?: string[], total?: boolean };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], total?: boolean };
+        let params: { queries?: string[]; total?: boolean };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
-                total: rest[0] as boolean            
+                total: rest[0] as boolean,
             };
         }
-        
+
         const queries = params.queries;
         const total = params.total;
-
-
         const apiPath = '/reports';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
      * Get an analyzer report by its unique ID. The response includes the report's metadata and the nested insights it produced.
-     * 
+     *
      *
      * @param {string} params.reportId - Report ID.
      * @throws {AppwriteException}
@@ -84,7 +89,7 @@ export class Advisor {
     getReport(params: { reportId: string }): Promise<Models.Report>;
     /**
      * Get an analyzer report by its unique ID. The response includes the report's metadata and the nested insights it produced.
-     * 
+     *
      *
      * @param {string} reportId - Report ID.
      * @throws {AppwriteException}
@@ -93,44 +98,46 @@ export class Advisor {
      */
     getReport(reportId: string): Promise<Models.Report>;
     getReport(
-        paramsOrFirst: { reportId: string } | string    
+        paramsOrFirst: { reportId: string } | string,
     ): Promise<Models.Report> {
         let params: { reportId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { reportId: string };
         } else {
             params = {
-                reportId: paramsOrFirst as string            
+                reportId: paramsOrFirst as string,
             };
         }
-        
+
         const reportId = params.reportId;
-
         if (typeof reportId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "reportId"');
+            throw new AppwriteException(
+                'Missing required parameter: "reportId"',
+            );
         }
-
-        const apiPath = '/reports/{reportId}'.replace('{reportId}', encodeURIComponent(String(reportId)));
-        const payload: Payload = {};
+        const apiPath = '/reports/{reportId}'.replace(
+            '{reportId}',
+            encodeURIComponent(String(reportId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
      * Delete an analyzer report by its unique ID. Nested insights and CTA metadata are removed asynchronously by the deletes worker.
-     * 
+     *
      *
      * @param {string} params.reportId - Report ID.
      * @throws {AppwriteException}
@@ -139,7 +146,7 @@ export class Advisor {
     deleteReport(params: { reportId: string }): Promise<{}>;
     /**
      * Delete an analyzer report by its unique ID. Nested insights and CTA metadata are removed asynchronously by the deletes worker.
-     * 
+     *
      *
      * @param {string} reportId - Report ID.
      * @throws {AppwriteException}
@@ -147,45 +154,45 @@ export class Advisor {
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteReport(reportId: string): Promise<{}>;
-    deleteReport(
-        paramsOrFirst: { reportId: string } | string    
-    ): Promise<{}> {
+    deleteReport(paramsOrFirst: { reportId: string } | string): Promise<{}> {
         let params: { reportId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { reportId: string };
         } else {
             params = {
-                reportId: paramsOrFirst as string            
+                reportId: paramsOrFirst as string,
             };
         }
-        
+
         const reportId = params.reportId;
-
         if (typeof reportId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "reportId"');
+            throw new AppwriteException(
+                'Missing required parameter: "reportId"',
+            );
         }
-
-        const apiPath = '/reports/{reportId}'.replace('{reportId}', encodeURIComponent(String(reportId)));
-        const payload: Payload = {};
+        const apiPath = '/reports/{reportId}'.replace(
+            '{reportId}',
+            encodeURIComponent(String(reportId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-        }
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
      * List the insights produced under a single analyzer report. You can use the query params to filter your results further.
-     * 
+     *
      *
      * @param {string} params.reportId - Parent report ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: type, severity, status, resourceType, resourceId, parentResourceType, parentResourceId, analyzedAt, dismissedAt, dismissedBy
@@ -193,10 +200,14 @@ export class Advisor {
      * @throws {AppwriteException}
      * @returns {Promise<Models.InsightList>}
      */
-    listInsights(params: { reportId: string, queries?: string[], total?: boolean }): Promise<Models.InsightList>;
+    listInsights(params: {
+        reportId: string;
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.InsightList>;
     /**
      * List the insights produced under a single analyzer report. You can use the query params to filter your results further.
-     * 
+     *
      *
      * @param {string} reportId - Parent report ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: type, severity, status, resourceType, resourceId, parentResourceType, parentResourceId, analyzedAt, dismissedAt, dismissedBy
@@ -205,67 +216,81 @@ export class Advisor {
      * @returns {Promise<Models.InsightList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listInsights(reportId: string, queries?: string[], total?: boolean): Promise<Models.InsightList>;
     listInsights(
-        paramsOrFirst: { reportId: string, queries?: string[], total?: boolean } | string,
-        ...rest: [(string[])?, (boolean)?]    
+        reportId: string,
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.InsightList>;
+    listInsights(
+        paramsOrFirst:
+            { reportId: string; queries?: string[]; total?: boolean } | string,
+        ...rest: [string[]?, boolean?]
     ): Promise<Models.InsightList> {
-        let params: { reportId: string, queries?: string[], total?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { reportId: string, queries?: string[], total?: boolean };
+        let params: { reportId: string; queries?: string[]; total?: boolean };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                reportId: string;
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 reportId: paramsOrFirst as string,
                 queries: rest[0] as string[],
-                total: rest[1] as boolean            
+                total: rest[1] as boolean,
             };
         }
-        
+
         const reportId = params.reportId;
         const queries = params.queries;
         const total = params.total;
-
         if (typeof reportId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "reportId"');
+            throw new AppwriteException(
+                'Missing required parameter: "reportId"',
+            );
         }
-
-        const apiPath = '/reports/{reportId}/insights'.replace('{reportId}', encodeURIComponent(String(reportId)));
-        const payload: Payload = {};
+        const apiPath = '/reports/{reportId}/insights'.replace(
+            '{reportId}',
+            encodeURIComponent(String(reportId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
      * Get an insight by its unique ID, scoped to its parent report.
-     * 
+     *
      *
      * @param {string} params.reportId - Parent report ID.
      * @param {string} params.insightId - Insight ID.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Insight>}
      */
-    getInsight(params: { reportId: string, insightId: string }): Promise<Models.Insight>;
+    getInsight(params: {
+        reportId: string;
+        insightId: string;
+    }): Promise<Models.Insight>;
     /**
      * Get an insight by its unique ID, scoped to its parent report.
-     * 
+     *
      *
      * @param {string} reportId - Parent report ID.
      * @param {string} insightId - Insight ID.
@@ -275,44 +300,50 @@ export class Advisor {
      */
     getInsight(reportId: string, insightId: string): Promise<Models.Insight>;
     getInsight(
-        paramsOrFirst: { reportId: string, insightId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { reportId: string; insightId: string } | string,
+        ...rest: [string?]
     ): Promise<Models.Insight> {
-        let params: { reportId: string, insightId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { reportId: string, insightId: string };
+        let params: { reportId: string; insightId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                reportId: string;
+                insightId: string;
+            };
         } else {
             params = {
                 reportId: paramsOrFirst as string,
-                insightId: rest[0] as string            
+                insightId: rest[0] as string,
             };
         }
-        
+
         const reportId = params.reportId;
         const insightId = params.insightId;
-
         if (typeof reportId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "reportId"');
+            throw new AppwriteException(
+                'Missing required parameter: "reportId"',
+            );
         }
         if (typeof insightId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "insightId"');
+            throw new AppwriteException(
+                'Missing required parameter: "insightId"',
+            );
         }
-
-        const apiPath = '/reports/{reportId}/insights/{insightId}'.replace('{reportId}', encodeURIComponent(String(reportId))).replace('{insightId}', encodeURIComponent(String(insightId)));
-        const payload: Payload = {};
+        const apiPath = '/reports/{reportId}/insights/{insightId}'
+            .replace('{reportId}', encodeURIComponent(String(reportId)))
+            .replace('{insightId}', encodeURIComponent(String(insightId)));
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 }

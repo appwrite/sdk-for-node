@@ -12,6 +12,6 @@ const result = await users.createMD5User({
     userId: '<USER_ID>',
     email: 'email@example.com',
     password: 'password',
-    name: '<NAME>' // optional
+    name: '<NAME>', // optional
 });
 ```

@@ -12,6 +12,6 @@ const result = await project.updateOAuth2Gitlab({
     applicationId: '<APPLICATION_ID>', // optional
     secret: '<SECRET>', // optional
     endpoint: 'https://example.com', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

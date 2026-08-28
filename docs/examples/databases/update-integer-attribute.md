@@ -11,11 +11,11 @@ const databases = new sdk.Databases(client);
 const result = await databases.updateIntegerAttribute({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: null,
-    min: null, // optional
-    max: null, // optional
-    newKey: '' // optional
+    xdefault: 10,
+    min: 0, // optional
+    max: 100, // optional
+    newKey: '<NEW_KEY>', // optional
 });
 ```

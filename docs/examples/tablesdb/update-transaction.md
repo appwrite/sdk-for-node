@@ -11,6 +11,6 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.updateTransaction({
     transactionId: '<TRANSACTION_ID>',
     commit: false, // optional
-    rollback: false // optional
+    rollback: false, // optional
 });
 ```

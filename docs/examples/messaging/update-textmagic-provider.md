@@ -14,6 +14,6 @@ const result = await messaging.updateTextmagicProvider({
     enabled: false, // optional
     username: '<USERNAME>', // optional
     apiKey: '<API_KEY>', // optional
-    from: '<FROM>' // optional
+    from: '<FROM>', // optional
 });
 ```

@@ -11,6 +11,6 @@ const oauth2 = new sdk.Oauth2(client);
 const result = await oauth2.listProjects({
     limit: 1, // optional
     offset: 0, // optional
-    search: '<SEARCH>' // optional
+    search: '<SEARCH>', // optional
 });
 ```

@@ -16,12 +16,12 @@ const result = await storage.getFilePreview({
     gravity: sdk.ImageGravity.Center, // optional
     quality: -1, // optional
     borderWidth: 0, // optional
-    borderColor: '', // optional
+    borderColor: 'FFFFFF', // optional
     borderRadius: 0, // optional
     opacity: 0, // optional
     rotation: -360, // optional
-    background: '', // optional
+    background: 'FFFFFF', // optional
     output: sdk.ImageFormat.Jpg, // optional
-    token: '<TOKEN>' // optional
+    token: '<TOKEN>', // optional
 });
 ```

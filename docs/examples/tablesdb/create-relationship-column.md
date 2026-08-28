@@ -14,8 +14,8 @@ const result = await tablesDB.createRelationshipColumn({
     relatedTableId: '<RELATED_TABLE_ID>',
     type: sdk.RelationshipType.OneToOne,
     twoWay: false, // optional
-    key: '', // optional
-    twoWayKey: '', // optional
-    onDelete: sdk.RelationMutate.Cascade // optional
+    key: '<KEY>', // optional
+    twoWayKey: '<TWO_WAY_KEY>', // optional
+    onDelete: sdk.RelationMutate.Cascade, // optional
 });
 ```

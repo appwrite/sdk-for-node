@@ -12,6 +12,6 @@ const result = await tablesDB.listIndexes({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

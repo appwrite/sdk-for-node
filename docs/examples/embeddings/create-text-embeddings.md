@@ -10,6 +10,6 @@ const embeddings = new sdk.Embeddings(client);
 
 const result = await embeddings.createTextEmbeddings({
     texts: [],
-    model: sdk.EmbeddingModel.NomicEmbedText // optional
+    model: sdk.EmbeddingModel.NomicEmbedText, // optional
 });
 ```

@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const account = new sdk.Account(client);
 
 const result = await account.createEmailVerification({
-    url: 'https://example.com'
+    url: 'https://example.com',
 });
 ```

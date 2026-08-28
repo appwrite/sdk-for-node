@@ -14,6 +14,6 @@ const result = await tablesDB.update({
     enabled: false, // optional
     specification: 'serverless', // optional
     replicas: 0, // optional
-    syncMode: 'async' // optional
+    syncMode: 'async', // optional
 });
 ```

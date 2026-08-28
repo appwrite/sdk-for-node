@@ -9,10 +9,10 @@ const client = new sdk.Client()
 const proxy = new sdk.Proxy(client);
 
 const result = await proxy.createRedirectRule({
-    domain: '',
+    domain: 'example.com',
     url: 'https://example.com',
     statusCode: sdk.StatusCode.MovedPermanently,
     resourceId: '<RESOURCE_ID>',
-    resourceType: sdk.ProxyResourceType.Site
+    resourceType: sdk.ProxyResourceType.Site,
 });
 ```

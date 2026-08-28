@@ -10,6 +10,6 @@ const account = new sdk.Account(client);
 
 const result = await account.createPhoneToken({
     userId: '<USER_ID>',
-    phone: '+12065550100'
+    phone: '+12065550100',
 });
 ```

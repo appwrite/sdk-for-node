@@ -11,8 +11,15 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.createPolygonColumn({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: [[[1, 2], [3, 4], [5, 6], [1, 2]]] // optional
+    xdefault: [
+        [
+            [1, 2],
+            [3, 4],
+            [5, 6],
+            [1, 2],
+        ],
+    ], // optional
 });
 ```

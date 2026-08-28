@@ -15,6 +15,6 @@ const result = await presences.update({
     expiresAt: '2020-10-15T06:38:00.000+00:00', // optional
     metadata: {}, // optional
     permissions: [sdk.Permission.read(sdk.Role.any())], // optional
-    purge: false // optional
+    purge: false, // optional
 });
 ```

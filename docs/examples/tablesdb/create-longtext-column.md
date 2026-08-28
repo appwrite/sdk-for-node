@@ -11,10 +11,10 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.createLongtextColumn({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: '<DEFAULT>', // optional
+    xdefault: 'Hello World', // optional
     array: false, // optional
-    encrypt: false // optional
+    encrypt: false, // optional
 });
 ```

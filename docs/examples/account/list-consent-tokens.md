@@ -11,6 +11,6 @@ const account = new sdk.Account(client);
 const result = await account.listConsentTokens({
     consentId: '<CONSENT_ID>',
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

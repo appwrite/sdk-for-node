@@ -1,7 +1,5 @@
-import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
+import { AppwriteException, Client, type Payload } from '../client';
 import type { Models } from '../models';
-
-
 
 export class Apps {
     client: Client;
@@ -18,7 +16,10 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AppsList>}
      */
-    list(params?: { queries?: string[], total?: boolean }): Promise<Models.AppsList>;
+    list(params?: {
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.AppsList>;
     /**
      * List applications.
      *
@@ -30,45 +31,46 @@ export class Apps {
      */
     list(queries?: string[], total?: boolean): Promise<Models.AppsList>;
     list(
-        paramsOrFirst?: { queries?: string[], total?: boolean } | string[],
-        ...rest: [(boolean)?]    
+        paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
+        ...rest: [boolean?]
     ): Promise<Models.AppsList> {
-        let params: { queries?: string[], total?: boolean };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], total?: boolean };
+        let params: { queries?: string[]; total?: boolean };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
-                total: rest[0] as boolean            
+                total: rest[0] as boolean,
             };
         }
-        
+
         const queries = params.queries;
         const total = params.total;
-
-
         const apiPath = '/apps';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -96,7 +98,27 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<Models.App>}
      */
-    create(params: { appId: string, name: string, redirectUris: string[], description?: string, clientUri?: string, logoUri?: string, privacyPolicyUrl?: string, termsUrl?: string, contacts?: string[], tagline?: string, tags?: string[], images?: string[], supportUrl?: string, dataDeletionUrl?: string, postLogoutRedirectUris?: string[], enabled?: boolean, type?: string, deviceFlow?: boolean, teamId?: string }): Promise<Models.App>;
+    create(params: {
+        appId: string;
+        name: string;
+        redirectUris: string[];
+        description?: string;
+        clientUri?: string;
+        logoUri?: string;
+        privacyPolicyUrl?: string;
+        termsUrl?: string;
+        contacts?: string[];
+        tagline?: string;
+        tags?: string[];
+        images?: string[];
+        supportUrl?: string;
+        dataDeletionUrl?: string;
+        postLogoutRedirectUris?: string[];
+        enabled?: boolean;
+        type?: string;
+        deviceFlow?: boolean;
+        teamId?: string;
+    }): Promise<Models.App>;
     /**
      * Create a new application.
      *
@@ -123,15 +145,120 @@ export class Apps {
      * @returns {Promise<Models.App>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    create(appId: string, name: string, redirectUris: string[], description?: string, clientUri?: string, logoUri?: string, privacyPolicyUrl?: string, termsUrl?: string, contacts?: string[], tagline?: string, tags?: string[], images?: string[], supportUrl?: string, dataDeletionUrl?: string, postLogoutRedirectUris?: string[], enabled?: boolean, type?: string, deviceFlow?: boolean, teamId?: string): Promise<Models.App>;
     create(
-        paramsOrFirst: { appId: string, name: string, redirectUris: string[], description?: string, clientUri?: string, logoUri?: string, privacyPolicyUrl?: string, termsUrl?: string, contacts?: string[], tagline?: string, tags?: string[], images?: string[], supportUrl?: string, dataDeletionUrl?: string, postLogoutRedirectUris?: string[], enabled?: boolean, type?: string, deviceFlow?: boolean, teamId?: string } | string,
-        ...rest: [(string)?, (string[])?, (string)?, (string)?, (string)?, (string)?, (string)?, (string[])?, (string)?, (string[])?, (string[])?, (string)?, (string)?, (string[])?, (boolean)?, (string)?, (boolean)?, (string)?]    
+        appId: string,
+        name: string,
+        redirectUris: string[],
+        description?: string,
+        clientUri?: string,
+        logoUri?: string,
+        privacyPolicyUrl?: string,
+        termsUrl?: string,
+        contacts?: string[],
+        tagline?: string,
+        tags?: string[],
+        images?: string[],
+        supportUrl?: string,
+        dataDeletionUrl?: string,
+        postLogoutRedirectUris?: string[],
+        enabled?: boolean,
+        type?: string,
+        deviceFlow?: boolean,
+        teamId?: string,
+    ): Promise<Models.App>;
+    create(
+        paramsOrFirst:
+            | {
+                  appId: string;
+                  name: string;
+                  redirectUris: string[];
+                  description?: string;
+                  clientUri?: string;
+                  logoUri?: string;
+                  privacyPolicyUrl?: string;
+                  termsUrl?: string;
+                  contacts?: string[];
+                  tagline?: string;
+                  tags?: string[];
+                  images?: string[];
+                  supportUrl?: string;
+                  dataDeletionUrl?: string;
+                  postLogoutRedirectUris?: string[];
+                  enabled?: boolean;
+                  type?: string;
+                  deviceFlow?: boolean;
+                  teamId?: string;
+              }
+            | string,
+        ...rest: [
+            string?,
+            string[]?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string[]?,
+            string?,
+            string[]?,
+            string[]?,
+            string?,
+            string?,
+            string[]?,
+            boolean?,
+            string?,
+            boolean?,
+            string?,
+        ]
     ): Promise<Models.App> {
-        let params: { appId: string, name: string, redirectUris: string[], description?: string, clientUri?: string, logoUri?: string, privacyPolicyUrl?: string, termsUrl?: string, contacts?: string[], tagline?: string, tags?: string[], images?: string[], supportUrl?: string, dataDeletionUrl?: string, postLogoutRedirectUris?: string[], enabled?: boolean, type?: string, deviceFlow?: boolean, teamId?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, name: string, redirectUris: string[], description?: string, clientUri?: string, logoUri?: string, privacyPolicyUrl?: string, termsUrl?: string, contacts?: string[], tagline?: string, tags?: string[], images?: string[], supportUrl?: string, dataDeletionUrl?: string, postLogoutRedirectUris?: string[], enabled?: boolean, type?: string, deviceFlow?: boolean, teamId?: string };
+        let params: {
+            appId: string;
+            name: string;
+            redirectUris: string[];
+            description?: string;
+            clientUri?: string;
+            logoUri?: string;
+            privacyPolicyUrl?: string;
+            termsUrl?: string;
+            contacts?: string[];
+            tagline?: string;
+            tags?: string[];
+            images?: string[];
+            supportUrl?: string;
+            dataDeletionUrl?: string;
+            postLogoutRedirectUris?: string[];
+            enabled?: boolean;
+            type?: string;
+            deviceFlow?: boolean;
+            teamId?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                appId: string;
+                name: string;
+                redirectUris: string[];
+                description?: string;
+                clientUri?: string;
+                logoUri?: string;
+                privacyPolicyUrl?: string;
+                termsUrl?: string;
+                contacts?: string[];
+                tagline?: string;
+                tags?: string[];
+                images?: string[];
+                supportUrl?: string;
+                dataDeletionUrl?: string;
+                postLogoutRedirectUris?: string[];
+                enabled?: boolean;
+                type?: string;
+                deviceFlow?: boolean;
+                teamId?: string;
+            };
         } else {
             params = {
                 appId: paramsOrFirst as string,
@@ -152,10 +279,10 @@ export class Apps {
                 enabled: rest[14] as boolean,
                 type: rest[15] as string,
                 deviceFlow: rest[16] as boolean,
-                teamId: rest[17] as string            
+                teamId: rest[17] as string,
             };
         }
-        
+
         const appId = params.appId;
         const name = params.name;
         const redirectUris = params.redirectUris;
@@ -175,7 +302,6 @@ export class Apps {
         const type = params.type;
         const deviceFlow = params.deviceFlow;
         const teamId = params.teamId;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
@@ -183,82 +309,78 @@ export class Apps {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         if (typeof redirectUris === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "redirectUris"');
+            throw new AppwriteException(
+                'Missing required parameter: "redirectUris"',
+            );
         }
-
         const apiPath = '/apps';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof appId !== 'undefined') {
-            payload['appId'] = appId;
+            apiPayload['appId'] = appId;
         }
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         if (typeof description !== 'undefined') {
-            payload['description'] = description;
+            apiPayload['description'] = description;
         }
         if (typeof clientUri !== 'undefined') {
-            payload['clientUri'] = clientUri;
+            apiPayload['clientUri'] = clientUri;
         }
         if (typeof logoUri !== 'undefined') {
-            payload['logoUri'] = logoUri;
+            apiPayload['logoUri'] = logoUri;
         }
         if (typeof privacyPolicyUrl !== 'undefined') {
-            payload['privacyPolicyUrl'] = privacyPolicyUrl;
+            apiPayload['privacyPolicyUrl'] = privacyPolicyUrl;
         }
         if (typeof termsUrl !== 'undefined') {
-            payload['termsUrl'] = termsUrl;
+            apiPayload['termsUrl'] = termsUrl;
         }
         if (typeof contacts !== 'undefined') {
-            payload['contacts'] = contacts;
+            apiPayload['contacts'] = contacts;
         }
         if (typeof tagline !== 'undefined') {
-            payload['tagline'] = tagline;
+            apiPayload['tagline'] = tagline;
         }
         if (typeof tags !== 'undefined') {
-            payload['tags'] = tags;
+            apiPayload['tags'] = tags;
         }
         if (typeof images !== 'undefined') {
-            payload['images'] = images;
+            apiPayload['images'] = images;
         }
         if (typeof supportUrl !== 'undefined') {
-            payload['supportUrl'] = supportUrl;
+            apiPayload['supportUrl'] = supportUrl;
         }
         if (typeof dataDeletionUrl !== 'undefined') {
-            payload['dataDeletionUrl'] = dataDeletionUrl;
+            apiPayload['dataDeletionUrl'] = dataDeletionUrl;
         }
         if (typeof redirectUris !== 'undefined') {
-            payload['redirectUris'] = redirectUris;
+            apiPayload['redirectUris'] = redirectUris;
         }
         if (typeof postLogoutRedirectUris !== 'undefined') {
-            payload['postLogoutRedirectUris'] = postLogoutRedirectUris;
+            apiPayload['postLogoutRedirectUris'] = postLogoutRedirectUris;
         }
         if (typeof enabled !== 'undefined') {
-            payload['enabled'] = enabled;
+            apiPayload['enabled'] = enabled;
         }
         if (typeof type !== 'undefined') {
-            payload['type'] = type;
+            apiPayload['type'] = type;
         }
         if (typeof deviceFlow !== 'undefined') {
-            payload['deviceFlow'] = deviceFlow;
+            apiPayload['deviceFlow'] = deviceFlow;
         }
         if (typeof teamId !== 'undefined') {
-            payload['teamId'] = teamId;
+            apiPayload['teamId'] = teamId;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -268,22 +390,16 @@ export class Apps {
      * @returns {Promise<Models.AppScopeList>}
      */
     listInstallationScopes(): Promise<Models.AppScopeList> {
-
         const apiPath = '/apps/scopes/installations';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -293,22 +409,16 @@ export class Apps {
      * @returns {Promise<Models.AppScopeList>}
      */
     listOAuth2Scopes(): Promise<Models.AppScopeList> {
-
         const apiPath = '/apps/scopes/oauth2';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -328,40 +438,38 @@ export class Apps {
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     get(appId: string): Promise<Models.App>;
-    get(
-        paramsOrFirst: { appId: string } | string    
-    ): Promise<Models.App> {
+    get(paramsOrFirst: { appId: string } | string): Promise<Models.App> {
         let params: { appId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { appId: string };
         } else {
             params = {
-                appId: paramsOrFirst as string            
+                appId: paramsOrFirst as string,
             };
         }
-        
-        const appId = params.appId;
 
+        const appId = params.appId;
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-
-        const apiPath = '/apps/{appId}'.replace('{appId}', encodeURIComponent(String(appId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}'.replace(
+            '{appId}',
+            encodeURIComponent(String(appId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -390,7 +498,28 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<Models.App>}
      */
-    update(params: { appId: string, name: string, description?: string, clientUri?: string, logoUri?: string, privacyPolicyUrl?: string, termsUrl?: string, contacts?: string[], tagline?: string, tags?: string[], images?: string[], supportUrl?: string, dataDeletionUrl?: string, enabled?: boolean, redirectUris?: string[], postLogoutRedirectUris?: string[], type?: string, deviceFlow?: boolean, installationScopes?: string[], installationRedirectUrl?: string }): Promise<Models.App>;
+    update(params: {
+        appId: string;
+        name: string;
+        description?: string;
+        clientUri?: string;
+        logoUri?: string;
+        privacyPolicyUrl?: string;
+        termsUrl?: string;
+        contacts?: string[];
+        tagline?: string;
+        tags?: string[];
+        images?: string[];
+        supportUrl?: string;
+        dataDeletionUrl?: string;
+        enabled?: boolean;
+        redirectUris?: string[];
+        postLogoutRedirectUris?: string[];
+        type?: string;
+        deviceFlow?: boolean;
+        installationScopes?: string[];
+        installationRedirectUrl?: string;
+    }): Promise<Models.App>;
     /**
      * Update an application by its unique ID.
      *
@@ -418,15 +547,125 @@ export class Apps {
      * @returns {Promise<Models.App>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    update(appId: string, name: string, description?: string, clientUri?: string, logoUri?: string, privacyPolicyUrl?: string, termsUrl?: string, contacts?: string[], tagline?: string, tags?: string[], images?: string[], supportUrl?: string, dataDeletionUrl?: string, enabled?: boolean, redirectUris?: string[], postLogoutRedirectUris?: string[], type?: string, deviceFlow?: boolean, installationScopes?: string[], installationRedirectUrl?: string): Promise<Models.App>;
     update(
-        paramsOrFirst: { appId: string, name: string, description?: string, clientUri?: string, logoUri?: string, privacyPolicyUrl?: string, termsUrl?: string, contacts?: string[], tagline?: string, tags?: string[], images?: string[], supportUrl?: string, dataDeletionUrl?: string, enabled?: boolean, redirectUris?: string[], postLogoutRedirectUris?: string[], type?: string, deviceFlow?: boolean, installationScopes?: string[], installationRedirectUrl?: string } | string,
-        ...rest: [(string)?, (string)?, (string)?, (string)?, (string)?, (string)?, (string[])?, (string)?, (string[])?, (string[])?, (string)?, (string)?, (boolean)?, (string[])?, (string[])?, (string)?, (boolean)?, (string[])?, (string)?]    
+        appId: string,
+        name: string,
+        description?: string,
+        clientUri?: string,
+        logoUri?: string,
+        privacyPolicyUrl?: string,
+        termsUrl?: string,
+        contacts?: string[],
+        tagline?: string,
+        tags?: string[],
+        images?: string[],
+        supportUrl?: string,
+        dataDeletionUrl?: string,
+        enabled?: boolean,
+        redirectUris?: string[],
+        postLogoutRedirectUris?: string[],
+        type?: string,
+        deviceFlow?: boolean,
+        installationScopes?: string[],
+        installationRedirectUrl?: string,
+    ): Promise<Models.App>;
+    update(
+        paramsOrFirst:
+            | {
+                  appId: string;
+                  name: string;
+                  description?: string;
+                  clientUri?: string;
+                  logoUri?: string;
+                  privacyPolicyUrl?: string;
+                  termsUrl?: string;
+                  contacts?: string[];
+                  tagline?: string;
+                  tags?: string[];
+                  images?: string[];
+                  supportUrl?: string;
+                  dataDeletionUrl?: string;
+                  enabled?: boolean;
+                  redirectUris?: string[];
+                  postLogoutRedirectUris?: string[];
+                  type?: string;
+                  deviceFlow?: boolean;
+                  installationScopes?: string[];
+                  installationRedirectUrl?: string;
+              }
+            | string,
+        ...rest: [
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string[]?,
+            string?,
+            string[]?,
+            string[]?,
+            string?,
+            string?,
+            boolean?,
+            string[]?,
+            string[]?,
+            string?,
+            boolean?,
+            string[]?,
+            string?,
+        ]
     ): Promise<Models.App> {
-        let params: { appId: string, name: string, description?: string, clientUri?: string, logoUri?: string, privacyPolicyUrl?: string, termsUrl?: string, contacts?: string[], tagline?: string, tags?: string[], images?: string[], supportUrl?: string, dataDeletionUrl?: string, enabled?: boolean, redirectUris?: string[], postLogoutRedirectUris?: string[], type?: string, deviceFlow?: boolean, installationScopes?: string[], installationRedirectUrl?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, name: string, description?: string, clientUri?: string, logoUri?: string, privacyPolicyUrl?: string, termsUrl?: string, contacts?: string[], tagline?: string, tags?: string[], images?: string[], supportUrl?: string, dataDeletionUrl?: string, enabled?: boolean, redirectUris?: string[], postLogoutRedirectUris?: string[], type?: string, deviceFlow?: boolean, installationScopes?: string[], installationRedirectUrl?: string };
+        let params: {
+            appId: string;
+            name: string;
+            description?: string;
+            clientUri?: string;
+            logoUri?: string;
+            privacyPolicyUrl?: string;
+            termsUrl?: string;
+            contacts?: string[];
+            tagline?: string;
+            tags?: string[];
+            images?: string[];
+            supportUrl?: string;
+            dataDeletionUrl?: string;
+            enabled?: boolean;
+            redirectUris?: string[];
+            postLogoutRedirectUris?: string[];
+            type?: string;
+            deviceFlow?: boolean;
+            installationScopes?: string[];
+            installationRedirectUrl?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                appId: string;
+                name: string;
+                description?: string;
+                clientUri?: string;
+                logoUri?: string;
+                privacyPolicyUrl?: string;
+                termsUrl?: string;
+                contacts?: string[];
+                tagline?: string;
+                tags?: string[];
+                images?: string[];
+                supportUrl?: string;
+                dataDeletionUrl?: string;
+                enabled?: boolean;
+                redirectUris?: string[];
+                postLogoutRedirectUris?: string[];
+                type?: string;
+                deviceFlow?: boolean;
+                installationScopes?: string[];
+                installationRedirectUrl?: string;
+            };
         } else {
             params = {
                 appId: paramsOrFirst as string,
@@ -448,10 +687,10 @@ export class Apps {
                 type: rest[15] as string,
                 deviceFlow: rest[16] as boolean,
                 installationScopes: rest[17] as string[],
-                installationRedirectUrl: rest[18] as string            
+                installationRedirectUrl: rest[18] as string,
             };
         }
-        
+
         const appId = params.appId;
         const name = params.name;
         const description = params.description;
@@ -472,87 +711,83 @@ export class Apps {
         const deviceFlow = params.deviceFlow;
         const installationScopes = params.installationScopes;
         const installationRedirectUrl = params.installationRedirectUrl;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         if (typeof name === 'undefined') {
             throw new AppwriteException('Missing required parameter: "name"');
         }
-
-        const apiPath = '/apps/{appId}'.replace('{appId}', encodeURIComponent(String(appId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}'.replace(
+            '{appId}',
+            encodeURIComponent(String(appId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         if (typeof description !== 'undefined') {
-            payload['description'] = description;
+            apiPayload['description'] = description;
         }
         if (typeof clientUri !== 'undefined') {
-            payload['clientUri'] = clientUri;
+            apiPayload['clientUri'] = clientUri;
         }
         if (typeof logoUri !== 'undefined') {
-            payload['logoUri'] = logoUri;
+            apiPayload['logoUri'] = logoUri;
         }
         if (typeof privacyPolicyUrl !== 'undefined') {
-            payload['privacyPolicyUrl'] = privacyPolicyUrl;
+            apiPayload['privacyPolicyUrl'] = privacyPolicyUrl;
         }
         if (typeof termsUrl !== 'undefined') {
-            payload['termsUrl'] = termsUrl;
+            apiPayload['termsUrl'] = termsUrl;
         }
         if (typeof contacts !== 'undefined') {
-            payload['contacts'] = contacts;
+            apiPayload['contacts'] = contacts;
         }
         if (typeof tagline !== 'undefined') {
-            payload['tagline'] = tagline;
+            apiPayload['tagline'] = tagline;
         }
         if (typeof tags !== 'undefined') {
-            payload['tags'] = tags;
+            apiPayload['tags'] = tags;
         }
         if (typeof images !== 'undefined') {
-            payload['images'] = images;
+            apiPayload['images'] = images;
         }
         if (typeof supportUrl !== 'undefined') {
-            payload['supportUrl'] = supportUrl;
+            apiPayload['supportUrl'] = supportUrl;
         }
         if (typeof dataDeletionUrl !== 'undefined') {
-            payload['dataDeletionUrl'] = dataDeletionUrl;
+            apiPayload['dataDeletionUrl'] = dataDeletionUrl;
         }
         if (typeof enabled !== 'undefined') {
-            payload['enabled'] = enabled;
+            apiPayload['enabled'] = enabled;
         }
         if (typeof redirectUris !== 'undefined') {
-            payload['redirectUris'] = redirectUris;
+            apiPayload['redirectUris'] = redirectUris;
         }
         if (typeof postLogoutRedirectUris !== 'undefined') {
-            payload['postLogoutRedirectUris'] = postLogoutRedirectUris;
+            apiPayload['postLogoutRedirectUris'] = postLogoutRedirectUris;
         }
         if (typeof type !== 'undefined') {
-            payload['type'] = type;
+            apiPayload['type'] = type;
         }
         if (typeof deviceFlow !== 'undefined') {
-            payload['deviceFlow'] = deviceFlow;
+            apiPayload['deviceFlow'] = deviceFlow;
         }
         if (typeof installationScopes !== 'undefined') {
-            payload['installationScopes'] = installationScopes;
+            apiPayload['installationScopes'] = installationScopes;
         }
         if (typeof installationRedirectUrl !== 'undefined') {
-            payload['installationRedirectUrl'] = installationRedirectUrl;
+            apiPayload['installationRedirectUrl'] = installationRedirectUrl;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'put',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -572,41 +807,39 @@ export class Apps {
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     delete(appId: string): Promise<{}>;
-    delete(
-        paramsOrFirst: { appId: string } | string    
-    ): Promise<{}> {
+    delete(paramsOrFirst: { appId: string } | string): Promise<{}> {
         let params: { appId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { appId: string };
         } else {
             params = {
-                appId: paramsOrFirst as string            
+                appId: paramsOrFirst as string,
             };
         }
-        
-        const appId = params.appId;
 
+        const appId = params.appId;
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-
-        const apiPath = '/apps/{appId}'.replace('{appId}', encodeURIComponent(String(appId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}'.replace(
+            '{appId}',
+            encodeURIComponent(String(appId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -618,7 +851,11 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AppInstallationList>}
      */
-    listInstallations(params: { appId: string, queries?: string[], total?: boolean }): Promise<Models.AppInstallationList>;
+    listInstallations(params: {
+        appId: string;
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.AppInstallationList>;
     /**
      * List installations of an application. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header, or a caller with update access to the app.
      *
@@ -629,52 +866,61 @@ export class Apps {
      * @returns {Promise<Models.AppInstallationList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listInstallations(appId: string, queries?: string[], total?: boolean): Promise<Models.AppInstallationList>;
     listInstallations(
-        paramsOrFirst: { appId: string, queries?: string[], total?: boolean } | string,
-        ...rest: [(string[])?, (boolean)?]    
+        appId: string,
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.AppInstallationList>;
+    listInstallations(
+        paramsOrFirst:
+            { appId: string; queries?: string[]; total?: boolean } | string,
+        ...rest: [string[]?, boolean?]
     ): Promise<Models.AppInstallationList> {
-        let params: { appId: string, queries?: string[], total?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, queries?: string[], total?: boolean };
+        let params: { appId: string; queries?: string[]; total?: boolean };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                appId: string;
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 appId: paramsOrFirst as string,
                 queries: rest[0] as string[],
-                total: rest[1] as boolean            
+                total: rest[1] as boolean,
             };
         }
-        
+
         const appId = params.appId;
         const queries = params.queries;
         const total = params.total;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-
-        const apiPath = '/apps/{appId}/installations'.replace('{appId}', encodeURIComponent(String(appId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/installations'.replace(
+            '{appId}',
+            encodeURIComponent(String(appId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -685,7 +931,10 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AppInstallation>}
      */
-    getInstallation(params: { appId: string, installationId: string }): Promise<Models.AppInstallation>;
+    getInstallation(params: {
+        appId: string;
+        installationId: string;
+    }): Promise<Models.AppInstallation>;
     /**
      * Get an installation of an application by its unique ID. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header, or a caller with update access to the app.
      *
@@ -695,47 +944,57 @@ export class Apps {
      * @returns {Promise<Models.AppInstallation>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getInstallation(appId: string, installationId: string): Promise<Models.AppInstallation>;
     getInstallation(
-        paramsOrFirst: { appId: string, installationId: string } | string,
-        ...rest: [(string)?]    
+        appId: string,
+        installationId: string,
+    ): Promise<Models.AppInstallation>;
+    getInstallation(
+        paramsOrFirst: { appId: string; installationId: string } | string,
+        ...rest: [string?]
     ): Promise<Models.AppInstallation> {
-        let params: { appId: string, installationId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, installationId: string };
+        let params: { appId: string; installationId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                appId: string;
+                installationId: string;
+            };
         } else {
             params = {
                 appId: paramsOrFirst as string,
-                installationId: rest[0] as string            
+                installationId: rest[0] as string,
             };
         }
-        
+
         const appId = params.appId;
         const installationId = params.installationId;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         if (typeof installationId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "installationId"');
+            throw new AppwriteException(
+                'Missing required parameter: "installationId"',
+            );
         }
-
-        const apiPath = '/apps/{appId}/installations/{installationId}'.replace('{appId}', encodeURIComponent(String(appId))).replace('{installationId}', encodeURIComponent(String(installationId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/installations/{installationId}'
+            .replace('{appId}', encodeURIComponent(String(appId)))
+            .replace(
+                '{installationId}',
+                encodeURIComponent(String(installationId)),
+            );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -746,7 +1005,10 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteInstallation(params: { appId: string, installationId: string }): Promise<{}>;
+    deleteInstallation(params: {
+        appId: string;
+        installationId: string;
+    }): Promise<{}>;
     /**
      * Delete an installation of an application by its unique ID. Requires a caller with update access to the app. Previously issued installation access tokens are revoked.
      *
@@ -758,46 +1020,53 @@ export class Apps {
      */
     deleteInstallation(appId: string, installationId: string): Promise<{}>;
     deleteInstallation(
-        paramsOrFirst: { appId: string, installationId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { appId: string; installationId: string } | string,
+        ...rest: [string?]
     ): Promise<{}> {
-        let params: { appId: string, installationId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, installationId: string };
+        let params: { appId: string; installationId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                appId: string;
+                installationId: string;
+            };
         } else {
             params = {
                 appId: paramsOrFirst as string,
-                installationId: rest[0] as string            
+                installationId: rest[0] as string,
             };
         }
-        
+
         const appId = params.appId;
         const installationId = params.installationId;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         if (typeof installationId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "installationId"');
+            throw new AppwriteException(
+                'Missing required parameter: "installationId"',
+            );
         }
-
-        const apiPath = '/apps/{appId}/installations/{installationId}'.replace('{appId}', encodeURIComponent(String(appId))).replace('{installationId}', encodeURIComponent(String(installationId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/installations/{installationId}'
+            .replace('{appId}', encodeURIComponent(String(appId)))
+            .replace(
+                '{installationId}',
+                encodeURIComponent(String(installationId)),
+            );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -808,7 +1077,10 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Oauth2Token>}
      */
-    createInstallationToken(params: { appId: string, installationId: string }): Promise<Models.Oauth2Token>;
+    createInstallationToken(params: {
+        appId: string;
+        installationId: string;
+    }): Promise<Models.Oauth2Token>;
     /**
      * Create a token for an installation of an application. Requires an app key sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header, or a caller with update access to the app. The returned token carries the scopes and authorization details granted to the installation, and can be used as an `Authorization: Bearer` header everywhere OAuth2 access tokens are accepted. Multiple tokens can be active for the same installation at once; each token stays valid until it expires or the installation is updated or deleted.
      *
@@ -818,48 +1090,58 @@ export class Apps {
      * @returns {Promise<Models.Oauth2Token>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createInstallationToken(appId: string, installationId: string): Promise<Models.Oauth2Token>;
     createInstallationToken(
-        paramsOrFirst: { appId: string, installationId: string } | string,
-        ...rest: [(string)?]    
+        appId: string,
+        installationId: string,
+    ): Promise<Models.Oauth2Token>;
+    createInstallationToken(
+        paramsOrFirst: { appId: string; installationId: string } | string,
+        ...rest: [string?]
     ): Promise<Models.Oauth2Token> {
-        let params: { appId: string, installationId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, installationId: string };
+        let params: { appId: string; installationId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                appId: string;
+                installationId: string;
+            };
         } else {
             params = {
                 appId: paramsOrFirst as string,
-                installationId: rest[0] as string            
+                installationId: rest[0] as string,
             };
         }
-        
+
         const appId = params.appId;
         const installationId = params.installationId;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         if (typeof installationId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "installationId"');
+            throw new AppwriteException(
+                'Missing required parameter: "installationId"',
+            );
         }
-
-        const apiPath = '/apps/{appId}/installations/{installationId}/tokens'.replace('{appId}', encodeURIComponent(String(appId))).replace('{installationId}', encodeURIComponent(String(installationId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/installations/{installationId}/tokens'
+            .replace('{appId}', encodeURIComponent(String(appId)))
+            .replace(
+                '{installationId}',
+                encodeURIComponent(String(installationId)),
+            );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -871,7 +1153,11 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AppKeyList>}
      */
-    listKeys(params: { appId: string, queries?: string[], total?: boolean }): Promise<Models.AppKeyList>;
+    listKeys(params: {
+        appId: string;
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.AppKeyList>;
     /**
      * List app keys for an application.
      *
@@ -882,52 +1168,61 @@ export class Apps {
      * @returns {Promise<Models.AppKeyList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listKeys(appId: string, queries?: string[], total?: boolean): Promise<Models.AppKeyList>;
     listKeys(
-        paramsOrFirst: { appId: string, queries?: string[], total?: boolean } | string,
-        ...rest: [(string[])?, (boolean)?]    
+        appId: string,
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.AppKeyList>;
+    listKeys(
+        paramsOrFirst:
+            { appId: string; queries?: string[]; total?: boolean } | string,
+        ...rest: [string[]?, boolean?]
     ): Promise<Models.AppKeyList> {
-        let params: { appId: string, queries?: string[], total?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, queries?: string[], total?: boolean };
+        let params: { appId: string; queries?: string[]; total?: boolean };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                appId: string;
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 appId: paramsOrFirst as string,
                 queries: rest[0] as string[],
-                total: rest[1] as boolean            
+                total: rest[1] as boolean,
             };
         }
-        
+
         const appId = params.appId;
         const queries = params.queries;
         const total = params.total;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-
-        const apiPath = '/apps/{appId}/keys'.replace('{appId}', encodeURIComponent(String(appId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/keys'.replace(
+            '{appId}',
+            encodeURIComponent(String(appId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -948,40 +1243,40 @@ export class Apps {
      */
     createKey(appId: string): Promise<Models.AppKey>;
     createKey(
-        paramsOrFirst: { appId: string } | string    
+        paramsOrFirst: { appId: string } | string,
     ): Promise<Models.AppKey> {
         let params: { appId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { appId: string };
         } else {
             params = {
-                appId: paramsOrFirst as string            
+                appId: paramsOrFirst as string,
             };
         }
-        
-        const appId = params.appId;
 
+        const appId = params.appId;
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-
-        const apiPath = '/apps/{appId}/keys'.replace('{appId}', encodeURIComponent(String(appId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/keys'.replace(
+            '{appId}',
+            encodeURIComponent(String(appId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -992,7 +1287,7 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AppKey>}
      */
-    getKey(params: { appId: string, keyId: string }): Promise<Models.AppKey>;
+    getKey(params: { appId: string; keyId: string }): Promise<Models.AppKey>;
     /**
      * Get an app key by its unique ID.
      *
@@ -1004,45 +1299,44 @@ export class Apps {
      */
     getKey(appId: string, keyId: string): Promise<Models.AppKey>;
     getKey(
-        paramsOrFirst: { appId: string, keyId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { appId: string; keyId: string } | string,
+        ...rest: [string?]
     ): Promise<Models.AppKey> {
-        let params: { appId: string, keyId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, keyId: string };
+        let params: { appId: string; keyId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { appId: string; keyId: string };
         } else {
             params = {
                 appId: paramsOrFirst as string,
-                keyId: rest[0] as string            
+                keyId: rest[0] as string,
             };
         }
-        
+
         const appId = params.appId;
         const keyId = params.keyId;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         if (typeof keyId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
-
-        const apiPath = '/apps/{appId}/keys/{keyId}'.replace('{appId}', encodeURIComponent(String(appId))).replace('{keyId}', encodeURIComponent(String(keyId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/keys/{keyId}'
+            .replace('{appId}', encodeURIComponent(String(appId)))
+            .replace('{keyId}', encodeURIComponent(String(keyId)));
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1053,7 +1347,7 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteKey(params: { appId: string, keyId: string }): Promise<{}>;
+    deleteKey(params: { appId: string; keyId: string }): Promise<{}>;
     /**
      * Delete an app key by its unique ID.
      *
@@ -1065,46 +1359,45 @@ export class Apps {
      */
     deleteKey(appId: string, keyId: string): Promise<{}>;
     deleteKey(
-        paramsOrFirst: { appId: string, keyId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { appId: string; keyId: string } | string,
+        ...rest: [string?]
     ): Promise<{}> {
-        let params: { appId: string, keyId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, keyId: string };
+        let params: { appId: string; keyId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { appId: string; keyId: string };
         } else {
             params = {
                 appId: paramsOrFirst as string,
-                keyId: rest[0] as string            
+                keyId: rest[0] as string,
             };
         }
-        
+
         const appId = params.appId;
         const keyId = params.keyId;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         if (typeof keyId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
-
-        const apiPath = '/apps/{appId}/keys/{keyId}'.replace('{appId}', encodeURIComponent(String(appId))).replace('{keyId}', encodeURIComponent(String(keyId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/keys/{keyId}'
+            .replace('{appId}', encodeURIComponent(String(appId)))
+            .replace('{keyId}', encodeURIComponent(String(keyId)));
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1115,7 +1408,10 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<Models.App>}
      */
-    updateLabels(params: { appId: string, labels: string[] }): Promise<Models.App>;
+    updateLabels(params: {
+        appId: string;
+        labels: string[];
+    }): Promise<Models.App>;
     /**
      * Update the labels of an application. Labels are read-only for clients; only a server SDK using a project API key can set them. Replaces the previous labels.
      *
@@ -1127,49 +1423,52 @@ export class Apps {
      */
     updateLabels(appId: string, labels: string[]): Promise<Models.App>;
     updateLabels(
-        paramsOrFirst: { appId: string, labels: string[] } | string,
-        ...rest: [(string[])?]    
+        paramsOrFirst: { appId: string; labels: string[] } | string,
+        ...rest: [string[]?]
     ): Promise<Models.App> {
-        let params: { appId: string, labels: string[] };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, labels: string[] };
+        let params: { appId: string; labels: string[] };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                appId: string;
+                labels: string[];
+            };
         } else {
             params = {
                 appId: paramsOrFirst as string,
-                labels: rest[0] as string[]            
+                labels: rest[0] as string[],
             };
         }
-        
+
         const appId = params.appId;
         const labels = params.labels;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         if (typeof labels === 'undefined') {
             throw new AppwriteException('Missing required parameter: "labels"');
         }
-
-        const apiPath = '/apps/{appId}/labels'.replace('{appId}', encodeURIComponent(String(appId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/labels'.replace(
+            '{appId}',
+            encodeURIComponent(String(appId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof labels !== 'undefined') {
-            payload['labels'] = labels;
+            apiPayload['labels'] = labels;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'put',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1181,7 +1480,11 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AppSecretList>}
      */
-    listSecrets(params: { appId: string, queries?: string[], total?: boolean }): Promise<Models.AppSecretList>;
+    listSecrets(params: {
+        appId: string;
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.AppSecretList>;
     /**
      * List client secrets for an application.
      *
@@ -1192,52 +1495,61 @@ export class Apps {
      * @returns {Promise<Models.AppSecretList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listSecrets(appId: string, queries?: string[], total?: boolean): Promise<Models.AppSecretList>;
     listSecrets(
-        paramsOrFirst: { appId: string, queries?: string[], total?: boolean } | string,
-        ...rest: [(string[])?, (boolean)?]    
+        appId: string,
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.AppSecretList>;
+    listSecrets(
+        paramsOrFirst:
+            { appId: string; queries?: string[]; total?: boolean } | string,
+        ...rest: [string[]?, boolean?]
     ): Promise<Models.AppSecretList> {
-        let params: { appId: string, queries?: string[], total?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, queries?: string[], total?: boolean };
+        let params: { appId: string; queries?: string[]; total?: boolean };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                appId: string;
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 appId: paramsOrFirst as string,
                 queries: rest[0] as string[],
-                total: rest[1] as boolean            
+                total: rest[1] as boolean,
             };
         }
-        
+
         const appId = params.appId;
         const queries = params.queries;
         const total = params.total;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-
-        const apiPath = '/apps/{appId}/secrets'.replace('{appId}', encodeURIComponent(String(appId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/secrets'.replace(
+            '{appId}',
+            encodeURIComponent(String(appId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1258,40 +1570,40 @@ export class Apps {
      */
     createSecret(appId: string): Promise<Models.AppSecretPlaintext>;
     createSecret(
-        paramsOrFirst: { appId: string } | string    
+        paramsOrFirst: { appId: string } | string,
     ): Promise<Models.AppSecretPlaintext> {
         let params: { appId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { appId: string };
         } else {
             params = {
-                appId: paramsOrFirst as string            
+                appId: paramsOrFirst as string,
             };
         }
-        
-        const appId = params.appId;
 
+        const appId = params.appId;
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-
-        const apiPath = '/apps/{appId}/secrets'.replace('{appId}', encodeURIComponent(String(appId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/secrets'.replace(
+            '{appId}',
+            encodeURIComponent(String(appId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1302,7 +1614,10 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<Models.AppSecret>}
      */
-    getSecret(params: { appId: string, secretId: string }): Promise<Models.AppSecret>;
+    getSecret(params: {
+        appId: string;
+        secretId: string;
+    }): Promise<Models.AppSecret>;
     /**
      * Get an application client secret by its unique ID.
      *
@@ -1314,45 +1629,49 @@ export class Apps {
      */
     getSecret(appId: string, secretId: string): Promise<Models.AppSecret>;
     getSecret(
-        paramsOrFirst: { appId: string, secretId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { appId: string; secretId: string } | string,
+        ...rest: [string?]
     ): Promise<Models.AppSecret> {
-        let params: { appId: string, secretId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, secretId: string };
+        let params: { appId: string; secretId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                appId: string;
+                secretId: string;
+            };
         } else {
             params = {
                 appId: paramsOrFirst as string,
-                secretId: rest[0] as string            
+                secretId: rest[0] as string,
             };
         }
-        
+
         const appId = params.appId;
         const secretId = params.secretId;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         if (typeof secretId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "secretId"');
+            throw new AppwriteException(
+                'Missing required parameter: "secretId"',
+            );
         }
-
-        const apiPath = '/apps/{appId}/secrets/{secretId}'.replace('{appId}', encodeURIComponent(String(appId))).replace('{secretId}', encodeURIComponent(String(secretId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/secrets/{secretId}'
+            .replace('{appId}', encodeURIComponent(String(appId)))
+            .replace('{secretId}', encodeURIComponent(String(secretId)));
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1363,7 +1682,7 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteSecret(params: { appId: string, secretId: string }): Promise<{}>;
+    deleteSecret(params: { appId: string; secretId: string }): Promise<{}>;
     /**
      * Delete an application client secret by its unique ID.
      *
@@ -1375,46 +1694,50 @@ export class Apps {
      */
     deleteSecret(appId: string, secretId: string): Promise<{}>;
     deleteSecret(
-        paramsOrFirst: { appId: string, secretId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { appId: string; secretId: string } | string,
+        ...rest: [string?]
     ): Promise<{}> {
-        let params: { appId: string, secretId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, secretId: string };
+        let params: { appId: string; secretId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                appId: string;
+                secretId: string;
+            };
         } else {
             params = {
                 appId: paramsOrFirst as string,
-                secretId: rest[0] as string            
+                secretId: rest[0] as string,
             };
         }
-        
+
         const appId = params.appId;
         const secretId = params.secretId;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         if (typeof secretId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "secretId"');
+            throw new AppwriteException(
+                'Missing required parameter: "secretId"',
+            );
         }
-
-        const apiPath = '/apps/{appId}/secrets/{secretId}'.replace('{appId}', encodeURIComponent(String(appId))).replace('{secretId}', encodeURIComponent(String(secretId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/secrets/{secretId}'
+            .replace('{appId}', encodeURIComponent(String(appId)))
+            .replace('{secretId}', encodeURIComponent(String(secretId)));
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1425,7 +1748,7 @@ export class Apps {
      * @throws {AppwriteException}
      * @returns {Promise<Models.App>}
      */
-    updateTeam(params: { appId: string, teamId: string }): Promise<Models.App>;
+    updateTeam(params: { appId: string; teamId: string }): Promise<Models.App>;
     /**
      * Transfer an application to another team by its unique ID.
      *
@@ -1437,49 +1760,49 @@ export class Apps {
      */
     updateTeam(appId: string, teamId: string): Promise<Models.App>;
     updateTeam(
-        paramsOrFirst: { appId: string, teamId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { appId: string; teamId: string } | string,
+        ...rest: [string?]
     ): Promise<Models.App> {
-        let params: { appId: string, teamId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { appId: string, teamId: string };
+        let params: { appId: string; teamId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { appId: string; teamId: string };
         } else {
             params = {
                 appId: paramsOrFirst as string,
-                teamId: rest[0] as string            
+                teamId: rest[0] as string,
             };
         }
-        
+
         const appId = params.appId;
         const teamId = params.teamId;
-
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         if (typeof teamId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "teamId"');
         }
-
-        const apiPath = '/apps/{appId}/team'.replace('{appId}', encodeURIComponent(String(appId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/team'.replace(
+            '{appId}',
+            encodeURIComponent(String(appId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof teamId !== 'undefined') {
-            payload['teamId'] = teamId;
+            apiPayload['teamId'] = teamId;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'patch',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1499,40 +1822,38 @@ export class Apps {
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteTokens(appId: string): Promise<{}>;
-    deleteTokens(
-        paramsOrFirst: { appId: string } | string    
-    ): Promise<{}> {
+    deleteTokens(paramsOrFirst: { appId: string } | string): Promise<{}> {
         let params: { appId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { appId: string };
         } else {
             params = {
-                appId: paramsOrFirst as string            
+                appId: paramsOrFirst as string,
             };
         }
-        
-        const appId = params.appId;
 
+        const appId = params.appId;
         if (typeof appId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-
-        const apiPath = '/apps/{appId}/tokens'.replace('{appId}', encodeURIComponent(String(appId)));
-        const payload: Payload = {};
+        const apiPath = '/apps/{appId}/tokens'.replace(
+            '{appId}',
+            encodeURIComponent(String(appId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 }

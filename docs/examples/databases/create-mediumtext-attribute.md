@@ -11,10 +11,10 @@ const databases = new sdk.Databases(client);
 const result = await databases.createMediumtextAttribute({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: '<DEFAULT>', // optional
+    xdefault: 'Hello World', // optional
     array: false, // optional
-    encrypt: false // optional
+    encrypt: false, // optional
 });
 ```

@@ -19,6 +19,7 @@ export enum OAuthProvider {
     Github = 'github',
     Gitlab = 'gitlab',
     Google = 'google',
+    Huggingface = 'huggingface',
     Keycloak = 'keycloak',
     Kick = 'kick',
     Linkedin = 'linkedin',

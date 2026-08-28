@@ -77,6 +77,7 @@ export enum BuildRuntime {
     Bun11 = 'bun-1.1',
     Bun12 = 'bun-1.2',
     Bun13 = 'bun-1.3',
+    Bun14 = 'bun-1.4',
     Go123 = 'go-1.23',
     Go124 = 'go-1.24',
     Go125 = 'go-1.25',

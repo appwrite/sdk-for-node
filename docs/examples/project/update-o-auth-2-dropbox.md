@@ -11,6 +11,6 @@ const project = new sdk.Project(client);
 const result = await project.updateOAuth2Dropbox({
     appKey: '<APP_KEY>', // optional
     appSecret: '<APP_SECRET>', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

@@ -10,6 +10,6 @@ const sites = new sdk.Sites(client);
 
 const result = await sites.getDeployment({
     siteId: '<SITE_ID>',
-    deploymentId: '<DEPLOYMENT_ID>'
+    deploymentId: '<DEPLOYMENT_ID>',
 });
 ```

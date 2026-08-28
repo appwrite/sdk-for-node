@@ -11,6 +11,6 @@ const functions = new sdk.Functions(client);
 const result = await functions.list({
     queries: [], // optional
     search: '<SEARCH>', // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

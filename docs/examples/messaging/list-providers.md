@@ -11,6 +11,6 @@ const messaging = new sdk.Messaging(client);
 const result = await messaging.listProviders({
     queries: [], // optional
     search: '<SEARCH>', // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

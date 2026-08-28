@@ -11,9 +11,9 @@ const databases = new sdk.Databases(client);
 const result = await databases.createIpAttribute({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: '', // optional
-    array: false // optional
+    xdefault: '192.0.2.0', // optional
+    array: false, // optional
 });
 ```

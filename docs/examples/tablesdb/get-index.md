@@ -11,6 +11,6 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.getIndex({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: ''
+    key: '<KEY>',
 });
 ```

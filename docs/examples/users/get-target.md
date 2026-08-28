@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.getTarget({
     userId: '<USER_ID>',
-    targetId: '<TARGET_ID>'
+    targetId: '<TARGET_ID>',
 });
 ```

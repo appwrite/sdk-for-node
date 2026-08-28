@@ -11,6 +11,6 @@ const project = new sdk.Project(client);
 const result = await project.updateOAuth2Etsy({
     keyString: '<KEY_STRING>', // optional
     sharedSecret: '<SHARED_SECRET>', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

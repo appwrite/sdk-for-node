@@ -14,6 +14,6 @@ const result = await messaging.createTextmagicProvider({
     from: '+12065550100', // optional
     username: '<USERNAME>', // optional
     apiKey: '<API_KEY>', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

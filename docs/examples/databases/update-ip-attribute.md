@@ -11,9 +11,9 @@ const databases = new sdk.Databases(client);
 const result = await databases.updateIpAttribute({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    xdefault: '',
-    newKey: '' // optional
+    xdefault: '192.0.2.0',
+    newKey: '<NEW_KEY>', // optional
 });
 ```

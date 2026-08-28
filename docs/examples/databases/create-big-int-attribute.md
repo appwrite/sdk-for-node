@@ -11,11 +11,11 @@ const databases = new sdk.Databases(client);
 const result = await databases.createBigIntAttribute({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
-    min: null, // optional
-    max: null, // optional
-    xdefault: null, // optional
-    array: false // optional
+    min: 0, // optional
+    max: 1000000, // optional
+    xdefault: 0, // optional
+    array: false, // optional
 });
 ```

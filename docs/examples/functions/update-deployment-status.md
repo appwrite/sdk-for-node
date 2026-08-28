@@ -10,6 +10,6 @@ const functions = new sdk.Functions(client);
 
 const result = await functions.updateDeploymentStatus({
     functionId: '<FUNCTION_ID>',
-    deploymentId: '<DEPLOYMENT_ID>'
+    deploymentId: '<DEPLOYMENT_ID>',
 });
 ```

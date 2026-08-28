@@ -11,6 +11,6 @@ const project = new sdk.Project(client);
 const result = await project.updateOAuth2Paypal({
     clientId: '<CLIENT_ID>', // optional
     secretKey: '<SECRET_KEY>', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

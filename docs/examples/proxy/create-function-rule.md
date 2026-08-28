@@ -9,8 +9,8 @@ const client = new sdk.Client()
 const proxy = new sdk.Proxy(client);
 
 const result = await proxy.createFunctionRule({
-    domain: '',
+    domain: 'example.com',
     functionId: '<FUNCTION_ID>',
-    branch: '<BRANCH>' // optional
+    branch: '<BRANCH>', // optional
 });
 ```

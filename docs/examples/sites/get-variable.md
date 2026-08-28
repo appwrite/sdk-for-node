@@ -10,6 +10,6 @@ const sites = new sdk.Sites(client);
 
 const result = await sites.getVariable({
     siteId: '<SITE_ID>',
-    variableId: '<VARIABLE_ID>'
+    variableId: '<VARIABLE_ID>',
 });
 ```

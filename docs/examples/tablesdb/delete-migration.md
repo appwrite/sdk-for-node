@@ -10,6 +10,6 @@ const tablesDB = new sdk.TablesDB(client);
 
 const result = await tablesDB.deleteMigration({
     databaseId: '<DATABASE_ID>',
-    migrationId: '<MIGRATION_ID>'
+    migrationId: '<MIGRATION_ID>',
 });
 ```

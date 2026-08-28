@@ -10,6 +10,6 @@ const advisor = new sdk.Advisor(client);
 
 const result = await advisor.getInsight({
     reportId: '<REPORT_ID>',
-    insightId: '<INSIGHT_ID>'
+    insightId: '<INSIGHT_ID>',
 });
 ```

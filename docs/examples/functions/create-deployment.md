@@ -14,6 +14,6 @@ const result = await functions.createDeployment({
     code: InputFile.fromPath('/path/to/file', 'filename'),
     activate: false,
     entrypoint: '<ENTRYPOINT>', // optional
-    commands: '<COMMANDS>' // optional
+    commands: '<COMMANDS>', // optional
 });
 ```

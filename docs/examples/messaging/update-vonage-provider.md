@@ -14,6 +14,6 @@ const result = await messaging.updateVonageProvider({
     enabled: false, // optional
     apiKey: '<API_KEY>', // optional
     apiSecret: '<API_SECRET>', // optional
-    from: '<FROM>' // optional
+    from: '<FROM>', // optional
 });
 ```

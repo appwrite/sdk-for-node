@@ -10,6 +10,6 @@ const apps = new sdk.Apps(client);
 
 const result = await apps.getSecret({
     appId: '<APP_ID>',
-    secretId: '<SECRET_ID>'
+    secretId: '<SECRET_ID>',
 });
 ```

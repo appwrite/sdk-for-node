@@ -10,6 +10,6 @@ const account = new sdk.Account(client);
 
 const result = await account.createRecovery({
     email: 'email@example.com',
-    url: 'https://example.com'
+    url: 'https://example.com',
 });
 ```

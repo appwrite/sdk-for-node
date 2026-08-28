@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.updateName({
     userId: '<USER_ID>',
-    name: '<NAME>'
+    name: '<NAME>',
 });
 ```

@@ -11,10 +11,10 @@ const databases = new sdk.Databases(client);
 const result = await databases.updateEnumAttribute({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
-    key: '',
-    elements: [],
+    key: '<KEY>',
+    elements: ['active', 'inactive'],
     required: false,
-    xdefault: '<DEFAULT>',
-    newKey: '' // optional
+    xdefault: 'active',
+    newKey: '<NEW_KEY>', // optional
 });
 ```

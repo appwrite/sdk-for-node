@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.updateMFA({
     userId: '<USER_ID>',
-    mfa: false
+    mfa: false,
 });
 ```

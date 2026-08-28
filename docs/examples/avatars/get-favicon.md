@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const avatars = new sdk.Avatars(client);
 
 const result = await avatars.getFavicon({
-    url: 'https://example.com'
+    url: 'https://example.com',
 });
 ```

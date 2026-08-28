@@ -10,9 +10,9 @@ const account = new sdk.Account(client);
 
 const result = await account.updatePrefs({
     prefs: {
-        "language": "en",
-        "timezone": "UTC",
-        "darkTheme": true
-    }
+        language: 'en',
+        timezone: 'UTC',
+        darkTheme: true,
+    },
 });
 ```

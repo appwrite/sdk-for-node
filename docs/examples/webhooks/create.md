@@ -10,13 +10,13 @@ const webhooks = new sdk.Webhooks(client);
 
 const result = await webhooks.create({
     webhookId: '<WEBHOOK_ID>',
-    url: '',
+    url: 'https://example.com/webhook',
     name: '<NAME>',
     events: [],
     enabled: false, // optional
     tls: false, // optional
     authUsername: '<AUTH_USERNAME>', // optional
     authPassword: 'password', // optional
-    secret: '<SECRET>' // optional
+    secret: '<SECRET>', // optional
 });
 ```

@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.updateEmailVerification({
     userId: '<USER_ID>',
-    emailVerification: false
+    emailVerification: false,
 });
 ```

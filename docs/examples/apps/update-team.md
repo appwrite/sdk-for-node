@@ -10,6 +10,6 @@ const apps = new sdk.Apps(client);
 
 const result = await apps.updateTeam({
     appId: '<APP_ID>',
-    teamId: '<TEAM_ID>'
+    teamId: '<TEAM_ID>',
 });
 ```

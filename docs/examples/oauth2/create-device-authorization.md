@@ -13,6 +13,6 @@ const result = await oauth2.createDeviceAuthorization({
     scope: '<SCOPE>', // optional
     authorizationDetails: '<AUTHORIZATION_DETAILS>', // optional
     resource: '', // optional
-    audience: '<AUDIENCE>' // optional
+    audience: '<AUDIENCE>', // optional
 });
 ```

@@ -1,12 +1,15 @@
-import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
+import {
+    AppwriteException,
+    Client,
+    type Payload,
+    UploadProgress,
+} from '../client';
 import type { Models } from '../models';
-
 import { InputFile } from '../inputFile';
 
 import { Compression } from '../enums/compression';
 import { ImageGravity } from '../enums/image-gravity';
 import { ImageFormat } from '../enums/image-format';
-
 export class Storage {
     client: Client;
 
@@ -23,7 +26,11 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.BucketList>}
      */
-    listBuckets(params?: { queries?: string[], search?: string, total?: boolean }): Promise<Models.BucketList>;
+    listBuckets(params?: {
+        queries?: string[];
+        search?: string;
+        total?: boolean;
+    }): Promise<Models.BucketList>;
     /**
      * Get a list of all the storage buckets. You can use the query params to filter your results.
      *
@@ -34,52 +41,59 @@ export class Storage {
      * @returns {Promise<Models.BucketList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listBuckets(queries?: string[], search?: string, total?: boolean): Promise<Models.BucketList>;
     listBuckets(
-        paramsOrFirst?: { queries?: string[], search?: string, total?: boolean } | string[],
-        ...rest: [(string)?, (boolean)?]    
+        queries?: string[],
+        search?: string,
+        total?: boolean,
+    ): Promise<Models.BucketList>;
+    listBuckets(
+        paramsOrFirst?:
+            { queries?: string[]; search?: string; total?: boolean } | string[],
+        ...rest: [string?, boolean?]
     ): Promise<Models.BucketList> {
-        let params: { queries?: string[], search?: string, total?: boolean };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], search?: string, total?: boolean };
+        let params: { queries?: string[]; search?: string; total?: boolean };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                search?: string;
+                total?: boolean;
+            };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
                 search: rest[0] as string,
-                total: rest[1] as boolean            
+                total: rest[1] as boolean,
             };
         }
-        
+
         const queries = params.queries;
         const search = params.search;
         const total = params.total;
-
-
         const apiPath = '/storage/buckets';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof search !== 'undefined') {
-            payload['search'] = search;
+            apiPayload['search'] = search;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -99,7 +113,19 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
-    createBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean }): Promise<Models.Bucket>;
+    createBucket(params: {
+        bucketId: string;
+        name: string;
+        permissions?: string[];
+        fileSecurity?: boolean;
+        enabled?: boolean;
+        maximumFileSize?: number;
+        allowedFileExtensions?: string[];
+        compression?: Compression;
+        encryption?: boolean;
+        antivirus?: boolean;
+        transformations?: boolean;
+    }): Promise<Models.Bucket>;
     /**
      * Create a new storage bucket.
      *
@@ -118,15 +144,80 @@ export class Storage {
      * @returns {Promise<Models.Bucket>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean): Promise<Models.Bucket>;
     createBucket(
-        paramsOrFirst: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean } | string,
-        ...rest: [(string)?, (string[])?, (boolean)?, (boolean)?, (number)?, (string[])?, (Compression)?, (boolean)?, (boolean)?, (boolean)?]    
+        bucketId: string,
+        name: string,
+        permissions?: string[],
+        fileSecurity?: boolean,
+        enabled?: boolean,
+        maximumFileSize?: number,
+        allowedFileExtensions?: string[],
+        compression?: Compression,
+        encryption?: boolean,
+        antivirus?: boolean,
+        transformations?: boolean,
+    ): Promise<Models.Bucket>;
+    createBucket(
+        paramsOrFirst:
+            | {
+                  bucketId: string;
+                  name: string;
+                  permissions?: string[];
+                  fileSecurity?: boolean;
+                  enabled?: boolean;
+                  maximumFileSize?: number;
+                  allowedFileExtensions?: string[];
+                  compression?: Compression;
+                  encryption?: boolean;
+                  antivirus?: boolean;
+                  transformations?: boolean;
+              }
+            | string,
+        ...rest: [
+            string?,
+            string[]?,
+            boolean?,
+            boolean?,
+            number?,
+            string[]?,
+            Compression?,
+            boolean?,
+            boolean?,
+            boolean?,
+        ]
     ): Promise<Models.Bucket> {
-        let params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
+        let params: {
+            bucketId: string;
+            name: string;
+            permissions?: string[];
+            fileSecurity?: boolean;
+            enabled?: boolean;
+            maximumFileSize?: number;
+            allowedFileExtensions?: string[];
+            compression?: Compression;
+            encryption?: boolean;
+            antivirus?: boolean;
+            transformations?: boolean;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                bucketId: string;
+                name: string;
+                permissions?: string[];
+                fileSecurity?: boolean;
+                enabled?: boolean;
+                maximumFileSize?: number;
+                allowedFileExtensions?: string[];
+                compression?: Compression;
+                encryption?: boolean;
+                antivirus?: boolean;
+                transformations?: boolean;
+            };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
@@ -139,10 +230,10 @@ export class Storage {
                 compression: rest[6] as Compression,
                 encryption: rest[7] as boolean,
                 antivirus: rest[8] as boolean,
-                transformations: rest[9] as boolean            
+                transformations: rest[9] as boolean,
             };
         }
-        
+
         const bucketId = params.bucketId;
         const name = params.name;
         const permissions = params.permissions;
@@ -154,63 +245,58 @@ export class Storage {
         const encryption = params.encryption;
         const antivirus = params.antivirus;
         const transformations = params.transformations;
-
         if (typeof bucketId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "bucketId"');
+            throw new AppwriteException(
+                'Missing required parameter: "bucketId"',
+            );
         }
         if (typeof name === 'undefined') {
             throw new AppwriteException('Missing required parameter: "name"');
         }
-
         const apiPath = '/storage/buckets';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof bucketId !== 'undefined') {
-            payload['bucketId'] = bucketId;
+            apiPayload['bucketId'] = bucketId;
         }
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         if (typeof permissions !== 'undefined') {
-            payload['permissions'] = permissions;
+            apiPayload['permissions'] = permissions;
         }
         if (typeof fileSecurity !== 'undefined') {
-            payload['fileSecurity'] = fileSecurity;
+            apiPayload['fileSecurity'] = fileSecurity;
         }
         if (typeof enabled !== 'undefined') {
-            payload['enabled'] = enabled;
+            apiPayload['enabled'] = enabled;
         }
         if (typeof maximumFileSize !== 'undefined') {
-            payload['maximumFileSize'] = maximumFileSize;
+            apiPayload['maximumFileSize'] = maximumFileSize;
         }
         if (typeof allowedFileExtensions !== 'undefined') {
-            payload['allowedFileExtensions'] = allowedFileExtensions;
+            apiPayload['allowedFileExtensions'] = allowedFileExtensions;
         }
         if (typeof compression !== 'undefined') {
-            payload['compression'] = compression;
+            apiPayload['compression'] = compression;
         }
         if (typeof encryption !== 'undefined') {
-            payload['encryption'] = encryption;
+            apiPayload['encryption'] = encryption;
         }
         if (typeof antivirus !== 'undefined') {
-            payload['antivirus'] = antivirus;
+            apiPayload['antivirus'] = antivirus;
         }
         if (typeof transformations !== 'undefined') {
-            payload['transformations'] = transformations;
+            apiPayload['transformations'] = transformations;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -231,39 +317,41 @@ export class Storage {
      */
     getBucket(bucketId: string): Promise<Models.Bucket>;
     getBucket(
-        paramsOrFirst: { bucketId: string } | string    
+        paramsOrFirst: { bucketId: string } | string,
     ): Promise<Models.Bucket> {
         let params: { bucketId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { bucketId: string };
         } else {
             params = {
-                bucketId: paramsOrFirst as string            
+                bucketId: paramsOrFirst as string,
             };
         }
-        
+
         const bucketId = params.bucketId;
-
         if (typeof bucketId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "bucketId"');
+            throw new AppwriteException(
+                'Missing required parameter: "bucketId"',
+            );
         }
-
-        const apiPath = '/storage/buckets/{bucketId}'.replace('{bucketId}', encodeURIComponent(String(bucketId)));
-        const payload: Payload = {};
+        const apiPath = '/storage/buckets/{bucketId}'.replace(
+            '{bucketId}',
+            encodeURIComponent(String(bucketId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -283,7 +371,19 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
-    updateBucket(params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean }): Promise<Models.Bucket>;
+    updateBucket(params: {
+        bucketId: string;
+        name: string;
+        permissions?: string[];
+        fileSecurity?: boolean;
+        enabled?: boolean;
+        maximumFileSize?: number;
+        allowedFileExtensions?: string[];
+        compression?: Compression;
+        encryption?: boolean;
+        antivirus?: boolean;
+        transformations?: boolean;
+    }): Promise<Models.Bucket>;
     /**
      * Update a storage bucket by its unique ID.
      *
@@ -302,15 +402,80 @@ export class Storage {
      * @returns {Promise<Models.Bucket>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateBucket(bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean): Promise<Models.Bucket>;
     updateBucket(
-        paramsOrFirst: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean } | string,
-        ...rest: [(string)?, (string[])?, (boolean)?, (boolean)?, (number)?, (string[])?, (Compression)?, (boolean)?, (boolean)?, (boolean)?]    
+        bucketId: string,
+        name: string,
+        permissions?: string[],
+        fileSecurity?: boolean,
+        enabled?: boolean,
+        maximumFileSize?: number,
+        allowedFileExtensions?: string[],
+        compression?: Compression,
+        encryption?: boolean,
+        antivirus?: boolean,
+        transformations?: boolean,
+    ): Promise<Models.Bucket>;
+    updateBucket(
+        paramsOrFirst:
+            | {
+                  bucketId: string;
+                  name: string;
+                  permissions?: string[];
+                  fileSecurity?: boolean;
+                  enabled?: boolean;
+                  maximumFileSize?: number;
+                  allowedFileExtensions?: string[];
+                  compression?: Compression;
+                  encryption?: boolean;
+                  antivirus?: boolean;
+                  transformations?: boolean;
+              }
+            | string,
+        ...rest: [
+            string?,
+            string[]?,
+            boolean?,
+            boolean?,
+            number?,
+            string[]?,
+            Compression?,
+            boolean?,
+            boolean?,
+            boolean?,
+        ]
     ): Promise<Models.Bucket> {
-        let params: { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, name: string, permissions?: string[], fileSecurity?: boolean, enabled?: boolean, maximumFileSize?: number, allowedFileExtensions?: string[], compression?: Compression, encryption?: boolean, antivirus?: boolean, transformations?: boolean };
+        let params: {
+            bucketId: string;
+            name: string;
+            permissions?: string[];
+            fileSecurity?: boolean;
+            enabled?: boolean;
+            maximumFileSize?: number;
+            allowedFileExtensions?: string[];
+            compression?: Compression;
+            encryption?: boolean;
+            antivirus?: boolean;
+            transformations?: boolean;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                bucketId: string;
+                name: string;
+                permissions?: string[];
+                fileSecurity?: boolean;
+                enabled?: boolean;
+                maximumFileSize?: number;
+                allowedFileExtensions?: string[];
+                compression?: Compression;
+                encryption?: boolean;
+                antivirus?: boolean;
+                transformations?: boolean;
+            };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
@@ -323,10 +488,10 @@ export class Storage {
                 compression: rest[6] as Compression,
                 encryption: rest[7] as boolean,
                 antivirus: rest[8] as boolean,
-                transformations: rest[9] as boolean            
+                transformations: rest[9] as boolean,
             };
         }
-        
+
         const bucketId = params.bucketId;
         const name = params.name;
         const permissions = params.permissions;
@@ -338,60 +503,58 @@ export class Storage {
         const encryption = params.encryption;
         const antivirus = params.antivirus;
         const transformations = params.transformations;
-
         if (typeof bucketId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "bucketId"');
+            throw new AppwriteException(
+                'Missing required parameter: "bucketId"',
+            );
         }
         if (typeof name === 'undefined') {
             throw new AppwriteException('Missing required parameter: "name"');
         }
-
-        const apiPath = '/storage/buckets/{bucketId}'.replace('{bucketId}', encodeURIComponent(String(bucketId)));
-        const payload: Payload = {};
+        const apiPath = '/storage/buckets/{bucketId}'.replace(
+            '{bucketId}',
+            encodeURIComponent(String(bucketId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         if (typeof permissions !== 'undefined') {
-            payload['permissions'] = permissions;
+            apiPayload['permissions'] = permissions;
         }
         if (typeof fileSecurity !== 'undefined') {
-            payload['fileSecurity'] = fileSecurity;
+            apiPayload['fileSecurity'] = fileSecurity;
         }
         if (typeof enabled !== 'undefined') {
-            payload['enabled'] = enabled;
+            apiPayload['enabled'] = enabled;
         }
         if (typeof maximumFileSize !== 'undefined') {
-            payload['maximumFileSize'] = maximumFileSize;
+            apiPayload['maximumFileSize'] = maximumFileSize;
         }
         if (typeof allowedFileExtensions !== 'undefined') {
-            payload['allowedFileExtensions'] = allowedFileExtensions;
+            apiPayload['allowedFileExtensions'] = allowedFileExtensions;
         }
         if (typeof compression !== 'undefined') {
-            payload['compression'] = compression;
+            apiPayload['compression'] = compression;
         }
         if (typeof encryption !== 'undefined') {
-            payload['encryption'] = encryption;
+            apiPayload['encryption'] = encryption;
         }
         if (typeof antivirus !== 'undefined') {
-            payload['antivirus'] = antivirus;
+            apiPayload['antivirus'] = antivirus;
         }
         if (typeof transformations !== 'undefined') {
-            payload['transformations'] = transformations;
+            apiPayload['transformations'] = transformations;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'put',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -411,40 +574,40 @@ export class Storage {
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     deleteBucket(bucketId: string): Promise<{}>;
-    deleteBucket(
-        paramsOrFirst: { bucketId: string } | string    
-    ): Promise<{}> {
+    deleteBucket(paramsOrFirst: { bucketId: string } | string): Promise<{}> {
         let params: { bucketId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { bucketId: string };
         } else {
             params = {
-                bucketId: paramsOrFirst as string            
+                bucketId: paramsOrFirst as string,
             };
         }
-        
+
         const bucketId = params.bucketId;
-
         if (typeof bucketId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "bucketId"');
+            throw new AppwriteException(
+                'Missing required parameter: "bucketId"',
+            );
         }
-
-        const apiPath = '/storage/buckets/{bucketId}'.replace('{bucketId}', encodeURIComponent(String(bucketId)));
-        const payload: Payload = {};
+        const apiPath = '/storage/buckets/{bucketId}'.replace(
+            '{bucketId}',
+            encodeURIComponent(String(bucketId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-        }
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -457,7 +620,12 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.FileList>}
      */
-    listFiles(params: { bucketId: string, queries?: string[], search?: string, total?: boolean }): Promise<Models.FileList>;
+    listFiles(params: {
+        bucketId: string;
+        queries?: string[];
+        search?: string;
+        total?: boolean;
+    }): Promise<Models.FileList>;
     /**
      * Get a list of all the user files. You can use the query params to filter your results.
      *
@@ -469,68 +637,92 @@ export class Storage {
      * @returns {Promise<Models.FileList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listFiles(bucketId: string, queries?: string[], search?: string, total?: boolean): Promise<Models.FileList>;
     listFiles(
-        paramsOrFirst: { bucketId: string, queries?: string[], search?: string, total?: boolean } | string,
-        ...rest: [(string[])?, (string)?, (boolean)?]    
+        bucketId: string,
+        queries?: string[],
+        search?: string,
+        total?: boolean,
+    ): Promise<Models.FileList>;
+    listFiles(
+        paramsOrFirst:
+            | {
+                  bucketId: string;
+                  queries?: string[];
+                  search?: string;
+                  total?: boolean;
+              }
+            | string,
+        ...rest: [string[]?, string?, boolean?]
     ): Promise<Models.FileList> {
-        let params: { bucketId: string, queries?: string[], search?: string, total?: boolean };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, queries?: string[], search?: string, total?: boolean };
+        let params: {
+            bucketId: string;
+            queries?: string[];
+            search?: string;
+            total?: boolean;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                bucketId: string;
+                queries?: string[];
+                search?: string;
+                total?: boolean;
+            };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
                 queries: rest[0] as string[],
                 search: rest[1] as string,
-                total: rest[2] as boolean            
+                total: rest[2] as boolean,
             };
         }
-        
+
         const bucketId = params.bucketId;
         const queries = params.queries;
         const search = params.search;
         const total = params.total;
-
         if (typeof bucketId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "bucketId"');
+            throw new AppwriteException(
+                'Missing required parameter: "bucketId"',
+            );
         }
-
-        const apiPath = '/storage/buckets/{bucketId}/files'.replace('{bucketId}', encodeURIComponent(String(bucketId)));
-        const payload: Payload = {};
+        const apiPath = '/storage/buckets/{bucketId}/files'.replace(
+            '{bucketId}',
+            encodeURIComponent(String(bucketId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof search !== 'undefined') {
-            payload['search'] = search;
+            apiPayload['search'] = search;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
      * Create a new file. Before using this route, you should create a new bucket resource using either a [server integration](https://appwrite.io/docs/server/storage#storageCreateBucket) API or directly from your Appwrite console.
-     * 
+     *
      * Larger files should be uploaded using multiple requests with the [content-range](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range) header to send a partial request with a maximum supported chunk of `5MB`. The `content-range` header values should always be in bytes.
-     * 
+     *
      * When the first request is sent, the server will return the **File** object, and the subsequent part request must include the file's **id** in `x-appwrite-id` header to allow the server to know that the partial upload is for the existing file and not for a new one.
-     * 
+     *
      * If you're creating a new file using one of the Appwrite SDKs, all the chunking logic will be managed by the SDK internally.
-     * 
+     *
      *
      * @param {string} params.bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param {string} params.fileId - File ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
@@ -540,16 +732,23 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
-    createFile(params: { bucketId: string, fileId: string, file: File | InputFile, permissions?: string[], folder?: string, onProgress?: (progress: UploadProgress) => void }): Promise<Models.File>;
+    createFile(params: {
+        bucketId: string;
+        fileId: string;
+        file: File | InputFile;
+        permissions?: string[];
+        folder?: string;
+        onProgress?: (progress: UploadProgress) => void;
+    }): Promise<Models.File>;
     /**
      * Create a new file. Before using this route, you should create a new bucket resource using either a [server integration](https://appwrite.io/docs/server/storage#storageCreateBucket) API or directly from your Appwrite console.
-     * 
+     *
      * Larger files should be uploaded using multiple requests with the [content-range](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range) header to send a partial request with a maximum supported chunk of `5MB`. The `content-range` header values should always be in bytes.
-     * 
+     *
      * When the first request is sent, the server will return the **File** object, and the subsequent part request must include the file's **id** in `x-appwrite-id` header to allow the server to know that the partial upload is for the existing file and not for a new one.
-     * 
+     *
      * If you're creating a new file using one of the Appwrite SDKs, all the chunking logic will be managed by the SDK internally.
-     * 
+     *
      *
      * @param {string} bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param {string} fileId - File ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
@@ -560,36 +759,77 @@ export class Storage {
      * @returns {Promise<Models.File>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createFile(bucketId: string, fileId: string, file: File | InputFile, permissions?: string[], folder?: string, onProgress?: (progress: UploadProgress) => void): Promise<Models.File>;
     createFile(
-        paramsOrFirst: { bucketId: string, fileId: string, file: File | InputFile, permissions?: string[], folder?: string, onProgress?: (progress: UploadProgress) => void } | string,
-        ...rest: [(string)?, (File | InputFile)?, (string[])?, (string)?,((progress: UploadProgress) => void)?]    
+        bucketId: string,
+        fileId: string,
+        file: File | InputFile,
+        permissions?: string[],
+        folder?: string,
+        onProgress?: (progress: UploadProgress) => void,
+    ): Promise<Models.File>;
+    createFile(
+        paramsOrFirst:
+            | {
+                  bucketId: string;
+                  fileId: string;
+                  file: File | InputFile;
+                  permissions?: string[];
+                  folder?: string;
+                  onProgress?: (progress: UploadProgress) => void;
+              }
+            | string,
+        ...rest: [
+            string?,
+            (File | InputFile)?,
+            string[]?,
+            string?,
+            ((progress: UploadProgress) => void)?,
+        ]
     ): Promise<Models.File> {
-        let params: { bucketId: string, fileId: string, file: File | InputFile, permissions?: string[], folder?: string };
-        let onProgress: ((progress: UploadProgress) => void);
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, file: File | InputFile, permissions?: string[], folder?: string };
-            onProgress = paramsOrFirst?.onProgress as ((progress: UploadProgress) => void);
+        let params: {
+            bucketId: string;
+            fileId: string;
+            file: File | InputFile;
+            permissions?: string[];
+            folder?: string;
+        };
+        let onProgress: (progress: UploadProgress) => void;
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                bucketId: string;
+                fileId: string;
+                file: File | InputFile;
+                permissions?: string[];
+                folder?: string;
+            };
+            onProgress = paramsOrFirst?.onProgress as (
+                progress: UploadProgress,
+            ) => void;
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
                 fileId: rest[0] as string,
                 file: rest[1] as File | InputFile,
                 permissions: rest[2] as string[],
-                folder: rest[3] as string            
+                folder: rest[3] as string,
             };
-            onProgress = rest[4] as ((progress: UploadProgress) => void);
+            onProgress = rest[4] as (progress: UploadProgress) => void;
         }
-        
+
         const bucketId = params.bucketId;
         const fileId = params.fileId;
         const file = params.file;
         const permissions = params.permissions;
         const folder = params.folder;
-
         if (typeof bucketId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "bucketId"');
+            throw new AppwriteException(
+                'Missing required parameter: "bucketId"',
+            );
         }
         if (typeof fileId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "fileId"');
@@ -597,35 +837,37 @@ export class Storage {
         if (typeof file === 'undefined') {
             throw new AppwriteException('Missing required parameter: "file"');
         }
-
-        const apiPath = '/storage/buckets/{bucketId}/files'.replace('{bucketId}', encodeURIComponent(String(bucketId)));
-        const payload: Payload = {};
+        const apiPath = '/storage/buckets/{bucketId}/files'.replace(
+            '{bucketId}',
+            encodeURIComponent(String(bucketId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof fileId !== 'undefined') {
-            payload['fileId'] = fileId;
+            apiPayload['fileId'] = fileId;
         }
         if (typeof file !== 'undefined') {
-            payload['file'] = file;
+            apiPayload['file'] = file;
         }
         if (typeof permissions !== 'undefined') {
-            payload['permissions'] = permissions;
+            apiPayload['permissions'] = permissions;
         }
         if (typeof folder !== 'undefined') {
-            payload['folder'] = folder;
+            apiPayload['folder'] = folder;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'multipart/form-data',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
         return this.client.chunkedUpload(
             'post',
             uri,
             apiHeaders,
-            payload,
-            onProgress
+            apiPayload,
+            onProgress,
         );
     }
 
@@ -637,7 +879,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
-    getFile(params: { bucketId: string, fileId: string }): Promise<Models.File>;
+    getFile(params: { bucketId: string; fileId: string }): Promise<Models.File>;
     /**
      * Get a file by its unique ID. This endpoint response returns a JSON object with the file metadata.
      *
@@ -649,45 +891,49 @@ export class Storage {
      */
     getFile(bucketId: string, fileId: string): Promise<Models.File>;
     getFile(
-        paramsOrFirst: { bucketId: string, fileId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { bucketId: string; fileId: string } | string,
+        ...rest: [string?]
     ): Promise<Models.File> {
-        let params: { bucketId: string, fileId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string };
+        let params: { bucketId: string; fileId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                bucketId: string;
+                fileId: string;
+            };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
-                fileId: rest[0] as string            
+                fileId: rest[0] as string,
             };
         }
-        
+
         const bucketId = params.bucketId;
         const fileId = params.fileId;
-
         if (typeof bucketId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "bucketId"');
+            throw new AppwriteException(
+                'Missing required parameter: "bucketId"',
+            );
         }
         if (typeof fileId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
-
-        const apiPath = '/storage/buckets/{bucketId}/files/{fileId}'.replace('{bucketId}', encodeURIComponent(String(bucketId))).replace('{fileId}', encodeURIComponent(String(fileId)));
-        const payload: Payload = {};
+        const apiPath = '/storage/buckets/{bucketId}/files/{fileId}'
+            .replace('{bucketId}', encodeURIComponent(String(bucketId)))
+            .replace('{fileId}', encodeURIComponent(String(fileId)));
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -700,7 +946,12 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
-    updateFile(params: { bucketId: string, fileId: string, name?: string, permissions?: string[] }): Promise<Models.File>;
+    updateFile(params: {
+        bucketId: string;
+        fileId: string;
+        name?: string;
+        permissions?: string[];
+    }): Promise<Models.File>;
     /**
      * Update a file by its unique ID. Only users with write permissions have access to update this resource.
      *
@@ -712,58 +963,81 @@ export class Storage {
      * @returns {Promise<Models.File>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateFile(bucketId: string, fileId: string, name?: string, permissions?: string[]): Promise<Models.File>;
     updateFile(
-        paramsOrFirst: { bucketId: string, fileId: string, name?: string, permissions?: string[] } | string,
-        ...rest: [(string)?, (string)?, (string[])?]    
+        bucketId: string,
+        fileId: string,
+        name?: string,
+        permissions?: string[],
+    ): Promise<Models.File>;
+    updateFile(
+        paramsOrFirst:
+            | {
+                  bucketId: string;
+                  fileId: string;
+                  name?: string;
+                  permissions?: string[];
+              }
+            | string,
+        ...rest: [string?, string?, string[]?]
     ): Promise<Models.File> {
-        let params: { bucketId: string, fileId: string, name?: string, permissions?: string[] };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, name?: string, permissions?: string[] };
+        let params: {
+            bucketId: string;
+            fileId: string;
+            name?: string;
+            permissions?: string[];
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                bucketId: string;
+                fileId: string;
+                name?: string;
+                permissions?: string[];
+            };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
                 fileId: rest[0] as string,
                 name: rest[1] as string,
-                permissions: rest[2] as string[]            
+                permissions: rest[2] as string[],
             };
         }
-        
+
         const bucketId = params.bucketId;
         const fileId = params.fileId;
         const name = params.name;
         const permissions = params.permissions;
-
         if (typeof bucketId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "bucketId"');
+            throw new AppwriteException(
+                'Missing required parameter: "bucketId"',
+            );
         }
         if (typeof fileId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
-
-        const apiPath = '/storage/buckets/{bucketId}/files/{fileId}'.replace('{bucketId}', encodeURIComponent(String(bucketId))).replace('{fileId}', encodeURIComponent(String(fileId)));
-        const payload: Payload = {};
+        const apiPath = '/storage/buckets/{bucketId}/files/{fileId}'
+            .replace('{bucketId}', encodeURIComponent(String(bucketId)))
+            .replace('{fileId}', encodeURIComponent(String(fileId)));
+        const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         if (typeof permissions !== 'undefined') {
-            payload['permissions'] = permissions;
+            apiPayload['permissions'] = permissions;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'put',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -774,7 +1048,7 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteFile(params: { bucketId: string, fileId: string }): Promise<{}>;
+    deleteFile(params: { bucketId: string; fileId: string }): Promise<{}>;
     /**
      * Delete a file by its unique ID. Only users with write permissions have access to delete this resource.
      *
@@ -786,45 +1060,49 @@ export class Storage {
      */
     deleteFile(bucketId: string, fileId: string): Promise<{}>;
     deleteFile(
-        paramsOrFirst: { bucketId: string, fileId: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { bucketId: string; fileId: string } | string,
+        ...rest: [string?]
     ): Promise<{}> {
-        let params: { bucketId: string, fileId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string };
+        let params: { bucketId: string; fileId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                bucketId: string;
+                fileId: string;
+            };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
-                fileId: rest[0] as string            
+                fileId: rest[0] as string,
             };
         }
-        
+
         const bucketId = params.bucketId;
         const fileId = params.fileId;
-
         if (typeof bucketId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "bucketId"');
+            throw new AppwriteException(
+                'Missing required parameter: "bucketId"',
+            );
         }
         if (typeof fileId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
-
-        const apiPath = '/storage/buckets/{bucketId}/files/{fileId}'.replace('{bucketId}', encodeURIComponent(String(bucketId))).replace('{fileId}', encodeURIComponent(String(fileId)));
-        const payload: Payload = {};
+        const apiPath = '/storage/buckets/{bucketId}/files/{fileId}'
+            .replace('{bucketId}', encodeURIComponent(String(bucketId)))
+            .replace('{fileId}', encodeURIComponent(String(fileId)));
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-        }
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -836,7 +1114,11 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    getFileDownload(params: { bucketId: string, fileId: string, token?: string }): Promise<ArrayBuffer>;
+    getFileDownload(params: {
+        bucketId: string;
+        fileId: string;
+        token?: string;
+    }): Promise<ArrayBuffer>;
     /**
      * Get a file content by its unique ID. The endpoint response return with a 'Content-Disposition: attachment' header that tells the browser to start downloading the file to user downloads directory.
      *
@@ -847,52 +1129,67 @@ export class Storage {
      * @returns {Promise<ArrayBuffer>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getFileDownload(bucketId: string, fileId: string, token?: string): Promise<ArrayBuffer>;
     getFileDownload(
-        paramsOrFirst: { bucketId: string, fileId: string, token?: string } | string,
-        ...rest: [(string)?, (string)?]    
+        bucketId: string,
+        fileId: string,
+        token?: string,
+    ): Promise<ArrayBuffer>;
+    getFileDownload(
+        paramsOrFirst:
+            { bucketId: string; fileId: string; token?: string } | string,
+        ...rest: [string?, string?]
     ): Promise<ArrayBuffer> {
-        let params: { bucketId: string, fileId: string, token?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, token?: string };
+        let params: { bucketId: string; fileId: string; token?: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                bucketId: string;
+                fileId: string;
+                token?: string;
+            };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
                 fileId: rest[0] as string,
-                token: rest[1] as string            
+                token: rest[1] as string,
             };
         }
-        
+
         const bucketId = params.bucketId;
         const fileId = params.fileId;
         const token = params.token;
-
         if (typeof bucketId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "bucketId"');
+            throw new AppwriteException(
+                'Missing required parameter: "bucketId"',
+            );
         }
         if (typeof fileId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
-
-        const apiPath = '/storage/buckets/{bucketId}/files/{fileId}/download'.replace('{bucketId}', encodeURIComponent(String(bucketId))).replace('{fileId}', encodeURIComponent(String(fileId)));
-        const payload: Payload = {};
+        const apiPath = '/storage/buckets/{bucketId}/files/{fileId}/download'
+            .replace('{bucketId}', encodeURIComponent(String(bucketId)))
+            .replace('{fileId}', encodeURIComponent(String(fileId)));
+        const apiPayload: Payload = {};
         if (typeof token !== 'undefined') {
-            payload['token'] = token;
+            apiPayload['token'] = token;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': '*/*',
-        }
+            accept: '*/*',
+        };
 
         return this.client.call(
             'get',
             uri,
             apiHeaders,
-            payload,
-            'arrayBuffer'
+            apiPayload,
+            'arrayBuffer',
         );
     }
 
@@ -916,7 +1213,22 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    getFilePreview(params: { bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string }): Promise<ArrayBuffer>;
+    getFilePreview(params: {
+        bucketId: string;
+        fileId: string;
+        width?: number;
+        height?: number;
+        gravity?: ImageGravity;
+        quality?: number;
+        borderWidth?: number;
+        borderColor?: string;
+        borderRadius?: number;
+        opacity?: number;
+        rotation?: number;
+        background?: string;
+        output?: ImageFormat;
+        token?: string;
+    }): Promise<ArrayBuffer>;
     /**
      * Get a file preview image. Currently, this method supports preview for image files (jpg, png, and gif), other supported formats, like pdf, docs, slides, and spreadsheets, will return the file icon image. You can also pass query string arguments for cutting and resizing your preview image. Preview is supported only for image files smaller than 10MB.
      *
@@ -938,15 +1250,95 @@ export class Storage {
      * @returns {Promise<ArrayBuffer>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getFilePreview(bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string): Promise<ArrayBuffer>;
     getFilePreview(
-        paramsOrFirst: { bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string } | string,
-        ...rest: [(string)?, (number)?, (number)?, (ImageGravity)?, (number)?, (number)?, (string)?, (number)?, (number)?, (number)?, (string)?, (ImageFormat)?, (string)?]    
+        bucketId: string,
+        fileId: string,
+        width?: number,
+        height?: number,
+        gravity?: ImageGravity,
+        quality?: number,
+        borderWidth?: number,
+        borderColor?: string,
+        borderRadius?: number,
+        opacity?: number,
+        rotation?: number,
+        background?: string,
+        output?: ImageFormat,
+        token?: string,
+    ): Promise<ArrayBuffer>;
+    getFilePreview(
+        paramsOrFirst:
+            | {
+                  bucketId: string;
+                  fileId: string;
+                  width?: number;
+                  height?: number;
+                  gravity?: ImageGravity;
+                  quality?: number;
+                  borderWidth?: number;
+                  borderColor?: string;
+                  borderRadius?: number;
+                  opacity?: number;
+                  rotation?: number;
+                  background?: string;
+                  output?: ImageFormat;
+                  token?: string;
+              }
+            | string,
+        ...rest: [
+            string?,
+            number?,
+            number?,
+            ImageGravity?,
+            number?,
+            number?,
+            string?,
+            number?,
+            number?,
+            number?,
+            string?,
+            ImageFormat?,
+            string?,
+        ]
     ): Promise<ArrayBuffer> {
-        let params: { bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, width?: number, height?: number, gravity?: ImageGravity, quality?: number, borderWidth?: number, borderColor?: string, borderRadius?: number, opacity?: number, rotation?: number, background?: string, output?: ImageFormat, token?: string };
+        let params: {
+            bucketId: string;
+            fileId: string;
+            width?: number;
+            height?: number;
+            gravity?: ImageGravity;
+            quality?: number;
+            borderWidth?: number;
+            borderColor?: string;
+            borderRadius?: number;
+            opacity?: number;
+            rotation?: number;
+            background?: string;
+            output?: ImageFormat;
+            token?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                bucketId: string;
+                fileId: string;
+                width?: number;
+                height?: number;
+                gravity?: ImageGravity;
+                quality?: number;
+                borderWidth?: number;
+                borderColor?: string;
+                borderRadius?: number;
+                opacity?: number;
+                rotation?: number;
+                background?: string;
+                output?: ImageFormat;
+                token?: string;
+            };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
@@ -962,10 +1354,10 @@ export class Storage {
                 rotation: rest[9] as number,
                 background: rest[10] as string,
                 output: rest[11] as ImageFormat,
-                token: rest[12] as string            
+                token: rest[12] as string,
             };
         }
-        
+
         const bucketId = params.bucketId;
         const fileId = params.fileId;
         const width = params.width;
@@ -980,65 +1372,67 @@ export class Storage {
         const background = params.background;
         const output = params.output;
         const token = params.token;
-
         if (typeof bucketId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "bucketId"');
+            throw new AppwriteException(
+                'Missing required parameter: "bucketId"',
+            );
         }
         if (typeof fileId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
-
-        const apiPath = '/storage/buckets/{bucketId}/files/{fileId}/preview'.replace('{bucketId}', encodeURIComponent(String(bucketId))).replace('{fileId}', encodeURIComponent(String(fileId)));
-        const payload: Payload = {};
+        const apiPath = '/storage/buckets/{bucketId}/files/{fileId}/preview'
+            .replace('{bucketId}', encodeURIComponent(String(bucketId)))
+            .replace('{fileId}', encodeURIComponent(String(fileId)));
+        const apiPayload: Payload = {};
         if (typeof width !== 'undefined') {
-            payload['width'] = width;
+            apiPayload['width'] = width;
         }
         if (typeof height !== 'undefined') {
-            payload['height'] = height;
+            apiPayload['height'] = height;
         }
         if (typeof gravity !== 'undefined') {
-            payload['gravity'] = gravity;
+            apiPayload['gravity'] = gravity;
         }
         if (typeof quality !== 'undefined') {
-            payload['quality'] = quality;
+            apiPayload['quality'] = quality;
         }
         if (typeof borderWidth !== 'undefined') {
-            payload['borderWidth'] = borderWidth;
+            apiPayload['borderWidth'] = borderWidth;
         }
         if (typeof borderColor !== 'undefined') {
-            payload['borderColor'] = borderColor;
+            apiPayload['borderColor'] = borderColor;
         }
         if (typeof borderRadius !== 'undefined') {
-            payload['borderRadius'] = borderRadius;
+            apiPayload['borderRadius'] = borderRadius;
         }
         if (typeof opacity !== 'undefined') {
-            payload['opacity'] = opacity;
+            apiPayload['opacity'] = opacity;
         }
         if (typeof rotation !== 'undefined') {
-            payload['rotation'] = rotation;
+            apiPayload['rotation'] = rotation;
         }
         if (typeof background !== 'undefined') {
-            payload['background'] = background;
+            apiPayload['background'] = background;
         }
         if (typeof output !== 'undefined') {
-            payload['output'] = output;
+            apiPayload['output'] = output;
         }
         if (typeof token !== 'undefined') {
-            payload['token'] = token;
+            apiPayload['token'] = token;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'image/*',
-        }
+            accept: 'image/*',
+        };
 
         return this.client.call(
             'get',
             uri,
             apiHeaders,
-            payload,
-            'arrayBuffer'
+            apiPayload,
+            'arrayBuffer',
         );
     }
 
@@ -1051,7 +1445,11 @@ export class Storage {
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
-    getFileView(params: { bucketId: string, fileId: string, token?: string }): Promise<ArrayBuffer>;
+    getFileView(params: {
+        bucketId: string;
+        fileId: string;
+        token?: string;
+    }): Promise<ArrayBuffer>;
     /**
      * Get a file content by its unique ID. This endpoint is similar to the download method but returns with no  'Content-Disposition: attachment' header.
      *
@@ -1062,52 +1460,67 @@ export class Storage {
      * @returns {Promise<ArrayBuffer>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getFileView(bucketId: string, fileId: string, token?: string): Promise<ArrayBuffer>;
     getFileView(
-        paramsOrFirst: { bucketId: string, fileId: string, token?: string } | string,
-        ...rest: [(string)?, (string)?]    
+        bucketId: string,
+        fileId: string,
+        token?: string,
+    ): Promise<ArrayBuffer>;
+    getFileView(
+        paramsOrFirst:
+            { bucketId: string; fileId: string; token?: string } | string,
+        ...rest: [string?, string?]
     ): Promise<ArrayBuffer> {
-        let params: { bucketId: string, fileId: string, token?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { bucketId: string, fileId: string, token?: string };
+        let params: { bucketId: string; fileId: string; token?: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                bucketId: string;
+                fileId: string;
+                token?: string;
+            };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
                 fileId: rest[0] as string,
-                token: rest[1] as string            
+                token: rest[1] as string,
             };
         }
-        
+
         const bucketId = params.bucketId;
         const fileId = params.fileId;
         const token = params.token;
-
         if (typeof bucketId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "bucketId"');
+            throw new AppwriteException(
+                'Missing required parameter: "bucketId"',
+            );
         }
         if (typeof fileId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
-
-        const apiPath = '/storage/buckets/{bucketId}/files/{fileId}/view'.replace('{bucketId}', encodeURIComponent(String(bucketId))).replace('{fileId}', encodeURIComponent(String(fileId)));
-        const payload: Payload = {};
+        const apiPath = '/storage/buckets/{bucketId}/files/{fileId}/view'
+            .replace('{bucketId}', encodeURIComponent(String(bucketId)))
+            .replace('{fileId}', encodeURIComponent(String(fileId)));
+        const apiPayload: Payload = {};
         if (typeof token !== 'undefined') {
-            payload['token'] = token;
+            apiPayload['token'] = token;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': '*/*',
-        }
+            accept: '*/*',
+        };
 
         return this.client.call(
             'get',
             uri,
             apiHeaders,
-            payload,
-            'arrayBuffer'
+            apiPayload,
+            'arrayBuffer',
         );
     }
 }

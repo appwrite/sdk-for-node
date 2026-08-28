@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const oauth2 = new sdk.Oauth2(client);
 
 const result = await oauth2.createGrant({
-    userCode: '<USER_CODE>'
+    userCode: '<USER_CODE>',
 });
 ```

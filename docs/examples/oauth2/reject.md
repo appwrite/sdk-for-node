@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const oauth2 = new sdk.Oauth2(client);
 
 const result = await oauth2.reject({
-    grantId: '<GRANT_ID>'
+    grantId: '<GRANT_ID>',
 });
 ```

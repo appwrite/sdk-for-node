@@ -11,6 +11,6 @@ const project = new sdk.Project(client);
 const result = await project.updateWindowsPlatform({
     platformId: '<PLATFORM_ID>',
     name: '<NAME>',
-    packageIdentifierName: '<PACKAGE_IDENTIFIER_NAME>'
+    packageIdentifierName: '<PACKAGE_IDENTIFIER_NAME>',
 });
 ```

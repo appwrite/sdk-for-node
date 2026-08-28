@@ -11,6 +11,6 @@ const organization = new sdk.Organization(client);
 const result = await organization.listMemberships({
     queries: [], // optional
     search: '<SEARCH>', // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

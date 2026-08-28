@@ -10,6 +10,6 @@ const storage = new sdk.Storage(client);
 
 const result = await storage.getFile({
     bucketId: '<BUCKET_ID>',
-    fileId: '<FILE_ID>'
+    fileId: '<FILE_ID>',
 });
 ```

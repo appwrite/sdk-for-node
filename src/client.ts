@@ -11,12 +11,14 @@ const MAX_INT64 = BigInt('9223372036854775807');
 const MIN_INT64 = BigInt('-9223372036854775808');
 
 function isBigNumber(value: any): boolean {
-    return value !== null
-        && typeof value === 'object'
-        && value._isBigNumber === true
-        && typeof value.isInteger === 'function'
-        && typeof value.toFixed === 'function'
-        && typeof value.toNumber === 'function';
+    return (
+        value !== null &&
+        typeof value === 'object' &&
+        value._isBigNumber === true &&
+        typeof value.isInteger === 'function' &&
+        typeof value.toFixed === 'function' &&
+        typeof value.toNumber === 'function'
+    );
 }
 
 function reviver(_key: string, value: any): any {
@@ -39,12 +41,12 @@ function reviver(_key: string, value: any): any {
 
 const JSONbig = {
     parse: (text: string) => JSONbigParser.parse(text, reviver),
-    stringify: JSONbigSerializer.stringify
+    stringify: JSONbigSerializer.stringify,
 };
 
 type Payload = {
     [key: string]: any;
-}
+};
 
 type UploadProgress = {
     $id: string;
@@ -52,17 +54,22 @@ type UploadProgress = {
     sizeUploaded: number;
     chunksTotal: number;
     chunksUploaded: number;
-}
+};
 
 type Headers = {
     [key: string]: string;
-}
+};
 
 class AppwriteException extends Error {
     code: number;
     response: string;
     type: string;
-    constructor(message: string, code: number = 0, type: string = '', response: string = '') {
+    constructor(
+        message: string,
+        code: number = 0,
+        type: string = '',
+        response: string = '',
+    ) {
         super(message);
         this.name = 'AppwriteException';
         this.message = message;
@@ -73,14 +80,15 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/28.0.0';
+    let ua = 'AppwriteNodeJSSDK/29.0.0-rc.1';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
     if (typeof process !== 'undefined') {
-        if (typeof process.platform === 'string') platform.push(process.platform);
+        if (typeof process.platform === 'string')
+            platform.push(process.platform);
         if (typeof process.arch === 'string') platform.push(process.arch);
-    } 
+    }
     if (platform.length > 0) {
         ua += ` (${platform.join('; ')})`;
     }
@@ -88,17 +96,21 @@ function getUserAgent() {
     // `navigator.userAgent` is available in Node.js 21 and later.
     // It's also part of the WinterCG spec, so many edge runtimes provide it.
     // https://common-min-api.proposal.wintercg.org/#requirements-for-navigatoruseragent
-    // @ts-ignore
-    if (typeof navigator !== 'undefined' && typeof navigator.userAgent === 'string') {
-        // @ts-ignore
+    if (
+        typeof navigator !== 'undefined' &&
+        typeof navigator.userAgent === 'string'
+    ) {
         ua += ` ${navigator.userAgent}`;
 
-    // @ts-ignore
+        // @ts-expect-error EdgeRuntime is injected by edge runtimes only.
     } else if (typeof globalThis.EdgeRuntime === 'string') {
         ua += ` EdgeRuntime`;
 
-    // Older Node.js versions don't have `navigator.userAgent`, so we have to use `process.version`.
-    } else if (typeof process !== 'undefined' && typeof process.version === 'string') {
+        // Older Node.js versions don't have `navigator.userAgent`, so we have to use `process.version`.
+    } else if (
+        typeof process !== 'undefined' &&
+        typeof process.version === 'string'
+    ) {
         ua += ` Node.js/${process.version}`;
     }
 
@@ -130,8 +142,8 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '28.0.0',
-        'user-agent' : getUserAgent(),
+        'x-sdk-version': '29.0.0-rc.1',
+        'user-agent': getUserAgent(),
         'X-Appwrite-Response-Format': '1.9.6',
     };
 
@@ -149,7 +161,10 @@ class Client {
             throw new AppwriteException('Endpoint must be a valid string');
         }
 
-        if (!endpoint.startsWith('http://') && !endpoint.startsWith('https://')) {
+        if (
+            !endpoint.startsWith('http://') &&
+            !endpoint.startsWith('https://')
+        ) {
             throw new AppwriteException('Invalid endpoint URL: ' + endpoint);
         }
 
@@ -165,7 +180,7 @@ class Client {
      * @returns {this}
      */
     setSelfSigned(selfSigned: boolean): this {
-        // @ts-ignore
+        // @ts-expect-error EdgeRuntime is injected by edge runtimes only.
         if (typeof globalThis.EdgeRuntime !== 'undefined') {
             console.warn('setSelfSigned is not supported in edge runtimes.');
         }
@@ -386,12 +401,17 @@ class Client {
         return this;
     }
 
-    prepareRequest(method: string, url: URL, headers: Headers = {}, params: Payload = {}): { uri: string, options: RequestInit } {
+    prepareRequest(
+        method: string,
+        url: URL,
+        headers: Headers = {},
+        params: Payload = {},
+    ): { uri: string; options: RequestInit } {
         method = method.toUpperCase();
 
         headers = Object.assign({}, this.headers, headers);
 
-        let options: RequestInit = {
+        const options: RequestInit = {
             method,
             headers,
         };
@@ -417,7 +437,7 @@ class Client {
                     options.body = JSONbig.stringify(params);
                     break;
 
-                case 'multipart/form-data':
+                case 'multipart/form-data': {
                     const formData = new FormData();
 
                     for (const [key, value] of Object.entries(params)) {
@@ -435,16 +455,25 @@ class Client {
                     options.body = formData;
                     delete headers['content-type'];
                     break;
+                }
             }
         }
 
         return { uri: url.toString(), options };
     }
 
-    async chunkedUpload(method: string, url: URL, headers: Headers = {}, originalPayload: Payload = {}, onProgress: (progress: UploadProgress) => void) {
-        const [fileParam, file] = Object.entries(originalPayload).find(
-            ([_, value]) => value instanceof File || value instanceof InputFile
-        ) ?? [];
+    async chunkedUpload(
+        method: string,
+        url: URL,
+        headers: Headers = {},
+        originalPayload: Payload = {},
+        onProgress: (progress: UploadProgress) => void,
+    ) {
+        const [fileParam, file] =
+            Object.entries(originalPayload).find(
+                ([_, value]) =>
+                    value instanceof File || value instanceof InputFile,
+            ) ?? [];
 
         if (!file || !fileParam) {
             throw new Error('File not found in payload');
@@ -463,12 +492,20 @@ class Client {
 
             // Upload first chunk alone to get the upload ID
             const firstChunkEnd = Math.min(Client.CHUNK_SIZE, size);
-            const firstChunkHeaders = { ...headers, 'content-range': `bytes 0-${firstChunkEnd - 1}/${size}` };
+            const firstChunkHeaders = {
+                ...headers,
+                'content-range': `bytes 0-${firstChunkEnd - 1}/${size}`,
+            };
             const firstChunk = await file.slice(0, firstChunkEnd);
             const firstPayload = { ...originalPayload };
             firstPayload[fileParam] = new File([firstChunk], file.filename);
 
-            let response = await this.call(method, url, firstChunkHeaders, firstPayload);
+            const response = await this.call(
+                method,
+                url,
+                firstChunkHeaders,
+                firstPayload,
+            );
             const uploadId = response?.$id;
 
             if (onProgress && typeof onProgress === 'function') {
@@ -477,7 +514,7 @@ class Client {
                     progress: Math.round((firstChunkEnd / size) * 100),
                     sizeUploaded: firstChunkEnd,
                     chunksTotal: totalChunks,
-                    chunksUploaded: 1
+                    chunksUploaded: 1,
                 });
             }
 
@@ -504,29 +541,39 @@ class Client {
             const isUploadComplete = (chunkResponse: any) => {
                 const chunksUploaded = chunkResponse?.chunksUploaded;
                 const chunksTotal = chunkResponse?.chunksTotal ?? totalChunks;
-                return typeof chunksUploaded === 'number' && typeof chunksTotal === 'number' && chunksUploaded >= chunksTotal;
+                return (
+                    typeof chunksUploaded === 'number' &&
+                    typeof chunksTotal === 'number' &&
+                    chunksUploaded >= chunksTotal
+                );
             };
 
-            const uploadChunk = async (chunk: typeof chunks[0]) => {
+            const uploadChunk = async (chunk: (typeof chunks)[0]) => {
                 const chunkHeaders = { ...headers };
                 if (uploadId) {
                     chunkHeaders['x-appwrite-id'] = uploadId;
                 }
-                chunkHeaders['content-range'] = `bytes ${chunk.start}-${chunk.end - 1}/${size}`;
-                
+                chunkHeaders['content-range'] =
+                    `bytes ${chunk.start}-${chunk.end - 1}/${size}`;
+
                 const chunkBlob = await file.slice(chunk.start, chunk.end);
                 const chunkPayload = { ...originalPayload };
                 chunkPayload[fileParam] = new File([chunkBlob], file.filename);
 
-                const chunkResponse = await this.call(method, url, chunkHeaders, chunkPayload);
+                const chunkResponse = await this.call(
+                    method,
+                    url,
+                    chunkHeaders,
+                    chunkPayload,
+                );
 
                 if (failed) {
                     return chunkResponse;
                 }
-                
+
                 completedCount++;
-                uploadedBytes += (chunk.end - chunk.start);
-                
+                uploadedBytes += chunk.end - chunk.start;
+
                 lastResponse = chunkResponse;
                 if (isUploadComplete(chunkResponse)) {
                     finalResponse = chunkResponse;
@@ -538,7 +585,7 @@ class Client {
                         progress: Math.round((uploadedBytes / size) * 100),
                         sizeUploaded: uploadedBytes,
                         chunksTotal: totalChunks,
-                        chunksUploaded: completedCount
+                        chunksUploaded: completedCount,
                     });
                 }
 
@@ -562,7 +609,7 @@ class Client {
                                 throw error;
                             }
                         }
-                    })()
+                    })(),
                 );
             }
 
@@ -579,12 +626,20 @@ class Client {
 
         // Upload first chunk alone to get the upload ID
         const firstChunkEnd = Math.min(Client.CHUNK_SIZE, file.size);
-        const firstChunkHeaders = { ...headers, 'content-range': `bytes 0-${firstChunkEnd - 1}/${file.size}` };
+        const firstChunkHeaders = {
+            ...headers,
+            'content-range': `bytes 0-${firstChunkEnd - 1}/${file.size}`,
+        };
         const firstChunk = file.slice(0, firstChunkEnd);
         const firstPayload = { ...originalPayload };
         firstPayload[fileParam] = new File([firstChunk], file.name);
 
-        let response = await this.call(method, url, firstChunkHeaders, firstPayload);
+        const response = await this.call(
+            method,
+            url,
+            firstChunkHeaders,
+            firstPayload,
+        );
         const uploadId = response?.$id;
 
         if (onProgress && typeof onProgress === 'function') {
@@ -593,7 +648,7 @@ class Client {
                 progress: Math.round((firstChunkEnd / file.size) * 100),
                 sizeUploaded: firstChunkEnd,
                 chunksTotal: totalChunks,
-                chunksUploaded: 1
+                chunksUploaded: 1,
             });
         }
 
@@ -620,29 +675,39 @@ class Client {
         const isUploadComplete = (chunkResponse: any) => {
             const chunksUploaded = chunkResponse?.chunksUploaded;
             const chunksTotal = chunkResponse?.chunksTotal ?? totalChunks;
-            return typeof chunksUploaded === 'number' && typeof chunksTotal === 'number' && chunksUploaded >= chunksTotal;
+            return (
+                typeof chunksUploaded === 'number' &&
+                typeof chunksTotal === 'number' &&
+                chunksUploaded >= chunksTotal
+            );
         };
 
-        const uploadChunk = async (chunk: typeof chunks[0]) => {
+        const uploadChunk = async (chunk: (typeof chunks)[0]) => {
             const chunkHeaders = { ...headers };
             if (uploadId) {
                 chunkHeaders['x-appwrite-id'] = uploadId;
             }
-            chunkHeaders['content-range'] = `bytes ${chunk.start}-${chunk.end - 1}/${file.size}`;
-            
+            chunkHeaders['content-range'] =
+                `bytes ${chunk.start}-${chunk.end - 1}/${file.size}`;
+
             const chunkBlob = file.slice(chunk.start, chunk.end);
             const chunkPayload = { ...originalPayload };
             chunkPayload[fileParam] = new File([chunkBlob], file.name);
 
-            const chunkResponse = await this.call(method, url, chunkHeaders, chunkPayload);
+            const chunkResponse = await this.call(
+                method,
+                url,
+                chunkHeaders,
+                chunkPayload,
+            );
 
             if (failed) {
                 return chunkResponse;
             }
-            
+
             completedCount++;
-            uploadedBytes += (chunk.end - chunk.start);
-            
+            uploadedBytes += chunk.end - chunk.start;
+
             lastResponse = chunkResponse;
             if (isUploadComplete(chunkResponse)) {
                 finalResponse = chunkResponse;
@@ -654,7 +719,7 @@ class Client {
                     progress: Math.round((uploadedBytes / file.size) * 100),
                     sizeUploaded: uploadedBytes,
                     chunksTotal: totalChunks,
-                    chunksUploaded: completedCount
+                    chunksUploaded: completedCount,
                 });
             }
 
@@ -678,7 +743,7 @@ class Client {
                             throw error;
                         }
                     }
-                })()
+                })(),
             );
         }
 
@@ -690,16 +755,26 @@ class Client {
     async ping(): Promise<unknown> {
         return this.call('GET', new URL(this.config.endpoint + '/ping'), {
             'X-Appwrite-Project': this.config.project,
-            'accept': 'application/json',
+            accept: 'application/json',
         });
     }
 
-    async redirect(method: string, url: URL, headers: Headers = {}, params: Payload = {}): Promise<string> {
-        const { uri, options } = this.prepareRequest(method, url, headers, params);
-        
+    async redirect(
+        method: string,
+        url: URL,
+        headers: Headers = {},
+        params: Payload = {},
+    ): Promise<string> {
+        const { uri, options } = this.prepareRequest(
+            method,
+            url,
+            headers,
+            params,
+        );
+
         const response = await fetch(uri, {
             ...options,
-            redirect: 'manual'
+            redirect: 'manual',
         });
 
         if (response.status !== 301 && response.status !== 302) {
@@ -709,8 +784,19 @@ class Client {
         return response.headers.get('location') || '';
     }
 
-    async call(method: string, url: URL, headers: Headers = {}, params: Payload = {}, responseType = 'json'): Promise<any> {
-        const { uri, options } = this.prepareRequest(method, url, headers, params);
+    async call(
+        method: string,
+        url: URL,
+        headers: Headers = {},
+        params: Payload = {},
+        responseType = 'json',
+    ): Promise<any> {
+        const { uri, options } = this.prepareRequest(
+            method,
+            url,
+            headers,
+            params,
+        );
 
         let data: any = null;
 
@@ -718,27 +804,43 @@ class Client {
 
         const warnings = response.headers.get('x-appwrite-warning');
         if (warnings) {
-            warnings.split(';').forEach((warning: string) => console.warn('Warning: ' + warning));
+            warnings
+                .split(';')
+                .forEach((warning: string) =>
+                    console.warn('Warning: ' + warning),
+                );
         }
 
-        if (response.headers.get('content-type')?.includes('application/json')) {
+        if (
+            response.headers.get('content-type')?.includes('application/json')
+        ) {
             data = JSONbig.parse(await response.text());
         } else if (responseType === 'arrayBuffer') {
             data = await response.arrayBuffer();
         } else {
             data = {
-                message: await response.text()
+                message: await response.text(),
             };
         }
 
         if (400 <= response.status) {
-            let responseText = '';
-            if (response.headers.get('content-type')?.includes('application/json') || responseType === 'arrayBuffer') {
+            let responseText: string;
+            if (
+                response.headers
+                    .get('content-type')
+                    ?.includes('application/json') ||
+                responseType === 'arrayBuffer'
+            ) {
                 responseText = JSONbig.stringify(data);
             } else {
                 responseText = data?.message;
             }
-            throw new AppwriteException(data?.message, response.status, data?.type, responseText);
+            throw new AppwriteException(
+                data?.message,
+                response.status,
+                data?.type,
+                responseText,
+            );
         }
 
         if (data && typeof data === 'object') {
@@ -757,7 +859,7 @@ class Client {
         let output: Payload = {};
 
         for (const [key, value] of Object.entries(data)) {
-            let finalKey = prefix ? prefix + '[' + key +']' : key;
+            const finalKey = prefix ? prefix + '[' + key + ']' : key;
             if (Array.isArray(value)) {
                 output = { ...output, ...Client.flatten(value, finalKey) };
             } else {

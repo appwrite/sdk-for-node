@@ -10,6 +10,6 @@ const project = new sdk.Project(client);
 
 const result = await project.updateService({
     serviceId: sdk.ProjectServiceId.Account,
-    enabled: false
+    enabled: false,
 });
 ```

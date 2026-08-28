@@ -11,6 +11,6 @@ const advisor = new sdk.Advisor(client);
 const result = await advisor.listInsights({
     reportId: '<REPORT_ID>',
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

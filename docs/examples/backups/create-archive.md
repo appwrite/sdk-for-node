@@ -10,6 +10,6 @@ const backups = new sdk.Backups(client);
 
 const result = await backups.createArchive({
     services: [sdk.BackupServices.Databases],
-    resourceId: '<RESOURCE_ID>' // optional
+    resourceId: '<RESOURCE_ID>', // optional
 });
 ```

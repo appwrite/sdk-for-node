@@ -12,6 +12,6 @@ const result = await oauth2.revoke({
     token: '<TOKEN>',
     tokenTypeHint: 'access_token', // optional
     clientId: '<CLIENT_ID>', // optional
-    clientSecret: '<CLIENT_SECRET>' // optional
+    clientSecret: '<CLIENT_SECRET>', // optional
 });
 ```

@@ -13,6 +13,6 @@ const result = await users.updateTarget({
     targetId: '<TARGET_ID>',
     identifier: '<IDENTIFIER>', // optional
     providerId: '<PROVIDER_ID>', // optional
-    name: '<NAME>' // optional
+    name: '<NAME>', // optional
 });
 ```

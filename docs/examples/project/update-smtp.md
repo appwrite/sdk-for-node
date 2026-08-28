@@ -9,8 +9,8 @@ const client = new sdk.Client()
 const project = new sdk.Project(client);
 
 const result = await project.updateSMTP({
-    host: '', // optional
-    port: null, // optional
+    host: 'example.com', // optional
+    port: 587, // optional
     username: '<USERNAME>', // optional
     password: 'password', // optional
     senderEmail: 'email@example.com', // optional
@@ -18,6 +18,6 @@ const result = await project.updateSMTP({
     replyToEmail: 'email@example.com', // optional
     replyToName: '<REPLY_TO_NAME>', // optional
     secure: sdk.ProjectSMTPSecure.Tls, // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

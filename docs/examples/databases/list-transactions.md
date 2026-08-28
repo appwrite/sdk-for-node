@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const databases = new sdk.Databases(client);
 
 const result = await databases.listTransactions({
-    queries: [] // optional
+    queries: [], // optional
 });
 ```

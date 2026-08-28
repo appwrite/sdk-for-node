@@ -12,6 +12,6 @@ const result = await account.createOAuth2Token({
     provider: sdk.OAuthProvider.Amazon,
     success: 'https://example.com', // optional
     failure: 'https://example.com', // optional
-    scopes: [] // optional
+    scopes: [], // optional
 });
 ```

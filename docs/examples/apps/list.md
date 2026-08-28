@@ -10,6 +10,6 @@ const apps = new sdk.Apps(client);
 
 const result = await apps.list({
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

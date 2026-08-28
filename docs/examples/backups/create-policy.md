@@ -15,6 +15,6 @@ const result = await backups.createPolicy({
     schedule: '',
     name: '<NAME>', // optional
     resourceId: '<RESOURCE_ID>', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const webhooks = new sdk.Webhooks(client);
 
 const result = await webhooks.delete({
-    webhookId: '<WEBHOOK_ID>'
+    webhookId: '<WEBHOOK_ID>',
 });
 ```

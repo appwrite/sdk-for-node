@@ -11,11 +11,11 @@ const webhooks = new sdk.Webhooks(client);
 const result = await webhooks.update({
     webhookId: '<WEBHOOK_ID>',
     name: '<NAME>',
-    url: '',
+    url: 'https://example.com/webhook',
     events: [],
     enabled: false, // optional
     tls: false, // optional
     authUsername: '<AUTH_USERNAME>', // optional
-    authPassword: 'password' // optional
+    authPassword: 'password', // optional
 });
 ```

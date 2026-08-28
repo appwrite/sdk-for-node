@@ -15,6 +15,6 @@ const result = await tablesDB.updateTable({
     permissions: [sdk.Permission.read(sdk.Role.any())], // optional
     rowSecurity: false, // optional
     enabled: false, // optional
-    purge: false // optional
+    purge: false, // optional
 });
 ```

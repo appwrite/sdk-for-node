@@ -10,6 +10,6 @@ const proxy = new sdk.Proxy(client);
 
 const result = await proxy.listRules({
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

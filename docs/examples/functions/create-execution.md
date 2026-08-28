@@ -15,6 +15,6 @@ const result = await functions.createExecution({
     xpath: '<PATH>', // optional
     method: sdk.ExecutionMethod.GET, // optional
     headers: {}, // optional
-    scheduledAt: '<SCHEDULED_AT>' // optional
+    scheduledAt: '<SCHEDULED_AT>', // optional
 });
 ```

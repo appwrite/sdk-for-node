@@ -11,10 +11,10 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.createIndex({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: '',
+    key: '<KEY>',
     type: sdk.TablesDBIndexType.Key,
     columns: [],
     orders: [sdk.OrderBy.Asc], // optional
-    lengths: [] // optional
+    lengths: [], // optional
 });
 ```

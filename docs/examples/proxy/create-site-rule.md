@@ -9,8 +9,8 @@ const client = new sdk.Client()
 const proxy = new sdk.Proxy(client);
 
 const result = await proxy.createSiteRule({
-    domain: '',
+    domain: 'example.com',
     siteId: '<SITE_ID>',
-    branch: '<BRANCH>' // optional
+    branch: '<BRANCH>', // optional
 });
 ```

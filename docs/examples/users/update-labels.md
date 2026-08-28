@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.updateLabels({
     userId: '<USER_ID>',
-    labels: []
+    labels: [],
 });
 ```

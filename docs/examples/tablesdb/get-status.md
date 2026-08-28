@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const tablesDB = new sdk.TablesDB(client);
 
 const result = await tablesDB.getStatus({
-    databaseId: '<DATABASE_ID>'
+    databaseId: '<DATABASE_ID>',
 });
 ```

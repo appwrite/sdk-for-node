@@ -11,9 +11,9 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.updateUrlColumn({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: '',
+    key: '<KEY>',
     required: false,
     xdefault: 'https://example.com',
-    newKey: '' // optional
+    newKey: '<NEW_KEY>', // optional
 });
 ```

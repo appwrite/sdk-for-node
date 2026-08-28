@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const databases = new sdk.Databases(client);
 
 const result = await databases.createTransaction({
-    ttl: 60 // optional
+    ttl: 60, // optional
 });
 ```

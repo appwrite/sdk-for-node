@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const databases = new sdk.Databases(client);
 
 const result = await databases.getTransaction({
-    transactionId: '<TRANSACTION_ID>'
+    transactionId: '<TRANSACTION_ID>',
 });
 ```

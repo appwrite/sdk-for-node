@@ -18,6 +18,6 @@ const result = await messaging.updateSesProvider({
     fromName: '<FROM_NAME>', // optional
     fromEmail: 'email@example.com', // optional
     replyToName: '<REPLY_TO_NAME>', // optional
-    replyToEmail: '<REPLY_TO_EMAIL>' // optional
+    replyToEmail: '<REPLY_TO_EMAIL>', // optional
 });
 ```

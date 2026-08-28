@@ -10,6 +10,6 @@ const apps = new sdk.Apps(client);
 
 const result = await apps.getKey({
     appId: '<APP_ID>',
-    keyId: '<KEY_ID>'
+    keyId: '<KEY_ID>',
 });
 ```

@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.updateEmail({
     userId: '<USER_ID>',
-    email: 'email@example.com'
+    email: 'email@example.com',
 });
 ```

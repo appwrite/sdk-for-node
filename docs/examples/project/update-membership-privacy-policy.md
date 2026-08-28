@@ -14,6 +14,6 @@ const result = await project.updateMembershipPrivacyPolicy({
     userPhone: false, // optional
     userName: false, // optional
     userMFA: false, // optional
-    userAccessedAt: false // optional
+    userAccessedAt: false, // optional
 });
 ```

@@ -14,6 +14,6 @@ const result = await messaging.createTwilioProvider({
     from: '+12065550100', // optional
     accountSid: '<ACCOUNT_SID>', // optional
     authToken: '<AUTH_TOKEN>', // optional
-    enabled: false // optional
+    enabled: false, // optional
 });
 ```

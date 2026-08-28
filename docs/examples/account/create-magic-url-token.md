@@ -12,6 +12,6 @@ const result = await account.createMagicURLToken({
     userId: '<USER_ID>',
     email: 'email@example.com',
     url: 'https://example.com', // optional
-    phrase: false // optional
+    phrase: false, // optional
 });
 ```

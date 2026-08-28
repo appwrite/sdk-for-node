@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const functions = new sdk.Functions(client);
 
 const result = await functions.listSpecifications({
-    type: 'runtimes' // optional
+    type: 'runtimes', // optional
 });
 ```

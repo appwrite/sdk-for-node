@@ -10,6 +10,6 @@ const users = new sdk.Users(client);
 
 const result = await users.updateImpersonator({
     userId: '<USER_ID>',
-    impersonator: false
+    impersonator: false,
 });
 ```

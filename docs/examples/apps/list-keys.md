@@ -11,6 +11,6 @@ const apps = new sdk.Apps(client);
 const result = await apps.listKeys({
     appId: '<APP_ID>',
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

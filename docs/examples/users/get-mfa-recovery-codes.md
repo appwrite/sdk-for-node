@@ -9,6 +9,6 @@ const client = new sdk.Client()
 const users = new sdk.Users(client);
 
 const result = await users.getMFARecoveryCodes({
-    userId: '<USER_ID>'
+    userId: '<USER_ID>',
 });
 ```

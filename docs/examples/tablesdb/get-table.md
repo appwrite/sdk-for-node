@@ -10,6 +10,6 @@ const tablesDB = new sdk.TablesDB(client);
 
 const result = await tablesDB.getTable({
     databaseId: '<DATABASE_ID>',
-    tableId: '<TABLE_ID>'
+    tableId: '<TABLE_ID>',
 });
 ```

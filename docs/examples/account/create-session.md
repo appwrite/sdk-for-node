@@ -10,6 +10,6 @@ const account = new sdk.Account(client);
 
 const result = await account.createSession({
     userId: '<USER_ID>',
-    secret: '<SECRET>'
+    secret: '<SECRET>',
 });
 ```

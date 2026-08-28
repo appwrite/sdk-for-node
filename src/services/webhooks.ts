@@ -1,7 +1,5 @@
-import { AppwriteException, Client, type Payload, UploadProgress } from '../client';
+import { AppwriteException, Client, type Payload } from '../client';
 import type { Models } from '../models';
-
-
 
 export class Webhooks {
     client: Client;
@@ -18,7 +16,10 @@ export class Webhooks {
      * @throws {AppwriteException}
      * @returns {Promise<Models.WebhookList>}
      */
-    list(params?: { queries?: string[], total?: boolean }): Promise<Models.WebhookList>;
+    list(params?: {
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.WebhookList>;
     /**
      * Get a list of all webhooks belonging to the project. You can use the query params to filter your results.
      *
@@ -30,45 +31,46 @@ export class Webhooks {
      */
     list(queries?: string[], total?: boolean): Promise<Models.WebhookList>;
     list(
-        paramsOrFirst?: { queries?: string[], total?: boolean } | string[],
-        ...rest: [(boolean)?]    
+        paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
+        ...rest: [boolean?]
     ): Promise<Models.WebhookList> {
-        let params: { queries?: string[], total?: boolean };
-        
-        if (!paramsOrFirst || (paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { queries?: string[], total?: boolean };
+        let params: { queries?: string[]; total?: boolean };
+
+        if (
+            !paramsOrFirst ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
-                total: rest[0] as boolean            
+                total: rest[0] as boolean,
             };
         }
-        
+
         const queries = params.queries;
         const total = params.total;
-
-
         const apiPath = '/webhooks';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
-            payload['queries'] = queries;
+            apiPayload['queries'] = queries;
         }
         if (typeof total !== 'undefined') {
-            payload['total'] = total;
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -86,7 +88,17 @@ export class Webhooks {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      */
-    create(params: { webhookId: string, url: string, name: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string, secret?: string }): Promise<Models.Webhook>;
+    create(params: {
+        webhookId: string;
+        url: string;
+        name: string;
+        events: string[];
+        enabled?: boolean;
+        tls?: boolean;
+        authUsername?: string;
+        authPassword?: string;
+        secret?: string;
+    }): Promise<Models.Webhook>;
     /**
      * Create a new webhook. Use this endpoint to configure a URL that will receive events from Appwrite when specific events occur.
      *
@@ -103,15 +115,70 @@ export class Webhooks {
      * @returns {Promise<Models.Webhook>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    create(webhookId: string, url: string, name: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string, secret?: string): Promise<Models.Webhook>;
     create(
-        paramsOrFirst: { webhookId: string, url: string, name: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string, secret?: string } | string,
-        ...rest: [(string)?, (string)?, (string[])?, (boolean)?, (boolean)?, (string)?, (string)?, (string)?]    
+        webhookId: string,
+        url: string,
+        name: string,
+        events: string[],
+        enabled?: boolean,
+        tls?: boolean,
+        authUsername?: string,
+        authPassword?: string,
+        secret?: string,
+    ): Promise<Models.Webhook>;
+    create(
+        paramsOrFirst:
+            | {
+                  webhookId: string;
+                  url: string;
+                  name: string;
+                  events: string[];
+                  enabled?: boolean;
+                  tls?: boolean;
+                  authUsername?: string;
+                  authPassword?: string;
+                  secret?: string;
+              }
+            | string,
+        ...rest: [
+            string?,
+            string?,
+            string[]?,
+            boolean?,
+            boolean?,
+            string?,
+            string?,
+            string?,
+        ]
     ): Promise<Models.Webhook> {
-        let params: { webhookId: string, url: string, name: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string, secret?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { webhookId: string, url: string, name: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string, secret?: string };
+        let params: {
+            webhookId: string;
+            url: string;
+            name: string;
+            events: string[];
+            enabled?: boolean;
+            tls?: boolean;
+            authUsername?: string;
+            authPassword?: string;
+            secret?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                webhookId: string;
+                url: string;
+                name: string;
+                events: string[];
+                enabled?: boolean;
+                tls?: boolean;
+                authUsername?: string;
+                authPassword?: string;
+                secret?: string;
+            };
         } else {
             params = {
                 webhookId: paramsOrFirst as string,
@@ -122,10 +189,10 @@ export class Webhooks {
                 tls: rest[4] as boolean,
                 authUsername: rest[5] as string,
                 authPassword: rest[6] as string,
-                secret: rest[7] as string            
+                secret: rest[7] as string,
             };
         }
-        
+
         const webhookId = params.webhookId;
         const url = params.url;
         const name = params.name;
@@ -135,9 +202,10 @@ export class Webhooks {
         const authUsername = params.authUsername;
         const authPassword = params.authPassword;
         const secret = params.secret;
-
         if (typeof webhookId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "webhookId"');
+            throw new AppwriteException(
+                'Missing required parameter: "webhookId"',
+            );
         }
         if (typeof url === 'undefined') {
             throw new AppwriteException('Missing required parameter: "url"');
@@ -148,54 +216,48 @@ export class Webhooks {
         if (typeof events === 'undefined') {
             throw new AppwriteException('Missing required parameter: "events"');
         }
-
         const apiPath = '/webhooks';
-        const payload: Payload = {};
+        const apiPayload: Payload = {};
         if (typeof webhookId !== 'undefined') {
-            payload['webhookId'] = webhookId;
+            apiPayload['webhookId'] = webhookId;
         }
         if (typeof url !== 'undefined') {
-            payload['url'] = url;
+            apiPayload['url'] = url;
         }
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         if (typeof events !== 'undefined') {
-            payload['events'] = events;
+            apiPayload['events'] = events;
         }
         if (typeof enabled !== 'undefined') {
-            payload['enabled'] = enabled;
+            apiPayload['enabled'] = enabled;
         }
         if (typeof tls !== 'undefined') {
-            payload['tls'] = tls;
+            apiPayload['tls'] = tls;
         }
         if (typeof authUsername !== 'undefined') {
-            payload['authUsername'] = authUsername;
+            apiPayload['authUsername'] = authUsername;
         }
         if (typeof authPassword !== 'undefined') {
-            payload['authPassword'] = authPassword;
+            apiPayload['authPassword'] = authPassword;
         }
         if (typeof secret !== 'undefined') {
-            payload['secret'] = secret;
+            apiPayload['secret'] = secret;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'post',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
-     * Get a webhook by its unique ID. This endpoint returns details about a specific webhook configured for a project. 
+     * Get a webhook by its unique ID. This endpoint returns details about a specific webhook configured for a project.
      *
      * @param {string} params.webhookId - Webhook ID.
      * @throws {AppwriteException}
@@ -203,7 +265,7 @@ export class Webhooks {
      */
     get(params: { webhookId: string }): Promise<Models.Webhook>;
     /**
-     * Get a webhook by its unique ID. This endpoint returns details about a specific webhook configured for a project. 
+     * Get a webhook by its unique ID. This endpoint returns details about a specific webhook configured for a project.
      *
      * @param {string} webhookId - Webhook ID.
      * @throws {AppwriteException}
@@ -212,39 +274,41 @@ export class Webhooks {
      */
     get(webhookId: string): Promise<Models.Webhook>;
     get(
-        paramsOrFirst: { webhookId: string } | string    
+        paramsOrFirst: { webhookId: string } | string,
     ): Promise<Models.Webhook> {
         let params: { webhookId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { webhookId: string };
         } else {
             params = {
-                webhookId: paramsOrFirst as string            
+                webhookId: paramsOrFirst as string,
             };
         }
-        
+
         const webhookId = params.webhookId;
-
         if (typeof webhookId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "webhookId"');
+            throw new AppwriteException(
+                'Missing required parameter: "webhookId"',
+            );
         }
-
-        const apiPath = '/webhooks/{webhookId}'.replace('{webhookId}', encodeURIComponent(String(webhookId)));
-        const payload: Payload = {};
+        const apiPath = '/webhooks/{webhookId}'.replace(
+            '{webhookId}',
+            encodeURIComponent(String(webhookId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'get',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -261,7 +325,16 @@ export class Webhooks {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      */
-    update(params: { webhookId: string, name: string, url: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string }): Promise<Models.Webhook>;
+    update(params: {
+        webhookId: string;
+        name: string;
+        url: string;
+        events: string[];
+        enabled?: boolean;
+        tls?: boolean;
+        authUsername?: string;
+        authPassword?: string;
+    }): Promise<Models.Webhook>;
     /**
      * Update a webhook by its unique ID. Use this endpoint to update the URL, events, or status of an existing webhook.
      *
@@ -277,15 +350,65 @@ export class Webhooks {
      * @returns {Promise<Models.Webhook>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    update(webhookId: string, name: string, url: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string): Promise<Models.Webhook>;
     update(
-        paramsOrFirst: { webhookId: string, name: string, url: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string } | string,
-        ...rest: [(string)?, (string)?, (string[])?, (boolean)?, (boolean)?, (string)?, (string)?]    
+        webhookId: string,
+        name: string,
+        url: string,
+        events: string[],
+        enabled?: boolean,
+        tls?: boolean,
+        authUsername?: string,
+        authPassword?: string,
+    ): Promise<Models.Webhook>;
+    update(
+        paramsOrFirst:
+            | {
+                  webhookId: string;
+                  name: string;
+                  url: string;
+                  events: string[];
+                  enabled?: boolean;
+                  tls?: boolean;
+                  authUsername?: string;
+                  authPassword?: string;
+              }
+            | string,
+        ...rest: [
+            string?,
+            string?,
+            string[]?,
+            boolean?,
+            boolean?,
+            string?,
+            string?,
+        ]
     ): Promise<Models.Webhook> {
-        let params: { webhookId: string, name: string, url: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { webhookId: string, name: string, url: string, events: string[], enabled?: boolean, tls?: boolean, authUsername?: string, authPassword?: string };
+        let params: {
+            webhookId: string;
+            name: string;
+            url: string;
+            events: string[];
+            enabled?: boolean;
+            tls?: boolean;
+            authUsername?: string;
+            authPassword?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                webhookId: string;
+                name: string;
+                url: string;
+                events: string[];
+                enabled?: boolean;
+                tls?: boolean;
+                authUsername?: string;
+                authPassword?: string;
+            };
         } else {
             params = {
                 webhookId: paramsOrFirst as string,
@@ -295,10 +418,10 @@ export class Webhooks {
                 enabled: rest[3] as boolean,
                 tls: rest[4] as boolean,
                 authUsername: rest[5] as string,
-                authPassword: rest[6] as string            
+                authPassword: rest[6] as string,
             };
         }
-        
+
         const webhookId = params.webhookId;
         const name = params.name;
         const url = params.url;
@@ -307,9 +430,10 @@ export class Webhooks {
         const tls = params.tls;
         const authUsername = params.authUsername;
         const authPassword = params.authPassword;
-
         if (typeof webhookId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "webhookId"');
+            throw new AppwriteException(
+                'Missing required parameter: "webhookId"',
+            );
         }
         if (typeof name === 'undefined') {
             throw new AppwriteException('Missing required parameter: "name"');
@@ -320,48 +444,45 @@ export class Webhooks {
         if (typeof events === 'undefined') {
             throw new AppwriteException('Missing required parameter: "events"');
         }
-
-        const apiPath = '/webhooks/{webhookId}'.replace('{webhookId}', encodeURIComponent(String(webhookId)));
-        const payload: Payload = {};
+        const apiPath = '/webhooks/{webhookId}'.replace(
+            '{webhookId}',
+            encodeURIComponent(String(webhookId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
-            payload['name'] = name;
+            apiPayload['name'] = name;
         }
         if (typeof url !== 'undefined') {
-            payload['url'] = url;
+            apiPayload['url'] = url;
         }
         if (typeof events !== 'undefined') {
-            payload['events'] = events;
+            apiPayload['events'] = events;
         }
         if (typeof enabled !== 'undefined') {
-            payload['enabled'] = enabled;
+            apiPayload['enabled'] = enabled;
         }
         if (typeof tls !== 'undefined') {
-            payload['tls'] = tls;
+            apiPayload['tls'] = tls;
         }
         if (typeof authUsername !== 'undefined') {
-            payload['authUsername'] = authUsername;
+            apiPayload['authUsername'] = authUsername;
         }
         if (typeof authPassword !== 'undefined') {
-            payload['authPassword'] = authPassword;
+            apiPayload['authPassword'] = authPassword;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'put',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
-     * Delete a webhook by its unique ID. Once deleted, the webhook will no longer receive project events. 
+     * Delete a webhook by its unique ID. Once deleted, the webhook will no longer receive project events.
      *
      * @param {string} params.webhookId - Webhook ID.
      * @throws {AppwriteException}
@@ -369,7 +490,7 @@ export class Webhooks {
      */
     delete(params: { webhookId: string }): Promise<{}>;
     /**
-     * Delete a webhook by its unique ID. Once deleted, the webhook will no longer receive project events. 
+     * Delete a webhook by its unique ID. Once deleted, the webhook will no longer receive project events.
      *
      * @param {string} webhookId - Webhook ID.
      * @throws {AppwriteException}
@@ -377,40 +498,40 @@ export class Webhooks {
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     delete(webhookId: string): Promise<{}>;
-    delete(
-        paramsOrFirst: { webhookId: string } | string    
-    ): Promise<{}> {
+    delete(paramsOrFirst: { webhookId: string } | string): Promise<{}> {
         let params: { webhookId: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
             params = (paramsOrFirst || {}) as { webhookId: string };
         } else {
             params = {
-                webhookId: paramsOrFirst as string            
+                webhookId: paramsOrFirst as string,
             };
         }
-        
+
         const webhookId = params.webhookId;
-
         if (typeof webhookId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "webhookId"');
+            throw new AppwriteException(
+                'Missing required parameter: "webhookId"',
+            );
         }
-
-        const apiPath = '/webhooks/{webhookId}'.replace('{webhookId}', encodeURIComponent(String(webhookId)));
-        const payload: Payload = {};
+        const apiPath = '/webhooks/{webhookId}'.replace(
+            '{webhookId}',
+            encodeURIComponent(String(webhookId)),
+        );
+        const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-        }
+        };
 
-        return this.client.call(
-            'delete',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -421,7 +542,10 @@ export class Webhooks {
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      */
-    updateSecret(params: { webhookId: string, secret?: string }): Promise<Models.Webhook>;
+    updateSecret(params: {
+        webhookId: string;
+        secret?: string;
+    }): Promise<Models.Webhook>;
     /**
      * Update the webhook signing key. This endpoint can be used to regenerate the signing key used to sign and validate payload deliveries for a specific webhook.
      *
@@ -433,45 +557,50 @@ export class Webhooks {
      */
     updateSecret(webhookId: string, secret?: string): Promise<Models.Webhook>;
     updateSecret(
-        paramsOrFirst: { webhookId: string, secret?: string } | string,
-        ...rest: [(string)?]    
+        paramsOrFirst: { webhookId: string; secret?: string } | string,
+        ...rest: [string?]
     ): Promise<Models.Webhook> {
-        let params: { webhookId: string, secret?: string };
-        
-        if ((paramsOrFirst && typeof paramsOrFirst === 'object' && !Array.isArray(paramsOrFirst))) {
-            params = (paramsOrFirst || {}) as { webhookId: string, secret?: string };
+        let params: { webhookId: string; secret?: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                webhookId: string;
+                secret?: string;
+            };
         } else {
             params = {
                 webhookId: paramsOrFirst as string,
-                secret: rest[0] as string            
+                secret: rest[0] as string,
             };
         }
-        
+
         const webhookId = params.webhookId;
         const secret = params.secret;
-
         if (typeof webhookId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "webhookId"');
+            throw new AppwriteException(
+                'Missing required parameter: "webhookId"',
+            );
         }
-
-        const apiPath = '/webhooks/{webhookId}/secret'.replace('{webhookId}', encodeURIComponent(String(webhookId)));
-        const payload: Payload = {};
+        const apiPath = '/webhooks/{webhookId}/secret'.replace(
+            '{webhookId}',
+            encodeURIComponent(String(webhookId)),
+        );
+        const apiPayload: Payload = {};
         if (typeof secret !== 'undefined') {
-            payload['secret'] = secret;
+            apiPayload['secret'] = secret;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
-            'accept': 'application/json',
-        }
+            accept: 'application/json',
+        };
 
-        return this.client.call(
-            'patch',
-            uri,
-            apiHeaders,
-            payload,
-        );
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 }

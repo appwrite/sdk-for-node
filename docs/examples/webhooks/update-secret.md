@@ -10,6 +10,6 @@ const webhooks = new sdk.Webhooks(client);
 
 const result = await webhooks.updateSecret({
     webhookId: '<WEBHOOK_ID>',
-    secret: '<SECRET>' // optional
+    secret: '<SECRET>', // optional
 });
 ```

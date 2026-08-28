@@ -11,10 +11,10 @@ const tablesDB = new sdk.TablesDB(client);
 const result = await tablesDB.createEnumColumn({
     databaseId: '<DATABASE_ID>',
     tableId: '<TABLE_ID>',
-    key: '',
-    elements: [],
+    key: '<KEY>',
+    elements: ['active', 'inactive'],
     required: false,
-    xdefault: '<DEFAULT>', // optional
-    array: false // optional
+    xdefault: 'active', // optional
+    array: false, // optional
 });
 ```

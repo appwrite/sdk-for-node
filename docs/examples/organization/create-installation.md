@@ -10,6 +10,6 @@ const organization = new sdk.Organization(client);
 
 const result = await organization.createInstallation({
     appId: '<APP_ID>',
-    authorizationDetails: '<AUTHORIZATION_DETAILS>' // optional
+    authorizationDetails: '<AUTHORIZATION_DETAILS>', // optional
 });
 ```

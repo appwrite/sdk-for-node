@@ -11,6 +11,6 @@ const databases = new sdk.Databases(client);
 const result = await databases.updateTransaction({
     transactionId: '<TRANSACTION_ID>',
     commit: false, // optional
-    rollback: false // optional
+    rollback: false, // optional
 });
 ```

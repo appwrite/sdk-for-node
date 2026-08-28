@@ -11,10 +11,10 @@ const databases = new sdk.Databases(client);
 const result = await databases.createIndex({
     databaseId: '<DATABASE_ID>',
     collectionId: '<COLLECTION_ID>',
-    key: '',
+    key: '<KEY>',
     type: sdk.DatabasesIndexType.Key,
     attributes: [],
     orders: [sdk.OrderBy.Asc], // optional
-    lengths: [] // optional
+    lengths: [], // optional
 });
 ```

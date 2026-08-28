@@ -9,8 +9,8 @@ const client = new sdk.Client()
 const proxy = new sdk.Proxy(client);
 
 const result = await proxy.createInvalidation({
-    domain: '',
+    domain: 'example.com',
     type: sdk.InvalidationType.Tag,
-    reference: '<REFERENCE>' // optional
+    reference: '<REFERENCE>', // optional
 });
 ```

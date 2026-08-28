@@ -11,6 +11,6 @@ const users = new sdk.Users(client);
 const result = await users.createToken({
     userId: '<USER_ID>',
     length: 4, // optional
-    expire: 60 // optional
+    expire: 60, // optional
 });
 ```

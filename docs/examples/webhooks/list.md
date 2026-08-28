@@ -10,6 +10,6 @@ const webhooks = new sdk.Webhooks(client);
 
 const result = await webhooks.list({
     queries: [], // optional
-    total: false // optional
+    total: false, // optional
 });
 ```

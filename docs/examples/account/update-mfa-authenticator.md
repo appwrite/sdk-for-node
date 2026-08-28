@@ -10,6 +10,6 @@ const account = new sdk.Account(client);
 
 const result = await account.updateMFAAuthenticator({
     type: sdk.AuthenticatorType.Totp,
-    otp: '<OTP>'
+    otp: '<OTP>',
 });
 ```
