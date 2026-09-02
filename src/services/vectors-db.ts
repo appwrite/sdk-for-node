@@ -1547,6 +1547,7 @@ export class VectorsDB {
      * @param {string} params.documentId - Document ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {Document extends Models.DefaultDocument ? Partial<Models.Document> & Record<string, any> : Partial<Models.Document> & Omit<Document, keyof Models.Document>} params.data - Document data as JSON object.
      * @param {string[]} params.permissions - An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string} params.transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
      */
@@ -1560,6 +1561,7 @@ export class VectorsDB {
             ? Partial<Models.Document> & Record<string, any>
             : Partial<Models.Document> & Omit<Document, keyof Models.Document>;
         permissions?: string[];
+        transactionId?: string;
     }): Promise<Document>;
     /**
      * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#documentsDBCreateCollection) API or directly from your database console.
@@ -1569,6 +1571,7 @@ export class VectorsDB {
      * @param {string} documentId - Document ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {Document extends Models.DefaultDocument ? Partial<Models.Document> & Record<string, any> : Partial<Models.Document> & Omit<Document, keyof Models.Document>} data - Document data as JSON object.
      * @param {string[]} permissions - An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string} transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
      * @returns {Promise<Document>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1581,6 +1584,7 @@ export class VectorsDB {
             ? Partial<Models.Document> & Record<string, any>
             : Partial<Models.Document> & Omit<Document, keyof Models.Document>,
         permissions?: string[],
+        transactionId?: string,
     ): Promise<Document>;
     createDocument<Document extends Models.Document = Models.DefaultDocument>(
         paramsOrFirst:
@@ -1593,6 +1597,7 @@ export class VectorsDB {
                       : Partial<Models.Document> &
                             Omit<Document, keyof Models.Document>;
                   permissions?: string[];
+                  transactionId?: string;
               }
             | string,
         ...rest: [
@@ -1603,6 +1608,7 @@ export class VectorsDB {
                 : Partial<Models.Document> &
                       Omit<Document, keyof Models.Document>)?,
             string[]?,
+            string?,
         ]
     ): Promise<Document> {
         let params: {
@@ -1614,6 +1620,7 @@ export class VectorsDB {
                 : Partial<Models.Document> &
                       Omit<Document, keyof Models.Document>;
             permissions?: string[];
+            transactionId?: string;
         };
 
         if (
@@ -1630,6 +1637,7 @@ export class VectorsDB {
                     : Partial<Models.Document> &
                           Omit<Document, keyof Models.Document>;
                 permissions?: string[];
+                transactionId?: string;
             };
         } else {
             params = {
@@ -1641,6 +1649,7 @@ export class VectorsDB {
                     : Partial<Models.Document> &
                           Omit<Document, keyof Models.Document>,
                 permissions: rest[3] as string[],
+                transactionId: rest[4] as string,
             };
         }
 
@@ -1649,6 +1658,7 @@ export class VectorsDB {
         const documentId = params.documentId;
         const data = params.data;
         const permissions = params.permissions;
+        const transactionId = params.transactionId;
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -1684,6 +1694,9 @@ export class VectorsDB {
         if (typeof permissions !== 'undefined') {
             apiPayload['permissions'] = permissions;
         }
+        if (typeof transactionId !== 'undefined') {
+            apiPayload['transactionId'] = transactionId;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1701,6 +1714,7 @@ export class VectorsDB {
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection). Make sure to define attributes before creating documents.
      * @param {object[]} params.documents - Array of documents data as JSON objects.
+     * @param {string} params.transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
      */
@@ -1710,6 +1724,7 @@ export class VectorsDB {
         databaseId: string;
         collectionId: string;
         documents: object[];
+        transactionId?: string;
     }): Promise<Models.DocumentList<Document>>;
     /**
      * Create new Documents. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#documentsDBCreateCollection) API or directly from your database console.
@@ -1717,6 +1732,7 @@ export class VectorsDB {
      * @param {string} databaseId - Database ID.
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection). Make sure to define attributes before creating documents.
      * @param {object[]} documents - Array of documents data as JSON objects.
+     * @param {string} transactionId - Transaction ID for staging the operation.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1725,17 +1741,24 @@ export class VectorsDB {
         databaseId: string,
         collectionId: string,
         documents: object[],
+        transactionId?: string,
     ): Promise<Models.DocumentList<Document>>;
     createDocuments<Document extends Models.Document = Models.DefaultDocument>(
         paramsOrFirst:
-            | { databaseId: string; collectionId: string; documents: object[] }
+            | {
+                  databaseId: string;
+                  collectionId: string;
+                  documents: object[];
+                  transactionId?: string;
+              }
             | string,
-        ...rest: [string?, object[]?]
+        ...rest: [string?, object[]?, string?]
     ): Promise<Models.DocumentList<Document>> {
         let params: {
             databaseId: string;
             collectionId: string;
             documents: object[];
+            transactionId?: string;
         };
 
         if (
@@ -1747,18 +1770,21 @@ export class VectorsDB {
                 databaseId: string;
                 collectionId: string;
                 documents: object[];
+                transactionId?: string;
             };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 collectionId: rest[0] as string,
                 documents: rest[1] as object[],
+                transactionId: rest[2] as string,
             };
         }
 
         const databaseId = params.databaseId;
         const collectionId = params.collectionId;
         const documents = params.documents;
+        const transactionId = params.transactionId;
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -1784,6 +1810,9 @@ export class VectorsDB {
         const apiPayload: Payload = {};
         if (typeof documents !== 'undefined') {
             apiPayload['documents'] = documents;
+        }
+        if (typeof transactionId !== 'undefined') {
+            apiPayload['transactionId'] = transactionId;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

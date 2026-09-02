@@ -636,16 +636,16 @@ export class Avatars {
     /**
      * Returns the best available profile photo for a user. The endpoint tries each source in priority order and returns the first successful result: OAuth2 identity photo, Gravatar, Libravatar, Appwrite Initials, built-in static fallback.
      *
-     * The photo resolves for the currently authenticated user unless `userId` points at another user. Passing `emailHash` and/or `name` resolves the avatar from those values alone: the hash is looked up on Gravatar and Libravatar, the name is rendered as initials, and the user's own identity photos, email, and name leave the chain so they never shadow the avatar being asked for. Emails are only ever accepted pre-hashed, so no address ends up in a URL.
+     * Passing `userId` — `current()` for the authenticated user — resolves the photo from everything known about that user: identity photos, email, and name. An explicit `emailHash` or `name` then overrides just that value, and the user's remaining sources stay in the chain. Without `userId`, passing `emailHash` and/or `name` resolves the avatar from those values alone: the hash is looked up on Gravatar and Libravatar, the name is rendered as initials, and the session user stays out of the chain so their own photo never shadows the avatar being asked for. When nothing is passed, the photo resolves for the currently authenticated user. Emails are only ever accepted pre-hashed, so no address ends up in a URL.
      *
      * @param {number} params.width - Output image width in pixels. Pass an integer between 0 and 2000. Defaults to 256.
      * @param {number} params.height - Output image height in pixels. Pass an integer between 0 and 2000. Defaults to 256.
      * @param {number} params.quality - Output image quality between 0 and 100. Defaults to 100.
      * @param {string} params.output - Output image format. Defaults to 'png'.
      * @param {string} params.rating - Maximum image rating to fetch from Gravatar/Libravatar. Defaults to 'g'.
-     * @param {string} params.userId - User ID to resolve the photo for. Defaults to 'current()' for the currently authenticated user.
-     * @param {string} params.emailHash - SHA256 hash of the lowercase, trimmed email address to look up on Gravatar and Libravatar instead of the user's own photo sources. Pass the hash, never the address itself.
-     * @param {string} params.name - Name to render initials from instead of the user's own photo sources. Max length: 128 chars.
+     * @param {string} params.userId - User ID to resolve the photo for. Pass 'current()' for the currently authenticated user. When omitted, the session user is used only if no emailHash and no name is passed.
+     * @param {string} params.emailHash - SHA256 hash of the lowercase, trimmed email address to look up on Gravatar and Libravatar instead of the user's own email. Pass the hash, never the address itself.
+     * @param {string} params.name - Name to render initials from instead of the user's own name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      */
@@ -662,16 +662,16 @@ export class Avatars {
     /**
      * Returns the best available profile photo for a user. The endpoint tries each source in priority order and returns the first successful result: OAuth2 identity photo, Gravatar, Libravatar, Appwrite Initials, built-in static fallback.
      *
-     * The photo resolves for the currently authenticated user unless `userId` points at another user. Passing `emailHash` and/or `name` resolves the avatar from those values alone: the hash is looked up on Gravatar and Libravatar, the name is rendered as initials, and the user's own identity photos, email, and name leave the chain so they never shadow the avatar being asked for. Emails are only ever accepted pre-hashed, so no address ends up in a URL.
+     * Passing `userId` — `current()` for the authenticated user — resolves the photo from everything known about that user: identity photos, email, and name. An explicit `emailHash` or `name` then overrides just that value, and the user's remaining sources stay in the chain. Without `userId`, passing `emailHash` and/or `name` resolves the avatar from those values alone: the hash is looked up on Gravatar and Libravatar, the name is rendered as initials, and the session user stays out of the chain so their own photo never shadows the avatar being asked for. When nothing is passed, the photo resolves for the currently authenticated user. Emails are only ever accepted pre-hashed, so no address ends up in a URL.
      *
      * @param {number} width - Output image width in pixels. Pass an integer between 0 and 2000. Defaults to 256.
      * @param {number} height - Output image height in pixels. Pass an integer between 0 and 2000. Defaults to 256.
      * @param {number} quality - Output image quality between 0 and 100. Defaults to 100.
      * @param {string} output - Output image format. Defaults to 'png'.
      * @param {string} rating - Maximum image rating to fetch from Gravatar/Libravatar. Defaults to 'g'.
-     * @param {string} userId - User ID to resolve the photo for. Defaults to 'current()' for the currently authenticated user.
-     * @param {string} emailHash - SHA256 hash of the lowercase, trimmed email address to look up on Gravatar and Libravatar instead of the user's own photo sources. Pass the hash, never the address itself.
-     * @param {string} name - Name to render initials from instead of the user's own photo sources. Max length: 128 chars.
+     * @param {string} userId - User ID to resolve the photo for. Pass 'current()' for the currently authenticated user. When omitted, the session user is used only if no emailHash and no name is passed.
+     * @param {string} emailHash - SHA256 hash of the lowercase, trimmed email address to look up on Gravatar and Libravatar instead of the user's own email. Pass the hash, never the address itself.
+     * @param {string} name - Name to render initials from instead of the user's own name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<ArrayBuffer>}
      * @deprecated Use the object parameter style method for a better developer experience.

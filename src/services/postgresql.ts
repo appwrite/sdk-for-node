@@ -1947,27 +1947,29 @@ export class Postgresql {
     }
 
     /**
-     * Rotate the primary connection credentials for a dedicated database. Generates a new password and updates the database atomically. Previous credentials stop working immediately. Returns the database with a refreshed connection string carrying the new password.
+     * Queue a rotation of the primary connection credentials for a dedicated database. A hibernated database is woken by the worker before rotation. List database operations until the returned operation reaches a terminal status, then fetch the database again for the refreshed connection string.
      *
      * @param {string} params.databaseId - Database ID.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.DedicatedDatabase>}
+     * @returns {Promise<Models.DedicatedDatabaseOperation>}
      */
     updateCredentials(params: {
         databaseId: string;
-    }): Promise<Models.DedicatedDatabase>;
+    }): Promise<Models.DedicatedDatabaseOperation>;
     /**
-     * Rotate the primary connection credentials for a dedicated database. Generates a new password and updates the database atomically. Previous credentials stop working immediately. Returns the database with a refreshed connection string carrying the new password.
+     * Queue a rotation of the primary connection credentials for a dedicated database. A hibernated database is woken by the worker before rotation. List database operations until the returned operation reaches a terminal status, then fetch the database again for the refreshed connection string.
      *
      * @param {string} databaseId - Database ID.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.DedicatedDatabase>}
+     * @returns {Promise<Models.DedicatedDatabaseOperation>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateCredentials(databaseId: string): Promise<Models.DedicatedDatabase>;
+    updateCredentials(
+        databaseId: string,
+    ): Promise<Models.DedicatedDatabaseOperation>;
     updateCredentials(
         paramsOrFirst: { databaseId: string } | string,
-    ): Promise<Models.DedicatedDatabase> {
+    ): Promise<Models.DedicatedDatabaseOperation> {
         let params: { databaseId: string };
 
         if (

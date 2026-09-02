@@ -19,5 +19,6 @@ const result = await vectorsDB.createDocument({
         },
     },
     permissions: [sdk.Permission.read(sdk.Role.any())], // optional
+    transactionId: '<TRANSACTION_ID>', // optional
 });
 ```

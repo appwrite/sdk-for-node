@@ -1243,7 +1243,7 @@ export class TablesDB {
      * @throws {AppwriteException}
      * @returns {Promise<Models.DatabaseMigration>}
      */
-    cutoverMigration(params: {
+    createCutover(params: {
         databaseId: string;
         migrationId: string;
     }): Promise<Models.DatabaseMigration>;
@@ -1256,11 +1256,11 @@ export class TablesDB {
      * @returns {Promise<Models.DatabaseMigration>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    cutoverMigration(
+    createCutover(
         databaseId: string,
         migrationId: string,
     ): Promise<Models.DatabaseMigration>;
-    cutoverMigration(
+    createCutover(
         paramsOrFirst: { databaseId: string; migrationId: string } | string,
         ...rest: [string?]
     ): Promise<Models.DatabaseMigration> {
@@ -1295,7 +1295,7 @@ export class TablesDB {
             );
         }
         const apiPath =
-            '/tablesdb/{databaseId}/migrations/{migrationId}/cutover'
+            '/tablesdb/{databaseId}/migrations/{migrationId}/cutovers'
                 .replace('{databaseId}', encodeURIComponent(String(databaseId)))
                 .replace(
                     '{migrationId}',

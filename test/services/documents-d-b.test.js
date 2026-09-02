@@ -625,6 +625,7 @@ describe('DocumentsDB', () => {
             connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
+            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,

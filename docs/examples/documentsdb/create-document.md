@@ -20,5 +20,6 @@ const result = await documentsDB.createDocument({
         isAdmin: false,
     },
     permissions: [sdk.Permission.read(sdk.Role.any())], // optional
+    transactionId: '<TRANSACTION_ID>', // optional
 });
 ```
