@@ -8,7 +8,7 @@ const client = new sdk.Client()
 
 const tablesDB = new sdk.TablesDB(client);
 
-const result = await tablesDB.cutoverMigration({
+const result = await tablesDB.createCutover({
     databaseId: '<DATABASE_ID>',
     migrationId: '<MIGRATION_ID>',
 });

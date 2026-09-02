@@ -206,6 +206,7 @@ describe('TablesDB', () => {
             connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
+            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,
@@ -336,7 +337,7 @@ describe('TablesDB', () => {
 
         expect(response).toEqual(data);
     });
-    test('test method cutoverMigration()', async () => {
+    test('test method createCutover()', async () => {
         const data = {
             '\\$id': '5e5ea5c16897e',
             '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
@@ -357,7 +358,7 @@ describe('TablesDB', () => {
             paused: true,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
-        const response = await tablesDB.cutoverMigration(
+        const response = await tablesDB.createCutover(
             '<DATABASE_ID>',
             '<MIGRATION_ID>',
         );

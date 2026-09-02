@@ -4328,7 +4328,7 @@ export namespace Models {
         /**
          * Name of fallback file to use instead of 404 page. If null, Appwrite 404 page will be displayed.
          */
-        fallbackFile: string;
+        fallbackFile?: string;
     };
 
     /**
@@ -5472,6 +5472,28 @@ export namespace Models {
     };
 
     /**
+     * OAuth2Cloudflare
+     */
+    export type OAuth2Cloudflare = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Cloudflare OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Cloudflare OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
      * OAuth2HuggingFace
      */
     export type OAuth2HuggingFace = {
@@ -5958,6 +5980,28 @@ export namespace Models {
     };
 
     /**
+     * OAuth2Resend
+     */
+    export type OAuth2Resend = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Resend OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Resend OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
      * OAuth2 Providers List
      */
     export type OAuth2ProviderList = {
@@ -6011,6 +6055,8 @@ export namespace Models {
             | Models.OAuth2Kick
             | Models.OAuth2Microsoft
             | Models.OAuth2HuggingFace
+            | Models.OAuth2Resend
+            | Models.OAuth2Cloudflare
         )[];
     };
 
@@ -7673,6 +7719,10 @@ export namespace Models {
          */
         usageLogsIntervals?: string[];
         /**
+         * Metrics this plan only records as a total. They cannot be broken down by dimension or filtered, because the stored events cover a fraction of the real traffic.
+         */
+        usageAggregateOnlyMetrics?: string[];
+        /**
          * Number of days of console inactivity before a project is paused. 0 means pausing is disabled.
          */
         projectInactivityDays: number;
@@ -8209,7 +8259,7 @@ export namespace Models {
          */
         specification: string;
         /**
-         * Database backend provider. Possible values: prisma, edge.
+         * Database backend provider. Possible values: edge.
          */
         backend: string;
         /**
@@ -8228,6 +8278,10 @@ export namespace Models {
          * Database password for connections.
          */
         connectionPassword: string;
+        /**
+         * Committed generation of the primary connection credentials. Null until the rotation contract has been initialized.
+         */
+        credentialGeneration: number;
         /**
          * Full database connection string (URI format).
          */
@@ -8587,7 +8641,7 @@ export namespace Models {
          */
         databaseId: string;
         /**
-         * Operation type, such as provision, update, restore, pausing, resuming, failover, backup-create or cross-region-enable.
+         * Operation type, such as provision, update, credentials-update, restore, pausing, resuming, failover, backup-create or cross-region-enable.
          */
         type: string;
         /**

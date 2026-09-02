@@ -6,12 +6,11 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const vectorsDB = new sdk.VectorsDB(client);
+const project = new sdk.Project(client);
 
-const result = await vectorsDB.createDocuments({
-    databaseId: '<DATABASE_ID>',
-    collectionId: '<COLLECTION_ID>',
-    documents: [],
-    transactionId: '<TRANSACTION_ID>', // optional
+const result = await project.updateOAuth2Cloudflare({
+    clientId: '<CLIENT_ID>', // optional
+    clientSecret: '<CLIENT_SECRET>', // optional
+    enabled: false, // optional
 });
 ```
