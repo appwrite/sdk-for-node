@@ -137,7 +137,7 @@ export class Proxy {
         let params: { queries?: string[]; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -583,7 +583,7 @@ export class Proxy {
         }
 
         const ruleId = params.ruleId;
-        if (typeof ruleId === 'undefined') {
+        if (typeof ruleId === 'undefined' || ruleId === '') {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
         const apiPath = '/proxy/rules/{ruleId}'.replace(
@@ -634,7 +634,7 @@ export class Proxy {
         }
 
         const ruleId = params.ruleId;
-        if (typeof ruleId === 'undefined') {
+        if (typeof ruleId === 'undefined' || ruleId === '') {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
         const apiPath = '/proxy/rules/{ruleId}'.replace(
@@ -647,6 +647,7 @@ export class Proxy {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -687,7 +688,7 @@ export class Proxy {
         }
 
         const ruleId = params.ruleId;
-        if (typeof ruleId === 'undefined') {
+        if (typeof ruleId === 'undefined' || ruleId === '') {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
         const apiPath = '/proxy/rules/{ruleId}/status'.replace(

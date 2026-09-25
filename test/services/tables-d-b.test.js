@@ -45,7 +45,6 @@ describe('TablesDB', () => {
         const data = {
             specifications: [],
             total: 9,
-            pricing: {},
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.listSpecifications();
@@ -217,6 +216,8 @@ describe('TablesDB', () => {
             cpu: 2000,
             memory: 4096,
             storage: 100,
+            storageStatus: 'resizing',
+            storageTargetGb: 120,
             storageClass: 'ssd',
             storageMaxGb: 100,
             nodePool: 'db-pool-4vcpu-8gb',
@@ -230,7 +231,7 @@ describe('TablesDB', () => {
             pitrRetentionDays: 14,
             storageAutoscaling: true,
             storageAutoscalingThresholdPercent: 85,
-            storageAutoscalingMaxGb: 500,
+            storageAutoscalingMaxGb: 30,
             maintenanceWindowDay: 'sun',
             maintenanceWindowHourUtc: 3,
             metricsEnabled: true,
@@ -1188,6 +1189,34 @@ describe('TablesDB', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method updateRelationshipColumn()', async () => {
+        const data = {
+            key: 'fullName',
+            type: 'string',
+            status: 'available',
+            error: 'string',
+            required: true,
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            relatedTable: 'table',
+            relationType: 'oneToOne|oneToMany|manyToOne|manyToMany',
+            twoWay: true,
+            twoWayKey: 'string',
+            onDelete: 'restrict|cascade|setNull',
+            side: 'parent|child',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await tablesDB.updateRelationshipColumn(
+            '<DATABASE_ID>',
+            '<TABLE_ID>',
+            '<KEY>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method createStringColumn()', async () => {
         const data = {
             key: 'fullName',
@@ -1411,34 +1440,6 @@ describe('TablesDB', () => {
         const data = { message: '' };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.deleteColumn(
-            '<DATABASE_ID>',
-            '<TABLE_ID>',
-            '<KEY>',
-        );
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    test('test method updateRelationshipColumn()', async () => {
-        const data = {
-            key: 'fullName',
-            type: 'string',
-            status: 'available',
-            error: 'string',
-            required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            relatedTable: 'table',
-            relationType: 'oneToOne|oneToMany|manyToOne|manyToMany',
-            twoWay: true,
-            twoWayKey: 'string',
-            onDelete: 'restrict|cascade|setNull',
-            side: 'parent|child',
-        };
-        mockedFetch.mockImplementation(() => Response.json(data));
-        const response = await tablesDB.updateRelationshipColumn(
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',

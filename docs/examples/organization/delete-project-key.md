@@ -8,8 +8,8 @@ const client = new sdk.Client()
 
 const organization = new sdk.Organization(client);
 
-const result = await organization.listKeys({
-    queries: [], // optional
-    total: false, // optional
+const result = await organization.deleteProjectKey({
+    projectId: '<PROJECT_ID>',
+    keyId: '<KEY_ID>',
 });
 ```

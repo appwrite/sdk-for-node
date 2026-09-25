@@ -6,9 +6,13 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const organization = new sdk.Organization(client);
+const messaging = new sdk.Messaging(client);
 
-const result = await organization.getKey({
-    keyId: '<KEY_ID>',
+const result = await messaging.createAppwriteProvider({
+    providerId: '<PROVIDER_ID>',
+    name: '<NAME>',
+    enabled: false, // optional
+    qos: 0, // optional
+    expiry: 0, // optional
 });
 ```

@@ -37,7 +37,7 @@ export class Webhooks {
         let params: { queries?: string[]; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -291,7 +291,7 @@ export class Webhooks {
         }
 
         const webhookId = params.webhookId;
-        if (typeof webhookId === 'undefined') {
+        if (typeof webhookId === 'undefined' || webhookId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "webhookId"',
             );
@@ -430,7 +430,7 @@ export class Webhooks {
         const tls = params.tls;
         const authUsername = params.authUsername;
         const authPassword = params.authPassword;
-        if (typeof webhookId === 'undefined') {
+        if (typeof webhookId === 'undefined' || webhookId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "webhookId"',
             );
@@ -514,7 +514,7 @@ export class Webhooks {
         }
 
         const webhookId = params.webhookId;
-        if (typeof webhookId === 'undefined') {
+        if (typeof webhookId === 'undefined' || webhookId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "webhookId"',
             );
@@ -529,6 +529,7 @@ export class Webhooks {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -580,7 +581,7 @@ export class Webhooks {
 
         const webhookId = params.webhookId;
         const secret = params.secret;
-        if (typeof webhookId === 'undefined') {
+        if (typeof webhookId === 'undefined' || webhookId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "webhookId"',
             );

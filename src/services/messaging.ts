@@ -47,7 +47,7 @@ export class Messaging {
         let params: { queries?: string[]; search?: string; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -101,6 +101,8 @@ export class Messaging {
      * @param {string[]} params.cc - Array of target IDs to be added as CC.
      * @param {string[]} params.bcc - Array of target IDs to be added as BCC.
      * @param {string[]} params.attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
+     * @param {string} params.replyToEmail - Email address to reply to. If not set, defaults to the sender email address.
+     * @param {string} params.replyToName - Name of the reply to recipient. If not set, defaults to the sender name.
      * @param {boolean} params.draft - Is message a draft
      * @param {boolean} params.html - Is content of type HTML
      * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
@@ -117,6 +119,8 @@ export class Messaging {
         cc?: string[];
         bcc?: string[];
         attachments?: string[];
+        replyToEmail?: string;
+        replyToName?: string;
         draft?: boolean;
         html?: boolean;
         scheduledAt?: string;
@@ -133,6 +137,8 @@ export class Messaging {
      * @param {string[]} cc - Array of target IDs to be added as CC.
      * @param {string[]} bcc - Array of target IDs to be added as BCC.
      * @param {string[]} attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
+     * @param {string} replyToEmail - Email address to reply to. If not set, defaults to the sender email address.
+     * @param {string} replyToName - Name of the reply to recipient. If not set, defaults to the sender name.
      * @param {boolean} draft - Is message a draft
      * @param {boolean} html - Is content of type HTML
      * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
@@ -150,6 +156,8 @@ export class Messaging {
         cc?: string[],
         bcc?: string[],
         attachments?: string[],
+        replyToEmail?: string,
+        replyToName?: string,
         draft?: boolean,
         html?: boolean,
         scheduledAt?: string,
@@ -166,6 +174,8 @@ export class Messaging {
                   cc?: string[];
                   bcc?: string[];
                   attachments?: string[];
+                  replyToEmail?: string;
+                  replyToName?: string;
                   draft?: boolean;
                   html?: boolean;
                   scheduledAt?: string;
@@ -180,6 +190,8 @@ export class Messaging {
             string[]?,
             string[]?,
             string[]?,
+            string?,
+            string?,
             boolean?,
             boolean?,
             string?,
@@ -195,6 +207,8 @@ export class Messaging {
             cc?: string[];
             bcc?: string[];
             attachments?: string[];
+            replyToEmail?: string;
+            replyToName?: string;
             draft?: boolean;
             html?: boolean;
             scheduledAt?: string;
@@ -215,6 +229,8 @@ export class Messaging {
                 cc?: string[];
                 bcc?: string[];
                 attachments?: string[];
+                replyToEmail?: string;
+                replyToName?: string;
                 draft?: boolean;
                 html?: boolean;
                 scheduledAt?: string;
@@ -230,9 +246,11 @@ export class Messaging {
                 cc: rest[5] as string[],
                 bcc: rest[6] as string[],
                 attachments: rest[7] as string[],
-                draft: rest[8] as boolean,
-                html: rest[9] as boolean,
-                scheduledAt: rest[10] as string,
+                replyToEmail: rest[8] as string,
+                replyToName: rest[9] as string,
+                draft: rest[10] as boolean,
+                html: rest[11] as boolean,
+                scheduledAt: rest[12] as string,
             };
         }
 
@@ -245,6 +263,8 @@ export class Messaging {
         const cc = params.cc;
         const bcc = params.bcc;
         const attachments = params.attachments;
+        const replyToEmail = params.replyToEmail;
+        const replyToName = params.replyToName;
         const draft = params.draft;
         const html = params.html;
         const scheduledAt = params.scheduledAt;
@@ -292,6 +312,12 @@ export class Messaging {
         if (typeof attachments !== 'undefined') {
             apiPayload['attachments'] = attachments;
         }
+        if (typeof replyToEmail !== 'undefined') {
+            apiPayload['replyToEmail'] = replyToEmail;
+        }
+        if (typeof replyToName !== 'undefined') {
+            apiPayload['replyToName'] = replyToName;
+        }
         if (typeof draft !== 'undefined') {
             apiPayload['draft'] = draft;
         }
@@ -326,6 +352,8 @@ export class Messaging {
      * @param {boolean} params.html - Is content of type HTML
      * @param {string[]} params.cc - Array of target IDs to be added as CC.
      * @param {string[]} params.bcc - Array of target IDs to be added as BCC.
+     * @param {string} params.replyToEmail - Email address to reply to. Pass an empty string to restore the provider or sender default.
+     * @param {string} params.replyToName - Name of the reply to recipient. Pass an empty string to restore the provider or sender default.
      * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @param {string[]} params.attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
      * @throws {AppwriteException}
@@ -342,6 +370,8 @@ export class Messaging {
         html?: boolean;
         cc?: string[];
         bcc?: string[];
+        replyToEmail?: string;
+        replyToName?: string;
         scheduledAt?: string;
         attachments?: string[];
     }): Promise<Models.Message>;
@@ -359,6 +389,8 @@ export class Messaging {
      * @param {boolean} html - Is content of type HTML
      * @param {string[]} cc - Array of target IDs to be added as CC.
      * @param {string[]} bcc - Array of target IDs to be added as BCC.
+     * @param {string} replyToEmail - Email address to reply to. Pass an empty string to restore the provider or sender default.
+     * @param {string} replyToName - Name of the reply to recipient. Pass an empty string to restore the provider or sender default.
      * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @param {string[]} attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
      * @throws {AppwriteException}
@@ -376,6 +408,8 @@ export class Messaging {
         html?: boolean,
         cc?: string[],
         bcc?: string[],
+        replyToEmail?: string,
+        replyToName?: string,
         scheduledAt?: string,
         attachments?: string[],
     ): Promise<Models.Message>;
@@ -392,6 +426,8 @@ export class Messaging {
                   html?: boolean;
                   cc?: string[];
                   bcc?: string[];
+                  replyToEmail?: string;
+                  replyToName?: string;
                   scheduledAt?: string;
                   attachments?: string[];
               }
@@ -407,6 +443,8 @@ export class Messaging {
             string[]?,
             string[]?,
             string?,
+            string?,
+            string?,
             string[]?,
         ]
     ): Promise<Models.Message> {
@@ -421,6 +459,8 @@ export class Messaging {
             html?: boolean;
             cc?: string[];
             bcc?: string[];
+            replyToEmail?: string;
+            replyToName?: string;
             scheduledAt?: string;
             attachments?: string[];
         };
@@ -441,6 +481,8 @@ export class Messaging {
                 html?: boolean;
                 cc?: string[];
                 bcc?: string[];
+                replyToEmail?: string;
+                replyToName?: string;
                 scheduledAt?: string;
                 attachments?: string[];
             };
@@ -456,8 +498,10 @@ export class Messaging {
                 html: rest[6] as boolean,
                 cc: rest[7] as string[],
                 bcc: rest[8] as string[],
-                scheduledAt: rest[9] as string,
-                attachments: rest[10] as string[],
+                replyToEmail: rest[9] as string,
+                replyToName: rest[10] as string,
+                scheduledAt: rest[11] as string,
+                attachments: rest[12] as string[],
             };
         }
 
@@ -471,9 +515,11 @@ export class Messaging {
         const html = params.html;
         const cc = params.cc;
         const bcc = params.bcc;
+        const replyToEmail = params.replyToEmail;
+        const replyToName = params.replyToName;
         const scheduledAt = params.scheduledAt;
         const attachments = params.attachments;
-        if (typeof messageId === 'undefined') {
+        if (typeof messageId === 'undefined' || messageId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "messageId"',
             );
@@ -509,6 +555,12 @@ export class Messaging {
         }
         if (typeof bcc !== 'undefined') {
             apiPayload['bcc'] = bcc;
+        }
+        if (typeof replyToEmail !== 'undefined') {
+            apiPayload['replyToEmail'] = replyToEmail;
+        }
+        if (typeof replyToName !== 'undefined') {
+            apiPayload['replyToName'] = replyToName;
         }
         if (typeof scheduledAt !== 'undefined') {
             apiPayload['scheduledAt'] = scheduledAt;
@@ -1062,7 +1114,7 @@ export class Messaging {
         const contentAvailable = params.contentAvailable;
         const critical = params.critical;
         const priority = params.priority;
-        if (typeof messageId === 'undefined') {
+        if (typeof messageId === 'undefined' || messageId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "messageId"',
             );
@@ -1535,7 +1587,7 @@ export class Messaging {
         const content = params.content;
         const draft = params.draft;
         const scheduledAt = params.scheduledAt;
-        if (typeof messageId === 'undefined') {
+        if (typeof messageId === 'undefined' || messageId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "messageId"',
             );
@@ -1678,7 +1730,7 @@ export class Messaging {
         const content = params.content;
         const draft = params.draft;
         const scheduledAt = params.scheduledAt;
-        if (typeof messageId === 'undefined') {
+        if (typeof messageId === 'undefined' || messageId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "messageId"',
             );
@@ -1754,7 +1806,7 @@ export class Messaging {
         }
 
         const messageId = params.messageId;
-        if (typeof messageId === 'undefined') {
+        if (typeof messageId === 'undefined' || messageId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "messageId"',
             );
@@ -1807,7 +1859,7 @@ export class Messaging {
         }
 
         const messageId = params.messageId;
-        if (typeof messageId === 'undefined') {
+        if (typeof messageId === 'undefined' || messageId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "messageId"',
             );
@@ -1822,6 +1874,7 @@ export class Messaging {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -1884,7 +1937,7 @@ export class Messaging {
         const messageId = params.messageId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof messageId === 'undefined') {
+        if (typeof messageId === 'undefined' || messageId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "messageId"',
             );
@@ -1947,7 +2000,7 @@ export class Messaging {
         let params: { queries?: string[]; search?: string; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -2438,7 +2491,7 @@ export class Messaging {
         const teamId = params.teamId;
         const bundleId = params.bundleId;
         const sandbox = params.sandbox;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -2599,7 +2652,7 @@ export class Messaging {
         const teamId = params.teamId;
         const bundleId = params.bundleId;
         const sandbox = params.sandbox;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -2629,6 +2682,243 @@ export class Messaging {
         }
         if (typeof sandbox !== 'undefined') {
             apiPayload['sandbox'] = sandbox;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Create a new Appwrite push provider.
+     *
+     * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Provider name.
+     * @param {boolean} params.enabled - Set as enabled.
+     * @param {number} params.qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
+     * @param {number} params.expiry - Default message retention in seconds for offline delivery. Max 7 days (604800).
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    createAppwriteProvider(params: {
+        providerId: string;
+        name: string;
+        enabled?: boolean;
+        qos?: number;
+        expiry?: number;
+    }): Promise<Models.Provider>;
+    /**
+     * Create a new Appwrite push provider.
+     *
+     * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} name - Provider name.
+     * @param {boolean} enabled - Set as enabled.
+     * @param {number} qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
+     * @param {number} expiry - Default message retention in seconds for offline delivery. Max 7 days (604800).
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createAppwriteProvider(
+        providerId: string,
+        name: string,
+        enabled?: boolean,
+        qos?: number,
+        expiry?: number,
+    ): Promise<Models.Provider>;
+    createAppwriteProvider(
+        paramsOrFirst:
+            | {
+                  providerId: string;
+                  name: string;
+                  enabled?: boolean;
+                  qos?: number;
+                  expiry?: number;
+              }
+            | string,
+        ...rest: [string?, boolean?, number?, number?]
+    ): Promise<Models.Provider> {
+        let params: {
+            providerId: string;
+            name: string;
+            enabled?: boolean;
+            qos?: number;
+            expiry?: number;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                providerId: string;
+                name: string;
+                enabled?: boolean;
+                qos?: number;
+                expiry?: number;
+            };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                enabled: rest[1] as boolean,
+                qos: rest[2] as number,
+                expiry: rest[3] as number,
+            };
+        }
+
+        const providerId = params.providerId;
+        const name = params.name;
+        const enabled = params.enabled;
+        const qos = params.qos;
+        const expiry = params.expiry;
+        if (typeof providerId === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "providerId"',
+            );
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+        const apiPath = '/messaging/providers/appwrite';
+        const apiPayload: Payload = {};
+        if (typeof providerId !== 'undefined') {
+            apiPayload['providerId'] = providerId;
+        }
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        if (typeof qos !== 'undefined') {
+            apiPayload['qos'] = qos;
+        }
+        if (typeof expiry !== 'undefined') {
+            apiPayload['expiry'] = expiry;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('post', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Update an Appwrite push provider by its unique ID.
+     *
+     * @param {string} params.providerId - Provider ID.
+     * @param {string} params.name - Provider name.
+     * @param {boolean} params.enabled - Set as enabled.
+     * @param {number} params.qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
+     * @param {number} params.expiry - Default message retention in seconds for offline delivery. Max 7 days (604800).
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    updateAppwriteProvider(params: {
+        providerId: string;
+        name?: string;
+        enabled?: boolean;
+        qos?: number;
+        expiry?: number;
+    }): Promise<Models.Provider>;
+    /**
+     * Update an Appwrite push provider by its unique ID.
+     *
+     * @param {string} providerId - Provider ID.
+     * @param {string} name - Provider name.
+     * @param {boolean} enabled - Set as enabled.
+     * @param {number} qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
+     * @param {number} expiry - Default message retention in seconds for offline delivery. Max 7 days (604800).
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateAppwriteProvider(
+        providerId: string,
+        name?: string,
+        enabled?: boolean,
+        qos?: number,
+        expiry?: number,
+    ): Promise<Models.Provider>;
+    updateAppwriteProvider(
+        paramsOrFirst:
+            | {
+                  providerId: string;
+                  name?: string;
+                  enabled?: boolean;
+                  qos?: number;
+                  expiry?: number;
+              }
+            | string,
+        ...rest: [string?, boolean?, number?, number?]
+    ): Promise<Models.Provider> {
+        let params: {
+            providerId: string;
+            name?: string;
+            enabled?: boolean;
+            qos?: number;
+            expiry?: number;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                providerId: string;
+                name?: string;
+                enabled?: boolean;
+                qos?: number;
+                expiry?: number;
+            };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                enabled: rest[1] as boolean,
+                qos: rest[2] as number,
+                expiry: rest[3] as number,
+            };
+        }
+
+        const providerId = params.providerId;
+        const name = params.name;
+        const enabled = params.enabled;
+        const qos = params.qos;
+        const expiry = params.expiry;
+        if (typeof providerId === 'undefined' || providerId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "providerId"',
+            );
+        }
+        const apiPath = '/messaging/providers/appwrite/{providerId}'.replace(
+            '{providerId}',
+            encodeURIComponent(String(providerId)),
+        );
+        const apiPayload: Payload = {};
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        if (typeof qos !== 'undefined') {
+            apiPayload['qos'] = qos;
+        }
+        if (typeof expiry !== 'undefined') {
+            apiPayload['expiry'] = expiry;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2934,7 +3224,7 @@ export class Messaging {
         const name = params.name;
         const enabled = params.enabled;
         const serviceAccountJSON = params.serviceAccountJSON;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -3039,7 +3329,7 @@ export class Messaging {
         const name = params.name;
         const enabled = params.enabled;
         const serviceAccountJSON = params.serviceAccountJSON;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -3398,7 +3688,7 @@ export class Messaging {
         const fromEmail = params.fromEmail;
         const replyToName = params.replyToName;
         const replyToEmail = params.replyToEmail;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -3671,7 +3961,7 @@ export class Messaging {
         const templateId = params.templateId;
         const senderId = params.senderId;
         const authKey = params.authKey;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -3990,7 +4280,7 @@ export class Messaging {
         const fromEmail = params.fromEmail;
         const replyToName = params.replyToName;
         const replyToEmail = params.replyToEmail;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -4315,7 +4605,7 @@ export class Messaging {
         const fromEmail = params.fromEmail;
         const replyToName = params.replyToName;
         const replyToEmail = params.replyToEmail;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -4686,7 +4976,7 @@ export class Messaging {
         const fromEmail = params.fromEmail;
         const replyToName = params.replyToName;
         const replyToEmail = params.replyToEmail;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -5405,7 +5695,7 @@ export class Messaging {
         const replyToName = params.replyToName;
         const replyToEmail = params.replyToEmail;
         const enabled = params.enabled;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -5644,7 +5934,7 @@ export class Messaging {
         const replyToName = params.replyToName;
         const replyToEmail = params.replyToEmail;
         const enabled = params.enabled;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -5929,7 +6219,7 @@ export class Messaging {
         const customerId = params.customerId;
         const apiKey = params.apiKey;
         const from = params.from;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -6190,7 +6480,7 @@ export class Messaging {
         const username = params.username;
         const apiKey = params.apiKey;
         const from = params.from;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -6231,7 +6521,7 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Provider name.
-     * @param {string} params.from - Sender Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
+     * @param {string} params.from - Sender phone number or alphanumeric sender ID. Format phone numbers with a leading '+' and a country code, e.g., +16175551212.
      * @param {string} params.accountSid - Twilio account secret ID.
      * @param {string} params.authToken - Twilio authentication token.
      * @param {boolean} params.enabled - Set as enabled.
@@ -6251,7 +6541,7 @@ export class Messaging {
      *
      * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Provider name.
-     * @param {string} from - Sender Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
+     * @param {string} from - Sender phone number or alphanumeric sender ID. Format phone numbers with a leading '+' and a country code, e.g., +16175551212.
      * @param {string} accountSid - Twilio account secret ID.
      * @param {string} authToken - Twilio authentication token.
      * @param {boolean} enabled - Set as enabled.
@@ -6366,7 +6656,7 @@ export class Messaging {
      * @param {boolean} params.enabled - Set as enabled.
      * @param {string} params.accountSid - Twilio account secret ID.
      * @param {string} params.authToken - Twilio authentication token.
-     * @param {string} params.from - Sender number.
+     * @param {string} params.from - Sender phone number or alphanumeric sender ID. Format phone numbers with a leading '+' and a country code, e.g., +16175551212.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
@@ -6386,7 +6676,7 @@ export class Messaging {
      * @param {boolean} enabled - Set as enabled.
      * @param {string} accountSid - Twilio account secret ID.
      * @param {string} authToken - Twilio authentication token.
-     * @param {string} from - Sender number.
+     * @param {string} from - Sender phone number or alphanumeric sender ID. Format phone numbers with a leading '+' and a country code, e.g., +16175551212.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6451,7 +6741,7 @@ export class Messaging {
         const accountSid = params.accountSid;
         const authToken = params.authToken;
         const from = params.from;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -6712,7 +7002,7 @@ export class Messaging {
         const apiKey = params.apiKey;
         const apiSecret = params.apiSecret;
         const from = params.from;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -6785,7 +7075,7 @@ export class Messaging {
         }
 
         const providerId = params.providerId;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -6840,7 +7130,7 @@ export class Messaging {
         }
 
         const providerId = params.providerId;
-        if (typeof providerId === 'undefined') {
+        if (typeof providerId === 'undefined' || providerId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "providerId"',
             );
@@ -6855,6 +7145,7 @@ export class Messaging {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -6897,7 +7188,7 @@ export class Messaging {
         let params: { queries?: string[]; search?: string; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -6945,6 +7236,8 @@ export class Messaging {
      * @param {string} params.topicId - Topic ID. Choose a custom Topic ID or a new Topic ID.
      * @param {string} params.name - Topic Name.
      * @param {string[]} params.subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
+     * @param {number} params.qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
+     * @param {number} params.expiry - Message retention in seconds for offline delivery. Max 7 days (604800).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      */
@@ -6952,6 +7245,8 @@ export class Messaging {
         topicId: string;
         name: string;
         subscribe?: string[];
+        qos?: number;
+        expiry?: number;
     }): Promise<Models.Topic>;
     /**
      * Create a new topic.
@@ -6959,6 +7254,8 @@ export class Messaging {
      * @param {string} topicId - Topic ID. Choose a custom Topic ID or a new Topic ID.
      * @param {string} name - Topic Name.
      * @param {string[]} subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
+     * @param {number} qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
+     * @param {number} expiry - Message retention in seconds for offline delivery. Max 7 days (604800).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6967,13 +7264,28 @@ export class Messaging {
         topicId: string,
         name: string,
         subscribe?: string[],
+        qos?: number,
+        expiry?: number,
     ): Promise<Models.Topic>;
     createTopic(
         paramsOrFirst:
-            { topicId: string; name: string; subscribe?: string[] } | string,
-        ...rest: [string?, string[]?]
+            | {
+                  topicId: string;
+                  name: string;
+                  subscribe?: string[];
+                  qos?: number;
+                  expiry?: number;
+              }
+            | string,
+        ...rest: [string?, string[]?, number?, number?]
     ): Promise<Models.Topic> {
-        let params: { topicId: string; name: string; subscribe?: string[] };
+        let params: {
+            topicId: string;
+            name: string;
+            subscribe?: string[];
+            qos?: number;
+            expiry?: number;
+        };
 
         if (
             paramsOrFirst &&
@@ -6984,18 +7296,24 @@ export class Messaging {
                 topicId: string;
                 name: string;
                 subscribe?: string[];
+                qos?: number;
+                expiry?: number;
             };
         } else {
             params = {
                 topicId: paramsOrFirst as string,
                 name: rest[0] as string,
                 subscribe: rest[1] as string[],
+                qos: rest[2] as number,
+                expiry: rest[3] as number,
             };
         }
 
         const topicId = params.topicId;
         const name = params.name;
         const subscribe = params.subscribe;
+        const qos = params.qos;
+        const expiry = params.expiry;
         if (typeof topicId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "topicId"',
@@ -7014,6 +7332,12 @@ export class Messaging {
         }
         if (typeof subscribe !== 'undefined') {
             apiPayload['subscribe'] = subscribe;
+        }
+        if (typeof qos !== 'undefined') {
+            apiPayload['qos'] = qos;
+        }
+        if (typeof expiry !== 'undefined') {
+            apiPayload['expiry'] = expiry;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -7063,7 +7387,7 @@ export class Messaging {
         }
 
         const topicId = params.topicId;
-        if (typeof topicId === 'undefined') {
+        if (typeof topicId === 'undefined' || topicId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "topicId"',
             );
@@ -7090,6 +7414,8 @@ export class Messaging {
      * @param {string} params.topicId - Topic ID.
      * @param {string} params.name - Topic Name.
      * @param {string[]} params.subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
+     * @param {number} params.qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
+     * @param {number} params.expiry - Message retention in seconds for offline delivery. Max 7 days (604800).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      */
@@ -7097,6 +7423,8 @@ export class Messaging {
         topicId: string;
         name?: string;
         subscribe?: string[];
+        qos?: number;
+        expiry?: number;
     }): Promise<Models.Topic>;
     /**
      * Update a topic by its unique ID.
@@ -7105,6 +7433,8 @@ export class Messaging {
      * @param {string} topicId - Topic ID.
      * @param {string} name - Topic Name.
      * @param {string[]} subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
+     * @param {number} qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
+     * @param {number} expiry - Message retention in seconds for offline delivery. Max 7 days (604800).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -7113,13 +7443,28 @@ export class Messaging {
         topicId: string,
         name?: string,
         subscribe?: string[],
+        qos?: number,
+        expiry?: number,
     ): Promise<Models.Topic>;
     updateTopic(
         paramsOrFirst:
-            { topicId: string; name?: string; subscribe?: string[] } | string,
-        ...rest: [string?, string[]?]
+            | {
+                  topicId: string;
+                  name?: string;
+                  subscribe?: string[];
+                  qos?: number;
+                  expiry?: number;
+              }
+            | string,
+        ...rest: [string?, string[]?, number?, number?]
     ): Promise<Models.Topic> {
-        let params: { topicId: string; name?: string; subscribe?: string[] };
+        let params: {
+            topicId: string;
+            name?: string;
+            subscribe?: string[];
+            qos?: number;
+            expiry?: number;
+        };
 
         if (
             paramsOrFirst &&
@@ -7130,19 +7475,25 @@ export class Messaging {
                 topicId: string;
                 name?: string;
                 subscribe?: string[];
+                qos?: number;
+                expiry?: number;
             };
         } else {
             params = {
                 topicId: paramsOrFirst as string,
                 name: rest[0] as string,
                 subscribe: rest[1] as string[],
+                qos: rest[2] as number,
+                expiry: rest[3] as number,
             };
         }
 
         const topicId = params.topicId;
         const name = params.name;
         const subscribe = params.subscribe;
-        if (typeof topicId === 'undefined') {
+        const qos = params.qos;
+        const expiry = params.expiry;
+        if (typeof topicId === 'undefined' || topicId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "topicId"',
             );
@@ -7157,6 +7508,12 @@ export class Messaging {
         }
         if (typeof subscribe !== 'undefined') {
             apiPayload['subscribe'] = subscribe;
+        }
+        if (typeof qos !== 'undefined') {
+            apiPayload['qos'] = qos;
+        }
+        if (typeof expiry !== 'undefined') {
+            apiPayload['expiry'] = expiry;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -7202,7 +7559,7 @@ export class Messaging {
         }
 
         const topicId = params.topicId;
-        if (typeof topicId === 'undefined') {
+        if (typeof topicId === 'undefined' || topicId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "topicId"',
             );
@@ -7217,6 +7574,7 @@ export class Messaging {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -7297,7 +7655,7 @@ export class Messaging {
         const queries = params.queries;
         const search = params.search;
         const total = params.total;
-        if (typeof topicId === 'undefined') {
+        if (typeof topicId === 'undefined' || topicId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "topicId"',
             );
@@ -7384,7 +7742,7 @@ export class Messaging {
         const topicId = params.topicId;
         const subscriberId = params.subscriberId;
         const targetId = params.targetId;
-        if (typeof topicId === 'undefined') {
+        if (typeof topicId === 'undefined' || topicId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "topicId"',
             );
@@ -7472,12 +7830,12 @@ export class Messaging {
 
         const topicId = params.topicId;
         const subscriberId = params.subscriberId;
-        if (typeof topicId === 'undefined') {
+        if (typeof topicId === 'undefined' || topicId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "topicId"',
             );
         }
-        if (typeof subscriberId === 'undefined') {
+        if (typeof subscriberId === 'undefined' || subscriberId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "subscriberId"',
             );
@@ -7545,12 +7903,12 @@ export class Messaging {
 
         const topicId = params.topicId;
         const subscriberId = params.subscriberId;
-        if (typeof topicId === 'undefined') {
+        if (typeof topicId === 'undefined' || topicId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "topicId"',
             );
         }
-        if (typeof subscriberId === 'undefined') {
+        if (typeof subscriberId === 'undefined' || subscriberId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "subscriberId"',
             );
@@ -7567,6 +7925,7 @@ export class Messaging {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);

@@ -54,7 +54,7 @@ export class Storage {
         let params: { queries?: string[]; search?: string; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -334,7 +334,7 @@ export class Storage {
         }
 
         const bucketId = params.bucketId;
-        if (typeof bucketId === 'undefined') {
+        if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
             );
@@ -503,7 +503,7 @@ export class Storage {
         const encryption = params.encryption;
         const antivirus = params.antivirus;
         const transformations = params.transformations;
-        if (typeof bucketId === 'undefined') {
+        if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
             );
@@ -590,7 +590,7 @@ export class Storage {
         }
 
         const bucketId = params.bucketId;
-        if (typeof bucketId === 'undefined') {
+        if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
             );
@@ -605,6 +605,7 @@ export class Storage {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -685,7 +686,7 @@ export class Storage {
         const queries = params.queries;
         const search = params.search;
         const total = params.total;
-        if (typeof bucketId === 'undefined') {
+        if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
             );
@@ -826,7 +827,7 @@ export class Storage {
         const file = params.file;
         const permissions = params.permissions;
         const folder = params.folder;
-        if (typeof bucketId === 'undefined') {
+        if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
             );
@@ -914,12 +915,12 @@ export class Storage {
 
         const bucketId = params.bucketId;
         const fileId = params.fileId;
-        if (typeof bucketId === 'undefined') {
+        if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
             );
         }
-        if (typeof fileId === 'undefined') {
+        if (typeof fileId === 'undefined' || fileId === '') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/storage/buckets/{bucketId}/files/{fileId}'
@@ -1011,12 +1012,12 @@ export class Storage {
         const fileId = params.fileId;
         const name = params.name;
         const permissions = params.permissions;
-        if (typeof bucketId === 'undefined') {
+        if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
             );
         }
-        if (typeof fileId === 'undefined') {
+        if (typeof fileId === 'undefined' || fileId === '') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/storage/buckets/{bucketId}/files/{fileId}'
@@ -1083,12 +1084,12 @@ export class Storage {
 
         const bucketId = params.bucketId;
         const fileId = params.fileId;
-        if (typeof bucketId === 'undefined') {
+        if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
             );
         }
-        if (typeof fileId === 'undefined') {
+        if (typeof fileId === 'undefined' || fileId === '') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/storage/buckets/{bucketId}/files/{fileId}'
@@ -1100,6 +1101,7 @@ export class Storage {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -1162,12 +1164,12 @@ export class Storage {
         const bucketId = params.bucketId;
         const fileId = params.fileId;
         const token = params.token;
-        if (typeof bucketId === 'undefined') {
+        if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
             );
         }
-        if (typeof fileId === 'undefined') {
+        if (typeof fileId === 'undefined' || fileId === '') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/storage/buckets/{bucketId}/files/{fileId}/download'
@@ -1200,7 +1202,7 @@ export class Storage {
      * @param {string} params.fileId - File ID
      * @param {number} params.width - Resize preview image width, Pass an integer between 0 to 4000.
      * @param {number} params.height - Resize preview image height, Pass an integer between 0 to 4000.
-     * @param {ImageGravity} params.gravity - Image crop gravity. Can be one of center,top-left,top,top-right,left,right,bottom-left,bottom,bottom-right
+     * @param {ImageGravity} params.gravity - Image crop gravity. Can be one of auto,center,top-left,top,top-right,left,right,bottom-left,bottom,bottom-right
      * @param {number} params.quality - Preview image quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
      * @param {number} params.borderWidth - Preview image border in pixels. Pass an integer between 0 to 100. Defaults to 0.
      * @param {string} params.borderColor - Preview image border color. Use a valid HEX color, no # is needed for prefix.
@@ -1236,7 +1238,7 @@ export class Storage {
      * @param {string} fileId - File ID
      * @param {number} width - Resize preview image width, Pass an integer between 0 to 4000.
      * @param {number} height - Resize preview image height, Pass an integer between 0 to 4000.
-     * @param {ImageGravity} gravity - Image crop gravity. Can be one of center,top-left,top,top-right,left,right,bottom-left,bottom,bottom-right
+     * @param {ImageGravity} gravity - Image crop gravity. Can be one of auto,center,top-left,top,top-right,left,right,bottom-left,bottom,bottom-right
      * @param {number} quality - Preview image quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
      * @param {number} borderWidth - Preview image border in pixels. Pass an integer between 0 to 100. Defaults to 0.
      * @param {string} borderColor - Preview image border color. Use a valid HEX color, no # is needed for prefix.
@@ -1372,12 +1374,12 @@ export class Storage {
         const background = params.background;
         const output = params.output;
         const token = params.token;
-        if (typeof bucketId === 'undefined') {
+        if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
             );
         }
-        if (typeof fileId === 'undefined') {
+        if (typeof fileId === 'undefined' || fileId === '') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/storage/buckets/{bucketId}/files/{fileId}/preview'
@@ -1493,12 +1495,12 @@ export class Storage {
         const bucketId = params.bucketId;
         const fileId = params.fileId;
         const token = params.token;
-        if (typeof bucketId === 'undefined') {
+        if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
             );
         }
-        if (typeof fileId === 'undefined') {
+        if (typeof fileId === 'undefined' || fileId === '') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/storage/buckets/{bucketId}/files/{fileId}/view'

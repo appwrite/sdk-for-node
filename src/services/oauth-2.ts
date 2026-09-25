@@ -225,7 +225,7 @@ export class Oauth2 {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -461,7 +461,7 @@ export class Oauth2 {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -630,7 +630,7 @@ export class Oauth2 {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -780,7 +780,7 @@ export class Oauth2 {
         }
 
         const grantId = params.grantId;
-        if (typeof grantId === 'undefined') {
+        if (typeof grantId === 'undefined' || grantId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "grantId"',
             );
@@ -799,6 +799,111 @@ export class Oauth2 {
         };
 
         return this.client.call('get', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Introspect an OAuth2 access token or refresh token. Authenticate with an API key holding the `oauth2.introspect` scope to introspect any token in the project, or with the client credentials of the app the token was issued to.
+     *
+     * @param {string} params.token - The access token or refresh token to introspect.
+     * @param {string} params.tokenTypeHint - Type of token to introspect. Can be one of: `access_token` or `refresh_token`.
+     * @param {string} params.clientId - OAuth2 client ID. Either a registered app ID or an HTTPS client ID metadata document URL.
+     * @param {string} params.clientSecret - OAuth2 client secret.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Oauth2Introspection>}
+     */
+    introspect(params: {
+        token: string;
+        tokenTypeHint?: string;
+        clientId?: string;
+        clientSecret?: string;
+    }): Promise<Models.Oauth2Introspection>;
+    /**
+     * Introspect an OAuth2 access token or refresh token. Authenticate with an API key holding the `oauth2.introspect` scope to introspect any token in the project, or with the client credentials of the app the token was issued to.
+     *
+     * @param {string} token - The access token or refresh token to introspect.
+     * @param {string} tokenTypeHint - Type of token to introspect. Can be one of: `access_token` or `refresh_token`.
+     * @param {string} clientId - OAuth2 client ID. Either a registered app ID or an HTTPS client ID metadata document URL.
+     * @param {string} clientSecret - OAuth2 client secret.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Oauth2Introspection>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    introspect(
+        token: string,
+        tokenTypeHint?: string,
+        clientId?: string,
+        clientSecret?: string,
+    ): Promise<Models.Oauth2Introspection>;
+    introspect(
+        paramsOrFirst:
+            | {
+                  token: string;
+                  tokenTypeHint?: string;
+                  clientId?: string;
+                  clientSecret?: string;
+              }
+            | string,
+        ...rest: [string?, string?, string?]
+    ): Promise<Models.Oauth2Introspection> {
+        let params: {
+            token: string;
+            tokenTypeHint?: string;
+            clientId?: string;
+            clientSecret?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                token: string;
+                tokenTypeHint?: string;
+                clientId?: string;
+                clientSecret?: string;
+            };
+        } else {
+            params = {
+                token: paramsOrFirst as string,
+                tokenTypeHint: rest[0] as string,
+                clientId: rest[1] as string,
+                clientSecret: rest[2] as string,
+            };
+        }
+
+        const token = params.token;
+        const tokenTypeHint = params.tokenTypeHint;
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        if (typeof token === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "token"');
+        }
+        const apiPath = '/oauth2/{project_id}/introspect'.replace(
+            '{project_id}',
+            encodeURIComponent(String(this.client.config.project)),
+        );
+        const apiPayload: Payload = {};
+        if (typeof token !== 'undefined') {
+            apiPayload['token'] = token;
+        }
+        if (typeof tokenTypeHint !== 'undefined') {
+            apiPayload['token_type_hint'] = tokenTypeHint;
+        }
+        if (typeof clientId !== 'undefined') {
+            apiPayload['client_id'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['client_secret'] = clientSecret;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -838,7 +943,7 @@ export class Oauth2 {
         let params: { limit?: number; offset?: number; search?: string };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -1157,7 +1262,7 @@ export class Oauth2 {
         let params: { limit?: number; offset?: number; search?: string };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))

@@ -83,12 +83,12 @@ export class Tokens {
         const fileId = params.fileId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof bucketId === 'undefined') {
+        if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
             );
         }
-        if (typeof fileId === 'undefined') {
+        if (typeof fileId === 'undefined' || fileId === '') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/tokens/buckets/{bucketId}/files/{fileId}'
@@ -168,12 +168,12 @@ export class Tokens {
         const bucketId = params.bucketId;
         const fileId = params.fileId;
         const expire = params.expire;
-        if (typeof bucketId === 'undefined') {
+        if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
             );
         }
-        if (typeof fileId === 'undefined') {
+        if (typeof fileId === 'undefined' || fileId === '') {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/tokens/buckets/{bucketId}/files/{fileId}'
@@ -229,7 +229,7 @@ export class Tokens {
         }
 
         const tokenId = params.tokenId;
-        if (typeof tokenId === 'undefined') {
+        if (typeof tokenId === 'undefined' || tokenId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "tokenId"',
             );
@@ -295,7 +295,7 @@ export class Tokens {
 
         const tokenId = params.tokenId;
         const expire = params.expire;
-        if (typeof tokenId === 'undefined') {
+        if (typeof tokenId === 'undefined' || tokenId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "tokenId"',
             );
@@ -352,7 +352,7 @@ export class Tokens {
         }
 
         const tokenId = params.tokenId;
-        if (typeof tokenId === 'undefined') {
+        if (typeof tokenId === 'undefined' || tokenId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "tokenId"',
             );
@@ -367,6 +367,7 @@ export class Tokens {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);

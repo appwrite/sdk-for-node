@@ -33,7 +33,7 @@ export class Activities {
         let params: { queries?: string[] };
 
         if (
-            !paramsOrFirst ||
+            typeof paramsOrFirst === 'undefined' ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -98,7 +98,7 @@ export class Activities {
         }
 
         const eventId = params.eventId;
-        if (typeof eventId === 'undefined') {
+        if (typeof eventId === 'undefined' || eventId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "eventId"',
             );

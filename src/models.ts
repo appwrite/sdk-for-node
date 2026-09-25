@@ -16,6 +16,7 @@ import { ProxyRuleDeploymentResourceType } from './enums/proxy-rule-deployment-r
 import { ProxyRuleStatus } from './enums/proxy-rule-status';
 import { MessageStatus } from './enums/message-status';
 import { BillingPlanGroup } from './enums/billing-plan-group';
+import { DomainTransferStatusEnum } from './enums/domain-transfer-status-enum';
 
 /**
  * Appwrite Models
@@ -179,20 +180,6 @@ export namespace Models {
          * List of identities.
          */
         identities: Identity[];
-    };
-
-    /**
-     * Logs List
-     */
-    export type LogList = {
-        /**
-         * Total number of logs that matched your query.
-         */
-        total: number;
-        /**
-         * List of logs.
-         */
-        logs: Log[];
     };
 
     /**
@@ -507,6 +494,7 @@ export namespace Models {
             | Models.PolicyPasswordHistory
             | Models.PolicyPasswordStrength
             | Models.PolicyPasswordPersonalData
+            | Models.PolicyPasswordPwned
             | Models.PolicySessionAlert
             | Models.PolicySessionDuration
             | Models.PolicySessionInvalidation
@@ -766,7 +754,7 @@ export namespace Models {
          */
         error?: string;
         /**
-         * Container status of the dedicated backing: active or inactive. Null when the database has no dedicated backing or the runtime has not reported one.
+         * Container status of the dedicated backing: active, inactive, or failed (a wake was declined because the backing namespace is gone). Null when the database has no dedicated backing or the runtime has not reported one.
          */
         containerStatus?: string;
         /**
@@ -3072,100 +3060,6 @@ export namespace Models {
     };
 
     /**
-     * Log
-     */
-    export type Log = {
-        /**
-         * Event name.
-         */
-        event: string;
-        /**
-         * User ID of the actor recorded for this log. During impersonation, this is the original impersonator, not the impersonated target user.
-         */
-        userId: string;
-        /**
-         * User email of the actor recorded for this log. During impersonation, this is the original impersonator.
-         */
-        userEmail: string;
-        /**
-         * User name of the actor recorded for this log. During impersonation, this is the original impersonator.
-         */
-        userName: string;
-        /**
-         * API mode when event triggered.
-         */
-        mode: string;
-        /**
-         * User type who triggered the audit log. Possible values: user, admin, guest, hidden, keyProject, keyAccount, keyOrganization.
-         */
-        userType: string;
-        /**
-         * IP session in use when the session was created.
-         */
-        ip: string;
-        /**
-         * Log creation date in ISO 8601 format.
-         */
-        time: string;
-        /**
-         * Operating system code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/os.json).
-         */
-        osCode: string;
-        /**
-         * Operating system name.
-         */
-        osName: string;
-        /**
-         * Operating system version.
-         */
-        osVersion: string;
-        /**
-         * Client type.
-         */
-        clientType: string;
-        /**
-         * Client code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/clients.json).
-         */
-        clientCode: string;
-        /**
-         * Client name.
-         */
-        clientName: string;
-        /**
-         * Client version.
-         */
-        clientVersion: string;
-        /**
-         * Client engine name.
-         */
-        clientEngine: string;
-        /**
-         * Client engine name.
-         */
-        clientEngineVersion: string;
-        /**
-         * Device name.
-         */
-        deviceName: string;
-        /**
-         * Device brand name.
-         */
-        deviceBrand: string;
-        /**
-         * Device model name.
-         */
-        deviceModel: string;
-        /**
-         * Country two-character ISO 3166-1 alpha code.
-         */
-        countryCode: string;
-        /**
-         * Country name.
-         */
-        countryName: string;
-    };
-
-    /**
      * User
      */
     export type User<
@@ -3247,6 +3141,10 @@ export namespace Models {
          * Whether the user email is in its canonical form.
          */
         emailIsCanonical?: boolean;
+        /**
+         * Whether the password was found in a known data breach the last time it was checked. Null when the password has never been checked.
+         */
+        passwordPwned?: boolean;
         /**
          * Phone verification status.
          */
@@ -3563,6 +3461,10 @@ export namespace Models {
          * Identity Provider Refresh Token.
          */
         providerRefreshToken: string;
+        /**
+         * Identity Provider ID token (JWT) from the most recent native sign-in. Empty for identities created through the browser OAuth2 flow.
+         */
+        providerIdToken: string;
     };
 
     /**
@@ -4518,7 +4420,7 @@ export namespace Models {
          */
         errors: string;
         /**
-         * Resource(function/site) execution duration in seconds.
+         * Total time the resource(function/site) took to respond, in seconds.
          */
         duration: number;
         /**
@@ -4555,10 +4457,6 @@ export namespace Models {
          * Project region
          */
         region: string;
-        /**
-         * Deprecated since 1.9.5: List of dev keys.
-         */
-        devKeys: DevKey[];
         /**
          * Status for custom SMTP
          */
@@ -4647,6 +4545,14 @@ export namespace Models {
          * Billing limits reached
          */
         billingLimits?: BillingLimits;
+        /**
+         * First time the project received a non-console API request. Empty until the project is used.
+         */
+        firstAccessedAt?: string;
+        /**
+         * Last time the project was accessed through the MCP server. Empty if it was never accessed via MCP.
+         */
+        mcpAccessedAt?: string;
         /**
          * OAuth2 server status
          */
@@ -4887,44 +4793,6 @@ export namespace Models {
          * Allowed permission scopes.
          */
         scopes: string[];
-        /**
-         * Secret key.
-         */
-        secret: string;
-        /**
-         * Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
-         */
-        accessedAt: string;
-        /**
-         * List of SDK user agents that used this key.
-         */
-        sdks: string[];
-    };
-
-    /**
-     * DevKey
-     */
-    export type DevKey = {
-        /**
-         * Key ID.
-         */
-        $id: string;
-        /**
-         * Key creation date in ISO 8601 format.
-         */
-        $createdAt: string;
-        /**
-         * Key update date in ISO 8601 format.
-         */
-        $updatedAt: string;
-        /**
-         * Key name.
-         */
-        name: string;
-        /**
-         * Key expiration date in ISO 8601 format.
-         */
-        expire: string;
         /**
          * Secret key.
          */
@@ -5183,6 +5051,14 @@ export namespace Models {
          * Google OAuth2 prompt values.
          */
         prompt: OAuth2GooglePrompt[];
+        /**
+         * Native Google sign-in is active and can be used to create sessions from an ID token. Independent of enabled, which only controls the browser-based flow.
+         */
+        nativeEnabled: boolean;
+        /**
+         * Additional OAuth2 client IDs accepted as ID token audiences for native sign-in, next to the client ID.
+         */
+        nativeClientIds: string[];
     };
 
     /**
@@ -5951,6 +5827,14 @@ export namespace Models {
          * Apple OAuth2 .p8 private key file contents. The secret key wrapped by the PEM markers is 200 characters long.
          */
         p8File: string;
+        /**
+         * Native Sign in with Apple is active and can be used to create sessions from an ID token. Independent of enabled, which only controls the browser-based flow.
+         */
+        nativeEnabled: boolean;
+        /**
+         * App bundle IDs accepted as ID token audiences for native Sign in with Apple, next to the Services ID.
+         */
+        nativeClientIds: string[];
     };
 
     /**
@@ -5997,6 +5881,50 @@ export namespace Models {
         clientId: string;
         /**
          * Resend OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2TikTok
+     */
+    export type OAuth2TikTok = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * TikTok OAuth2 client key.
+         */
+        clientId: string;
+        /**
+         * TikTok OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Kakao
+     */
+    export type OAuth2Kakao = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Kakao OAuth2 REST API key.
+         */
+        clientId: string;
+        /**
+         * Kakao OAuth2 client secret.
          */
         clientSecret: string;
     };
@@ -6057,6 +5985,8 @@ export namespace Models {
             | Models.OAuth2HuggingFace
             | Models.OAuth2Resend
             | Models.OAuth2Cloudflare
+            | Models.OAuth2TikTok
+            | Models.OAuth2Kakao
         )[];
     };
 
@@ -6130,6 +6060,28 @@ export namespace Models {
          * Whether password personal data policy is enabled.
          */
         enabled: boolean;
+    };
+
+    /**
+     * Policy Password Pwned
+     */
+    export type PolicyPasswordPwned = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether passwords are checked against known data breaches and the result recorded on the user.
+         */
+        enabled: boolean;
+        /**
+         * Whether a sign-in with a breached password is refused until the password is reset.
+         */
+        sessions: boolean;
+        /**
+         * Whether a breached password is rejected when a user signs up or sets a new password.
+         */
+        users: boolean;
     };
 
     /**
@@ -6260,6 +6212,62 @@ export namespace Models {
          * Whether the custom factor can be used to complete an MFA challenge.
          */
         custom: boolean;
+    };
+
+    /**
+     * Policy Deny Aliased Email
+     */
+    export type PolicyDenyAliasedEmail = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether the deny aliased email policy is enabled.
+         */
+        enabled: boolean;
+    };
+
+    /**
+     * Policy Deny Disposable Email
+     */
+    export type PolicyDenyDisposableEmail = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether the deny disposable email policy is enabled.
+         */
+        enabled: boolean;
+    };
+
+    /**
+     * Policy Deny Free Email
+     */
+    export type PolicyDenyFreeEmail = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether the deny free email policy is enabled.
+         */
+        enabled: boolean;
+    };
+
+    /**
+     * Policy Deny Corporate Email
+     */
+    export type PolicyDenyCorporateEmail = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether the deny non-corporate email policy is enabled.
+         */
+        enabled: boolean;
     };
 
     /**
@@ -6942,6 +6950,14 @@ export namespace Models {
          * Subscribe permissions.
          */
         subscribe: string[];
+        /**
+         * MQTT QoS for delivery on this topic. Null lets the subscriber choose their level.
+         */
+        qos?: number;
+        /**
+         * Message retention in seconds for offline delivery.
+         */
+        expiry?: number;
     };
 
     /**
@@ -7759,6 +7775,10 @@ export namespace Models {
          */
         requiresBillingAddress: boolean;
         /**
+         * ISO country codes eligible for this regional plan. Empty means no restriction.
+         */
+        eligibleCountries?: string[];
+        /**
          * Is the billing plan available
          */
         isAvailable: boolean;
@@ -8047,33 +8067,9 @@ export namespace Models {
          */
         mode: string;
         /**
-         * Reason for the block. Can be null if no reason was provided.
-         */
-        reason?: string;
-        /**
          * Block expiration date in ISO 8601 format. Can be null if the block does not expire.
          */
         expiredAt?: string;
-        /**
-         * Name of the project this block applies to.
-         */
-        projectName: string;
-        /**
-         * Region of the project this block applies to.
-         */
-        region: string;
-        /**
-         * Name of the organization that owns the project.
-         */
-        organizationName: string;
-        /**
-         * ID of the organization that owns the project.
-         */
-        organizationId: string;
-        /**
-         * Billing plan of the organization that owns the project.
-         */
-        billingPlan: string;
     };
 
     /**
@@ -8295,7 +8291,7 @@ export namespace Models {
          */
         status: string;
         /**
-         * Container status for lifecycle-managed database runtimes: active or inactive.
+         * Container status for lifecycle-managed database runtimes: active, inactive, or failed (a wake was declined because the backing namespace is gone).
          */
         containerStatus: string;
         /**
@@ -8326,6 +8322,18 @@ export namespace Models {
          * Storage allocated in GB.
          */
         storage: number;
+        /**
+         * Storage resize status. Possible values: idle (no resize in flight), resizing (the volume is growing towards storageTargetGb).
+         */
+        storageStatus: string;
+        /**
+         * Size in GB the volume is growing towards while storageStatus is resizing. 0 when no resize is in flight.
+         */
+        storageTargetGb: number;
+        /**
+         * Time the in-flight storage resize started, in ISO 8601 format.
+         */
+        storageResizeStartedAt?: string;
         /**
          * Storage class. Currently always 'ssd'; DigitalOcean exposes a single block-storage class.
          */
@@ -8379,7 +8387,7 @@ export namespace Models {
          */
         storageAutoscalingThresholdPercent: number;
         /**
-         * Maximum storage size in GB for autoscaling. 0 means no limit.
+         * Maximum storage size in GB for autoscaling. Defaults to 3 times the specification's storage. 0 means no limit.
          */
         storageAutoscalingMaxGb: number;
         /**
@@ -8578,6 +8586,174 @@ export namespace Models {
          * Storage volume information.
          */
         volumes: DatabaseStatusVolume[];
+    };
+
+    /**
+     * DNSRecord
+     */
+    export type DnsRecord = {
+        /**
+         * DNS Record ID.
+         */
+        $id: string;
+        /**
+         * DNS Record creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * DNS Record update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * DNS record type (e.g. A, CNAME, MX).
+         */
+        type: string;
+        /**
+         * Record name or subdomain.
+         */
+        name: string;
+        /**
+         * Value of the record (IP address, domain, etc.).
+         */
+        value: string;
+        /**
+         * Time to live (in seconds).
+         */
+        ttl: number;
+        /**
+         * Record priority (commonly used for MX).
+         */
+        priority: number;
+        /**
+         * Whether this record is locked (read-only).
+         */
+        lock: boolean;
+        /**
+         * Record weight (used for SRV records).
+         */
+        weight: number;
+        /**
+         * Target port (used for SRV records).
+         */
+        port: number;
+        /**
+         * Comment for the DNS record.
+         */
+        comment: string;
+    };
+
+    /**
+     * Domain
+     */
+    export type Domain = {
+        /**
+         * Domain ID.
+         */
+        $id: string;
+        /**
+         * Domain creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Domain update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Domain name.
+         */
+        domain: string;
+        /**
+         * Domain registrar (e.g. "appwrite" or "third_party").
+         */
+        registrar: string;
+        /**
+         * Nameservers setting. "Appwrite" or empty string.
+         */
+        nameservers: string;
+        /**
+         * Domain expiry date in ISO 8601 format.
+         */
+        expire: string;
+        /**
+         * Domain renewal date in ISO 8601 format.
+         */
+        renewal: string;
+        /**
+         * If set to true, the domain will automatically renew.
+         */
+        autoRenewal: boolean;
+        /**
+         * Renewal price (in cents).
+         */
+        renewalPrice: number;
+        /**
+         * Transfer status for domains being transferred in. Null when the domain is not being transferred.
+         */
+        transferStatus?: DomainTransferStatusEnum;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Dns records
+         */
+        dnsRecords: DnsRecord[];
+    };
+
+    /**
+     * DomainPrice
+     */
+    export type DomainPrice = {
+        /**
+         * Domain name.
+         */
+        domain: string;
+        /**
+         * Top-level domain for the requested domain.
+         */
+        tld: string;
+        /**
+         * Whether the domain is currently available for registration.
+         */
+        available: boolean;
+        /**
+         * Domain registration price. Null when the price could not be resolved, for example for an unsupported TLD.
+         */
+        price?: number;
+        /**
+         * Price period in years.
+         */
+        periodYears: number;
+        /**
+         * Whether the domain is a premium domain.
+         */
+        premium: boolean;
+        /**
+         * Domain renewal price for the same period. Null when the domain was not priced or the registrar has no renewal price for it.
+         */
+        renewalPrice?: number;
+        /**
+         * Renewal price period in years.
+         */
+        renewalPeriodYears: number;
+    };
+
+    /**
+     * domainTransferStatus
+     */
+    export type DomainTransferStatus = {
+        /**
+         * Transfer status.
+         */
+        status: DomainTransferStatusEnum;
+        /**
+         * Additional transfer status information.
+         */
+        reason: string;
+        /**
+         * Transfer status timestamp in ISO 8601 format.
+         */
+        timestamp: string;
     };
 
     /**
@@ -8965,62 +9141,6 @@ export namespace Models {
     };
 
     /**
-     * Policy Deny Aliased Email
-     */
-    export type PolicyDenyAliasedEmail = {
-        /**
-         * Policy ID.
-         */
-        $id: string;
-        /**
-         * Whether the deny aliased email policy is enabled.
-         */
-        enabled: boolean;
-    };
-
-    /**
-     * Policy Deny Disposable Email
-     */
-    export type PolicyDenyDisposableEmail = {
-        /**
-         * Policy ID.
-         */
-        $id: string;
-        /**
-         * Whether the deny disposable email policy is enabled.
-         */
-        enabled: boolean;
-    };
-
-    /**
-     * Policy Deny Free Email
-     */
-    export type PolicyDenyFreeEmail = {
-        /**
-         * Policy ID.
-         */
-        $id: string;
-        /**
-         * Whether the deny free email policy is enabled.
-         */
-        enabled: boolean;
-    };
-
-    /**
-     * Policy Deny Corporate Email
-     */
-    export type PolicyDenyCorporateEmail = {
-        /**
-         * Policy ID.
-         */
-        $id: string;
-        /**
-         * Whether the deny non-corporate email policy is enabled.
-         */
-        enabled: boolean;
-    };
-
-    /**
      * PoolerConfig
      */
     export type DedicatedDatabasePooler = {
@@ -9211,6 +9331,22 @@ export namespace Models {
          */
         price: number;
         /**
+         * Price per GB of storage above the included amount, per month, in USD.
+         */
+        storageOverageRate: number;
+        /**
+         * Price per GB of bandwidth above the included amount, per month, in USD.
+         */
+        bandwidthOverageRate: number;
+        /**
+         * High availability replica price as a fraction of the specification price.
+         */
+        replicaRate: number;
+        /**
+         * Point-in-time recovery price as a fraction of the specification price.
+         */
+        pitrRate: number;
+        /**
          * Allocated CPU in millicores.
          */
         cpu: number;
@@ -9248,32 +9384,6 @@ export namespace Models {
          * Total number of specifications.
          */
         total: number;
-        /**
-         * Overage and add-on pricing shared across all specifications.
-         */
-        pricing: DedicatedDatabaseSpecificationPricing;
-    };
-
-    /**
-     * SpecificationPricing
-     */
-    export type DedicatedDatabaseSpecificationPricing = {
-        /**
-         * Price per GB of storage above the included amount, per month, in USD.
-         */
-        storageOverageRate: number;
-        /**
-         * Price per GB of bandwidth above the included amount, per month, in USD.
-         */
-        bandwidthOverageRate: number;
-        /**
-         * High availability replica price as a fraction of the specification cost.
-         */
-        replicaRate: number;
-        /**
-         * Point-in-time recovery price as a fraction of the specification cost.
-         */
-        pitrRate: number;
     };
 
     /**
@@ -9863,6 +9973,60 @@ export namespace Models {
     };
 
     /**
+     * OAuth2 Introspection
+     */
+    export type Oauth2Introspection = {
+        /**
+         * Whether the token is currently active. An inactive token carries no other claims (RFC 7662).
+         */
+        active: boolean;
+        /**
+         * Kind of token that was introspected. Can be one of: `access_token` or `refresh_token`.
+         */
+        token_use?: string;
+        /**
+         * OAuth2 token type.
+         */
+        token_type?: string;
+        /**
+         * Space-separated scopes granted to the token.
+         */
+        scope?: string;
+        /**
+         * OAuth2 client ID the token was issued to.
+         */
+        client_id?: string;
+        /**
+         * ID of the user who authorized the token.
+         */
+        sub?: string;
+        /**
+         * Audiences the token is intended for. The first entry is the project API base URL; any further entries are the resource indicators requested at authorization time (RFC 8707).
+         */
+        aud?: string[];
+        /**
+         * Issuer URL of the token.
+         */
+        iss?: string;
+        /**
+         * Expiration time as a Unix timestamp in seconds.
+         */
+        exp?: number;
+        /**
+         * Issued-at time as a Unix timestamp in seconds.
+         */
+        iat?: number;
+        /**
+         * Unique identifier of the token.
+         */
+        jti?: string;
+        /**
+         * Granted RFC 9396 authorization details, restricted to what the user can currently access.
+         */
+        authorization_details?: Record<string, any>[];
+    };
+
+    /**
      * OAuth2 Consent
      */
     export type Oauth2Consent = {
@@ -10124,6 +10288,48 @@ export namespace Models {
          * List of databases.
          */
         databases: DedicatedDatabase[];
+    };
+
+    /**
+     * DNS records list
+     */
+    export type DnsRecordsList = {
+        /**
+         * Total number of dnsRecords that matched your query.
+         */
+        total: number;
+        /**
+         * List of dnsRecords.
+         */
+        dnsRecords: DnsRecord[];
+    };
+
+    /**
+     * Domain prices list
+     */
+    export type DomainPricesList = {
+        /**
+         * Total number of prices that matched your query.
+         */
+        total: number;
+        /**
+         * List of prices.
+         */
+        prices: DomainPrice[];
+    };
+
+    /**
+     * Domains list
+     */
+    export type DomainsList = {
+        /**
+         * Total number of domains that matched your query.
+         */
+        total: number;
+        /**
+         * List of domains.
+         */
+        domains: Domain[];
     };
 
     /**

@@ -39,7 +39,7 @@ export class VectorsDB {
         let params: { queries?: string[]; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -210,7 +210,7 @@ export class VectorsDB {
     }
 
     /**
-     * List the dedicated database specifications available on the current plan. Each specification reports its resource limits, pricing, and whether it is enabled for the organization.
+     * List the dedicated database specifications available on the current plan. Each specification reports its resource limits, its own prices and overage rates, and whether it is enabled for the organization.
      *
      * @throws {AppwriteException}
      * @returns {Promise<Models.DedicatedDatabaseSpecificationList>}
@@ -253,7 +253,7 @@ export class VectorsDB {
         let params: { queries?: string[] };
 
         if (
-            !paramsOrFirst ||
+            typeof paramsOrFirst === 'undefined' ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -304,7 +304,7 @@ export class VectorsDB {
         let params: { ttl?: number };
 
         if (
-            !paramsOrFirst ||
+            typeof paramsOrFirst === 'undefined' ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -370,7 +370,7 @@ export class VectorsDB {
         }
 
         const transactionId = params.transactionId;
-        if (typeof transactionId === 'undefined') {
+        if (typeof transactionId === 'undefined' || transactionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "transactionId"',
             );
@@ -452,7 +452,7 @@ export class VectorsDB {
         const transactionId = params.transactionId;
         const commit = params.commit;
         const rollback = params.rollback;
-        if (typeof transactionId === 'undefined') {
+        if (typeof transactionId === 'undefined' || transactionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "transactionId"',
             );
@@ -514,7 +514,7 @@ export class VectorsDB {
         }
 
         const transactionId = params.transactionId;
-        if (typeof transactionId === 'undefined') {
+        if (typeof transactionId === 'undefined' || transactionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "transactionId"',
             );
@@ -529,6 +529,7 @@ export class VectorsDB {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -584,7 +585,7 @@ export class VectorsDB {
 
         const transactionId = params.transactionId;
         const operations = params.operations;
-        if (typeof transactionId === 'undefined') {
+        if (typeof transactionId === 'undefined' || transactionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "transactionId"',
             );
@@ -644,7 +645,7 @@ export class VectorsDB {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -757,7 +758,7 @@ export class VectorsDB {
         const specification = params.specification;
         const replicas = params.replicas;
         const syncMode = params.syncMode;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -829,7 +830,7 @@ export class VectorsDB {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -844,6 +845,7 @@ export class VectorsDB {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -924,7 +926,7 @@ export class VectorsDB {
         const queries = params.queries;
         const search = params.search;
         const total = params.total;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -1055,7 +1057,7 @@ export class VectorsDB {
         const permissions = params.permissions;
         const documentSecurity = params.documentSecurity;
         const enabled = params.enabled;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -1156,12 +1158,12 @@ export class VectorsDB {
 
         const databaseId = params.databaseId;
         const collectionId = params.collectionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -1285,12 +1287,12 @@ export class VectorsDB {
         const permissions = params.permissions;
         const documentSecurity = params.documentSecurity;
         const enabled = params.enabled;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -1377,12 +1379,12 @@ export class VectorsDB {
 
         const databaseId = params.databaseId;
         const collectionId = params.collectionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -1399,6 +1401,7 @@ export class VectorsDB {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -1499,12 +1502,12 @@ export class VectorsDB {
         const transactionId = params.transactionId;
         const total = params.total;
         const ttl = params.ttl;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -1659,12 +1662,12 @@ export class VectorsDB {
         const data = params.data;
         const permissions = params.permissions;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -1785,12 +1788,12 @@ export class VectorsDB {
         const collectionId = params.collectionId;
         const documents = params.documents;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -1904,12 +1907,12 @@ export class VectorsDB {
         const collectionId = params.collectionId;
         const documents = params.documents;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -2030,12 +2033,12 @@ export class VectorsDB {
         const data = params.data;
         const queries = params.queries;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -2145,12 +2148,12 @@ export class VectorsDB {
         const collectionId = params.collectionId;
         const queries = params.queries;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -2277,12 +2280,12 @@ export class VectorsDB {
         const transactionId = params.transactionId;
         const total = params.total;
         const ttl = params.ttl;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -2404,17 +2407,17 @@ export class VectorsDB {
         const documentId = params.documentId;
         const queries = params.queries;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof documentId === 'undefined') {
+        if (typeof documentId === 'undefined' || documentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "documentId"',
             );
@@ -2569,17 +2572,17 @@ export class VectorsDB {
         const data = params.data;
         const permissions = params.permissions;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof documentId === 'undefined') {
+        if (typeof documentId === 'undefined' || documentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "documentId"',
             );
@@ -2738,17 +2741,17 @@ export class VectorsDB {
         const data = params.data;
         const permissions = params.permissions;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof documentId === 'undefined') {
+        if (typeof documentId === 'undefined' || documentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "documentId"',
             );
@@ -2860,17 +2863,17 @@ export class VectorsDB {
         const collectionId = params.collectionId;
         const documentId = params.documentId;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof documentId === 'undefined') {
+        if (typeof documentId === 'undefined' || documentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "documentId"',
             );
@@ -2895,6 +2898,7 @@ export class VectorsDB {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -2975,12 +2979,12 @@ export class VectorsDB {
         const collectionId = params.collectionId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -3120,12 +3124,12 @@ export class VectorsDB {
         const attributes = params.attributes;
         const orders = params.orders;
         const lengths = params.lengths;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -3232,17 +3236,17 @@ export class VectorsDB {
         const databaseId = params.databaseId;
         const collectionId = params.collectionId;
         const key = params.key;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         const apiPath =
@@ -3321,17 +3325,17 @@ export class VectorsDB {
         const databaseId = params.databaseId;
         const collectionId = params.collectionId;
         const key = params.key;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         const apiPath =
@@ -3348,6 +3352,7 @@ export class VectorsDB {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -3403,7 +3408,7 @@ export class VectorsDB {
 
         const databaseId = params.databaseId;
         const targetReplicaId = params.targetReplicaId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -3502,7 +3507,7 @@ export class VectorsDB {
         const status = params.status;
         const limit = params.limit;
         const offset = params.offset;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -3568,7 +3573,7 @@ export class VectorsDB {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -3623,7 +3628,7 @@ export class VectorsDB {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );

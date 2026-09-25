@@ -6,11 +6,10 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const users = new sdk.Users(client);
+const domains = new sdk.Domains(client);
 
-const result = await users.listLogs({
-    userId: '<USER_ID>',
-    queries: [], // optional
-    total: false, // optional
+const result = await domains.updateNameservers({
+    domainId: '<DOMAIN_ID>',
+    nameservers: [], // optional
 });
 ```

@@ -6,12 +6,11 @@ const client = new sdk.Client()
     .setProject('<YOUR_PROJECT_ID>') // Your project ID
     .setKey('<YOUR_API_KEY>'); // Your secret API key
 
-const organization = new sdk.Organization(client);
+const project = new sdk.Project(client);
 
-const result = await organization.updateKey({
-    keyId: '<KEY_ID>',
-    name: '<NAME>',
-    scopes: [sdk.OrganizationKeyScopes.ProjectsRead],
-    expire: '2020-10-15T06:38:00.000+00:00', // optional
+const result = await project.updateOAuth2Kakao({
+    clientId: '<CLIENT_ID>', // optional
+    clientSecret: '<CLIENT_SECRET>', // optional
+    enabled: false, // optional
 });
 ```
