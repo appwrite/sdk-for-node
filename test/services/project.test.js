@@ -19,7 +19,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -67,7 +66,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -188,7 +186,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -307,7 +304,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -365,6 +361,8 @@ describe('Project', () => {
             keyId: 'P4000000N8',
             teamId: 'D4000000R6',
             p8File: '-----BEGIN PRIVATE KEY-----MIGTAg...jy2Xbna-----END PRIVATE KEY-----',
+            nativeEnabled: true,
+            nativeClientIds: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updateOAuth2Apple();
@@ -663,6 +661,8 @@ describe('Project', () => {
                 '120000000095-92ifjb00000000000000000000g7ijfb.apps.googleusercontent.com',
             clientSecret: 'GOCSPX-2k8gsR0000000000000000VNahJj',
             prompt: [],
+            nativeEnabled: true,
+            nativeClientIds: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updateOAuth2Google();
@@ -681,6 +681,21 @@ describe('Project', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updateOAuth2HuggingFace();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateOAuth2Kakao()', async () => {
+        const data = {
+            '\\$id': 'github',
+            enabled: true,
+            clientId: '839ff5000000000000000000013206de',
+            clientSecret: 'jLNVOK00000000000000000000yJebea',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2Kakao();
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
@@ -935,6 +950,21 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method updateOAuth2TikTok()', async () => {
+        const data = {
+            '\\$id': 'github',
+            enabled: true,
+            clientId: 'awz000000000tyw0',
+            clientSecret: '6wXewM00000000000000000000yXnite',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2TikTok();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updateOAuth2Tradeshift()', async () => {
         const data = {
             '\\$id': 'github',
@@ -1076,9 +1106,8 @@ describe('Project', () => {
         const data = {
             '\\$id': 'github',
             enabled: true,
-            applicationId: '00001111-aaaa-2222-bbbb-3333cccc4444',
-            applicationSecret: 'A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u',
-            tenant: 'common',
+            clientId: '839ff5000000000000000000013206de',
+            clientSecret: 'jLNVOK00000000000000000000yJebea',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.getOAuth2Provider('amazon');
@@ -1359,7 +1388,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1397,7 +1425,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1435,7 +1462,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1473,7 +1499,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1511,7 +1536,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1549,7 +1573,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1587,7 +1610,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1625,7 +1647,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1663,7 +1684,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1687,6 +1707,43 @@ describe('Project', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updatePasswordPersonalDataPolicy(true);
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updatePasswordPwnedPolicy()', async () => {
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            name: 'New Project',
+            teamId: '1592981250',
+            region: 'fra',
+            smtpEnabled: true,
+            smtpSenderName: 'John Appwrite',
+            smtpSenderEmail: 'john@appwrite.io',
+            smtpReplyToName: 'Support Team',
+            smtpReplyToEmail: 'support@appwrite.io',
+            smtpHost: 'mail.appwrite.io',
+            smtpPort: 25,
+            smtpUsername: 'emailuser',
+            smtpPassword: 'smtp-password',
+            smtpSecure: 'tls',
+            pingCount: 1,
+            pingedAt: '2020-10-15T06:38:00.000+00:00',
+            labels: [],
+            status: 'active',
+            onboarding: {},
+            authMethods: [],
+            services: [],
+            protocols: [],
+            blocks: [],
+            consoleAccessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updatePasswordPwnedPolicy();
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
@@ -1718,7 +1775,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1756,7 +1812,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1794,7 +1849,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1832,7 +1886,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1870,7 +1923,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1921,7 +1973,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1959,7 +2010,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',
@@ -1997,7 +2047,6 @@ describe('Project', () => {
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
-            devKeys: [],
             smtpEnabled: true,
             smtpSenderName: 'John Appwrite',
             smtpSenderEmail: 'john@appwrite.io',

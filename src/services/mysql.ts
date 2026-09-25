@@ -33,7 +33,7 @@ export class Mysql {
         let params: { queries?: string[] };
 
         if (
-            !paramsOrFirst ||
+            typeof paramsOrFirst === 'undefined' ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -77,7 +77,7 @@ export class Mysql {
      * @param {number} params.pitrRetentionDays - Number of days to retain PITR data.
      * @param {boolean} params.storageAutoscaling - Enable automatic storage expansion when usage exceeds threshold.
      * @param {number} params.storageAutoscalingThresholdPercent - Storage usage percentage (50-95) that triggers automatic expansion.
-     * @param {number} params.storageAutoscalingMaxGb - Maximum storage size in GB for autoscaling. 0 means no limit.
+     * @param {number} params.storageAutoscalingMaxGb - Maximum storage size in GB for autoscaling. Defaults to 3 times the specification's storage. 0 means no limit.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DedicatedDatabase>}
      */
@@ -113,7 +113,7 @@ export class Mysql {
      * @param {number} pitrRetentionDays - Number of days to retain PITR data.
      * @param {boolean} storageAutoscaling - Enable automatic storage expansion when usage exceeds threshold.
      * @param {number} storageAutoscalingThresholdPercent - Storage usage percentage (50-95) that triggers automatic expansion.
-     * @param {number} storageAutoscalingMaxGb - Maximum storage size in GB for autoscaling. 0 means no limit.
+     * @param {number} storageAutoscalingMaxGb - Maximum storage size in GB for autoscaling. Defaults to 3 times the specification's storage. 0 means no limit.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DedicatedDatabase>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -306,7 +306,7 @@ export class Mysql {
     }
 
     /**
-     * List the dedicated database specifications available on the current plan. Each specification reports its resource limits, pricing, and whether it is enabled for the organization.
+     * List the dedicated database specifications available on the current plan. Each specification reports its resource limits, its own prices and overage rates, and whether it is enabled for the organization.
      *
      * @throws {AppwriteException}
      * @returns {Promise<Models.DedicatedDatabaseSpecificationList>}
@@ -359,7 +359,7 @@ export class Mysql {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -630,7 +630,7 @@ export class Mysql {
         const sqlApiMaxRows = params.sqlApiMaxRows;
         const sqlApiMaxBytes = params.sqlApiMaxBytes;
         const sqlApiTimeoutSeconds = params.sqlApiTimeoutSeconds;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -746,7 +746,7 @@ export class Mysql {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -816,7 +816,7 @@ export class Mysql {
 
         const databaseId = params.databaseId;
         const queries = params.queries;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -888,7 +888,7 @@ export class Mysql {
 
         const databaseId = params.databaseId;
         const type = params.type;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -961,7 +961,7 @@ export class Mysql {
 
         const databaseId = params.databaseId;
         const queries = params.queries;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -1086,7 +1086,7 @@ export class Mysql {
         const retention = params.retention;
         const type = params.type;
         const enabled = params.enabled;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -1192,12 +1192,12 @@ export class Mysql {
 
         const databaseId = params.databaseId;
         const policyId = params.policyId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof policyId === 'undefined') {
+        if (typeof policyId === 'undefined' || policyId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "policyId"',
             );
@@ -1309,12 +1309,12 @@ export class Mysql {
         const schedule = params.schedule;
         const retention = params.retention;
         const enabled = params.enabled;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof policyId === 'undefined') {
+        if (typeof policyId === 'undefined' || policyId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "policyId"',
             );
@@ -1392,12 +1392,12 @@ export class Mysql {
 
         const databaseId = params.databaseId;
         const policyId = params.policyId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof policyId === 'undefined') {
+        if (typeof policyId === 'undefined' || policyId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "policyId"',
             );
@@ -1528,7 +1528,7 @@ export class Mysql {
         const region = params.region;
         const prefix = params.prefix;
         const endpoint = params.endpoint;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -1637,12 +1637,12 @@ export class Mysql {
 
         const databaseId = params.databaseId;
         const backupId = params.backupId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof backupId === 'undefined') {
+        if (typeof backupId === 'undefined' || backupId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "backupId"',
             );
@@ -1704,12 +1704,12 @@ export class Mysql {
 
         const databaseId = params.databaseId;
         const backupId = params.backupId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof backupId === 'undefined') {
+        if (typeof backupId === 'undefined' || backupId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "backupId"',
             );
@@ -1768,7 +1768,7 @@ export class Mysql {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -1845,7 +1845,7 @@ export class Mysql {
         const databaseId = params.databaseId;
         const branchId = params.branchId;
         const ttl = params.ttl;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -1921,12 +1921,12 @@ export class Mysql {
 
         const databaseId = params.databaseId;
         const branchId = params.branchId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof branchId === 'undefined') {
+        if (typeof branchId === 'undefined' || branchId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "branchId"',
             );
@@ -1985,7 +1985,7 @@ export class Mysql {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -2081,7 +2081,7 @@ export class Mysql {
         const sql = params.sql;
         const bindings = params.bindings;
         const timeoutSeconds = params.timeoutSeconds;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -2164,7 +2164,7 @@ export class Mysql {
 
         const databaseId = params.databaseId;
         const targetReplicaId = params.targetReplicaId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -2245,7 +2245,7 @@ export class Mysql {
         const databaseId = params.databaseId;
         const day = params.day;
         const hourUtc = params.hourUtc;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -2342,7 +2342,7 @@ export class Mysql {
         const databaseId = params.databaseId;
         const targetType = params.targetType;
         const specification = params.specification;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -2449,7 +2449,7 @@ export class Mysql {
         const status = params.status;
         const limit = params.limit;
         const offset = params.offset;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -2515,7 +2515,7 @@ export class Mysql {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -2572,7 +2572,7 @@ export class Mysql {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -2721,7 +2721,7 @@ export class Mysql {
         const poolerCpuLimit = params.poolerCpuLimit;
         const poolerMemoryRequest = params.poolerMemoryRequest;
         const poolerMemoryLimit = params.poolerMemoryLimit;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -2803,7 +2803,7 @@ export class Mysql {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -2907,7 +2907,7 @@ export class Mysql {
         const type = params.type;
         const limit = params.limit;
         const offset = params.offset;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -3023,7 +3023,7 @@ export class Mysql {
         const backupId = params.backupId;
         const targetDatabaseId = params.targetDatabaseId;
         const targetTime = params.targetTime;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -3105,12 +3105,12 @@ export class Mysql {
 
         const databaseId = params.databaseId;
         const restorationId = params.restorationId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof restorationId === 'undefined') {
+        if (typeof restorationId === 'undefined' || restorationId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "restorationId"',
             );
@@ -3167,7 +3167,7 @@ export class Mysql {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -3236,7 +3236,7 @@ export class Mysql {
 
         const databaseId = params.databaseId;
         const targetVersion = params.targetVersion;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );

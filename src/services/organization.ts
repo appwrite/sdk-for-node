@@ -1,8 +1,8 @@
 import { AppwriteException, Client, type Payload } from '../client';
 import type { Models } from '../models';
 
-import { OrganizationKeyScopes } from '../enums/organization-key-scopes';
 import { Region } from '../enums/region';
+import { ProjectKeyScopes } from '../enums/project-key-scopes';
 export class Organization {
     client: Client;
 
@@ -103,6 +103,7 @@ export class Organization {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -140,7 +141,7 @@ export class Organization {
         let params: { queries?: string[]; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -285,7 +286,7 @@ export class Organization {
         }
 
         const installationId = params.installationId;
-        if (typeof installationId === 'undefined') {
+        if (typeof installationId === 'undefined' || installationId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "installationId"',
             );
@@ -355,7 +356,7 @@ export class Organization {
 
         const installationId = params.installationId;
         const authorizationDetails = params.authorizationDetails;
-        if (typeof installationId === 'undefined') {
+        if (typeof installationId === 'undefined' || installationId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "installationId"',
             );
@@ -414,7 +415,7 @@ export class Organization {
         }
 
         const installationId = params.installationId;
-        if (typeof installationId === 'undefined') {
+        if (typeof installationId === 'undefined' || installationId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "installationId"',
             );
@@ -430,391 +431,6 @@ export class Organization {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
             accept: 'application/json',
-        };
-
-        return this.client.call('delete', uri, apiHeaders, apiPayload);
-    }
-
-    /**
-     * Get a list of all API keys from the current organization.
-     *
-     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: expire, accessedAt, name, scopes
-     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.KeyList>}
-     */
-    listKeys(params?: {
-        queries?: string[];
-        total?: boolean;
-    }): Promise<Models.KeyList>;
-    /**
-     * Get a list of all API keys from the current organization.
-     *
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: expire, accessedAt, name, scopes
-     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.KeyList>}
-     * @deprecated Use the object parameter style method for a better developer experience.
-     */
-    listKeys(queries?: string[], total?: boolean): Promise<Models.KeyList>;
-    listKeys(
-        paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
-        ...rest: [boolean?]
-    ): Promise<Models.KeyList> {
-        let params: { queries?: string[]; total?: boolean };
-
-        if (
-            !paramsOrFirst ||
-            (paramsOrFirst &&
-                typeof paramsOrFirst === 'object' &&
-                !Array.isArray(paramsOrFirst))
-        ) {
-            params = (paramsOrFirst || {}) as {
-                queries?: string[];
-                total?: boolean;
-            };
-        } else {
-            params = {
-                queries: paramsOrFirst as string[],
-                total: rest[0] as boolean,
-            };
-        }
-
-        const queries = params.queries;
-        const total = params.total;
-        const apiPath = '/organization/keys';
-        const apiPayload: Payload = {};
-        if (typeof queries !== 'undefined') {
-            apiPayload['queries'] = queries;
-        }
-        if (typeof total !== 'undefined') {
-            apiPayload['total'] = total;
-        }
-        const uri = new URL(this.client.config.endpoint + apiPath);
-
-        const apiHeaders: { [header: string]: string } = {
-            'X-Appwrite-Project': this.client.config.project,
-            accept: 'application/json',
-        };
-
-        return this.client.call('get', uri, apiHeaders, apiPayload);
-    }
-
-    /**
-     * Create a new organization API key.
-     *
-     * @param {string} params.keyId - Key ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
-     * @param {string} params.name - Key name. Max length: 128 chars.
-     * @param {OrganizationKeyScopes[]} params.scopes - Key scopes list. Maximum of 200 scopes are allowed.
-     * @param {string} params.expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.Key>}
-     */
-    createKey(params: {
-        keyId: string;
-        name: string;
-        scopes: OrganizationKeyScopes[];
-        expire?: string;
-    }): Promise<Models.Key>;
-    /**
-     * Create a new organization API key.
-     *
-     * @param {string} keyId - Key ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
-     * @param {string} name - Key name. Max length: 128 chars.
-     * @param {OrganizationKeyScopes[]} scopes - Key scopes list. Maximum of 200 scopes are allowed.
-     * @param {string} expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.Key>}
-     * @deprecated Use the object parameter style method for a better developer experience.
-     */
-    createKey(
-        keyId: string,
-        name: string,
-        scopes: OrganizationKeyScopes[],
-        expire?: string,
-    ): Promise<Models.Key>;
-    createKey(
-        paramsOrFirst:
-            | {
-                  keyId: string;
-                  name: string;
-                  scopes: OrganizationKeyScopes[];
-                  expire?: string;
-              }
-            | string,
-        ...rest: [string?, OrganizationKeyScopes[]?, string?]
-    ): Promise<Models.Key> {
-        let params: {
-            keyId: string;
-            name: string;
-            scopes: OrganizationKeyScopes[];
-            expire?: string;
-        };
-
-        if (
-            paramsOrFirst &&
-            typeof paramsOrFirst === 'object' &&
-            !Array.isArray(paramsOrFirst)
-        ) {
-            params = (paramsOrFirst || {}) as {
-                keyId: string;
-                name: string;
-                scopes: OrganizationKeyScopes[];
-                expire?: string;
-            };
-        } else {
-            params = {
-                keyId: paramsOrFirst as string,
-                name: rest[0] as string,
-                scopes: rest[1] as OrganizationKeyScopes[],
-                expire: rest[2] as string,
-            };
-        }
-
-        const keyId = params.keyId;
-        const name = params.name;
-        const scopes = params.scopes;
-        const expire = params.expire;
-        if (typeof keyId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "keyId"');
-        }
-        if (typeof name === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "name"');
-        }
-        if (typeof scopes === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "scopes"');
-        }
-        const apiPath = '/organization/keys';
-        const apiPayload: Payload = {};
-        if (typeof keyId !== 'undefined') {
-            apiPayload['keyId'] = keyId;
-        }
-        if (typeof name !== 'undefined') {
-            apiPayload['name'] = name;
-        }
-        if (typeof scopes !== 'undefined') {
-            apiPayload['scopes'] = scopes;
-        }
-        if (typeof expire !== 'undefined') {
-            apiPayload['expire'] = expire;
-        }
-        const uri = new URL(this.client.config.endpoint + apiPath);
-
-        const apiHeaders: { [header: string]: string } = {
-            'X-Appwrite-Project': this.client.config.project,
-            'content-type': 'application/json',
-            accept: 'application/json',
-        };
-
-        return this.client.call('post', uri, apiHeaders, apiPayload);
-    }
-
-    /**
-     * Get a key by its unique ID. This endpoint returns details about a specific API key in your organization including its scopes.
-     *
-     * @param {string} params.keyId - Key unique ID.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.Key>}
-     */
-    getKey(params: { keyId: string }): Promise<Models.Key>;
-    /**
-     * Get a key by its unique ID. This endpoint returns details about a specific API key in your organization including its scopes.
-     *
-     * @param {string} keyId - Key unique ID.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.Key>}
-     * @deprecated Use the object parameter style method for a better developer experience.
-     */
-    getKey(keyId: string): Promise<Models.Key>;
-    getKey(paramsOrFirst: { keyId: string } | string): Promise<Models.Key> {
-        let params: { keyId: string };
-
-        if (
-            paramsOrFirst &&
-            typeof paramsOrFirst === 'object' &&
-            !Array.isArray(paramsOrFirst)
-        ) {
-            params = (paramsOrFirst || {}) as { keyId: string };
-        } else {
-            params = {
-                keyId: paramsOrFirst as string,
-            };
-        }
-
-        const keyId = params.keyId;
-        if (typeof keyId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "keyId"');
-        }
-        const apiPath = '/organization/keys/{keyId}'.replace(
-            '{keyId}',
-            encodeURIComponent(String(keyId)),
-        );
-        const apiPayload: Payload = {};
-        const uri = new URL(this.client.config.endpoint + apiPath);
-
-        const apiHeaders: { [header: string]: string } = {
-            'X-Appwrite-Project': this.client.config.project,
-            accept: 'application/json',
-        };
-
-        return this.client.call('get', uri, apiHeaders, apiPayload);
-    }
-
-    /**
-     * Update a key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
-     *
-     * @param {string} params.keyId - Key unique ID.
-     * @param {string} params.name - Key name. Max length: 128 chars.
-     * @param {OrganizationKeyScopes[]} params.scopes - Key scopes list. Maximum of 200 scopes are allowed.
-     * @param {string} params.expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.Key>}
-     */
-    updateKey(params: {
-        keyId: string;
-        name: string;
-        scopes: OrganizationKeyScopes[];
-        expire?: string;
-    }): Promise<Models.Key>;
-    /**
-     * Update a key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
-     *
-     * @param {string} keyId - Key unique ID.
-     * @param {string} name - Key name. Max length: 128 chars.
-     * @param {OrganizationKeyScopes[]} scopes - Key scopes list. Maximum of 200 scopes are allowed.
-     * @param {string} expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.Key>}
-     * @deprecated Use the object parameter style method for a better developer experience.
-     */
-    updateKey(
-        keyId: string,
-        name: string,
-        scopes: OrganizationKeyScopes[],
-        expire?: string,
-    ): Promise<Models.Key>;
-    updateKey(
-        paramsOrFirst:
-            | {
-                  keyId: string;
-                  name: string;
-                  scopes: OrganizationKeyScopes[];
-                  expire?: string;
-              }
-            | string,
-        ...rest: [string?, OrganizationKeyScopes[]?, string?]
-    ): Promise<Models.Key> {
-        let params: {
-            keyId: string;
-            name: string;
-            scopes: OrganizationKeyScopes[];
-            expire?: string;
-        };
-
-        if (
-            paramsOrFirst &&
-            typeof paramsOrFirst === 'object' &&
-            !Array.isArray(paramsOrFirst)
-        ) {
-            params = (paramsOrFirst || {}) as {
-                keyId: string;
-                name: string;
-                scopes: OrganizationKeyScopes[];
-                expire?: string;
-            };
-        } else {
-            params = {
-                keyId: paramsOrFirst as string,
-                name: rest[0] as string,
-                scopes: rest[1] as OrganizationKeyScopes[],
-                expire: rest[2] as string,
-            };
-        }
-
-        const keyId = params.keyId;
-        const name = params.name;
-        const scopes = params.scopes;
-        const expire = params.expire;
-        if (typeof keyId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "keyId"');
-        }
-        if (typeof name === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "name"');
-        }
-        if (typeof scopes === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "scopes"');
-        }
-        const apiPath = '/organization/keys/{keyId}'.replace(
-            '{keyId}',
-            encodeURIComponent(String(keyId)),
-        );
-        const apiPayload: Payload = {};
-        if (typeof name !== 'undefined') {
-            apiPayload['name'] = name;
-        }
-        if (typeof scopes !== 'undefined') {
-            apiPayload['scopes'] = scopes;
-        }
-        if (typeof expire !== 'undefined') {
-            apiPayload['expire'] = expire;
-        }
-        const uri = new URL(this.client.config.endpoint + apiPath);
-
-        const apiHeaders: { [header: string]: string } = {
-            'X-Appwrite-Project': this.client.config.project,
-            'content-type': 'application/json',
-            accept: 'application/json',
-        };
-
-        return this.client.call('put', uri, apiHeaders, apiPayload);
-    }
-
-    /**
-     * Delete a key by its unique ID. Once deleted, the key can no longer be used to authenticate API calls.
-     *
-     * @param {string} params.keyId - Key unique ID.
-     * @throws {AppwriteException}
-     * @returns {Promise<{}>}
-     */
-    deleteKey(params: { keyId: string }): Promise<{}>;
-    /**
-     * Delete a key by its unique ID. Once deleted, the key can no longer be used to authenticate API calls.
-     *
-     * @param {string} keyId - Key unique ID.
-     * @throws {AppwriteException}
-     * @returns {Promise<{}>}
-     * @deprecated Use the object parameter style method for a better developer experience.
-     */
-    deleteKey(keyId: string): Promise<{}>;
-    deleteKey(paramsOrFirst: { keyId: string } | string): Promise<{}> {
-        let params: { keyId: string };
-
-        if (
-            paramsOrFirst &&
-            typeof paramsOrFirst === 'object' &&
-            !Array.isArray(paramsOrFirst)
-        ) {
-            params = (paramsOrFirst || {}) as { keyId: string };
-        } else {
-            params = {
-                keyId: paramsOrFirst as string,
-            };
-        }
-
-        const keyId = params.keyId;
-        if (typeof keyId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "keyId"');
-        }
-        const apiPath = '/organization/keys/{keyId}'.replace(
-            '{keyId}',
-            encodeURIComponent(String(keyId)),
-        );
-        const apiPayload: Payload = {};
-        const uri = new URL(this.client.config.endpoint + apiPath);
-
-        const apiHeaders: { [header: string]: string } = {
-            'X-Appwrite-Project': this.client.config.project,
-            'content-type': 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -857,7 +473,7 @@ export class Organization {
         let params: { queries?: string[]; search?: string; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -1061,7 +677,7 @@ export class Organization {
         }
 
         const membershipId = params.membershipId;
-        if (typeof membershipId === 'undefined') {
+        if (typeof membershipId === 'undefined' || membershipId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "membershipId"',
             );
@@ -1130,7 +746,7 @@ export class Organization {
 
         const membershipId = params.membershipId;
         const roles = params.roles;
-        if (typeof membershipId === 'undefined') {
+        if (typeof membershipId === 'undefined' || membershipId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "membershipId"',
             );
@@ -1192,7 +808,7 @@ export class Organization {
         }
 
         const membershipId = params.membershipId;
-        if (typeof membershipId === 'undefined') {
+        if (typeof membershipId === 'undefined' || membershipId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "membershipId"',
             );
@@ -1207,6 +823,7 @@ export class Organization {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -1249,7 +866,7 @@ export class Organization {
         let params: { queries?: string[]; search?: string; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -1413,7 +1030,7 @@ export class Organization {
         }
 
         const projectId = params.projectId;
-        if (typeof projectId === 'undefined') {
+        if (typeof projectId === 'undefined' || projectId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "projectId"',
             );
@@ -1427,6 +1044,7 @@ export class Organization {
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
+            accept: 'application/json',
         };
 
         return this.client.call('get', uri, apiHeaders, apiPayload);
@@ -1478,7 +1096,7 @@ export class Organization {
 
         const projectId = params.projectId;
         const name = params.name;
-        if (typeof projectId === 'undefined') {
+        if (typeof projectId === 'undefined' || projectId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "projectId"',
             );
@@ -1538,7 +1156,7 @@ export class Organization {
         }
 
         const projectId = params.projectId;
-        if (typeof projectId === 'undefined') {
+        if (typeof projectId === 'undefined' || projectId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "projectId"',
             );
@@ -1553,6 +1171,452 @@ export class Organization {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Get a list of all API keys of a project in your organization.
+     *
+     * @param {string} params.projectId - Project unique ID.
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: expire, accessedAt, name, scopes
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.KeyList>}
+     */
+    listProjectKeys(params: {
+        projectId: string;
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.KeyList>;
+    /**
+     * Get a list of all API keys of a project in your organization.
+     *
+     * @param {string} projectId - Project unique ID.
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: expire, accessedAt, name, scopes
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.KeyList>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    listProjectKeys(
+        projectId: string,
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.KeyList>;
+    listProjectKeys(
+        paramsOrFirst:
+            { projectId: string; queries?: string[]; total?: boolean } | string,
+        ...rest: [string[]?, boolean?]
+    ): Promise<Models.KeyList> {
+        let params: { projectId: string; queries?: string[]; total?: boolean };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                projectId: string;
+                queries?: string[];
+                total?: boolean;
+            };
+        } else {
+            params = {
+                projectId: paramsOrFirst as string,
+                queries: rest[0] as string[],
+                total: rest[1] as boolean,
+            };
+        }
+
+        const projectId = params.projectId;
+        const queries = params.queries;
+        const total = params.total;
+        if (typeof projectId === 'undefined' || projectId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "projectId"',
+            );
+        }
+        const apiPath = '/organization/projects/{projectId}/keys'.replace(
+            '{projectId}',
+            encodeURIComponent(String(projectId)),
+        );
+        const apiPayload: Payload = {};
+        if (typeof queries !== 'undefined') {
+            apiPayload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            accept: 'application/json',
+        };
+
+        return this.client.call('get', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Create a new ephemeral API key for a project in your organization. It's recommended to have multiple API keys with strict scopes for separate functions within your project.
+     *
+     * You can also create a standard API key if you need a longer-lived key instead.
+     *
+     * @param {string} params.projectId - Project unique ID.
+     * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 200 scopes are allowed.
+     * @param {number} params.duration - Time in seconds before ephemeral key expires. Maximum duration is 3600 seconds.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.EphemeralKey>}
+     */
+    createEphemeralProjectKey(params: {
+        projectId: string;
+        scopes: ProjectKeyScopes[];
+        duration: number;
+    }): Promise<Models.EphemeralKey>;
+    /**
+     * Create a new ephemeral API key for a project in your organization. It's recommended to have multiple API keys with strict scopes for separate functions within your project.
+     *
+     * You can also create a standard API key if you need a longer-lived key instead.
+     *
+     * @param {string} projectId - Project unique ID.
+     * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 200 scopes are allowed.
+     * @param {number} duration - Time in seconds before ephemeral key expires. Maximum duration is 3600 seconds.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.EphemeralKey>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createEphemeralProjectKey(
+        projectId: string,
+        scopes: ProjectKeyScopes[],
+        duration: number,
+    ): Promise<Models.EphemeralKey>;
+    createEphemeralProjectKey(
+        paramsOrFirst:
+            | {
+                  projectId: string;
+                  scopes: ProjectKeyScopes[];
+                  duration: number;
+              }
+            | string,
+        ...rest: [ProjectKeyScopes[]?, number?]
+    ): Promise<Models.EphemeralKey> {
+        let params: {
+            projectId: string;
+            scopes: ProjectKeyScopes[];
+            duration: number;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                projectId: string;
+                scopes: ProjectKeyScopes[];
+                duration: number;
+            };
+        } else {
+            params = {
+                projectId: paramsOrFirst as string,
+                scopes: rest[0] as ProjectKeyScopes[],
+                duration: rest[1] as number,
+            };
+        }
+
+        const projectId = params.projectId;
+        const scopes = params.scopes;
+        const duration = params.duration;
+        if (typeof projectId === 'undefined' || projectId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "projectId"',
+            );
+        }
+        if (typeof scopes === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "scopes"');
+        }
+        if (typeof duration === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "duration"',
+            );
+        }
+        const apiPath =
+            '/organization/projects/{projectId}/keys/ephemeral'.replace(
+                '{projectId}',
+                encodeURIComponent(String(projectId)),
+            );
+        const apiPayload: Payload = {};
+        if (typeof scopes !== 'undefined') {
+            apiPayload['scopes'] = scopes;
+        }
+        if (typeof duration !== 'undefined') {
+            apiPayload['duration'] = duration;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('post', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Get a project key by its unique ID.
+     *
+     * @param {string} params.projectId - Project unique ID.
+     * @param {string} params.keyId - Key ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Key>}
+     */
+    getProjectKey(params: {
+        projectId: string;
+        keyId: string;
+    }): Promise<Models.Key>;
+    /**
+     * Get a project key by its unique ID.
+     *
+     * @param {string} projectId - Project unique ID.
+     * @param {string} keyId - Key ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Key>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getProjectKey(projectId: string, keyId: string): Promise<Models.Key>;
+    getProjectKey(
+        paramsOrFirst: { projectId: string; keyId: string } | string,
+        ...rest: [string?]
+    ): Promise<Models.Key> {
+        let params: { projectId: string; keyId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                projectId: string;
+                keyId: string;
+            };
+        } else {
+            params = {
+                projectId: paramsOrFirst as string,
+                keyId: rest[0] as string,
+            };
+        }
+
+        const projectId = params.projectId;
+        const keyId = params.keyId;
+        if (typeof projectId === 'undefined' || projectId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "projectId"',
+            );
+        }
+        if (typeof keyId === 'undefined' || keyId === '') {
+            throw new AppwriteException('Missing required parameter: "keyId"');
+        }
+        const apiPath = '/organization/projects/{projectId}/keys/{keyId}'
+            .replace('{projectId}', encodeURIComponent(String(projectId)))
+            .replace('{keyId}', encodeURIComponent(String(keyId)));
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            accept: 'application/json',
+        };
+
+        return this.client.call('get', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Update a project key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
+     *
+     * @param {string} params.projectId - Project unique ID.
+     * @param {string} params.keyId - Key ID.
+     * @param {string} params.name - Key name. Max length: 128 chars.
+     * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 200 scopes are allowed.
+     * @param {string} params.expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Key>}
+     */
+    updateProjectKey(params: {
+        projectId: string;
+        keyId: string;
+        name: string;
+        scopes: ProjectKeyScopes[];
+        expire?: string;
+    }): Promise<Models.Key>;
+    /**
+     * Update a project key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
+     *
+     * @param {string} projectId - Project unique ID.
+     * @param {string} keyId - Key ID.
+     * @param {string} name - Key name. Max length: 128 chars.
+     * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 200 scopes are allowed.
+     * @param {string} expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Key>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateProjectKey(
+        projectId: string,
+        keyId: string,
+        name: string,
+        scopes: ProjectKeyScopes[],
+        expire?: string,
+    ): Promise<Models.Key>;
+    updateProjectKey(
+        paramsOrFirst:
+            | {
+                  projectId: string;
+                  keyId: string;
+                  name: string;
+                  scopes: ProjectKeyScopes[];
+                  expire?: string;
+              }
+            | string,
+        ...rest: [string?, string?, ProjectKeyScopes[]?, string?]
+    ): Promise<Models.Key> {
+        let params: {
+            projectId: string;
+            keyId: string;
+            name: string;
+            scopes: ProjectKeyScopes[];
+            expire?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                projectId: string;
+                keyId: string;
+                name: string;
+                scopes: ProjectKeyScopes[];
+                expire?: string;
+            };
+        } else {
+            params = {
+                projectId: paramsOrFirst as string,
+                keyId: rest[0] as string,
+                name: rest[1] as string,
+                scopes: rest[2] as ProjectKeyScopes[],
+                expire: rest[3] as string,
+            };
+        }
+
+        const projectId = params.projectId;
+        const keyId = params.keyId;
+        const name = params.name;
+        const scopes = params.scopes;
+        const expire = params.expire;
+        if (typeof projectId === 'undefined' || projectId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "projectId"',
+            );
+        }
+        if (typeof keyId === 'undefined' || keyId === '') {
+            throw new AppwriteException('Missing required parameter: "keyId"');
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+        if (typeof scopes === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "scopes"');
+        }
+        const apiPath = '/organization/projects/{projectId}/keys/{keyId}'
+            .replace('{projectId}', encodeURIComponent(String(projectId)))
+            .replace('{keyId}', encodeURIComponent(String(keyId)));
+        const apiPayload: Payload = {};
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        if (typeof scopes !== 'undefined') {
+            apiPayload['scopes'] = scopes;
+        }
+        if (typeof expire !== 'undefined') {
+            apiPayload['expire'] = expire;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('put', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Delete a project key by its unique ID. Once deleted, the key can no longer be used to authenticate API calls.
+     *
+     * @param {string} params.projectId - Project unique ID.
+     * @param {string} params.keyId - Key ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deleteProjectKey(params: { projectId: string; keyId: string }): Promise<{}>;
+    /**
+     * Delete a project key by its unique ID. Once deleted, the key can no longer be used to authenticate API calls.
+     *
+     * @param {string} projectId - Project unique ID.
+     * @param {string} keyId - Key ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    deleteProjectKey(projectId: string, keyId: string): Promise<{}>;
+    deleteProjectKey(
+        paramsOrFirst: { projectId: string; keyId: string } | string,
+        ...rest: [string?]
+    ): Promise<{}> {
+        let params: { projectId: string; keyId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                projectId: string;
+                keyId: string;
+            };
+        } else {
+            params = {
+                projectId: paramsOrFirst as string,
+                keyId: rest[0] as string,
+            };
+        }
+
+        const projectId = params.projectId;
+        const keyId = params.keyId;
+        if (typeof projectId === 'undefined' || projectId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "projectId"',
+            );
+        }
+        if (typeof keyId === 'undefined' || keyId === '') {
+            throw new AppwriteException('Missing required parameter: "keyId"');
+        }
+        const apiPath = '/organization/projects/{projectId}/keys/{keyId}'
+            .replace('{projectId}', encodeURIComponent(String(projectId)))
+            .replace('{keyId}', encodeURIComponent(String(keyId)));
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);

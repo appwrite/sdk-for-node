@@ -58,7 +58,7 @@ export class Sites {
         let params: { queries?: string[]; search?: string; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -524,7 +524,7 @@ export class Sites {
         let params: { type?: string };
 
         if (
-            !paramsOrFirst ||
+            typeof paramsOrFirst === 'undefined' ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -585,7 +585,7 @@ export class Sites {
         }
 
         const siteId = params.siteId;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         const apiPath = '/sites/{siteId}'.replace(
@@ -882,7 +882,7 @@ export class Sites {
         const runtimeSpecification = params.runtimeSpecification;
         const deploymentRetention = params.deploymentRetention;
         const scopes = params.scopes;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof name === 'undefined') {
@@ -1011,7 +1011,7 @@ export class Sites {
         }
 
         const siteId = params.siteId;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         const apiPath = '/sites/{siteId}'.replace(
@@ -1024,6 +1024,7 @@ export class Sites {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -1078,7 +1079,7 @@ export class Sites {
 
         const siteId = params.siteId;
         const deploymentId = params.deploymentId;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof deploymentId === 'undefined') {
@@ -1180,7 +1181,7 @@ export class Sites {
         const queries = params.queries;
         const search = params.search;
         const total = params.total;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         const apiPath = '/sites/{siteId}/deployments'.replace(
@@ -1315,7 +1316,7 @@ export class Sites {
         const buildCommand = params.buildCommand;
         const outputDirectory = params.outputDirectory;
         const activate = params.activate;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof code === 'undefined') {
@@ -1407,7 +1408,7 @@ export class Sites {
 
         const siteId = params.siteId;
         const deploymentId = params.deploymentId;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof deploymentId === 'undefined') {
@@ -1547,7 +1548,7 @@ export class Sites {
         const type = params.type;
         const reference = params.reference;
         const activate = params.activate;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof repository === 'undefined') {
@@ -1684,7 +1685,7 @@ export class Sites {
         const type = params.type;
         const reference = params.reference;
         const activate = params.activate;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof type === 'undefined') {
@@ -1769,10 +1770,10 @@ export class Sites {
 
         const siteId = params.siteId;
         const deploymentId = params.deploymentId;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-        if (typeof deploymentId === 'undefined') {
+        if (typeof deploymentId === 'undefined' || deploymentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "deploymentId"',
             );
@@ -1840,10 +1841,10 @@ export class Sites {
 
         const siteId = params.siteId;
         const deploymentId = params.deploymentId;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-        if (typeof deploymentId === 'undefined') {
+        if (typeof deploymentId === 'undefined' || deploymentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "deploymentId"',
             );
@@ -1860,6 +1861,7 @@ export class Sites {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -1940,10 +1942,10 @@ export class Sites {
         const deploymentId = params.deploymentId;
         const type = params.type;
         const token = params.token;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-        if (typeof deploymentId === 'undefined') {
+        if (typeof deploymentId === 'undefined' || deploymentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "deploymentId"',
             );
@@ -2026,10 +2028,10 @@ export class Sites {
 
         const siteId = params.siteId;
         const deploymentId = params.deploymentId;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-        if (typeof deploymentId === 'undefined') {
+        if (typeof deploymentId === 'undefined' || deploymentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "deploymentId"',
             );
@@ -2109,7 +2111,7 @@ export class Sites {
         const siteId = params.siteId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         const apiPath = '/sites/{siteId}/logs'.replace(
@@ -2176,10 +2178,10 @@ export class Sites {
 
         const siteId = params.siteId;
         const logId = params.logId;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-        if (typeof logId === 'undefined') {
+        if (typeof logId === 'undefined' || logId === '') {
             throw new AppwriteException('Missing required parameter: "logId"');
         }
         const apiPath = '/sites/{siteId}/logs/{logId}'
@@ -2236,10 +2238,10 @@ export class Sites {
 
         const siteId = params.siteId;
         const logId = params.logId;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-        if (typeof logId === 'undefined') {
+        if (typeof logId === 'undefined' || logId === '') {
             throw new AppwriteException('Missing required parameter: "logId"');
         }
         const apiPath = '/sites/{siteId}/logs/{logId}'
@@ -2314,7 +2316,7 @@ export class Sites {
         const siteId = params.siteId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         const apiPath = '/sites/{siteId}/variables'.replace(
@@ -2422,7 +2424,7 @@ export class Sites {
         const key = params.key;
         const value = params.value;
         const secret = params.secret;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
         if (typeof variableId === 'undefined') {
@@ -2510,10 +2512,10 @@ export class Sites {
 
         const siteId = params.siteId;
         const variableId = params.variableId;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-        if (typeof variableId === 'undefined') {
+        if (typeof variableId === 'undefined' || variableId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "variableId"',
             );
@@ -2616,10 +2618,10 @@ export class Sites {
         const key = params.key;
         const value = params.value;
         const secret = params.secret;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-        if (typeof variableId === 'undefined') {
+        if (typeof variableId === 'undefined' || variableId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "variableId"',
             );
@@ -2691,10 +2693,10 @@ export class Sites {
 
         const siteId = params.siteId;
         const variableId = params.variableId;
-        if (typeof siteId === 'undefined') {
+        if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
-        if (typeof variableId === 'undefined') {
+        if (typeof variableId === 'undefined' || variableId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "variableId"',
             );
@@ -2708,6 +2710,7 @@ export class Sites {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);

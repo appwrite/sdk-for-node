@@ -50,7 +50,7 @@ export class Databases {
         let params: { queries?: string[]; search?: string; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -208,7 +208,7 @@ export class Databases {
         let params: { queries?: string[] };
 
         if (
-            !paramsOrFirst ||
+            typeof paramsOrFirst === 'undefined' ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -260,7 +260,7 @@ export class Databases {
         let params: { ttl?: number };
 
         if (
-            !paramsOrFirst ||
+            typeof paramsOrFirst === 'undefined' ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -327,7 +327,7 @@ export class Databases {
         }
 
         const transactionId = params.transactionId;
-        if (typeof transactionId === 'undefined') {
+        if (typeof transactionId === 'undefined' || transactionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "transactionId"',
             );
@@ -410,7 +410,7 @@ export class Databases {
         const transactionId = params.transactionId;
         const commit = params.commit;
         const rollback = params.rollback;
-        if (typeof transactionId === 'undefined') {
+        if (typeof transactionId === 'undefined' || transactionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "transactionId"',
             );
@@ -473,7 +473,7 @@ export class Databases {
         }
 
         const transactionId = params.transactionId;
-        if (typeof transactionId === 'undefined') {
+        if (typeof transactionId === 'undefined' || transactionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "transactionId"',
             );
@@ -488,6 +488,7 @@ export class Databases {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -544,7 +545,7 @@ export class Databases {
 
         const transactionId = params.transactionId;
         const operations = params.operations;
-        if (typeof transactionId === 'undefined') {
+        if (typeof transactionId === 'undefined' || transactionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "transactionId"',
             );
@@ -605,7 +606,7 @@ export class Databases {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -683,7 +684,7 @@ export class Databases {
         const databaseId = params.databaseId;
         const name = params.name;
         const enabled = params.enabled;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -744,7 +745,7 @@ export class Databases {
         }
 
         const databaseId = params.databaseId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -759,6 +760,7 @@ export class Databases {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -840,7 +842,7 @@ export class Databases {
         const queries = params.queries;
         const search = params.search;
         const total = params.total;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -989,7 +991,7 @@ export class Databases {
         const enabled = params.enabled;
         const attributes = params.attributes;
         const indexes = params.indexes;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
@@ -1089,12 +1091,12 @@ export class Databases {
 
         const databaseId = params.databaseId;
         const collectionId = params.collectionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -1219,12 +1221,12 @@ export class Databases {
         const documentSecurity = params.documentSecurity;
         const enabled = params.enabled;
         const purge = params.purge;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -1309,12 +1311,12 @@ export class Databases {
 
         const databaseId = params.databaseId;
         const collectionId = params.collectionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -1331,6 +1333,7 @@ export class Databases {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -1412,12 +1415,12 @@ export class Databases {
         const collectionId = params.collectionId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -1568,12 +1571,12 @@ export class Databases {
         const max = params.max;
         const xdefault = params.xdefault;
         const array = params.array;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -1745,17 +1748,17 @@ export class Databases {
         const min = params.min;
         const max = params.max;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -1899,12 +1902,12 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const array = params.array;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -2042,17 +2045,17 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -2188,12 +2191,12 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const array = params.array;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -2331,17 +2334,17 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -2479,12 +2482,12 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const array = params.array;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -2624,17 +2627,17 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -2781,12 +2784,12 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const array = params.array;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -2943,17 +2946,17 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof elements === 'undefined') {
@@ -3125,12 +3128,12 @@ export class Databases {
         const max = params.max;
         const xdefault = params.xdefault;
         const array = params.array;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -3302,17 +3305,17 @@ export class Databases {
         const min = params.min;
         const max = params.max;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -3482,12 +3485,12 @@ export class Databases {
         const max = params.max;
         const xdefault = params.xdefault;
         const array = params.array;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -3659,17 +3662,17 @@ export class Databases {
         const min = params.min;
         const max = params.max;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -3813,12 +3816,12 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const array = params.array;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -3958,17 +3961,17 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -4095,12 +4098,12 @@ export class Databases {
         const key = params.key;
         const required = params.required;
         const xdefault = params.xdefault;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -4235,17 +4238,17 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -4387,12 +4390,12 @@ export class Databases {
         const xdefault = params.xdefault;
         const array = params.array;
         const encrypt = params.encrypt;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -4535,17 +4538,17 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -4692,12 +4695,12 @@ export class Databases {
         const xdefault = params.xdefault;
         const array = params.array;
         const encrypt = params.encrypt;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -4840,17 +4843,17 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -4977,12 +4980,12 @@ export class Databases {
         const key = params.key;
         const required = params.required;
         const xdefault = params.xdefault;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -5117,17 +5120,17 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -5249,12 +5252,12 @@ export class Databases {
         const key = params.key;
         const required = params.required;
         const xdefault = params.xdefault;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -5389,17 +5392,17 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -5558,12 +5561,12 @@ export class Databases {
         const key = params.key;
         const twoWayKey = params.twoWayKey;
         const onDelete = params.onDelete;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -5700,17 +5703,17 @@ export class Databases {
         const key = params.key;
         const onDelete = params.onDelete;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         const apiPath =
@@ -5861,12 +5864,12 @@ export class Databases {
         const xdefault = params.xdefault;
         const array = params.array;
         const encrypt = params.encrypt;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -6024,17 +6027,17 @@ export class Databases {
         const xdefault = params.xdefault;
         const size = params.size;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -6184,12 +6187,12 @@ export class Databases {
         const xdefault = params.xdefault;
         const array = params.array;
         const encrypt = params.encrypt;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -6332,17 +6335,17 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -6480,12 +6483,12 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const array = params.array;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -6625,17 +6628,17 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -6799,12 +6802,12 @@ export class Databases {
         const xdefault = params.xdefault;
         const array = params.array;
         const encrypt = params.encrypt;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -6962,17 +6965,17 @@ export class Databases {
         const xdefault = params.xdefault;
         const size = params.size;
         const newKey = params.newKey;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         if (typeof required === 'undefined') {
@@ -7024,7 +7027,7 @@ export class Databases {
      * @param {string} params.collectionId - Collection ID.
      * @param {string} params.key - Attribute Key.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.AttributeBoolean | Models.AttributeInteger | Models.AttributeFloat | Models.AttributeEmail | Models.AttributeEnum | Models.AttributeUrl | Models.AttributeIp | Models.AttributeDatetime | Models.AttributeRelationship | Models.AttributeString>}
+     * @returns {Promise<Models.AttributeBoolean | Models.AttributeBigint | Models.AttributeInteger | Models.AttributeFloat | Models.AttributeEmail | Models.AttributeEnum | Models.AttributeUrl | Models.AttributeIp | Models.AttributeDatetime | Models.AttributeRelationship | Models.AttributePoint | Models.AttributeLine | Models.AttributePolygon | Models.AttributeVarchar | Models.AttributeText | Models.AttributeMediumtext | Models.AttributeLongtext | Models.AttributeString>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.getColumn` instead.
      */
     getAttribute(params: {
@@ -7033,6 +7036,7 @@ export class Databases {
         key: string;
     }): Promise<
         | Models.AttributeBoolean
+        | Models.AttributeBigint
         | Models.AttributeInteger
         | Models.AttributeFloat
         | Models.AttributeEmail
@@ -7041,6 +7045,13 @@ export class Databases {
         | Models.AttributeIp
         | Models.AttributeDatetime
         | Models.AttributeRelationship
+        | Models.AttributePoint
+        | Models.AttributeLine
+        | Models.AttributePolygon
+        | Models.AttributeVarchar
+        | Models.AttributeText
+        | Models.AttributeMediumtext
+        | Models.AttributeLongtext
         | Models.AttributeString
     >;
     /**
@@ -7050,7 +7061,7 @@ export class Databases {
      * @param {string} collectionId - Collection ID.
      * @param {string} key - Attribute Key.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.AttributeBoolean | Models.AttributeInteger | Models.AttributeFloat | Models.AttributeEmail | Models.AttributeEnum | Models.AttributeUrl | Models.AttributeIp | Models.AttributeDatetime | Models.AttributeRelationship | Models.AttributeString>}
+     * @returns {Promise<Models.AttributeBoolean | Models.AttributeBigint | Models.AttributeInteger | Models.AttributeFloat | Models.AttributeEmail | Models.AttributeEnum | Models.AttributeUrl | Models.AttributeIp | Models.AttributeDatetime | Models.AttributeRelationship | Models.AttributePoint | Models.AttributeLine | Models.AttributePolygon | Models.AttributeVarchar | Models.AttributeText | Models.AttributeMediumtext | Models.AttributeLongtext | Models.AttributeString>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     getAttribute(
@@ -7059,6 +7070,7 @@ export class Databases {
         key: string,
     ): Promise<
         | Models.AttributeBoolean
+        | Models.AttributeBigint
         | Models.AttributeInteger
         | Models.AttributeFloat
         | Models.AttributeEmail
@@ -7067,6 +7079,13 @@ export class Databases {
         | Models.AttributeIp
         | Models.AttributeDatetime
         | Models.AttributeRelationship
+        | Models.AttributePoint
+        | Models.AttributeLine
+        | Models.AttributePolygon
+        | Models.AttributeVarchar
+        | Models.AttributeText
+        | Models.AttributeMediumtext
+        | Models.AttributeLongtext
         | Models.AttributeString
     >;
     getAttribute(
@@ -7075,6 +7094,7 @@ export class Databases {
         ...rest: [string?, string?]
     ): Promise<
         | Models.AttributeBoolean
+        | Models.AttributeBigint
         | Models.AttributeInteger
         | Models.AttributeFloat
         | Models.AttributeEmail
@@ -7083,6 +7103,13 @@ export class Databases {
         | Models.AttributeIp
         | Models.AttributeDatetime
         | Models.AttributeRelationship
+        | Models.AttributePoint
+        | Models.AttributeLine
+        | Models.AttributePolygon
+        | Models.AttributeVarchar
+        | Models.AttributeText
+        | Models.AttributeMediumtext
+        | Models.AttributeLongtext
         | Models.AttributeString
     > {
         let params: { databaseId: string; collectionId: string; key: string };
@@ -7108,17 +7135,17 @@ export class Databases {
         const databaseId = params.databaseId;
         const collectionId = params.collectionId;
         const key = params.key;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         const apiPath =
@@ -7198,17 +7225,17 @@ export class Databases {
         const databaseId = params.databaseId;
         const collectionId = params.collectionId;
         const key = params.key;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         const apiPath =
@@ -7225,6 +7252,7 @@ export class Databases {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -7326,12 +7354,12 @@ export class Databases {
         const transactionId = params.transactionId;
         const total = params.total;
         const ttl = params.ttl;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -7487,12 +7515,12 @@ export class Databases {
         const data = params.data;
         const permissions = params.permissions;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -7614,12 +7642,12 @@ export class Databases {
         const collectionId = params.collectionId;
         const documents = params.documents;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -7734,12 +7762,12 @@ export class Databases {
         const collectionId = params.collectionId;
         const documents = params.documents;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -7861,12 +7889,12 @@ export class Databases {
         const data = params.data;
         const queries = params.queries;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -7977,12 +8005,12 @@ export class Databases {
         const collectionId = params.collectionId;
         const queries = params.queries;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -8099,17 +8127,17 @@ export class Databases {
         const documentId = params.documentId;
         const queries = params.queries;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof documentId === 'undefined') {
+        if (typeof documentId === 'undefined' || documentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "documentId"',
             );
@@ -8265,17 +8293,17 @@ export class Databases {
         const data = params.data;
         const permissions = params.permissions;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof documentId === 'undefined') {
+        if (typeof documentId === 'undefined' || documentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "documentId"',
             );
@@ -8435,17 +8463,17 @@ export class Databases {
         const data = params.data;
         const permissions = params.permissions;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof documentId === 'undefined') {
+        if (typeof documentId === 'undefined' || documentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "documentId"',
             );
@@ -8558,17 +8586,17 @@ export class Databases {
         const collectionId = params.collectionId;
         const documentId = params.documentId;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof documentId === 'undefined') {
+        if (typeof documentId === 'undefined' || documentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "documentId"',
             );
@@ -8593,6 +8621,7 @@ export class Databases {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -8707,22 +8736,22 @@ export class Databases {
         const value = params.value;
         const min = params.min;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof documentId === 'undefined') {
+        if (typeof documentId === 'undefined' || documentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "documentId"',
             );
         }
-        if (typeof attribute === 'undefined') {
+        if (typeof attribute === 'undefined' || attribute === '') {
             throw new AppwriteException(
                 'Missing required parameter: "attribute"',
             );
@@ -8866,22 +8895,22 @@ export class Databases {
         const value = params.value;
         const max = params.max;
         const transactionId = params.transactionId;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof documentId === 'undefined') {
+        if (typeof documentId === 'undefined' || documentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "documentId"',
             );
         }
-        if (typeof attribute === 'undefined') {
+        if (typeof attribute === 'undefined' || attribute === '') {
             throw new AppwriteException(
                 'Missing required parameter: "attribute"',
             );
@@ -8992,12 +9021,12 @@ export class Databases {
         const collectionId = params.collectionId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -9138,12 +9167,12 @@ export class Databases {
         const attributes = params.attributes;
         const orders = params.orders;
         const lengths = params.lengths;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
@@ -9251,17 +9280,17 @@ export class Databases {
         const databaseId = params.databaseId;
         const collectionId = params.collectionId;
         const key = params.key;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         const apiPath =
@@ -9341,17 +9370,17 @@ export class Databases {
         const databaseId = params.databaseId;
         const collectionId = params.collectionId;
         const key = params.key;
-        if (typeof databaseId === 'undefined') {
+        if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
             );
         }
-        if (typeof collectionId === 'undefined') {
+        if (typeof collectionId === 'undefined' || collectionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "collectionId"',
             );
         }
-        if (typeof key === 'undefined') {
+        if (typeof key === 'undefined' || key === '') {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         const apiPath =
@@ -9368,6 +9397,7 @@ export class Databases {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);

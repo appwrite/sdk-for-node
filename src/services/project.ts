@@ -32,6 +32,7 @@ export class Project {
 
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
+            accept: 'application/json',
         };
 
         return this.client.call('get', uri, apiHeaders, apiPayload);
@@ -51,6 +52,7 @@ export class Project {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -166,7 +168,7 @@ export class Project {
         let params: { queries?: string[]; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -318,7 +320,7 @@ export class Project {
         }
 
         const keyId = params.keyId;
-        if (typeof keyId === 'undefined') {
+        if (typeof keyId === 'undefined' || keyId === '') {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
         const apiPath = '/project/keys/{keyId}'.replace(
@@ -411,7 +413,7 @@ export class Project {
         const name = params.name;
         const scopes = params.scopes;
         const expire = params.expire;
-        if (typeof keyId === 'undefined') {
+        if (typeof keyId === 'undefined' || keyId === '') {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
         if (typeof name === 'undefined') {
@@ -478,7 +480,7 @@ export class Project {
         }
 
         const keyId = params.keyId;
-        if (typeof keyId === 'undefined') {
+        if (typeof keyId === 'undefined' || keyId === '') {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
         const apiPath = '/project/keys/{keyId}'.replace(
@@ -491,6 +493,7 @@ export class Project {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -582,7 +585,7 @@ export class Project {
         let params: { queries?: string[]; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -721,7 +724,7 @@ export class Project {
         }
 
         const number = params.number;
-        if (typeof number === 'undefined') {
+        if (typeof number === 'undefined' || number === '') {
             throw new AppwriteException('Missing required parameter: "number"');
         }
         const apiPath = '/project/mock-phones/{number}'.replace(
@@ -782,7 +785,7 @@ export class Project {
 
         const number = params.number;
         const otp = params.otp;
-        if (typeof number === 'undefined') {
+        if (typeof number === 'undefined' || number === '') {
             throw new AppwriteException('Missing required parameter: "number"');
         }
         if (typeof otp === 'undefined') {
@@ -840,7 +843,7 @@ export class Project {
         }
 
         const number = params.number;
-        if (typeof number === 'undefined') {
+        if (typeof number === 'undefined' || number === '') {
             throw new AppwriteException('Missing required parameter: "number"');
         }
         const apiPath = '/project/mock-phones/{number}'.replace(
@@ -853,6 +856,7 @@ export class Project {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -890,7 +894,7 @@ export class Project {
         let params: { queries?: string[]; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -1241,7 +1245,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -1291,7 +1295,9 @@ export class Project {
      * @param {string} params.keyId - 'Key ID' of Apple OAuth2 app. For example: P4000000N8
      * @param {string} params.teamId - 'Team ID' of Apple OAuth2 app. For example: D4000000R6
      * @param {string} params.p8File - Contents of the Apple OAuth2 app .p8 private key file. The secret key wrapped by the PEM markers is 200 characters long. For example: -----BEGIN PRIVATE KEY-----MIGTAg...jy2Xbna-----END PRIVATE KEY-----
-     * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {string[]} params.nativeClientIds - App bundle IDs accepted as ID token audiences for native Sign in with Apple. For example: com.example.app. Together with the Services ID, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
+     * @param {boolean} params.enabled - Browser-based OAuth2 sign-in status. Set to true to enable new session creation through the redirect flow. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid. Has no effect on native sign-in, which is controlled by nativeEnabled only.
+     * @param {boolean} params.nativeEnabled - Native Sign in with Apple status. This is the only switch for creating sessions from ID tokens obtained on device and is independent of enabled. Needs a Services ID or at least one native client ID to match tokens against, but no key or team ID: this method verifies a signature rather than redeeming an authorization code.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Apple>}
      */
@@ -1300,7 +1306,9 @@ export class Project {
         keyId?: string;
         teamId?: string;
         p8File?: string;
+        nativeClientIds?: string[];
         enabled?: boolean;
+        nativeEnabled?: boolean;
     }): Promise<Models.OAuth2Apple>;
     /**
      * Update the project OAuth2 Apple configuration.
@@ -1309,7 +1317,9 @@ export class Project {
      * @param {string} keyId - 'Key ID' of Apple OAuth2 app. For example: P4000000N8
      * @param {string} teamId - 'Team ID' of Apple OAuth2 app. For example: D4000000R6
      * @param {string} p8File - Contents of the Apple OAuth2 app .p8 private key file. The secret key wrapped by the PEM markers is 200 characters long. For example: -----BEGIN PRIVATE KEY-----MIGTAg...jy2Xbna-----END PRIVATE KEY-----
-     * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {string[]} nativeClientIds - App bundle IDs accepted as ID token audiences for native Sign in with Apple. For example: com.example.app. Together with the Services ID, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
+     * @param {boolean} enabled - Browser-based OAuth2 sign-in status. Set to true to enable new session creation through the redirect flow. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid. Has no effect on native sign-in, which is controlled by nativeEnabled only.
+     * @param {boolean} nativeEnabled - Native Sign in with Apple status. This is the only switch for creating sessions from ID tokens obtained on device and is independent of enabled. Needs a Services ID or at least one native client ID to match tokens against, but no key or team ID: this method verifies a signature rather than redeeming an authorization code.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Apple>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1319,7 +1329,9 @@ export class Project {
         keyId?: string,
         teamId?: string,
         p8File?: string,
+        nativeClientIds?: string[],
         enabled?: boolean,
+        nativeEnabled?: boolean,
     ): Promise<Models.OAuth2Apple>;
     updateOAuth2Apple(
         paramsOrFirst?:
@@ -1328,21 +1340,25 @@ export class Project {
                   keyId?: string;
                   teamId?: string;
                   p8File?: string;
+                  nativeClientIds?: string[];
                   enabled?: boolean;
+                  nativeEnabled?: boolean;
               }
             | string,
-        ...rest: [string?, string?, string?, boolean?]
+        ...rest: [string?, string?, string?, string[]?, boolean?, boolean?]
     ): Promise<Models.OAuth2Apple> {
         let params: {
             serviceId?: string;
             keyId?: string;
             teamId?: string;
             p8File?: string;
+            nativeClientIds?: string[];
             enabled?: boolean;
+            nativeEnabled?: boolean;
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -1352,7 +1368,9 @@ export class Project {
                 keyId?: string;
                 teamId?: string;
                 p8File?: string;
+                nativeClientIds?: string[];
                 enabled?: boolean;
+                nativeEnabled?: boolean;
             };
         } else {
             params = {
@@ -1360,7 +1378,9 @@ export class Project {
                 keyId: rest[0] as string,
                 teamId: rest[1] as string,
                 p8File: rest[2] as string,
-                enabled: rest[3] as boolean,
+                nativeClientIds: rest[3] as string[],
+                enabled: rest[4] as boolean,
+                nativeEnabled: rest[5] as boolean,
             };
         }
 
@@ -1368,7 +1388,9 @@ export class Project {
         const keyId = params.keyId;
         const teamId = params.teamId;
         const p8File = params.p8File;
+        const nativeClientIds = params.nativeClientIds;
         const enabled = params.enabled;
+        const nativeEnabled = params.nativeEnabled;
         const apiPath = '/project/oauth2/apple';
         const apiPayload: Payload = {};
         if (typeof serviceId !== 'undefined') {
@@ -1383,8 +1405,14 @@ export class Project {
         if (typeof p8File !== 'undefined') {
             apiPayload['p8File'] = p8File;
         }
+        if (typeof nativeClientIds !== 'undefined') {
+            apiPayload['nativeClientIds'] = nativeClientIds;
+        }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof nativeEnabled !== 'undefined') {
+            apiPayload['nativeEnabled'] = nativeEnabled;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1439,7 +1467,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -1534,7 +1562,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -1635,7 +1663,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -1726,7 +1754,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -1806,7 +1834,7 @@ export class Project {
         let params: { key?: string; secret?: string; enabled?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -1891,7 +1919,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -1976,7 +2004,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -2061,7 +2089,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -2141,7 +2169,7 @@ export class Project {
         let params: { apiKey?: string; apiSecret?: string; enabled?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -2226,7 +2254,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -2311,7 +2339,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -2391,7 +2419,7 @@ export class Project {
         let params: { appKey?: string; appSecret?: string; enabled?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -2476,7 +2504,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -2556,7 +2584,7 @@ export class Project {
         let params: { appId?: string; appSecret?: string; enabled?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -2641,7 +2669,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -2736,7 +2764,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -2827,7 +2855,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -2922,7 +2950,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -2977,7 +3005,9 @@ export class Project {
      * @param {string} params.clientId - 'Client ID' of Google OAuth2 app. For example: 120000000095-92ifjb00000000000000000000g7ijfb.apps.googleusercontent.com
      * @param {string} params.clientSecret - 'Client Secret' of Google OAuth2 app. For example: GOCSPX-2k8gsR0000000000000000VNahJj
      * @param {ProjectOAuth2GooglePrompt[]} params.prompt - Array of Google OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. Must not be specified with other values. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account.
-     * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {string[]} params.nativeClientIds - Additional OAuth2 client IDs accepted as ID token audiences for native sign-in (Android and iOS client IDs). Together with the client ID, which is always accepted, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
+     * @param {boolean} params.enabled - Browser-based OAuth2 sign-in status. Set to true to enable new session creation through the redirect flow. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid. Has no effect on native sign-in, which is controlled by nativeEnabled only.
+     * @param {boolean} params.nativeEnabled - Native Google sign-in status. This is the only switch for creating sessions from ID tokens obtained on device and is independent of enabled. Needs a client ID or at least one native client ID to match tokens against, but no client secret: this method verifies a signature rather than redeeming an authorization code.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Google>}
      */
@@ -2985,7 +3015,9 @@ export class Project {
         clientId?: string;
         clientSecret?: string;
         prompt?: ProjectOAuth2GooglePrompt[];
+        nativeClientIds?: string[];
         enabled?: boolean;
+        nativeEnabled?: boolean;
     }): Promise<Models.OAuth2Google>;
     /**
      * Update the project OAuth2 Google configuration.
@@ -2993,7 +3025,9 @@ export class Project {
      * @param {string} clientId - 'Client ID' of Google OAuth2 app. For example: 120000000095-92ifjb00000000000000000000g7ijfb.apps.googleusercontent.com
      * @param {string} clientSecret - 'Client Secret' of Google OAuth2 app. For example: GOCSPX-2k8gsR0000000000000000VNahJj
      * @param {ProjectOAuth2GooglePrompt[]} prompt - Array of Google OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. Must not be specified with other values. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account.
-     * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {string[]} nativeClientIds - Additional OAuth2 client IDs accepted as ID token audiences for native sign-in (Android and iOS client IDs). Together with the client ID, which is always accepted, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
+     * @param {boolean} enabled - Browser-based OAuth2 sign-in status. Set to true to enable new session creation through the redirect flow. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid. Has no effect on native sign-in, which is controlled by nativeEnabled only.
+     * @param {boolean} nativeEnabled - Native Google sign-in status. This is the only switch for creating sessions from ID tokens obtained on device and is independent of enabled. Needs a client ID or at least one native client ID to match tokens against, but no client secret: this method verifies a signature rather than redeeming an authorization code.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Google>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3002,7 +3036,9 @@ export class Project {
         clientId?: string,
         clientSecret?: string,
         prompt?: ProjectOAuth2GooglePrompt[],
+        nativeClientIds?: string[],
         enabled?: boolean,
+        nativeEnabled?: boolean,
     ): Promise<Models.OAuth2Google>;
     updateOAuth2Google(
         paramsOrFirst?:
@@ -3010,20 +3046,30 @@ export class Project {
                   clientId?: string;
                   clientSecret?: string;
                   prompt?: ProjectOAuth2GooglePrompt[];
+                  nativeClientIds?: string[];
                   enabled?: boolean;
+                  nativeEnabled?: boolean;
               }
             | string,
-        ...rest: [string?, ProjectOAuth2GooglePrompt[]?, boolean?]
+        ...rest: [
+            string?,
+            ProjectOAuth2GooglePrompt[]?,
+            string[]?,
+            boolean?,
+            boolean?,
+        ]
     ): Promise<Models.OAuth2Google> {
         let params: {
             clientId?: string;
             clientSecret?: string;
             prompt?: ProjectOAuth2GooglePrompt[];
+            nativeClientIds?: string[];
             enabled?: boolean;
+            nativeEnabled?: boolean;
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -3032,21 +3078,27 @@ export class Project {
                 clientId?: string;
                 clientSecret?: string;
                 prompt?: ProjectOAuth2GooglePrompt[];
+                nativeClientIds?: string[];
                 enabled?: boolean;
+                nativeEnabled?: boolean;
             };
         } else {
             params = {
                 clientId: paramsOrFirst as string,
                 clientSecret: rest[0] as string,
                 prompt: rest[1] as ProjectOAuth2GooglePrompt[],
-                enabled: rest[2] as boolean,
+                nativeClientIds: rest[2] as string[],
+                enabled: rest[3] as boolean,
+                nativeEnabled: rest[4] as boolean,
             };
         }
 
         const clientId = params.clientId;
         const clientSecret = params.clientSecret;
         const prompt = params.prompt;
+        const nativeClientIds = params.nativeClientIds;
         const enabled = params.enabled;
+        const nativeEnabled = params.nativeEnabled;
         const apiPath = '/project/oauth2/google';
         const apiPayload: Payload = {};
         if (typeof clientId !== 'undefined') {
@@ -3058,8 +3110,14 @@ export class Project {
         if (typeof prompt !== 'undefined') {
             apiPayload['prompt'] = prompt;
         }
+        if (typeof nativeClientIds !== 'undefined') {
+            apiPayload['nativeClientIds'] = nativeClientIds;
+        }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof nativeEnabled !== 'undefined') {
+            apiPayload['nativeEnabled'] = nativeEnabled;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -3114,7 +3172,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -3136,6 +3194,91 @@ export class Project {
         const clientSecret = params.clientSecret;
         const enabled = params.enabled;
         const apiPath = '/project/oauth2/huggingface';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Update the project OAuth2 Kakao configuration.
+     *
+     * @param {string} params.clientId - 'REST API key' of Kakao OAuth2 app. For example: 839ff5000000000000000000013206de
+     * @param {string} params.clientSecret - 'Client Secret' of Kakao OAuth2 app. For example: jLNVOK00000000000000000000yJebea. Generate it under Kakao Login > Security and set its status to enabled
+     * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Kakao>}
+     */
+    updateOAuth2Kakao(params?: {
+        clientId?: string;
+        clientSecret?: string;
+        enabled?: boolean;
+    }): Promise<Models.OAuth2Kakao>;
+    /**
+     * Update the project OAuth2 Kakao configuration.
+     *
+     * @param {string} clientId - 'REST API key' of Kakao OAuth2 app. For example: 839ff5000000000000000000013206de
+     * @param {string} clientSecret - 'Client Secret' of Kakao OAuth2 app. For example: jLNVOK00000000000000000000yJebea. Generate it under Kakao Login > Security and set its status to enabled
+     * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Kakao>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Kakao(
+        clientId?: string,
+        clientSecret?: string,
+        enabled?: boolean,
+    ): Promise<Models.OAuth2Kakao>;
+    updateOAuth2Kakao(
+        paramsOrFirst?:
+            | { clientId?: string; clientSecret?: string; enabled?: boolean }
+            | string,
+        ...rest: [string?, boolean?]
+    ): Promise<Models.OAuth2Kakao> {
+        let params: {
+            clientId?: string;
+            clientSecret?: string;
+            enabled?: boolean;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string;
+                clientSecret?: string;
+                enabled?: boolean;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string,
+                clientSecret: rest[0] as string,
+                enabled: rest[1] as boolean,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/kakao';
         const apiPayload: Payload = {};
         if (typeof clientId !== 'undefined') {
             apiPayload['clientId'] = clientId;
@@ -3215,7 +3358,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -3312,7 +3455,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -3401,7 +3544,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -3496,7 +3639,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -3591,7 +3734,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -3725,7 +3868,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -3862,7 +4005,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -3959,7 +4102,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -4044,7 +4187,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -4129,7 +4272,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -4214,7 +4357,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -4303,7 +4446,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -4388,7 +4531,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -4473,7 +4616,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -4558,7 +4701,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -4586,6 +4729,91 @@ export class Project {
         }
         if (typeof apiSecretKey !== 'undefined') {
             apiPayload['apiSecretKey'] = apiSecretKey;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Update the project OAuth2 TikTok configuration.
+     *
+     * @param {string} params.clientId - 'Client key' of TikTok OAuth2 app. For example: awz000000000tyw0
+     * @param {string} params.clientSecret - 'Client secret' of TikTok OAuth2 app. For example: 6wXewM00000000000000000000yXnite
+     * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2TikTok>}
+     */
+    updateOAuth2TikTok(params?: {
+        clientId?: string;
+        clientSecret?: string;
+        enabled?: boolean;
+    }): Promise<Models.OAuth2TikTok>;
+    /**
+     * Update the project OAuth2 TikTok configuration.
+     *
+     * @param {string} clientId - 'Client key' of TikTok OAuth2 app. For example: awz000000000tyw0
+     * @param {string} clientSecret - 'Client secret' of TikTok OAuth2 app. For example: 6wXewM00000000000000000000yXnite
+     * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2TikTok>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2TikTok(
+        clientId?: string,
+        clientSecret?: string,
+        enabled?: boolean,
+    ): Promise<Models.OAuth2TikTok>;
+    updateOAuth2TikTok(
+        paramsOrFirst?:
+            | { clientId?: string; clientSecret?: string; enabled?: boolean }
+            | string,
+        ...rest: [string?, boolean?]
+    ): Promise<Models.OAuth2TikTok> {
+        let params: {
+            clientId?: string;
+            clientSecret?: string;
+            enabled?: boolean;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string;
+                clientSecret?: string;
+                enabled?: boolean;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string,
+                clientSecret: rest[0] as string,
+                enabled: rest[1] as boolean,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/tiktok';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
@@ -4647,7 +4875,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -4736,7 +4964,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -4821,7 +5049,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -4906,7 +5134,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -4991,7 +5219,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -5076,7 +5304,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -5161,7 +5389,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -5246,7 +5474,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -5331,7 +5559,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -5379,7 +5607,7 @@ export class Project {
      *
      * @param {ProjectOAuthProviderId} params.providerId - OAuth2 provider key. For example: github, google, apple.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft>}
+     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao>}
      */
     getOAuth2Provider(params: {
         providerId: ProjectOAuthProviderId;
@@ -5427,13 +5655,15 @@ export class Project {
         | Models.OAuth2Okta
         | Models.OAuth2Kick
         | Models.OAuth2Microsoft
+        | Models.OAuth2TikTok
+        | Models.OAuth2Kakao
     >;
     /**
      * Get a single OAuth2 provider configuration. Credential fields (client secret, p8 file, key/team IDs) are write-only and always returned empty.
      *
      * @param {ProjectOAuthProviderId} providerId - OAuth2 provider key. For example: github, google, apple.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft>}
+     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     getOAuth2Provider(
@@ -5482,6 +5712,8 @@ export class Project {
         | Models.OAuth2Okta
         | Models.OAuth2Kick
         | Models.OAuth2Microsoft
+        | Models.OAuth2TikTok
+        | Models.OAuth2Kakao
     >;
     getOAuth2Provider(
         paramsOrFirst:
@@ -5530,6 +5762,8 @@ export class Project {
         | Models.OAuth2Okta
         | Models.OAuth2Kick
         | Models.OAuth2Microsoft
+        | Models.OAuth2TikTok
+        | Models.OAuth2Kakao
     > {
         let params: { providerId: ProjectOAuthProviderId };
 
@@ -5601,7 +5835,7 @@ export class Project {
         let params: { queries?: string[]; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -5788,7 +6022,7 @@ export class Project {
         const platformId = params.platformId;
         const name = params.name;
         const applicationId = params.applicationId;
-        if (typeof platformId === 'undefined') {
+        if (typeof platformId === 'undefined' || platformId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "platformId"',
             );
@@ -5982,7 +6216,7 @@ export class Project {
         const platformId = params.platformId;
         const name = params.name;
         const bundleIdentifier = params.bundleIdentifier;
-        if (typeof platformId === 'undefined') {
+        if (typeof platformId === 'undefined' || platformId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "platformId"',
             );
@@ -6166,7 +6400,7 @@ export class Project {
         const platformId = params.platformId;
         const name = params.name;
         const packageName = params.packageName;
-        if (typeof platformId === 'undefined') {
+        if (typeof platformId === 'undefined' || platformId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "platformId"',
             );
@@ -6350,7 +6584,7 @@ export class Project {
         const platformId = params.platformId;
         const name = params.name;
         const hostname = params.hostname;
-        if (typeof platformId === 'undefined') {
+        if (typeof platformId === 'undefined' || platformId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "platformId"',
             );
@@ -6552,7 +6786,7 @@ export class Project {
         const platformId = params.platformId;
         const name = params.name;
         const packageIdentifierName = params.packageIdentifierName;
-        if (typeof platformId === 'undefined') {
+        if (typeof platformId === 'undefined' || platformId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "platformId"',
             );
@@ -6644,7 +6878,7 @@ export class Project {
         }
 
         const platformId = params.platformId;
-        if (typeof platformId === 'undefined') {
+        if (typeof platformId === 'undefined' || platformId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "platformId"',
             );
@@ -6699,7 +6933,7 @@ export class Project {
         }
 
         const platformId = params.platformId;
-        if (typeof platformId === 'undefined') {
+        if (typeof platformId === 'undefined' || platformId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "platformId"',
             );
@@ -6714,6 +6948,7 @@ export class Project {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -6751,7 +6986,7 @@ export class Project {
         let params: { queries?: string[]; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -7083,7 +7318,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -7196,7 +7431,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -7422,6 +7657,87 @@ export class Project {
     }
 
     /**
+     * Updating this policy allows you to control if passwords are checked against the Have I Been Pwned breach database. When enabled, every password a user signs up, signs in or resets with is checked and the result is recorded on the user as `passwordPwned`. On its own the policy only records. Enable `users` to reject a breached password when a user signs up or sets a new password, and `sessions` to refuse a sign-in with a breached password until it is reset. Only the first five characters of the password hash are ever shared with the service. Options left out keep their current value.
+     *
+     * @param {boolean} params.enabled - Toggle password pwned policy. Set to true to check passwords against known data breaches and record the result on the user, or false to never check. Default is true. On its own this only records; use `users` and `sessions` to block. When changing this policy, existing passwords remain valid.
+     * @param {boolean} params.sessions - Whether a sign-in with a breached password is refused until the password is reset. Default is false, which allows the sign-in and only records the result.
+     * @param {boolean} params.users - Whether a breached password is rejected when a user signs up or sets a new password. Default is false, which allows the password and only records the result.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    updatePasswordPwnedPolicy(params?: {
+        enabled?: boolean;
+        sessions?: boolean;
+        users?: boolean;
+    }): Promise<Models.Project>;
+    /**
+     * Updating this policy allows you to control if passwords are checked against the Have I Been Pwned breach database. When enabled, every password a user signs up, signs in or resets with is checked and the result is recorded on the user as `passwordPwned`. On its own the policy only records. Enable `users` to reject a breached password when a user signs up or sets a new password, and `sessions` to refuse a sign-in with a breached password until it is reset. Only the first five characters of the password hash are ever shared with the service. Options left out keep their current value.
+     *
+     * @param {boolean} enabled - Toggle password pwned policy. Set to true to check passwords against known data breaches and record the result on the user, or false to never check. Default is true. On its own this only records; use `users` and `sessions` to block. When changing this policy, existing passwords remain valid.
+     * @param {boolean} sessions - Whether a sign-in with a breached password is refused until the password is reset. Default is false, which allows the sign-in and only records the result.
+     * @param {boolean} users - Whether a breached password is rejected when a user signs up or sets a new password. Default is false, which allows the password and only records the result.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updatePasswordPwnedPolicy(
+        enabled?: boolean,
+        sessions?: boolean,
+        users?: boolean,
+    ): Promise<Models.Project>;
+    updatePasswordPwnedPolicy(
+        paramsOrFirst?:
+            | { enabled?: boolean; sessions?: boolean; users?: boolean }
+            | boolean,
+        ...rest: [boolean?, boolean?]
+    ): Promise<Models.Project> {
+        let params: { enabled?: boolean; sessions?: boolean; users?: boolean };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                enabled?: boolean;
+                sessions?: boolean;
+                users?: boolean;
+            };
+        } else {
+            params = {
+                enabled: paramsOrFirst as boolean,
+                sessions: rest[0] as boolean,
+                users: rest[1] as boolean,
+            };
+        }
+
+        const enabled = params.enabled;
+        const sessions = params.sessions;
+        const users = params.users;
+        const apiPath = '/project/policies/password-pwned';
+        const apiPayload: Payload = {};
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        if (typeof sessions !== 'undefined') {
+            apiPayload['sessions'] = sessions;
+        }
+        if (typeof users !== 'undefined') {
+            apiPayload['users'] = users;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
+    }
+
+    /**
      * Update the password strength requirements for users in the project.
      *
      * @param {number} params.min - Minimum password length. Value must be between 8 and 256. Default is 8.
@@ -7479,7 +7795,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -7821,9 +8137,9 @@ export class Project {
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
+     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicyPasswordPwned | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>}
      */
     getPolicy(params: {
         policyId: ProjectPolicyId;
@@ -7832,6 +8148,7 @@ export class Project {
         | Models.PolicyPasswordHistory
         | Models.PolicyPasswordStrength
         | Models.PolicyPasswordPersonalData
+        | Models.PolicyPasswordPwned
         | Models.PolicySessionAlert
         | Models.PolicySessionDuration
         | Models.PolicySessionInvalidation
@@ -7847,9 +8164,9 @@ export class Project {
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
+     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicyPasswordPwned | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     getPolicy(
@@ -7859,6 +8176,7 @@ export class Project {
         | Models.PolicyPasswordHistory
         | Models.PolicyPasswordStrength
         | Models.PolicyPasswordPersonalData
+        | Models.PolicyPasswordPwned
         | Models.PolicySessionAlert
         | Models.PolicySessionDuration
         | Models.PolicySessionInvalidation
@@ -7878,6 +8196,7 @@ export class Project {
         | Models.PolicyPasswordHistory
         | Models.PolicyPasswordStrength
         | Models.PolicyPasswordPersonalData
+        | Models.PolicyPasswordPwned
         | Models.PolicySessionAlert
         | Models.PolicySessionDuration
         | Models.PolicySessionInvalidation
@@ -8186,7 +8505,7 @@ export class Project {
         };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -8319,6 +8638,7 @@ export class Project {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('post', uri, apiHeaders, apiPayload);
@@ -8356,7 +8676,7 @@ export class Project {
         let params: { queries?: string[]; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -8395,7 +8715,7 @@ export class Project {
     /**
      * Update a custom email template for the specified locale and type. Use this endpoint to modify the content of your email templates.
      *
-     * @param {ProjectEmailTemplateId} params.templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
+     * @param {ProjectEmailTemplateId} params.templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession, otpVerification, otpRecovery
      * @param {ProjectEmailTemplateLocale} params.locale - Custom email template locale. If left empty, the fallback locale (en) will be used.
      * @param {string} params.subject - Subject of the email template. Can be up to 255 characters.
      * @param {string} params.message - Plain or HTML body of the email template message. Can be up to 10MB of content.
@@ -8419,7 +8739,7 @@ export class Project {
     /**
      * Update a custom email template for the specified locale and type. Use this endpoint to modify the content of your email templates.
      *
-     * @param {ProjectEmailTemplateId} templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
+     * @param {ProjectEmailTemplateId} templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession, otpVerification, otpRecovery
      * @param {ProjectEmailTemplateLocale} locale - Custom email template locale. If left empty, the fallback locale (en) will be used.
      * @param {string} subject - Subject of the email template. Can be up to 255 characters.
      * @param {string} message - Plain or HTML body of the email template message. Can be up to 10MB of content.
@@ -8564,7 +8884,7 @@ export class Project {
     /**
      * Get a custom email template for the specified locale and type. This endpoint returns the template content, subject, and other configuration details.
      *
-     * @param {ProjectEmailTemplateId} params.templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
+     * @param {ProjectEmailTemplateId} params.templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession, otpVerification, otpRecovery
      * @param {ProjectEmailTemplateLocale} params.locale - Custom email template locale. If left empty, the fallback locale (en) will be used.
      * @throws {AppwriteException}
      * @returns {Promise<Models.EmailTemplate>}
@@ -8576,7 +8896,7 @@ export class Project {
     /**
      * Get a custom email template for the specified locale and type. This endpoint returns the template content, subject, and other configuration details.
      *
-     * @param {ProjectEmailTemplateId} templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
+     * @param {ProjectEmailTemplateId} templateId - Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession, otpVerification, otpRecovery
      * @param {ProjectEmailTemplateLocale} locale - Custom email template locale. If left empty, the fallback locale (en) will be used.
      * @throws {AppwriteException}
      * @returns {Promise<Models.EmailTemplate>}
@@ -8674,7 +8994,7 @@ export class Project {
         let params: { queries?: string[]; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -8856,7 +9176,7 @@ export class Project {
         }
 
         const variableId = params.variableId;
-        if (typeof variableId === 'undefined') {
+        if (typeof variableId === 'undefined' || variableId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "variableId"',
             );
@@ -8951,7 +9271,7 @@ export class Project {
         const key = params.key;
         const value = params.value;
         const secret = params.secret;
-        if (typeof variableId === 'undefined') {
+        if (typeof variableId === 'undefined' || variableId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "variableId"',
             );
@@ -9016,7 +9336,7 @@ export class Project {
         }
 
         const variableId = params.variableId;
-        if (typeof variableId === 'undefined') {
+        if (typeof variableId === 'undefined' || variableId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "variableId"',
             );
@@ -9031,6 +9351,7 @@ export class Project {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);

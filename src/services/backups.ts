@@ -34,7 +34,7 @@ export class Backups {
         let params: { queries?: string[] };
 
         if (
-            !paramsOrFirst ||
+            typeof paramsOrFirst === 'undefined' ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -173,7 +173,7 @@ export class Backups {
         }
 
         const archiveId = params.archiveId;
-        if (typeof archiveId === 'undefined') {
+        if (typeof archiveId === 'undefined' || archiveId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "archiveId"',
             );
@@ -226,7 +226,7 @@ export class Backups {
         }
 
         const archiveId = params.archiveId;
-        if (typeof archiveId === 'undefined') {
+        if (typeof archiveId === 'undefined' || archiveId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "archiveId"',
             );
@@ -272,7 +272,7 @@ export class Backups {
         let params: { queries?: string[] };
 
         if (
-            !paramsOrFirst ||
+            typeof paramsOrFirst === 'undefined' ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -498,7 +498,7 @@ export class Backups {
         }
 
         const policyId = params.policyId;
-        if (typeof policyId === 'undefined') {
+        if (typeof policyId === 'undefined' || policyId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "policyId"',
             );
@@ -602,7 +602,7 @@ export class Backups {
         const retention = params.retention;
         const schedule = params.schedule;
         const enabled = params.enabled;
-        if (typeof policyId === 'undefined') {
+        if (typeof policyId === 'undefined' || policyId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "policyId"',
             );
@@ -668,7 +668,7 @@ export class Backups {
         }
 
         const policyId = params.policyId;
-        if (typeof policyId === 'undefined') {
+        if (typeof policyId === 'undefined' || policyId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "policyId"',
             );
@@ -842,7 +842,7 @@ export class Backups {
         let params: { queries?: string[] };
 
         if (
-            !paramsOrFirst ||
+            typeof paramsOrFirst === 'undefined' ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -907,7 +907,7 @@ export class Backups {
         }
 
         const restorationId = params.restorationId;
-        if (typeof restorationId === 'undefined') {
+        if (typeof restorationId === 'undefined' || restorationId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "restorationId"',
             );

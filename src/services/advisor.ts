@@ -42,7 +42,7 @@ export class Advisor {
         let params: { queries?: string[]; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -115,7 +115,7 @@ export class Advisor {
         }
 
         const reportId = params.reportId;
-        if (typeof reportId === 'undefined') {
+        if (typeof reportId === 'undefined' || reportId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "reportId"',
             );
@@ -170,7 +170,7 @@ export class Advisor {
         }
 
         const reportId = params.reportId;
-        if (typeof reportId === 'undefined') {
+        if (typeof reportId === 'undefined' || reportId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "reportId"',
             );
@@ -185,6 +185,7 @@ export class Advisor {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -249,7 +250,7 @@ export class Advisor {
         const reportId = params.reportId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof reportId === 'undefined') {
+        if (typeof reportId === 'undefined' || reportId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "reportId"',
             );
@@ -323,12 +324,12 @@ export class Advisor {
 
         const reportId = params.reportId;
         const insightId = params.insightId;
-        if (typeof reportId === 'undefined') {
+        if (typeof reportId === 'undefined' || reportId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "reportId"',
             );
         }
-        if (typeof insightId === 'undefined') {
+        if (typeof insightId === 'undefined' || insightId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "insightId"',
             );

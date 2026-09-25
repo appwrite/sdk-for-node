@@ -57,7 +57,7 @@ export class Functions {
         let params: { queries?: string[]; search?: string; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -494,7 +494,7 @@ export class Functions {
         let params: { type?: string };
 
         if (
-            !paramsOrFirst ||
+            typeof paramsOrFirst === 'undefined' ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -557,7 +557,7 @@ export class Functions {
         }
 
         const functionId = params.functionId;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
@@ -836,7 +836,7 @@ export class Functions {
         const buildSpecification = params.buildSpecification;
         const runtimeSpecification = params.runtimeSpecification;
         const deploymentRetention = params.deploymentRetention;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
@@ -956,7 +956,7 @@ export class Functions {
         }
 
         const functionId = params.functionId;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
@@ -971,6 +971,7 @@ export class Functions {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -1025,7 +1026,7 @@ export class Functions {
 
         const functionId = params.functionId;
         const deploymentId = params.deploymentId;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
@@ -1129,7 +1130,7 @@ export class Functions {
         const queries = params.queries;
         const search = params.search;
         const total = params.total;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
@@ -1264,7 +1265,7 @@ export class Functions {
         const activate = params.activate;
         const entrypoint = params.entrypoint;
         const commands = params.commands;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
@@ -1373,7 +1374,7 @@ export class Functions {
         const functionId = params.functionId;
         const deploymentId = params.deploymentId;
         const buildId = params.buildId;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
@@ -1518,7 +1519,7 @@ export class Functions {
         const type = params.type;
         const reference = params.reference;
         const activate = params.activate;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
@@ -1657,7 +1658,7 @@ export class Functions {
         const type = params.type;
         const reference = params.reference;
         const activate = params.activate;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
@@ -1744,12 +1745,12 @@ export class Functions {
 
         const functionId = params.functionId;
         const deploymentId = params.deploymentId;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
         }
-        if (typeof deploymentId === 'undefined') {
+        if (typeof deploymentId === 'undefined' || deploymentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "deploymentId"',
             );
@@ -1817,12 +1818,12 @@ export class Functions {
 
         const functionId = params.functionId;
         const deploymentId = params.deploymentId;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
         }
-        if (typeof deploymentId === 'undefined') {
+        if (typeof deploymentId === 'undefined' || deploymentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "deploymentId"',
             );
@@ -1839,6 +1840,7 @@ export class Functions {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -1919,12 +1921,12 @@ export class Functions {
         const deploymentId = params.deploymentId;
         const type = params.type;
         const token = params.token;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
         }
-        if (typeof deploymentId === 'undefined') {
+        if (typeof deploymentId === 'undefined' || deploymentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "deploymentId"',
             );
@@ -2008,12 +2010,12 @@ export class Functions {
 
         const functionId = params.functionId;
         const deploymentId = params.deploymentId;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
         }
-        if (typeof deploymentId === 'undefined') {
+        if (typeof deploymentId === 'undefined' || deploymentId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "deploymentId"',
             );
@@ -2095,7 +2097,7 @@ export class Functions {
         const functionId = params.functionId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
@@ -2230,7 +2232,7 @@ export class Functions {
         const method = params.method;
         const headers = params.headers;
         const scheduledAt = params.scheduledAt;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
@@ -2318,12 +2320,12 @@ export class Functions {
 
         const functionId = params.functionId;
         const executionId = params.executionId;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
         }
-        if (typeof executionId === 'undefined') {
+        if (typeof executionId === 'undefined' || executionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "executionId"',
             );
@@ -2388,12 +2390,12 @@ export class Functions {
 
         const functionId = params.functionId;
         const executionId = params.executionId;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
         }
-        if (typeof executionId === 'undefined') {
+        if (typeof executionId === 'undefined' || executionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "executionId"',
             );
@@ -2407,6 +2409,7 @@ export class Functions {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -2470,7 +2473,7 @@ export class Functions {
         const functionId = params.functionId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
@@ -2580,7 +2583,7 @@ export class Functions {
         const key = params.key;
         const value = params.value;
         const secret = params.secret;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
@@ -2673,12 +2676,12 @@ export class Functions {
 
         const functionId = params.functionId;
         const variableId = params.variableId;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
         }
-        if (typeof variableId === 'undefined') {
+        if (typeof variableId === 'undefined' || variableId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "variableId"',
             );
@@ -2781,12 +2784,12 @@ export class Functions {
         const key = params.key;
         const value = params.value;
         const secret = params.secret;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
         }
-        if (typeof variableId === 'undefined') {
+        if (typeof variableId === 'undefined' || variableId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "variableId"',
             );
@@ -2861,12 +2864,12 @@ export class Functions {
 
         const functionId = params.functionId;
         const variableId = params.variableId;
-        if (typeof functionId === 'undefined') {
+        if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
             );
         }
-        if (typeof variableId === 'undefined') {
+        if (typeof variableId === 'undefined' || variableId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "variableId"',
             );
@@ -2880,6 +2883,7 @@ export class Functions {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);

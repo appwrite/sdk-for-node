@@ -581,7 +581,7 @@ describe('Functions', () => {
             responseHeaders: [],
             logs: '',
             errors: '',
-            duration: 0.4,
+            duration: 1.23,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await functions.createExecution('<FUNCTION_ID>');
@@ -610,7 +610,7 @@ describe('Functions', () => {
             responseHeaders: [],
             logs: '',
             errors: '',
-            duration: 0.4,
+            duration: 1.23,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await functions.getExecution(

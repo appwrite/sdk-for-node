@@ -593,7 +593,7 @@ describe('Sites', () => {
             responseHeaders: [],
             logs: '',
             errors: '',
-            duration: 0.4,
+            duration: 1.23,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await sites.getLog('<SITE_ID>', '<LOG_ID>');

@@ -37,7 +37,7 @@ export class Apps {
         let params: { queries?: string[]; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -454,7 +454,7 @@ export class Apps {
         }
 
         const appId = params.appId;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         const apiPath = '/apps/{appId}'.replace(
@@ -711,7 +711,7 @@ export class Apps {
         const deviceFlow = params.deviceFlow;
         const installationScopes = params.installationScopes;
         const installationRedirectUrl = params.installationRedirectUrl;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         if (typeof name === 'undefined') {
@@ -823,7 +823,7 @@ export class Apps {
         }
 
         const appId = params.appId;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         const apiPath = '/apps/{appId}'.replace(
@@ -899,7 +899,7 @@ export class Apps {
         const appId = params.appId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         const apiPath = '/apps/{appId}/installations'.replace(
@@ -972,10 +972,10 @@ export class Apps {
 
         const appId = params.appId;
         const installationId = params.installationId;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-        if (typeof installationId === 'undefined') {
+        if (typeof installationId === 'undefined' || installationId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "installationId"',
             );
@@ -1043,10 +1043,10 @@ export class Apps {
 
         const appId = params.appId;
         const installationId = params.installationId;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-        if (typeof installationId === 'undefined') {
+        if (typeof installationId === 'undefined' || installationId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "installationId"',
             );
@@ -1118,10 +1118,10 @@ export class Apps {
 
         const appId = params.appId;
         const installationId = params.installationId;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-        if (typeof installationId === 'undefined') {
+        if (typeof installationId === 'undefined' || installationId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "installationId"',
             );
@@ -1201,7 +1201,7 @@ export class Apps {
         const appId = params.appId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         const apiPath = '/apps/{appId}/keys'.replace(
@@ -1260,7 +1260,7 @@ export class Apps {
         }
 
         const appId = params.appId;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         const apiPath = '/apps/{appId}/keys'.replace(
@@ -1319,10 +1319,10 @@ export class Apps {
 
         const appId = params.appId;
         const keyId = params.keyId;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-        if (typeof keyId === 'undefined') {
+        if (typeof keyId === 'undefined' || keyId === '') {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
         const apiPath = '/apps/{appId}/keys/{keyId}'
@@ -1379,10 +1379,10 @@ export class Apps {
 
         const appId = params.appId;
         const keyId = params.keyId;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-        if (typeof keyId === 'undefined') {
+        if (typeof keyId === 'undefined' || keyId === '') {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
         const apiPath = '/apps/{appId}/keys/{keyId}'
@@ -1404,7 +1404,7 @@ export class Apps {
      * Update the labels of an application. Labels are read-only for clients; only a server SDK using a project API key can set them. Replaces the previous labels.
      *
      * @param {string} params.appId - Application unique ID.
-     * @param {string[]} params.labels - Array of application labels. Replaces the previous labels. Maximum of 1000 labels are allowed, each up to 36 alphanumeric characters long.
+     * @param {string[]} params.labels - Array of application labels. Replaces the previous labels. Maximum of 1000 labels are allowed, each up to 36 alphanumeric characters long. Reserved labels are rejected.
      * @throws {AppwriteException}
      * @returns {Promise<Models.App>}
      */
@@ -1416,7 +1416,7 @@ export class Apps {
      * Update the labels of an application. Labels are read-only for clients; only a server SDK using a project API key can set them. Replaces the previous labels.
      *
      * @param {string} appId - Application unique ID.
-     * @param {string[]} labels - Array of application labels. Replaces the previous labels. Maximum of 1000 labels are allowed, each up to 36 alphanumeric characters long.
+     * @param {string[]} labels - Array of application labels. Replaces the previous labels. Maximum of 1000 labels are allowed, each up to 36 alphanumeric characters long. Reserved labels are rejected.
      * @throws {AppwriteException}
      * @returns {Promise<Models.App>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1446,7 +1446,7 @@ export class Apps {
 
         const appId = params.appId;
         const labels = params.labels;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         if (typeof labels === 'undefined') {
@@ -1528,7 +1528,7 @@ export class Apps {
         const appId = params.appId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         const apiPath = '/apps/{appId}/secrets'.replace(
@@ -1587,7 +1587,7 @@ export class Apps {
         }
 
         const appId = params.appId;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         const apiPath = '/apps/{appId}/secrets'.replace(
@@ -1652,10 +1652,10 @@ export class Apps {
 
         const appId = params.appId;
         const secretId = params.secretId;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-        if (typeof secretId === 'undefined') {
+        if (typeof secretId === 'undefined' || secretId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "secretId"',
             );
@@ -1717,10 +1717,10 @@ export class Apps {
 
         const appId = params.appId;
         const secretId = params.secretId;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
-        if (typeof secretId === 'undefined') {
+        if (typeof secretId === 'undefined' || secretId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "secretId"',
             );
@@ -1780,7 +1780,7 @@ export class Apps {
 
         const appId = params.appId;
         const teamId = params.teamId;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         if (typeof teamId === 'undefined') {
@@ -1838,7 +1838,7 @@ export class Apps {
         }
 
         const appId = params.appId;
-        if (typeof appId === 'undefined') {
+        if (typeof appId === 'undefined' || appId === '') {
             throw new AppwriteException('Missing required parameter: "appId"');
         }
         const apiPath = '/apps/{appId}/tokens'.replace(

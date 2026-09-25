@@ -14,7 +14,7 @@ export class Users {
     /**
      * Get a list of all the project's users. You can use the query params to filter your results.
      *
-     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, email, phone, status, passwordUpdate, registration, emailVerification, phoneVerification, labels, impersonator, accessedAt
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, email, phone, status, passwordUpdate, registration, emailVerification, phoneVerification, passwordPwned, labels, impersonator, accessedAt
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
      * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
@@ -30,7 +30,7 @@ export class Users {
     /**
      * Get a list of all the project's users. You can use the query params to filter your results.
      *
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, email, phone, status, passwordUpdate, registration, emailVerification, phoneVerification, labels, impersonator, accessedAt
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, email, phone, status, passwordUpdate, registration, emailVerification, phoneVerification, passwordPwned, labels, impersonator, accessedAt
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
@@ -50,7 +50,7 @@ export class Users {
         let params: { queries?: string[]; search?: string; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -470,7 +470,7 @@ export class Users {
         let params: { queries?: string[]; search?: string; total?: boolean };
 
         if (
-            !paramsOrFirst ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
@@ -547,7 +547,7 @@ export class Users {
         }
 
         const identityId = params.identityId;
-        if (typeof identityId === 'undefined') {
+        if (typeof identityId === 'undefined' || identityId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "identityId"',
             );
@@ -562,6 +562,7 @@ export class Users {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -1338,7 +1339,7 @@ export class Users {
         }
 
         const userId = params.userId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}'.replace(
@@ -1389,7 +1390,7 @@ export class Users {
         }
 
         const userId = params.userId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}'.replace(
@@ -1402,6 +1403,7 @@ export class Users {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -1456,7 +1458,7 @@ export class Users {
 
         const userId = params.userId;
         const email = params.email;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof email === 'undefined') {
@@ -1482,7 +1484,7 @@ export class Users {
     }
 
     /**
-     * Enable or disable whether a user can impersonate other users. When impersonation headers are used, the request runs as the target user for API behavior, while internal audit logs still attribute the action to the original impersonator and store the impersonated target details only in internal audit payload data.
+     * Enable or disable whether a user can impersonate other users. When impersonation headers are used, the request runs as the target user for API behavior, while internal audit logs still attribute the action to the original impersonator and store the impersonated target details only in internal audit payload data. Account endpoints are read-only while impersonating: they report the target's account, and anything that would change it is refused, so an impersonator cannot alter the target's credentials or delete their account.
      *
      *
      * @param {string} params.userId - User ID.
@@ -1497,7 +1499,7 @@ export class Users {
         impersonator: boolean;
     }): Promise<Models.User<Preferences>>;
     /**
-     * Enable or disable whether a user can impersonate other users. When impersonation headers are used, the request runs as the target user for API behavior, while internal audit logs still attribute the action to the original impersonator and store the impersonated target details only in internal audit payload data.
+     * Enable or disable whether a user can impersonate other users. When impersonation headers are used, the request runs as the target user for API behavior, while internal audit logs still attribute the action to the original impersonator and store the impersonated target details only in internal audit payload data. Account endpoints are read-only while impersonating: they report the target's account, and anything that would change it is refused, so an impersonator cannot alter the target's credentials or delete their account.
      *
      *
      * @param {string} userId - User ID.
@@ -1535,7 +1537,7 @@ export class Users {
 
         const userId = params.userId;
         const impersonator = params.impersonator;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof impersonator === 'undefined') {
@@ -1619,7 +1621,7 @@ export class Users {
         const userId = params.userId;
         const sessionId = params.sessionId;
         const duration = params.duration;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/jwts'.replace(
@@ -1700,7 +1702,7 @@ export class Users {
 
         const userId = params.userId;
         const labels = params.labels;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof labels === 'undefined') {
@@ -1723,87 +1725,6 @@ export class Users {
         };
 
         return this.client.call('put', uri, apiHeaders, apiPayload);
-    }
-
-    /**
-     * Get the user activity logs list by its unique ID.
-     *
-     * @param {string} params.userId - User ID.
-     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
-     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.LogList>}
-     */
-    listLogs(params: {
-        userId: string;
-        queries?: string[];
-        total?: boolean;
-    }): Promise<Models.LogList>;
-    /**
-     * Get the user activity logs list by its unique ID.
-     *
-     * @param {string} userId - User ID.
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
-     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
-     * @throws {AppwriteException}
-     * @returns {Promise<Models.LogList>}
-     * @deprecated Use the object parameter style method for a better developer experience.
-     */
-    listLogs(
-        userId: string,
-        queries?: string[],
-        total?: boolean,
-    ): Promise<Models.LogList>;
-    listLogs(
-        paramsOrFirst:
-            { userId: string; queries?: string[]; total?: boolean } | string,
-        ...rest: [string[]?, boolean?]
-    ): Promise<Models.LogList> {
-        let params: { userId: string; queries?: string[]; total?: boolean };
-
-        if (
-            paramsOrFirst &&
-            typeof paramsOrFirst === 'object' &&
-            !Array.isArray(paramsOrFirst)
-        ) {
-            params = (paramsOrFirst || {}) as {
-                userId: string;
-                queries?: string[];
-                total?: boolean;
-            };
-        } else {
-            params = {
-                userId: paramsOrFirst as string,
-                queries: rest[0] as string[],
-                total: rest[1] as boolean,
-            };
-        }
-
-        const userId = params.userId;
-        const queries = params.queries;
-        const total = params.total;
-        if (typeof userId === 'undefined') {
-            throw new AppwriteException('Missing required parameter: "userId"');
-        }
-        const apiPath = '/users/{userId}/logs'.replace(
-            '{userId}',
-            encodeURIComponent(String(userId)),
-        );
-        const apiPayload: Payload = {};
-        if (typeof queries !== 'undefined') {
-            apiPayload['queries'] = queries;
-        }
-        if (typeof total !== 'undefined') {
-            apiPayload['total'] = total;
-        }
-        const uri = new URL(this.client.config.endpoint + apiPath);
-
-        const apiHeaders: { [header: string]: string } = {
-            'X-Appwrite-Project': this.client.config.project,
-            accept: 'application/json',
-        };
-
-        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1881,7 +1802,7 @@ export class Users {
         const queries = params.queries;
         const search = params.search;
         const total = params.total;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/memberships'.replace(
@@ -1958,7 +1879,7 @@ export class Users {
 
         const userId = params.userId;
         const mfa = params.mfa;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof mfa === 'undefined') {
@@ -2032,7 +1953,7 @@ export class Users {
 
         const userId = params.userId;
         const mfa = params.mfa;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof mfa === 'undefined') {
@@ -2107,7 +2028,7 @@ export class Users {
 
         const userId = params.userId;
         const type = params.type;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof type === 'undefined') {
@@ -2122,6 +2043,7 @@ export class Users {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -2176,7 +2098,7 @@ export class Users {
 
         const userId = params.userId;
         const type = params.type;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof type === 'undefined') {
@@ -2191,6 +2113,7 @@ export class Users {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -2245,10 +2168,10 @@ export class Users {
 
         const userId = params.userId;
         const challengeId = params.challengeId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
-        if (typeof challengeId === 'undefined') {
+        if (typeof challengeId === 'undefined' || challengeId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "challengeId"',
             );
@@ -2303,7 +2226,7 @@ export class Users {
         }
 
         const userId = params.userId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/mfa/factors'.replace(
@@ -2356,7 +2279,7 @@ export class Users {
         }
 
         const userId = params.userId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/mfa/factors'.replace(
@@ -2412,7 +2335,7 @@ export class Users {
         }
 
         const userId = params.userId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace(
@@ -2467,7 +2390,7 @@ export class Users {
         }
 
         const userId = params.userId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace(
@@ -2523,7 +2446,7 @@ export class Users {
         }
 
         const userId = params.userId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace(
@@ -2579,7 +2502,7 @@ export class Users {
         }
 
         const userId = params.userId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace(
@@ -2636,7 +2559,7 @@ export class Users {
         }
 
         const userId = params.userId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace(
@@ -2692,7 +2615,7 @@ export class Users {
         }
 
         const userId = params.userId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace(
@@ -2760,7 +2683,7 @@ export class Users {
 
         const userId = params.userId;
         const name = params.name;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof name === 'undefined') {
@@ -2837,7 +2760,7 @@ export class Users {
 
         const userId = params.userId;
         const password = params.password;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof password === 'undefined') {
@@ -2916,7 +2839,7 @@ export class Users {
 
         const userId = params.userId;
         const number = params.number;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof number === 'undefined') {
@@ -2980,7 +2903,7 @@ export class Users {
         }
 
         const userId = params.userId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/prefs'.replace(
@@ -3044,7 +2967,7 @@ export class Users {
 
         const userId = params.userId;
         const prefs = params.prefs;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof prefs === 'undefined') {
@@ -3115,7 +3038,7 @@ export class Users {
 
         const userId = params.userId;
         const total = params.total;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/sessions'.replace(
@@ -3175,7 +3098,7 @@ export class Users {
         }
 
         const userId = params.userId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/sessions'.replace(
@@ -3227,7 +3150,7 @@ export class Users {
         }
 
         const userId = params.userId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/sessions'.replace(
@@ -3240,6 +3163,7 @@ export class Users {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -3288,10 +3212,10 @@ export class Users {
 
         const userId = params.userId;
         const sessionId = params.sessionId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
-        if (typeof sessionId === 'undefined') {
+        if (typeof sessionId === 'undefined' || sessionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "sessionId"',
             );
@@ -3305,6 +3229,7 @@ export class Users {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -3362,7 +3287,7 @@ export class Users {
 
         const userId = params.userId;
         const status = params.status;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof status === 'undefined') {
@@ -3444,7 +3369,7 @@ export class Users {
         const userId = params.userId;
         const queries = params.queries;
         const total = params.total;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/targets'.replace(
@@ -3561,7 +3486,7 @@ export class Users {
         const identifier = params.identifier;
         const providerId = params.providerId;
         const name = params.name;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof targetId === 'undefined') {
@@ -3656,10 +3581,10 @@ export class Users {
 
         const userId = params.userId;
         const targetId = params.targetId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
-        if (typeof targetId === 'undefined') {
+        if (typeof targetId === 'undefined' || targetId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "targetId"',
             );
@@ -3762,10 +3687,10 @@ export class Users {
         const identifier = params.identifier;
         const providerId = params.providerId;
         const name = params.name;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
-        if (typeof targetId === 'undefined') {
+        if (typeof targetId === 'undefined' || targetId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "targetId"',
             );
@@ -3837,10 +3762,10 @@ export class Users {
 
         const userId = params.userId;
         const targetId = params.targetId;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
-        if (typeof targetId === 'undefined') {
+        if (typeof targetId === 'undefined' || targetId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "targetId"',
             );
@@ -3854,6 +3779,7 @@ export class Users {
         const apiHeaders: { [header: string]: string } = {
             'X-Appwrite-Project': this.client.config.project,
             'content-type': 'application/json',
+            accept: 'application/json',
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
@@ -3918,7 +3844,7 @@ export class Users {
         const userId = params.userId;
         const length = params.length;
         const expire = params.expire;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         const apiPath = '/users/{userId}/tokens'.replace(
@@ -3998,7 +3924,7 @@ export class Users {
 
         const userId = params.userId;
         const emailVerification = params.emailVerification;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof emailVerification === 'undefined') {
@@ -4080,7 +4006,7 @@ export class Users {
 
         const userId = params.userId;
         const phoneVerification = params.phoneVerification;
-        if (typeof userId === 'undefined') {
+        if (typeof userId === 'undefined' || userId === '') {
             throw new AppwriteException('Missing required parameter: "userId"');
         }
         if (typeof phoneVerification === 'undefined') {

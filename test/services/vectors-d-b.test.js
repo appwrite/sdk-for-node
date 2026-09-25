@@ -45,7 +45,6 @@ describe('VectorsDB', () => {
         const data = {
             specifications: [],
             total: 9,
-            pricing: {},
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await vectorsDB.listSpecifications();
@@ -608,6 +607,8 @@ describe('VectorsDB', () => {
             cpu: 2000,
             memory: 4096,
             storage: 100,
+            storageStatus: 'resizing',
+            storageTargetGb: 120,
             storageClass: 'ssd',
             storageMaxGb: 100,
             nodePool: 'db-pool-4vcpu-8gb',
@@ -621,7 +622,7 @@ describe('VectorsDB', () => {
             pitrRetentionDays: 14,
             storageAutoscaling: true,
             storageAutoscalingThresholdPercent: 85,
-            storageAutoscalingMaxGb: 500,
+            storageAutoscalingMaxGb: 30,
             maintenanceWindowDay: 'sun',
             maintenanceWindowHourUtc: 3,
             metricsEnabled: true,

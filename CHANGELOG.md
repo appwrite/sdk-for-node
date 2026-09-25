@@ -1,5 +1,24 @@
 # Change Log
 
+## 30.0.0
+
+* Breaking: `account.listLogs`, `users.listLogs`, `Log` and `LogList` removed
+* Breaking: `organization` key methods renamed to `createEphemeralProjectKey`, `getProjectKey`, `listProjectKeys`, `updateProjectKey`, `deleteProjectKey`, and `OrganizationKeyScopes` removed
+* Breaking: `setDevKey` client method, `DevKey` model and `Project.devKeys` removed
+* Breaking: `region`, `reason`, `projectName`, `organizationId`, `organizationName`, `billingPlan` removed from `Block`
+* Breaking: `DedicatedDatabaseSpecificationList.pricing` and `DedicatedDatabaseSpecificationPricing` removed; rates now live on each `DedicatedDatabaseSpecification`
+* Breaking: `BillingPlanGroup.Starter` replaced by `Free` and `Start`
+* Added: `oauth2.introspect` for RFC 7662 token introspection with an API key, returning the `Oauth2Introspection` model
+* Added: `domains` service for domains, DNS records, email presets, prices and transfers
+* Added: `account.createIdTokenSession` and email verification and recovery OTP methods
+* Added: `messaging.createAppwriteProvider` and `messaging.updateAppwriteProvider`
+* Added: `project.updatePasswordPwnedPolicy` with `PolicyPasswordPwned` model and `User.passwordPwned`
+* Added: Kakao and TikTok OAuth2 providers
+* Added: native client IDs on the Apple and Google OAuth2 providers
+* Added: reply-to on email messages, `qos` and `expiry` on topics
+* Added: `ImageGravity.Auto`, `jaspr` framework, and `dart-3.13` and `flutter-3.47` runtimes
+* Updated: requests send `X-Appwrite-Response-Format` `2.3.0`
+
 ## 29.0.0
 
 * Stable release of the dedicated database APIs: `mysql`, `postgresql`, `mongo`, `documentsDB`, and `vectorsDB` services, previously released as release candidates

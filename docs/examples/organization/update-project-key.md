@@ -8,10 +8,11 @@ const client = new sdk.Client()
 
 const organization = new sdk.Organization(client);
 
-const result = await organization.createKey({
+const result = await organization.updateProjectKey({
+    projectId: '<PROJECT_ID>',
     keyId: '<KEY_ID>',
     name: '<NAME>',
-    scopes: [sdk.OrganizationKeyScopes.ProjectsRead],
+    scopes: [sdk.ProjectKeyScopes.ProjectRead],
     expire: '2020-10-15T06:38:00.000+00:00', // optional
 });
 ```

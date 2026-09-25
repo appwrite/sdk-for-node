@@ -219,19 +219,6 @@ describe('Account', () => {
 
         expect(response).toEqual(data);
     });
-    test('test method listLogs()', async () => {
-        const data = {
-            total: 5,
-            logs: [],
-        };
-        mockedFetch.mockImplementation(() => Response.json(data));
-        const response = await account.listLogs();
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
     test('test method updateMFA()', async () => {
         const data = {
             '\\$id': '5e5ea5c16897e',
@@ -738,6 +725,44 @@ describe('Account', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method createRecoveryOTP()', async () => {
+        const data = {
+            '\\$id': 'bb8ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            userId: '5e5ea5c168bb8',
+            secret: '',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            phrase: 'Golden Fox',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.createRecoveryOTP('email@example.com');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateRecoveryOTP()', async () => {
+        const data = {
+            '\\$id': 'bb8ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            userId: '5e5ea5c168bb8',
+            secret: '',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            phrase: 'Golden Fox',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.updateRecoveryOTP(
+            '<USER_ID>',
+            '<SECRET>',
+            'password',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method listSessions()', async () => {
         const data = {
             total: 5,
@@ -837,6 +862,49 @@ describe('Account', () => {
         const response = await account.createEmailPasswordSession(
             'email@example.com',
             'password',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method createIdTokenSession()', async () => {
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            userId: '5e5bb8c16897e',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            provider: 'email',
+            providerUid: 'user@example.com',
+            providerAccessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
+            providerAccessTokenExpiry: '2020-10-15T06:38:00.000+00:00',
+            providerRefreshToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
+            ip: '127.0.0.1',
+            osCode: 'Mac',
+            osName: 'Mac',
+            osVersion: 'Mac',
+            clientType: 'browser',
+            clientCode: 'CM',
+            clientName: 'Chrome Mobile iOS',
+            clientVersion: '84.0',
+            clientEngine: 'WebKit',
+            clientEngineVersion: '605.1.15',
+            deviceName: 'smartphone',
+            deviceBrand: 'Google',
+            deviceModel: 'Nexus 5',
+            countryCode: 'US',
+            countryName: 'United States',
+            current: true,
+            factors: [],
+            secret: '5e5bb8c16897e',
+            mfaUpdatedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.createIdTokenSession(
+            'apple',
+            '<ID_TOKEN>',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
@@ -1226,6 +1294,43 @@ describe('Account', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await account.updateVerification(
+            '<USER_ID>',
+            '<SECRET>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method createEmailVerificationOTP()', async () => {
+        const data = {
+            '\\$id': 'bb8ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            userId: '5e5ea5c168bb8',
+            secret: '',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            phrase: 'Golden Fox',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.createEmailVerificationOTP();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateEmailVerificationOTP()', async () => {
+        const data = {
+            '\\$id': 'bb8ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            userId: '5e5ea5c168bb8',
+            secret: '',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            phrase: 'Golden Fox',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.updateEmailVerificationOTP(
             '<USER_ID>',
             '<SECRET>',
         );
