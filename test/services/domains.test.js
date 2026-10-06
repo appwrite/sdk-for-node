@@ -342,7 +342,12 @@ describe('Domains', () => {
             comment: 'Mail server record',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
-        const response = await domains.createRecordA('<DOMAIN_ID>', '', '', 1);
+        const response = await domains.createRecordA(
+            '<DOMAIN_ID>',
+            'name',
+            'value',
+            1,
+        );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
@@ -368,8 +373,8 @@ describe('Domains', () => {
         const response = await domains.updateRecordA(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
-            '',
+            'name',
+            'value',
             1,
         );
 
@@ -396,8 +401,8 @@ describe('Domains', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await domains.createRecordAAAA(
             '<DOMAIN_ID>',
-            '',
-            '',
+            'name',
+            'value',
             1,
         );
 
@@ -425,8 +430,8 @@ describe('Domains', () => {
         const response = await domains.updateRecordAAAA(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
-            '',
+            'name',
+            'value',
             1,
         );
 
@@ -453,7 +458,7 @@ describe('Domains', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await domains.createRecordAlias(
             '<DOMAIN_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         );
@@ -482,7 +487,7 @@ describe('Domains', () => {
         const response = await domains.updateRecordAlias(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         );
@@ -510,8 +515,8 @@ describe('Domains', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await domains.createRecordCAA(
             '<DOMAIN_ID>',
-            '',
-            '',
+            'name',
+            'value',
             1,
         );
 
@@ -539,8 +544,8 @@ describe('Domains', () => {
         const response = await domains.updateRecordCAA(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
-            '',
+            'name',
+            'value',
             1,
         );
 
@@ -567,7 +572,7 @@ describe('Domains', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await domains.createRecordCNAME(
             '<DOMAIN_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         );
@@ -596,7 +601,7 @@ describe('Domains', () => {
         const response = await domains.updateRecordCNAME(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         );
@@ -624,7 +629,7 @@ describe('Domains', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await domains.createRecordHTTPS(
             '<DOMAIN_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         );
@@ -653,7 +658,7 @@ describe('Domains', () => {
         const response = await domains.updateRecordHTTPS(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         );
@@ -681,7 +686,7 @@ describe('Domains', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await domains.createRecordMX(
             '<DOMAIN_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
             1,
@@ -711,7 +716,7 @@ describe('Domains', () => {
         const response = await domains.updateRecordMX(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
             1,
@@ -740,7 +745,7 @@ describe('Domains', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await domains.createRecordNS(
             '<DOMAIN_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         );
@@ -769,7 +774,7 @@ describe('Domains', () => {
         const response = await domains.updateRecordNS(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         );
@@ -797,7 +802,7 @@ describe('Domains', () => {
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await domains.createRecordSRV(
             '<DOMAIN_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
             1,
@@ -829,7 +834,7 @@ describe('Domains', () => {
         const response = await domains.updateRecordSRV(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
             1,
@@ -858,7 +863,11 @@ describe('Domains', () => {
             comment: 'Mail server record',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
-        const response = await domains.createRecordTXT('<DOMAIN_ID>', '', 1);
+        const response = await domains.createRecordTXT(
+            '<DOMAIN_ID>',
+            'name',
+            1,
+        );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
@@ -884,7 +893,7 @@ describe('Domains', () => {
         const response = await domains.updateRecordTXT(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         );
@@ -968,8 +977,8 @@ describe('Domains', () => {
         expect(response).toEqual(data);
     });
     test('test method getZone()', async () => {
-        const data = { message: '' };
-        mockedFetch.mockImplementation(() => Response.json(data));
+        const data = 'text';
+        mockedFetch.mockImplementation(() => new Response(data));
         const response = await domains.getZone('<DOMAIN_ID>');
 
         // Remove custom toString method on the objects to allow for clean data comparison.

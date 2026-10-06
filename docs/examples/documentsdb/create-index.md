@@ -13,7 +13,7 @@ const result = await documentsDB.createIndex({
     collectionId: '<COLLECTION_ID>',
     key: '<KEY>',
     type: sdk.DocumentsDBIndexType.Key,
-    attributes: [],
+    attributes: ['username'],
     orders: [sdk.OrderBy.Asc], // optional
     lengths: [], // optional
 });

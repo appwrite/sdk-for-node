@@ -10,18 +10,18 @@ const messaging = new sdk.Messaging(client);
 
 const result = await messaging.updateEmail({
     messageId: '<MESSAGE_ID>',
+    subject: '<SUBJECT>', // optional
+    content: '<CONTENT>', // optional
     topics: [], // optional
     users: [], // optional
     targets: [], // optional
-    subject: '<SUBJECT>', // optional
-    content: '<CONTENT>', // optional
-    draft: false, // optional
-    html: false, // optional
     cc: [], // optional
     bcc: [], // optional
+    attachments: [], // optional
     replyToEmail: 'email@example.com', // optional
     replyToName: '<REPLY_TO_NAME>', // optional
+    draft: false, // optional
+    html: false, // optional
     scheduledAt: '2020-10-15T06:38:00.000+00:00', // optional
-    attachments: [], // optional
 });
 ```

@@ -453,12 +453,44 @@ export class Functions {
     /**
      * Get a list of all runtimes that are currently active on your instance.
      *
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.RuntimeList>}
      */
-    listRuntimes(): Promise<Models.RuntimeList> {
+    listRuntimes(params?: { total?: boolean }): Promise<Models.RuntimeList>;
+    /**
+     * Get a list of all runtimes that are currently active on your instance.
+     *
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.RuntimeList>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    listRuntimes(total?: boolean): Promise<Models.RuntimeList>;
+    listRuntimes(
+        paramsOrFirst?: { total?: boolean } | boolean,
+    ): Promise<Models.RuntimeList> {
+        let params: { total?: boolean };
+
+        if (
+            typeof paramsOrFirst === 'undefined' ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as { total?: boolean };
+        } else {
+            params = {
+                total: paramsOrFirst as boolean,
+            };
+        }
+
+        const total = params.total;
         const apiPath = '/functions/runtimes';
         const apiPayload: Payload = {};
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -473,44 +505,59 @@ export class Functions {
      * List allowed function specifications for this instance.
      *
      * @param {string} params.type - Specification type to list. Can be one of: runtimes, builds. Defaults to runtimes.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SpecificationList>}
      */
     listSpecifications(params?: {
         type?: string;
+        total?: boolean;
     }): Promise<Models.SpecificationList>;
     /**
      * List allowed function specifications for this instance.
      *
      * @param {string} type - Specification type to list. Can be one of: runtimes, builds. Defaults to runtimes.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SpecificationList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listSpecifications(type?: string): Promise<Models.SpecificationList>;
     listSpecifications(
-        paramsOrFirst?: { type?: string } | string,
+        type?: string,
+        total?: boolean,
+    ): Promise<Models.SpecificationList>;
+    listSpecifications(
+        paramsOrFirst?: { type?: string; total?: boolean } | string,
+        ...rest: [boolean?]
     ): Promise<Models.SpecificationList> {
-        let params: { type?: string };
+        let params: { type?: string; total?: boolean };
 
         if (
-            typeof paramsOrFirst === 'undefined' ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
         ) {
-            params = (paramsOrFirst || {}) as { type?: string };
+            params = (paramsOrFirst || {}) as {
+                type?: string;
+                total?: boolean;
+            };
         } else {
             params = {
                 type: paramsOrFirst as string,
+                total: rest[0] as boolean,
             };
         }
 
         const type = params.type;
+        const total = params.total;
         const apiPath = '/functions/specifications';
         const apiPayload: Payload = {};
         if (typeof type !== 'undefined') {
             apiPayload['type'] = type;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

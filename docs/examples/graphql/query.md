@@ -9,6 +9,8 @@ const client = new sdk.Client()
 const graphql = new sdk.Graphql(client);
 
 const result = await graphql.query({
-    query: {},
+    query: {
+        query: 'query { localeGet { ip } }',
+    },
 });
 ```

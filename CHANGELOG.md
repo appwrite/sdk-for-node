@@ -1,5 +1,16 @@
 # Change Log
 
+## 30.0.0-rc.2
+
+* Added: OAuth2 provider `prompt` enums (`OAuth2Auth0Prompt`, `OAuth2GithubPrompt`, and project variants)
+* Added: `Topic` and `ResolvedTopic` exports
+* Added: `Models.Account` and `Models.OAuth2Webflow` types
+* Added: `Webflow` to the `OAuthProvider` and `ProjectOAuthProviderId` enums
+* Added: `avatars.updatePhoto()` and `avatars.deletePhoto()` methods
+* Added: optional `total` param on locale and list endpoints; `duration` on email-password sessions
+* Updated: `chunkedUpload` supports a `text` responseType and falls back without a file
+* Updated: several model fields relaxed to optional; `RestorationStatus.options` is now an object
+
 ## 30.0.0
 
 * Breaking: `account.listLogs`, `users.listLogs`, `Log` and `LogList` removed

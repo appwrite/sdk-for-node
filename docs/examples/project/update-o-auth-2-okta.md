@@ -13,6 +13,7 @@ const result = await project.updateOAuth2Okta({
     clientSecret: '<CLIENT_SECRET>', // optional
     domain: 'example.com', // optional
     authorizationServerId: '<AUTHORIZATION_SERVER_ID>', // optional
+    prompt: [sdk.ProjectOAuth2OktaPrompt.None], // optional
     enabled: false, // optional
 });
 ```

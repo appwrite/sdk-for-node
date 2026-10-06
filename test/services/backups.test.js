@@ -30,9 +30,7 @@ describe('Backups', () => {
             '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             policyId: 'did8jx6ws45jana098ab7',
-            size: 100000,
             status: 'completed',
-            startedAt: '2020-10-15T06:38:00.000+00:00',
             migrationId: 'did8jx6ws45jana098ab7',
             services: [],
             resources: [],
@@ -51,9 +49,7 @@ describe('Backups', () => {
             '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
             '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
             policyId: 'did8jx6ws45jana098ab7',
-            size: 100000,
             status: 'completed',
-            startedAt: '2020-10-15T06:38:00.000+00:00',
             migrationId: 'did8jx6ws45jana098ab7',
             services: [],
             resources: [],
@@ -103,7 +99,12 @@ describe('Backups', () => {
             enabled: true,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
-        const response = await backups.createPolicy('<POLICY_ID>', [], 1, '');
+        const response = await backups.createPolicy(
+            '<POLICY_ID>',
+            [],
+            1,
+            'schedule',
+        );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
@@ -170,11 +171,10 @@ describe('Backups', () => {
             archiveId: 'did8jx6ws45jana098ab7',
             policyId: 'did8jx6ws45jana098ab7',
             status: 'completed',
-            startedAt: '2020-10-15T06:38:00.000+00:00',
             migrationId: 'did8jx6ws45jana098ab7',
             services: [],
             resources: [],
-            options: '{databases.database[{oldId, newId, newName}]}',
+            options: {},
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await backups.createRestoration('<ARCHIVE_ID>', []);
@@ -205,11 +205,10 @@ describe('Backups', () => {
             archiveId: 'did8jx6ws45jana098ab7',
             policyId: 'did8jx6ws45jana098ab7',
             status: 'completed',
-            startedAt: '2020-10-15T06:38:00.000+00:00',
             migrationId: 'did8jx6ws45jana098ab7',
             services: [],
             resources: [],
-            options: '{databases.database[{oldId, newId, newName}]}',
+            options: {},
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await backups.getRestoration('<RESTORATION_ID>');

@@ -94,7 +94,7 @@ export class Teams {
      *
      * @param {string} params.teamId - Team ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Team name. Max length: 128 chars.
-     * @param {string[]} params.roles - Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 32 characters long.
+     * @param {string[]} params.roles - Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 81 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Team<Preferences>>}
      */
@@ -110,7 +110,7 @@ export class Teams {
      *
      * @param {string} teamId - Team ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Team name. Max length: 128 chars.
-     * @param {string[]} roles - Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 32 characters long.
+     * @param {string[]} roles - Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 81 characters long.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Team<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.

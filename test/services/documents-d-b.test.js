@@ -706,7 +706,6 @@ describe('DocumentsDB', () => {
             engine: 'postgresql',
             version: '17',
             uptime: 86400,
-            connections: {},
             syncMode: 'async',
             syncDegraded: true,
             syncAcknowledgements: 1,
