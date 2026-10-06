@@ -11,6 +11,7 @@ const project = new sdk.Project(client);
 const result = await project.updateOAuth2Salesforce({
     customerKey: '<CUSTOMER_KEY>', // optional
     customerSecret: '<CUSTOMER_SECRET>', // optional
+    prompt: [sdk.ProjectOAuth2SalesforcePrompt.Login], // optional
     enabled: false, // optional
 });
 ```

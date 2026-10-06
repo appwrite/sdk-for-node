@@ -9,7 +9,7 @@ const client = new sdk.Client()
 const project = new sdk.Project(client);
 
 const result = await project.createEphemeralKey({
-    scopes: [sdk.ProjectKeyScopes.ProjectRead],
+    scopes: [sdk.ProjectKeyScopes.UsersRead],
     duration: 600,
 });
 ```

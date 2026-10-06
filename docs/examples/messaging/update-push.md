@@ -10,11 +10,11 @@ const messaging = new sdk.Messaging(client);
 
 const result = await messaging.updatePush({
     messageId: '<MESSAGE_ID>',
+    title: '<TITLE>', // optional
+    body: '<BODY>', // optional
     topics: [], // optional
     users: [], // optional
     targets: [], // optional
-    title: '<TITLE>', // optional
-    body: '<BODY>', // optional
     data: {}, // optional
     action: '<ACTION>', // optional
     image: '<ID1:ID2>', // optional
@@ -28,5 +28,6 @@ const result = await messaging.updatePush({
     contentAvailable: false, // optional
     critical: false, // optional
     priority: sdk.MessagePriority.Normal, // optional
+    channelId: '<CHANNEL_ID>', // optional
 });
 ```

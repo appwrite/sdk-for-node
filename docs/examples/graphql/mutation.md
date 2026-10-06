@@ -9,6 +9,8 @@ const client = new sdk.Client()
 const graphql = new sdk.Graphql(client);
 
 const result = await graphql.mutation({
-    query: {},
+    query: {
+        query: 'mutation { accountUpdateName(name: "Walter") { name } }',
+    },
 });
 ```

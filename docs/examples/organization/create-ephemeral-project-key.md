@@ -10,7 +10,7 @@ const organization = new sdk.Organization(client);
 
 const result = await organization.createEphemeralProjectKey({
     projectId: '<PROJECT_ID>',
-    scopes: [sdk.ProjectKeyScopes.ProjectRead],
+    scopes: [sdk.ProjectKeyScopes.UsersRead],
     duration: 600,
 });
 ```

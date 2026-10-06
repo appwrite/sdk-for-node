@@ -80,7 +80,7 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/30.0.0';
+    let ua = 'AppwriteNodeJSSDK/30.0.0-rc.2';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
@@ -141,7 +141,7 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '30.0.0',
+        'x-sdk-version': '30.0.0-rc.2',
         'user-agent': getUserAgent(),
         'X-Appwrite-Response-Format': '2.3.0',
     };
@@ -432,6 +432,11 @@ class Client {
                             for (const nestedValue of value) {
                                 formData.append(`${key}[]`, nestedValue);
                             }
+                        } else if (
+                            value !== null &&
+                            typeof value === 'object'
+                        ) {
+                            formData.append(key, JSONbig.stringify(value));
                         } else {
                             formData.append(key, value);
                         }
@@ -453,6 +458,7 @@ class Client {
         headers: Headers = {},
         originalPayload: Payload = {},
         onProgress: (progress: UploadProgress) => void,
+        responseType = 'json',
     ) {
         const [fileParam, file] =
             Object.entries(originalPayload).find(
@@ -461,16 +467,28 @@ class Client {
             ) ?? [];
 
         if (!file || !fileParam) {
-            throw new Error('File not found in payload');
+            return await this.call(
+                method,
+                url,
+                headers,
+                originalPayload,
+                responseType,
+            );
         }
 
         if (file instanceof InputFile) {
             const size = await file.size();
 
-            if (size <= Client.CHUNK_SIZE) {
+            if (size <= Client.CHUNK_SIZE || responseType === 'text') {
                 const payload = { ...originalPayload };
                 payload[fileParam] = await file.toFile();
-                return await this.call(method, url, headers, payload);
+                return await this.call(
+                    method,
+                    url,
+                    headers,
+                    payload,
+                    responseType,
+                );
             }
 
             const totalChunks = Math.ceil(size / Client.CHUNK_SIZE);
@@ -490,6 +508,7 @@ class Client {
                 url,
                 firstChunkHeaders,
                 firstPayload,
+                responseType,
             );
             const uploadId = response?.$id;
 
@@ -550,6 +569,7 @@ class Client {
                     url,
                     chunkHeaders,
                     chunkPayload,
+                    responseType,
                 );
 
                 if (failed) {
@@ -603,8 +623,14 @@ class Client {
             return finalResponse ?? lastResponse;
         }
 
-        if (file.size <= Client.CHUNK_SIZE) {
-            return await this.call(method, url, headers, originalPayload);
+        if (file.size <= Client.CHUNK_SIZE || responseType === 'text') {
+            return await this.call(
+                method,
+                url,
+                headers,
+                originalPayload,
+                responseType,
+            );
         }
 
         const totalChunks = Math.ceil(file.size / Client.CHUNK_SIZE);
@@ -624,6 +650,7 @@ class Client {
             url,
             firstChunkHeaders,
             firstPayload,
+            responseType,
         );
         const uploadId = response?.$id;
 
@@ -684,6 +711,7 @@ class Client {
                 url,
                 chunkHeaders,
                 chunkPayload,
+                responseType,
             );
 
             if (failed) {
@@ -796,7 +824,9 @@ class Client {
                 );
         }
 
-        if (
+        if (responseType === 'text' && response.status < 400) {
+            data = await response.text();
+        } else if (
             response.headers.get('content-type')?.includes('application/json')
         ) {
             data = JSONbig.parse(await response.text());

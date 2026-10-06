@@ -12,6 +12,7 @@ const result = await project.updateOAuth2Auth0({
     clientId: '<CLIENT_ID>', // optional
     clientSecret: '<CLIENT_SECRET>', // optional
     endpoint: '<ENDPOINT>', // optional
+    prompt: [sdk.ProjectOAuth2Auth0Prompt.None], // optional
     enabled: false, // optional
 });
 ```

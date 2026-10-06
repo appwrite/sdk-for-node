@@ -4519,20 +4519,20 @@ export class Domains {
      *
      * @param {string} params.domainId - Domain unique ID.
      * @throws {AppwriteException}
-     * @returns {Promise<{}>}
+     * @returns {Promise<string>}
      */
-    getZone(params: { domainId: string }): Promise<{}>;
+    getZone(params: { domainId: string }): Promise<string>;
     /**
      * Retrieve the DNS zone file for the given domain. This endpoint will return the DNS
      * zone file in a standardized format that can be used to configure DNS servers.
      *
      * @param {string} domainId - Domain unique ID.
      * @throws {AppwriteException}
-     * @returns {Promise<{}>}
+     * @returns {Promise<string>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getZone(domainId: string): Promise<{}>;
-    getZone(paramsOrFirst: { domainId: string } | string): Promise<{}> {
+    getZone(domainId: string): Promise<string>;
+    getZone(paramsOrFirst: { domainId: string } | string): Promise<string> {
         let params: { domainId: string };
 
         if (
@@ -4565,7 +4565,7 @@ export class Domains {
             accept: 'text/plain',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        return this.client.call('get', uri, apiHeaders, apiPayload, 'text');
     }
 
     /**

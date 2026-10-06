@@ -8,5 +8,7 @@ const client = new sdk.Client()
 
 const account = new sdk.Account(client);
 
-const result = await account.deleteSessions();
+const result = await account.deleteSessions({
+    current: false, // optional
+});
 ```

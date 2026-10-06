@@ -89,6 +89,7 @@ export enum ProjectKeyScopes {
     WebhooksWrite = 'webhooks.write',
     LocaleRead = 'locale.read',
     AvatarsRead = 'avatars.read',
+    AvatarsWrite = 'avatars.write',
     HealthRead = 'health.read',
     AssistantRead = 'assistant.read',
     MigrationsRead = 'migrations.read',

@@ -298,7 +298,7 @@ describe('Mongo', () => {
             '<DATABASE_ID>',
             '<POLICY_ID>',
             '<NAME>',
-            '',
+            'schedule',
             1,
         );
 
@@ -883,7 +883,6 @@ describe('Mongo', () => {
             engine: 'postgresql',
             version: '17',
             uptime: 86400,
-            connections: {},
             syncMode: 'async',
             syncDegraded: true,
             syncAcknowledgements: 1,
