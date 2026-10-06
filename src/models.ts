@@ -9,8 +9,16 @@ import { ExecutionStatus } from './enums/execution-status';
 import { ProjectAuthMethodId } from './enums/project-auth-method-id';
 import { ProjectServiceId } from './enums/project-service-id';
 import { ProjectProtocolId } from './enums/project-protocol-id';
+import { OAuth2GithubPrompt } from './enums/o-auth-2-github-prompt';
+import { OAuth2DiscordPrompt } from './enums/o-auth-2-discord-prompt';
 import { OAuth2GooglePrompt } from './enums/o-auth-2-google-prompt';
+import { OAuth2ZohoPrompt } from './enums/o-auth-2-zoho-prompt';
+import { OAuth2SalesforcePrompt } from './enums/o-auth-2-salesforce-prompt';
+import { OAuth2Auth0Prompt } from './enums/o-auth-2-auth-0-prompt';
 import { OAuth2OidcPrompt } from './enums/o-auth-2-oidc-prompt';
+import { OAuth2OktaPrompt } from './enums/o-auth-2-okta-prompt';
+import { OAuth2MicrosoftPrompt } from './enums/o-auth-2-microsoft-prompt';
+import { OAuth2KakaoPrompt } from './enums/o-auth-2-kakao-prompt';
 import { PlatformType } from './enums/platform-type';
 import { ProxyRuleDeploymentResourceType } from './enums/proxy-rule-deployment-resource-type';
 import { ProxyRuleStatus } from './enums/proxy-rule-status';
@@ -3286,6 +3294,110 @@ export namespace Models {
     };
 
     /**
+     * Account
+     */
+    export type Account<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    > = {
+        /**
+         * User ID.
+         */
+        $id: string;
+        /**
+         * User creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * User update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * User name.
+         */
+        name: string;
+        /**
+         * User registration date in ISO 8601 format.
+         */
+        registration: string;
+        /**
+         * User status. Pass `true` for enabled and `false` for disabled.
+         */
+        status: boolean;
+        /**
+         * Labels for the user.
+         */
+        labels: string[];
+        /**
+         * Password update time in ISO 8601 format.
+         */
+        passwordUpdate: string;
+        /**
+         * User email address.
+         */
+        email: string;
+        /**
+         * User phone number in E.164 format.
+         */
+        phone: string;
+        /**
+         * Email verification status.
+         */
+        emailVerification: boolean;
+        /**
+         * Canonical form of the user email address.
+         */
+        emailCanonical?: string;
+        /**
+         * Whether the user email is from a free email provider.
+         */
+        emailIsFree?: boolean;
+        /**
+         * Whether the user email is from a disposable email provider.
+         */
+        emailIsDisposable?: boolean;
+        /**
+         * Whether the user email is from a corporate domain.
+         */
+        emailIsCorporate?: boolean;
+        /**
+         * Whether the user email is in its canonical form.
+         */
+        emailIsCanonical?: boolean;
+        /**
+         * Whether the password was found in a known data breach the last time it was checked. Null when the password has never been checked.
+         */
+        passwordPwned?: boolean;
+        /**
+         * Phone verification status.
+         */
+        phoneVerification: boolean;
+        /**
+         * Multi factor authentication status.
+         */
+        mfa: boolean;
+        /**
+         * User preferences as a key-value object
+         */
+        prefs: Preferences;
+        /**
+         * A user-owned message receiver. A single user may have multiple e.g. emails, phones, and a browser. Each target is registered with a single provider.
+         */
+        targets: Target[];
+        /**
+         * Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
+         */
+        accessedAt: string;
+        /**
+         * Whether the user can impersonate other users.
+         */
+        impersonator?: boolean;
+        /**
+         * ID of the original actor performing the impersonation. Present only when the current request is impersonating another user. Internal audit logs attribute the action to this user, while the impersonated target is recorded only in internal audit payload data.
+         */
+        impersonatorUserId?: string;
+    };
+
+    /**
      * Preferences
      */
     export type Preferences = {};
@@ -4702,7 +4814,7 @@ export namespace Models {
          */
         authUsername: string;
         /**
-         * HTTP basic authentication password.
+         * HTTP basic authentication password. Write-only: always returned empty.
          */
         authPassword: string;
         /**
@@ -4849,6 +4961,10 @@ export namespace Models {
          * GitHub OAuth2 client secret.
          */
         clientSecret: string;
+        /**
+         * GitHub OAuth2 prompt values.
+         */
+        prompt: OAuth2GithubPrompt[];
     };
 
     /**
@@ -4871,6 +4987,10 @@ export namespace Models {
          * Discord OAuth2 client secret.
          */
         clientSecret: string;
+        /**
+         * Discord OAuth2 prompt values.
+         */
+        prompt: OAuth2DiscordPrompt[];
     };
 
     /**
@@ -5103,6 +5223,10 @@ export namespace Models {
          * Zoho OAuth2 client secret.
          */
         clientSecret: string;
+        /**
+         * Zoho OAuth2 prompt values.
+         */
+        prompt: OAuth2ZohoPrompt[];
     };
 
     /**
@@ -5167,6 +5291,28 @@ export namespace Models {
         clientId: string;
         /**
          * WordPress OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Webflow
+     */
+    export type OAuth2Webflow = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Webflow OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Webflow OAuth2 client secret.
          */
         clientSecret: string;
     };
@@ -5323,6 +5469,10 @@ export namespace Models {
          * Salesforce OAuth2 consumer secret.
          */
         customerSecret: string;
+        /**
+         * Salesforce OAuth2 prompt values.
+         */
+        prompt: OAuth2SalesforcePrompt[];
     };
 
     /**
@@ -5640,6 +5790,10 @@ export namespace Models {
          */
         clientSecret: string;
         /**
+         * Auth0 OAuth2 prompt values.
+         */
+        prompt: OAuth2Auth0Prompt[];
+        /**
          * Auth0 OAuth2 endpoint domain.
          */
         endpoint: string;
@@ -5722,6 +5876,10 @@ export namespace Models {
          */
         clientSecret: string;
         /**
+         * OpenID Connect prompt values controlling the authentication and consent screens.
+         */
+        prompt: OAuth2OidcPrompt[];
+        /**
          * OpenID Connect well-known configuration URL. When set, authorization, token, and user info endpoints can be discovered automatically.
          */
         wellKnownURL: string;
@@ -5737,10 +5895,6 @@ export namespace Models {
          * OpenID Connect user info endpoint URL.
          */
         userInfoURL: string;
-        /**
-         * OpenID Connect prompt values controlling the authentication and consent screens.
-         */
-        prompt: OAuth2OidcPrompt[];
         /**
          * Maximum authentication age in seconds. When set, the user must have authenticated within this many seconds.
          */
@@ -5767,6 +5921,10 @@ export namespace Models {
          * Okta OAuth2 client secret.
          */
         clientSecret: string;
+        /**
+         * Okta OAuth2 prompt values.
+         */
+        prompt: OAuth2OktaPrompt[];
         /**
          * Okta OAuth2 domain.
          */
@@ -5858,6 +6016,10 @@ export namespace Models {
          */
         applicationSecret: string;
         /**
+         * Microsoft OAuth2 prompt values.
+         */
+        prompt: OAuth2MicrosoftPrompt[];
+        /**
          * Microsoft Entra ID tenant identifier. Use 'common', 'organizations', 'consumers' or a specific tenant ID.
          */
         tenant: string;
@@ -5927,6 +6089,10 @@ export namespace Models {
          * Kakao OAuth2 client secret.
          */
         clientSecret: string;
+        /**
+         * Kakao OAuth2 prompt values.
+         */
+        prompt: OAuth2KakaoPrompt[];
     };
 
     /**
@@ -5956,6 +6122,7 @@ export namespace Models {
             | Models.OAuth2Yandex
             | Models.OAuth2X
             | Models.OAuth2WordPress
+            | Models.OAuth2Webflow
             | Models.OAuth2Twitch
             | Models.OAuth2Stripe
             | Models.OAuth2Spotify
@@ -6653,7 +6820,7 @@ export namespace Models {
          */
         deploymentId: string;
         /**
-         * Type of deployment. Possible values are "function", "site". Used if rule's type is "deployment".
+         * Type of deployment resource: function, site, or dedicatedDatabase.
          */
         deploymentResourceType?: ProxyRuleDeploymentResourceType;
         /**
@@ -7397,17 +7564,17 @@ export namespace Models {
          */
         policyId: string;
         /**
-         * Archive size in bytes.
+         * Archive size in bytes. Null until the size is known.
          */
-        size: number;
+        size?: number;
         /**
          * The status of the archive creation. Possible values: pending, processing, uploading, completed, failed, skipped.
          */
         status: string;
         /**
-         * The backup start time.
+         * The backup start time. Null until the backup starts.
          */
-        startedAt: string;
+        startedAt?: string;
         /**
          * Migration ID.
          */
@@ -7747,9 +7914,9 @@ export namespace Models {
          */
         alertLimit: number;
         /**
-         * Additional resources
+         * Additional resources. Null when the plan does not support usage billing.
          */
-        usage: UsageBillingPlan;
+        usage?: UsageBillingPlan;
         /**
          * Addons
          */
@@ -8551,9 +8718,9 @@ export namespace Models {
          */
         uptime: number;
         /**
-         * Connection statistics.
+         * Connection statistics. Null when the database has not been probed.
          */
-        connections: DatabaseStatusConnections;
+        connections?: DatabaseStatusConnections;
         /**
          * Requested replication sync mode. Possible values: async, sync, quorum. Compare with effectiveSyncMode for what the primary is enforcing.
          */
@@ -9279,9 +9446,9 @@ export namespace Models {
          */
         status: string;
         /**
-         * The backup start time.
+         * The restoration start time. Null until the restoration starts.
          */
-        startedAt: string;
+        startedAt?: string;
         /**
          * Migration ID.
          */
@@ -9295,9 +9462,9 @@ export namespace Models {
          */
         resources: string[];
         /**
-         * Optional data in key-value object.
+         * Restoration options as a key-value object.
          */
-        options: string;
+        options: object;
     };
 
     /**

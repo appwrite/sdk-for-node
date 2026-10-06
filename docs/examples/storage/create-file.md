@@ -1,6 +1,6 @@
 ```javascript
 const sdk = require('node-appwrite');
-const fs = require('fs');
+const { InputFile } = require('node-appwrite/file');
 
 const client = new sdk.Client()
     .setEndpoint('https://<REGION>.cloud.appwrite.io/v1') // Your API Endpoint

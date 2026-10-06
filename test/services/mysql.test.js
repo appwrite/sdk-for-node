@@ -298,7 +298,7 @@ describe('Mysql', () => {
             '<DATABASE_ID>',
             '<POLICY_ID>',
             '<NAME>',
-            '',
+            'schedule',
             1,
         );
 
@@ -942,7 +942,6 @@ describe('Mysql', () => {
             engine: 'postgresql',
             version: '17',
             uptime: 86400,
-            connections: {},
             syncMode: 'async',
             syncDegraded: true,
             syncAcknowledgements: 1,

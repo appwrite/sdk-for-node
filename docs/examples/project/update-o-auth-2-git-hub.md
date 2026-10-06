@@ -11,6 +11,7 @@ const project = new sdk.Project(client);
 const result = await project.updateOAuth2GitHub({
     clientId: '<CLIENT_ID>', // optional
     clientSecret: '<CLIENT_SECRET>', // optional
+    prompt: [sdk.ProjectOAuth2GitHubPrompt.SelectAccount], // optional
     enabled: false, // optional
 });
 ```

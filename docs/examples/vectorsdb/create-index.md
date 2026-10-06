@@ -13,7 +13,7 @@ const result = await vectorsDB.createIndex({
     collectionId: '<COLLECTION_ID>',
     key: '<KEY>',
     type: sdk.VectorsDBIndexType.HnswEuclidean,
-    attributes: [],
+    attributes: ['embeddings'],
     orders: [sdk.OrderBy.Asc], // optional
     lengths: [], // optional
 });

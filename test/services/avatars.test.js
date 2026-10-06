@@ -1,4 +1,5 @@
 const { Client } = require('../../dist/client');
+const { InputFile } = require('../../dist/inputFile');
 const { Avatars } = require('../../dist/services/avatars');
 
 const { fetch: mockedFetch, Response } = require('undici');
@@ -75,6 +76,45 @@ describe('Avatars', () => {
         const data = new ArrayBuffer(0);
         mockedFetch.mockImplementation(() => new Response(data));
         const response = await avatars.getPhoto();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updatePhoto()', async () => {
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            name: 'John Doe',
+            registration: '2020-10-15T06:38:00.000+00:00',
+            status: true,
+            labels: [],
+            passwordUpdate: '2020-10-15T06:38:00.000+00:00',
+            email: 'john@appwrite.io',
+            phone: '+4930901820',
+            emailVerification: true,
+            phoneVerification: true,
+            mfa: true,
+            prefs: {},
+            targets: [],
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await avatars.updatePhoto(
+            InputFile.fromBuffer(new Uint8Array(0), 'image.png'),
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method deletePhoto()', async () => {
+        const data = { message: '' };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await avatars.deletePhoto();
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;

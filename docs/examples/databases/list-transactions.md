@@ -10,5 +10,6 @@ const databases = new sdk.Databases(client);
 
 const result = await databases.listTransactions({
     queries: [], // optional
+    total: false, // optional
 });
 ```

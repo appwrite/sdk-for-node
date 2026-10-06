@@ -1,4 +1,11 @@
-import { AppwriteException, Client, type Payload } from '../client';
+import {
+    AppwriteException,
+    Client,
+    type Payload,
+    UploadProgress,
+} from '../client';
+import type { Models } from '../models';
+import { InputFile } from '../inputFile';
 
 import { Browser } from '../enums/browser';
 import { CreditCard } from '../enums/credit-card';
@@ -634,7 +641,7 @@ export class Avatars {
     }
 
     /**
-     * Returns the best available profile photo for a user. The endpoint tries each source in priority order and returns the first successful result: OAuth2 identity photo, Gravatar, Libravatar, Appwrite Initials, built-in static fallback.
+     * Returns the best available profile photo for a user. The endpoint tries each source in priority order and returns the first successful result: a custom uploaded photo (see avatars.updatePhoto), OAuth2 identity photo, Gravatar, Libravatar, Appwrite Initials, built-in static fallback.
      *
      * Passing `userId` — `current()` for the authenticated user — resolves the photo from everything known about that user: identity photos, email, and name. An explicit `emailHash` or `name` then overrides just that value, and the user's remaining sources stay in the chain. Without `userId`, passing `emailHash` and/or `name` resolves the avatar from those values alone: the hash is looked up on Gravatar and Libravatar, the name is rendered as initials, and the session user stays out of the chain so their own photo never shadows the avatar being asked for. When nothing is passed, the photo resolves for the currently authenticated user. Emails are only ever accepted pre-hashed, so no address ends up in a URL.
      *
@@ -660,7 +667,7 @@ export class Avatars {
         name?: string;
     }): Promise<ArrayBuffer>;
     /**
-     * Returns the best available profile photo for a user. The endpoint tries each source in priority order and returns the first successful result: OAuth2 identity photo, Gravatar, Libravatar, Appwrite Initials, built-in static fallback.
+     * Returns the best available profile photo for a user. The endpoint tries each source in priority order and returns the first successful result: a custom uploaded photo (see avatars.updatePhoto), OAuth2 identity photo, Gravatar, Libravatar, Appwrite Initials, built-in static fallback.
      *
      * Passing `userId` — `current()` for the authenticated user — resolves the photo from everything known about that user: identity photos, email, and name. An explicit `emailHash` or `name` then overrides just that value, and the user's remaining sources stay in the chain. Without `userId`, passing `emailHash` and/or `name` resolves the avatar from those values alone: the hash is looked up on Gravatar and Libravatar, the name is rendered as initials, and the session user stays out of the chain so their own photo never shadows the avatar being asked for. When nothing is passed, the photo resolves for the currently authenticated user. Emails are only ever accepted pre-hashed, so no address ends up in a URL.
      *
@@ -792,6 +799,111 @@ export class Avatars {
     }
 
     /**
+     * Update the profile photo of the currently authenticated user. The uploaded image takes priority over every other photo source, including OAuth2 identity photos, Gravatar, and Libravatar. Updating an already customized photo replaces it. The image must be at most 5MB and is sent in a single request.
+     *
+     * @param {File | InputFile} params.file - Binary image file of at most 5MB. Allowed file types are png, jpg, jpeg, and webp.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Account<Preferences>>}
+     */
+    updatePhoto<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: {
+        file: File | InputFile;
+        onProgress?: (progress: UploadProgress) => void;
+    }): Promise<Models.Account<Preferences>>;
+    /**
+     * Update the profile photo of the currently authenticated user. The uploaded image takes priority over every other photo source, including OAuth2 identity photos, Gravatar, and Libravatar. Updating an already customized photo replaces it. The image must be at most 5MB and is sent in a single request.
+     *
+     * @param {File | InputFile} file - Binary image file of at most 5MB. Allowed file types are png, jpg, jpeg, and webp.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Account<Preferences>>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updatePhoto<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
+        file: File | InputFile,
+        onProgress?: (progress: UploadProgress) => void,
+    ): Promise<Models.Account<Preferences>>;
+    updatePhoto<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
+        paramsOrFirst:
+            | {
+                  file: File | InputFile;
+                  onProgress?: (progress: UploadProgress) => void;
+              }
+            | File
+            | InputFile,
+        ...rest: [((progress: UploadProgress) => void)?]
+    ): Promise<Models.Account<Preferences>> {
+        let params: { file: File | InputFile };
+        let onProgress: (progress: UploadProgress) => void;
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst) &&
+            ('file' in paramsOrFirst || 'onProgress' in paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { file: File | InputFile };
+            onProgress = paramsOrFirst?.onProgress as (
+                progress: UploadProgress,
+            ) => void;
+        } else {
+            params = {
+                file: paramsOrFirst as File | InputFile,
+            };
+            onProgress = rest[0] as (progress: UploadProgress) => void;
+        }
+
+        const file = params.file;
+        if (typeof file === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "file"');
+        }
+        const apiPath = '/avatars/photo';
+        const apiPayload: Payload = {};
+        if (typeof file !== 'undefined') {
+            apiPayload['file'] = file;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'multipart/form-data',
+            accept: 'application/json',
+        };
+
+        return this.client.chunkedUpload(
+            'put',
+            uri,
+            apiHeaders,
+            apiPayload,
+            onProgress,
+        );
+    }
+
+    /**
+     * Delete the profile photo of the currently authenticated user and store the built-in static placeholder in its place. The placeholder is the user's photo from then on, so it takes priority over every other photo source — OAuth2 identity photos, Gravatar, Libravatar, and initials — until a new photo is uploaded with avatars.updatePhoto.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deletePhoto(): Promise<{}> {
+        const apiPath = '/avatars/photo';
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
+    }
+
+    /**
      * Converts a given plain text to a QR code image. You can use the query parameters to change the size and style of the resulting image.
      *
      *
@@ -909,7 +1021,7 @@ export class Avatars {
      * When width and height are specified, the image is resized accordingly. If both dimensions are 0, the API provides an image at original size. If dimensions are not specified, the default viewport size is 1280x720px.
      *
      * @param {string} params.url - Website URL which you want to capture.
-     * @param {object} params.headers - HTTP headers to send with the browser request. Defaults to empty.
+     * @param {object} params.headers - HTTP headers to send with the browser request. Only Accept and Accept-Language are allowed. Defaults to empty.
      * @param {number} params.viewportWidth - Browser viewport width. Pass an integer between 1 to 1920. Defaults to 1280.
      * @param {number} params.viewportHeight - Browser viewport height. Pass an integer between 1 to 1080. Defaults to 720.
      * @param {number} params.scale - Browser scale factor. Pass a number between 0.1 to 3. Defaults to 1.
@@ -961,7 +1073,7 @@ export class Avatars {
      * When width and height are specified, the image is resized accordingly. If both dimensions are 0, the API provides an image at original size. If dimensions are not specified, the default viewport size is 1280x720px.
      *
      * @param {string} url - Website URL which you want to capture.
-     * @param {object} headers - HTTP headers to send with the browser request. Defaults to empty.
+     * @param {object} headers - HTTP headers to send with the browser request. Only Accept and Accept-Language are allowed. Defaults to empty.
      * @param {number} viewportWidth - Browser viewport width. Pass an integer between 1 to 1920. Defaults to 1280.
      * @param {number} viewportHeight - Browser viewport height. Pass an integer between 1 to 1080. Defaults to 720.
      * @param {number} scale - Browser scale factor. Pass a number between 0.1 to 3. Defaults to 1.

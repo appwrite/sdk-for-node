@@ -9,7 +9,10 @@ const client = new sdk.Client()
 const embeddings = new sdk.Embeddings(client);
 
 const result = await embeddings.createTextEmbeddings({
-    texts: [],
+    texts: [
+        'Appwrite helps developers build applications.',
+        'Find documents with semantic search.',
+    ],
     model: sdk.EmbeddingModel.NomicEmbedText, // optional
 });
 ```

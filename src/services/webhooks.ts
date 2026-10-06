@@ -321,7 +321,7 @@ export class Webhooks {
      * @param {boolean} params.enabled - Enable or disable a webhook.
      * @param {boolean} params.tls - Certificate verification, false for disabled or true for enabled.
      * @param {string} params.authUsername - Webhook HTTP user. Max length: 256 chars.
-     * @param {string} params.authPassword - Webhook HTTP password. Max length: 256 chars.
+     * @param {string} params.authPassword - Webhook HTTP password. Max length: 256 chars. Omit to keep the current password; it is cleared when the URL changes or TLS verification is disabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      */
@@ -345,7 +345,7 @@ export class Webhooks {
      * @param {boolean} enabled - Enable or disable a webhook.
      * @param {boolean} tls - Certificate verification, false for disabled or true for enabled.
      * @param {string} authUsername - Webhook HTTP user. Max length: 256 chars.
-     * @param {string} authPassword - Webhook HTTP password. Max length: 256 chars.
+     * @param {string} authPassword - Webhook HTTP password. Max length: 256 chars. Omit to keep the current password; it is cleared when the URL changes or TLS verification is disabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      * @deprecated Use the object parameter style method for a better developer experience.

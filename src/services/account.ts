@@ -2262,12 +2262,44 @@ export class Account {
     /**
      * Get the list of active sessions across different devices for the currently logged in user.
      *
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.SessionList>}
      */
-    listSessions(): Promise<Models.SessionList> {
+    listSessions(params?: { total?: boolean }): Promise<Models.SessionList>;
+    /**
+     * Get the list of active sessions across different devices for the currently logged in user.
+     *
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.SessionList>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    listSessions(total?: boolean): Promise<Models.SessionList>;
+    listSessions(
+        paramsOrFirst?: { total?: boolean } | boolean,
+    ): Promise<Models.SessionList> {
+        let params: { total?: boolean };
+
+        if (
+            typeof paramsOrFirst === 'undefined' ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as { total?: boolean };
+        } else {
+            params = {
+                total: paramsOrFirst as boolean,
+            };
+        }
+
+        const total = params.total;
         const apiPath = '/account/sessions';
         const apiPayload: Payload = {};
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -2279,14 +2311,46 @@ export class Account {
     }
 
     /**
-     * Delete all sessions from the user account and remove any sessions cookies from the end client.
+     * Delete all sessions from the user account and remove any sessions cookies from the end client. Pass `current` as false to keep the session making the request and sign out of every other session.
      *
+     * @param {boolean} params.current - Delete the current session too. Use false to sign out of every other session while staying signed in on this one.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
-    deleteSessions(): Promise<{}> {
+    deleteSessions(params?: { current?: boolean }): Promise<{}>;
+    /**
+     * Delete all sessions from the user account and remove any sessions cookies from the end client. Pass `current` as false to keep the session making the request and sign out of every other session.
+     *
+     * @param {boolean} current - Delete the current session too. Use false to sign out of every other session while staying signed in on this one.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    deleteSessions(current?: boolean): Promise<{}>;
+    deleteSessions(
+        paramsOrFirst?: { current?: boolean } | boolean,
+    ): Promise<{}> {
+        let params: { current?: boolean };
+
+        if (
+            typeof paramsOrFirst === 'undefined' ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as { current?: boolean };
+        } else {
+            params = {
+                current: paramsOrFirst as boolean,
+            };
+        }
+
+        const current = params.current;
         const apiPath = '/account/sessions';
         const apiPayload: Payload = {};
+        if (typeof current !== 'undefined') {
+            apiPayload['current'] = current;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -2319,26 +2383,29 @@ export class Account {
     }
 
     /**
-     * Allow the user to login into their account by providing a valid email and password combination. This route will create a new session for the user.
+     * Allow the user to login into their account by providing a valid email and password combination. This route will create a new session for the user. Use the optional `duration` parameter to create a shorter session, for example when the user doesn't choose "remember me". It must be at least 60 seconds and cannot exceed the project maximum session length.
      *
      * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      *
      * @param {string} params.email - User email.
      * @param {string} params.password - User password. Must be at least 8 chars.
+     * @param {number} params.duration - Session length in seconds. Minimum is 60 seconds, and it cannot exceed the project maximum session length. Defaults to the project maximum session length.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Session>}
      */
     createEmailPasswordSession(params: {
         email: string;
         password: string;
+        duration?: number;
     }): Promise<Models.Session>;
     /**
-     * Allow the user to login into their account by providing a valid email and password combination. This route will create a new session for the user.
+     * Allow the user to login into their account by providing a valid email and password combination. This route will create a new session for the user. Use the optional `duration` parameter to create a shorter session, for example when the user doesn't choose "remember me". It must be at least 60 seconds and cannot exceed the project maximum session length.
      *
      * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      *
      * @param {string} email - User email.
      * @param {string} password - User password. Must be at least 8 chars.
+     * @param {number} duration - Session length in seconds. Minimum is 60 seconds, and it cannot exceed the project maximum session length. Defaults to the project maximum session length.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Session>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2346,12 +2413,14 @@ export class Account {
     createEmailPasswordSession(
         email: string,
         password: string,
+        duration?: number,
     ): Promise<Models.Session>;
     createEmailPasswordSession(
-        paramsOrFirst: { email: string; password: string } | string,
-        ...rest: [string?]
+        paramsOrFirst:
+            { email: string; password: string; duration?: number } | string,
+        ...rest: [string?, number?]
     ): Promise<Models.Session> {
-        let params: { email: string; password: string };
+        let params: { email: string; password: string; duration?: number };
 
         if (
             paramsOrFirst &&
@@ -2361,16 +2430,19 @@ export class Account {
             params = (paramsOrFirst || {}) as {
                 email: string;
                 password: string;
+                duration?: number;
             };
         } else {
             params = {
                 email: paramsOrFirst as string,
                 password: rest[0] as string,
+                duration: rest[1] as number,
             };
         }
 
         const email = params.email;
         const password = params.password;
+        const duration = params.duration;
         if (typeof email === 'undefined') {
             throw new AppwriteException('Missing required parameter: "email"');
         }
@@ -2386,6 +2458,9 @@ export class Account {
         }
         if (typeof password !== 'undefined') {
             apiPayload['password'] = password;
+        }
+        if (typeof duration !== 'undefined') {
+            apiPayload['duration'] = duration;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -3172,7 +3247,7 @@ export class Account {
      *
      * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      *
-     * @param {OAuthProvider} params.provider - OAuth2 Provider. Currently, supported providers are: amazon, apple, appwrite, auth0, authentik, autodesk, bitbucket, bitly, box, cloudflare, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, fusionauth, github, gitlab, google, huggingface, kakao, keycloak, kick, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, resend, salesforce, slack, spotify, stripe, tiktok, tradeshift, tradeshiftBox, twitch, wordpress, x, yahoo, yammer, yandex, zoho, zoom.
+     * @param {OAuthProvider} params.provider - OAuth2 Provider. Currently, supported providers are: amazon, apple, appwrite, auth0, authentik, autodesk, bitbucket, bitly, box, cloudflare, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, fusionauth, github, gitlab, google, huggingface, kakao, keycloak, kick, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, resend, salesforce, slack, spotify, stripe, tiktok, tradeshift, tradeshiftBox, twitch, webflow, wordpress, x, yahoo, yammer, yandex, zoho, zoom.
      * @param {string} params.success - URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param {string} params.failure - URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param {string[]} params.scopes - A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 4096 characters long.
@@ -3194,7 +3269,7 @@ export class Account {
      *
      * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      *
-     * @param {OAuthProvider} provider - OAuth2 Provider. Currently, supported providers are: amazon, apple, appwrite, auth0, authentik, autodesk, bitbucket, bitly, box, cloudflare, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, fusionauth, github, gitlab, google, huggingface, kakao, keycloak, kick, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, resend, salesforce, slack, spotify, stripe, tiktok, tradeshift, tradeshiftBox, twitch, wordpress, x, yahoo, yammer, yandex, zoho, zoom.
+     * @param {OAuthProvider} provider - OAuth2 Provider. Currently, supported providers are: amazon, apple, appwrite, auth0, authentik, autodesk, bitbucket, bitly, box, cloudflare, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, fusionauth, github, gitlab, google, huggingface, kakao, keycloak, kick, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, resend, salesforce, slack, spotify, stripe, tiktok, tradeshift, tradeshiftBox, twitch, webflow, wordpress, x, yahoo, yammer, yandex, zoho, zoom.
      * @param {string} success - URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param {string} failure - URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param {string[]} scopes - A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 4096 characters long.
