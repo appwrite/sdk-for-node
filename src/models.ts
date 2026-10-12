@@ -518,6 +518,7 @@ export namespace Models {
             | Models.PolicyDenyDisposableEmail
             | Models.PolicyDenyFreeEmail
             | Models.PolicyDenyCorporateEmail
+            | Models.PolicyPasskey
         )[];
     };
 
@@ -6264,6 +6265,24 @@ export namespace Models {
          * Whether the custom factor can be used to complete an MFA challenge.
          */
         custom: boolean;
+    };
+
+    /**
+     * Policy Passkey
+     */
+    export type PolicyPasskey = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Relying party ID passkeys are bound to. Empty until configured.
+         */
+        rpId: string;
+        /**
+         * Web origins passkeys work on, from the project's platforms on the relying party ID and a localhost web platform. Read-only.
+         */
+        origins: string[];
     };
 
     /**

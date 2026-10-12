@@ -6,4 +6,5 @@ export enum ProjectAuthMethodId {
     Invites = 'invites',
     Jwt = 'jwt',
     Phone = 'phone',
+    Passkey = 'passkey',
 }
