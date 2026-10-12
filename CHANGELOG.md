@@ -1,34 +1,54 @@
 # Change Log
 
-## 30.0.0-rc.2
-
-* Added: OAuth2 provider `prompt` enums (`OAuth2Auth0Prompt`, `OAuth2GithubPrompt`, and project variants)
-* Added: `Topic` and `ResolvedTopic` exports
-* Added: `Models.Account` and `Models.OAuth2Webflow` types
-* Added: `Webflow` to the `OAuthProvider` and `ProjectOAuthProviderId` enums
-* Added: `avatars.updatePhoto()` and `avatars.deletePhoto()` methods
-* Added: optional `total` param on locale and list endpoints; `duration` on email-password sessions
-* Updated: `chunkedUpload` supports a `text` responseType and falls back without a file
-* Updated: several model fields relaxed to optional; `RestorationStatus.options` is now an object
-
 ## 30.0.0
 
 * Breaking: `account.listLogs`, `users.listLogs`, `Log` and `LogList` removed
-* Breaking: `organization` key methods renamed to `createEphemeralProjectKey`, `getProjectKey`, `listProjectKeys`, `updateProjectKey`, `deleteProjectKey`, and `OrganizationKeyScopes` removed
+* Breaking: `organization` key methods renamed to `createEphemeralProjectKey`, `getProjectKey`, `listProjectKeys`, `updateProjectKey`, `deleteProjectKey`
+* Breaking: `OrganizationKeyScopes` enum removed
 * Breaking: `setDevKey` client method, `DevKey` model and `Project.devKeys` removed
 * Breaking: `region`, `reason`, `projectName`, `organizationId`, `organizationName`, `billingPlan` removed from `Block`
-* Breaking: `DedicatedDatabaseSpecificationList.pricing` and `DedicatedDatabaseSpecificationPricing` removed; rates now live on each `DedicatedDatabaseSpecification`
+* Breaking: `DedicatedDatabaseSpecificationPricing` and `DedicatedDatabaseSpecificationList.pricing` removed; rates live on `DedicatedDatabaseSpecification`
 * Breaking: `BillingPlanGroup.Starter` replaced by `Free` and `Start`
-* Added: `oauth2.introspect` for RFC 7662 token introspection with an API key, returning the `Oauth2Introspection` model
+* Breaking: `resource` on `oauth2` authorize, PAR, device and token methods is now `string[]`
+* Breaking: `BackupRestoration.options` is now an object
+* Breaking: deprecated positional arguments shift on `teams.createMembership`, `messaging` email/push/SMS and `project.updateOAuth2*`
+* Added: `account` passkey methods: `createPasskey`, `updatePasskeyVerification`, `createPasskeyToken`, `updatePasskeyToken`
+* Added: `account.listPasskeys`, `getPasskey`, `updatePasskey` and `deletePasskey`
+* Added: `users.listPasskeys`, `getPasskey`, `updatePasskey` and `deletePasskey`
+* Added: `project.updatePasskeyPolicy` and `passkey` policy and auth method IDs
+* Added: `Passkey`, `PasskeyList`, `PasskeyChallenge`, `PolicyPasskey` and `TokenSecret` models
+* Added: `fingerprints` on Android platform create and update, and on `PlatformAndroid`
+* Added: `waf` service for bypass, challenge, deny, rate limit and redirect rules
 * Added: `domains` service for domains, DNS records, email presets, prices and transfers
+* Added: `oauth2.introspect` returning the `Oauth2Introspection` model
 * Added: `account.createIdTokenSession` and email verification and recovery OTP methods
 * Added: `messaging.createAppwriteProvider` and `messaging.updateAppwriteProvider`
-* Added: `project.updatePasswordPwnedPolicy` with `PolicyPasswordPwned` model and `User.passwordPwned`
-* Added: Kakao and TikTok OAuth2 providers
+* Added: `project.updatePasswordPwnedPolicy`, `PolicyPasswordPwned` and `User.passwordPwned`
+* Added: Kakao, TikTok and Webflow OAuth2 providers, and `prompt` enums per provider
 * Added: native client IDs on the Apple and Google OAuth2 providers
-* Added: reply-to on email messages, `qos` and `expiry` on topics
+* Added: `avatars.updatePhoto` and `avatars.deletePhoto`
+* Added: `membershipId` on `teams.createMembership`
+* Added: reply-to on email messages, `channelId` on push, `qos` and `expiry` on topics
+* Added: optional `total` on locale and list endpoints, `duration` on email-password sessions
+* Added: `Topic`, `ResolvedTopic` and `Models.Account` exports
+* Added: `analytics.read`, `analytics.write`, `avatars.write` and `dedicatedDatabases.execute` key scopes
+* Added: storage resize fields on `DedicatedDatabase`, `firstAccessedAt` and `mcpAccessedAt` on `Project`
 * Added: `ImageGravity.Auto`, `jaspr` framework, and `dart-3.13` and `flutter-3.47` runtimes
-* Updated: requests send `X-Appwrite-Response-Format` `2.3.0`
+* Added: `project.updatePasswordRotationPolicy` and the `PolicyPasswordRotation` model
+* Fixed: response models fill missing fields from spec defaults instead of throwing
+* Fixed: object values in multipart requests are sent as JSON
+* Updated: `chunkedUpload` supports a `text` response type and works without a file
+* Updated: several `Organization`, `UsageBillingPlan` and dedicated database model fields are now optional
+* Updated: requests send `X-Appwrite-Response-Format` `2.4.0`
+
+## 29.2.0
+
+* Added: optional `interval` parameter on `functions.create` and `functions.update` to run a function every N minutes
+* Added: `interval` on the `Function` model and `functionsIntervalMinimum` on the `BillingPlan` model
+
+## 29.1.0
+
+* Added: optional `state` parameter on `createOAuth2Token`, returned unchanged on the success and failure URLs
 
 ## 29.0.0
 

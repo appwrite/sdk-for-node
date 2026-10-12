@@ -675,6 +675,65 @@ describe('Users', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method listPasskeys()', async () => {
+        const data = {
+            total: 5,
+            passkeys: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await users.listPasskeys('<USER_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method getPasskey()', async () => {
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            name: 'My laptop',
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await users.getPasskey('<USER_ID>', '<PASSKEY_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updatePasskey()', async () => {
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            name: 'My laptop',
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await users.updatePasskey(
+            '<USER_ID>',
+            '<PASSKEY_ID>',
+            '<NAME>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method deletePasskey()', async () => {
+        const data = { message: '' };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await users.deletePasskey('<USER_ID>', '<PASSKEY_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updatePassword()', async () => {
         const data = {
             '\\$id': '5e5ea5c16897e',

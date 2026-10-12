@@ -1,4 +1,9 @@
-import { AppwriteException, Client, type Payload } from '../client';
+import {
+    AppwriteException,
+    Client,
+    type Payload,
+    applyDefaults,
+} from '../client';
 import type { Models } from '../models';
 
 export class Tokens {
@@ -108,7 +113,35 @@ export class Tokens {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'resourceTokenList',
+            models: {
+                resourceTokenList: {
+                    defaults: {
+                        total: 0,
+                    },
+                    properties: {
+                        tokens: {
+                            items: 'resourceToken',
+                        },
+                    },
+                },
+                resourceToken: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        resourceId: '',
+                        resourceType: '',
+                        expire: '',
+                        secret: '',
+                        accessedAt: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -191,7 +224,25 @@ export class Tokens {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'resourceToken',
+            models: {
+                resourceToken: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        resourceId: '',
+                        resourceType: '',
+                        expire: '',
+                        secret: '',
+                        accessedAt: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -246,7 +297,25 @@ export class Tokens {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'resourceToken',
+            models: {
+                resourceToken: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        resourceId: '',
+                        resourceType: '',
+                        expire: '',
+                        secret: '',
+                        accessedAt: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -316,7 +385,25 @@ export class Tokens {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'resourceToken',
+            models: {
+                resourceToken: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        resourceId: '',
+                        resourceType: '',
+                        expire: '',
+                        secret: '',
+                        accessedAt: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**

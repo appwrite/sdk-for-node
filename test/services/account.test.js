@@ -593,6 +593,96 @@ describe('Account', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method listPasskeys()', async () => {
+        const data = {
+            total: 5,
+            passkeys: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.listPasskeys();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method createPasskey()', async () => {
+        const data = {
+            '\\$id': 'bb8ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            passkeyId: '5e5ea5c16897e',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            publicKey: {},
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.createPasskey();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method getPasskey()', async () => {
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            name: 'My laptop',
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.getPasskey('<PASSKEY_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updatePasskey()', async () => {
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            name: 'My laptop',
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.updatePasskey('<PASSKEY_ID>', '<NAME>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method deletePasskey()', async () => {
+        const data = { message: '' };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.deletePasskey('<PASSKEY_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updatePasskeyVerification()', async () => {
+        const data = {
+            '\\$id': '5e5ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            name: 'My laptop',
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.updatePasskeyVerification(
+            '<PASSKEY_ID>',
+            {},
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updatePassword()', async () => {
         const data = {
             '\\$id': '5e5ea5c16897e',
@@ -1199,6 +1289,39 @@ describe('Account', () => {
         const data = 'https://example.com/';
         mockedFetch.mockImplementation(() => Response.redirect(data));
         const response = await account.createOAuth2Token('amazon');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method createPasskeyToken()', async () => {
+        const data = {
+            '\\$id': 'bb8ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            passkeyId: '5e5ea5c16897e',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            publicKey: {},
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.createPasskeyToken();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updatePasskeyToken()', async () => {
+        const data = {
+            '\\$id': 'bb8ea5c16897e',
+            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            userId: '5e5ea5c168bb8',
+            secret: '',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            phrase: 'Golden Fox',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.updatePasskeyToken('<CHALLENGE_ID>', {});
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;

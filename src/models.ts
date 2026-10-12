@@ -25,6 +25,7 @@ import { ProxyRuleStatus } from './enums/proxy-rule-status';
 import { MessageStatus } from './enums/message-status';
 import { BillingPlanGroup } from './enums/billing-plan-group';
 import { DomainTransferStatusEnum } from './enums/domain-transfer-status-enum';
+import { WafRuleAction } from './enums/waf-rule-action';
 
 /**
  * Appwrite Models
@@ -503,6 +504,7 @@ export namespace Models {
             | Models.PolicyPasswordStrength
             | Models.PolicyPasswordPersonalData
             | Models.PolicyPasswordPwned
+            | Models.PolicyPasswordRotation
             | Models.PolicySessionAlert
             | Models.PolicySessionDuration
             | Models.PolicySessionInvalidation
@@ -514,6 +516,7 @@ export namespace Models {
             | Models.PolicyDenyDisposableEmail
             | Models.PolicyDenyFreeEmail
             | Models.PolicyDenyCorporateEmail
+            | Models.PolicyPasskey
         )[];
     };
 
@@ -4202,6 +4205,10 @@ export namespace Models {
          */
         schedule: string;
         /**
+         * Minutes between scheduled executions. 0 when the function has no interval.
+         */
+        interval?: number;
+        /**
          * Function execution timeout in seconds.
          */
         timeout: number;
@@ -6252,6 +6259,24 @@ export namespace Models {
     };
 
     /**
+     * Policy Password Rotation
+     */
+    export type PolicyPasswordRotation = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether expired passwords require a reset before email/password sign-in.
+         */
+        enabled: boolean;
+        /**
+         * Maximum password age in seconds.
+         */
+        maxAge: number;
+    };
+
+    /**
      * Policy Session Alert
      */
     export type PolicySessionAlert = {
@@ -6379,6 +6404,24 @@ export namespace Models {
          * Whether the custom factor can be used to complete an MFA challenge.
          */
         custom: boolean;
+    };
+
+    /**
+     * Policy Passkey
+     */
+    export type PolicyPasskey = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Relying party ID passkeys are bound to. Empty until configured.
+         */
+        rpId: string;
+        /**
+         * Web origins passkeys work on, from the project's platforms on the relying party ID and a localhost web platform. Read-only.
+         */
+        origins: string[];
     };
 
     /**
@@ -6525,6 +6568,10 @@ export namespace Models {
          * Android application ID.
          */
         applicationId: string;
+        /**
+         * SHA-256 fingerprints of the certificates the app is signed with. Passkeys created in the app are accepted when its signature matches one.
+         */
+        fingerprints: string[];
     };
 
     /**
@@ -6929,6 +6976,102 @@ export namespace Models {
          * Challenge code to be delivered to the end user through a custom channel.
          */
         code: string;
+    };
+
+    /**
+     * Token Secret
+     */
+    export type TokenSecret = {
+        /**
+         * Token ID.
+         */
+        $id: string;
+        /**
+         * Token creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * User ID.
+         */
+        userId: string;
+        /**
+         * Token secret key. Exchange it for a session with the create session endpoint.
+         */
+        secret: string;
+        /**
+         * Token expiration date in ISO 8601 format.
+         */
+        expire: string;
+        /**
+         * Security phrase of a token. Empty if security phrase was not requested when creating a token. It includes randomly generated phrase which is also sent in the external resource such as email.
+         */
+        phrase: string;
+    };
+
+    /**
+     * Passkey
+     */
+    export type Passkey = {
+        /**
+         * Passkey ID.
+         */
+        $id: string;
+        /**
+         * Passkey creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Passkey update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Passkey name.
+         */
+        name: string;
+        /**
+         * Most recent sign-in with this passkey in ISO 8601 format. Empty until the passkey is used to sign in.
+         */
+        accessedAt: string;
+    };
+
+    /**
+     * Passkey Challenge
+     */
+    export type PasskeyChallenge = {
+        /**
+         * Challenge ID. When signing in, pass it back with the credential to receive a token.
+         */
+        $id: string;
+        /**
+         * Challenge creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * ID of the passkey being registered. Empty for sign-in challenges.
+         */
+        passkeyId: string;
+        /**
+         * Challenge expiration date in ISO 8601 format.
+         */
+        expire: string;
+        /**
+         * WebAuthn options in JSON form. Pass them to `PublicKeyCredential.parseCreationOptionsFromJSON()` when registering, or `PublicKeyCredential.parseRequestOptionsFromJSON()` when signing in.
+         */
+        publicKey: object;
+    };
+
+    /**
+     * Passkeys List
+     */
+    export type PasskeyList = {
+        /**
+         * Total number of passkeys that matched your query.
+         */
+        total: number;
+        /**
+         * List of passkeys.
+         */
+        passkeys: Passkey[];
     };
 
     /**
@@ -8022,6 +8165,10 @@ export namespace Models {
          */
         buildSize: number;
         /**
+         * Shortest function schedule interval allowed, in minutes. 0 allows every interval.
+         */
+        functionsIntervalMinimum: number;
+        /**
          * Does the plan support encrypted string attributes or not.
          */
         databasesAllowEncrypt: boolean;
@@ -8266,7 +8413,7 @@ export namespace Models {
         /**
          * Branch port. Null until the backing reports one.
          */
-        port: number;
+        port?: number;
         /**
          * Advertised catalog the client connects to. MySQL/MariaDB use default; Postgres uses the routing label.
          */
@@ -8408,11 +8555,11 @@ export namespace Models {
         /**
          * Product API that owns this database: tablesdb, documentsdb, vectorsdb, mysql, postgresql, or mongodb.
          */
-        api: string;
+        api?: string;
         /**
          * Database engine: postgresql, mysql, or mongodb. Null until the backing reports one.
          */
-        engine: string;
+        engine?: string;
         /**
          * Database engine version.
          */
@@ -8432,7 +8579,7 @@ export namespace Models {
         /**
          * Database port for connections. Derived from the engine when the backing has not reported one yet.
          */
-        connectionPort: number;
+        connectionPort?: number;
         /**
          * Database username for connections.
          */
@@ -8444,7 +8591,7 @@ export namespace Models {
         /**
          * Committed generation of the primary connection credentials. Null until the rotation contract has been initialized.
          */
-        credentialGeneration: number;
+        credentialGeneration?: number;
         /**
          * Full database connection string (URI format).
          */
@@ -8658,7 +8805,7 @@ export namespace Models {
         /**
          * Source database ID when restoring a backup into another database.
          */
-        sourceDatabaseId: string;
+        sourceDatabaseId?: string;
         /**
          * Project ID.
          */
@@ -8666,7 +8813,7 @@ export namespace Models {
         /**
          * Backup ID used for restoration (null for PITR).
          */
-        backupId: string;
+        backupId?: string;
         /**
          * Restoration type. Possible values: backup (restore from a specific backup snapshot), pitr (point-in-time recovery to a specific timestamp).
          */
@@ -8678,15 +8825,15 @@ export namespace Models {
         /**
          * Target time for PITR restoration in ISO 8601 format.
          */
-        targetTime: string;
+        targetTime?: string;
         /**
          * Restoration start time in ISO 8601 format.
          */
-        startedAt: string;
+        startedAt?: string;
         /**
          * Restoration completion time in ISO 8601 format.
          */
-        completedAt: string;
+        completedAt?: string;
         /**
          * Error message if restoration failed.
          */
@@ -9148,15 +9295,15 @@ export namespace Models {
         /**
          * Billing cycle start date.
          */
-        billingStartDate: string;
+        billingStartDate?: string;
         /**
          * Current invoice cycle start date.
          */
-        billingCurrentInvoiceDate: string;
+        billingCurrentInvoiceDate?: string;
         /**
          * Next invoice cycle start date.
          */
-        billingNextInvoiceDate: string;
+        billingNextInvoiceDate?: string;
         /**
          * Start date of trial.
          */
@@ -9164,19 +9311,19 @@ export namespace Models {
         /**
          * Number of trial days.
          */
-        billingTrialDays: number;
+        billingTrialDays?: number;
         /**
          * Current active aggregation id.
          */
-        billingAggregationId: string;
+        billingAggregationId?: string;
         /**
          * Current active aggregation id.
          */
-        billingInvoiceId: string;
+        billingInvoiceId?: string;
         /**
          * Default payment method.
          */
-        paymentMethodId: string;
+        paymentMethodId?: string;
         /**
          * Default payment method.
          */
@@ -9622,11 +9769,11 @@ export namespace Models {
         /**
          * Bandwidth additional resources
          */
-        bandwidth: AdditionalResource;
+        bandwidth?: AdditionalResource;
         /**
          * Executions additional resources
          */
-        executions: AdditionalResource;
+        executions?: AdditionalResource;
         /**
          * Member additional resources
          */
@@ -9634,11 +9781,11 @@ export namespace Models {
         /**
          * Realtime additional resources
          */
-        realtime: AdditionalResource;
+        realtime?: AdditionalResource;
         /**
          * Realtime messages additional resources
          */
-        realtimeMessages: AdditionalResource;
+        realtimeMessages?: AdditionalResource;
         /**
          * Realtime bandwidth additional resources
          */
@@ -9646,19 +9793,19 @@ export namespace Models {
         /**
          * Storage additional resources
          */
-        storage: AdditionalResource;
+        storage?: AdditionalResource;
         /**
          * User additional resources
          */
-        users: AdditionalResource;
+        users?: AdditionalResource;
         /**
          * GBHour additional resources
          */
-        GBHours: AdditionalResource;
+        GBHours?: AdditionalResource;
         /**
          * Image transformation additional resources
          */
-        imageTransformations: AdditionalResource;
+        imageTransformations?: AdditionalResource;
         /**
          * Credits additional resources
          */
@@ -10287,6 +10434,376 @@ export namespace Models {
          * Expiration time of the current access token of this family in ISO 8601 format.
          */
         expire: string;
+    };
+
+    /**
+     * WafRuleBypass
+     */
+    export type WafRuleBypass = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+    };
+
+    /**
+     * WafRuleDeny
+     */
+    export type WafRuleDeny = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+    };
+
+    /**
+     * WafRuleChallenge
+     */
+    export type WafRuleChallenge = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+        /**
+         * Challenge type enforced when the rule matches.
+         */
+        challengeType: string;
+        /**
+         * Challenge difficulty from 1 (easiest) to 5 (hardest) enforced when the rule matches.
+         */
+        difficulty: number;
+        /**
+         * Seconds a visitor stays cleared after passing the challenge before being challenged again.
+         */
+        ttl: number;
+    };
+
+    /**
+     * WafRuleRateLimit
+     */
+    export type WafRuleRateLimit = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+        /**
+         * Maximum number of matching requests allowed for the given interval.
+         */
+        limit: number;
+        /**
+         * Interval in seconds for the rate limit window.
+         */
+        interval: number;
+        /**
+         * Rate limit key: `ip` limits per client IP, `userId` limits per authenticated user.
+         */
+        key: string;
+        /**
+         * Rate limit strategy: `fixedWindow`, `slidingWindow`, or `tokenBucket`.
+         */
+        strategy: string;
+        /**
+         * Maximum burst capacity in tokens, applied by the `tokenBucket` strategy. The sustained refill rate is `limit / interval`. Defaults to `limit`.
+         */
+        maxBucketSize: number;
+    };
+
+    /**
+     * WafRuleRedirect
+     */
+    export type WafRuleRedirect = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+        /**
+         * Target location for the redirect.
+         */
+        location: string;
+        /**
+         * HTTP status code used for the redirect.
+         */
+        statusCode: number;
+    };
+
+    /**
+     * WAF rule list
+     */
+    export type WafRuleList = {
+        /**
+         * Total number of rules that matched your query.
+         */
+        total: number;
+        /**
+         * List of rules.
+         */
+        rules: (
+            | Models.WafRuleBypass
+            | Models.WafRuleDeny
+            | Models.WafRuleChallenge
+            | Models.WafRuleRateLimit
+            | Models.WafRuleRedirect
+        )[];
     };
 
     /**

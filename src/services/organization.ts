@@ -1,4 +1,9 @@
-import { AppwriteException, Client, type Payload } from '../client';
+import {
+    AppwriteException,
+    Client,
+    type Payload,
+    applyDefaults,
+} from '../client';
 import type { Models } from '../models';
 
 import { Region } from '../enums/region';
@@ -28,7 +33,31 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'organization',
+            models: {
+                organization: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        total: 0,
+                        budgetAlerts: [75],
+                        billingPlan: 'tier-0',
+                        billingPlanId: 'tier-0',
+                        billingEmail: '',
+                        status: 'draft',
+                        markedForDeletion: false,
+                        platform: 'appwrite',
+                        projects: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -86,7 +115,31 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('put', uri, apiHeaders, apiPayload);
+        const request = this.client.call('put', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'organization',
+            models: {
+                organization: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        total: 0,
+                        budgetAlerts: [75],
+                        billingPlan: 'tier-0',
+                        billingPlanId: 'tier-0',
+                        billingEmail: '',
+                        status: 'draft',
+                        markedForDeletion: false,
+                        platform: 'appwrite',
+                        projects: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -174,7 +227,37 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'appInstallationList',
+            models: {
+                appInstallationList: {
+                    defaults: {
+                        total: 0,
+                    },
+                    properties: {
+                        installations: {
+                            items: 'appInstallation',
+                        },
+                    },
+                },
+                appInstallation: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        appId: '',
+                        teamId: '',
+                        scopes: [],
+                        authorizationDetails: [],
+                        createdById: '',
+                        createdByName: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -246,7 +329,27 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'appInstallation',
+            models: {
+                appInstallation: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        appId: '',
+                        teamId: '',
+                        scopes: [],
+                        authorizationDetails: [],
+                        createdById: '',
+                        createdByName: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -303,7 +406,27 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'appInstallation',
+            models: {
+                appInstallation: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        appId: '',
+                        teamId: '',
+                        scopes: [],
+                        authorizationDetails: [],
+                        createdById: '',
+                        createdByName: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -377,7 +500,27 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('put', uri, apiHeaders, apiPayload);
+        const request = this.client.call('put', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'appInstallation',
+            models: {
+                appInstallation: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        appId: '',
+                        teamId: '',
+                        scopes: [],
+                        authorizationDetails: [],
+                        createdById: '',
+                        createdByName: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -512,7 +655,43 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'membershipList',
+            models: {
+                membershipList: {
+                    defaults: {
+                        total: 0,
+                    },
+                    properties: {
+                        memberships: {
+                            items: 'membership',
+                        },
+                    },
+                },
+                membership: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        userId: '',
+                        userName: '',
+                        userEmail: '',
+                        userPhone: '',
+                        teamId: '',
+                        teamName: '',
+                        invited: '',
+                        joined: '',
+                        confirm: false,
+                        mfa: false,
+                        userAccessedAt: '',
+                        roles: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -639,7 +818,33 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'membership',
+            models: {
+                membership: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        userId: '',
+                        userName: '',
+                        userEmail: '',
+                        userPhone: '',
+                        teamId: '',
+                        teamName: '',
+                        invited: '',
+                        joined: '',
+                        confirm: false,
+                        mfa: false,
+                        userAccessedAt: '',
+                        roles: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -694,7 +899,33 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'membership',
+            models: {
+                membership: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        userId: '',
+                        userName: '',
+                        userEmail: '',
+                        userPhone: '',
+                        teamId: '',
+                        teamName: '',
+                        invited: '',
+                        joined: '',
+                        confirm: false,
+                        mfa: false,
+                        userAccessedAt: '',
+                        roles: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -770,7 +1001,33 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'membership',
+            models: {
+                membership: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        userId: '',
+                        userName: '',
+                        userEmail: '',
+                        userPhone: '',
+                        teamId: '',
+                        teamName: '',
+                        invited: '',
+                        joined: '',
+                        confirm: false,
+                        mfa: false,
+                        userAccessedAt: '',
+                        roles: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -905,7 +1162,87 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'projectList',
+            models: {
+                projectList: {
+                    defaults: {
+                        total: 0,
+                    },
+                    properties: {
+                        projects: {
+                            items: 'project',
+                        },
+                    },
+                },
+                project: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        teamId: '',
+                        region: 'fra',
+                        smtpEnabled: false,
+                        smtpSenderName: '',
+                        smtpSenderEmail: '',
+                        smtpReplyToName: '',
+                        smtpReplyToEmail: '',
+                        smtpHost: '',
+                        smtpPort: 0,
+                        smtpUsername: '',
+                        smtpPassword: '',
+                        smtpSecure: '',
+                        pingCount: 0,
+                        pingedAt: '',
+                        labels: [],
+                        status: 'active',
+                        onboarding: [],
+                        consoleAccessedAt: '',
+                    },
+                    properties: {
+                        authMethods: {
+                            items: 'projectAuthMethod',
+                        },
+                        services: {
+                            items: 'projectService',
+                        },
+                        protocols: {
+                            items: 'projectProtocol',
+                        },
+                        blocks: {
+                            items: 'block',
+                        },
+                    },
+                },
+                projectAuthMethod: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectService: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectProtocol: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                block: {
+                    defaults: {
+                        $createdAt: '',
+                        resourceType: '',
+                        resourceId: '',
+                        mode: 'full',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -992,7 +1329,77 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'project',
+            models: {
+                project: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        teamId: '',
+                        region: 'fra',
+                        smtpEnabled: false,
+                        smtpSenderName: '',
+                        smtpSenderEmail: '',
+                        smtpReplyToName: '',
+                        smtpReplyToEmail: '',
+                        smtpHost: '',
+                        smtpPort: 0,
+                        smtpUsername: '',
+                        smtpPassword: '',
+                        smtpSecure: '',
+                        pingCount: 0,
+                        pingedAt: '',
+                        labels: [],
+                        status: 'active',
+                        onboarding: [],
+                        consoleAccessedAt: '',
+                    },
+                    properties: {
+                        authMethods: {
+                            items: 'projectAuthMethod',
+                        },
+                        services: {
+                            items: 'projectService',
+                        },
+                        protocols: {
+                            items: 'projectProtocol',
+                        },
+                        blocks: {
+                            items: 'block',
+                        },
+                    },
+                },
+                projectAuthMethod: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectService: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectProtocol: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                block: {
+                    defaults: {
+                        $createdAt: '',
+                        resourceType: '',
+                        resourceId: '',
+                        mode: 'full',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -1047,7 +1454,77 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'project',
+            models: {
+                project: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        teamId: '',
+                        region: 'fra',
+                        smtpEnabled: false,
+                        smtpSenderName: '',
+                        smtpSenderEmail: '',
+                        smtpReplyToName: '',
+                        smtpReplyToEmail: '',
+                        smtpHost: '',
+                        smtpPort: 0,
+                        smtpUsername: '',
+                        smtpPassword: '',
+                        smtpSecure: '',
+                        pingCount: 0,
+                        pingedAt: '',
+                        labels: [],
+                        status: 'active',
+                        onboarding: [],
+                        consoleAccessedAt: '',
+                    },
+                    properties: {
+                        authMethods: {
+                            items: 'projectAuthMethod',
+                        },
+                        services: {
+                            items: 'projectService',
+                        },
+                        protocols: {
+                            items: 'projectProtocol',
+                        },
+                        blocks: {
+                            items: 'block',
+                        },
+                    },
+                },
+                projectAuthMethod: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectService: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectProtocol: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                block: {
+                    defaults: {
+                        $createdAt: '',
+                        resourceType: '',
+                        resourceId: '',
+                        mode: 'full',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -1120,7 +1597,77 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'project',
+            models: {
+                project: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        teamId: '',
+                        region: 'fra',
+                        smtpEnabled: false,
+                        smtpSenderName: '',
+                        smtpSenderEmail: '',
+                        smtpReplyToName: '',
+                        smtpReplyToEmail: '',
+                        smtpHost: '',
+                        smtpPort: 0,
+                        smtpUsername: '',
+                        smtpPassword: '',
+                        smtpSecure: '',
+                        pingCount: 0,
+                        pingedAt: '',
+                        labels: [],
+                        status: 'active',
+                        onboarding: [],
+                        consoleAccessedAt: '',
+                    },
+                    properties: {
+                        authMethods: {
+                            items: 'projectAuthMethod',
+                        },
+                        services: {
+                            items: 'projectService',
+                        },
+                        protocols: {
+                            items: 'projectProtocol',
+                        },
+                        blocks: {
+                            items: 'block',
+                        },
+                    },
+                },
+                projectAuthMethod: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectService: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectProtocol: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                block: {
+                    defaults: {
+                        $createdAt: '',
+                        resourceType: '',
+                        resourceId: '',
+                        mode: 'full',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -1257,7 +1804,36 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'keyList',
+            models: {
+                keyList: {
+                    defaults: {
+                        total: 0,
+                    },
+                    properties: {
+                        keys: {
+                            items: 'key',
+                        },
+                    },
+                },
+                key: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        expire: '',
+                        scopes: [],
+                        secret: '',
+                        accessedAt: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -1363,7 +1939,26 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'ephemeralKey',
+            models: {
+                ephemeralKey: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        expire: '',
+                        scopes: [],
+                        secret: '',
+                        accessedAt: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -1431,7 +2026,26 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'key',
+            models: {
+                key: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        expire: '',
+                        scopes: [],
+                        secret: '',
+                        accessedAt: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -1553,7 +2167,26 @@ export class Organization {
             accept: 'application/json',
         };
 
-        return this.client.call('put', uri, apiHeaders, apiPayload);
+        const request = this.client.call('put', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'key',
+            models: {
+                key: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        expire: '',
+                        scopes: [],
+                        secret: '',
+                        accessedAt: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
