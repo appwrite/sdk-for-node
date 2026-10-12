@@ -2786,6 +2786,307 @@ export class Users {
     }
 
     /**
+     * Get the list of verified passkeys registered by a user.
+     *
+     * @param {string} params.userId - User ID.
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter and order on the following attributes: $id, $createdAt, $updatedAt, name, accessedAt
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.PasskeyList>}
+     */
+    listPasskeys(params: {
+        userId: string;
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.PasskeyList>;
+    /**
+     * Get the list of verified passkeys registered by a user.
+     *
+     * @param {string} userId - User ID.
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter and order on the following attributes: $id, $createdAt, $updatedAt, name, accessedAt
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.PasskeyList>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    listPasskeys(
+        userId: string,
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.PasskeyList>;
+    listPasskeys(
+        paramsOrFirst:
+            { userId: string; queries?: string[]; total?: boolean } | string,
+        ...rest: [string[]?, boolean?]
+    ): Promise<Models.PasskeyList> {
+        let params: { userId: string; queries?: string[]; total?: boolean };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                userId: string;
+                queries?: string[];
+                total?: boolean;
+            };
+        } else {
+            params = {
+                userId: paramsOrFirst as string,
+                queries: rest[0] as string[],
+                total: rest[1] as boolean,
+            };
+        }
+
+        const userId = params.userId;
+        const queries = params.queries;
+        const total = params.total;
+        if (typeof userId === 'undefined' || userId === '') {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+        const apiPath = '/users/{userId}/passkeys'.replace(
+            '{userId}',
+            encodeURIComponent(String(userId)),
+        );
+        const apiPayload: Payload = {};
+        if (typeof queries !== 'undefined') {
+            apiPayload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            accept: 'application/json',
+        };
+
+        return this.client.call('get', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Get a verified passkey of a user by its unique ID.
+     *
+     * @param {string} params.userId - User ID.
+     * @param {string} params.passkeyId - Passkey ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Passkey>}
+     */
+    getPasskey(params: {
+        userId: string;
+        passkeyId: string;
+    }): Promise<Models.Passkey>;
+    /**
+     * Get a verified passkey of a user by its unique ID.
+     *
+     * @param {string} userId - User ID.
+     * @param {string} passkeyId - Passkey ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Passkey>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getPasskey(userId: string, passkeyId: string): Promise<Models.Passkey>;
+    getPasskey(
+        paramsOrFirst: { userId: string; passkeyId: string } | string,
+        ...rest: [string?]
+    ): Promise<Models.Passkey> {
+        let params: { userId: string; passkeyId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                userId: string;
+                passkeyId: string;
+            };
+        } else {
+            params = {
+                userId: paramsOrFirst as string,
+                passkeyId: rest[0] as string,
+            };
+        }
+
+        const userId = params.userId;
+        const passkeyId = params.passkeyId;
+        if (typeof userId === 'undefined' || userId === '') {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+        if (typeof passkeyId === 'undefined' || passkeyId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "passkeyId"',
+            );
+        }
+        const apiPath = '/users/{userId}/passkeys/{passkeyId}'
+            .replace('{userId}', encodeURIComponent(String(userId)))
+            .replace('{passkeyId}', encodeURIComponent(String(passkeyId)));
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            accept: 'application/json',
+        };
+
+        return this.client.call('get', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Rename a passkey of a user.
+     *
+     * @param {string} params.userId - User ID.
+     * @param {string} params.passkeyId - Passkey ID.
+     * @param {string} params.name - Passkey name. Max length: 128 chars.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Passkey>}
+     */
+    updatePasskey(params: {
+        userId: string;
+        passkeyId: string;
+        name: string;
+    }): Promise<Models.Passkey>;
+    /**
+     * Rename a passkey of a user.
+     *
+     * @param {string} userId - User ID.
+     * @param {string} passkeyId - Passkey ID.
+     * @param {string} name - Passkey name. Max length: 128 chars.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Passkey>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updatePasskey(
+        userId: string,
+        passkeyId: string,
+        name: string,
+    ): Promise<Models.Passkey>;
+    updatePasskey(
+        paramsOrFirst:
+            { userId: string; passkeyId: string; name: string } | string,
+        ...rest: [string?, string?]
+    ): Promise<Models.Passkey> {
+        let params: { userId: string; passkeyId: string; name: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                userId: string;
+                passkeyId: string;
+                name: string;
+            };
+        } else {
+            params = {
+                userId: paramsOrFirst as string,
+                passkeyId: rest[0] as string,
+                name: rest[1] as string,
+            };
+        }
+
+        const userId = params.userId;
+        const passkeyId = params.passkeyId;
+        const name = params.name;
+        if (typeof userId === 'undefined' || userId === '') {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+        if (typeof passkeyId === 'undefined' || passkeyId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "passkeyId"',
+            );
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+        const apiPath = '/users/{userId}/passkeys/{passkeyId}'
+            .replace('{userId}', encodeURIComponent(String(userId)))
+            .replace('{passkeyId}', encodeURIComponent(String(passkeyId)));
+        const apiPayload: Payload = {};
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Delete a passkey from a user, for example when a device is lost. The passkey can no longer be used to sign in.
+     *
+     * @param {string} params.userId - User ID.
+     * @param {string} params.passkeyId - Passkey ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deletePasskey(params: { userId: string; passkeyId: string }): Promise<{}>;
+    /**
+     * Delete a passkey from a user, for example when a device is lost. The passkey can no longer be used to sign in.
+     *
+     * @param {string} userId - User ID.
+     * @param {string} passkeyId - Passkey ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    deletePasskey(userId: string, passkeyId: string): Promise<{}>;
+    deletePasskey(
+        paramsOrFirst: { userId: string; passkeyId: string } | string,
+        ...rest: [string?]
+    ): Promise<{}> {
+        let params: { userId: string; passkeyId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                userId: string;
+                passkeyId: string;
+            };
+        } else {
+            params = {
+                userId: paramsOrFirst as string,
+                passkeyId: rest[0] as string,
+            };
+        }
+
+        const userId = params.userId;
+        const passkeyId = params.passkeyId;
+        if (typeof userId === 'undefined' || userId === '') {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+        if (typeof passkeyId === 'undefined' || passkeyId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "passkeyId"',
+            );
+        }
+        const apiPath = '/users/{userId}/passkeys/{passkeyId}'
+            .replace('{userId}', encodeURIComponent(String(userId)))
+            .replace('{passkeyId}', encodeURIComponent(String(passkeyId)));
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
+    }
+
+    /**
      * Update the user password by its unique ID.
      *
      * @param {string} params.userId - User ID.

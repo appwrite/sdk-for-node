@@ -7246,6 +7246,60 @@ export class Project {
     }
 
     /**
+     * Set the relying party ID passkeys are bound to: the domain of your application. Passkeys work on the project's web platforms on that domain or its subdomains, and on the domain itself for Apple apps. A localhost web platform enables passkeys for local development without a relying party ID. The relying party ID cannot change while users have passkeys, and any change invalidates ceremonies in progress.
+     *
+     * @param {string} params.rpId - Relying party ID: the domain of your application, such as `example.com`. Use `localhost` for local development, or an empty string to unset it.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    updatePasskeyPolicy(params: { rpId: string }): Promise<Models.Project>;
+    /**
+     * Set the relying party ID passkeys are bound to: the domain of your application. Passkeys work on the project's web platforms on that domain or its subdomains, and on the domain itself for Apple apps. A localhost web platform enables passkeys for local development without a relying party ID. The relying party ID cannot change while users have passkeys, and any change invalidates ceremonies in progress.
+     *
+     * @param {string} rpId - Relying party ID: the domain of your application, such as `example.com`. Use `localhost` for local development, or an empty string to unset it.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updatePasskeyPolicy(rpId: string): Promise<Models.Project>;
+    updatePasskeyPolicy(
+        paramsOrFirst: { rpId: string } | string,
+    ): Promise<Models.Project> {
+        let params: { rpId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { rpId: string };
+        } else {
+            params = {
+                rpId: paramsOrFirst as string,
+            };
+        }
+
+        const rpId = params.rpId;
+        if (typeof rpId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "rpId"');
+        }
+        const apiPath = '/project/policies/passkey';
+        const apiPayload: Payload = {};
+        if (typeof rpId !== 'undefined') {
+            apiPayload['rpId'] = rpId;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
+    }
+
+    /**
      * Updating this policy allows you to control if new passwords are checked against most common passwords dictionary. When enabled, and user changes their password, password must not be contained in the dictionary.
      *
      * @param {boolean} params.enabled - Toggle password dictionary policy. Set to true if you want password change to block passwords in the dictionary, or false to allow them. When changing this policy, existing passwords remain valid.
