@@ -1940,7 +1940,8 @@ describe('Project', () => {
     test('test method getPolicy()', async () => {
         const data = {
             '\\$id': 'password-dictionary',
-            enabled: true,
+            rpId: 'example.com',
+            origins: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.getPolicy('password-dictionary');
