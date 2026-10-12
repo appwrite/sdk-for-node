@@ -13,6 +13,5 @@ const result = await account.createOAuth2Token({
     success: 'https://example.com', // optional
     failure: 'https://example.com', // optional
     scopes: [], // optional
-    state: '<STATE>', // optional
 });
 ```

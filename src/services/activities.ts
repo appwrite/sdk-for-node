@@ -1,9 +1,4 @@
-import {
-    AppwriteException,
-    Client,
-    type Payload,
-    applyDefaults,
-} from '../client';
+import { AppwriteException, Client, type Payload } from '../client';
 import type { Models } from '../models';
 
 export class Activities {
@@ -63,57 +58,7 @@ export class Activities {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'activityEventList',
-            models: {
-                activityEventList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        events: {
-                            items: 'activityEvent',
-                        },
-                    },
-                },
-                activityEvent: {
-                    defaults: {
-                        $id: '',
-                        actorType: '',
-                        actorId: '',
-                        actorEmail: '',
-                        actorName: '',
-                        resourceParent: '',
-                        resourceType: '',
-                        resourceId: '',
-                        resource: '',
-                        event: '',
-                        userAgent: '',
-                        ip: '',
-                        mode: '',
-                        country: '',
-                        continentCode: '',
-                        city: '',
-                        subdivisions: '',
-                        isp: '',
-                        autonomousSystemNumber: '',
-                        autonomousSystemOrganization: '',
-                        connectionType: '',
-                        connectionUsageType: '',
-                        connectionOrganization: '',
-                        time: '',
-                        projectId: '',
-                        teamId: '',
-                        hostname: '',
-                        sdk: '',
-                        sdkVersion: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -170,46 +115,6 @@ export class Activities {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'activityEvent',
-            models: {
-                activityEvent: {
-                    defaults: {
-                        $id: '',
-                        actorType: '',
-                        actorId: '',
-                        actorEmail: '',
-                        actorName: '',
-                        resourceParent: '',
-                        resourceType: '',
-                        resourceId: '',
-                        resource: '',
-                        event: '',
-                        userAgent: '',
-                        ip: '',
-                        mode: '',
-                        country: '',
-                        continentCode: '',
-                        city: '',
-                        subdivisions: '',
-                        isp: '',
-                        autonomousSystemNumber: '',
-                        autonomousSystemOrganization: '',
-                        connectionType: '',
-                        connectionUsageType: '',
-                        connectionOrganization: '',
-                        time: '',
-                        projectId: '',
-                        teamId: '',
-                        hostname: '',
-                        sdk: '',
-                        sdkVersion: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 }

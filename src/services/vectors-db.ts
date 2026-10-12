@@ -1,9 +1,4 @@
-import {
-    AppwriteException,
-    Client,
-    type Payload,
-    applyDefaults,
-} from '../client';
+import { AppwriteException, Client, type Payload } from '../client';
 import type { Models } from '../models';
 
 import { VectorsDBIndexType } from '../enums/vectors-db-index-type';
@@ -77,64 +72,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'databaseList',
-            models: {
-                databaseList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        databases: {
-                            items: 'database',
-                        },
-                    },
-                },
-                database: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        enabled: true,
-                        type: 'legacy',
-                    },
-                    properties: {
-                        policies: {
-                            items: 'backupPolicy',
-                        },
-                        archives: {
-                            items: 'backupArchive',
-                        },
-                    },
-                },
-                backupPolicy: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        retention: 1,
-                        schedule: '0 * * * *',
-                        type: 'full',
-                        enabled: false,
-                    },
-                },
-                backupArchive: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        policyId: '',
-                        status: '',
-                        migrationId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -268,54 +206,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'database',
-            models: {
-                database: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        enabled: true,
-                        type: 'legacy',
-                    },
-                    properties: {
-                        policies: {
-                            items: 'backupPolicy',
-                        },
-                        archives: {
-                            items: 'backupArchive',
-                        },
-                    },
-                },
-                backupPolicy: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        retention: 1,
-                        schedule: '0 * * * *',
-                        type: 'full',
-                        enabled: false,
-                    },
-                },
-                backupArchive: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        policyId: '',
-                        status: '',
-                        migrationId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -334,41 +225,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'dedicatedDatabaseSpecificationList',
-            models: {
-                dedicatedDatabaseSpecificationList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        specifications: {
-                            items: 'dedicatedDatabaseSpecification',
-                        },
-                    },
-                },
-                dedicatedDatabaseSpecification: {
-                    defaults: {
-                        slug: '',
-                        name: '',
-                        price: 0,
-                        storageOverageRate: 0,
-                        bandwidthOverageRate: 0,
-                        replicaRate: 0,
-                        pitrRate: 0,
-                        cpu: 0,
-                        memory: 0,
-                        maxConnections: 0,
-                        includedStorage: 0,
-                        includedBandwidth: 0,
-                        enabled: false,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -436,34 +293,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'transactionList',
-            models: {
-                transactionList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        transactions: {
-                            items: 'transaction',
-                        },
-                    },
-                },
-                transaction: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        status: 'pending',
-                        operations: 0,
-                        expiresAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -515,24 +345,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'transaction',
-            models: {
-                transaction: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        status: 'pending',
-                        operations: 0,
-                        expiresAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -589,24 +402,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'transaction',
-            models: {
-                transaction: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        status: 'pending',
-                        operations: 0,
-                        expiresAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -695,24 +491,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'transaction',
-            models: {
-                transaction: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        status: 'pending',
-                        operations: 0,
-                        expiresAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -843,24 +622,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'transaction',
-            models: {
-                transaction: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        status: 'pending',
-                        operations: 0,
-                        expiresAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -915,54 +677,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'database',
-            models: {
-                database: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        enabled: true,
-                        type: 'legacy',
-                    },
-                    properties: {
-                        policies: {
-                            items: 'backupPolicy',
-                        },
-                        archives: {
-                            items: 'backupArchive',
-                        },
-                    },
-                },
-                backupPolicy: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        retention: 1,
-                        schedule: '0 * * * *',
-                        type: 'full',
-                        enabled: false,
-                    },
-                },
-                backupArchive: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        policyId: '',
-                        status: '',
-                        migrationId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1094,54 +809,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'database',
-            models: {
-                database: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        enabled: true,
-                        type: 'legacy',
-                    },
-                    properties: {
-                        policies: {
-                            items: 'backupPolicy',
-                        },
-                        archives: {
-                            items: 'backupArchive',
-                        },
-                    },
-                },
-                backupPolicy: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        retention: 1,
-                        schedule: '0 * * * *',
-                        type: 'full',
-                        enabled: false,
-                    },
-                },
-                backupArchive: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        policyId: '',
-                        status: '',
-                        migrationId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1299,55 +967,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'vectorsdbCollectionList',
-            models: {
-                vectorsdbCollectionList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        collections: {
-                            items: 'vectorsdbCollection',
-                        },
-                    },
-                },
-                vectorsdbCollection: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        databaseId: '',
-                        name: '',
-                        enabled: true,
-                        documentSecurity: false,
-                        bytesMax: 0,
-                        bytesUsed: 0,
-                        dimension: 0,
-                    },
-                    properties: {
-                        indexes: {
-                            items: 'index',
-                        },
-                    },
-                },
-                index: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        error: '',
-                        attributes: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1501,45 +1121,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'vectorsdbCollection',
-            models: {
-                vectorsdbCollection: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        databaseId: '',
-                        name: '',
-                        enabled: true,
-                        documentSecurity: false,
-                        bytesMax: 0,
-                        bytesUsed: 0,
-                        dimension: 0,
-                    },
-                    properties: {
-                        indexes: {
-                            items: 'index',
-                        },
-                    },
-                },
-                index: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        error: '',
-                        attributes: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1615,45 +1197,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'vectorsdbCollection',
-            models: {
-                vectorsdbCollection: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        databaseId: '',
-                        name: '',
-                        enabled: true,
-                        documentSecurity: false,
-                        bytesMax: 0,
-                        bytesUsed: 0,
-                        dimension: 0,
-                    },
-                    properties: {
-                        indexes: {
-                            items: 'index',
-                        },
-                    },
-                },
-                index: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        error: '',
-                        attributes: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1801,45 +1345,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'vectorsdbCollection',
-            models: {
-                vectorsdbCollection: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        databaseId: '',
-                        name: '',
-                        enabled: true,
-                        documentSecurity: false,
-                        bytesMax: 0,
-                        bytesUsed: 0,
-                        dimension: 0,
-                    },
-                    properties: {
-                        indexes: {
-                            items: 'index',
-                        },
-                    },
-                },
-                index: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        error: '',
-                        attributes: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2048,34 +1554,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'documentList',
-            models: {
-                documentList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        documents: {
-                            items: 'document',
-                        },
-                    },
-                },
-                document: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $collectionId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2244,24 +1723,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'document',
-            models: {
-                document: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $collectionId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2378,34 +1840,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'documentList',
-            models: {
-                documentList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        documents: {
-                            items: 'document',
-                        },
-                    },
-                },
-                document: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $collectionId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2524,34 +1959,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'documentList',
-            models: {
-                documentList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        documents: {
-                            items: 'document',
-                        },
-                    },
-                },
-                document: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $collectionId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2675,34 +2083,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'documentList',
-            models: {
-                documentList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        documents: {
-                            items: 'document',
-                        },
-                    },
-                },
-                document: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $collectionId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2814,34 +2195,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('delete', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'documentList',
-            models: {
-                documentList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        documents: {
-                            items: 'document',
-                        },
-                    },
-                },
-                document: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $collectionId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2979,34 +2333,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'documentList',
-            models: {
-                documentList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        documents: {
-                            items: 'document',
-                        },
-                    },
-                },
-                document: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $collectionId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3135,24 +2462,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'document',
-            models: {
-                document: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $collectionId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3321,24 +2631,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'document',
-            models: {
-                document: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $collectionId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3507,24 +2800,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'document',
-            models: {
-                document: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $collectionId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3749,36 +3025,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'indexList',
-            models: {
-                indexList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        indexes: {
-                            items: 'index',
-                        },
-                    },
-                },
-                index: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        error: '',
-                        attributes: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3944,26 +3191,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'index',
-            models: {
-                index: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        error: '',
-                        attributes: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -4052,26 +3280,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'index',
-            models: {
-                index: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        error: '',
-                        attributes: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -4235,63 +3444,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'dedicatedDatabase',
-            models: {
-                dedicatedDatabase: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        projectId: '',
-                        name: '',
-                        version: '',
-                        specification: '',
-                        backend: '',
-                        hostname: '',
-                        connectionUser: '',
-                        connectionPassword: '',
-                        connectionString: '',
-                        ssl: false,
-                        status: 'provisioning',
-                        containerStatus: '',
-                        lifecycleState: '',
-                        idleTimeoutMinutes: 15,
-                        cpu: 500,
-                        memory: 512,
-                        storage: 10,
-                        storageStatus: 'idle',
-                        storageTargetGb: 0,
-                        storageClass: 'ssd',
-                        storageMaxGb: 0,
-                        nodePool: '',
-                        replicas: 0,
-                        syncMode: '',
-                        networkMaxConnections: 100,
-                        networkIdleTimeoutSeconds: 900,
-                        networkIPAllowlist: [],
-                        backupEnabled: true,
-                        pitr: true,
-                        pitrRetentionDays: 7,
-                        storageAutoscaling: true,
-                        storageAutoscalingThresholdPercent: 85,
-                        storageAutoscalingMaxGb: 0,
-                        maintenanceWindowDay: 'sun',
-                        maintenanceWindowHourUtc: 3,
-                        metricsEnabled: false,
-                        sqlApiEnabled: true,
-                        sqlApiAllowedStatements: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
-                        sqlApiMaxRows: 10000,
-                        sqlApiMaxBytes: 10485760,
-                        sqlApiTimeoutSeconds: 30,
-                        error: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -4395,36 +3548,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'dedicatedDatabaseOperationList',
-            models: {
-                dedicatedDatabaseOperationList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        operations: {
-                            items: 'dedicatedDatabaseOperation',
-                        },
-                    },
-                },
-                dedicatedDatabaseOperation: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        databaseId: '',
-                        type: '',
-                        status: '',
-                        attempts: 0,
-                        errorCode: '',
-                        errorMessage: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -4481,35 +3605,7 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'dedicatedDatabaseReplicas',
-            models: {
-                dedicatedDatabaseReplicas: {
-                    defaults: {
-                        replicas: 0,
-                        syncMode: 'async',
-                        syncDegraded: false,
-                        syncAcknowledgements: 0,
-                        syncStandbyCount: 0,
-                    },
-                    properties: {
-                        members: {
-                            items: 'dedicatedDatabaseMember',
-                        },
-                    },
-                },
-                dedicatedDatabaseMember: {
-                    defaults: {
-                        $id: '',
-                        role: 'unknown',
-                        status: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -4564,49 +3660,6 @@ export class VectorsDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'databaseStatus',
-            models: {
-                databaseStatus: {
-                    defaults: {
-                        health: 'unknown',
-                        ready: false,
-                        engine: 'postgresql',
-                        version: '',
-                        uptime: 0,
-                        syncMode: 'async',
-                        syncDegraded: false,
-                        syncAcknowledgements: 0,
-                        syncStandbyCount: 0,
-                    },
-                    properties: {
-                        replicas: {
-                            items: 'databaseStatusReplica',
-                        },
-                        volumes: {
-                            items: 'databaseStatusVolume',
-                        },
-                    },
-                },
-                databaseStatusReplica: {
-                    defaults: {
-                        index: 0,
-                        role: 'unknown',
-                        healthy: false,
-                    },
-                },
-                databaseStatusVolume: {
-                    defaults: {
-                        path: '',
-                        usedPercent: '0%',
-                        available: '0GB',
-                        mounted: false,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 }

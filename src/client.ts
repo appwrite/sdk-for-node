@@ -44,50 +44,6 @@ const JSONbig = {
     stringify: JSONbigSerializer.stringify,
 };
 
-type DefaultsShape = string | { items: DefaultsShape };
-
-type DefaultsModel = {
-    defaults?: Record<string, unknown>;
-    properties?: Record<string, DefaultsShape>;
-};
-
-type Defaults = {
-    root: DefaultsShape;
-    models: Record<string, DefaultsModel>;
-};
-
-export function applyDefaults<T>(value: T, tree: Defaults): T {
-    return fillDefaults(value, tree.root, tree.models) as T;
-}
-
-function fillDefaults(
-    value: unknown,
-    shape: DefaultsShape,
-    models: Record<string, DefaultsModel>,
-): unknown {
-    if (typeof shape !== 'string') {
-        if (!Array.isArray(value)) {
-            return value;
-        }
-        const items = shape.items;
-        return value.map((item) => fillDefaults(item, items, models));
-    }
-    const model = models[shape];
-    if (!model || typeof value !== 'object' || value === null) {
-        return value;
-    }
-    if (Array.isArray(value)) {
-        return value;
-    }
-    const result: Record<string, unknown> = { ...model.defaults, ...value };
-    for (const [key, child] of Object.entries(model.properties ?? {})) {
-        if (key in result) {
-            result[key] = fillDefaults(result[key], child, models);
-        }
-    }
-    return result;
-}
-
 type Payload = {
     [key: string]: any;
 };
@@ -124,7 +80,7 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/30.0.0';
+    let ua = 'AppwriteNodeJSSDK/30.0.0-rc.2';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
@@ -185,9 +141,9 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '30.0.0',
+        'x-sdk-version': '30.0.0-rc.2',
         'user-agent': getUserAgent(),
-        'X-Appwrite-Response-Format': '2.4.0',
+        'X-Appwrite-Response-Format': '2.3.0',
     };
 
     /**

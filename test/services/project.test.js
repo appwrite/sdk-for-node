@@ -1164,7 +1164,6 @@ describe('Project', () => {
             name: 'My Web App',
             type: 'web',
             applicationId: 'com.company.appname',
-            fingerprints: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.createAndroidPlatform(
@@ -1186,7 +1185,6 @@ describe('Project', () => {
             name: 'My Web App',
             type: 'web',
             applicationId: 'com.company.appname',
-            fingerprints: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updateAndroidPlatform(
@@ -1630,43 +1628,6 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
-    test('test method updatePasskeyPolicy()', async () => {
-        const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            name: 'New Project',
-            teamId: '1592981250',
-            region: 'fra',
-            smtpEnabled: true,
-            smtpSenderName: 'John Appwrite',
-            smtpSenderEmail: 'john@appwrite.io',
-            smtpReplyToName: 'Support Team',
-            smtpReplyToEmail: 'support@appwrite.io',
-            smtpHost: 'mail.appwrite.io',
-            smtpPort: 25,
-            smtpUsername: 'emailuser',
-            smtpPassword: 'smtp-password',
-            smtpSecure: 'tls',
-            pingCount: 1,
-            pingedAt: '2020-10-15T06:38:00.000+00:00',
-            labels: [],
-            status: 'active',
-            onboarding: {},
-            authMethods: [],
-            services: [],
-            protocols: [],
-            blocks: [],
-            consoleAccessedAt: '2020-10-15T06:38:00.000+00:00',
-        };
-        mockedFetch.mockImplementation(() => Response.json(data));
-        const response = await project.updatePasskeyPolicy('<RP_ID>');
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
     test('test method updatePasswordDictionaryPolicy()', async () => {
         const data = {
             '\\$id': '5e5ea5c16897e',
@@ -1809,43 +1770,6 @@ describe('Project', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updatePasswordPwnedPolicy();
-
-        // Remove custom toString method on the objects to allow for clean data comparison.
-        delete response.toString;
-
-        expect(response).toEqual(data);
-    });
-    test('test method updatePasswordRotationPolicy()', async () => {
-        const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            name: 'New Project',
-            teamId: '1592981250',
-            region: 'fra',
-            smtpEnabled: true,
-            smtpSenderName: 'John Appwrite',
-            smtpSenderEmail: 'john@appwrite.io',
-            smtpReplyToName: 'Support Team',
-            smtpReplyToEmail: 'support@appwrite.io',
-            smtpHost: 'mail.appwrite.io',
-            smtpPort: 25,
-            smtpUsername: 'emailuser',
-            smtpPassword: 'smtp-password',
-            smtpSecure: 'tls',
-            pingCount: 1,
-            pingedAt: '2020-10-15T06:38:00.000+00:00',
-            labels: [],
-            status: 'active',
-            onboarding: {},
-            authMethods: [],
-            services: [],
-            protocols: [],
-            blocks: [],
-            consoleAccessedAt: '2020-10-15T06:38:00.000+00:00',
-        };
-        mockedFetch.mockImplementation(() => Response.json(data));
-        const response = await project.updatePasswordRotationPolicy();
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
@@ -2057,8 +1981,7 @@ describe('Project', () => {
     test('test method getPolicy()', async () => {
         const data = {
             '\\$id': 'password-dictionary',
-            rpId: 'example.com',
-            origins: [],
+            enabled: true,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.getPolicy('password-dictionary');

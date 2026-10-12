@@ -3,7 +3,6 @@ import {
     Client,
     type Payload,
     UploadProgress,
-    applyDefaults,
 } from '../client';
 import type { Models } from '../models';
 import { InputFile } from '../inputFile';
@@ -97,76 +96,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'functionList',
-            models: {
-                functionList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        functions: {
-                            items: 'function',
-                        },
-                    },
-                },
-                function: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        execute: [],
-                        name: '',
-                        enabled: true,
-                        live: true,
-                        logging: true,
-                        runtime: '',
-                        deploymentRetention: 0,
-                        deploymentId: '',
-                        deploymentCreatedAt: '',
-                        latestDeploymentId: '',
-                        latestDeploymentCreatedAt: '',
-                        latestDeploymentStatus: '',
-                        scopes: [],
-                        events: [],
-                        schedule: '',
-                        timeout: 15,
-                        entrypoint: '',
-                        commands: '',
-                        version: 'v5',
-                        installationId: '',
-                        providerRepositoryId: '',
-                        providerBranch: '',
-                        providerRootDirectory: '',
-                        providerSilentMode: false,
-                        providerBranches: [],
-                        providerPaths: [],
-                        buildSpecification: 's-1vcpu-512mb',
-                        runtimeSpecification: 's-1vcpu-512mb',
-                    },
-                    properties: {
-                        vars: {
-                            items: 'variable',
-                        },
-                    },
-                },
-                variable: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        value: '',
-                        secret: false,
-                        resourceType: '',
-                        resourceId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -177,7 +107,7 @@ export class Functions {
      * @param {Runtime} params.runtime - Execution runtime.
      * @param {string[]} params.execute - An array of role strings with execution permissions. By default no user is granted with any execute permissions. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
      * @param {string[]} params.events - Events list. Maximum of 100 events are allowed.
-     * @param {string} params.schedule - Schedule CRON syntax. Cannot be combined with interval.
+     * @param {string} params.schedule - Schedule CRON syntax.
      * @param {number} params.timeout - Function maximum execution time in seconds.
      * @param {boolean} params.enabled - Is function enabled? When set to 'disabled', users cannot access the function but Server SDKs with and API key can still access the function. No data is lost when this is toggled.
      * @param {boolean} params.logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
@@ -194,7 +124,6 @@ export class Functions {
      * @param {string} params.buildSpecification - Build specification for the function deployments.
      * @param {string} params.runtimeSpecification - Runtime specification for the function executions.
      * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
-     * @param {number} params.interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
@@ -221,7 +150,6 @@ export class Functions {
         buildSpecification?: string;
         runtimeSpecification?: string;
         deploymentRetention?: number;
-        interval?: number;
     }): Promise<Models.Function>;
     /**
      * Create a new function. You can pass a list of [permissions](https://appwrite.io/docs/permissions) to allow different project users or team with access to execute the function using the client API.
@@ -231,7 +159,7 @@ export class Functions {
      * @param {Runtime} runtime - Execution runtime.
      * @param {string[]} execute - An array of role strings with execution permissions. By default no user is granted with any execute permissions. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
      * @param {string[]} events - Events list. Maximum of 100 events are allowed.
-     * @param {string} schedule - Schedule CRON syntax. Cannot be combined with interval.
+     * @param {string} schedule - Schedule CRON syntax.
      * @param {number} timeout - Function maximum execution time in seconds.
      * @param {boolean} enabled - Is function enabled? When set to 'disabled', users cannot access the function but Server SDKs with and API key can still access the function. No data is lost when this is toggled.
      * @param {boolean} logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
@@ -248,7 +176,6 @@ export class Functions {
      * @param {string} buildSpecification - Build specification for the function deployments.
      * @param {string} runtimeSpecification - Runtime specification for the function executions.
      * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
-     * @param {number} interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -276,7 +203,6 @@ export class Functions {
         buildSpecification?: string,
         runtimeSpecification?: string,
         deploymentRetention?: number,
-        interval?: number,
     ): Promise<Models.Function>;
     create(
         paramsOrFirst:
@@ -303,7 +229,6 @@ export class Functions {
                   buildSpecification?: string;
                   runtimeSpecification?: string;
                   deploymentRetention?: number;
-                  interval?: number;
               }
             | string,
         ...rest: [
@@ -327,7 +252,6 @@ export class Functions {
             string[]?,
             string?,
             string?,
-            number?,
             number?,
         ]
     ): Promise<Models.Function> {
@@ -354,7 +278,6 @@ export class Functions {
             buildSpecification?: string;
             runtimeSpecification?: string;
             deploymentRetention?: number;
-            interval?: number;
         };
 
         if (
@@ -385,7 +308,6 @@ export class Functions {
                 buildSpecification?: string;
                 runtimeSpecification?: string;
                 deploymentRetention?: number;
-                interval?: number;
             };
         } else {
             params = {
@@ -411,7 +333,6 @@ export class Functions {
                 buildSpecification: rest[18] as string,
                 runtimeSpecification: rest[19] as string,
                 deploymentRetention: rest[20] as number,
-                interval: rest[21] as number,
             };
         }
 
@@ -437,7 +358,6 @@ export class Functions {
         const buildSpecification = params.buildSpecification;
         const runtimeSpecification = params.runtimeSpecification;
         const deploymentRetention = params.deploymentRetention;
-        const interval = params.interval;
         if (typeof functionId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
@@ -519,9 +439,6 @@ export class Functions {
         if (typeof deploymentRetention !== 'undefined') {
             apiPayload['deploymentRetention'] = deploymentRetention;
         }
-        if (typeof interval !== 'undefined') {
-            apiPayload['interval'] = interval;
-        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -530,66 +447,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'function',
-            models: {
-                function: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        execute: [],
-                        name: '',
-                        enabled: true,
-                        live: true,
-                        logging: true,
-                        runtime: '',
-                        deploymentRetention: 0,
-                        deploymentId: '',
-                        deploymentCreatedAt: '',
-                        latestDeploymentId: '',
-                        latestDeploymentCreatedAt: '',
-                        latestDeploymentStatus: '',
-                        scopes: [],
-                        events: [],
-                        schedule: '',
-                        timeout: 15,
-                        entrypoint: '',
-                        commands: '',
-                        version: 'v5',
-                        installationId: '',
-                        providerRepositoryId: '',
-                        providerBranch: '',
-                        providerRootDirectory: '',
-                        providerSilentMode: false,
-                        providerBranches: [],
-                        providerPaths: [],
-                        buildSpecification: 's-1vcpu-512mb',
-                        runtimeSpecification: 's-1vcpu-512mb',
-                    },
-                    properties: {
-                        vars: {
-                            items: 'variable',
-                        },
-                    },
-                },
-                variable: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        value: '',
-                        secret: false,
-                        resourceType: '',
-                        resourceId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -640,35 +498,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'runtimeList',
-            models: {
-                runtimeList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        runtimes: {
-                            items: 'runtime',
-                        },
-                    },
-                },
-                runtime: {
-                    defaults: {
-                        $id: '',
-                        key: '',
-                        name: '',
-                        version: '',
-                        base: '',
-                        image: '',
-                        logo: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -736,32 +566,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'specificationList',
-            models: {
-                specificationList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        specifications: {
-                            items: 'specification',
-                        },
-                    },
-                },
-                specification: {
-                    defaults: {
-                        memory: 0,
-                        cpus: 0,
-                        enabled: false,
-                        slug: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -816,66 +621,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'function',
-            models: {
-                function: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        execute: [],
-                        name: '',
-                        enabled: true,
-                        live: true,
-                        logging: true,
-                        runtime: '',
-                        deploymentRetention: 0,
-                        deploymentId: '',
-                        deploymentCreatedAt: '',
-                        latestDeploymentId: '',
-                        latestDeploymentCreatedAt: '',
-                        latestDeploymentStatus: '',
-                        scopes: [],
-                        events: [],
-                        schedule: '',
-                        timeout: 15,
-                        entrypoint: '',
-                        commands: '',
-                        version: 'v5',
-                        installationId: '',
-                        providerRepositoryId: '',
-                        providerBranch: '',
-                        providerRootDirectory: '',
-                        providerSilentMode: false,
-                        providerBranches: [],
-                        providerPaths: [],
-                        buildSpecification: 's-1vcpu-512mb',
-                        runtimeSpecification: 's-1vcpu-512mb',
-                    },
-                    properties: {
-                        vars: {
-                            items: 'variable',
-                        },
-                    },
-                },
-                variable: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        value: '',
-                        secret: false,
-                        resourceType: '',
-                        resourceId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -886,7 +632,7 @@ export class Functions {
      * @param {Runtime} params.runtime - Execution runtime.
      * @param {string[]} params.execute - An array of role strings with execution permissions. By default no user is granted with any execute permissions. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
      * @param {string[]} params.events - Events list. Maximum of 100 events are allowed.
-     * @param {string} params.schedule - Schedule CRON syntax. Cannot be combined with interval.
+     * @param {string} params.schedule - Schedule CRON syntax.
      * @param {number} params.timeout - Maximum execution time in seconds.
      * @param {boolean} params.enabled - Is function enabled? When set to 'disabled', users cannot access the function but Server SDKs with and API key can still access the function. No data is lost when this is toggled.
      * @param {boolean} params.logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
@@ -903,7 +649,6 @@ export class Functions {
      * @param {string} params.buildSpecification - Build specification for the function deployments.
      * @param {string} params.runtimeSpecification - Runtime specification for the function executions.
      * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
-     * @param {number} params.interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule. When omitted, the current interval is kept unless schedule is set.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
@@ -930,7 +675,6 @@ export class Functions {
         buildSpecification?: string;
         runtimeSpecification?: string;
         deploymentRetention?: number;
-        interval?: number;
     }): Promise<Models.Function>;
     /**
      * Update function by its unique ID.
@@ -940,7 +684,7 @@ export class Functions {
      * @param {Runtime} runtime - Execution runtime.
      * @param {string[]} execute - An array of role strings with execution permissions. By default no user is granted with any execute permissions. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
      * @param {string[]} events - Events list. Maximum of 100 events are allowed.
-     * @param {string} schedule - Schedule CRON syntax. Cannot be combined with interval.
+     * @param {string} schedule - Schedule CRON syntax.
      * @param {number} timeout - Maximum execution time in seconds.
      * @param {boolean} enabled - Is function enabled? When set to 'disabled', users cannot access the function but Server SDKs with and API key can still access the function. No data is lost when this is toggled.
      * @param {boolean} logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
@@ -957,7 +701,6 @@ export class Functions {
      * @param {string} buildSpecification - Build specification for the function deployments.
      * @param {string} runtimeSpecification - Runtime specification for the function executions.
      * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
-     * @param {number} interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule. When omitted, the current interval is kept unless schedule is set.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -985,7 +728,6 @@ export class Functions {
         buildSpecification?: string,
         runtimeSpecification?: string,
         deploymentRetention?: number,
-        interval?: number,
     ): Promise<Models.Function>;
     update(
         paramsOrFirst:
@@ -1012,7 +754,6 @@ export class Functions {
                   buildSpecification?: string;
                   runtimeSpecification?: string;
                   deploymentRetention?: number;
-                  interval?: number;
               }
             | string,
         ...rest: [
@@ -1036,7 +777,6 @@ export class Functions {
             string[]?,
             string?,
             string?,
-            number?,
             number?,
         ]
     ): Promise<Models.Function> {
@@ -1063,7 +803,6 @@ export class Functions {
             buildSpecification?: string;
             runtimeSpecification?: string;
             deploymentRetention?: number;
-            interval?: number;
         };
 
         if (
@@ -1094,7 +833,6 @@ export class Functions {
                 buildSpecification?: string;
                 runtimeSpecification?: string;
                 deploymentRetention?: number;
-                interval?: number;
             };
         } else {
             params = {
@@ -1120,7 +858,6 @@ export class Functions {
                 buildSpecification: rest[18] as string,
                 runtimeSpecification: rest[19] as string,
                 deploymentRetention: rest[20] as number,
-                interval: rest[21] as number,
             };
         }
 
@@ -1146,7 +883,6 @@ export class Functions {
         const buildSpecification = params.buildSpecification;
         const runtimeSpecification = params.runtimeSpecification;
         const deploymentRetention = params.deploymentRetention;
-        const interval = params.interval;
         if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
@@ -1223,9 +959,6 @@ export class Functions {
         if (typeof deploymentRetention !== 'undefined') {
             apiPayload['deploymentRetention'] = deploymentRetention;
         }
-        if (typeof interval !== 'undefined') {
-            apiPayload['interval'] = interval;
-        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1234,66 +967,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'function',
-            models: {
-                function: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        execute: [],
-                        name: '',
-                        enabled: true,
-                        live: true,
-                        logging: true,
-                        runtime: '',
-                        deploymentRetention: 0,
-                        deploymentId: '',
-                        deploymentCreatedAt: '',
-                        latestDeploymentId: '',
-                        latestDeploymentCreatedAt: '',
-                        latestDeploymentStatus: '',
-                        scopes: [],
-                        events: [],
-                        schedule: '',
-                        timeout: 15,
-                        entrypoint: '',
-                        commands: '',
-                        version: 'v5',
-                        installationId: '',
-                        providerRepositoryId: '',
-                        providerBranch: '',
-                        providerRootDirectory: '',
-                        providerSilentMode: false,
-                        providerBranches: [],
-                        providerPaths: [],
-                        buildSpecification: 's-1vcpu-512mb',
-                        runtimeSpecification: 's-1vcpu-512mb',
-                    },
-                    properties: {
-                        vars: {
-                            items: 'variable',
-                        },
-                    },
-                },
-                variable: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        value: '',
-                        secret: false,
-                        resourceType: '',
-                        resourceId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1425,66 +1099,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'function',
-            models: {
-                function: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        execute: [],
-                        name: '',
-                        enabled: true,
-                        live: true,
-                        logging: true,
-                        runtime: '',
-                        deploymentRetention: 0,
-                        deploymentId: '',
-                        deploymentCreatedAt: '',
-                        latestDeploymentId: '',
-                        latestDeploymentCreatedAt: '',
-                        latestDeploymentStatus: '',
-                        scopes: [],
-                        events: [],
-                        schedule: '',
-                        timeout: 15,
-                        entrypoint: '',
-                        commands: '',
-                        version: 'v5',
-                        installationId: '',
-                        providerRepositoryId: '',
-                        providerBranch: '',
-                        providerRootDirectory: '',
-                        providerSilentMode: false,
-                        providerBranches: [],
-                        providerPaths: [],
-                        buildSpecification: 's-1vcpu-512mb',
-                        runtimeSpecification: 's-1vcpu-512mb',
-                    },
-                    properties: {
-                        vars: {
-                            items: 'variable',
-                        },
-                    },
-                },
-                variable: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        value: '',
-                        secret: false,
-                        resourceType: '',
-                        resourceId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1588,54 +1203,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'deploymentList',
-            models: {
-                deploymentList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        deployments: {
-                            items: 'deployment',
-                        },
-                    },
-                },
-                deployment: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        type: '',
-                        resourceId: '',
-                        resourceType: '',
-                        entrypoint: '',
-                        sourceSize: 0,
-                        buildSize: 0,
-                        totalSize: 0,
-                        buildId: '',
-                        activate: false,
-                        screenshotLight: '',
-                        screenshotDark: '',
-                        buildLogs: '',
-                        buildDuration: 0,
-                        providerRepositoryName: '',
-                        providerRepositoryOwner: '',
-                        providerRepositoryUrl: '',
-                        providerCommitHash: '',
-                        providerCommitAuthorUrl: '',
-                        providerCommitAuthor: '',
-                        providerCommitMessage: '',
-                        providerCommitUrl: '',
-                        providerBranch: '',
-                        providerBranchUrl: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1882,44 +1450,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'deployment',
-            models: {
-                deployment: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        type: '',
-                        resourceId: '',
-                        resourceType: '',
-                        entrypoint: '',
-                        sourceSize: 0,
-                        buildSize: 0,
-                        totalSize: 0,
-                        buildId: '',
-                        activate: false,
-                        screenshotLight: '',
-                        screenshotDark: '',
-                        buildLogs: '',
-                        buildDuration: 0,
-                        providerRepositoryName: '',
-                        providerRepositoryOwner: '',
-                        providerRepositoryUrl: '',
-                        providerCommitHash: '',
-                        providerCommitAuthorUrl: '',
-                        providerCommitAuthor: '',
-                        providerCommitMessage: '',
-                        providerCommitUrl: '',
-                        providerBranch: '',
-                        providerBranchUrl: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2092,44 +1623,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'deployment',
-            models: {
-                deployment: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        type: '',
-                        resourceId: '',
-                        resourceType: '',
-                        entrypoint: '',
-                        sourceSize: 0,
-                        buildSize: 0,
-                        totalSize: 0,
-                        buildId: '',
-                        activate: false,
-                        screenshotLight: '',
-                        screenshotDark: '',
-                        buildLogs: '',
-                        buildDuration: 0,
-                        providerRepositoryName: '',
-                        providerRepositoryOwner: '',
-                        providerRepositoryUrl: '',
-                        providerCommitHash: '',
-                        providerCommitAuthorUrl: '',
-                        providerCommitAuthor: '',
-                        providerCommitMessage: '',
-                        providerCommitUrl: '',
-                        providerBranch: '',
-                        providerBranchUrl: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2246,44 +1740,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'deployment',
-            models: {
-                deployment: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        type: '',
-                        resourceId: '',
-                        resourceType: '',
-                        entrypoint: '',
-                        sourceSize: 0,
-                        buildSize: 0,
-                        totalSize: 0,
-                        buildId: '',
-                        activate: false,
-                        screenshotLight: '',
-                        screenshotDark: '',
-                        buildLogs: '',
-                        buildDuration: 0,
-                        providerRepositoryName: '',
-                        providerRepositoryOwner: '',
-                        providerRepositoryUrl: '',
-                        providerCommitHash: '',
-                        providerCommitAuthorUrl: '',
-                        providerCommitAuthor: '',
-                        providerCommitMessage: '',
-                        providerCommitUrl: '',
-                        providerBranch: '',
-                        providerBranchUrl: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2359,44 +1816,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'deployment',
-            models: {
-                deployment: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        type: '',
-                        resourceId: '',
-                        resourceType: '',
-                        entrypoint: '',
-                        sourceSize: 0,
-                        buildSize: 0,
-                        totalSize: 0,
-                        buildId: '',
-                        activate: false,
-                        screenshotLight: '',
-                        screenshotDark: '',
-                        buildLogs: '',
-                        buildDuration: 0,
-                        providerRepositoryName: '',
-                        providerRepositoryOwner: '',
-                        providerRepositoryUrl: '',
-                        providerCommitHash: '',
-                        providerCommitAuthorUrl: '',
-                        providerCommitAuthor: '',
-                        providerCommitMessage: '',
-                        providerCommitUrl: '',
-                        providerBranch: '',
-                        providerBranchUrl: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2663,44 +2083,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'deployment',
-            models: {
-                deployment: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        type: '',
-                        resourceId: '',
-                        resourceType: '',
-                        entrypoint: '',
-                        sourceSize: 0,
-                        buildSize: 0,
-                        totalSize: 0,
-                        buildId: '',
-                        activate: false,
-                        screenshotLight: '',
-                        screenshotDark: '',
-                        buildLogs: '',
-                        buildDuration: 0,
-                        providerRepositoryName: '',
-                        providerRepositoryOwner: '',
-                        providerRepositoryUrl: '',
-                        providerCommitHash: '',
-                        providerCommitAuthorUrl: '',
-                        providerCommitAuthor: '',
-                        providerCommitMessage: '',
-                        providerCommitUrl: '',
-                        providerBranch: '',
-                        providerBranchUrl: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2784,55 +2167,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'executionList',
-            models: {
-                executionList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        executions: {
-                            items: 'execution',
-                        },
-                    },
-                },
-                execution: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        resourceId: '',
-                        resourceType: 'functions',
-                        deploymentId: '',
-                        requestMethod: '',
-                        requestPath: '',
-                        responseStatusCode: 0,
-                        responseBody: '',
-                        logs: '',
-                        errors: '',
-                        duration: 0,
-                    },
-                    properties: {
-                        requestHeaders: {
-                            items: 'headers',
-                        },
-                        responseHeaders: {
-                            items: 'headers',
-                        },
-                    },
-                },
-                headers: {
-                    defaults: {
-                        name: '',
-                        value: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2980,45 +2315,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'execution',
-            models: {
-                execution: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        resourceId: '',
-                        resourceType: 'functions',
-                        deploymentId: '',
-                        requestMethod: '',
-                        requestPath: '',
-                        responseStatusCode: 0,
-                        responseBody: '',
-                        logs: '',
-                        errors: '',
-                        duration: 0,
-                    },
-                    properties: {
-                        requestHeaders: {
-                            items: 'headers',
-                        },
-                        responseHeaders: {
-                            items: 'headers',
-                        },
-                    },
-                },
-                headers: {
-                    defaults: {
-                        name: '',
-                        value: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3091,45 +2388,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'execution',
-            models: {
-                execution: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        resourceId: '',
-                        resourceType: 'functions',
-                        deploymentId: '',
-                        requestMethod: '',
-                        requestPath: '',
-                        responseStatusCode: 0,
-                        responseBody: '',
-                        logs: '',
-                        errors: '',
-                        duration: 0,
-                    },
-                    properties: {
-                        requestHeaders: {
-                            items: 'headers',
-                        },
-                        responseHeaders: {
-                            items: 'headers',
-                        },
-                    },
-                },
-                headers: {
-                    defaults: {
-                        name: '',
-                        value: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3284,36 +2543,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'variableList',
-            models: {
-                variableList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        variables: {
-                            items: 'variable',
-                        },
-                    },
-                },
-                variable: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        value: '',
-                        secret: false,
-                        resourceType: '',
-                        resourceId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3441,26 +2671,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'variable',
-            models: {
-                variable: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        value: '',
-                        secret: false,
-                        resourceType: '',
-                        resourceId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3533,26 +2744,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'variable',
-            models: {
-                variable: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        value: '',
-                        secret: false,
-                        resourceType: '',
-                        resourceId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3670,26 +2862,7 @@ export class Functions {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'variable',
-            models: {
-                variable: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        value: '',
-                        secret: false,
-                        resourceType: '',
-                        resourceId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**

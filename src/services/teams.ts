@@ -1,9 +1,4 @@
-import {
-    AppwriteException,
-    Client,
-    type Payload,
-    applyDefaults,
-} from '../client';
+import { AppwriteException, Client, type Payload } from '../client';
 import type { Models } from '../models';
 
 export class Teams {
@@ -91,33 +86,7 @@ export class Teams {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'teamList',
-            models: {
-                teamList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        teams: {
-                            items: 'team',
-                        },
-                    },
-                },
-                team: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        name: '',
-                        total: 0,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -204,23 +173,7 @@ export class Teams {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'team',
-            models: {
-                team: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        name: '',
-                        total: 0,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -277,23 +230,7 @@ export class Teams {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'team',
-            models: {
-                team: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        name: '',
-                        total: 0,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -367,23 +304,7 @@ export class Teams {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'team',
-            models: {
-                team: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        name: '',
-                        total: 0,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -516,37 +437,7 @@ export class Teams {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appInstallationList',
-            models: {
-                appInstallationList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        installations: {
-                            items: 'appInstallation',
-                        },
-                    },
-                },
-                appInstallation: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        teamId: '',
-                        scopes: [],
-                        authorizationDetails: [],
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -636,27 +527,7 @@ export class Teams {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appInstallation',
-            models: {
-                appInstallation: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        teamId: '',
-                        scopes: [],
-                        authorizationDetails: [],
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -730,27 +601,7 @@ export class Teams {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appInstallation',
-            models: {
-                appInstallation: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        teamId: '',
-                        scopes: [],
-                        authorizationDetails: [],
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -845,27 +696,7 @@ export class Teams {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appInstallation',
-            models: {
-                appInstallation: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        teamId: '',
-                        scopes: [],
-                        authorizationDetails: [],
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1039,43 +870,7 @@ export class Teams {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'membershipList',
-            models: {
-                membershipList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        memberships: {
-                            items: 'membership',
-                        },
-                    },
-                },
-                membership: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        userId: '',
-                        userName: '',
-                        userEmail: '',
-                        userPhone: '',
-                        teamId: '',
-                        teamName: '',
-                        invited: '',
-                        joined: '',
-                        confirm: false,
-                        mfa: false,
-                        userAccessedAt: '',
-                        roles: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1090,7 +885,6 @@ export class Teams {
      *
      * @param {string} params.teamId - Team ID.
      * @param {string[]} params.roles - Array of strings. Use this param to set the user roles in the team. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 81 characters long.
-     * @param {string} params.membershipId - Membership ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.email - Email of the new team member.
      * @param {string} params.userId - ID of the user to be added to a team.
      * @param {string} params.phone - Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
@@ -1102,7 +896,6 @@ export class Teams {
     createMembership(params: {
         teamId: string;
         roles: string[];
-        membershipId?: string;
         email?: string;
         userId?: string;
         phone?: string;
@@ -1121,7 +914,6 @@ export class Teams {
      *
      * @param {string} teamId - Team ID.
      * @param {string[]} roles - Array of strings. Use this param to set the user roles in the team. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 81 characters long.
-     * @param {string} membershipId - Membership ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} email - Email of the new team member.
      * @param {string} userId - ID of the user to be added to a team.
      * @param {string} phone - Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
@@ -1134,7 +926,6 @@ export class Teams {
     createMembership(
         teamId: string,
         roles: string[],
-        membershipId?: string,
         email?: string,
         userId?: string,
         phone?: string,
@@ -1146,7 +937,6 @@ export class Teams {
             | {
                   teamId: string;
                   roles: string[];
-                  membershipId?: string;
                   email?: string;
                   userId?: string;
                   phone?: string;
@@ -1154,20 +944,11 @@ export class Teams {
                   name?: string;
               }
             | string,
-        ...rest: [
-            string[]?,
-            string?,
-            string?,
-            string?,
-            string?,
-            string?,
-            string?,
-        ]
+        ...rest: [string[]?, string?, string?, string?, string?, string?]
     ): Promise<Models.Membership> {
         let params: {
             teamId: string;
             roles: string[];
-            membershipId?: string;
             email?: string;
             userId?: string;
             phone?: string;
@@ -1183,7 +964,6 @@ export class Teams {
             params = (paramsOrFirst || {}) as {
                 teamId: string;
                 roles: string[];
-                membershipId?: string;
                 email?: string;
                 userId?: string;
                 phone?: string;
@@ -1194,18 +974,16 @@ export class Teams {
             params = {
                 teamId: paramsOrFirst as string,
                 roles: rest[0] as string[],
-                membershipId: rest[1] as string,
-                email: rest[2] as string,
-                userId: rest[3] as string,
-                phone: rest[4] as string,
-                url: rest[5] as string,
-                name: rest[6] as string,
+                email: rest[1] as string,
+                userId: rest[2] as string,
+                phone: rest[3] as string,
+                url: rest[4] as string,
+                name: rest[5] as string,
             };
         }
 
         const teamId = params.teamId;
         const roles = params.roles;
-        const membershipId = params.membershipId;
         const email = params.email;
         const userId = params.userId;
         const phone = params.phone;
@@ -1222,9 +1000,6 @@ export class Teams {
             encodeURIComponent(String(teamId)),
         );
         const apiPayload: Payload = {};
-        if (typeof membershipId !== 'undefined') {
-            apiPayload['membershipId'] = membershipId;
-        }
         if (typeof email !== 'undefined') {
             apiPayload['email'] = email;
         }
@@ -1251,33 +1026,7 @@ export class Teams {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'membership',
-            models: {
-                membership: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        userId: '',
-                        userName: '',
-                        userEmail: '',
-                        userPhone: '',
-                        teamId: '',
-                        teamName: '',
-                        invited: '',
-                        joined: '',
-                        confirm: false,
-                        mfa: false,
-                        userAccessedAt: '',
-                        roles: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1351,33 +1100,7 @@ export class Teams {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'membership',
-            models: {
-                membership: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        userId: '',
-                        userName: '',
-                        userEmail: '',
-                        userPhone: '',
-                        teamId: '',
-                        teamName: '',
-                        invited: '',
-                        joined: '',
-                        confirm: false,
-                        mfa: false,
-                        userAccessedAt: '',
-                        roles: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1468,33 +1191,7 @@ export class Teams {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'membership',
-            models: {
-                membership: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        userId: '',
-                        userName: '',
-                        userEmail: '',
-                        userPhone: '',
-                        teamId: '',
-                        teamName: '',
-                        invited: '',
-                        joined: '',
-                        confirm: false,
-                        mfa: false,
-                        userAccessedAt: '',
-                        roles: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1685,33 +1382,7 @@ export class Teams {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'membership',
-            models: {
-                membership: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        userId: '',
-                        userName: '',
-                        userEmail: '',
-                        userPhone: '',
-                        teamId: '',
-                        teamName: '',
-                        invited: '',
-                        joined: '',
-                        confirm: false,
-                        mfa: false,
-                        userAccessedAt: '',
-                        roles: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**

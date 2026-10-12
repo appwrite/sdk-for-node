@@ -1,9 +1,4 @@
-import {
-    AppwriteException,
-    Client,
-    type Payload,
-    applyDefaults,
-} from '../client';
+import { AppwriteException, Client, type Payload } from '../client';
 import type { Models } from '../models';
 
 import { EmbeddingModel } from '../enums/embedding-model';
@@ -84,31 +79,6 @@ export class Embeddings {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'embeddingList',
-            models: {
-                embeddingList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        embeddings: {
-                            items: 'embedding',
-                        },
-                    },
-                },
-                embedding: {
-                    defaults: {
-                        model: '',
-                        dimension: 0,
-                        embedding: [],
-                        error: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 }

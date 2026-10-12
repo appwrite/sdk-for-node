@@ -1,9 +1,4 @@
-import {
-    AppwriteException,
-    Client,
-    type Payload,
-    applyDefaults,
-} from '../client';
+import { AppwriteException, Client, type Payload } from '../client';
 import type { Models } from '../models';
 
 import { RelationshipType } from '../enums/relationship-type';
@@ -93,64 +88,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'databaseList',
-            models: {
-                databaseList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        databases: {
-                            items: 'database',
-                        },
-                    },
-                },
-                database: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        enabled: true,
-                        type: 'legacy',
-                    },
-                    properties: {
-                        policies: {
-                            items: 'backupPolicy',
-                        },
-                        archives: {
-                            items: 'backupArchive',
-                        },
-                    },
-                },
-                backupPolicy: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        retention: 1,
-                        schedule: '0 * * * *',
-                        type: 'full',
-                        enabled: false,
-                    },
-                },
-                backupArchive: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        policyId: '',
-                        status: '',
-                        migrationId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -284,54 +222,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'database',
-            models: {
-                database: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        enabled: true,
-                        type: 'legacy',
-                    },
-                    properties: {
-                        policies: {
-                            items: 'backupPolicy',
-                        },
-                        archives: {
-                            items: 'backupArchive',
-                        },
-                    },
-                },
-                backupPolicy: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        retention: 1,
-                        schedule: '0 * * * *',
-                        type: 'full',
-                        enabled: false,
-                    },
-                },
-                backupArchive: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        policyId: '',
-                        status: '',
-                        migrationId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -350,41 +241,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'dedicatedDatabaseSpecificationList',
-            models: {
-                dedicatedDatabaseSpecificationList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        specifications: {
-                            items: 'dedicatedDatabaseSpecification',
-                        },
-                    },
-                },
-                dedicatedDatabaseSpecification: {
-                    defaults: {
-                        slug: '',
-                        name: '',
-                        price: 0,
-                        storageOverageRate: 0,
-                        bandwidthOverageRate: 0,
-                        replicaRate: 0,
-                        pitrRate: 0,
-                        cpu: 0,
-                        memory: 0,
-                        maxConnections: 0,
-                        includedStorage: 0,
-                        includedBandwidth: 0,
-                        enabled: false,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -452,34 +309,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'transactionList',
-            models: {
-                transactionList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        transactions: {
-                            items: 'transaction',
-                        },
-                    },
-                },
-                transaction: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        status: 'pending',
-                        operations: 0,
-                        expiresAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -531,24 +361,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'transaction',
-            models: {
-                transaction: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        status: 'pending',
-                        operations: 0,
-                        expiresAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -605,24 +418,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'transaction',
-            models: {
-                transaction: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        status: 'pending',
-                        operations: 0,
-                        expiresAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -711,24 +507,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'transaction',
-            models: {
-                transaction: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        status: 'pending',
-                        operations: 0,
-                        expiresAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -859,24 +638,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'transaction',
-            models: {
-                transaction: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        status: 'pending',
-                        operations: 0,
-                        expiresAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -931,54 +693,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'database',
-            models: {
-                database: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        enabled: true,
-                        type: 'legacy',
-                    },
-                    properties: {
-                        policies: {
-                            items: 'backupPolicy',
-                        },
-                        archives: {
-                            items: 'backupArchive',
-                        },
-                    },
-                },
-                backupPolicy: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        retention: 1,
-                        schedule: '0 * * * *',
-                        type: 'full',
-                        enabled: false,
-                    },
-                },
-                backupArchive: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        policyId: '',
-                        status: '',
-                        migrationId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1107,54 +822,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'database',
-            models: {
-                database: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        enabled: true,
-                        type: 'legacy',
-                    },
-                    properties: {
-                        policies: {
-                            items: 'backupPolicy',
-                        },
-                        archives: {
-                            items: 'backupArchive',
-                        },
-                    },
-                },
-                backupPolicy: {
-                    defaults: {
-                        $id: '',
-                        name: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        retention: 1,
-                        schedule: '0 * * * *',
-                        type: 'full',
-                        enabled: false,
-                    },
-                },
-                backupArchive: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        policyId: '',
-                        status: '',
-                        migrationId: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1282,63 +950,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'dedicatedDatabase',
-            models: {
-                dedicatedDatabase: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        projectId: '',
-                        name: '',
-                        version: '',
-                        specification: '',
-                        backend: '',
-                        hostname: '',
-                        connectionUser: '',
-                        connectionPassword: '',
-                        connectionString: '',
-                        ssl: false,
-                        status: 'provisioning',
-                        containerStatus: '',
-                        lifecycleState: '',
-                        idleTimeoutMinutes: 15,
-                        cpu: 500,
-                        memory: 512,
-                        storage: 10,
-                        storageStatus: 'idle',
-                        storageTargetGb: 0,
-                        storageClass: 'ssd',
-                        storageMaxGb: 0,
-                        nodePool: '',
-                        replicas: 0,
-                        syncMode: '',
-                        networkMaxConnections: 100,
-                        networkIdleTimeoutSeconds: 900,
-                        networkIPAllowlist: [],
-                        backupEnabled: true,
-                        pitr: true,
-                        pitrRetentionDays: 7,
-                        storageAutoscaling: true,
-                        storageAutoscalingThresholdPercent: 85,
-                        storageAutoscalingMaxGb: 0,
-                        maintenanceWindowDay: 'sun',
-                        maintenanceWindowHourUtc: 3,
-                        metricsEnabled: false,
-                        sqlApiEnabled: true,
-                        sqlApiAllowedStatements: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
-                        sqlApiMaxRows: 10000,
-                        sqlApiMaxBytes: 10485760,
-                        sqlApiTimeoutSeconds: 30,
-                        error: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1395,45 +1007,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'databaseMigrationList',
-            models: {
-                databaseMigrationList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        migrations: {
-                            items: 'databaseMigration',
-                        },
-                    },
-                },
-                databaseMigration: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        projectId: '',
-                        databaseId: '',
-                        specification: '',
-                        phase: 'pending',
-                        attempt: 0,
-                        lastError: '',
-                        lagDocuments: 0,
-                        changelogWatermark: 0,
-                        verifiedAt: '',
-                        cutoverAt: '',
-                        soakUntil: '',
-                        autoCutover: true,
-                        cutoverRequested: false,
-                        paused: false,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1531,35 +1105,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'databaseMigration',
-            models: {
-                databaseMigration: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        projectId: '',
-                        databaseId: '',
-                        specification: '',
-                        phase: 'pending',
-                        attempt: 0,
-                        lastError: '',
-                        lagDocuments: 0,
-                        changelogWatermark: 0,
-                        verifiedAt: '',
-                        cutoverAt: '',
-                        soakUntil: '',
-                        autoCutover: true,
-                        cutoverRequested: false,
-                        paused: false,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1632,35 +1178,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'databaseMigration',
-            models: {
-                databaseMigration: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        projectId: '',
-                        databaseId: '',
-                        specification: '',
-                        phase: 'pending',
-                        attempt: 0,
-                        lastError: '',
-                        lagDocuments: 0,
-                        changelogWatermark: 0,
-                        verifiedAt: '',
-                        cutoverAt: '',
-                        soakUntil: '',
-                        autoCutover: true,
-                        cutoverRequested: false,
-                        paused: false,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1809,35 +1327,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'databaseMigration',
-            models: {
-                databaseMigration: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        projectId: '',
-                        databaseId: '',
-                        specification: '',
-                        phase: 'pending',
-                        attempt: 0,
-                        lastError: '',
-                        lagDocuments: 0,
-                        changelogWatermark: 0,
-                        verifiedAt: '',
-                        cutoverAt: '',
-                        soakUntil: '',
-                        autoCutover: true,
-                        cutoverRequested: false,
-                        paused: false,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1941,36 +1431,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'dedicatedDatabaseOperationList',
-            models: {
-                dedicatedDatabaseOperationList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        operations: {
-                            items: 'dedicatedDatabaseOperation',
-                        },
-                    },
-                },
-                dedicatedDatabaseOperation: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        databaseId: '',
-                        type: '',
-                        status: '',
-                        attempts: 0,
-                        errorCode: '',
-                        errorMessage: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2027,35 +1488,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'dedicatedDatabaseReplicas',
-            models: {
-                dedicatedDatabaseReplicas: {
-                    defaults: {
-                        replicas: 0,
-                        syncMode: 'async',
-                        syncDegraded: false,
-                        syncAcknowledgements: 0,
-                        syncStandbyCount: 0,
-                    },
-                    properties: {
-                        members: {
-                            items: 'dedicatedDatabaseMember',
-                        },
-                    },
-                },
-                dedicatedDatabaseMember: {
-                    defaults: {
-                        $id: '',
-                        role: 'unknown',
-                        status: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2110,50 +1543,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'databaseStatus',
-            models: {
-                databaseStatus: {
-                    defaults: {
-                        health: 'unknown',
-                        ready: false,
-                        engine: 'postgresql',
-                        version: '',
-                        uptime: 0,
-                        syncMode: 'async',
-                        syncDegraded: false,
-                        syncAcknowledgements: 0,
-                        syncStandbyCount: 0,
-                    },
-                    properties: {
-                        replicas: {
-                            items: 'databaseStatusReplica',
-                        },
-                        volumes: {
-                            items: 'databaseStatusVolume',
-                        },
-                    },
-                },
-                databaseStatusReplica: {
-                    defaults: {
-                        index: 0,
-                        role: 'unknown',
-                        healthy: false,
-                    },
-                },
-                databaseStatusVolume: {
-                    defaults: {
-                        path: '',
-                        usedPercent: '0%',
-                        available: '0GB',
-                        mounted: false,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2257,55 +1647,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'tableList',
-            models: {
-                tableList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        tables: {
-                            items: 'table',
-                        },
-                    },
-                },
-                table: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        databaseId: '',
-                        name: '',
-                        enabled: true,
-                        rowSecurity: false,
-                        bytesMax: 0,
-                        bytesUsed: 0,
-                    },
-                    properties: {
-                        indexes: {
-                            items: 'columnIndex',
-                        },
-                    },
-                },
-                columnIndex: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        status: '',
-                        error: '',
-                        columns: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2474,45 +1816,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'table',
-            models: {
-                table: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        databaseId: '',
-                        name: '',
-                        enabled: true,
-                        rowSecurity: false,
-                        bytesMax: 0,
-                        bytesUsed: 0,
-                    },
-                    properties: {
-                        indexes: {
-                            items: 'columnIndex',
-                        },
-                    },
-                },
-                columnIndex: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        status: '',
-                        error: '',
-                        columns: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2582,45 +1886,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'table',
-            models: {
-                table: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        databaseId: '',
-                        name: '',
-                        enabled: true,
-                        rowSecurity: false,
-                        bytesMax: 0,
-                        bytesUsed: 0,
-                    },
-                    properties: {
-                        indexes: {
-                            items: 'columnIndex',
-                        },
-                    },
-                },
-                columnIndex: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        status: '',
-                        error: '',
-                        columns: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2762,45 +2028,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'table',
-            models: {
-                table: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        databaseId: '',
-                        name: '',
-                        enabled: true,
-                        rowSecurity: false,
-                        bytesMax: 0,
-                        bytesUsed: 0,
-                    },
-                    properties: {
-                        indexes: {
-                            items: 'columnIndex',
-                        },
-                    },
-                },
-                columnIndex: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        status: '',
-                        error: '',
-                        columns: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2973,19 +2201,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnList',
-            models: {
-                columnList: {
-                    defaults: {
-                        total: 0,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3157,24 +2373,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnBigint',
-            models: {
-                columnBigint: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3350,24 +2549,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnBigint',
-            models: {
-                columnBigint: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3508,24 +2690,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnBoolean',
-            models: {
-                columnBoolean: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3667,24 +2832,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnBoolean',
-            models: {
-                columnBoolean: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3823,24 +2971,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnDatetime',
-            models: {
-                columnDatetime: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -3982,24 +3113,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnDatetime',
-            models: {
-                columnDatetime: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -4139,25 +3253,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnEmail',
-            models: {
-                columnEmail: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        format: 'email',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -4301,25 +3397,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnEmail',
-            models: {
-                columnEmail: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        format: 'email',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -4474,25 +3552,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnEnum',
-            models: {
-                columnEnum: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        format: 'enum',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -4653,25 +3713,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnEnum',
-            models: {
-                columnEnum: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        format: 'enum',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -4843,24 +3885,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnFloat',
-            models: {
-                columnFloat: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -5036,24 +4061,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnFloat',
-            models: {
-                columnFloat: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -5226,24 +4234,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnInteger',
-            models: {
-                columnInteger: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -5419,24 +4410,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnInteger',
-            models: {
-                columnInteger: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -5576,25 +4550,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnIp',
-            models: {
-                columnIp: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        format: 'ip',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -5738,25 +4694,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnIp',
-            models: {
-                columnIp: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        format: 'ip',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -5882,24 +4820,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnLine',
-            models: {
-                columnLine: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -6036,24 +4957,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnLine',
-            models: {
-                columnLine: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -6206,24 +5110,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnLongtext',
-            models: {
-                columnLongtext: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -6367,24 +5254,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnLongtext',
-            models: {
-                columnLongtext: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -6537,24 +5407,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnMediumtext',
-            models: {
-                columnMediumtext: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -6698,24 +5551,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnMediumtext',
-            models: {
-                columnMediumtext: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -6841,24 +5677,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnPoint',
-            models: {
-                columnPoint: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -6995,24 +5814,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnPoint',
-            models: {
-                columnPoint: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -7139,24 +5941,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnPolygon',
-            models: {
-                columnPolygon: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -7293,24 +6078,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnPolygon',
-            models: {
-                columnPolygon: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -7483,29 +6251,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnRelationship',
-            models: {
-                columnRelationship: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        relationType: '',
-                        twoWay: false,
-                        twoWayKey: '',
-                        onDelete: 'restrict',
-                        side: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -7627,29 +6373,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnRelationship',
-            models: {
-                columnRelationship: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        relationType: '',
-                        twoWay: false,
-                        twoWayKey: '',
-                        onDelete: 'restrict',
-                        side: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -7825,25 +6549,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnString',
-            models: {
-                columnString: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        size: 0,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -8000,25 +6706,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnString',
-            models: {
-                columnString: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        size: 0,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -8170,24 +6858,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnText',
-            models: {
-                columnText: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -8331,24 +7002,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnText',
-            models: {
-                columnText: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -8488,25 +7142,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnUrl',
-            models: {
-                columnUrl: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        format: 'url',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -8650,25 +7286,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnUrl',
-            models: {
-                columnUrl: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        format: 'url',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -8844,25 +7462,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnVarchar',
-            models: {
-                columnVarchar: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        size: 0,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -9018,25 +7618,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnVarchar',
-            models: {
-                columnVarchar: {
-                    defaults: {
-                        key: '',
-                        type: '',
-                        error: '',
-                        required: false,
-                        $createdAt: '',
-                        $updatedAt: '',
-                        size: 0,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -9365,37 +7947,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnIndexList',
-            models: {
-                columnIndexList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        indexes: {
-                            items: 'columnIndex',
-                        },
-                    },
-                },
-                columnIndex: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        status: '',
-                        error: '',
-                        columns: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -9557,27 +8109,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnIndex',
-            models: {
-                columnIndex: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        status: '',
-                        error: '',
-                        columns: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -9662,27 +8194,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'columnIndex',
-            models: {
-                columnIndex: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        key: '',
-                        type: '',
-                        status: '',
-                        error: '',
-                        columns: [],
-                        lengths: [],
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -9893,34 +8405,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'rowList',
-            models: {
-                rowList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        rows: {
-                            items: 'row',
-                        },
-                    },
-                },
-                row: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $tableId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -10076,24 +8561,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'row',
-            models: {
-                row: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $tableId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -10202,34 +8670,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'rowList',
-            models: {
-                rowList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        rows: {
-                            items: 'row',
-                        },
-                    },
-                },
-                row: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $tableId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -10340,34 +8781,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'rowList',
-            models: {
-                rowList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        rows: {
-                            items: 'row',
-                        },
-                    },
-                },
-                row: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $tableId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -10485,34 +8899,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'rowList',
-            models: {
-                rowList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        rows: {
-                            items: 'row',
-                        },
-                    },
-                },
-                row: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $tableId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -10618,34 +9005,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('delete', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'rowList',
-            models: {
-                rowList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        rows: {
-                            items: 'row',
-                        },
-                    },
-                },
-                row: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $tableId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -10763,24 +9123,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'row',
-            models: {
-                row: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $tableId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -10934,24 +9277,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'row',
-            models: {
-                row: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $tableId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -11105,24 +9431,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'row',
-            models: {
-                row: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $tableId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -11374,24 +9683,7 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'row',
-            models: {
-                row: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $tableId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -11536,23 +9828,6 @@ export class TablesDB {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'row',
-            models: {
-                row: {
-                    defaults: {
-                        $id: '',
-                        $sequence: '',
-                        $tableId: '',
-                        $databaseId: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 }

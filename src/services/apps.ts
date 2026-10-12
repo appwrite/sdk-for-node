@@ -1,9 +1,4 @@
-import {
-    AppwriteException,
-    Client,
-    type Payload,
-    applyDefaults,
-} from '../client';
+import { AppwriteException, Client, type Payload } from '../client';
 import type { Models } from '../models';
 
 export class Apps {
@@ -75,70 +70,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appsList',
-            models: {
-                appsList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        apps: {
-                            items: 'app',
-                        },
-                    },
-                },
-                app: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        name: '',
-                        description: '',
-                        clientUri: '',
-                        logoUri: '',
-                        privacyPolicyUrl: '',
-                        termsUrl: '',
-                        contacts: [],
-                        tagline: '',
-                        tags: [],
-                        labels: [],
-                        images: [],
-                        supportUrl: '',
-                        dataDeletionUrl: '',
-                        redirectUris: [],
-                        postLogoutRedirectUris: [],
-                        enabled: true,
-                        type: 'confidential',
-                        deviceFlow: false,
-                        teamId: '',
-                        userId: '',
-                        installationScopes: [],
-                        installationRedirectUrl: '',
-                    },
-                    properties: {
-                        secrets: {
-                            items: 'appSecret',
-                        },
-                    },
-                },
-                appSecret: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        secret: '',
-                        hint: '',
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -448,60 +380,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'app',
-            models: {
-                app: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        name: '',
-                        description: '',
-                        clientUri: '',
-                        logoUri: '',
-                        privacyPolicyUrl: '',
-                        termsUrl: '',
-                        contacts: [],
-                        tagline: '',
-                        tags: [],
-                        labels: [],
-                        images: [],
-                        supportUrl: '',
-                        dataDeletionUrl: '',
-                        redirectUris: [],
-                        postLogoutRedirectUris: [],
-                        enabled: true,
-                        type: 'confidential',
-                        deviceFlow: false,
-                        teamId: '',
-                        userId: '',
-                        installationScopes: [],
-                        installationRedirectUrl: '',
-                    },
-                    properties: {
-                        secrets: {
-                            items: 'appSecret',
-                        },
-                    },
-                },
-                appSecret: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        secret: '',
-                        hint: '',
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -520,33 +399,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appScopeList',
-            models: {
-                appScopeList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        scopes: {
-                            items: 'appScope',
-                        },
-                    },
-                },
-                appScope: {
-                    defaults: {
-                        value: '',
-                        description: '',
-                        type: '',
-                        category: '',
-                        deprecated: false,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -565,33 +418,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appScopeList',
-            models: {
-                appScopeList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        scopes: {
-                            items: 'appScope',
-                        },
-                    },
-                },
-                appScope: {
-                    defaults: {
-                        value: '',
-                        description: '',
-                        type: '',
-                        category: '',
-                        deprecated: false,
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -642,60 +469,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'app',
-            models: {
-                app: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        name: '',
-                        description: '',
-                        clientUri: '',
-                        logoUri: '',
-                        privacyPolicyUrl: '',
-                        termsUrl: '',
-                        contacts: [],
-                        tagline: '',
-                        tags: [],
-                        labels: [],
-                        images: [],
-                        supportUrl: '',
-                        dataDeletionUrl: '',
-                        redirectUris: [],
-                        postLogoutRedirectUris: [],
-                        enabled: true,
-                        type: 'confidential',
-                        deviceFlow: false,
-                        teamId: '',
-                        userId: '',
-                        installationScopes: [],
-                        installationRedirectUrl: '',
-                    },
-                    properties: {
-                        secrets: {
-                            items: 'appSecret',
-                        },
-                    },
-                },
-                appSecret: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        secret: '',
-                        hint: '',
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1013,60 +787,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'app',
-            models: {
-                app: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        name: '',
-                        description: '',
-                        clientUri: '',
-                        logoUri: '',
-                        privacyPolicyUrl: '',
-                        termsUrl: '',
-                        contacts: [],
-                        tagline: '',
-                        tags: [],
-                        labels: [],
-                        images: [],
-                        supportUrl: '',
-                        dataDeletionUrl: '',
-                        redirectUris: [],
-                        postLogoutRedirectUris: [],
-                        enabled: true,
-                        type: 'confidential',
-                        deviceFlow: false,
-                        teamId: '',
-                        userId: '',
-                        installationScopes: [],
-                        installationRedirectUrl: '',
-                    },
-                    properties: {
-                        secrets: {
-                            items: 'appSecret',
-                        },
-                    },
-                },
-                appSecret: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        secret: '',
-                        hint: '',
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1199,37 +920,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appInstallationList',
-            models: {
-                appInstallationList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        installations: {
-                            items: 'appInstallation',
-                        },
-                    },
-                },
-                appInstallation: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        teamId: '',
-                        scopes: [],
-                        authorizationDetails: [],
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1303,27 +994,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appInstallation',
-            models: {
-                appInstallation: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        teamId: '',
-                        scopes: [],
-                        authorizationDetails: [],
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1470,23 +1141,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'oauth2Token',
-            models: {
-                oauth2Token: {
-                    defaults: {
-                        access_token: '',
-                        token_type: 'Bearer',
-                        expires_in: 0,
-                        refresh_token: '',
-                        scope: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1567,36 +1222,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appKeyList',
-            models: {
-                appKeyList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        keys: {
-                            items: 'appKey',
-                        },
-                    },
-                },
-                appKey: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        secret: '',
-                        hint: '',
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1650,26 +1276,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appKey',
-            models: {
-                appKey: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        secret: '',
-                        hint: '',
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1729,26 +1336,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appKey',
-            models: {
-                appKey: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        secret: '',
-                        hint: '',
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1880,60 +1468,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('put', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'app',
-            models: {
-                app: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        name: '',
-                        description: '',
-                        clientUri: '',
-                        logoUri: '',
-                        privacyPolicyUrl: '',
-                        termsUrl: '',
-                        contacts: [],
-                        tagline: '',
-                        tags: [],
-                        labels: [],
-                        images: [],
-                        supportUrl: '',
-                        dataDeletionUrl: '',
-                        redirectUris: [],
-                        postLogoutRedirectUris: [],
-                        enabled: true,
-                        type: 'confidential',
-                        deviceFlow: false,
-                        teamId: '',
-                        userId: '',
-                        installationScopes: [],
-                        installationRedirectUrl: '',
-                    },
-                    properties: {
-                        secrets: {
-                            items: 'appSecret',
-                        },
-                    },
-                },
-                appSecret: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        secret: '',
-                        hint: '',
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('put', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2014,36 +1549,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appSecretList',
-            models: {
-                appSecretList: {
-                    defaults: {
-                        total: 0,
-                    },
-                    properties: {
-                        secrets: {
-                            items: 'appSecret',
-                        },
-                    },
-                },
-                appSecret: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        secret: '',
-                        hint: '',
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2097,26 +1603,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('post', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appSecretPlaintext',
-            models: {
-                appSecretPlaintext: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        secret: '',
-                        hint: '',
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2184,26 +1671,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('get', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'appSecret',
-            models: {
-                appSecret: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        secret: '',
-                        hint: '',
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('get', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2334,60 +1802,7 @@ export class Apps {
             accept: 'application/json',
         };
 
-        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
-        const defaults = {
-            root: 'app',
-            models: {
-                app: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        name: '',
-                        description: '',
-                        clientUri: '',
-                        logoUri: '',
-                        privacyPolicyUrl: '',
-                        termsUrl: '',
-                        contacts: [],
-                        tagline: '',
-                        tags: [],
-                        labels: [],
-                        images: [],
-                        supportUrl: '',
-                        dataDeletionUrl: '',
-                        redirectUris: [],
-                        postLogoutRedirectUris: [],
-                        enabled: true,
-                        type: 'confidential',
-                        deviceFlow: false,
-                        teamId: '',
-                        userId: '',
-                        installationScopes: [],
-                        installationRedirectUrl: '',
-                    },
-                    properties: {
-                        secrets: {
-                            items: 'appSecret',
-                        },
-                    },
-                },
-                appSecret: {
-                    defaults: {
-                        $id: '',
-                        $createdAt: '',
-                        $updatedAt: '',
-                        appId: '',
-                        secret: '',
-                        hint: '',
-                        createdById: '',
-                        createdByName: '',
-                    },
-                },
-            },
-        };
-
-        return request.then((response) => applyDefaults(response, defaults));
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
     }
 
     /**

@@ -4,7 +4,6 @@ export enum ProjectPolicyId {
     Passwordstrength = 'password-strength',
     Passwordpersonaldata = 'password-personal-data',
     Passwordpwned = 'password-pwned',
-    Passwordrotation = 'password-rotation',
     Sessionalert = 'session-alert',
     Sessionduration = 'session-duration',
     Sessioninvalidation = 'session-invalidation',
@@ -16,5 +15,4 @@ export enum ProjectPolicyId {
     Denydisposableemail = 'deny-disposable-email',
     Denyfreeemail = 'deny-free-email',
     Denycorporateemail = 'deny-corporate-email',
-    Passkey = 'passkey',
 }
