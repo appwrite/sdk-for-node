@@ -12,5 +12,6 @@ const result = await project.updateOAuth2Discord({
     clientId: '<CLIENT_ID>', // optional
     clientSecret: '<CLIENT_SECRET>', // optional
     enabled: false, // optional
+    prompt: [sdk.ProjectOAuth2DiscordPrompt.None], // optional
 });
 ```

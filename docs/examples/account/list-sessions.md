@@ -8,5 +8,7 @@ const client = new sdk.Client()
 
 const account = new sdk.Account(client);
 
-const result = await account.listSessions();
+const result = await account.listSessions({
+    total: false, // optional
+});
 ```

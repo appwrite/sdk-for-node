@@ -13,5 +13,7 @@ const result = await project.updateOAuth2Google({
     clientSecret: '<CLIENT_SECRET>', // optional
     prompt: [sdk.ProjectOAuth2GooglePrompt.None], // optional
     enabled: false, // optional
+    nativeClientIds: [], // optional
+    nativeEnabled: false, // optional
 });
 ```

@@ -89,6 +89,7 @@ export enum ProjectKeyScopes {
     WebhooksWrite = 'webhooks.write',
     LocaleRead = 'locale.read',
     AvatarsRead = 'avatars.read',
+    AvatarsWrite = 'avatars.write',
     HealthRead = 'health.read',
     AssistantRead = 'assistant.read',
     MigrationsRead = 'migrations.read',
@@ -103,6 +104,7 @@ export enum ProjectKeyScopes {
     ReportsWrite = 'reports.write',
     PresencesRead = 'presences.read',
     PresencesWrite = 'presences.write',
+    DedicatedDatabasesExecute = 'dedicatedDatabases.execute',
     BackupsPoliciesRead = 'backups.policies.read',
     BackupsPoliciesWrite = 'backups.policies.write',
     ArchivesRead = 'archives.read',
@@ -120,4 +122,6 @@ export enum ProjectKeyScopes {
     Oauth2Read = 'oauth2.read',
     Oauth2Write = 'oauth2.write',
     Oauth2Introspect = 'oauth2.introspect',
+    AnalyticsRead = 'analytics.read',
+    AnalyticsWrite = 'analytics.write',
 }

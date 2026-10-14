@@ -8,5 +8,7 @@ const client = new sdk.Client()
 
 const functions = new sdk.Functions(client);
 
-const result = await functions.listRuntimes();
+const result = await functions.listRuntimes({
+    total: false, // optional
+});
 ```

@@ -10,5 +10,6 @@ const documentsDB = new sdk.DocumentsDB(client);
 
 const result = await documentsDB.listTransactions({
     queries: [], // optional
+    total: false, // optional
 });
 ```

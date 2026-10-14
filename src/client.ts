@@ -80,7 +80,7 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/29.3.1';
+    let ua = 'AppwriteNodeJSSDK/29.4.0';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
@@ -142,7 +142,7 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '29.3.1',
+        'x-sdk-version': '29.4.0',
         'user-agent': getUserAgent(),
         'X-Appwrite-Response-Format': '2.0.0',
     };
@@ -811,7 +811,9 @@ class Client {
                 );
         }
 
-        if (
+        if (responseType === 'text' && response.status < 400) {
+            data = await response.text();
+        } else if (
             response.headers.get('content-type')?.includes('application/json')
         ) {
             data = JSONbig.parse(await response.text());

@@ -116,6 +116,18 @@ describe('Oauth2', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method introspect()', async () => {
+        const data = {
+            active: true,
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await oauth2.introspect('<TOKEN>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method listOrganizations()', async () => {
         const data = {
             total: 5,

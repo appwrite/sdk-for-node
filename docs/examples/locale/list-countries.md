@@ -8,5 +8,7 @@ const client = new sdk.Client()
 
 const locale = new sdk.Locale(client);
 
-const result = await locale.listCountries();
+const result = await locale.listCountries({
+    total: false, // optional
+});
 ```

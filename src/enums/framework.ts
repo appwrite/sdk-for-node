@@ -11,6 +11,7 @@ export enum Framework {
     Remix = 'remix',
     Lynx = 'lynx',
     Flutter = 'flutter',
+    Jaspr = 'jaspr',
     Reactnative = 'react-native',
     Vite = 'vite',
     Other = 'other',
