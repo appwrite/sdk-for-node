@@ -26,9 +26,9 @@ describe('Advisor', () => {
     });
     test('test method getReport()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             appId: '5e5ea5c16897e',
             type: 'lighthouse',
             title: 'Lighthouse audit for https://appwrite.io/',
@@ -71,9 +71,9 @@ describe('Advisor', () => {
     });
     test('test method getInsight()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             reportId: '5e5ea5c16897e',
             type: 'tablesDBIndex',
             severity: 'warning',

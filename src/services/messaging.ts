@@ -1,4 +1,9 @@
-import { AppwriteException, Client, type Payload } from '../client';
+import {
+    AppwriteException,
+    Client,
+    type Payload,
+    applyDefaults,
+} from '../client';
 import type { Models } from '../models';
 
 import { MessagePriority } from '../enums/message-priority';
@@ -86,7 +91,39 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'messageList',
+            models: {
+                messageList: {
+                    defaults: {
+                        total: 0,
+                        messages: [],
+                    },
+                    properties: {
+                        messages: {
+                            items: 'message',
+                        },
+                    },
+                },
+                message: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        providerType: '',
+                        topics: [],
+                        users: [],
+                        targets: [],
+                        deliveredTotal: 0,
+                        data: [],
+                        status: 'draft',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -100,12 +137,12 @@ export class Messaging {
      * @param {string[]} params.targets - List of Targets IDs.
      * @param {string[]} params.cc - Array of target IDs to be added as CC.
      * @param {string[]} params.bcc - Array of target IDs to be added as BCC.
-     * @param {string[]} params.attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
-     * @param {string} params.replyToEmail - Email address to reply to. If not set, defaults to the sender email address.
-     * @param {string} params.replyToName - Name of the reply to recipient. If not set, defaults to the sender name.
+     * @param {string[] | null} params.attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
      * @param {boolean} params.draft - Is message a draft
      * @param {boolean} params.html - Is content of type HTML
-     * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string | null} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string} params.replyToEmail - Email address to reply to. If not set, defaults to the sender email address.
+     * @param {string} params.replyToName - Name of the reply to recipient. If not set, defaults to the sender name.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
@@ -118,12 +155,12 @@ export class Messaging {
         targets?: string[];
         cc?: string[];
         bcc?: string[];
-        attachments?: string[];
-        replyToEmail?: string;
-        replyToName?: string;
+        attachments?: string[] | null;
         draft?: boolean;
         html?: boolean;
-        scheduledAt?: string;
+        scheduledAt?: string | null;
+        replyToEmail?: string;
+        replyToName?: string;
     }): Promise<Models.Message>;
     /**
      * Create a new email message.
@@ -136,12 +173,12 @@ export class Messaging {
      * @param {string[]} targets - List of Targets IDs.
      * @param {string[]} cc - Array of target IDs to be added as CC.
      * @param {string[]} bcc - Array of target IDs to be added as BCC.
-     * @param {string[]} attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
-     * @param {string} replyToEmail - Email address to reply to. If not set, defaults to the sender email address.
-     * @param {string} replyToName - Name of the reply to recipient. If not set, defaults to the sender name.
+     * @param {string[] | null} attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
      * @param {boolean} draft - Is message a draft
      * @param {boolean} html - Is content of type HTML
-     * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string | null} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string} replyToEmail - Email address to reply to. If not set, defaults to the sender email address.
+     * @param {string} replyToName - Name of the reply to recipient. If not set, defaults to the sender name.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -155,12 +192,12 @@ export class Messaging {
         targets?: string[],
         cc?: string[],
         bcc?: string[],
-        attachments?: string[],
-        replyToEmail?: string,
-        replyToName?: string,
+        attachments?: string[] | null,
         draft?: boolean,
         html?: boolean,
-        scheduledAt?: string,
+        scheduledAt?: string | null,
+        replyToEmail?: string,
+        replyToName?: string,
     ): Promise<Models.Message>;
     createEmail(
         paramsOrFirst:
@@ -173,12 +210,12 @@ export class Messaging {
                   targets?: string[];
                   cc?: string[];
                   bcc?: string[];
-                  attachments?: string[];
-                  replyToEmail?: string;
-                  replyToName?: string;
+                  attachments?: string[] | null;
                   draft?: boolean;
                   html?: boolean;
-                  scheduledAt?: string;
+                  scheduledAt?: string | null;
+                  replyToEmail?: string;
+                  replyToName?: string;
               }
             | string,
         ...rest: [
@@ -189,11 +226,11 @@ export class Messaging {
             string[]?,
             string[]?,
             string[]?,
-            string[]?,
-            string?,
-            string?,
+            (string[] | null)?,
             boolean?,
             boolean?,
+            (string | null)?,
+            string?,
             string?,
         ]
     ): Promise<Models.Message> {
@@ -206,12 +243,12 @@ export class Messaging {
             targets?: string[];
             cc?: string[];
             bcc?: string[];
-            attachments?: string[];
-            replyToEmail?: string;
-            replyToName?: string;
+            attachments?: string[] | null;
             draft?: boolean;
             html?: boolean;
-            scheduledAt?: string;
+            scheduledAt?: string | null;
+            replyToEmail?: string;
+            replyToName?: string;
         };
 
         if (
@@ -228,12 +265,12 @@ export class Messaging {
                 targets?: string[];
                 cc?: string[];
                 bcc?: string[];
-                attachments?: string[];
-                replyToEmail?: string;
-                replyToName?: string;
+                attachments?: string[] | null;
                 draft?: boolean;
                 html?: boolean;
-                scheduledAt?: string;
+                scheduledAt?: string | null;
+                replyToEmail?: string;
+                replyToName?: string;
             };
         } else {
             params = {
@@ -245,12 +282,12 @@ export class Messaging {
                 targets: rest[4] as string[],
                 cc: rest[5] as string[],
                 bcc: rest[6] as string[],
-                attachments: rest[7] as string[],
-                replyToEmail: rest[8] as string,
-                replyToName: rest[9] as string,
-                draft: rest[10] as boolean,
-                html: rest[11] as boolean,
-                scheduledAt: rest[12] as string,
+                attachments: rest[7] as string[] | null,
+                draft: rest[8] as boolean,
+                html: rest[9] as boolean,
+                scheduledAt: rest[10] as string | null,
+                replyToEmail: rest[11] as string,
+                replyToName: rest[12] as string,
             };
         }
 
@@ -263,11 +300,11 @@ export class Messaging {
         const cc = params.cc;
         const bcc = params.bcc;
         const attachments = params.attachments;
-        const replyToEmail = params.replyToEmail;
-        const replyToName = params.replyToName;
         const draft = params.draft;
         const html = params.html;
         const scheduledAt = params.scheduledAt;
+        const replyToEmail = params.replyToEmail;
+        const replyToName = params.replyToName;
         if (typeof messageId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "messageId"',
@@ -312,12 +349,6 @@ export class Messaging {
         if (typeof attachments !== 'undefined') {
             apiPayload['attachments'] = attachments;
         }
-        if (typeof replyToEmail !== 'undefined') {
-            apiPayload['replyToEmail'] = replyToEmail;
-        }
-        if (typeof replyToName !== 'undefined') {
-            apiPayload['replyToName'] = replyToName;
-        }
         if (typeof draft !== 'undefined') {
             apiPayload['draft'] = draft;
         }
@@ -327,6 +358,12 @@ export class Messaging {
         if (typeof scheduledAt !== 'undefined') {
             apiPayload['scheduledAt'] = scheduledAt;
         }
+        if (typeof replyToEmail !== 'undefined') {
+            apiPayload['replyToEmail'] = replyToEmail;
+        }
+        if (typeof replyToName !== 'undefined') {
+            apiPayload['replyToName'] = replyToName;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -335,7 +372,28 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'message',
+            models: {
+                message: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        providerType: '',
+                        topics: [],
+                        users: [],
+                        targets: [],
+                        deliveredTotal: 0,
+                        data: [],
+                        status: 'draft',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -343,126 +401,126 @@ export class Messaging {
      *
      *
      * @param {string} params.messageId - Message ID.
-     * @param {string} params.subject - Email Subject.
-     * @param {string} params.content - Email Content.
-     * @param {string[]} params.topics - List of Topic IDs.
-     * @param {string[]} params.users - List of User IDs.
-     * @param {string[]} params.targets - List of Targets IDs.
-     * @param {string[]} params.cc - Array of target IDs to be added as CC.
-     * @param {string[]} params.bcc - Array of target IDs to be added as BCC.
-     * @param {string[]} params.attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
-     * @param {string} params.replyToEmail - Email address to reply to. Pass an empty string to restore the provider or sender default.
-     * @param {string} params.replyToName - Name of the reply to recipient. Pass an empty string to restore the provider or sender default.
-     * @param {boolean} params.draft - Is message a draft
-     * @param {boolean} params.html - Is content of type HTML
-     * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string[] | null} params.topics - List of Topic IDs.
+     * @param {string[] | null} params.users - List of User IDs.
+     * @param {string[] | null} params.targets - List of Targets IDs.
+     * @param {string | null} params.subject - Email Subject.
+     * @param {string | null} params.content - Email Content.
+     * @param {boolean | null} params.draft - Is message a draft
+     * @param {boolean | null} params.html - Is content of type HTML
+     * @param {string[] | null} params.cc - Array of target IDs to be added as CC.
+     * @param {string[] | null} params.bcc - Array of target IDs to be added as BCC.
+     * @param {string | null} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string[] | null} params.attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
+     * @param {string | null} params.replyToEmail - Email address to reply to. Pass an empty string to restore the provider or sender default.
+     * @param {string | null} params.replyToName - Name of the reply to recipient. Pass an empty string to restore the provider or sender default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
     updateEmail(params: {
         messageId: string;
-        subject?: string;
-        content?: string;
-        topics?: string[];
-        users?: string[];
-        targets?: string[];
-        cc?: string[];
-        bcc?: string[];
-        attachments?: string[];
-        replyToEmail?: string;
-        replyToName?: string;
-        draft?: boolean;
-        html?: boolean;
-        scheduledAt?: string;
+        topics?: string[] | null;
+        users?: string[] | null;
+        targets?: string[] | null;
+        subject?: string | null;
+        content?: string | null;
+        draft?: boolean | null;
+        html?: boolean | null;
+        cc?: string[] | null;
+        bcc?: string[] | null;
+        scheduledAt?: string | null;
+        attachments?: string[] | null;
+        replyToEmail?: string | null;
+        replyToName?: string | null;
     }): Promise<Models.Message>;
     /**
      * Update an email message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
      *
      *
      * @param {string} messageId - Message ID.
-     * @param {string} subject - Email Subject.
-     * @param {string} content - Email Content.
-     * @param {string[]} topics - List of Topic IDs.
-     * @param {string[]} users - List of User IDs.
-     * @param {string[]} targets - List of Targets IDs.
-     * @param {string[]} cc - Array of target IDs to be added as CC.
-     * @param {string[]} bcc - Array of target IDs to be added as BCC.
-     * @param {string[]} attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
-     * @param {string} replyToEmail - Email address to reply to. Pass an empty string to restore the provider or sender default.
-     * @param {string} replyToName - Name of the reply to recipient. Pass an empty string to restore the provider or sender default.
-     * @param {boolean} draft - Is message a draft
-     * @param {boolean} html - Is content of type HTML
-     * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string[] | null} topics - List of Topic IDs.
+     * @param {string[] | null} users - List of User IDs.
+     * @param {string[] | null} targets - List of Targets IDs.
+     * @param {string | null} subject - Email Subject.
+     * @param {string | null} content - Email Content.
+     * @param {boolean | null} draft - Is message a draft
+     * @param {boolean | null} html - Is content of type HTML
+     * @param {string[] | null} cc - Array of target IDs to be added as CC.
+     * @param {string[] | null} bcc - Array of target IDs to be added as BCC.
+     * @param {string | null} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string[] | null} attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
+     * @param {string | null} replyToEmail - Email address to reply to. Pass an empty string to restore the provider or sender default.
+     * @param {string | null} replyToName - Name of the reply to recipient. Pass an empty string to restore the provider or sender default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateEmail(
         messageId: string,
-        subject?: string,
-        content?: string,
-        topics?: string[],
-        users?: string[],
-        targets?: string[],
-        cc?: string[],
-        bcc?: string[],
-        attachments?: string[],
-        replyToEmail?: string,
-        replyToName?: string,
-        draft?: boolean,
-        html?: boolean,
-        scheduledAt?: string,
+        topics?: string[] | null,
+        users?: string[] | null,
+        targets?: string[] | null,
+        subject?: string | null,
+        content?: string | null,
+        draft?: boolean | null,
+        html?: boolean | null,
+        cc?: string[] | null,
+        bcc?: string[] | null,
+        scheduledAt?: string | null,
+        attachments?: string[] | null,
+        replyToEmail?: string | null,
+        replyToName?: string | null,
     ): Promise<Models.Message>;
     updateEmail(
         paramsOrFirst:
             | {
                   messageId: string;
-                  subject?: string;
-                  content?: string;
-                  topics?: string[];
-                  users?: string[];
-                  targets?: string[];
-                  cc?: string[];
-                  bcc?: string[];
-                  attachments?: string[];
-                  replyToEmail?: string;
-                  replyToName?: string;
-                  draft?: boolean;
-                  html?: boolean;
-                  scheduledAt?: string;
+                  topics?: string[] | null;
+                  users?: string[] | null;
+                  targets?: string[] | null;
+                  subject?: string | null;
+                  content?: string | null;
+                  draft?: boolean | null;
+                  html?: boolean | null;
+                  cc?: string[] | null;
+                  bcc?: string[] | null;
+                  scheduledAt?: string | null;
+                  attachments?: string[] | null;
+                  replyToEmail?: string | null;
+                  replyToName?: string | null;
               }
             | string,
         ...rest: [
-            string?,
-            string?,
-            string[]?,
-            string[]?,
-            string[]?,
-            string[]?,
-            string[]?,
-            string[]?,
-            string?,
-            string?,
-            boolean?,
-            boolean?,
-            string?,
+            (string[] | null)?,
+            (string[] | null)?,
+            (string[] | null)?,
+            (string | null)?,
+            (string | null)?,
+            (boolean | null)?,
+            (boolean | null)?,
+            (string[] | null)?,
+            (string[] | null)?,
+            (string | null)?,
+            (string[] | null)?,
+            (string | null)?,
+            (string | null)?,
         ]
     ): Promise<Models.Message> {
         let params: {
             messageId: string;
-            subject?: string;
-            content?: string;
-            topics?: string[];
-            users?: string[];
-            targets?: string[];
-            cc?: string[];
-            bcc?: string[];
-            attachments?: string[];
-            replyToEmail?: string;
-            replyToName?: string;
-            draft?: boolean;
-            html?: boolean;
-            scheduledAt?: string;
+            topics?: string[] | null;
+            users?: string[] | null;
+            targets?: string[] | null;
+            subject?: string | null;
+            content?: string | null;
+            draft?: boolean | null;
+            html?: boolean | null;
+            cc?: string[] | null;
+            bcc?: string[] | null;
+            scheduledAt?: string | null;
+            attachments?: string[] | null;
+            replyToEmail?: string | null;
+            replyToName?: string | null;
         };
 
         if (
@@ -472,53 +530,53 @@ export class Messaging {
         ) {
             params = (paramsOrFirst || {}) as {
                 messageId: string;
-                subject?: string;
-                content?: string;
-                topics?: string[];
-                users?: string[];
-                targets?: string[];
-                cc?: string[];
-                bcc?: string[];
-                attachments?: string[];
-                replyToEmail?: string;
-                replyToName?: string;
-                draft?: boolean;
-                html?: boolean;
-                scheduledAt?: string;
+                topics?: string[] | null;
+                users?: string[] | null;
+                targets?: string[] | null;
+                subject?: string | null;
+                content?: string | null;
+                draft?: boolean | null;
+                html?: boolean | null;
+                cc?: string[] | null;
+                bcc?: string[] | null;
+                scheduledAt?: string | null;
+                attachments?: string[] | null;
+                replyToEmail?: string | null;
+                replyToName?: string | null;
             };
         } else {
             params = {
                 messageId: paramsOrFirst as string,
-                subject: rest[0] as string,
-                content: rest[1] as string,
-                topics: rest[2] as string[],
-                users: rest[3] as string[],
-                targets: rest[4] as string[],
-                cc: rest[5] as string[],
-                bcc: rest[6] as string[],
-                attachments: rest[7] as string[],
-                replyToEmail: rest[8] as string,
-                replyToName: rest[9] as string,
-                draft: rest[10] as boolean,
-                html: rest[11] as boolean,
-                scheduledAt: rest[12] as string,
+                topics: rest[0] as string[] | null,
+                users: rest[1] as string[] | null,
+                targets: rest[2] as string[] | null,
+                subject: rest[3] as string | null,
+                content: rest[4] as string | null,
+                draft: rest[5] as boolean | null,
+                html: rest[6] as boolean | null,
+                cc: rest[7] as string[] | null,
+                bcc: rest[8] as string[] | null,
+                scheduledAt: rest[9] as string | null,
+                attachments: rest[10] as string[] | null,
+                replyToEmail: rest[11] as string | null,
+                replyToName: rest[12] as string | null,
             };
         }
 
         const messageId = params.messageId;
-        const subject = params.subject;
-        const content = params.content;
         const topics = params.topics;
         const users = params.users;
         const targets = params.targets;
+        const subject = params.subject;
+        const content = params.content;
+        const draft = params.draft;
+        const html = params.html;
         const cc = params.cc;
         const bcc = params.bcc;
+        const scheduledAt = params.scheduledAt;
         const attachments = params.attachments;
         const replyToEmail = params.replyToEmail;
         const replyToName = params.replyToName;
-        const draft = params.draft;
-        const html = params.html;
-        const scheduledAt = params.scheduledAt;
         if (typeof messageId === 'undefined' || messageId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "messageId"',
@@ -529,12 +587,6 @@ export class Messaging {
             encodeURIComponent(String(messageId)),
         );
         const apiPayload: Payload = {};
-        if (typeof subject !== 'undefined') {
-            apiPayload['subject'] = subject;
-        }
-        if (typeof content !== 'undefined') {
-            apiPayload['content'] = content;
-        }
         if (typeof topics !== 'undefined') {
             apiPayload['topics'] = topics;
         }
@@ -544,11 +596,26 @@ export class Messaging {
         if (typeof targets !== 'undefined') {
             apiPayload['targets'] = targets;
         }
+        if (typeof subject !== 'undefined') {
+            apiPayload['subject'] = subject;
+        }
+        if (typeof content !== 'undefined') {
+            apiPayload['content'] = content;
+        }
+        if (typeof draft !== 'undefined') {
+            apiPayload['draft'] = draft;
+        }
+        if (typeof html !== 'undefined') {
+            apiPayload['html'] = html;
+        }
         if (typeof cc !== 'undefined') {
             apiPayload['cc'] = cc;
         }
         if (typeof bcc !== 'undefined') {
             apiPayload['bcc'] = bcc;
+        }
+        if (typeof scheduledAt !== 'undefined') {
+            apiPayload['scheduledAt'] = scheduledAt;
         }
         if (typeof attachments !== 'undefined') {
             apiPayload['attachments'] = attachments;
@@ -559,15 +626,6 @@ export class Messaging {
         if (typeof replyToName !== 'undefined') {
             apiPayload['replyToName'] = replyToName;
         }
-        if (typeof draft !== 'undefined') {
-            apiPayload['draft'] = draft;
-        }
-        if (typeof html !== 'undefined') {
-            apiPayload['html'] = html;
-        }
-        if (typeof scheduledAt !== 'undefined') {
-            apiPayload['scheduledAt'] = scheduledAt;
-        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -576,7 +634,28 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'message',
+            models: {
+                message: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        providerType: '',
+                        topics: [],
+                        users: [],
+                        targets: [],
+                        deliveredTotal: 0,
+                        data: [],
+                        status: 'draft',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -588,7 +667,7 @@ export class Messaging {
      * @param {string[]} params.topics - List of Topic IDs.
      * @param {string[]} params.users - List of User IDs.
      * @param {string[]} params.targets - List of Targets IDs.
-     * @param {object} params.data - Additional key-value pair data for push notification.
+     * @param {object | null} params.data - Additional key-value pair data for push notification.
      * @param {string} params.action - Action for push notification.
      * @param {string} params.image - Image for push notification. Must be a compound bucket ID to file ID of a jpeg, png, or bmp image in Appwrite Storage. It should be formatted as <BUCKET_ID>:<FILE_ID>.
      * @param {string} params.icon - Icon for push notification. Available only for Android and Web Platform.
@@ -597,7 +676,7 @@ export class Messaging {
      * @param {string} params.tag - Tag for push notification. Available only for Android Platform.
      * @param {number} params.badge - Badge for push notification. Available only for iOS Platform.
      * @param {boolean} params.draft - Is message a draft
-     * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string | null} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @param {boolean} params.contentAvailable - If set to true, the notification will be delivered in the background. Available only for iOS Platform.
      * @param {boolean} params.critical - If set to true, the notification will be marked as critical. This requires the app to have the critical notification entitlement. Available only for iOS Platform.
      * @param {MessagePriority} params.priority - Set the notification priority. "normal" will consider device state and may not deliver notifications immediately. "high" will always attempt to immediately deliver the notification.
@@ -612,7 +691,7 @@ export class Messaging {
         topics?: string[];
         users?: string[];
         targets?: string[];
-        data?: object;
+        data?: object | null;
         action?: string;
         image?: string;
         icon?: string;
@@ -621,7 +700,7 @@ export class Messaging {
         tag?: string;
         badge?: number;
         draft?: boolean;
-        scheduledAt?: string;
+        scheduledAt?: string | null;
         contentAvailable?: boolean;
         critical?: boolean;
         priority?: MessagePriority;
@@ -636,7 +715,7 @@ export class Messaging {
      * @param {string[]} topics - List of Topic IDs.
      * @param {string[]} users - List of User IDs.
      * @param {string[]} targets - List of Targets IDs.
-     * @param {object} data - Additional key-value pair data for push notification.
+     * @param {object | null} data - Additional key-value pair data for push notification.
      * @param {string} action - Action for push notification.
      * @param {string} image - Image for push notification. Must be a compound bucket ID to file ID of a jpeg, png, or bmp image in Appwrite Storage. It should be formatted as <BUCKET_ID>:<FILE_ID>.
      * @param {string} icon - Icon for push notification. Available only for Android and Web Platform.
@@ -645,7 +724,7 @@ export class Messaging {
      * @param {string} tag - Tag for push notification. Available only for Android Platform.
      * @param {number} badge - Badge for push notification. Available only for iOS Platform.
      * @param {boolean} draft - Is message a draft
-     * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string | null} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @param {boolean} contentAvailable - If set to true, the notification will be delivered in the background. Available only for iOS Platform.
      * @param {boolean} critical - If set to true, the notification will be marked as critical. This requires the app to have the critical notification entitlement. Available only for iOS Platform.
      * @param {MessagePriority} priority - Set the notification priority. "normal" will consider device state and may not deliver notifications immediately. "high" will always attempt to immediately deliver the notification.
@@ -661,7 +740,7 @@ export class Messaging {
         topics?: string[],
         users?: string[],
         targets?: string[],
-        data?: object,
+        data?: object | null,
         action?: string,
         image?: string,
         icon?: string,
@@ -670,7 +749,7 @@ export class Messaging {
         tag?: string,
         badge?: number,
         draft?: boolean,
-        scheduledAt?: string,
+        scheduledAt?: string | null,
         contentAvailable?: boolean,
         critical?: boolean,
         priority?: MessagePriority,
@@ -685,7 +764,7 @@ export class Messaging {
                   topics?: string[];
                   users?: string[];
                   targets?: string[];
-                  data?: object;
+                  data?: object | null;
                   action?: string;
                   image?: string;
                   icon?: string;
@@ -694,7 +773,7 @@ export class Messaging {
                   tag?: string;
                   badge?: number;
                   draft?: boolean;
-                  scheduledAt?: string;
+                  scheduledAt?: string | null;
                   contentAvailable?: boolean;
                   critical?: boolean;
                   priority?: MessagePriority;
@@ -707,7 +786,7 @@ export class Messaging {
             string[]?,
             string[]?,
             string[]?,
-            object?,
+            (object | null)?,
             string?,
             string?,
             string?,
@@ -716,7 +795,7 @@ export class Messaging {
             string?,
             number?,
             boolean?,
-            string?,
+            (string | null)?,
             boolean?,
             boolean?,
             MessagePriority?,
@@ -730,7 +809,7 @@ export class Messaging {
             topics?: string[];
             users?: string[];
             targets?: string[];
-            data?: object;
+            data?: object | null;
             action?: string;
             image?: string;
             icon?: string;
@@ -739,7 +818,7 @@ export class Messaging {
             tag?: string;
             badge?: number;
             draft?: boolean;
-            scheduledAt?: string;
+            scheduledAt?: string | null;
             contentAvailable?: boolean;
             critical?: boolean;
             priority?: MessagePriority;
@@ -758,7 +837,7 @@ export class Messaging {
                 topics?: string[];
                 users?: string[];
                 targets?: string[];
-                data?: object;
+                data?: object | null;
                 action?: string;
                 image?: string;
                 icon?: string;
@@ -767,7 +846,7 @@ export class Messaging {
                 tag?: string;
                 badge?: number;
                 draft?: boolean;
-                scheduledAt?: string;
+                scheduledAt?: string | null;
                 contentAvailable?: boolean;
                 critical?: boolean;
                 priority?: MessagePriority;
@@ -781,7 +860,7 @@ export class Messaging {
                 topics: rest[2] as string[],
                 users: rest[3] as string[],
                 targets: rest[4] as string[],
-                data: rest[5] as object,
+                data: rest[5] as object | null,
                 action: rest[6] as string,
                 image: rest[7] as string,
                 icon: rest[8] as string,
@@ -790,7 +869,7 @@ export class Messaging {
                 tag: rest[11] as string,
                 badge: rest[12] as number,
                 draft: rest[13] as boolean,
-                scheduledAt: rest[14] as string,
+                scheduledAt: rest[14] as string | null,
                 contentAvailable: rest[15] as boolean,
                 critical: rest[16] as boolean,
                 priority: rest[17] as MessagePriority,
@@ -893,7 +972,28 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'message',
+            models: {
+                message: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        providerType: '',
+                        topics: [],
+                        users: [],
+                        targets: [],
+                        deliveredTotal: 0,
+                        data: [],
+                        status: 'draft',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -901,168 +1001,168 @@ export class Messaging {
      *
      *
      * @param {string} params.messageId - Message ID.
-     * @param {string} params.title - Title for push notification.
-     * @param {string} params.body - Body for push notification.
-     * @param {string[]} params.topics - List of Topic IDs.
-     * @param {string[]} params.users - List of User IDs.
-     * @param {string[]} params.targets - List of Targets IDs.
-     * @param {object} params.data - Additional Data for push notification.
-     * @param {string} params.action - Action for push notification.
-     * @param {string} params.image - Image for push notification. Must be a compound bucket ID to file ID of a jpeg, png, or bmp image in Appwrite Storage. It should be formatted as <BUCKET_ID>:<FILE_ID>.
-     * @param {string} params.icon - Icon for push notification. Available only for Android and Web platforms.
-     * @param {string} params.sound - Sound for push notification. Available only for Android and iOS platforms.
-     * @param {string} params.color - Color for push notification. Available only for Android platforms.
-     * @param {string} params.tag - Tag for push notification. Available only for Android platforms.
-     * @param {number} params.badge - Badge for push notification. Available only for iOS platforms.
-     * @param {boolean} params.draft - Is message a draft
-     * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
-     * @param {boolean} params.contentAvailable - If set to true, the notification will be delivered in the background. Available only for iOS Platform.
-     * @param {boolean} params.critical - If set to true, the notification will be marked as critical. This requires the app to have the critical notification entitlement. Available only for iOS Platform.
-     * @param {MessagePriority} params.priority - Set the notification priority. "normal" will consider device battery state and may send notifications later. "high" will always attempt to immediately deliver the notification.
-     * @param {string} params.channelId - ID of the notification channel to deliver the notification on. The app must have already created a channel with this ID, otherwise the channel from the app manifest is used. Pass an empty string to clear it. Available only for Android platforms.
+     * @param {string[] | null} params.topics - List of Topic IDs.
+     * @param {string[] | null} params.users - List of User IDs.
+     * @param {string[] | null} params.targets - List of Targets IDs.
+     * @param {string | null} params.title - Title for push notification.
+     * @param {string | null} params.body - Body for push notification.
+     * @param {object | null} params.data - Additional Data for push notification.
+     * @param {string | null} params.action - Action for push notification.
+     * @param {string | null} params.image - Image for push notification. Must be a compound bucket ID to file ID of a jpeg, png, or bmp image in Appwrite Storage. It should be formatted as <BUCKET_ID>:<FILE_ID>.
+     * @param {string | null} params.icon - Icon for push notification. Available only for Android and Web platforms.
+     * @param {string | null} params.sound - Sound for push notification. Available only for Android and iOS platforms.
+     * @param {string | null} params.color - Color for push notification. Available only for Android platforms.
+     * @param {string | null} params.tag - Tag for push notification. Available only for Android platforms.
+     * @param {number | null} params.badge - Badge for push notification. Available only for iOS platforms.
+     * @param {boolean | null} params.draft - Is message a draft
+     * @param {string | null} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {boolean | null} params.contentAvailable - If set to true, the notification will be delivered in the background. Available only for iOS Platform.
+     * @param {boolean | null} params.critical - If set to true, the notification will be marked as critical. This requires the app to have the critical notification entitlement. Available only for iOS Platform.
+     * @param {MessagePriority | null} params.priority - Set the notification priority. "normal" will consider device battery state and may send notifications later. "high" will always attempt to immediately deliver the notification.
+     * @param {string | null} params.channelId - ID of the notification channel to deliver the notification on. The app must have already created a channel with this ID, otherwise the channel from the app manifest is used. Pass an empty string to clear it. Available only for Android platforms.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
     updatePush(params: {
         messageId: string;
-        title?: string;
-        body?: string;
-        topics?: string[];
-        users?: string[];
-        targets?: string[];
-        data?: object;
-        action?: string;
-        image?: string;
-        icon?: string;
-        sound?: string;
-        color?: string;
-        tag?: string;
-        badge?: number;
-        draft?: boolean;
-        scheduledAt?: string;
-        contentAvailable?: boolean;
-        critical?: boolean;
-        priority?: MessagePriority;
-        channelId?: string;
+        topics?: string[] | null;
+        users?: string[] | null;
+        targets?: string[] | null;
+        title?: string | null;
+        body?: string | null;
+        data?: object | null;
+        action?: string | null;
+        image?: string | null;
+        icon?: string | null;
+        sound?: string | null;
+        color?: string | null;
+        tag?: string | null;
+        badge?: number | null;
+        draft?: boolean | null;
+        scheduledAt?: string | null;
+        contentAvailable?: boolean | null;
+        critical?: boolean | null;
+        priority?: MessagePriority | null;
+        channelId?: string | null;
     }): Promise<Models.Message>;
     /**
      * Update a push notification by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
      *
      *
      * @param {string} messageId - Message ID.
-     * @param {string} title - Title for push notification.
-     * @param {string} body - Body for push notification.
-     * @param {string[]} topics - List of Topic IDs.
-     * @param {string[]} users - List of User IDs.
-     * @param {string[]} targets - List of Targets IDs.
-     * @param {object} data - Additional Data for push notification.
-     * @param {string} action - Action for push notification.
-     * @param {string} image - Image for push notification. Must be a compound bucket ID to file ID of a jpeg, png, or bmp image in Appwrite Storage. It should be formatted as <BUCKET_ID>:<FILE_ID>.
-     * @param {string} icon - Icon for push notification. Available only for Android and Web platforms.
-     * @param {string} sound - Sound for push notification. Available only for Android and iOS platforms.
-     * @param {string} color - Color for push notification. Available only for Android platforms.
-     * @param {string} tag - Tag for push notification. Available only for Android platforms.
-     * @param {number} badge - Badge for push notification. Available only for iOS platforms.
-     * @param {boolean} draft - Is message a draft
-     * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
-     * @param {boolean} contentAvailable - If set to true, the notification will be delivered in the background. Available only for iOS Platform.
-     * @param {boolean} critical - If set to true, the notification will be marked as critical. This requires the app to have the critical notification entitlement. Available only for iOS Platform.
-     * @param {MessagePriority} priority - Set the notification priority. "normal" will consider device battery state and may send notifications later. "high" will always attempt to immediately deliver the notification.
-     * @param {string} channelId - ID of the notification channel to deliver the notification on. The app must have already created a channel with this ID, otherwise the channel from the app manifest is used. Pass an empty string to clear it. Available only for Android platforms.
+     * @param {string[] | null} topics - List of Topic IDs.
+     * @param {string[] | null} users - List of User IDs.
+     * @param {string[] | null} targets - List of Targets IDs.
+     * @param {string | null} title - Title for push notification.
+     * @param {string | null} body - Body for push notification.
+     * @param {object | null} data - Additional Data for push notification.
+     * @param {string | null} action - Action for push notification.
+     * @param {string | null} image - Image for push notification. Must be a compound bucket ID to file ID of a jpeg, png, or bmp image in Appwrite Storage. It should be formatted as <BUCKET_ID>:<FILE_ID>.
+     * @param {string | null} icon - Icon for push notification. Available only for Android and Web platforms.
+     * @param {string | null} sound - Sound for push notification. Available only for Android and iOS platforms.
+     * @param {string | null} color - Color for push notification. Available only for Android platforms.
+     * @param {string | null} tag - Tag for push notification. Available only for Android platforms.
+     * @param {number | null} badge - Badge for push notification. Available only for iOS platforms.
+     * @param {boolean | null} draft - Is message a draft
+     * @param {string | null} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {boolean | null} contentAvailable - If set to true, the notification will be delivered in the background. Available only for iOS Platform.
+     * @param {boolean | null} critical - If set to true, the notification will be marked as critical. This requires the app to have the critical notification entitlement. Available only for iOS Platform.
+     * @param {MessagePriority | null} priority - Set the notification priority. "normal" will consider device battery state and may send notifications later. "high" will always attempt to immediately deliver the notification.
+     * @param {string | null} channelId - ID of the notification channel to deliver the notification on. The app must have already created a channel with this ID, otherwise the channel from the app manifest is used. Pass an empty string to clear it. Available only for Android platforms.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     updatePush(
         messageId: string,
-        title?: string,
-        body?: string,
-        topics?: string[],
-        users?: string[],
-        targets?: string[],
-        data?: object,
-        action?: string,
-        image?: string,
-        icon?: string,
-        sound?: string,
-        color?: string,
-        tag?: string,
-        badge?: number,
-        draft?: boolean,
-        scheduledAt?: string,
-        contentAvailable?: boolean,
-        critical?: boolean,
-        priority?: MessagePriority,
-        channelId?: string,
+        topics?: string[] | null,
+        users?: string[] | null,
+        targets?: string[] | null,
+        title?: string | null,
+        body?: string | null,
+        data?: object | null,
+        action?: string | null,
+        image?: string | null,
+        icon?: string | null,
+        sound?: string | null,
+        color?: string | null,
+        tag?: string | null,
+        badge?: number | null,
+        draft?: boolean | null,
+        scheduledAt?: string | null,
+        contentAvailable?: boolean | null,
+        critical?: boolean | null,
+        priority?: MessagePriority | null,
+        channelId?: string | null,
     ): Promise<Models.Message>;
     updatePush(
         paramsOrFirst:
             | {
                   messageId: string;
-                  title?: string;
-                  body?: string;
-                  topics?: string[];
-                  users?: string[];
-                  targets?: string[];
-                  data?: object;
-                  action?: string;
-                  image?: string;
-                  icon?: string;
-                  sound?: string;
-                  color?: string;
-                  tag?: string;
-                  badge?: number;
-                  draft?: boolean;
-                  scheduledAt?: string;
-                  contentAvailable?: boolean;
-                  critical?: boolean;
-                  priority?: MessagePriority;
-                  channelId?: string;
+                  topics?: string[] | null;
+                  users?: string[] | null;
+                  targets?: string[] | null;
+                  title?: string | null;
+                  body?: string | null;
+                  data?: object | null;
+                  action?: string | null;
+                  image?: string | null;
+                  icon?: string | null;
+                  sound?: string | null;
+                  color?: string | null;
+                  tag?: string | null;
+                  badge?: number | null;
+                  draft?: boolean | null;
+                  scheduledAt?: string | null;
+                  contentAvailable?: boolean | null;
+                  critical?: boolean | null;
+                  priority?: MessagePriority | null;
+                  channelId?: string | null;
               }
             | string,
         ...rest: [
-            string?,
-            string?,
-            string[]?,
-            string[]?,
-            string[]?,
-            object?,
-            string?,
-            string?,
-            string?,
-            string?,
-            string?,
-            string?,
-            number?,
-            boolean?,
-            string?,
-            boolean?,
-            boolean?,
-            MessagePriority?,
-            string?,
+            (string[] | null)?,
+            (string[] | null)?,
+            (string[] | null)?,
+            (string | null)?,
+            (string | null)?,
+            (object | null)?,
+            (string | null)?,
+            (string | null)?,
+            (string | null)?,
+            (string | null)?,
+            (string | null)?,
+            (string | null)?,
+            (number | null)?,
+            (boolean | null)?,
+            (string | null)?,
+            (boolean | null)?,
+            (boolean | null)?,
+            (MessagePriority | null)?,
+            (string | null)?,
         ]
     ): Promise<Models.Message> {
         let params: {
             messageId: string;
-            title?: string;
-            body?: string;
-            topics?: string[];
-            users?: string[];
-            targets?: string[];
-            data?: object;
-            action?: string;
-            image?: string;
-            icon?: string;
-            sound?: string;
-            color?: string;
-            tag?: string;
-            badge?: number;
-            draft?: boolean;
-            scheduledAt?: string;
-            contentAvailable?: boolean;
-            critical?: boolean;
-            priority?: MessagePriority;
-            channelId?: string;
+            topics?: string[] | null;
+            users?: string[] | null;
+            targets?: string[] | null;
+            title?: string | null;
+            body?: string | null;
+            data?: object | null;
+            action?: string | null;
+            image?: string | null;
+            icon?: string | null;
+            sound?: string | null;
+            color?: string | null;
+            tag?: string | null;
+            badge?: number | null;
+            draft?: boolean | null;
+            scheduledAt?: string | null;
+            contentAvailable?: boolean | null;
+            critical?: boolean | null;
+            priority?: MessagePriority | null;
+            channelId?: string | null;
         };
 
         if (
@@ -1072,57 +1172,57 @@ export class Messaging {
         ) {
             params = (paramsOrFirst || {}) as {
                 messageId: string;
-                title?: string;
-                body?: string;
-                topics?: string[];
-                users?: string[];
-                targets?: string[];
-                data?: object;
-                action?: string;
-                image?: string;
-                icon?: string;
-                sound?: string;
-                color?: string;
-                tag?: string;
-                badge?: number;
-                draft?: boolean;
-                scheduledAt?: string;
-                contentAvailable?: boolean;
-                critical?: boolean;
-                priority?: MessagePriority;
-                channelId?: string;
+                topics?: string[] | null;
+                users?: string[] | null;
+                targets?: string[] | null;
+                title?: string | null;
+                body?: string | null;
+                data?: object | null;
+                action?: string | null;
+                image?: string | null;
+                icon?: string | null;
+                sound?: string | null;
+                color?: string | null;
+                tag?: string | null;
+                badge?: number | null;
+                draft?: boolean | null;
+                scheduledAt?: string | null;
+                contentAvailable?: boolean | null;
+                critical?: boolean | null;
+                priority?: MessagePriority | null;
+                channelId?: string | null;
             };
         } else {
             params = {
                 messageId: paramsOrFirst as string,
-                title: rest[0] as string,
-                body: rest[1] as string,
-                topics: rest[2] as string[],
-                users: rest[3] as string[],
-                targets: rest[4] as string[],
-                data: rest[5] as object,
-                action: rest[6] as string,
-                image: rest[7] as string,
-                icon: rest[8] as string,
-                sound: rest[9] as string,
-                color: rest[10] as string,
-                tag: rest[11] as string,
-                badge: rest[12] as number,
-                draft: rest[13] as boolean,
-                scheduledAt: rest[14] as string,
-                contentAvailable: rest[15] as boolean,
-                critical: rest[16] as boolean,
-                priority: rest[17] as MessagePriority,
-                channelId: rest[18] as string,
+                topics: rest[0] as string[] | null,
+                users: rest[1] as string[] | null,
+                targets: rest[2] as string[] | null,
+                title: rest[3] as string | null,
+                body: rest[4] as string | null,
+                data: rest[5] as object | null,
+                action: rest[6] as string | null,
+                image: rest[7] as string | null,
+                icon: rest[8] as string | null,
+                sound: rest[9] as string | null,
+                color: rest[10] as string | null,
+                tag: rest[11] as string | null,
+                badge: rest[12] as number | null,
+                draft: rest[13] as boolean | null,
+                scheduledAt: rest[14] as string | null,
+                contentAvailable: rest[15] as boolean | null,
+                critical: rest[16] as boolean | null,
+                priority: rest[17] as MessagePriority | null,
+                channelId: rest[18] as string | null,
             };
         }
 
         const messageId = params.messageId;
-        const title = params.title;
-        const body = params.body;
         const topics = params.topics;
         const users = params.users;
         const targets = params.targets;
+        const title = params.title;
+        const body = params.body;
         const data = params.data;
         const action = params.action;
         const image = params.image;
@@ -1147,12 +1247,6 @@ export class Messaging {
             encodeURIComponent(String(messageId)),
         );
         const apiPayload: Payload = {};
-        if (typeof title !== 'undefined') {
-            apiPayload['title'] = title;
-        }
-        if (typeof body !== 'undefined') {
-            apiPayload['body'] = body;
-        }
         if (typeof topics !== 'undefined') {
             apiPayload['topics'] = topics;
         }
@@ -1161,6 +1255,12 @@ export class Messaging {
         }
         if (typeof targets !== 'undefined') {
             apiPayload['targets'] = targets;
+        }
+        if (typeof title !== 'undefined') {
+            apiPayload['title'] = title;
+        }
+        if (typeof body !== 'undefined') {
+            apiPayload['body'] = body;
         }
         if (typeof data !== 'undefined') {
             apiPayload['data'] = data;
@@ -1212,7 +1312,28 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'message',
+            models: {
+                message: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        providerType: '',
+                        topics: [],
+                        users: [],
+                        targets: [],
+                        deliveredTotal: 0,
+                        data: [],
+                        status: 'draft',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -1224,7 +1345,7 @@ export class Messaging {
      * @param {string[]} params.users - List of User IDs.
      * @param {string[]} params.targets - List of Targets IDs.
      * @param {boolean} params.draft - Is message a draft
-     * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string | null} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.createSMS` instead.
@@ -1236,7 +1357,7 @@ export class Messaging {
         users?: string[];
         targets?: string[];
         draft?: boolean;
-        scheduledAt?: string;
+        scheduledAt?: string | null;
     }): Promise<Models.Message>;
     /**
      * Create a new SMS message.
@@ -1247,7 +1368,7 @@ export class Messaging {
      * @param {string[]} users - List of User IDs.
      * @param {string[]} targets - List of Targets IDs.
      * @param {boolean} draft - Is message a draft
-     * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string | null} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1259,7 +1380,7 @@ export class Messaging {
         users?: string[],
         targets?: string[],
         draft?: boolean,
-        scheduledAt?: string,
+        scheduledAt?: string | null,
     ): Promise<Models.Message>;
     createSms(
         paramsOrFirst:
@@ -1270,10 +1391,17 @@ export class Messaging {
                   users?: string[];
                   targets?: string[];
                   draft?: boolean;
-                  scheduledAt?: string;
+                  scheduledAt?: string | null;
               }
             | string,
-        ...rest: [string?, string[]?, string[]?, string[]?, boolean?, string?]
+        ...rest: [
+            string?,
+            string[]?,
+            string[]?,
+            string[]?,
+            boolean?,
+            (string | null)?,
+        ]
     ): Promise<Models.Message> {
         let params: {
             messageId: string;
@@ -1282,7 +1410,7 @@ export class Messaging {
             users?: string[];
             targets?: string[];
             draft?: boolean;
-            scheduledAt?: string;
+            scheduledAt?: string | null;
         };
 
         if (
@@ -1297,7 +1425,7 @@ export class Messaging {
                 users?: string[];
                 targets?: string[];
                 draft?: boolean;
-                scheduledAt?: string;
+                scheduledAt?: string | null;
             };
         } else {
             params = {
@@ -1307,7 +1435,7 @@ export class Messaging {
                 users: rest[2] as string[],
                 targets: rest[3] as string[],
                 draft: rest[4] as boolean,
-                scheduledAt: rest[5] as string,
+                scheduledAt: rest[5] as string | null,
             };
         }
 
@@ -1359,7 +1487,28 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'message',
+            models: {
+                message: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        providerType: '',
+                        topics: [],
+                        users: [],
+                        targets: [],
+                        deliveredTotal: 0,
+                        data: [],
+                        status: 'draft',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -1371,7 +1520,7 @@ export class Messaging {
      * @param {string[]} params.users - List of User IDs.
      * @param {string[]} params.targets - List of Targets IDs.
      * @param {boolean} params.draft - Is message a draft
-     * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string | null} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
@@ -1382,7 +1531,7 @@ export class Messaging {
         users?: string[];
         targets?: string[];
         draft?: boolean;
-        scheduledAt?: string;
+        scheduledAt?: string | null;
     }): Promise<Models.Message>;
     /**
      * Create a new SMS message.
@@ -1393,7 +1542,7 @@ export class Messaging {
      * @param {string[]} users - List of User IDs.
      * @param {string[]} targets - List of Targets IDs.
      * @param {boolean} draft - Is message a draft
-     * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string | null} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1405,7 +1554,7 @@ export class Messaging {
         users?: string[],
         targets?: string[],
         draft?: boolean,
-        scheduledAt?: string,
+        scheduledAt?: string | null,
     ): Promise<Models.Message>;
     createSMS(
         paramsOrFirst:
@@ -1416,10 +1565,17 @@ export class Messaging {
                   users?: string[];
                   targets?: string[];
                   draft?: boolean;
-                  scheduledAt?: string;
+                  scheduledAt?: string | null;
               }
             | string,
-        ...rest: [string?, string[]?, string[]?, string[]?, boolean?, string?]
+        ...rest: [
+            string?,
+            string[]?,
+            string[]?,
+            string[]?,
+            boolean?,
+            (string | null)?,
+        ]
     ): Promise<Models.Message> {
         let params: {
             messageId: string;
@@ -1428,7 +1584,7 @@ export class Messaging {
             users?: string[];
             targets?: string[];
             draft?: boolean;
-            scheduledAt?: string;
+            scheduledAt?: string | null;
         };
 
         if (
@@ -1443,7 +1599,7 @@ export class Messaging {
                 users?: string[];
                 targets?: string[];
                 draft?: boolean;
-                scheduledAt?: string;
+                scheduledAt?: string | null;
             };
         } else {
             params = {
@@ -1453,7 +1609,7 @@ export class Messaging {
                 users: rest[2] as string[],
                 targets: rest[3] as string[],
                 draft: rest[4] as boolean,
-                scheduledAt: rest[5] as string,
+                scheduledAt: rest[5] as string | null,
             };
         }
 
@@ -1505,7 +1661,28 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'message',
+            models: {
+                message: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        providerType: '',
+                        topics: [],
+                        users: [],
+                        targets: [],
+                        deliveredTotal: 0,
+                        data: [],
+                        status: 'draft',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -1513,71 +1690,78 @@ export class Messaging {
      *
      *
      * @param {string} params.messageId - Message ID.
-     * @param {string} params.content - Email Content.
-     * @param {string[]} params.topics - List of Topic IDs.
-     * @param {string[]} params.users - List of User IDs.
-     * @param {string[]} params.targets - List of Targets IDs.
-     * @param {boolean} params.draft - Is message a draft
-     * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string[] | null} params.topics - List of Topic IDs.
+     * @param {string[] | null} params.users - List of User IDs.
+     * @param {string[] | null} params.targets - List of Targets IDs.
+     * @param {string | null} params.content - Email Content.
+     * @param {boolean | null} params.draft - Is message a draft
+     * @param {string | null} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.updateSMS` instead.
      */
     updateSms(params: {
         messageId: string;
-        content?: string;
-        topics?: string[];
-        users?: string[];
-        targets?: string[];
-        draft?: boolean;
-        scheduledAt?: string;
+        topics?: string[] | null;
+        users?: string[] | null;
+        targets?: string[] | null;
+        content?: string | null;
+        draft?: boolean | null;
+        scheduledAt?: string | null;
     }): Promise<Models.Message>;
     /**
      * Update an SMS message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
      *
      *
      * @param {string} messageId - Message ID.
-     * @param {string} content - Email Content.
-     * @param {string[]} topics - List of Topic IDs.
-     * @param {string[]} users - List of User IDs.
-     * @param {string[]} targets - List of Targets IDs.
-     * @param {boolean} draft - Is message a draft
-     * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string[] | null} topics - List of Topic IDs.
+     * @param {string[] | null} users - List of User IDs.
+     * @param {string[] | null} targets - List of Targets IDs.
+     * @param {string | null} content - Email Content.
+     * @param {boolean | null} draft - Is message a draft
+     * @param {string | null} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateSms(
         messageId: string,
-        content?: string,
-        topics?: string[],
-        users?: string[],
-        targets?: string[],
-        draft?: boolean,
-        scheduledAt?: string,
+        topics?: string[] | null,
+        users?: string[] | null,
+        targets?: string[] | null,
+        content?: string | null,
+        draft?: boolean | null,
+        scheduledAt?: string | null,
     ): Promise<Models.Message>;
     updateSms(
         paramsOrFirst:
             | {
                   messageId: string;
-                  content?: string;
-                  topics?: string[];
-                  users?: string[];
-                  targets?: string[];
-                  draft?: boolean;
-                  scheduledAt?: string;
+                  topics?: string[] | null;
+                  users?: string[] | null;
+                  targets?: string[] | null;
+                  content?: string | null;
+                  draft?: boolean | null;
+                  scheduledAt?: string | null;
               }
             | string,
-        ...rest: [string?, string[]?, string[]?, string[]?, boolean?, string?]
+        ...rest: [
+            (string[] | null)?,
+            (string[] | null)?,
+            (string[] | null)?,
+            (string | null)?,
+            (boolean | null)?,
+            (string | null)?,
+        ]
     ): Promise<Models.Message> {
         let params: {
             messageId: string;
-            content?: string;
-            topics?: string[];
-            users?: string[];
-            targets?: string[];
-            draft?: boolean;
-            scheduledAt?: string;
+            topics?: string[] | null;
+            users?: string[] | null;
+            targets?: string[] | null;
+            content?: string | null;
+            draft?: boolean | null;
+            scheduledAt?: string | null;
         };
 
         if (
@@ -1587,30 +1771,30 @@ export class Messaging {
         ) {
             params = (paramsOrFirst || {}) as {
                 messageId: string;
-                content?: string;
-                topics?: string[];
-                users?: string[];
-                targets?: string[];
-                draft?: boolean;
-                scheduledAt?: string;
+                topics?: string[] | null;
+                users?: string[] | null;
+                targets?: string[] | null;
+                content?: string | null;
+                draft?: boolean | null;
+                scheduledAt?: string | null;
             };
         } else {
             params = {
                 messageId: paramsOrFirst as string,
-                content: rest[0] as string,
-                topics: rest[1] as string[],
-                users: rest[2] as string[],
-                targets: rest[3] as string[],
-                draft: rest[4] as boolean,
-                scheduledAt: rest[5] as string,
+                topics: rest[0] as string[] | null,
+                users: rest[1] as string[] | null,
+                targets: rest[2] as string[] | null,
+                content: rest[3] as string | null,
+                draft: rest[4] as boolean | null,
+                scheduledAt: rest[5] as string | null,
             };
         }
 
         const messageId = params.messageId;
-        const content = params.content;
         const topics = params.topics;
         const users = params.users;
         const targets = params.targets;
+        const content = params.content;
         const draft = params.draft;
         const scheduledAt = params.scheduledAt;
         if (typeof messageId === 'undefined' || messageId === '') {
@@ -1623,9 +1807,6 @@ export class Messaging {
             encodeURIComponent(String(messageId)),
         );
         const apiPayload: Payload = {};
-        if (typeof content !== 'undefined') {
-            apiPayload['content'] = content;
-        }
         if (typeof topics !== 'undefined') {
             apiPayload['topics'] = topics;
         }
@@ -1634,6 +1815,9 @@ export class Messaging {
         }
         if (typeof targets !== 'undefined') {
             apiPayload['targets'] = targets;
+        }
+        if (typeof content !== 'undefined') {
+            apiPayload['content'] = content;
         }
         if (typeof draft !== 'undefined') {
             apiPayload['draft'] = draft;
@@ -1649,7 +1833,28 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'message',
+            models: {
+                message: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        providerType: '',
+                        topics: [],
+                        users: [],
+                        targets: [],
+                        deliveredTotal: 0,
+                        data: [],
+                        status: 'draft',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -1657,70 +1862,77 @@ export class Messaging {
      *
      *
      * @param {string} params.messageId - Message ID.
-     * @param {string} params.content - Email Content.
-     * @param {string[]} params.topics - List of Topic IDs.
-     * @param {string[]} params.users - List of User IDs.
-     * @param {string[]} params.targets - List of Targets IDs.
-     * @param {boolean} params.draft - Is message a draft
-     * @param {string} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string[] | null} params.topics - List of Topic IDs.
+     * @param {string[] | null} params.users - List of User IDs.
+     * @param {string[] | null} params.targets - List of Targets IDs.
+     * @param {string | null} params.content - Email Content.
+     * @param {boolean | null} params.draft - Is message a draft
+     * @param {string | null} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
     updateSMS(params: {
         messageId: string;
-        content?: string;
-        topics?: string[];
-        users?: string[];
-        targets?: string[];
-        draft?: boolean;
-        scheduledAt?: string;
+        topics?: string[] | null;
+        users?: string[] | null;
+        targets?: string[] | null;
+        content?: string | null;
+        draft?: boolean | null;
+        scheduledAt?: string | null;
     }): Promise<Models.Message>;
     /**
      * Update an SMS message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
      *
      *
      * @param {string} messageId - Message ID.
-     * @param {string} content - Email Content.
-     * @param {string[]} topics - List of Topic IDs.
-     * @param {string[]} users - List of User IDs.
-     * @param {string[]} targets - List of Targets IDs.
-     * @param {boolean} draft - Is message a draft
-     * @param {string} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param {string[] | null} topics - List of Topic IDs.
+     * @param {string[] | null} users - List of User IDs.
+     * @param {string[] | null} targets - List of Targets IDs.
+     * @param {string | null} content - Email Content.
+     * @param {boolean | null} draft - Is message a draft
+     * @param {string | null} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateSMS(
         messageId: string,
-        content?: string,
-        topics?: string[],
-        users?: string[],
-        targets?: string[],
-        draft?: boolean,
-        scheduledAt?: string,
+        topics?: string[] | null,
+        users?: string[] | null,
+        targets?: string[] | null,
+        content?: string | null,
+        draft?: boolean | null,
+        scheduledAt?: string | null,
     ): Promise<Models.Message>;
     updateSMS(
         paramsOrFirst:
             | {
                   messageId: string;
-                  content?: string;
-                  topics?: string[];
-                  users?: string[];
-                  targets?: string[];
-                  draft?: boolean;
-                  scheduledAt?: string;
+                  topics?: string[] | null;
+                  users?: string[] | null;
+                  targets?: string[] | null;
+                  content?: string | null;
+                  draft?: boolean | null;
+                  scheduledAt?: string | null;
               }
             | string,
-        ...rest: [string?, string[]?, string[]?, string[]?, boolean?, string?]
+        ...rest: [
+            (string[] | null)?,
+            (string[] | null)?,
+            (string[] | null)?,
+            (string | null)?,
+            (boolean | null)?,
+            (string | null)?,
+        ]
     ): Promise<Models.Message> {
         let params: {
             messageId: string;
-            content?: string;
-            topics?: string[];
-            users?: string[];
-            targets?: string[];
-            draft?: boolean;
-            scheduledAt?: string;
+            topics?: string[] | null;
+            users?: string[] | null;
+            targets?: string[] | null;
+            content?: string | null;
+            draft?: boolean | null;
+            scheduledAt?: string | null;
         };
 
         if (
@@ -1730,30 +1942,30 @@ export class Messaging {
         ) {
             params = (paramsOrFirst || {}) as {
                 messageId: string;
-                content?: string;
-                topics?: string[];
-                users?: string[];
-                targets?: string[];
-                draft?: boolean;
-                scheduledAt?: string;
+                topics?: string[] | null;
+                users?: string[] | null;
+                targets?: string[] | null;
+                content?: string | null;
+                draft?: boolean | null;
+                scheduledAt?: string | null;
             };
         } else {
             params = {
                 messageId: paramsOrFirst as string,
-                content: rest[0] as string,
-                topics: rest[1] as string[],
-                users: rest[2] as string[],
-                targets: rest[3] as string[],
-                draft: rest[4] as boolean,
-                scheduledAt: rest[5] as string,
+                topics: rest[0] as string[] | null,
+                users: rest[1] as string[] | null,
+                targets: rest[2] as string[] | null,
+                content: rest[3] as string | null,
+                draft: rest[4] as boolean | null,
+                scheduledAt: rest[5] as string | null,
             };
         }
 
         const messageId = params.messageId;
-        const content = params.content;
         const topics = params.topics;
         const users = params.users;
         const targets = params.targets;
+        const content = params.content;
         const draft = params.draft;
         const scheduledAt = params.scheduledAt;
         if (typeof messageId === 'undefined' || messageId === '') {
@@ -1766,9 +1978,6 @@ export class Messaging {
             encodeURIComponent(String(messageId)),
         );
         const apiPayload: Payload = {};
-        if (typeof content !== 'undefined') {
-            apiPayload['content'] = content;
-        }
         if (typeof topics !== 'undefined') {
             apiPayload['topics'] = topics;
         }
@@ -1777,6 +1986,9 @@ export class Messaging {
         }
         if (typeof targets !== 'undefined') {
             apiPayload['targets'] = targets;
+        }
+        if (typeof content !== 'undefined') {
+            apiPayload['content'] = content;
         }
         if (typeof draft !== 'undefined') {
             apiPayload['draft'] = draft;
@@ -1792,7 +2004,28 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'message',
+            models: {
+                message: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        providerType: '',
+                        topics: [],
+                        users: [],
+                        targets: [],
+                        deliveredTotal: 0,
+                        data: [],
+                        status: 'draft',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -1849,7 +2082,28 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'message',
+            models: {
+                message: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        providerType: '',
+                        topics: [],
+                        users: [],
+                        targets: [],
+                        deliveredTotal: 0,
+                        data: [],
+                        status: 'draft',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -1986,7 +2240,37 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'targetList',
+            models: {
+                targetList: {
+                    defaults: {
+                        total: 0,
+                        targets: [],
+                    },
+                    properties: {
+                        targets: {
+                            items: 'target',
+                        },
+                    },
+                },
+                target: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        userId: '',
+                        providerType: '',
+                        identifier: '',
+                        expired: false,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -2065,7 +2349,37 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'providerList',
+            models: {
+                providerList: {
+                    defaults: {
+                        total: 0,
+                        providers: [],
+                    },
+                    properties: {
+                        providers: {
+                            items: 'provider',
+                        },
+                    },
+                },
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -2078,7 +2392,7 @@ export class Messaging {
      * @param {string} params.teamId - APNS team ID.
      * @param {string} params.bundleId - APNS bundle ID.
      * @param {boolean} params.sandbox - Use APNS sandbox environment.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.createAPNSProvider` instead.
@@ -2091,7 +2405,7 @@ export class Messaging {
         teamId?: string;
         bundleId?: string;
         sandbox?: boolean;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new Apple Push Notification service provider.
@@ -2103,7 +2417,7 @@ export class Messaging {
      * @param {string} teamId - APNS team ID.
      * @param {string} bundleId - APNS bundle ID.
      * @param {boolean} sandbox - Use APNS sandbox environment.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2116,7 +2430,7 @@ export class Messaging {
         teamId?: string,
         bundleId?: string,
         sandbox?: boolean,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createApnsProvider(
         paramsOrFirst:
@@ -2128,7 +2442,7 @@ export class Messaging {
                   teamId?: string;
                   bundleId?: string;
                   sandbox?: boolean;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
         ...rest: [
@@ -2138,7 +2452,7 @@ export class Messaging {
             string?,
             string?,
             boolean?,
-            boolean?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Provider> {
         let params: {
@@ -2149,7 +2463,7 @@ export class Messaging {
             teamId?: string;
             bundleId?: string;
             sandbox?: boolean;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -2165,7 +2479,7 @@ export class Messaging {
                 teamId?: string;
                 bundleId?: string;
                 sandbox?: boolean;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
@@ -2176,7 +2490,7 @@ export class Messaging {
                 teamId: rest[3] as string,
                 bundleId: rest[4] as string,
                 sandbox: rest[5] as boolean,
-                enabled: rest[6] as boolean,
+                enabled: rest[6] as boolean | null,
             };
         }
 
@@ -2230,7 +2544,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -2243,7 +2576,7 @@ export class Messaging {
      * @param {string} params.teamId - APNS team ID.
      * @param {string} params.bundleId - APNS bundle ID.
      * @param {boolean} params.sandbox - Use APNS sandbox environment.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
@@ -2255,7 +2588,7 @@ export class Messaging {
         teamId?: string;
         bundleId?: string;
         sandbox?: boolean;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new Apple Push Notification service provider.
@@ -2267,7 +2600,7 @@ export class Messaging {
      * @param {string} teamId - APNS team ID.
      * @param {string} bundleId - APNS bundle ID.
      * @param {boolean} sandbox - Use APNS sandbox environment.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2280,7 +2613,7 @@ export class Messaging {
         teamId?: string,
         bundleId?: string,
         sandbox?: boolean,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createAPNSProvider(
         paramsOrFirst:
@@ -2292,7 +2625,7 @@ export class Messaging {
                   teamId?: string;
                   bundleId?: string;
                   sandbox?: boolean;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
         ...rest: [
@@ -2302,7 +2635,7 @@ export class Messaging {
             string?,
             string?,
             boolean?,
-            boolean?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Provider> {
         let params: {
@@ -2313,7 +2646,7 @@ export class Messaging {
             teamId?: string;
             bundleId?: string;
             sandbox?: boolean;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -2329,7 +2662,7 @@ export class Messaging {
                 teamId?: string;
                 bundleId?: string;
                 sandbox?: boolean;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
@@ -2340,7 +2673,7 @@ export class Messaging {
                 teamId: rest[3] as string,
                 bundleId: rest[4] as string,
                 sandbox: rest[5] as boolean,
-                enabled: rest[6] as boolean,
+                enabled: rest[6] as boolean | null,
             };
         }
 
@@ -2394,7 +2727,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -2402,12 +2754,12 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @param {string} params.authKey - APNS authentication key.
      * @param {string} params.authKeyId - APNS authentication key ID.
      * @param {string} params.teamId - APNS team ID.
      * @param {string} params.bundleId - APNS bundle ID.
-     * @param {boolean} params.sandbox - Use APNS sandbox environment.
+     * @param {boolean | null} params.sandbox - Use APNS sandbox environment.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.updateAPNSProvider` instead.
@@ -2415,24 +2767,24 @@ export class Messaging {
     updateApnsProvider(params: {
         providerId: string;
         name?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
         authKey?: string;
         authKeyId?: string;
         teamId?: string;
         bundleId?: string;
-        sandbox?: boolean;
+        sandbox?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Update a Apple Push Notification service provider by its unique ID.
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @param {string} authKey - APNS authentication key.
      * @param {string} authKeyId - APNS authentication key ID.
      * @param {string} teamId - APNS team ID.
      * @param {string} bundleId - APNS bundle ID.
-     * @param {boolean} sandbox - Use APNS sandbox environment.
+     * @param {boolean | null} sandbox - Use APNS sandbox environment.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2440,45 +2792,45 @@ export class Messaging {
     updateApnsProvider(
         providerId: string,
         name?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
         authKey?: string,
         authKeyId?: string,
         teamId?: string,
         bundleId?: string,
-        sandbox?: boolean,
+        sandbox?: boolean | null,
     ): Promise<Models.Provider>;
     updateApnsProvider(
         paramsOrFirst:
             | {
                   providerId: string;
                   name?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
                   authKey?: string;
                   authKeyId?: string;
                   teamId?: string;
                   bundleId?: string;
-                  sandbox?: boolean;
+                  sandbox?: boolean | null;
               }
             | string,
         ...rest: [
             string?,
-            boolean?,
+            (boolean | null)?,
             string?,
             string?,
             string?,
             string?,
-            boolean?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
             authKey?: string;
             authKeyId?: string;
             teamId?: string;
             bundleId?: string;
-            sandbox?: boolean;
+            sandbox?: boolean | null;
         };
 
         if (
@@ -2489,23 +2841,23 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
                 authKey?: string;
                 authKeyId?: string;
                 teamId?: string;
                 bundleId?: string;
-                sandbox?: boolean;
+                sandbox?: boolean | null;
             };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
+                enabled: rest[1] as boolean | null,
                 authKey: rest[2] as string,
                 authKeyId: rest[3] as string,
                 teamId: rest[4] as string,
                 bundleId: rest[5] as string,
-                sandbox: rest[6] as boolean,
+                sandbox: rest[6] as boolean | null,
             };
         }
 
@@ -2556,7 +2908,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -2564,36 +2935,36 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @param {string} params.authKey - APNS authentication key.
      * @param {string} params.authKeyId - APNS authentication key ID.
      * @param {string} params.teamId - APNS team ID.
      * @param {string} params.bundleId - APNS bundle ID.
-     * @param {boolean} params.sandbox - Use APNS sandbox environment.
+     * @param {boolean | null} params.sandbox - Use APNS sandbox environment.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
     updateAPNSProvider(params: {
         providerId: string;
         name?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
         authKey?: string;
         authKeyId?: string;
         teamId?: string;
         bundleId?: string;
-        sandbox?: boolean;
+        sandbox?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Update a Apple Push Notification service provider by its unique ID.
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @param {string} authKey - APNS authentication key.
      * @param {string} authKeyId - APNS authentication key ID.
      * @param {string} teamId - APNS team ID.
      * @param {string} bundleId - APNS bundle ID.
-     * @param {boolean} sandbox - Use APNS sandbox environment.
+     * @param {boolean | null} sandbox - Use APNS sandbox environment.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2601,45 +2972,45 @@ export class Messaging {
     updateAPNSProvider(
         providerId: string,
         name?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
         authKey?: string,
         authKeyId?: string,
         teamId?: string,
         bundleId?: string,
-        sandbox?: boolean,
+        sandbox?: boolean | null,
     ): Promise<Models.Provider>;
     updateAPNSProvider(
         paramsOrFirst:
             | {
                   providerId: string;
                   name?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
                   authKey?: string;
                   authKeyId?: string;
                   teamId?: string;
                   bundleId?: string;
-                  sandbox?: boolean;
+                  sandbox?: boolean | null;
               }
             | string,
         ...rest: [
             string?,
-            boolean?,
+            (boolean | null)?,
             string?,
             string?,
             string?,
             string?,
-            boolean?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
             authKey?: string;
             authKeyId?: string;
             teamId?: string;
             bundleId?: string;
-            sandbox?: boolean;
+            sandbox?: boolean | null;
         };
 
         if (
@@ -2650,23 +3021,23 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
                 authKey?: string;
                 authKeyId?: string;
                 teamId?: string;
                 bundleId?: string;
-                sandbox?: boolean;
+                sandbox?: boolean | null;
             };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
+                enabled: rest[1] as boolean | null,
                 authKey: rest[2] as string,
                 authKeyId: rest[3] as string,
                 teamId: rest[4] as string,
                 bundleId: rest[5] as string,
-                sandbox: rest[6] as boolean,
+                sandbox: rest[6] as boolean | null,
             };
         }
 
@@ -2717,7 +3088,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -2725,27 +3115,27 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
-     * @param {number} params.qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
-     * @param {number} params.expiry - Default message retention in seconds for offline delivery. Max 7 days (604800).
+     * @param {boolean | null} params.enabled - Set as enabled.
+     * @param {number | null} params.qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
+     * @param {number | null} params.expiry - Default message retention in seconds for offline delivery. Max 7 days (604800). Applies to topics with a null expiry; the lowest across enabled Appwrite providers wins.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
     createAppwriteProvider(params: {
         providerId: string;
         name: string;
-        enabled?: boolean;
-        qos?: number;
-        expiry?: number;
+        enabled?: boolean | null;
+        qos?: number | null;
+        expiry?: number | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new Appwrite push provider.
      *
      * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
-     * @param {number} qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
-     * @param {number} expiry - Default message retention in seconds for offline delivery. Max 7 days (604800).
+     * @param {boolean | null} enabled - Set as enabled.
+     * @param {number | null} qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
+     * @param {number | null} expiry - Default message retention in seconds for offline delivery. Max 7 days (604800). Applies to topics with a null expiry; the lowest across enabled Appwrite providers wins.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2753,28 +3143,33 @@ export class Messaging {
     createAppwriteProvider(
         providerId: string,
         name: string,
-        enabled?: boolean,
-        qos?: number,
-        expiry?: number,
+        enabled?: boolean | null,
+        qos?: number | null,
+        expiry?: number | null,
     ): Promise<Models.Provider>;
     createAppwriteProvider(
         paramsOrFirst:
             | {
                   providerId: string;
                   name: string;
-                  enabled?: boolean;
-                  qos?: number;
-                  expiry?: number;
+                  enabled?: boolean | null;
+                  qos?: number | null;
+                  expiry?: number | null;
               }
             | string,
-        ...rest: [string?, boolean?, number?, number?]
+        ...rest: [
+            string?,
+            (boolean | null)?,
+            (number | null)?,
+            (number | null)?,
+        ]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name: string;
-            enabled?: boolean;
-            qos?: number;
-            expiry?: number;
+            enabled?: boolean | null;
+            qos?: number | null;
+            expiry?: number | null;
         };
 
         if (
@@ -2785,17 +3180,17 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name: string;
-                enabled?: boolean;
-                qos?: number;
-                expiry?: number;
+                enabled?: boolean | null;
+                qos?: number | null;
+                expiry?: number | null;
             };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
-                qos: rest[2] as number,
-                expiry: rest[3] as number,
+                enabled: rest[1] as boolean | null,
+                qos: rest[2] as number | null,
+                expiry: rest[3] as number | null,
             };
         }
 
@@ -2837,7 +3232,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -2845,27 +3259,27 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
-     * @param {number} params.qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
-     * @param {number} params.expiry - Default message retention in seconds for offline delivery. Max 7 days (604800).
+     * @param {boolean | null} params.enabled - Set as enabled.
+     * @param {number | null} params.qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
+     * @param {number | null} params.expiry - Default message retention in seconds for offline delivery. Max 7 days (604800). Applies to topics with a null expiry; the lowest across enabled Appwrite providers wins.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
     updateAppwriteProvider(params: {
         providerId: string;
         name?: string;
-        enabled?: boolean;
-        qos?: number;
-        expiry?: number;
+        enabled?: boolean | null;
+        qos?: number | null;
+        expiry?: number | null;
     }): Promise<Models.Provider>;
     /**
      * Update an Appwrite push provider by its unique ID.
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
-     * @param {number} qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
-     * @param {number} expiry - Default message retention in seconds for offline delivery. Max 7 days (604800).
+     * @param {boolean | null} enabled - Set as enabled.
+     * @param {number | null} qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
+     * @param {number | null} expiry - Default message retention in seconds for offline delivery. Max 7 days (604800). Applies to topics with a null expiry; the lowest across enabled Appwrite providers wins.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2873,28 +3287,33 @@ export class Messaging {
     updateAppwriteProvider(
         providerId: string,
         name?: string,
-        enabled?: boolean,
-        qos?: number,
-        expiry?: number,
+        enabled?: boolean | null,
+        qos?: number | null,
+        expiry?: number | null,
     ): Promise<Models.Provider>;
     updateAppwriteProvider(
         paramsOrFirst:
             | {
                   providerId: string;
                   name?: string;
-                  enabled?: boolean;
-                  qos?: number;
-                  expiry?: number;
+                  enabled?: boolean | null;
+                  qos?: number | null;
+                  expiry?: number | null;
               }
             | string,
-        ...rest: [string?, boolean?, number?, number?]
+        ...rest: [
+            string?,
+            (boolean | null)?,
+            (number | null)?,
+            (number | null)?,
+        ]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name?: string;
-            enabled?: boolean;
-            qos?: number;
-            expiry?: number;
+            enabled?: boolean | null;
+            qos?: number | null;
+            expiry?: number | null;
         };
 
         if (
@@ -2905,17 +3324,17 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name?: string;
-                enabled?: boolean;
-                qos?: number;
-                expiry?: number;
+                enabled?: boolean | null;
+                qos?: number | null;
+                expiry?: number | null;
             };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
-                qos: rest[2] as number,
-                expiry: rest[3] as number,
+                enabled: rest[1] as boolean | null,
+                qos: rest[2] as number | null,
+                expiry: rest[3] as number | null,
             };
         }
 
@@ -2954,7 +3373,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -2962,8 +3400,8 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Provider name.
-     * @param {object} params.serviceAccountJSON - FCM service account JSON.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {object | null} params.serviceAccountJSON - FCM service account JSON.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.createFCMProvider` instead.
@@ -2971,16 +3409,16 @@ export class Messaging {
     createFcmProvider(params: {
         providerId: string;
         name: string;
-        serviceAccountJSON?: object;
-        enabled?: boolean;
+        serviceAccountJSON?: object | null;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new Firebase Cloud Messaging provider.
      *
      * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Provider name.
-     * @param {object} serviceAccountJSON - FCM service account JSON.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {object | null} serviceAccountJSON - FCM service account JSON.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2988,25 +3426,25 @@ export class Messaging {
     createFcmProvider(
         providerId: string,
         name: string,
-        serviceAccountJSON?: object,
-        enabled?: boolean,
+        serviceAccountJSON?: object | null,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createFcmProvider(
         paramsOrFirst:
             | {
                   providerId: string;
                   name: string;
-                  serviceAccountJSON?: object;
-                  enabled?: boolean;
+                  serviceAccountJSON?: object | null;
+                  enabled?: boolean | null;
               }
             | string,
-        ...rest: [string?, object?, boolean?]
+        ...rest: [string?, (object | null)?, (boolean | null)?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name: string;
-            serviceAccountJSON?: object;
-            enabled?: boolean;
+            serviceAccountJSON?: object | null;
+            enabled?: boolean | null;
         };
 
         if (
@@ -3017,15 +3455,15 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name: string;
-                serviceAccountJSON?: object;
-                enabled?: boolean;
+                serviceAccountJSON?: object | null;
+                enabled?: boolean | null;
             };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                serviceAccountJSON: rest[1] as object,
-                enabled: rest[2] as boolean,
+                serviceAccountJSON: rest[1] as object | null,
+                enabled: rest[2] as boolean | null,
             };
         }
 
@@ -3063,7 +3501,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -3071,24 +3528,24 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Provider name.
-     * @param {object} params.serviceAccountJSON - FCM service account JSON.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {object | null} params.serviceAccountJSON - FCM service account JSON.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
     createFCMProvider(params: {
         providerId: string;
         name: string;
-        serviceAccountJSON?: object;
-        enabled?: boolean;
+        serviceAccountJSON?: object | null;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new Firebase Cloud Messaging provider.
      *
      * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Provider name.
-     * @param {object} serviceAccountJSON - FCM service account JSON.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {object | null} serviceAccountJSON - FCM service account JSON.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3096,25 +3553,25 @@ export class Messaging {
     createFCMProvider(
         providerId: string,
         name: string,
-        serviceAccountJSON?: object,
-        enabled?: boolean,
+        serviceAccountJSON?: object | null,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createFCMProvider(
         paramsOrFirst:
             | {
                   providerId: string;
                   name: string;
-                  serviceAccountJSON?: object;
-                  enabled?: boolean;
+                  serviceAccountJSON?: object | null;
+                  enabled?: boolean | null;
               }
             | string,
-        ...rest: [string?, object?, boolean?]
+        ...rest: [string?, (object | null)?, (boolean | null)?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name: string;
-            serviceAccountJSON?: object;
-            enabled?: boolean;
+            serviceAccountJSON?: object | null;
+            enabled?: boolean | null;
         };
 
         if (
@@ -3125,15 +3582,15 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name: string;
-                serviceAccountJSON?: object;
-                enabled?: boolean;
+                serviceAccountJSON?: object | null;
+                enabled?: boolean | null;
             };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                serviceAccountJSON: rest[1] as object,
-                enabled: rest[2] as boolean,
+                serviceAccountJSON: rest[1] as object | null,
+                enabled: rest[2] as boolean | null,
             };
         }
 
@@ -3171,7 +3628,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -3179,8 +3655,8 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
-     * @param {object} params.serviceAccountJSON - FCM service account JSON.
+     * @param {boolean | null} params.enabled - Set as enabled.
+     * @param {object | null} params.serviceAccountJSON - FCM service account JSON.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.updateFCMProvider` instead.
@@ -3188,16 +3664,16 @@ export class Messaging {
     updateFcmProvider(params: {
         providerId: string;
         name?: string;
-        enabled?: boolean;
-        serviceAccountJSON?: object;
+        enabled?: boolean | null;
+        serviceAccountJSON?: object | null;
     }): Promise<Models.Provider>;
     /**
      * Update a Firebase Cloud Messaging provider by its unique ID.
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
-     * @param {object} serviceAccountJSON - FCM service account JSON.
+     * @param {boolean | null} enabled - Set as enabled.
+     * @param {object | null} serviceAccountJSON - FCM service account JSON.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3205,25 +3681,25 @@ export class Messaging {
     updateFcmProvider(
         providerId: string,
         name?: string,
-        enabled?: boolean,
-        serviceAccountJSON?: object,
+        enabled?: boolean | null,
+        serviceAccountJSON?: object | null,
     ): Promise<Models.Provider>;
     updateFcmProvider(
         paramsOrFirst:
             | {
                   providerId: string;
                   name?: string;
-                  enabled?: boolean;
-                  serviceAccountJSON?: object;
+                  enabled?: boolean | null;
+                  serviceAccountJSON?: object | null;
               }
             | string,
-        ...rest: [string?, boolean?, object?]
+        ...rest: [string?, (boolean | null)?, (object | null)?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name?: string;
-            enabled?: boolean;
-            serviceAccountJSON?: object;
+            enabled?: boolean | null;
+            serviceAccountJSON?: object | null;
         };
 
         if (
@@ -3234,15 +3710,15 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name?: string;
-                enabled?: boolean;
-                serviceAccountJSON?: object;
+                enabled?: boolean | null;
+                serviceAccountJSON?: object | null;
             };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
-                serviceAccountJSON: rest[2] as object,
+                enabled: rest[1] as boolean | null,
+                serviceAccountJSON: rest[2] as object | null,
             };
         }
 
@@ -3277,7 +3753,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -3285,24 +3780,24 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
-     * @param {object} params.serviceAccountJSON - FCM service account JSON.
+     * @param {boolean | null} params.enabled - Set as enabled.
+     * @param {object | null} params.serviceAccountJSON - FCM service account JSON.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
     updateFCMProvider(params: {
         providerId: string;
         name?: string;
-        enabled?: boolean;
-        serviceAccountJSON?: object;
+        enabled?: boolean | null;
+        serviceAccountJSON?: object | null;
     }): Promise<Models.Provider>;
     /**
      * Update a Firebase Cloud Messaging provider by its unique ID.
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
-     * @param {object} serviceAccountJSON - FCM service account JSON.
+     * @param {boolean | null} enabled - Set as enabled.
+     * @param {object | null} serviceAccountJSON - FCM service account JSON.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3310,25 +3805,25 @@ export class Messaging {
     updateFCMProvider(
         providerId: string,
         name?: string,
-        enabled?: boolean,
-        serviceAccountJSON?: object,
+        enabled?: boolean | null,
+        serviceAccountJSON?: object | null,
     ): Promise<Models.Provider>;
     updateFCMProvider(
         paramsOrFirst:
             | {
                   providerId: string;
                   name?: string;
-                  enabled?: boolean;
-                  serviceAccountJSON?: object;
+                  enabled?: boolean | null;
+                  serviceAccountJSON?: object | null;
               }
             | string,
-        ...rest: [string?, boolean?, object?]
+        ...rest: [string?, (boolean | null)?, (object | null)?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name?: string;
-            enabled?: boolean;
-            serviceAccountJSON?: object;
+            enabled?: boolean | null;
+            serviceAccountJSON?: object | null;
         };
 
         if (
@@ -3339,15 +3834,15 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name?: string;
-                enabled?: boolean;
-                serviceAccountJSON?: object;
+                enabled?: boolean | null;
+                serviceAccountJSON?: object | null;
             };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
-                serviceAccountJSON: rest[2] as object,
+                enabled: rest[1] as boolean | null,
+                serviceAccountJSON: rest[2] as object | null,
             };
         }
 
@@ -3382,7 +3877,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -3392,12 +3906,12 @@ export class Messaging {
      * @param {string} params.name - Provider name.
      * @param {string} params.apiKey - Mailgun API Key.
      * @param {string} params.domain - Mailgun Domain.
-     * @param {boolean} params.isEuRegion - Set as EU region.
+     * @param {boolean | null} params.isEuRegion - Set as EU region.
      * @param {string} params.fromName - Sender Name.
      * @param {string} params.fromEmail - Sender email address.
      * @param {string} params.replyToName - Name set in the reply to field for the mail. Default value is sender name. Reply to name must have reply to email as well.
      * @param {string} params.replyToEmail - Email set in the reply to field for the mail. Default value is sender email. Reply to email must have reply to name as well.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
@@ -3406,12 +3920,12 @@ export class Messaging {
         name: string;
         apiKey?: string;
         domain?: string;
-        isEuRegion?: boolean;
+        isEuRegion?: boolean | null;
         fromName?: string;
         fromEmail?: string;
         replyToName?: string;
         replyToEmail?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new Mailgun provider.
@@ -3420,12 +3934,12 @@ export class Messaging {
      * @param {string} name - Provider name.
      * @param {string} apiKey - Mailgun API Key.
      * @param {string} domain - Mailgun Domain.
-     * @param {boolean} isEuRegion - Set as EU region.
+     * @param {boolean | null} isEuRegion - Set as EU region.
      * @param {string} fromName - Sender Name.
      * @param {string} fromEmail - Sender email address.
      * @param {string} replyToName - Name set in the reply to field for the mail. Default value is sender name. Reply to name must have reply to email as well.
      * @param {string} replyToEmail - Email set in the reply to field for the mail. Default value is sender email. Reply to email must have reply to name as well.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3435,12 +3949,12 @@ export class Messaging {
         name: string,
         apiKey?: string,
         domain?: string,
-        isEuRegion?: boolean,
+        isEuRegion?: boolean | null,
         fromName?: string,
         fromEmail?: string,
         replyToName?: string,
         replyToEmail?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createMailgunProvider(
         paramsOrFirst:
@@ -3449,24 +3963,24 @@ export class Messaging {
                   name: string;
                   apiKey?: string;
                   domain?: string;
-                  isEuRegion?: boolean;
+                  isEuRegion?: boolean | null;
                   fromName?: string;
                   fromEmail?: string;
                   replyToName?: string;
                   replyToEmail?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
         ...rest: [
             string?,
             string?,
             string?,
-            boolean?,
+            (boolean | null)?,
             string?,
             string?,
             string?,
             string?,
-            boolean?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Provider> {
         let params: {
@@ -3474,12 +3988,12 @@ export class Messaging {
             name: string;
             apiKey?: string;
             domain?: string;
-            isEuRegion?: boolean;
+            isEuRegion?: boolean | null;
             fromName?: string;
             fromEmail?: string;
             replyToName?: string;
             replyToEmail?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -3492,12 +4006,12 @@ export class Messaging {
                 name: string;
                 apiKey?: string;
                 domain?: string;
-                isEuRegion?: boolean;
+                isEuRegion?: boolean | null;
                 fromName?: string;
                 fromEmail?: string;
                 replyToName?: string;
                 replyToEmail?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
@@ -3505,12 +4019,12 @@ export class Messaging {
                 name: rest[0] as string,
                 apiKey: rest[1] as string,
                 domain: rest[2] as string,
-                isEuRegion: rest[3] as boolean,
+                isEuRegion: rest[3] as boolean | null,
                 fromName: rest[4] as string,
                 fromEmail: rest[5] as string,
                 replyToName: rest[6] as string,
                 replyToEmail: rest[7] as string,
-                enabled: rest[8] as boolean,
+                enabled: rest[8] as boolean | null,
             };
         }
 
@@ -3572,7 +4086,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -3582,8 +4115,8 @@ export class Messaging {
      * @param {string} params.name - Provider name.
      * @param {string} params.apiKey - Mailgun API Key.
      * @param {string} params.domain - Mailgun Domain.
-     * @param {boolean} params.isEuRegion - Set as EU region.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.isEuRegion - Set as EU region.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @param {string} params.fromName - Sender Name.
      * @param {string} params.fromEmail - Sender email address.
      * @param {string} params.replyToName - Name set in the reply to field for the mail. Default value is sender name.
@@ -3596,8 +4129,8 @@ export class Messaging {
         name?: string;
         apiKey?: string;
         domain?: string;
-        isEuRegion?: boolean;
-        enabled?: boolean;
+        isEuRegion?: boolean | null;
+        enabled?: boolean | null;
         fromName?: string;
         fromEmail?: string;
         replyToName?: string;
@@ -3610,8 +4143,8 @@ export class Messaging {
      * @param {string} name - Provider name.
      * @param {string} apiKey - Mailgun API Key.
      * @param {string} domain - Mailgun Domain.
-     * @param {boolean} isEuRegion - Set as EU region.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} isEuRegion - Set as EU region.
+     * @param {boolean | null} enabled - Set as enabled.
      * @param {string} fromName - Sender Name.
      * @param {string} fromEmail - Sender email address.
      * @param {string} replyToName - Name set in the reply to field for the mail. Default value is sender name.
@@ -3625,8 +4158,8 @@ export class Messaging {
         name?: string,
         apiKey?: string,
         domain?: string,
-        isEuRegion?: boolean,
-        enabled?: boolean,
+        isEuRegion?: boolean | null,
+        enabled?: boolean | null,
         fromName?: string,
         fromEmail?: string,
         replyToName?: string,
@@ -3639,8 +4172,8 @@ export class Messaging {
                   name?: string;
                   apiKey?: string;
                   domain?: string;
-                  isEuRegion?: boolean;
-                  enabled?: boolean;
+                  isEuRegion?: boolean | null;
+                  enabled?: boolean | null;
                   fromName?: string;
                   fromEmail?: string;
                   replyToName?: string;
@@ -3651,8 +4184,8 @@ export class Messaging {
             string?,
             string?,
             string?,
-            boolean?,
-            boolean?,
+            (boolean | null)?,
+            (boolean | null)?,
             string?,
             string?,
             string?,
@@ -3664,8 +4197,8 @@ export class Messaging {
             name?: string;
             apiKey?: string;
             domain?: string;
-            isEuRegion?: boolean;
-            enabled?: boolean;
+            isEuRegion?: boolean | null;
+            enabled?: boolean | null;
             fromName?: string;
             fromEmail?: string;
             replyToName?: string;
@@ -3682,8 +4215,8 @@ export class Messaging {
                 name?: string;
                 apiKey?: string;
                 domain?: string;
-                isEuRegion?: boolean;
-                enabled?: boolean;
+                isEuRegion?: boolean | null;
+                enabled?: boolean | null;
                 fromName?: string;
                 fromEmail?: string;
                 replyToName?: string;
@@ -3695,8 +4228,8 @@ export class Messaging {
                 name: rest[0] as string,
                 apiKey: rest[1] as string,
                 domain: rest[2] as string,
-                isEuRegion: rest[3] as boolean,
-                enabled: rest[4] as boolean,
+                isEuRegion: rest[3] as boolean | null,
+                enabled: rest[4] as boolean | null,
                 fromName: rest[5] as string,
                 fromEmail: rest[6] as string,
                 replyToName: rest[7] as string,
@@ -3759,7 +4292,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -3770,7 +4322,7 @@ export class Messaging {
      * @param {string} params.templateId - Msg91 template ID
      * @param {string} params.senderId - Msg91 sender ID.
      * @param {string} params.authKey - Msg91 auth key.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
@@ -3780,7 +4332,7 @@ export class Messaging {
         templateId?: string;
         senderId?: string;
         authKey?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new MSG91 provider.
@@ -3790,7 +4342,7 @@ export class Messaging {
      * @param {string} templateId - Msg91 template ID
      * @param {string} senderId - Msg91 sender ID.
      * @param {string} authKey - Msg91 auth key.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3801,7 +4353,7 @@ export class Messaging {
         templateId?: string,
         senderId?: string,
         authKey?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createMsg91Provider(
         paramsOrFirst:
@@ -3811,10 +4363,10 @@ export class Messaging {
                   templateId?: string;
                   senderId?: string;
                   authKey?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
-        ...rest: [string?, string?, string?, string?, boolean?]
+        ...rest: [string?, string?, string?, string?, (boolean | null)?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
@@ -3822,7 +4374,7 @@ export class Messaging {
             templateId?: string;
             senderId?: string;
             authKey?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -3836,7 +4388,7 @@ export class Messaging {
                 templateId?: string;
                 senderId?: string;
                 authKey?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
@@ -3845,7 +4397,7 @@ export class Messaging {
                 templateId: rest[1] as string,
                 senderId: rest[2] as string,
                 authKey: rest[3] as string,
-                enabled: rest[4] as boolean,
+                enabled: rest[4] as boolean | null,
             };
         }
 
@@ -3891,7 +4443,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -3899,7 +4470,7 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @param {string} params.templateId - Msg91 template ID.
      * @param {string} params.senderId - Msg91 sender ID.
      * @param {string} params.authKey - Msg91 auth key.
@@ -3909,7 +4480,7 @@ export class Messaging {
     updateMsg91Provider(params: {
         providerId: string;
         name?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
         templateId?: string;
         senderId?: string;
         authKey?: string;
@@ -3919,7 +4490,7 @@ export class Messaging {
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @param {string} templateId - Msg91 template ID.
      * @param {string} senderId - Msg91 sender ID.
      * @param {string} authKey - Msg91 auth key.
@@ -3930,7 +4501,7 @@ export class Messaging {
     updateMsg91Provider(
         providerId: string,
         name?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
         templateId?: string,
         senderId?: string,
         authKey?: string,
@@ -3940,18 +4511,18 @@ export class Messaging {
             | {
                   providerId: string;
                   name?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
                   templateId?: string;
                   senderId?: string;
                   authKey?: string;
               }
             | string,
-        ...rest: [string?, boolean?, string?, string?, string?]
+        ...rest: [string?, (boolean | null)?, string?, string?, string?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
             templateId?: string;
             senderId?: string;
             authKey?: string;
@@ -3965,7 +4536,7 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
                 templateId?: string;
                 senderId?: string;
                 authKey?: string;
@@ -3974,7 +4545,7 @@ export class Messaging {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
+                enabled: rest[1] as boolean | null,
                 templateId: rest[2] as string,
                 senderId: rest[3] as string,
                 authKey: rest[4] as string,
@@ -4020,7 +4591,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -4033,7 +4623,7 @@ export class Messaging {
      * @param {string} params.fromEmail - Sender email address.
      * @param {string} params.replyToName - Name set in the reply to field for the mail. Default value is sender name.
      * @param {string} params.replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
@@ -4045,7 +4635,7 @@ export class Messaging {
         fromEmail?: string;
         replyToName?: string;
         replyToEmail?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new Resend provider.
@@ -4057,7 +4647,7 @@ export class Messaging {
      * @param {string} fromEmail - Sender email address.
      * @param {string} replyToName - Name set in the reply to field for the mail. Default value is sender name.
      * @param {string} replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -4070,7 +4660,7 @@ export class Messaging {
         fromEmail?: string,
         replyToName?: string,
         replyToEmail?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createResendProvider(
         paramsOrFirst:
@@ -4082,7 +4672,7 @@ export class Messaging {
                   fromEmail?: string;
                   replyToName?: string;
                   replyToEmail?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
         ...rest: [
@@ -4092,7 +4682,7 @@ export class Messaging {
             string?,
             string?,
             string?,
-            boolean?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Provider> {
         let params: {
@@ -4103,7 +4693,7 @@ export class Messaging {
             fromEmail?: string;
             replyToName?: string;
             replyToEmail?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -4119,7 +4709,7 @@ export class Messaging {
                 fromEmail?: string;
                 replyToName?: string;
                 replyToEmail?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
@@ -4130,7 +4720,7 @@ export class Messaging {
                 fromEmail: rest[3] as string,
                 replyToName: rest[4] as string,
                 replyToEmail: rest[5] as string,
-                enabled: rest[6] as boolean,
+                enabled: rest[6] as boolean | null,
             };
         }
 
@@ -4184,7 +4774,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -4192,7 +4801,7 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @param {string} params.apiKey - Resend API key.
      * @param {string} params.fromName - Sender Name.
      * @param {string} params.fromEmail - Sender email address.
@@ -4204,7 +4813,7 @@ export class Messaging {
     updateResendProvider(params: {
         providerId: string;
         name?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
         apiKey?: string;
         fromName?: string;
         fromEmail?: string;
@@ -4216,7 +4825,7 @@ export class Messaging {
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @param {string} apiKey - Resend API key.
      * @param {string} fromName - Sender Name.
      * @param {string} fromEmail - Sender email address.
@@ -4229,7 +4838,7 @@ export class Messaging {
     updateResendProvider(
         providerId: string,
         name?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
         apiKey?: string,
         fromName?: string,
         fromEmail?: string,
@@ -4241,7 +4850,7 @@ export class Messaging {
             | {
                   providerId: string;
                   name?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
                   apiKey?: string;
                   fromName?: string;
                   fromEmail?: string;
@@ -4251,7 +4860,7 @@ export class Messaging {
             | string,
         ...rest: [
             string?,
-            boolean?,
+            (boolean | null)?,
             string?,
             string?,
             string?,
@@ -4262,7 +4871,7 @@ export class Messaging {
         let params: {
             providerId: string;
             name?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
             apiKey?: string;
             fromName?: string;
             fromEmail?: string;
@@ -4278,7 +4887,7 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
                 apiKey?: string;
                 fromName?: string;
                 fromEmail?: string;
@@ -4289,7 +4898,7 @@ export class Messaging {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
+                enabled: rest[1] as boolean | null,
                 apiKey: rest[2] as string,
                 fromName: rest[3] as string,
                 fromEmail: rest[4] as string,
@@ -4345,7 +4954,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -4358,7 +4986,7 @@ export class Messaging {
      * @param {string} params.fromEmail - Sender email address.
      * @param {string} params.replyToName - Name set in the reply to field for the mail. Default value is sender name.
      * @param {string} params.replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
@@ -4370,7 +4998,7 @@ export class Messaging {
         fromEmail?: string;
         replyToName?: string;
         replyToEmail?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new Sendgrid provider.
@@ -4382,7 +5010,7 @@ export class Messaging {
      * @param {string} fromEmail - Sender email address.
      * @param {string} replyToName - Name set in the reply to field for the mail. Default value is sender name.
      * @param {string} replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -4395,7 +5023,7 @@ export class Messaging {
         fromEmail?: string,
         replyToName?: string,
         replyToEmail?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createSendgridProvider(
         paramsOrFirst:
@@ -4407,7 +5035,7 @@ export class Messaging {
                   fromEmail?: string;
                   replyToName?: string;
                   replyToEmail?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
         ...rest: [
@@ -4417,7 +5045,7 @@ export class Messaging {
             string?,
             string?,
             string?,
-            boolean?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Provider> {
         let params: {
@@ -4428,7 +5056,7 @@ export class Messaging {
             fromEmail?: string;
             replyToName?: string;
             replyToEmail?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -4444,7 +5072,7 @@ export class Messaging {
                 fromEmail?: string;
                 replyToName?: string;
                 replyToEmail?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
@@ -4455,7 +5083,7 @@ export class Messaging {
                 fromEmail: rest[3] as string,
                 replyToName: rest[4] as string,
                 replyToEmail: rest[5] as string,
-                enabled: rest[6] as boolean,
+                enabled: rest[6] as boolean | null,
             };
         }
 
@@ -4509,7 +5137,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -4517,7 +5164,7 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @param {string} params.apiKey - Sendgrid API key.
      * @param {string} params.fromName - Sender Name.
      * @param {string} params.fromEmail - Sender email address.
@@ -4529,7 +5176,7 @@ export class Messaging {
     updateSendgridProvider(params: {
         providerId: string;
         name?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
         apiKey?: string;
         fromName?: string;
         fromEmail?: string;
@@ -4541,7 +5188,7 @@ export class Messaging {
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @param {string} apiKey - Sendgrid API key.
      * @param {string} fromName - Sender Name.
      * @param {string} fromEmail - Sender email address.
@@ -4554,7 +5201,7 @@ export class Messaging {
     updateSendgridProvider(
         providerId: string,
         name?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
         apiKey?: string,
         fromName?: string,
         fromEmail?: string,
@@ -4566,7 +5213,7 @@ export class Messaging {
             | {
                   providerId: string;
                   name?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
                   apiKey?: string;
                   fromName?: string;
                   fromEmail?: string;
@@ -4576,7 +5223,7 @@ export class Messaging {
             | string,
         ...rest: [
             string?,
-            boolean?,
+            (boolean | null)?,
             string?,
             string?,
             string?,
@@ -4587,7 +5234,7 @@ export class Messaging {
         let params: {
             providerId: string;
             name?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
             apiKey?: string;
             fromName?: string;
             fromEmail?: string;
@@ -4603,7 +5250,7 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
                 apiKey?: string;
                 fromName?: string;
                 fromEmail?: string;
@@ -4614,7 +5261,7 @@ export class Messaging {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
+                enabled: rest[1] as boolean | null,
                 apiKey: rest[2] as string,
                 fromName: rest[3] as string,
                 fromEmail: rest[4] as string,
@@ -4670,7 +5317,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -4685,7 +5351,7 @@ export class Messaging {
      * @param {string} params.fromEmail - Sender email address.
      * @param {string} params.replyToName - Name set in the reply to field for the mail. Default value is sender name.
      * @param {string} params.replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
@@ -4699,7 +5365,7 @@ export class Messaging {
         fromEmail?: string;
         replyToName?: string;
         replyToEmail?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new Amazon SES provider.
@@ -4713,7 +5379,7 @@ export class Messaging {
      * @param {string} fromEmail - Sender email address.
      * @param {string} replyToName - Name set in the reply to field for the mail. Default value is sender name.
      * @param {string} replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -4728,7 +5394,7 @@ export class Messaging {
         fromEmail?: string,
         replyToName?: string,
         replyToEmail?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createSesProvider(
         paramsOrFirst:
@@ -4742,7 +5408,7 @@ export class Messaging {
                   fromEmail?: string;
                   replyToName?: string;
                   replyToEmail?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
         ...rest: [
@@ -4754,7 +5420,7 @@ export class Messaging {
             string?,
             string?,
             string?,
-            boolean?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Provider> {
         let params: {
@@ -4767,7 +5433,7 @@ export class Messaging {
             fromEmail?: string;
             replyToName?: string;
             replyToEmail?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -4785,7 +5451,7 @@ export class Messaging {
                 fromEmail?: string;
                 replyToName?: string;
                 replyToEmail?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
@@ -4798,7 +5464,7 @@ export class Messaging {
                 fromEmail: rest[5] as string,
                 replyToName: rest[6] as string,
                 replyToEmail: rest[7] as string,
-                enabled: rest[8] as boolean,
+                enabled: rest[8] as boolean | null,
             };
         }
 
@@ -4860,7 +5526,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -4868,7 +5553,7 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @param {string} params.accessKey - AWS access key ID.
      * @param {string} params.secretKey - AWS secret access key.
      * @param {string} params.region - AWS region, for example us-east-1.
@@ -4882,7 +5567,7 @@ export class Messaging {
     updateSesProvider(params: {
         providerId: string;
         name?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
         accessKey?: string;
         secretKey?: string;
         region?: string;
@@ -4896,7 +5581,7 @@ export class Messaging {
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @param {string} accessKey - AWS access key ID.
      * @param {string} secretKey - AWS secret access key.
      * @param {string} region - AWS region, for example us-east-1.
@@ -4911,7 +5596,7 @@ export class Messaging {
     updateSesProvider(
         providerId: string,
         name?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
         accessKey?: string,
         secretKey?: string,
         region?: string,
@@ -4925,7 +5610,7 @@ export class Messaging {
             | {
                   providerId: string;
                   name?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
                   accessKey?: string;
                   secretKey?: string;
                   region?: string;
@@ -4937,7 +5622,7 @@ export class Messaging {
             | string,
         ...rest: [
             string?,
-            boolean?,
+            (boolean | null)?,
             string?,
             string?,
             string?,
@@ -4950,7 +5635,7 @@ export class Messaging {
         let params: {
             providerId: string;
             name?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
             accessKey?: string;
             secretKey?: string;
             region?: string;
@@ -4968,7 +5653,7 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
                 accessKey?: string;
                 secretKey?: string;
                 region?: string;
@@ -4981,7 +5666,7 @@ export class Messaging {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
+                enabled: rest[1] as boolean | null,
                 accessKey: rest[2] as string,
                 secretKey: rest[3] as string,
                 region: rest[4] as string,
@@ -5047,7 +5732,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -5066,7 +5770,7 @@ export class Messaging {
      * @param {string} params.fromEmail - Sender email address.
      * @param {string} params.replyToName - Name set in the reply to field for the mail. Default value is sender name.
      * @param {string} params.replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.createSMTPProvider` instead.
@@ -5085,7 +5789,7 @@ export class Messaging {
         fromEmail?: string;
         replyToName?: string;
         replyToEmail?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new SMTP provider.
@@ -5103,7 +5807,7 @@ export class Messaging {
      * @param {string} fromEmail - Sender email address.
      * @param {string} replyToName - Name set in the reply to field for the mail. Default value is sender name.
      * @param {string} replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5122,7 +5826,7 @@ export class Messaging {
         fromEmail?: string,
         replyToName?: string,
         replyToEmail?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createSmtpProvider(
         paramsOrFirst:
@@ -5140,7 +5844,7 @@ export class Messaging {
                   fromEmail?: string;
                   replyToName?: string;
                   replyToEmail?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
         ...rest: [
@@ -5156,7 +5860,7 @@ export class Messaging {
             string?,
             string?,
             string?,
-            boolean?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Provider> {
         let params: {
@@ -5173,7 +5877,7 @@ export class Messaging {
             fromEmail?: string;
             replyToName?: string;
             replyToEmail?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -5195,7 +5899,7 @@ export class Messaging {
                 fromEmail?: string;
                 replyToName?: string;
                 replyToEmail?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
@@ -5212,7 +5916,7 @@ export class Messaging {
                 fromEmail: rest[9] as string,
                 replyToName: rest[10] as string,
                 replyToEmail: rest[11] as string,
-                enabled: rest[12] as boolean,
+                enabled: rest[12] as boolean | null,
             };
         }
 
@@ -5293,7 +5997,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -5312,7 +6035,7 @@ export class Messaging {
      * @param {string} params.fromEmail - Sender email address.
      * @param {string} params.replyToName - Name set in the reply to field for the mail. Default value is sender name.
      * @param {string} params.replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
@@ -5330,7 +6053,7 @@ export class Messaging {
         fromEmail?: string;
         replyToName?: string;
         replyToEmail?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new SMTP provider.
@@ -5348,7 +6071,7 @@ export class Messaging {
      * @param {string} fromEmail - Sender email address.
      * @param {string} replyToName - Name set in the reply to field for the mail. Default value is sender name.
      * @param {string} replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5367,7 +6090,7 @@ export class Messaging {
         fromEmail?: string,
         replyToName?: string,
         replyToEmail?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createSMTPProvider(
         paramsOrFirst:
@@ -5385,7 +6108,7 @@ export class Messaging {
                   fromEmail?: string;
                   replyToName?: string;
                   replyToEmail?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
         ...rest: [
@@ -5401,7 +6124,7 @@ export class Messaging {
             string?,
             string?,
             string?,
-            boolean?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Provider> {
         let params: {
@@ -5418,7 +6141,7 @@ export class Messaging {
             fromEmail?: string;
             replyToName?: string;
             replyToEmail?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -5440,7 +6163,7 @@ export class Messaging {
                 fromEmail?: string;
                 replyToName?: string;
                 replyToEmail?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
@@ -5457,7 +6180,7 @@ export class Messaging {
                 fromEmail: rest[9] as string,
                 replyToName: rest[10] as string,
                 replyToEmail: rest[11] as string,
-                enabled: rest[12] as boolean,
+                enabled: rest[12] as boolean | null,
             };
         }
 
@@ -5538,7 +6261,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -5547,17 +6289,17 @@ export class Messaging {
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
      * @param {string} params.host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
-     * @param {number} params.port - SMTP port.
+     * @param {number | null} params.port - SMTP port.
      * @param {string} params.username - Authentication username.
      * @param {string} params.password - Authentication password.
      * @param {SmtpEncryption} params.encryption - Encryption type. Can be 'ssl' or 'tls'
-     * @param {boolean} params.autoTLS - Enable SMTP AutoTLS feature.
+     * @param {boolean | null} params.autoTLS - Enable SMTP AutoTLS feature.
      * @param {string} params.mailer - The value to use for the X-Mailer header.
      * @param {string} params.fromName - Sender Name.
      * @param {string} params.fromEmail - Sender email address.
      * @param {string} params.replyToName - Name set in the Reply To field for the mail. Default value is Sender Name.
      * @param {string} params.replyToEmail - Email set in the Reply To field for the mail. Default value is Sender Email.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `Messaging.updateSMTPProvider` instead.
@@ -5566,17 +6308,17 @@ export class Messaging {
         providerId: string;
         name?: string;
         host?: string;
-        port?: number;
+        port?: number | null;
         username?: string;
         password?: string;
         encryption?: SmtpEncryption;
-        autoTLS?: boolean;
+        autoTLS?: boolean | null;
         mailer?: string;
         fromName?: string;
         fromEmail?: string;
         replyToName?: string;
         replyToEmail?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Update a SMTP provider by its unique ID.
@@ -5584,17 +6326,17 @@ export class Messaging {
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
      * @param {string} host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
-     * @param {number} port - SMTP port.
+     * @param {number | null} port - SMTP port.
      * @param {string} username - Authentication username.
      * @param {string} password - Authentication password.
      * @param {SmtpEncryption} encryption - Encryption type. Can be 'ssl' or 'tls'
-     * @param {boolean} autoTLS - Enable SMTP AutoTLS feature.
+     * @param {boolean | null} autoTLS - Enable SMTP AutoTLS feature.
      * @param {string} mailer - The value to use for the X-Mailer header.
      * @param {string} fromName - Sender Name.
      * @param {string} fromEmail - Sender email address.
      * @param {string} replyToName - Name set in the Reply To field for the mail. Default value is Sender Name.
      * @param {string} replyToEmail - Email set in the Reply To field for the mail. Default value is Sender Email.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5603,17 +6345,17 @@ export class Messaging {
         providerId: string,
         name?: string,
         host?: string,
-        port?: number,
+        port?: number | null,
         username?: string,
         password?: string,
         encryption?: SmtpEncryption,
-        autoTLS?: boolean,
+        autoTLS?: boolean | null,
         mailer?: string,
         fromName?: string,
         fromEmail?: string,
         replyToName?: string,
         replyToEmail?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     updateSmtpProvider(
         paramsOrFirst:
@@ -5621,50 +6363,50 @@ export class Messaging {
                   providerId: string;
                   name?: string;
                   host?: string;
-                  port?: number;
+                  port?: number | null;
                   username?: string;
                   password?: string;
                   encryption?: SmtpEncryption;
-                  autoTLS?: boolean;
+                  autoTLS?: boolean | null;
                   mailer?: string;
                   fromName?: string;
                   fromEmail?: string;
                   replyToName?: string;
                   replyToEmail?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
         ...rest: [
             string?,
             string?,
-            number?,
+            (number | null)?,
             string?,
             string?,
             SmtpEncryption?,
-            boolean?,
+            (boolean | null)?,
             string?,
             string?,
             string?,
             string?,
             string?,
-            boolean?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name?: string;
             host?: string;
-            port?: number;
+            port?: number | null;
             username?: string;
             password?: string;
             encryption?: SmtpEncryption;
-            autoTLS?: boolean;
+            autoTLS?: boolean | null;
             mailer?: string;
             fromName?: string;
             fromEmail?: string;
             replyToName?: string;
             replyToEmail?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -5676,34 +6418,34 @@ export class Messaging {
                 providerId: string;
                 name?: string;
                 host?: string;
-                port?: number;
+                port?: number | null;
                 username?: string;
                 password?: string;
                 encryption?: SmtpEncryption;
-                autoTLS?: boolean;
+                autoTLS?: boolean | null;
                 mailer?: string;
                 fromName?: string;
                 fromEmail?: string;
                 replyToName?: string;
                 replyToEmail?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
                 host: rest[1] as string,
-                port: rest[2] as number,
+                port: rest[2] as number | null,
                 username: rest[3] as string,
                 password: rest[4] as string,
                 encryption: rest[5] as SmtpEncryption,
-                autoTLS: rest[6] as boolean,
+                autoTLS: rest[6] as boolean | null,
                 mailer: rest[7] as string,
                 fromName: rest[8] as string,
                 fromEmail: rest[9] as string,
                 replyToName: rest[10] as string,
                 replyToEmail: rest[11] as string,
-                enabled: rest[12] as boolean,
+                enabled: rest[12] as boolean | null,
             };
         }
 
@@ -5778,7 +6520,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -5787,17 +6548,17 @@ export class Messaging {
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
      * @param {string} params.host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
-     * @param {number} params.port - SMTP port.
+     * @param {number | null} params.port - SMTP port.
      * @param {string} params.username - Authentication username.
      * @param {string} params.password - Authentication password.
      * @param {SmtpEncryption} params.encryption - Encryption type. Can be 'ssl' or 'tls'
-     * @param {boolean} params.autoTLS - Enable SMTP AutoTLS feature.
+     * @param {boolean | null} params.autoTLS - Enable SMTP AutoTLS feature.
      * @param {string} params.mailer - The value to use for the X-Mailer header.
      * @param {string} params.fromName - Sender Name.
      * @param {string} params.fromEmail - Sender email address.
      * @param {string} params.replyToName - Name set in the Reply To field for the mail. Default value is Sender Name.
      * @param {string} params.replyToEmail - Email set in the Reply To field for the mail. Default value is Sender Email.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
@@ -5805,17 +6566,17 @@ export class Messaging {
         providerId: string;
         name?: string;
         host?: string;
-        port?: number;
+        port?: number | null;
         username?: string;
         password?: string;
         encryption?: SmtpEncryption;
-        autoTLS?: boolean;
+        autoTLS?: boolean | null;
         mailer?: string;
         fromName?: string;
         fromEmail?: string;
         replyToName?: string;
         replyToEmail?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Update a SMTP provider by its unique ID.
@@ -5823,17 +6584,17 @@ export class Messaging {
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
      * @param {string} host - SMTP hosts. Either a single hostname or multiple semicolon-delimited hostnames. You can also specify a different port for each host such as `smtp1.example.com:25;smtp2.example.com`. You can also specify encryption type, for example: `tls://smtp1.example.com:587;ssl://smtp2.example.com:465"`. Hosts will be tried in order.
-     * @param {number} port - SMTP port.
+     * @param {number | null} port - SMTP port.
      * @param {string} username - Authentication username.
      * @param {string} password - Authentication password.
      * @param {SmtpEncryption} encryption - Encryption type. Can be 'ssl' or 'tls'
-     * @param {boolean} autoTLS - Enable SMTP AutoTLS feature.
+     * @param {boolean | null} autoTLS - Enable SMTP AutoTLS feature.
      * @param {string} mailer - The value to use for the X-Mailer header.
      * @param {string} fromName - Sender Name.
      * @param {string} fromEmail - Sender email address.
      * @param {string} replyToName - Name set in the Reply To field for the mail. Default value is Sender Name.
      * @param {string} replyToEmail - Email set in the Reply To field for the mail. Default value is Sender Email.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5842,17 +6603,17 @@ export class Messaging {
         providerId: string,
         name?: string,
         host?: string,
-        port?: number,
+        port?: number | null,
         username?: string,
         password?: string,
         encryption?: SmtpEncryption,
-        autoTLS?: boolean,
+        autoTLS?: boolean | null,
         mailer?: string,
         fromName?: string,
         fromEmail?: string,
         replyToName?: string,
         replyToEmail?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     updateSMTPProvider(
         paramsOrFirst:
@@ -5860,50 +6621,50 @@ export class Messaging {
                   providerId: string;
                   name?: string;
                   host?: string;
-                  port?: number;
+                  port?: number | null;
                   username?: string;
                   password?: string;
                   encryption?: SmtpEncryption;
-                  autoTLS?: boolean;
+                  autoTLS?: boolean | null;
                   mailer?: string;
                   fromName?: string;
                   fromEmail?: string;
                   replyToName?: string;
                   replyToEmail?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
         ...rest: [
             string?,
             string?,
-            number?,
+            (number | null)?,
             string?,
             string?,
             SmtpEncryption?,
-            boolean?,
+            (boolean | null)?,
             string?,
             string?,
             string?,
             string?,
             string?,
-            boolean?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name?: string;
             host?: string;
-            port?: number;
+            port?: number | null;
             username?: string;
             password?: string;
             encryption?: SmtpEncryption;
-            autoTLS?: boolean;
+            autoTLS?: boolean | null;
             mailer?: string;
             fromName?: string;
             fromEmail?: string;
             replyToName?: string;
             replyToEmail?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -5915,34 +6676,34 @@ export class Messaging {
                 providerId: string;
                 name?: string;
                 host?: string;
-                port?: number;
+                port?: number | null;
                 username?: string;
                 password?: string;
                 encryption?: SmtpEncryption;
-                autoTLS?: boolean;
+                autoTLS?: boolean | null;
                 mailer?: string;
                 fromName?: string;
                 fromEmail?: string;
                 replyToName?: string;
                 replyToEmail?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
                 host: rest[1] as string,
-                port: rest[2] as number,
+                port: rest[2] as number | null,
                 username: rest[3] as string,
                 password: rest[4] as string,
                 encryption: rest[5] as SmtpEncryption,
-                autoTLS: rest[6] as boolean,
+                autoTLS: rest[6] as boolean | null,
                 mailer: rest[7] as string,
                 fromName: rest[8] as string,
                 fromEmail: rest[9] as string,
                 replyToName: rest[10] as string,
                 replyToEmail: rest[11] as string,
-                enabled: rest[12] as boolean,
+                enabled: rest[12] as boolean | null,
             };
         }
 
@@ -6017,7 +6778,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -6028,7 +6808,7 @@ export class Messaging {
      * @param {string} params.from - Sender Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
      * @param {string} params.customerId - Telesign customer ID.
      * @param {string} params.apiKey - Telesign API key.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
@@ -6038,7 +6818,7 @@ export class Messaging {
         from?: string;
         customerId?: string;
         apiKey?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new Telesign provider.
@@ -6048,7 +6828,7 @@ export class Messaging {
      * @param {string} from - Sender Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
      * @param {string} customerId - Telesign customer ID.
      * @param {string} apiKey - Telesign API key.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6059,7 +6839,7 @@ export class Messaging {
         from?: string,
         customerId?: string,
         apiKey?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createTelesignProvider(
         paramsOrFirst:
@@ -6069,10 +6849,10 @@ export class Messaging {
                   from?: string;
                   customerId?: string;
                   apiKey?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
-        ...rest: [string?, string?, string?, string?, boolean?]
+        ...rest: [string?, string?, string?, string?, (boolean | null)?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
@@ -6080,7 +6860,7 @@ export class Messaging {
             from?: string;
             customerId?: string;
             apiKey?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -6094,7 +6874,7 @@ export class Messaging {
                 from?: string;
                 customerId?: string;
                 apiKey?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
@@ -6103,7 +6883,7 @@ export class Messaging {
                 from: rest[1] as string,
                 customerId: rest[2] as string,
                 apiKey: rest[3] as string,
-                enabled: rest[4] as boolean,
+                enabled: rest[4] as boolean | null,
             };
         }
 
@@ -6149,7 +6929,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -6157,7 +6956,7 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @param {string} params.customerId - Telesign customer ID.
      * @param {string} params.apiKey - Telesign API key.
      * @param {string} params.from - Sender number.
@@ -6167,7 +6966,7 @@ export class Messaging {
     updateTelesignProvider(params: {
         providerId: string;
         name?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
         customerId?: string;
         apiKey?: string;
         from?: string;
@@ -6177,7 +6976,7 @@ export class Messaging {
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @param {string} customerId - Telesign customer ID.
      * @param {string} apiKey - Telesign API key.
      * @param {string} from - Sender number.
@@ -6188,7 +6987,7 @@ export class Messaging {
     updateTelesignProvider(
         providerId: string,
         name?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
         customerId?: string,
         apiKey?: string,
         from?: string,
@@ -6198,18 +6997,18 @@ export class Messaging {
             | {
                   providerId: string;
                   name?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
                   customerId?: string;
                   apiKey?: string;
                   from?: string;
               }
             | string,
-        ...rest: [string?, boolean?, string?, string?, string?]
+        ...rest: [string?, (boolean | null)?, string?, string?, string?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
             customerId?: string;
             apiKey?: string;
             from?: string;
@@ -6223,7 +7022,7 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
                 customerId?: string;
                 apiKey?: string;
                 from?: string;
@@ -6232,7 +7031,7 @@ export class Messaging {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
+                enabled: rest[1] as boolean | null,
                 customerId: rest[2] as string,
                 apiKey: rest[3] as string,
                 from: rest[4] as string,
@@ -6278,7 +7077,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -6289,7 +7107,7 @@ export class Messaging {
      * @param {string} params.from - Sender Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
      * @param {string} params.username - Textmagic username.
      * @param {string} params.apiKey - Textmagic apiKey.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
@@ -6299,7 +7117,7 @@ export class Messaging {
         from?: string;
         username?: string;
         apiKey?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new Textmagic provider.
@@ -6309,7 +7127,7 @@ export class Messaging {
      * @param {string} from - Sender Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
      * @param {string} username - Textmagic username.
      * @param {string} apiKey - Textmagic apiKey.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6320,7 +7138,7 @@ export class Messaging {
         from?: string,
         username?: string,
         apiKey?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createTextmagicProvider(
         paramsOrFirst:
@@ -6330,10 +7148,10 @@ export class Messaging {
                   from?: string;
                   username?: string;
                   apiKey?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
-        ...rest: [string?, string?, string?, string?, boolean?]
+        ...rest: [string?, string?, string?, string?, (boolean | null)?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
@@ -6341,7 +7159,7 @@ export class Messaging {
             from?: string;
             username?: string;
             apiKey?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -6355,7 +7173,7 @@ export class Messaging {
                 from?: string;
                 username?: string;
                 apiKey?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
@@ -6364,7 +7182,7 @@ export class Messaging {
                 from: rest[1] as string,
                 username: rest[2] as string,
                 apiKey: rest[3] as string,
-                enabled: rest[4] as boolean,
+                enabled: rest[4] as boolean | null,
             };
         }
 
@@ -6410,7 +7228,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -6418,7 +7255,7 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @param {string} params.username - Textmagic username.
      * @param {string} params.apiKey - Textmagic apiKey.
      * @param {string} params.from - Sender number.
@@ -6428,7 +7265,7 @@ export class Messaging {
     updateTextmagicProvider(params: {
         providerId: string;
         name?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
         username?: string;
         apiKey?: string;
         from?: string;
@@ -6438,7 +7275,7 @@ export class Messaging {
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @param {string} username - Textmagic username.
      * @param {string} apiKey - Textmagic apiKey.
      * @param {string} from - Sender number.
@@ -6449,7 +7286,7 @@ export class Messaging {
     updateTextmagicProvider(
         providerId: string,
         name?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
         username?: string,
         apiKey?: string,
         from?: string,
@@ -6459,18 +7296,18 @@ export class Messaging {
             | {
                   providerId: string;
                   name?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
                   username?: string;
                   apiKey?: string;
                   from?: string;
               }
             | string,
-        ...rest: [string?, boolean?, string?, string?, string?]
+        ...rest: [string?, (boolean | null)?, string?, string?, string?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
             username?: string;
             apiKey?: string;
             from?: string;
@@ -6484,7 +7321,7 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
                 username?: string;
                 apiKey?: string;
                 from?: string;
@@ -6493,7 +7330,7 @@ export class Messaging {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
+                enabled: rest[1] as boolean | null,
                 username: rest[2] as string,
                 apiKey: rest[3] as string,
                 from: rest[4] as string,
@@ -6539,7 +7376,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -6550,7 +7406,7 @@ export class Messaging {
      * @param {string} params.from - Sender phone number or alphanumeric sender ID. Format phone numbers with a leading '+' and a country code, e.g., +16175551212.
      * @param {string} params.accountSid - Twilio account secret ID.
      * @param {string} params.authToken - Twilio authentication token.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
@@ -6560,7 +7416,7 @@ export class Messaging {
         from?: string;
         accountSid?: string;
         authToken?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new Twilio provider.
@@ -6570,7 +7426,7 @@ export class Messaging {
      * @param {string} from - Sender phone number or alphanumeric sender ID. Format phone numbers with a leading '+' and a country code, e.g., +16175551212.
      * @param {string} accountSid - Twilio account secret ID.
      * @param {string} authToken - Twilio authentication token.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6581,7 +7437,7 @@ export class Messaging {
         from?: string,
         accountSid?: string,
         authToken?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createTwilioProvider(
         paramsOrFirst:
@@ -6591,10 +7447,10 @@ export class Messaging {
                   from?: string;
                   accountSid?: string;
                   authToken?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
-        ...rest: [string?, string?, string?, string?, boolean?]
+        ...rest: [string?, string?, string?, string?, (boolean | null)?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
@@ -6602,7 +7458,7 @@ export class Messaging {
             from?: string;
             accountSid?: string;
             authToken?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -6616,7 +7472,7 @@ export class Messaging {
                 from?: string;
                 accountSid?: string;
                 authToken?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
@@ -6625,7 +7481,7 @@ export class Messaging {
                 from: rest[1] as string,
                 accountSid: rest[2] as string,
                 authToken: rest[3] as string,
-                enabled: rest[4] as boolean,
+                enabled: rest[4] as boolean | null,
             };
         }
 
@@ -6671,7 +7527,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -6679,7 +7554,7 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @param {string} params.accountSid - Twilio account secret ID.
      * @param {string} params.authToken - Twilio authentication token.
      * @param {string} params.from - Sender phone number or alphanumeric sender ID. Format phone numbers with a leading '+' and a country code, e.g., +16175551212.
@@ -6689,7 +7564,7 @@ export class Messaging {
     updateTwilioProvider(params: {
         providerId: string;
         name?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
         accountSid?: string;
         authToken?: string;
         from?: string;
@@ -6699,7 +7574,7 @@ export class Messaging {
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @param {string} accountSid - Twilio account secret ID.
      * @param {string} authToken - Twilio authentication token.
      * @param {string} from - Sender phone number or alphanumeric sender ID. Format phone numbers with a leading '+' and a country code, e.g., +16175551212.
@@ -6710,7 +7585,7 @@ export class Messaging {
     updateTwilioProvider(
         providerId: string,
         name?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
         accountSid?: string,
         authToken?: string,
         from?: string,
@@ -6720,18 +7595,18 @@ export class Messaging {
             | {
                   providerId: string;
                   name?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
                   accountSid?: string;
                   authToken?: string;
                   from?: string;
               }
             | string,
-        ...rest: [string?, boolean?, string?, string?, string?]
+        ...rest: [string?, (boolean | null)?, string?, string?, string?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
             accountSid?: string;
             authToken?: string;
             from?: string;
@@ -6745,7 +7620,7 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
                 accountSid?: string;
                 authToken?: string;
                 from?: string;
@@ -6754,7 +7629,7 @@ export class Messaging {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
+                enabled: rest[1] as boolean | null,
                 accountSid: rest[2] as string,
                 authToken: rest[3] as string,
                 from: rest[4] as string,
@@ -6800,7 +7675,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -6811,7 +7705,7 @@ export class Messaging {
      * @param {string} params.from - Sender Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
      * @param {string} params.apiKey - Vonage API key.
      * @param {string} params.apiSecret - Vonage API secret.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      */
@@ -6821,7 +7715,7 @@ export class Messaging {
         from?: string;
         apiKey?: string;
         apiSecret?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
     }): Promise<Models.Provider>;
     /**
      * Create a new Vonage provider.
@@ -6831,7 +7725,7 @@ export class Messaging {
      * @param {string} from - Sender Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
      * @param {string} apiKey - Vonage API key.
      * @param {string} apiSecret - Vonage API secret.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6842,7 +7736,7 @@ export class Messaging {
         from?: string,
         apiKey?: string,
         apiSecret?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
     ): Promise<Models.Provider>;
     createVonageProvider(
         paramsOrFirst:
@@ -6852,10 +7746,10 @@ export class Messaging {
                   from?: string;
                   apiKey?: string;
                   apiSecret?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
               }
             | string,
-        ...rest: [string?, string?, string?, string?, boolean?]
+        ...rest: [string?, string?, string?, string?, (boolean | null)?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
@@ -6863,7 +7757,7 @@ export class Messaging {
             from?: string;
             apiKey?: string;
             apiSecret?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
         };
 
         if (
@@ -6877,7 +7771,7 @@ export class Messaging {
                 from?: string;
                 apiKey?: string;
                 apiSecret?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
             };
         } else {
             params = {
@@ -6886,7 +7780,7 @@ export class Messaging {
                 from: rest[1] as string,
                 apiKey: rest[2] as string,
                 apiSecret: rest[3] as string,
-                enabled: rest[4] as boolean,
+                enabled: rest[4] as boolean | null,
             };
         }
 
@@ -6932,7 +7826,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -6940,7 +7853,7 @@ export class Messaging {
      *
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
-     * @param {boolean} params.enabled - Set as enabled.
+     * @param {boolean | null} params.enabled - Set as enabled.
      * @param {string} params.apiKey - Vonage API key.
      * @param {string} params.apiSecret - Vonage API secret.
      * @param {string} params.from - Sender number.
@@ -6950,7 +7863,7 @@ export class Messaging {
     updateVonageProvider(params: {
         providerId: string;
         name?: string;
-        enabled?: boolean;
+        enabled?: boolean | null;
         apiKey?: string;
         apiSecret?: string;
         from?: string;
@@ -6960,7 +7873,7 @@ export class Messaging {
      *
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
-     * @param {boolean} enabled - Set as enabled.
+     * @param {boolean | null} enabled - Set as enabled.
      * @param {string} apiKey - Vonage API key.
      * @param {string} apiSecret - Vonage API secret.
      * @param {string} from - Sender number.
@@ -6971,7 +7884,7 @@ export class Messaging {
     updateVonageProvider(
         providerId: string,
         name?: string,
-        enabled?: boolean,
+        enabled?: boolean | null,
         apiKey?: string,
         apiSecret?: string,
         from?: string,
@@ -6981,18 +7894,18 @@ export class Messaging {
             | {
                   providerId: string;
                   name?: string;
-                  enabled?: boolean;
+                  enabled?: boolean | null;
                   apiKey?: string;
                   apiSecret?: string;
                   from?: string;
               }
             | string,
-        ...rest: [string?, boolean?, string?, string?, string?]
+        ...rest: [string?, (boolean | null)?, string?, string?, string?]
     ): Promise<Models.Provider> {
         let params: {
             providerId: string;
             name?: string;
-            enabled?: boolean;
+            enabled?: boolean | null;
             apiKey?: string;
             apiSecret?: string;
             from?: string;
@@ -7006,7 +7919,7 @@ export class Messaging {
             params = (paramsOrFirst || {}) as {
                 providerId: string;
                 name?: string;
-                enabled?: boolean;
+                enabled?: boolean | null;
                 apiKey?: string;
                 apiSecret?: string;
                 from?: string;
@@ -7015,7 +7928,7 @@ export class Messaging {
             params = {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
-                enabled: rest[1] as boolean,
+                enabled: rest[1] as boolean | null,
                 apiKey: rest[2] as string,
                 apiSecret: rest[3] as string,
                 from: rest[4] as string,
@@ -7061,7 +7974,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -7118,7 +8050,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -7253,7 +8204,37 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'topicList',
+            models: {
+                topicList: {
+                    defaults: {
+                        total: 0,
+                        topics: [],
+                    },
+                    properties: {
+                        topics: {
+                            items: 'topic',
+                        },
+                    },
+                },
+                topic: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        emailTotal: 0,
+                        smsTotal: 0,
+                        pushTotal: 0,
+                        subscribe: ['users'],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -7262,8 +8243,8 @@ export class Messaging {
      * @param {string} params.topicId - Topic ID. Choose a custom Topic ID or a new Topic ID.
      * @param {string} params.name - Topic Name.
      * @param {string[]} params.subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
-     * @param {number} params.qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
-     * @param {number} params.expiry - Message retention in seconds for offline delivery. Max 7 days (604800).
+     * @param {number | null} params.qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
+     * @param {number | null} params.expiry - Message retention in seconds for offline delivery. Max 7 days (604800). Null inherits the lowest expiry of the project's enabled Appwrite providers, or the 7-day ledger window if none sets one.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      */
@@ -7271,8 +8252,8 @@ export class Messaging {
         topicId: string;
         name: string;
         subscribe?: string[];
-        qos?: number;
-        expiry?: number;
+        qos?: number | null;
+        expiry?: number | null;
     }): Promise<Models.Topic>;
     /**
      * Create a new topic.
@@ -7280,8 +8261,8 @@ export class Messaging {
      * @param {string} topicId - Topic ID. Choose a custom Topic ID or a new Topic ID.
      * @param {string} name - Topic Name.
      * @param {string[]} subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
-     * @param {number} qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
-     * @param {number} expiry - Message retention in seconds for offline delivery. Max 7 days (604800).
+     * @param {number | null} qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
+     * @param {number | null} expiry - Message retention in seconds for offline delivery. Max 7 days (604800). Null inherits the lowest expiry of the project's enabled Appwrite providers, or the 7-day ledger window if none sets one.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -7290,8 +8271,8 @@ export class Messaging {
         topicId: string,
         name: string,
         subscribe?: string[],
-        qos?: number,
-        expiry?: number,
+        qos?: number | null,
+        expiry?: number | null,
     ): Promise<Models.Topic>;
     createTopic(
         paramsOrFirst:
@@ -7299,18 +8280,18 @@ export class Messaging {
                   topicId: string;
                   name: string;
                   subscribe?: string[];
-                  qos?: number;
-                  expiry?: number;
+                  qos?: number | null;
+                  expiry?: number | null;
               }
             | string,
-        ...rest: [string?, string[]?, number?, number?]
+        ...rest: [string?, string[]?, (number | null)?, (number | null)?]
     ): Promise<Models.Topic> {
         let params: {
             topicId: string;
             name: string;
             subscribe?: string[];
-            qos?: number;
-            expiry?: number;
+            qos?: number | null;
+            expiry?: number | null;
         };
 
         if (
@@ -7322,16 +8303,16 @@ export class Messaging {
                 topicId: string;
                 name: string;
                 subscribe?: string[];
-                qos?: number;
-                expiry?: number;
+                qos?: number | null;
+                expiry?: number | null;
             };
         } else {
             params = {
                 topicId: paramsOrFirst as string,
                 name: rest[0] as string,
                 subscribe: rest[1] as string[],
-                qos: rest[2] as number,
-                expiry: rest[3] as number,
+                qos: rest[2] as number | null,
+                expiry: rest[3] as number | null,
             };
         }
 
@@ -7373,7 +8354,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'topic',
+            models: {
+                topic: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        emailTotal: 0,
+                        smsTotal: 0,
+                        pushTotal: 0,
+                        subscribe: ['users'],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -7430,7 +8430,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'topic',
+            models: {
+                topic: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        emailTotal: 0,
+                        smsTotal: 0,
+                        pushTotal: 0,
+                        subscribe: ['users'],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -7438,58 +8457,63 @@ export class Messaging {
      *
      *
      * @param {string} params.topicId - Topic ID.
-     * @param {string} params.name - Topic Name.
-     * @param {string[]} params.subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
-     * @param {number} params.qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
-     * @param {number} params.expiry - Message retention in seconds for offline delivery. Max 7 days (604800).
+     * @param {string | null} params.name - Topic Name.
+     * @param {string[] | null} params.subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
+     * @param {number | null} params.qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
+     * @param {number | null} params.expiry - Message retention in seconds for offline delivery. Max 7 days (604800). Null inherits the lowest expiry of the project's enabled Appwrite providers, or the 7-day ledger window if none sets one.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      */
     updateTopic(params: {
         topicId: string;
-        name?: string;
-        subscribe?: string[];
-        qos?: number;
-        expiry?: number;
+        name?: string | null;
+        subscribe?: string[] | null;
+        qos?: number | null;
+        expiry?: number | null;
     }): Promise<Models.Topic>;
     /**
      * Update a topic by its unique ID.
      *
      *
      * @param {string} topicId - Topic ID.
-     * @param {string} name - Topic Name.
-     * @param {string[]} subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
-     * @param {number} qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
-     * @param {number} expiry - Message retention in seconds for offline delivery. Max 7 days (604800).
+     * @param {string | null} name - Topic Name.
+     * @param {string[] | null} subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
+     * @param {number | null} qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
+     * @param {number | null} expiry - Message retention in seconds for offline delivery. Max 7 days (604800). Null inherits the lowest expiry of the project's enabled Appwrite providers, or the 7-day ledger window if none sets one.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateTopic(
         topicId: string,
-        name?: string,
-        subscribe?: string[],
-        qos?: number,
-        expiry?: number,
+        name?: string | null,
+        subscribe?: string[] | null,
+        qos?: number | null,
+        expiry?: number | null,
     ): Promise<Models.Topic>;
     updateTopic(
         paramsOrFirst:
             | {
                   topicId: string;
-                  name?: string;
-                  subscribe?: string[];
-                  qos?: number;
-                  expiry?: number;
+                  name?: string | null;
+                  subscribe?: string[] | null;
+                  qos?: number | null;
+                  expiry?: number | null;
               }
             | string,
-        ...rest: [string?, string[]?, number?, number?]
+        ...rest: [
+            (string | null)?,
+            (string[] | null)?,
+            (number | null)?,
+            (number | null)?,
+        ]
     ): Promise<Models.Topic> {
         let params: {
             topicId: string;
-            name?: string;
-            subscribe?: string[];
-            qos?: number;
-            expiry?: number;
+            name?: string | null;
+            subscribe?: string[] | null;
+            qos?: number | null;
+            expiry?: number | null;
         };
 
         if (
@@ -7499,18 +8523,18 @@ export class Messaging {
         ) {
             params = (paramsOrFirst || {}) as {
                 topicId: string;
-                name?: string;
-                subscribe?: string[];
-                qos?: number;
-                expiry?: number;
+                name?: string | null;
+                subscribe?: string[] | null;
+                qos?: number | null;
+                expiry?: number | null;
             };
         } else {
             params = {
                 topicId: paramsOrFirst as string,
-                name: rest[0] as string,
-                subscribe: rest[1] as string[],
-                qos: rest[2] as number,
-                expiry: rest[3] as number,
+                name: rest[0] as string | null,
+                subscribe: rest[1] as string[] | null,
+                qos: rest[2] as number | null,
+                expiry: rest[3] as number | null,
             };
         }
 
@@ -7549,7 +8573,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'topic',
+            models: {
+                topic: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        emailTotal: 0,
+                        smsTotal: 0,
+                        pushTotal: 0,
+                        subscribe: ['users'],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -7707,7 +8750,37 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'subscriberList',
+            models: {
+                subscriberList: {
+                    defaults: {
+                        total: 0,
+                        subscribers: [],
+                    },
+                    properties: {
+                        subscribers: {
+                            items: 'subscriber',
+                        },
+                    },
+                },
+                subscriber: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        targetId: '',
+                        userId: '',
+                        userName: '',
+                        topicId: '',
+                        providerType: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -7802,7 +8875,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'subscriber',
+            models: {
+                subscriber: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        targetId: '',
+                        userId: '',
+                        userName: '',
+                        topicId: '',
+                        providerType: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -7880,7 +8972,26 @@ export class Messaging {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'subscriber',
+            models: {
+                subscriber: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        targetId: '',
+                        userId: '',
+                        userName: '',
+                        topicId: '',
+                        providerType: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**

@@ -1,4 +1,9 @@
-import { AppwriteException, Client, type Payload } from '../client';
+import {
+    AppwriteException,
+    Client,
+    type Payload,
+    applyDefaults,
+} from '../client';
 import type { Models } from '../models';
 
 export class Webhooks {
@@ -70,7 +75,42 @@ export class Webhooks {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'webhookList',
+            models: {
+                webhookList: {
+                    defaults: {
+                        total: 0,
+                        webhooks: [],
+                    },
+                    properties: {
+                        webhooks: {
+                            items: 'webhook',
+                        },
+                    },
+                },
+                webhook: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        url: '',
+                        events: [],
+                        tls: true,
+                        authUsername: '',
+                        authPassword: '',
+                        secret: '',
+                        enabled: true,
+                        logs: '',
+                        attempts: 0,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -82,9 +122,9 @@ export class Webhooks {
      * @param {string[]} params.events - Events list. Maximum of 100 events are allowed.
      * @param {boolean} params.enabled - Enable or disable a webhook.
      * @param {boolean} params.tls - Certificate verification, false for disabled or true for enabled.
-     * @param {string} params.authUsername - Webhook HTTP user. Max length: 256 chars.
-     * @param {string} params.authPassword - Webhook HTTP password. Max length: 256 chars.
-     * @param {string} params.secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
+     * @param {string} params.authUsername - Webhook HTTP user. Max length: 255 chars.
+     * @param {string} params.authPassword - Webhook HTTP password. Max length: 2048 chars.
+     * @param {string | null} params.secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      */
@@ -97,7 +137,7 @@ export class Webhooks {
         tls?: boolean;
         authUsername?: string;
         authPassword?: string;
-        secret?: string;
+        secret?: string | null;
     }): Promise<Models.Webhook>;
     /**
      * Create a new webhook. Use this endpoint to configure a URL that will receive events from Appwrite when specific events occur.
@@ -108,9 +148,9 @@ export class Webhooks {
      * @param {string[]} events - Events list. Maximum of 100 events are allowed.
      * @param {boolean} enabled - Enable or disable a webhook.
      * @param {boolean} tls - Certificate verification, false for disabled or true for enabled.
-     * @param {string} authUsername - Webhook HTTP user. Max length: 256 chars.
-     * @param {string} authPassword - Webhook HTTP password. Max length: 256 chars.
-     * @param {string} secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
+     * @param {string} authUsername - Webhook HTTP user. Max length: 255 chars.
+     * @param {string} authPassword - Webhook HTTP password. Max length: 2048 chars.
+     * @param {string | null} secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -124,7 +164,7 @@ export class Webhooks {
         tls?: boolean,
         authUsername?: string,
         authPassword?: string,
-        secret?: string,
+        secret?: string | null,
     ): Promise<Models.Webhook>;
     create(
         paramsOrFirst:
@@ -137,7 +177,7 @@ export class Webhooks {
                   tls?: boolean;
                   authUsername?: string;
                   authPassword?: string;
-                  secret?: string;
+                  secret?: string | null;
               }
             | string,
         ...rest: [
@@ -148,7 +188,7 @@ export class Webhooks {
             boolean?,
             string?,
             string?,
-            string?,
+            (string | null)?,
         ]
     ): Promise<Models.Webhook> {
         let params: {
@@ -160,7 +200,7 @@ export class Webhooks {
             tls?: boolean;
             authUsername?: string;
             authPassword?: string;
-            secret?: string;
+            secret?: string | null;
         };
 
         if (
@@ -177,7 +217,7 @@ export class Webhooks {
                 tls?: boolean;
                 authUsername?: string;
                 authPassword?: string;
-                secret?: string;
+                secret?: string | null;
             };
         } else {
             params = {
@@ -189,7 +229,7 @@ export class Webhooks {
                 tls: rest[4] as boolean,
                 authUsername: rest[5] as string,
                 authPassword: rest[6] as string,
-                secret: rest[7] as string,
+                secret: rest[7] as string | null,
             };
         }
 
@@ -253,7 +293,31 @@ export class Webhooks {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'webhook',
+            models: {
+                webhook: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        url: '',
+                        events: [],
+                        tls: true,
+                        authUsername: '',
+                        authPassword: '',
+                        secret: '',
+                        enabled: true,
+                        logs: '',
+                        attempts: 0,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -308,7 +372,31 @@ export class Webhooks {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'webhook',
+            models: {
+                webhook: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        url: '',
+                        events: [],
+                        tls: true,
+                        authUsername: '',
+                        authPassword: '',
+                        secret: '',
+                        enabled: true,
+                        logs: '',
+                        attempts: 0,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -320,8 +408,8 @@ export class Webhooks {
      * @param {string[]} params.events - Events list. Maximum of 100 events are allowed.
      * @param {boolean} params.enabled - Enable or disable a webhook.
      * @param {boolean} params.tls - Certificate verification, false for disabled or true for enabled.
-     * @param {string} params.authUsername - Webhook HTTP user. Max length: 256 chars.
-     * @param {string} params.authPassword - Webhook HTTP password. Max length: 256 chars. Omit to keep the current password; it is cleared when the URL changes or TLS verification is disabled.
+     * @param {string} params.authUsername - Webhook HTTP user. Max length: 255 chars.
+     * @param {string | null} params.authPassword - Webhook HTTP password. Max length: 2048 chars. Omit to keep the current password; it is cleared when the URL changes or TLS verification is disabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      */
@@ -333,7 +421,7 @@ export class Webhooks {
         enabled?: boolean;
         tls?: boolean;
         authUsername?: string;
-        authPassword?: string;
+        authPassword?: string | null;
     }): Promise<Models.Webhook>;
     /**
      * Update a webhook by its unique ID. Use this endpoint to update the URL, events, or status of an existing webhook.
@@ -344,8 +432,8 @@ export class Webhooks {
      * @param {string[]} events - Events list. Maximum of 100 events are allowed.
      * @param {boolean} enabled - Enable or disable a webhook.
      * @param {boolean} tls - Certificate verification, false for disabled or true for enabled.
-     * @param {string} authUsername - Webhook HTTP user. Max length: 256 chars.
-     * @param {string} authPassword - Webhook HTTP password. Max length: 256 chars. Omit to keep the current password; it is cleared when the URL changes or TLS verification is disabled.
+     * @param {string} authUsername - Webhook HTTP user. Max length: 255 chars.
+     * @param {string | null} authPassword - Webhook HTTP password. Max length: 2048 chars. Omit to keep the current password; it is cleared when the URL changes or TLS verification is disabled.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -358,7 +446,7 @@ export class Webhooks {
         enabled?: boolean,
         tls?: boolean,
         authUsername?: string,
-        authPassword?: string,
+        authPassword?: string | null,
     ): Promise<Models.Webhook>;
     update(
         paramsOrFirst:
@@ -370,7 +458,7 @@ export class Webhooks {
                   enabled?: boolean;
                   tls?: boolean;
                   authUsername?: string;
-                  authPassword?: string;
+                  authPassword?: string | null;
               }
             | string,
         ...rest: [
@@ -380,7 +468,7 @@ export class Webhooks {
             boolean?,
             boolean?,
             string?,
-            string?,
+            (string | null)?,
         ]
     ): Promise<Models.Webhook> {
         let params: {
@@ -391,7 +479,7 @@ export class Webhooks {
             enabled?: boolean;
             tls?: boolean;
             authUsername?: string;
-            authPassword?: string;
+            authPassword?: string | null;
         };
 
         if (
@@ -407,7 +495,7 @@ export class Webhooks {
                 enabled?: boolean;
                 tls?: boolean;
                 authUsername?: string;
-                authPassword?: string;
+                authPassword?: string | null;
             };
         } else {
             params = {
@@ -418,7 +506,7 @@ export class Webhooks {
                 enabled: rest[3] as boolean,
                 tls: rest[4] as boolean,
                 authUsername: rest[5] as string,
-                authPassword: rest[6] as string,
+                authPassword: rest[6] as string | null,
             };
         }
 
@@ -478,7 +566,31 @@ export class Webhooks {
             accept: 'application/json',
         };
 
-        return this.client.call('put', uri, apiHeaders, apiPayload);
+        const request = this.client.call('put', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'webhook',
+            models: {
+                webhook: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        url: '',
+                        events: [],
+                        tls: true,
+                        authUsername: '',
+                        authPassword: '',
+                        secret: '',
+                        enabled: true,
+                        logs: '',
+                        attempts: 0,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -539,29 +651,32 @@ export class Webhooks {
      * Update the webhook signing key. This endpoint can be used to regenerate the signing key used to sign and validate payload deliveries for a specific webhook.
      *
      * @param {string} params.webhookId - Webhook ID.
-     * @param {string} params.secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
+     * @param {string | null} params.secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      */
     updateSecret(params: {
         webhookId: string;
-        secret?: string;
+        secret?: string | null;
     }): Promise<Models.Webhook>;
     /**
      * Update the webhook signing key. This endpoint can be used to regenerate the signing key used to sign and validate payload deliveries for a specific webhook.
      *
      * @param {string} webhookId - Webhook ID.
-     * @param {string} secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
+     * @param {string | null} secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateSecret(webhookId: string, secret?: string): Promise<Models.Webhook>;
     updateSecret(
-        paramsOrFirst: { webhookId: string; secret?: string } | string,
-        ...rest: [string?]
+        webhookId: string,
+        secret?: string | null,
+    ): Promise<Models.Webhook>;
+    updateSecret(
+        paramsOrFirst: { webhookId: string; secret?: string | null } | string,
+        ...rest: [(string | null)?]
     ): Promise<Models.Webhook> {
-        let params: { webhookId: string; secret?: string };
+        let params: { webhookId: string; secret?: string | null };
 
         if (
             paramsOrFirst &&
@@ -570,12 +685,12 @@ export class Webhooks {
         ) {
             params = (paramsOrFirst || {}) as {
                 webhookId: string;
-                secret?: string;
+                secret?: string | null;
             };
         } else {
             params = {
                 webhookId: paramsOrFirst as string,
-                secret: rest[0] as string,
+                secret: rest[0] as string | null,
             };
         }
 
@@ -602,6 +717,30 @@ export class Webhooks {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'webhook',
+            models: {
+                webhook: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        url: '',
+                        events: [],
+                        tls: true,
+                        authUsername: '',
+                        authPassword: '',
+                        secret: '',
+                        enabled: true,
+                        logs: '',
+                        attempts: 0,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 }

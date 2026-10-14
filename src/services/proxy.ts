@@ -1,4 +1,9 @@
-import { AppwriteException, Client, type Payload } from '../client';
+import {
+    AppwriteException,
+    Client,
+    type Payload,
+    applyDefaults,
+} from '../client';
 import type { Models } from '../models';
 
 import { InvalidationType } from '../enums/invalidation-type';
@@ -106,7 +111,22 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyInvalidation',
+            models: {
+                proxyInvalidation: {
+                    defaults: {
+                        domain: '',
+                        type: '',
+                        reference: '',
+                        status: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -174,7 +194,42 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRuleList',
+            models: {
+                proxyRuleList: {
+                    defaults: {
+                        total: 0,
+                        rules: [],
+                    },
+                    properties: {
+                        rules: {
+                            items: 'proxyRule',
+                        },
+                    },
+                },
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -232,7 +287,31 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -323,7 +402,31 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -460,7 +563,31 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -549,7 +676,31 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -602,7 +753,31 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -708,6 +883,30 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 }

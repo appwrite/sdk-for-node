@@ -26,7 +26,7 @@ describe('Activities', () => {
     });
     test('test method getEvent()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             actorType: 'user',
             actorId: '610fc2f985ee0',
             actorEmail: 'john@appwrite.io',

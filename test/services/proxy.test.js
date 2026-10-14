@@ -41,9 +41,9 @@ describe('Proxy', () => {
     });
     test('test method createAPIRule()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'appwrite.company.com',
             type: 'deployment',
             trigger: 'manual',
@@ -66,9 +66,9 @@ describe('Proxy', () => {
     });
     test('test method createFunctionRule()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'appwrite.company.com',
             type: 'deployment',
             trigger: 'manual',
@@ -94,9 +94,9 @@ describe('Proxy', () => {
     });
     test('test method createRedirectRule()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'appwrite.company.com',
             type: 'deployment',
             trigger: 'manual',
@@ -125,9 +125,9 @@ describe('Proxy', () => {
     });
     test('test method createSiteRule()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'appwrite.company.com',
             type: 'deployment',
             trigger: 'manual',
@@ -150,9 +150,9 @@ describe('Proxy', () => {
     });
     test('test method getRule()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'appwrite.company.com',
             type: 'deployment',
             trigger: 'manual',
@@ -185,9 +185,9 @@ describe('Proxy', () => {
     });
     test('test method updateRuleStatus()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'appwrite.company.com',
             type: 'deployment',
             trigger: 'manual',
