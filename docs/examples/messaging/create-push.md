@@ -28,5 +28,6 @@ const result = await messaging.createPush({
     contentAvailable: false, // optional
     critical: false, // optional
     priority: sdk.MessagePriority.Normal, // optional
+    channelId: '<CHANNEL_ID>', // optional
 });
 ```

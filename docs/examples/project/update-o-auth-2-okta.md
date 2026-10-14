@@ -14,5 +14,6 @@ const result = await project.updateOAuth2Okta({
     domain: 'example.com', // optional
     authorizationServerId: '<AUTHORIZATION_SERVER_ID>', // optional
     enabled: false, // optional
+    prompt: [sdk.ProjectOAuth2OktaPrompt.None], // optional
 });
 ```

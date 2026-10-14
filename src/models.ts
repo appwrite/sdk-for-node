@@ -9,13 +9,23 @@ import { ExecutionStatus } from './enums/execution-status';
 import { ProjectAuthMethodId } from './enums/project-auth-method-id';
 import { ProjectServiceId } from './enums/project-service-id';
 import { ProjectProtocolId } from './enums/project-protocol-id';
+import { OAuth2GithubPrompt } from './enums/o-auth-2-github-prompt';
+import { OAuth2DiscordPrompt } from './enums/o-auth-2-discord-prompt';
 import { OAuth2GooglePrompt } from './enums/o-auth-2-google-prompt';
+import { OAuth2ZohoPrompt } from './enums/o-auth-2-zoho-prompt';
+import { OAuth2SalesforcePrompt } from './enums/o-auth-2-salesforce-prompt';
+import { OAuth2Auth0Prompt } from './enums/o-auth-2-auth-0-prompt';
 import { OAuth2OidcPrompt } from './enums/o-auth-2-oidc-prompt';
+import { OAuth2OktaPrompt } from './enums/o-auth-2-okta-prompt';
+import { OAuth2MicrosoftPrompt } from './enums/o-auth-2-microsoft-prompt';
+import { OAuth2KakaoPrompt } from './enums/o-auth-2-kakao-prompt';
 import { PlatformType } from './enums/platform-type';
 import { ProxyRuleDeploymentResourceType } from './enums/proxy-rule-deployment-resource-type';
 import { ProxyRuleStatus } from './enums/proxy-rule-status';
 import { MessageStatus } from './enums/message-status';
 import { BillingPlanGroup } from './enums/billing-plan-group';
+import { DomainTransferStatusEnum } from './enums/domain-transfer-status-enum';
+import { WafRuleAction } from './enums/waf-rule-action';
 
 /**
  * Appwrite Models
@@ -507,6 +517,8 @@ export namespace Models {
             | Models.PolicyPasswordHistory
             | Models.PolicyPasswordStrength
             | Models.PolicyPasswordPersonalData
+            | Models.PolicyPasswordPwned
+            | Models.PolicyPasswordRotation
             | Models.PolicySessionAlert
             | Models.PolicySessionDuration
             | Models.PolicySessionInvalidation
@@ -3249,6 +3261,10 @@ export namespace Models {
          */
         emailIsCanonical?: boolean;
         /**
+         * Whether the password was found in a known data breach the last time it was checked. Null when the password has never been checked.
+         */
+        passwordPwned?: boolean | null;
+        /**
          * Phone verification status.
          */
         phoneVerification: boolean;
@@ -3386,6 +3402,110 @@ export namespace Models {
          * Number of threads used to compute hash.
          */
         threads: number;
+    };
+
+    /**
+     * Account
+     */
+    export type Account<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    > = {
+        /**
+         * User ID.
+         */
+        $id: string;
+        /**
+         * User creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * User update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * User name.
+         */
+        name: string;
+        /**
+         * User registration date in ISO 8601 format.
+         */
+        registration: string;
+        /**
+         * User status. Pass `true` for enabled and `false` for disabled.
+         */
+        status: boolean;
+        /**
+         * Labels for the user.
+         */
+        labels: string[];
+        /**
+         * Password update time in ISO 8601 format.
+         */
+        passwordUpdate: string;
+        /**
+         * User email address.
+         */
+        email: string;
+        /**
+         * User phone number in E.164 format.
+         */
+        phone: string;
+        /**
+         * Email verification status.
+         */
+        emailVerification: boolean;
+        /**
+         * Canonical form of the user email address.
+         */
+        emailCanonical?: string | null;
+        /**
+         * Whether the user email is from a free email provider.
+         */
+        emailIsFree?: boolean | null;
+        /**
+         * Whether the user email is from a disposable email provider.
+         */
+        emailIsDisposable?: boolean | null;
+        /**
+         * Whether the user email is from a corporate domain.
+         */
+        emailIsCorporate?: boolean | null;
+        /**
+         * Whether the user email is in its canonical form.
+         */
+        emailIsCanonical?: boolean | null;
+        /**
+         * Whether the password was found in a known data breach the last time it was checked. Null when the password has never been checked.
+         */
+        passwordPwned?: boolean | null;
+        /**
+         * Phone verification status.
+         */
+        phoneVerification: boolean;
+        /**
+         * Multi factor authentication status.
+         */
+        mfa: boolean;
+        /**
+         * User preferences as a key-value object
+         */
+        prefs: Preferences;
+        /**
+         * A user-owned message receiver. A single user may have multiple e.g. emails, phones, and a browser. Each target is registered with a single provider.
+         */
+        targets: Target[];
+        /**
+         * Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
+         */
+        accessedAt: string;
+        /**
+         * Whether the user can impersonate other users.
+         */
+        impersonator?: boolean | null;
+        /**
+         * ID of the original actor performing the impersonation. Present only when the current request is impersonating another user. Internal audit logs attribute the action to this user, while the impersonated target is recorded only in internal audit payload data.
+         */
+        impersonatorUserId?: string | null;
     };
 
     /**
@@ -3564,6 +3684,10 @@ export namespace Models {
          * Identity Provider Refresh Token.
          */
         providerRefreshToken: string;
+        /**
+         * Identity Provider ID token (JWT) from the most recent native sign-in. Empty for identities created through the browser OAuth2 flow.
+         */
+        providerIdToken?: string;
     };
 
     /**
@@ -4649,9 +4773,21 @@ export namespace Models {
          */
         wafEnabled?: boolean;
         /**
+         * ID of the project this environment belongs to. Null when the project is not an environment.
+         */
+        parentId?: string | null;
+        /**
          * Billing limits reached
          */
         billingLimits?: BillingLimits;
+        /**
+         * First time the project received a non-console API request. Empty until the project is used.
+         */
+        firstAccessedAt?: string | null;
+        /**
+         * Last time the project was accessed through the MCP server. Empty if it was never accessed via MCP.
+         */
+        mcpAccessedAt?: string | null;
         /**
          * OAuth2 server status
          */
@@ -4986,6 +5122,10 @@ export namespace Models {
          * GitHub OAuth2 client secret.
          */
         clientSecret: string;
+        /**
+         * GitHub OAuth2 prompt values.
+         */
+        prompt?: OAuth2GithubPrompt[];
     };
 
     /**
@@ -5008,6 +5148,10 @@ export namespace Models {
          * Discord OAuth2 client secret.
          */
         clientSecret: string;
+        /**
+         * Discord OAuth2 prompt values.
+         */
+        prompt?: OAuth2DiscordPrompt[];
     };
 
     /**
@@ -5188,6 +5332,14 @@ export namespace Models {
          * Google OAuth2 prompt values.
          */
         prompt: OAuth2GooglePrompt[];
+        /**
+         * Native Google sign-in is active and can be used to create sessions from an ID token. Independent of enabled, which only controls the browser-based flow.
+         */
+        nativeEnabled?: boolean;
+        /**
+         * Additional OAuth2 client IDs accepted as ID token audiences for native sign-in, next to the client ID.
+         */
+        nativeClientIds?: string[];
     };
 
     /**
@@ -5232,6 +5384,10 @@ export namespace Models {
          * Zoho OAuth2 client secret.
          */
         clientSecret: string;
+        /**
+         * Zoho OAuth2 prompt values.
+         */
+        prompt?: OAuth2ZohoPrompt[];
     };
 
     /**
@@ -5296,6 +5452,28 @@ export namespace Models {
         clientId: string;
         /**
          * WordPress OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Webflow
+     */
+    export type OAuth2Webflow = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Webflow OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Webflow OAuth2 client secret.
          */
         clientSecret: string;
     };
@@ -5452,6 +5630,10 @@ export namespace Models {
          * Salesforce OAuth2 consumer secret.
          */
         customerSecret: string;
+        /**
+         * Salesforce OAuth2 prompt values.
+         */
+        prompt?: OAuth2SalesforcePrompt[];
     };
 
     /**
@@ -5769,6 +5951,10 @@ export namespace Models {
          */
         clientSecret: string;
         /**
+         * Auth0 OAuth2 prompt values.
+         */
+        prompt?: OAuth2Auth0Prompt[];
+        /**
          * Auth0 OAuth2 endpoint domain.
          */
         endpoint: string;
@@ -5897,6 +6083,10 @@ export namespace Models {
          */
         clientSecret: string;
         /**
+         * Okta OAuth2 prompt values.
+         */
+        prompt?: OAuth2OktaPrompt[];
+        /**
          * Okta OAuth2 domain.
          */
         domain: string;
@@ -5956,6 +6146,14 @@ export namespace Models {
          * Apple OAuth2 .p8 private key file contents. The secret key wrapped by the PEM markers is 200 characters long.
          */
         p8File: string;
+        /**
+         * Native Sign in with Apple is active and can be used to create sessions from an ID token. Independent of enabled, which only controls the browser-based flow.
+         */
+        nativeEnabled?: boolean;
+        /**
+         * App bundle IDs accepted as ID token audiences for native Sign in with Apple, next to the Services ID.
+         */
+        nativeClientIds?: string[];
     };
 
     /**
@@ -5978,6 +6176,10 @@ export namespace Models {
          * Microsoft OAuth2 application secret.
          */
         applicationSecret: string;
+        /**
+         * Microsoft OAuth2 prompt values.
+         */
+        prompt?: OAuth2MicrosoftPrompt[];
         /**
          * Microsoft Entra ID tenant identifier. Use 'common', 'organizations', 'consumers' or a specific tenant ID.
          */
@@ -6007,6 +6209,54 @@ export namespace Models {
     };
 
     /**
+     * OAuth2TikTok
+     */
+    export type OAuth2TikTok = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * TikTok OAuth2 client key.
+         */
+        clientId: string;
+        /**
+         * TikTok OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Kakao
+     */
+    export type OAuth2Kakao = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Kakao OAuth2 REST API key.
+         */
+        clientId: string;
+        /**
+         * Kakao OAuth2 client secret.
+         */
+        clientSecret: string;
+        /**
+         * Kakao OAuth2 prompt values.
+         */
+        prompt: OAuth2KakaoPrompt[];
+    };
+
+    /**
      * OAuth2 Providers List
      */
     export type OAuth2ProviderList = {
@@ -6033,6 +6283,7 @@ export namespace Models {
             | Models.OAuth2Yandex
             | Models.OAuth2X
             | Models.OAuth2WordPress
+            | Models.OAuth2Webflow
             | Models.OAuth2Twitch
             | Models.OAuth2Stripe
             | Models.OAuth2Spotify
@@ -6062,6 +6313,8 @@ export namespace Models {
             | Models.OAuth2HuggingFace
             | Models.OAuth2Resend
             | Models.OAuth2Cloudflare
+            | Models.OAuth2TikTok
+            | Models.OAuth2Kakao
         )[];
     };
 
@@ -6135,6 +6388,46 @@ export namespace Models {
          * Whether password personal data policy is enabled.
          */
         enabled: boolean;
+    };
+
+    /**
+     * Policy Password Pwned
+     */
+    export type PolicyPasswordPwned = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether passwords are checked against known data breaches and the result recorded on the user.
+         */
+        enabled: boolean;
+        /**
+         * Whether a sign-in with a breached password is refused until the password is reset.
+         */
+        sessions: boolean;
+        /**
+         * Whether a breached password is rejected when a user signs up or sets a new password.
+         */
+        users: boolean;
+    };
+
+    /**
+     * Policy Password Rotation
+     */
+    export type PolicyPasswordRotation = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether expired passwords require a reset before email/password sign-in.
+         */
+        enabled: boolean;
+        /**
+         * Maximum password age in seconds.
+         */
+        maxAge: number;
     };
 
     /**
@@ -6373,6 +6666,10 @@ export namespace Models {
          * Android application ID.
          */
         applicationId: string;
+        /**
+         * SHA-256 fingerprints of the certificates the app is signed with. Passkeys created in the app are accepted when its signature matches one.
+         */
+        fingerprints?: string[];
     };
 
     /**
@@ -7061,6 +7358,14 @@ export namespace Models {
          * Subscribe permissions.
          */
         subscribe: string[];
+        /**
+         * MQTT QoS for delivery on this topic. Null lets the subscriber choose their level.
+         */
+        qos?: number | null;
+        /**
+         * Message retention in seconds for offline delivery.
+         */
+        expiry?: number | null;
     };
 
     /**
@@ -7742,6 +8047,10 @@ export namespace Models {
          */
         wafRules: number;
         /**
+         * Maximum environments per project. 0 when the plan does not offer environments.
+         */
+        environments?: number;
+        /**
          * Projects
          */
         projects: number;
@@ -7877,6 +8186,10 @@ export namespace Models {
          * Does plan require billing address
          */
         requiresBillingAddress: boolean;
+        /**
+         * ISO country codes eligible for this regional plan. Empty means no restriction.
+         */
+        eligibleCountries?: string[] | null;
         /**
          * Is the billing plan available
          */
@@ -8450,6 +8763,18 @@ export namespace Models {
          */
         storage: number;
         /**
+         * Storage resize status. Possible values: idle (no resize in flight), resizing (the volume is growing towards storageTargetGb).
+         */
+        storageStatus?: string;
+        /**
+         * Size in GB the volume is growing towards while storageStatus is resizing. 0 when no resize is in flight.
+         */
+        storageTargetGb?: number;
+        /**
+         * Time the in-flight storage resize started, in ISO 8601 format.
+         */
+        storageResizeStartedAt?: string | null;
+        /**
          * Storage class. Currently always 'ssd'; DigitalOcean exposes a single block-storage class.
          */
         storageClass: string;
@@ -8701,6 +9026,174 @@ export namespace Models {
          * Storage volume information.
          */
         volumes: DatabaseStatusVolume[];
+    };
+
+    /**
+     * DNSRecord
+     */
+    export type DnsRecord = {
+        /**
+         * DNS Record ID.
+         */
+        $id: string;
+        /**
+         * DNS Record creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * DNS Record update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * DNS record type (e.g. A, CNAME, MX).
+         */
+        type: string;
+        /**
+         * Record name or subdomain.
+         */
+        name: string;
+        /**
+         * Value of the record (IP address, domain, etc.).
+         */
+        value: string;
+        /**
+         * Time to live (in seconds).
+         */
+        ttl: number;
+        /**
+         * Record priority (commonly used for MX).
+         */
+        priority: number;
+        /**
+         * Whether this record is locked (read-only).
+         */
+        lock: boolean;
+        /**
+         * Record weight (used for SRV records).
+         */
+        weight: number;
+        /**
+         * Target port (used for SRV records).
+         */
+        port: number;
+        /**
+         * Comment for the DNS record.
+         */
+        comment: string;
+    };
+
+    /**
+     * Domain
+     */
+    export type Domain = {
+        /**
+         * Domain ID.
+         */
+        $id: string;
+        /**
+         * Domain creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Domain update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Domain name.
+         */
+        domain: string;
+        /**
+         * Domain registrar (e.g. "appwrite" or "third_party").
+         */
+        registrar: string;
+        /**
+         * Nameservers setting. "Appwrite" or empty string.
+         */
+        nameservers: string;
+        /**
+         * Domain expiry date in ISO 8601 format.
+         */
+        expire: string;
+        /**
+         * Domain renewal date in ISO 8601 format.
+         */
+        renewal: string;
+        /**
+         * If set to true, the domain will automatically renew.
+         */
+        autoRenewal: boolean;
+        /**
+         * Renewal price (in cents).
+         */
+        renewalPrice: number;
+        /**
+         * Transfer status for domains being transferred in. Null when the domain is not being transferred.
+         */
+        transferStatus?: DomainTransferStatusEnum | null;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Dns records
+         */
+        dnsRecords: DnsRecord[];
+    };
+
+    /**
+     * DomainPrice
+     */
+    export type DomainPrice = {
+        /**
+         * Domain name.
+         */
+        domain: string;
+        /**
+         * Top-level domain for the requested domain.
+         */
+        tld: string;
+        /**
+         * Whether the domain is currently available for registration.
+         */
+        available: boolean;
+        /**
+         * Domain registration price. Null when the price could not be resolved, for example for an unsupported TLD.
+         */
+        price?: number | null;
+        /**
+         * Price period in years.
+         */
+        periodYears: number;
+        /**
+         * Whether the domain is a premium domain.
+         */
+        premium: boolean;
+        /**
+         * Domain renewal price for the same period. Null when the domain was not priced or the registrar has no renewal price for it.
+         */
+        renewalPrice?: number | null;
+        /**
+         * Renewal price period in years.
+         */
+        renewalPeriodYears: number;
+    };
+
+    /**
+     * domainTransferStatus
+     */
+    export type DomainTransferStatus = {
+        /**
+         * Transfer status.
+         */
+        status: DomainTransferStatusEnum;
+        /**
+         * Additional transfer status information.
+         */
+        reason: string;
+        /**
+         * Transfer status timestamp in ISO 8601 format.
+         */
+        timestamp: string;
     };
 
     /**
@@ -9333,6 +9826,22 @@ export namespace Models {
          * Monthly price of the specification in USD.
          */
         price: number;
+        /**
+         * Price per GB of storage above the included amount, per month, in USD.
+         */
+        storageOverageRate?: number;
+        /**
+         * Price per GB of bandwidth above the included amount, per month, in USD.
+         */
+        bandwidthOverageRate?: number;
+        /**
+         * High availability replica price as a fraction of the specification price.
+         */
+        replicaRate?: number;
+        /**
+         * Point-in-time recovery price as a fraction of the specification price.
+         */
+        pitrRate?: number;
         /**
          * Allocated CPU in millicores.
          */
@@ -9986,6 +10495,60 @@ export namespace Models {
     };
 
     /**
+     * OAuth2 Introspection
+     */
+    export type Oauth2Introspection = {
+        /**
+         * Whether the token is currently active. An inactive token carries no other claims (RFC 7662).
+         */
+        active: boolean;
+        /**
+         * Kind of token that was introspected. Can be one of: `access_token` or `refresh_token`.
+         */
+        token_use?: string | null;
+        /**
+         * OAuth2 token type.
+         */
+        token_type?: string | null;
+        /**
+         * Space-separated scopes granted to the token.
+         */
+        scope?: string | null;
+        /**
+         * OAuth2 client ID the token was issued to.
+         */
+        client_id?: string | null;
+        /**
+         * ID of the user who authorized the token.
+         */
+        sub?: string | null;
+        /**
+         * Audiences the token is intended for. The first entry is the project API base URL; any further entries are the resource indicators requested at authorization time (RFC 8707).
+         */
+        aud?: string[] | null;
+        /**
+         * Issuer URL of the token.
+         */
+        iss?: string | null;
+        /**
+         * Expiration time as a Unix timestamp in seconds.
+         */
+        exp?: number | null;
+        /**
+         * Issued-at time as a Unix timestamp in seconds.
+         */
+        iat?: number | null;
+        /**
+         * Unique identifier of the token.
+         */
+        jti?: string | null;
+        /**
+         * Granted RFC 9396 authorization details, restricted to what the user can currently access.
+         */
+        authorization_details?: Record<string, any>[] | null;
+    };
+
+    /**
      * OAuth2 Consent
      */
     export type Oauth2Consent = {
@@ -10079,6 +10642,376 @@ export namespace Models {
          * Expiration time of the current access token of this family in ISO 8601 format.
          */
         expire: string;
+    };
+
+    /**
+     * WafRuleBypass
+     */
+    export type WafRuleBypass = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+    };
+
+    /**
+     * WafRuleDeny
+     */
+    export type WafRuleDeny = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+    };
+
+    /**
+     * WafRuleChallenge
+     */
+    export type WafRuleChallenge = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+        /**
+         * Challenge type enforced when the rule matches.
+         */
+        challengeType: string;
+        /**
+         * Challenge difficulty from 1 (easiest) to 5 (hardest) enforced when the rule matches.
+         */
+        difficulty: number;
+        /**
+         * Seconds a visitor stays cleared after passing the challenge before being challenged again.
+         */
+        ttl: number;
+    };
+
+    /**
+     * WafRuleRateLimit
+     */
+    export type WafRuleRateLimit = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+        /**
+         * Maximum number of matching requests allowed for the given interval.
+         */
+        limit: number;
+        /**
+         * Interval in seconds for the rate limit window.
+         */
+        interval: number;
+        /**
+         * Rate limit key: `ip` limits per client IP, `userId` limits per authenticated user.
+         */
+        key: string;
+        /**
+         * Rate limit strategy: `fixedWindow`, `slidingWindow`, or `tokenBucket`.
+         */
+        strategy: string;
+        /**
+         * Maximum burst capacity in tokens, applied by the `tokenBucket` strategy. The sustained refill rate is `limit / interval`. Defaults to `limit`.
+         */
+        maxBucketSize: number;
+    };
+
+    /**
+     * WafRuleRedirect
+     */
+    export type WafRuleRedirect = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+        /**
+         * Target location for the redirect.
+         */
+        location: string;
+        /**
+         * HTTP status code used for the redirect.
+         */
+        statusCode: number;
+    };
+
+    /**
+     * WAF rule list
+     */
+    export type WafRuleList = {
+        /**
+         * Total number of rules that matched your query.
+         */
+        total: number;
+        /**
+         * List of rules.
+         */
+        rules: (
+            | Models.WafRuleBypass
+            | Models.WafRuleDeny
+            | Models.WafRuleChallenge
+            | Models.WafRuleRateLimit
+            | Models.WafRuleRedirect
+        )[];
     };
 
     /**
@@ -10247,6 +11180,48 @@ export namespace Models {
          * List of databases.
          */
         databases: DedicatedDatabase[];
+    };
+
+    /**
+     * DNS records list
+     */
+    export type DnsRecordsList = {
+        /**
+         * Total number of dnsRecords that matched your query.
+         */
+        total: number;
+        /**
+         * List of dnsRecords.
+         */
+        dnsRecords: DnsRecord[];
+    };
+
+    /**
+     * Domain prices list
+     */
+    export type DomainPricesList = {
+        /**
+         * Total number of prices that matched your query.
+         */
+        total: number;
+        /**
+         * List of prices.
+         */
+        prices: DomainPrice[];
+    };
+
+    /**
+     * Domains list
+     */
+    export type DomainsList = {
+        /**
+         * Total number of domains that matched your query.
+         */
+        total: number;
+        /**
+         * List of domains.
+         */
+        domains: Domain[];
     };
 
     /**

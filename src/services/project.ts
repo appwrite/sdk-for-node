@@ -3,8 +3,16 @@ import type { Models } from '../models';
 
 import { ProjectAuthMethodId } from '../enums/project-auth-method-id';
 import { ProjectKeyScopes } from '../enums/project-key-scopes';
+import { ProjectOAuth2Auth0Prompt } from '../enums/project-o-auth-2-auth-0-prompt';
+import { ProjectOAuth2DiscordPrompt } from '../enums/project-o-auth-2-discord-prompt';
+import { ProjectOAuth2GitHubPrompt } from '../enums/project-o-auth-2-git-hub-prompt';
 import { ProjectOAuth2GooglePrompt } from '../enums/project-o-auth-2-google-prompt';
+import { ProjectOAuth2KakaoPrompt } from '../enums/project-o-auth-2-kakao-prompt';
+import { ProjectOAuth2MicrosoftPrompt } from '../enums/project-o-auth-2-microsoft-prompt';
 import { ProjectOAuth2OidcPrompt } from '../enums/project-o-auth-2-oidc-prompt';
+import { ProjectOAuth2OktaPrompt } from '../enums/project-o-auth-2-okta-prompt';
+import { ProjectOAuth2SalesforcePrompt } from '../enums/project-o-auth-2-salesforce-prompt';
+import { ProjectOAuth2ZohoPrompt } from '../enums/project-o-auth-2-zoho-prompt';
 import { ProjectOAuthProviderId } from '../enums/project-o-auth-provider-id';
 import { ProjectPolicyId } from '../enums/project-policy-id';
 import { ProjectProtocolId } from '../enums/project-protocol-id';
@@ -135,6 +143,337 @@ export class Project {
         };
 
         return this.client.call('patch', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Get a list of all environments of the project. You can use the query params to filter your results.
+     *
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, teamId, labels, search, accessedAt, status, parentId
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ProjectList>}
+     */
+    listEnvironments(params?: {
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.ProjectList>;
+    /**
+     * Get a list of all environments of the project. You can use the query params to filter your results.
+     *
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, teamId, labels, search, accessedAt, status, parentId
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ProjectList>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    listEnvironments(
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.ProjectList>;
+    listEnvironments(
+        paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
+        ...rest: [boolean?]
+    ): Promise<Models.ProjectList> {
+        let params: { queries?: string[]; total?: boolean };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                total?: boolean;
+            };
+        } else {
+            params = {
+                queries: paramsOrFirst as string[],
+                total: rest[0] as boolean,
+            };
+        }
+
+        const queries = params.queries;
+        const total = params.total;
+        const apiPath = '/project/environments';
+        const apiPayload: Payload = {};
+        if (typeof queries !== 'undefined') {
+            apiPayload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            accept: 'application/json',
+        };
+
+        return this.client.call('get', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Create a new environment of the project. An environment is a separate project in the same organization and region, with its own resources and users. Its usage is billed under the project it belongs to.
+     *
+     * @param {string} params.environmentId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, and hyphen. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Environment name. Max length: 128 chars.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    createEnvironment(params: {
+        environmentId: string;
+        name: string;
+    }): Promise<Models.Project>;
+    /**
+     * Create a new environment of the project. An environment is a separate project in the same organization and region, with its own resources and users. Its usage is billed under the project it belongs to.
+     *
+     * @param {string} environmentId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, and hyphen. Can't start with a special char. Max length is 36 chars.
+     * @param {string} name - Environment name. Max length: 128 chars.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createEnvironment(
+        environmentId: string,
+        name: string,
+    ): Promise<Models.Project>;
+    createEnvironment(
+        paramsOrFirst: { environmentId: string; name: string } | string,
+        ...rest: [string?]
+    ): Promise<Models.Project> {
+        let params: { environmentId: string; name: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                environmentId: string;
+                name: string;
+            };
+        } else {
+            params = {
+                environmentId: paramsOrFirst as string,
+                name: rest[0] as string,
+            };
+        }
+
+        const environmentId = params.environmentId;
+        const name = params.name;
+        if (typeof environmentId === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "environmentId"',
+            );
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+        const apiPath = '/project/environments';
+        const apiPayload: Payload = {};
+        if (typeof environmentId !== 'undefined') {
+            apiPayload['environmentId'] = environmentId;
+        }
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('post', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Get an environment of the project by its unique ID.
+     *
+     * @param {string} params.environmentId - Environment unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    getEnvironment(params: { environmentId: string }): Promise<Models.Project>;
+    /**
+     * Get an environment of the project by its unique ID.
+     *
+     * @param {string} environmentId - Environment unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getEnvironment(environmentId: string): Promise<Models.Project>;
+    getEnvironment(
+        paramsOrFirst: { environmentId: string } | string,
+    ): Promise<Models.Project> {
+        let params: { environmentId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { environmentId: string };
+        } else {
+            params = {
+                environmentId: paramsOrFirst as string,
+            };
+        }
+
+        const environmentId = params.environmentId;
+        if (typeof environmentId === 'undefined' || environmentId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "environmentId"',
+            );
+        }
+        const apiPath = '/project/environments/{environmentId}'.replace(
+            '{environmentId}',
+            encodeURIComponent(String(environmentId)),
+        );
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            accept: 'application/json',
+        };
+
+        return this.client.call('get', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Update the name of an environment of the project.
+     *
+     * @param {string} params.environmentId - Environment unique ID.
+     * @param {string} params.name - Environment name. Max length: 128 chars.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    updateEnvironment(params: {
+        environmentId: string;
+        name: string;
+    }): Promise<Models.Project>;
+    /**
+     * Update the name of an environment of the project.
+     *
+     * @param {string} environmentId - Environment unique ID.
+     * @param {string} name - Environment name. Max length: 128 chars.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateEnvironment(
+        environmentId: string,
+        name: string,
+    ): Promise<Models.Project>;
+    updateEnvironment(
+        paramsOrFirst: { environmentId: string; name: string } | string,
+        ...rest: [string?]
+    ): Promise<Models.Project> {
+        let params: { environmentId: string; name: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                environmentId: string;
+                name: string;
+            };
+        } else {
+            params = {
+                environmentId: paramsOrFirst as string,
+                name: rest[0] as string,
+            };
+        }
+
+        const environmentId = params.environmentId;
+        const name = params.name;
+        if (typeof environmentId === 'undefined' || environmentId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "environmentId"',
+            );
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+        const apiPath = '/project/environments/{environmentId}'.replace(
+            '{environmentId}',
+            encodeURIComponent(String(environmentId)),
+        );
+        const apiPayload: Payload = {};
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Delete an environment of the project, with all of its resources and users.
+     *
+     * @param {string} params.environmentId - Environment unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deleteEnvironment(params: { environmentId: string }): Promise<{}>;
+    /**
+     * Delete an environment of the project, with all of its resources and users.
+     *
+     * @param {string} environmentId - Environment unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    deleteEnvironment(environmentId: string): Promise<{}>;
+    deleteEnvironment(
+        paramsOrFirst: { environmentId: string } | string,
+    ): Promise<{}> {
+        let params: { environmentId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { environmentId: string };
+        } else {
+            params = {
+                environmentId: paramsOrFirst as string,
+            };
+        }
+
+        const environmentId = params.environmentId;
+        if (typeof environmentId === 'undefined' || environmentId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "environmentId"',
+            );
+        }
+        const apiPath = '/project/environments/{environmentId}'.replace(
+            '{environmentId}',
+            encodeURIComponent(String(environmentId)),
+        );
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -1291,7 +1630,9 @@ export class Project {
      * @param {string} params.keyId - 'Key ID' of Apple OAuth2 app. For example: P4000000N8
      * @param {string} params.teamId - 'Team ID' of Apple OAuth2 app. For example: D4000000R6
      * @param {string} params.p8File - Contents of the Apple OAuth2 app .p8 private key file. The secret key wrapped by the PEM markers is 200 characters long. For example: -----BEGIN PRIVATE KEY-----MIGTAg...jy2Xbna-----END PRIVATE KEY-----
-     * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {boolean} params.enabled - Browser-based OAuth2 sign-in status. Set to true to enable new session creation through the redirect flow. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid. Has no effect on native sign-in, which is controlled by nativeEnabled only.
+     * @param {string[]} params.nativeClientIds - App bundle IDs accepted as ID token audiences for native Sign in with Apple. For example: com.example.app. Together with the Services ID, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
+     * @param {boolean} params.nativeEnabled - Native Sign in with Apple status. This is the only switch for creating sessions from ID tokens obtained on device and is independent of enabled. Needs a Services ID or at least one native client ID to match tokens against, but no key or team ID: this method verifies a signature rather than redeeming an authorization code.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Apple>}
      */
@@ -1301,6 +1642,8 @@ export class Project {
         teamId?: string;
         p8File?: string;
         enabled?: boolean;
+        nativeClientIds?: string[];
+        nativeEnabled?: boolean;
     }): Promise<Models.OAuth2Apple>;
     /**
      * Update the project OAuth2 Apple configuration.
@@ -1309,7 +1652,9 @@ export class Project {
      * @param {string} keyId - 'Key ID' of Apple OAuth2 app. For example: P4000000N8
      * @param {string} teamId - 'Team ID' of Apple OAuth2 app. For example: D4000000R6
      * @param {string} p8File - Contents of the Apple OAuth2 app .p8 private key file. The secret key wrapped by the PEM markers is 200 characters long. For example: -----BEGIN PRIVATE KEY-----MIGTAg...jy2Xbna-----END PRIVATE KEY-----
-     * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {boolean} enabled - Browser-based OAuth2 sign-in status. Set to true to enable new session creation through the redirect flow. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid. Has no effect on native sign-in, which is controlled by nativeEnabled only.
+     * @param {string[]} nativeClientIds - App bundle IDs accepted as ID token audiences for native Sign in with Apple. For example: com.example.app. Together with the Services ID, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
+     * @param {boolean} nativeEnabled - Native Sign in with Apple status. This is the only switch for creating sessions from ID tokens obtained on device and is independent of enabled. Needs a Services ID or at least one native client ID to match tokens against, but no key or team ID: this method verifies a signature rather than redeeming an authorization code.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Apple>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1320,6 +1665,8 @@ export class Project {
         teamId?: string,
         p8File?: string,
         enabled?: boolean,
+        nativeClientIds?: string[],
+        nativeEnabled?: boolean,
     ): Promise<Models.OAuth2Apple>;
     updateOAuth2Apple(
         paramsOrFirst?:
@@ -1329,9 +1676,11 @@ export class Project {
                   teamId?: string;
                   p8File?: string;
                   enabled?: boolean;
+                  nativeClientIds?: string[];
+                  nativeEnabled?: boolean;
               }
             | string,
-        ...rest: [string?, string?, string?, boolean?]
+        ...rest: [string?, string?, string?, boolean?, string[]?, boolean?]
     ): Promise<Models.OAuth2Apple> {
         let params: {
             serviceId?: string;
@@ -1339,6 +1688,8 @@ export class Project {
             teamId?: string;
             p8File?: string;
             enabled?: boolean;
+            nativeClientIds?: string[];
+            nativeEnabled?: boolean;
         };
 
         if (
@@ -1353,6 +1704,8 @@ export class Project {
                 teamId?: string;
                 p8File?: string;
                 enabled?: boolean;
+                nativeClientIds?: string[];
+                nativeEnabled?: boolean;
             };
         } else {
             params = {
@@ -1361,6 +1714,8 @@ export class Project {
                 teamId: rest[1] as string,
                 p8File: rest[2] as string,
                 enabled: rest[3] as boolean,
+                nativeClientIds: rest[4] as string[],
+                nativeEnabled: rest[5] as boolean,
             };
         }
 
@@ -1369,6 +1724,8 @@ export class Project {
         const teamId = params.teamId;
         const p8File = params.p8File;
         const enabled = params.enabled;
+        const nativeClientIds = params.nativeClientIds;
+        const nativeEnabled = params.nativeEnabled;
         const apiPath = '/project/oauth2/apple';
         const apiPayload: Payload = {};
         if (typeof serviceId !== 'undefined') {
@@ -1385,6 +1742,12 @@ export class Project {
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof nativeClientIds !== 'undefined') {
+            apiPayload['nativeClientIds'] = nativeClientIds;
+        }
+        if (typeof nativeEnabled !== 'undefined') {
+            apiPayload['nativeEnabled'] = nativeEnabled;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1489,6 +1852,7 @@ export class Project {
      * @param {string} params.clientSecret - 'Client Secret' of Auth0 OAuth2 app. For example: zXz0000-00000000000000000000000000000-00000000000000000000PJafnF
      * @param {string} params.endpoint - Domain of Auth0 instance. For example: example.us.auth0.com
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2Auth0Prompt[]} params.prompt - Array of Auth0 OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Auth0 default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Auth0>}
      */
@@ -1497,6 +1861,7 @@ export class Project {
         clientSecret?: string;
         endpoint?: string;
         enabled?: boolean;
+        prompt?: ProjectOAuth2Auth0Prompt[];
     }): Promise<Models.OAuth2Auth0>;
     /**
      * Update the project OAuth2 Auth0 configuration.
@@ -1505,6 +1870,7 @@ export class Project {
      * @param {string} clientSecret - 'Client Secret' of Auth0 OAuth2 app. For example: zXz0000-00000000000000000000000000000-00000000000000000000PJafnF
      * @param {string} endpoint - Domain of Auth0 instance. For example: example.us.auth0.com
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2Auth0Prompt[]} prompt - Array of Auth0 OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Auth0 default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Auth0>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1514,6 +1880,7 @@ export class Project {
         clientSecret?: string,
         endpoint?: string,
         enabled?: boolean,
+        prompt?: ProjectOAuth2Auth0Prompt[],
     ): Promise<Models.OAuth2Auth0>;
     updateOAuth2Auth0(
         paramsOrFirst?:
@@ -1522,15 +1889,17 @@ export class Project {
                   clientSecret?: string;
                   endpoint?: string;
                   enabled?: boolean;
+                  prompt?: ProjectOAuth2Auth0Prompt[];
               }
             | string,
-        ...rest: [string?, string?, boolean?]
+        ...rest: [string?, string?, boolean?, ProjectOAuth2Auth0Prompt[]?]
     ): Promise<Models.OAuth2Auth0> {
         let params: {
             clientId?: string;
             clientSecret?: string;
             endpoint?: string;
             enabled?: boolean;
+            prompt?: ProjectOAuth2Auth0Prompt[];
         };
 
         if (
@@ -1544,6 +1913,7 @@ export class Project {
                 clientSecret?: string;
                 endpoint?: string;
                 enabled?: boolean;
+                prompt?: ProjectOAuth2Auth0Prompt[];
             };
         } else {
             params = {
@@ -1551,6 +1921,7 @@ export class Project {
                 clientSecret: rest[0] as string,
                 endpoint: rest[1] as string,
                 enabled: rest[2] as boolean,
+                prompt: rest[3] as ProjectOAuth2Auth0Prompt[],
             };
         }
 
@@ -1558,6 +1929,7 @@ export class Project {
         const clientSecret = params.clientSecret;
         const endpoint = params.endpoint;
         const enabled = params.enabled;
+        const prompt = params.prompt;
         const apiPath = '/project/oauth2/auth0';
         const apiPayload: Payload = {};
         if (typeof clientId !== 'undefined') {
@@ -1571,6 +1943,9 @@ export class Project {
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof prompt !== 'undefined') {
+            apiPayload['prompt'] = prompt;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2190,6 +2565,7 @@ export class Project {
      * @param {string} params.clientId - 'Client ID' of Discord OAuth2 app. For example: 950722000000343754
      * @param {string} params.clientSecret - 'Client Secret' of Discord OAuth2 app. For example: YmPXnM000000000000000000002zFg5D
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2DiscordPrompt[]} params.prompt - Array with at most one Discord OAuth2 prompt value. "none" means: skip the authorization screen for users who already authorized the app with the requested scopes. "consent" means: ask users who already authorized the app to approve it again. Pass an empty array to use the Discord default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Discord>}
      */
@@ -2197,6 +2573,7 @@ export class Project {
         clientId?: string;
         clientSecret?: string;
         enabled?: boolean;
+        prompt?: ProjectOAuth2DiscordPrompt[];
     }): Promise<Models.OAuth2Discord>;
     /**
      * Update the project OAuth2 Discord configuration.
@@ -2204,6 +2581,7 @@ export class Project {
      * @param {string} clientId - 'Client ID' of Discord OAuth2 app. For example: 950722000000343754
      * @param {string} clientSecret - 'Client Secret' of Discord OAuth2 app. For example: YmPXnM000000000000000000002zFg5D
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2DiscordPrompt[]} prompt - Array with at most one Discord OAuth2 prompt value. "none" means: skip the authorization screen for users who already authorized the app with the requested scopes. "consent" means: ask users who already authorized the app to approve it again. Pass an empty array to use the Discord default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Discord>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2212,17 +2590,24 @@ export class Project {
         clientId?: string,
         clientSecret?: string,
         enabled?: boolean,
+        prompt?: ProjectOAuth2DiscordPrompt[],
     ): Promise<Models.OAuth2Discord>;
     updateOAuth2Discord(
         paramsOrFirst?:
-            | { clientId?: string; clientSecret?: string; enabled?: boolean }
+            | {
+                  clientId?: string;
+                  clientSecret?: string;
+                  enabled?: boolean;
+                  prompt?: ProjectOAuth2DiscordPrompt[];
+              }
             | string,
-        ...rest: [string?, boolean?]
+        ...rest: [string?, boolean?, ProjectOAuth2DiscordPrompt[]?]
     ): Promise<Models.OAuth2Discord> {
         let params: {
             clientId?: string;
             clientSecret?: string;
             enabled?: boolean;
+            prompt?: ProjectOAuth2DiscordPrompt[];
         };
 
         if (
@@ -2235,18 +2620,21 @@ export class Project {
                 clientId?: string;
                 clientSecret?: string;
                 enabled?: boolean;
+                prompt?: ProjectOAuth2DiscordPrompt[];
             };
         } else {
             params = {
                 clientId: paramsOrFirst as string,
                 clientSecret: rest[0] as string,
                 enabled: rest[1] as boolean,
+                prompt: rest[2] as ProjectOAuth2DiscordPrompt[],
             };
         }
 
         const clientId = params.clientId;
         const clientSecret = params.clientSecret;
         const enabled = params.enabled;
+        const prompt = params.prompt;
         const apiPath = '/project/oauth2/discord';
         const apiPayload: Payload = {};
         if (typeof clientId !== 'undefined') {
@@ -2257,6 +2645,9 @@ export class Project {
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof prompt !== 'undefined') {
+            apiPayload['prompt'] = prompt;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2791,6 +3182,7 @@ export class Project {
      * @param {string} params.clientId - 'OAuth2 app Client ID, or App ID' of GitHub OAuth2 app. For example: e4d87900000000540733. Example of wrong value: 370006
      * @param {string} params.clientSecret - 'Client Secret' of GitHub OAuth2 app. For example: 5e07c00000000000000000000000000000198bcc
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2GitHubPrompt[]} params.prompt - Array of GitHub OAuth2 prompt values. "select_account" means: prompt the user to select an account. Pass an empty array to use the GitHub default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Github>}
      */
@@ -2798,6 +3190,7 @@ export class Project {
         clientId?: string;
         clientSecret?: string;
         enabled?: boolean;
+        prompt?: ProjectOAuth2GitHubPrompt[];
     }): Promise<Models.OAuth2Github>;
     /**
      * Update the project OAuth2 GitHub configuration.
@@ -2805,6 +3198,7 @@ export class Project {
      * @param {string} clientId - 'OAuth2 app Client ID, or App ID' of GitHub OAuth2 app. For example: e4d87900000000540733. Example of wrong value: 370006
      * @param {string} clientSecret - 'Client Secret' of GitHub OAuth2 app. For example: 5e07c00000000000000000000000000000198bcc
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2GitHubPrompt[]} prompt - Array of GitHub OAuth2 prompt values. "select_account" means: prompt the user to select an account. Pass an empty array to use the GitHub default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Github>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2813,17 +3207,24 @@ export class Project {
         clientId?: string,
         clientSecret?: string,
         enabled?: boolean,
+        prompt?: ProjectOAuth2GitHubPrompt[],
     ): Promise<Models.OAuth2Github>;
     updateOAuth2GitHub(
         paramsOrFirst?:
-            | { clientId?: string; clientSecret?: string; enabled?: boolean }
+            | {
+                  clientId?: string;
+                  clientSecret?: string;
+                  enabled?: boolean;
+                  prompt?: ProjectOAuth2GitHubPrompt[];
+              }
             | string,
-        ...rest: [string?, boolean?]
+        ...rest: [string?, boolean?, ProjectOAuth2GitHubPrompt[]?]
     ): Promise<Models.OAuth2Github> {
         let params: {
             clientId?: string;
             clientSecret?: string;
             enabled?: boolean;
+            prompt?: ProjectOAuth2GitHubPrompt[];
         };
 
         if (
@@ -2836,18 +3237,21 @@ export class Project {
                 clientId?: string;
                 clientSecret?: string;
                 enabled?: boolean;
+                prompt?: ProjectOAuth2GitHubPrompt[];
             };
         } else {
             params = {
                 clientId: paramsOrFirst as string,
                 clientSecret: rest[0] as string,
                 enabled: rest[1] as boolean,
+                prompt: rest[2] as ProjectOAuth2GitHubPrompt[],
             };
         }
 
         const clientId = params.clientId;
         const clientSecret = params.clientSecret;
         const enabled = params.enabled;
+        const prompt = params.prompt;
         const apiPath = '/project/oauth2/github';
         const apiPayload: Payload = {};
         if (typeof clientId !== 'undefined') {
@@ -2858,6 +3262,9 @@ export class Project {
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof prompt !== 'undefined') {
+            apiPayload['prompt'] = prompt;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2977,7 +3384,9 @@ export class Project {
      * @param {string} params.clientId - 'Client ID' of Google OAuth2 app. For example: 120000000095-92ifjb00000000000000000000g7ijfb.apps.googleusercontent.com
      * @param {string} params.clientSecret - 'Client Secret' of Google OAuth2 app. For example: GOCSPX-2k8gsR0000000000000000VNahJj
      * @param {ProjectOAuth2GooglePrompt[]} params.prompt - Array of Google OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. Must not be specified with other values. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account.
-     * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {boolean} params.enabled - Browser-based OAuth2 sign-in status. Set to true to enable new session creation through the redirect flow. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid. Has no effect on native sign-in, which is controlled by nativeEnabled only.
+     * @param {string[]} params.nativeClientIds - Additional OAuth2 client IDs accepted as ID token audiences for native sign-in (Android and iOS client IDs). Together with the client ID, which is always accepted, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
+     * @param {boolean} params.nativeEnabled - Native Google sign-in status. This is the only switch for creating sessions from ID tokens obtained on device and is independent of enabled. Needs a client ID or at least one native client ID to match tokens against, but no client secret: this method verifies a signature rather than redeeming an authorization code.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Google>}
      */
@@ -2986,6 +3395,8 @@ export class Project {
         clientSecret?: string;
         prompt?: ProjectOAuth2GooglePrompt[];
         enabled?: boolean;
+        nativeClientIds?: string[];
+        nativeEnabled?: boolean;
     }): Promise<Models.OAuth2Google>;
     /**
      * Update the project OAuth2 Google configuration.
@@ -2993,7 +3404,9 @@ export class Project {
      * @param {string} clientId - 'Client ID' of Google OAuth2 app. For example: 120000000095-92ifjb00000000000000000000g7ijfb.apps.googleusercontent.com
      * @param {string} clientSecret - 'Client Secret' of Google OAuth2 app. For example: GOCSPX-2k8gsR0000000000000000VNahJj
      * @param {ProjectOAuth2GooglePrompt[]} prompt - Array of Google OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. Must not be specified with other values. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account.
-     * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {boolean} enabled - Browser-based OAuth2 sign-in status. Set to true to enable new session creation through the redirect flow. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid. Has no effect on native sign-in, which is controlled by nativeEnabled only.
+     * @param {string[]} nativeClientIds - Additional OAuth2 client IDs accepted as ID token audiences for native sign-in (Android and iOS client IDs). Together with the client ID, which is always accepted, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
+     * @param {boolean} nativeEnabled - Native Google sign-in status. This is the only switch for creating sessions from ID tokens obtained on device and is independent of enabled. Needs a client ID or at least one native client ID to match tokens against, but no client secret: this method verifies a signature rather than redeeming an authorization code.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Google>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3003,6 +3416,8 @@ export class Project {
         clientSecret?: string,
         prompt?: ProjectOAuth2GooglePrompt[],
         enabled?: boolean,
+        nativeClientIds?: string[],
+        nativeEnabled?: boolean,
     ): Promise<Models.OAuth2Google>;
     updateOAuth2Google(
         paramsOrFirst?:
@@ -3011,15 +3426,25 @@ export class Project {
                   clientSecret?: string;
                   prompt?: ProjectOAuth2GooglePrompt[];
                   enabled?: boolean;
+                  nativeClientIds?: string[];
+                  nativeEnabled?: boolean;
               }
             | string,
-        ...rest: [string?, ProjectOAuth2GooglePrompt[]?, boolean?]
+        ...rest: [
+            string?,
+            ProjectOAuth2GooglePrompt[]?,
+            boolean?,
+            string[]?,
+            boolean?,
+        ]
     ): Promise<Models.OAuth2Google> {
         let params: {
             clientId?: string;
             clientSecret?: string;
             prompt?: ProjectOAuth2GooglePrompt[];
             enabled?: boolean;
+            nativeClientIds?: string[];
+            nativeEnabled?: boolean;
         };
 
         if (
@@ -3033,6 +3458,8 @@ export class Project {
                 clientSecret?: string;
                 prompt?: ProjectOAuth2GooglePrompt[];
                 enabled?: boolean;
+                nativeClientIds?: string[];
+                nativeEnabled?: boolean;
             };
         } else {
             params = {
@@ -3040,6 +3467,8 @@ export class Project {
                 clientSecret: rest[0] as string,
                 prompt: rest[1] as ProjectOAuth2GooglePrompt[],
                 enabled: rest[2] as boolean,
+                nativeClientIds: rest[3] as string[],
+                nativeEnabled: rest[4] as boolean,
             };
         }
 
@@ -3047,6 +3476,8 @@ export class Project {
         const clientSecret = params.clientSecret;
         const prompt = params.prompt;
         const enabled = params.enabled;
+        const nativeClientIds = params.nativeClientIds;
+        const nativeEnabled = params.nativeEnabled;
         const apiPath = '/project/oauth2/google';
         const apiPayload: Payload = {};
         if (typeof clientId !== 'undefined') {
@@ -3060,6 +3491,12 @@ export class Project {
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof nativeClientIds !== 'undefined') {
+            apiPayload['nativeClientIds'] = nativeClientIds;
+        }
+        if (typeof nativeEnabled !== 'undefined') {
+            apiPayload['nativeEnabled'] = nativeEnabled;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -3142,6 +3579,107 @@ export class Project {
         }
         if (typeof clientSecret !== 'undefined') {
             apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Update the project OAuth2 Kakao configuration.
+     *
+     * @param {string} params.clientId - 'REST API key' of Kakao OAuth2 app. For example: 839ff5000000000000000000013206de
+     * @param {string} params.clientSecret - 'Client Secret' of Kakao OAuth2 app. For example: jLNVOK00000000000000000000yJebea. Generate it under Kakao Login > Security and set its status to enabled
+     * @param {ProjectOAuth2KakaoPrompt[]} params.prompt - Array of Kakao OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "create" means: prompt the user to sign up. "select_account" means: prompt the user to select an account. Pass an empty array to use the Kakao default.
+     * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Kakao>}
+     */
+    updateOAuth2Kakao(params?: {
+        clientId?: string;
+        clientSecret?: string;
+        prompt?: ProjectOAuth2KakaoPrompt[];
+        enabled?: boolean;
+    }): Promise<Models.OAuth2Kakao>;
+    /**
+     * Update the project OAuth2 Kakao configuration.
+     *
+     * @param {string} clientId - 'REST API key' of Kakao OAuth2 app. For example: 839ff5000000000000000000013206de
+     * @param {string} clientSecret - 'Client Secret' of Kakao OAuth2 app. For example: jLNVOK00000000000000000000yJebea. Generate it under Kakao Login > Security and set its status to enabled
+     * @param {ProjectOAuth2KakaoPrompt[]} prompt - Array of Kakao OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "create" means: prompt the user to sign up. "select_account" means: prompt the user to select an account. Pass an empty array to use the Kakao default.
+     * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Kakao>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Kakao(
+        clientId?: string,
+        clientSecret?: string,
+        prompt?: ProjectOAuth2KakaoPrompt[],
+        enabled?: boolean,
+    ): Promise<Models.OAuth2Kakao>;
+    updateOAuth2Kakao(
+        paramsOrFirst?:
+            | {
+                  clientId?: string;
+                  clientSecret?: string;
+                  prompt?: ProjectOAuth2KakaoPrompt[];
+                  enabled?: boolean;
+              }
+            | string,
+        ...rest: [string?, ProjectOAuth2KakaoPrompt[]?, boolean?]
+    ): Promise<Models.OAuth2Kakao> {
+        let params: {
+            clientId?: string;
+            clientSecret?: string;
+            prompt?: ProjectOAuth2KakaoPrompt[];
+            enabled?: boolean;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string;
+                clientSecret?: string;
+                prompt?: ProjectOAuth2KakaoPrompt[];
+                enabled?: boolean;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string,
+                clientSecret: rest[0] as string,
+                prompt: rest[1] as ProjectOAuth2KakaoPrompt[],
+                enabled: rest[2] as boolean,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const prompt = params.prompt;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/kakao';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof prompt !== 'undefined') {
+            apiPayload['prompt'] = prompt;
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
@@ -3451,6 +3989,7 @@ export class Project {
      * @param {string} params.applicationSecret - 'Entra ID Application Secret, also known as Client Secret' of Microsoft OAuth2 app. For example: A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u
      * @param {string} params.tenant - Microsoft Entra ID tenant identifier. Use 'common', 'organizations', 'consumers' or a specific tenant ID. For example: common
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2MicrosoftPrompt[]} params.prompt - Array of Microsoft OAuth2 prompt values. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account. Pass an empty array to use the Microsoft default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Microsoft>}
      */
@@ -3459,6 +3998,7 @@ export class Project {
         applicationSecret?: string;
         tenant?: string;
         enabled?: boolean;
+        prompt?: ProjectOAuth2MicrosoftPrompt[];
     }): Promise<Models.OAuth2Microsoft>;
     /**
      * Update the project OAuth2 Microsoft configuration.
@@ -3467,6 +4007,7 @@ export class Project {
      * @param {string} applicationSecret - 'Entra ID Application Secret, also known as Client Secret' of Microsoft OAuth2 app. For example: A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u
      * @param {string} tenant - Microsoft Entra ID tenant identifier. Use 'common', 'organizations', 'consumers' or a specific tenant ID. For example: common
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2MicrosoftPrompt[]} prompt - Array of Microsoft OAuth2 prompt values. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account. Pass an empty array to use the Microsoft default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Microsoft>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3476,6 +4017,7 @@ export class Project {
         applicationSecret?: string,
         tenant?: string,
         enabled?: boolean,
+        prompt?: ProjectOAuth2MicrosoftPrompt[],
     ): Promise<Models.OAuth2Microsoft>;
     updateOAuth2Microsoft(
         paramsOrFirst?:
@@ -3484,15 +4026,17 @@ export class Project {
                   applicationSecret?: string;
                   tenant?: string;
                   enabled?: boolean;
+                  prompt?: ProjectOAuth2MicrosoftPrompt[];
               }
             | string,
-        ...rest: [string?, string?, boolean?]
+        ...rest: [string?, string?, boolean?, ProjectOAuth2MicrosoftPrompt[]?]
     ): Promise<Models.OAuth2Microsoft> {
         let params: {
             applicationId?: string;
             applicationSecret?: string;
             tenant?: string;
             enabled?: boolean;
+            prompt?: ProjectOAuth2MicrosoftPrompt[];
         };
 
         if (
@@ -3506,6 +4050,7 @@ export class Project {
                 applicationSecret?: string;
                 tenant?: string;
                 enabled?: boolean;
+                prompt?: ProjectOAuth2MicrosoftPrompt[];
             };
         } else {
             params = {
@@ -3513,6 +4058,7 @@ export class Project {
                 applicationSecret: rest[0] as string,
                 tenant: rest[1] as string,
                 enabled: rest[2] as boolean,
+                prompt: rest[3] as ProjectOAuth2MicrosoftPrompt[],
             };
         }
 
@@ -3520,6 +4066,7 @@ export class Project {
         const applicationSecret = params.applicationSecret;
         const tenant = params.tenant;
         const enabled = params.enabled;
+        const prompt = params.prompt;
         const apiPath = '/project/oauth2/microsoft';
         const apiPayload: Payload = {};
         if (typeof applicationId !== 'undefined') {
@@ -3533,6 +4080,9 @@ export class Project {
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof prompt !== 'undefined') {
+            apiPayload['prompt'] = prompt;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -3812,6 +4362,7 @@ export class Project {
      * @param {string} params.domain - Okta company domain. Required when enabling the provider. For example: trial-6400025.okta.com. Example of wrong value: trial-6400025-admin.okta.com, or https://trial-6400025.okta.com/
      * @param {string} params.authorizationServerId - Custom Authorization Servers. Optional, can be left empty or unconfigured. For example: aus000000000000000h7z
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2OktaPrompt[]} params.prompt - Array of Okta OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Okta default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Okta>}
      */
@@ -3821,6 +4372,7 @@ export class Project {
         domain?: string;
         authorizationServerId?: string;
         enabled?: boolean;
+        prompt?: ProjectOAuth2OktaPrompt[];
     }): Promise<Models.OAuth2Okta>;
     /**
      * Update the project OAuth2 Okta configuration.
@@ -3830,6 +4382,7 @@ export class Project {
      * @param {string} domain - Okta company domain. Required when enabling the provider. For example: trial-6400025.okta.com. Example of wrong value: trial-6400025-admin.okta.com, or https://trial-6400025.okta.com/
      * @param {string} authorizationServerId - Custom Authorization Servers. Optional, can be left empty or unconfigured. For example: aus000000000000000h7z
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2OktaPrompt[]} prompt - Array of Okta OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Okta default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Okta>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3840,6 +4393,7 @@ export class Project {
         domain?: string,
         authorizationServerId?: string,
         enabled?: boolean,
+        prompt?: ProjectOAuth2OktaPrompt[],
     ): Promise<Models.OAuth2Okta>;
     updateOAuth2Okta(
         paramsOrFirst?:
@@ -3849,9 +4403,16 @@ export class Project {
                   domain?: string;
                   authorizationServerId?: string;
                   enabled?: boolean;
+                  prompt?: ProjectOAuth2OktaPrompt[];
               }
             | string,
-        ...rest: [string?, string?, string?, boolean?]
+        ...rest: [
+            string?,
+            string?,
+            string?,
+            boolean?,
+            ProjectOAuth2OktaPrompt[]?,
+        ]
     ): Promise<Models.OAuth2Okta> {
         let params: {
             clientId?: string;
@@ -3859,6 +4420,7 @@ export class Project {
             domain?: string;
             authorizationServerId?: string;
             enabled?: boolean;
+            prompt?: ProjectOAuth2OktaPrompt[];
         };
 
         if (
@@ -3873,6 +4435,7 @@ export class Project {
                 domain?: string;
                 authorizationServerId?: string;
                 enabled?: boolean;
+                prompt?: ProjectOAuth2OktaPrompt[];
             };
         } else {
             params = {
@@ -3881,6 +4444,7 @@ export class Project {
                 domain: rest[1] as string,
                 authorizationServerId: rest[2] as string,
                 enabled: rest[3] as boolean,
+                prompt: rest[4] as ProjectOAuth2OktaPrompt[],
             };
         }
 
@@ -3889,6 +4453,7 @@ export class Project {
         const domain = params.domain;
         const authorizationServerId = params.authorizationServerId;
         const enabled = params.enabled;
+        const prompt = params.prompt;
         const apiPath = '/project/oauth2/okta';
         const apiPayload: Payload = {};
         if (typeof clientId !== 'undefined') {
@@ -3905,6 +4470,9 @@ export class Project {
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof prompt !== 'undefined') {
+            apiPayload['prompt'] = prompt;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -4263,6 +4831,7 @@ export class Project {
      * @param {string} params.customerKey - 'Consumer Key' of Salesforce OAuth2 app. For example: 3MVG9I0000000000000000000000000000000000000000000000000000000000000000000000000C5Aejq
      * @param {string} params.customerSecret - 'Consumer Secret' of Salesforce OAuth2 app. For example: 3w000000000000e2
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2SalesforcePrompt[]} params.prompt - Array of Salesforce OAuth2 prompt values. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Salesforce default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Salesforce>}
      */
@@ -4270,6 +4839,7 @@ export class Project {
         customerKey?: string;
         customerSecret?: string;
         enabled?: boolean;
+        prompt?: ProjectOAuth2SalesforcePrompt[];
     }): Promise<Models.OAuth2Salesforce>;
     /**
      * Update the project OAuth2 Salesforce configuration.
@@ -4277,6 +4847,7 @@ export class Project {
      * @param {string} customerKey - 'Consumer Key' of Salesforce OAuth2 app. For example: 3MVG9I0000000000000000000000000000000000000000000000000000000000000000000000000C5Aejq
      * @param {string} customerSecret - 'Consumer Secret' of Salesforce OAuth2 app. For example: 3w000000000000e2
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2SalesforcePrompt[]} prompt - Array of Salesforce OAuth2 prompt values. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Salesforce default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Salesforce>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -4285,6 +4856,7 @@ export class Project {
         customerKey?: string,
         customerSecret?: string,
         enabled?: boolean,
+        prompt?: ProjectOAuth2SalesforcePrompt[],
     ): Promise<Models.OAuth2Salesforce>;
     updateOAuth2Salesforce(
         paramsOrFirst?:
@@ -4292,14 +4864,16 @@ export class Project {
                   customerKey?: string;
                   customerSecret?: string;
                   enabled?: boolean;
+                  prompt?: ProjectOAuth2SalesforcePrompt[];
               }
             | string,
-        ...rest: [string?, boolean?]
+        ...rest: [string?, boolean?, ProjectOAuth2SalesforcePrompt[]?]
     ): Promise<Models.OAuth2Salesforce> {
         let params: {
             customerKey?: string;
             customerSecret?: string;
             enabled?: boolean;
+            prompt?: ProjectOAuth2SalesforcePrompt[];
         };
 
         if (
@@ -4312,18 +4886,21 @@ export class Project {
                 customerKey?: string;
                 customerSecret?: string;
                 enabled?: boolean;
+                prompt?: ProjectOAuth2SalesforcePrompt[];
             };
         } else {
             params = {
                 customerKey: paramsOrFirst as string,
                 customerSecret: rest[0] as string,
                 enabled: rest[1] as boolean,
+                prompt: rest[2] as ProjectOAuth2SalesforcePrompt[],
             };
         }
 
         const customerKey = params.customerKey;
         const customerSecret = params.customerSecret;
         const enabled = params.enabled;
+        const prompt = params.prompt;
         const apiPath = '/project/oauth2/salesforce';
         const apiPayload: Payload = {};
         if (typeof customerKey !== 'undefined') {
@@ -4334,6 +4911,9 @@ export class Project {
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof prompt !== 'undefined') {
+            apiPayload['prompt'] = prompt;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -4602,6 +5182,91 @@ export class Project {
     }
 
     /**
+     * Update the project OAuth2 TikTok configuration.
+     *
+     * @param {string} params.clientId - 'Client key' of TikTok OAuth2 app. For example: awz000000000tyw0
+     * @param {string} params.clientSecret - 'Client secret' of TikTok OAuth2 app. For example: 6wXewM00000000000000000000yXnite
+     * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2TikTok>}
+     */
+    updateOAuth2TikTok(params?: {
+        clientId?: string;
+        clientSecret?: string;
+        enabled?: boolean;
+    }): Promise<Models.OAuth2TikTok>;
+    /**
+     * Update the project OAuth2 TikTok configuration.
+     *
+     * @param {string} clientId - 'Client key' of TikTok OAuth2 app. For example: awz000000000tyw0
+     * @param {string} clientSecret - 'Client secret' of TikTok OAuth2 app. For example: 6wXewM00000000000000000000yXnite
+     * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2TikTok>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2TikTok(
+        clientId?: string,
+        clientSecret?: string,
+        enabled?: boolean,
+    ): Promise<Models.OAuth2TikTok>;
+    updateOAuth2TikTok(
+        paramsOrFirst?:
+            | { clientId?: string; clientSecret?: string; enabled?: boolean }
+            | string,
+        ...rest: [string?, boolean?]
+    ): Promise<Models.OAuth2TikTok> {
+        let params: {
+            clientId?: string;
+            clientSecret?: string;
+            enabled?: boolean;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string;
+                clientSecret?: string;
+                enabled?: boolean;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string,
+                clientSecret: rest[0] as string,
+                enabled: rest[1] as boolean,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/tiktok';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
+    }
+
+    /**
      * Update the project OAuth2 Tradeshift configuration.
      *
      * @param {string} params.oauth2ClientId - 'OAuth2 Client ID' of Tradeshift OAuth2 app. For example: appwrite-tes00000.0000000000est-app
@@ -4843,6 +5508,91 @@ export class Project {
         const clientSecret = params.clientSecret;
         const enabled = params.enabled;
         const apiPath = '/project/oauth2/twitch';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Update the project OAuth2 Webflow configuration.
+     *
+     * @param {string} params.clientId - 'Client ID' of Webflow OAuth2 app. For example: 8bb20000000000000000000000000000000000000000000000000000000040dd
+     * @param {string} params.clientSecret - 'Client Secret' of Webflow OAuth2 app. For example: 59bf00000000000000000000000000000000000000000000000000000000fe59
+     * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Webflow>}
+     */
+    updateOAuth2Webflow(params?: {
+        clientId?: string;
+        clientSecret?: string;
+        enabled?: boolean;
+    }): Promise<Models.OAuth2Webflow>;
+    /**
+     * Update the project OAuth2 Webflow configuration.
+     *
+     * @param {string} clientId - 'Client ID' of Webflow OAuth2 app. For example: 8bb20000000000000000000000000000000000000000000000000000000040dd
+     * @param {string} clientSecret - 'Client Secret' of Webflow OAuth2 app. For example: 59bf00000000000000000000000000000000000000000000000000000000fe59
+     * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Webflow>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Webflow(
+        clientId?: string,
+        clientSecret?: string,
+        enabled?: boolean,
+    ): Promise<Models.OAuth2Webflow>;
+    updateOAuth2Webflow(
+        paramsOrFirst?:
+            | { clientId?: string; clientSecret?: string; enabled?: boolean }
+            | string,
+        ...rest: [string?, boolean?]
+    ): Promise<Models.OAuth2Webflow> {
+        let params: {
+            clientId?: string;
+            clientSecret?: string;
+            enabled?: boolean;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string;
+                clientSecret?: string;
+                enabled?: boolean;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string,
+                clientSecret: rest[0] as string,
+                enabled: rest[1] as boolean,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/webflow';
         const apiPayload: Payload = {};
         if (typeof clientId !== 'undefined') {
             apiPayload['clientId'] = clientId;
@@ -5210,6 +5960,7 @@ export class Project {
      * @param {string} params.clientId - 'Client ID' of Zoho OAuth2 app. For example: 1000.83C178000000000000000000RPNX0B
      * @param {string} params.clientSecret - 'Client Secret' of Zoho OAuth2 app. For example: fb5cac000000000000000000000000000000a68f6e
      * @param {boolean} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2ZohoPrompt[]} params.prompt - Array of Zoho OAuth2 prompt values. "consent" means: prompt the user for consent. Pass an empty array to use the Zoho default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Zoho>}
      */
@@ -5217,6 +5968,7 @@ export class Project {
         clientId?: string;
         clientSecret?: string;
         enabled?: boolean;
+        prompt?: ProjectOAuth2ZohoPrompt[];
     }): Promise<Models.OAuth2Zoho>;
     /**
      * Update the project OAuth2 Zoho configuration.
@@ -5224,6 +5976,7 @@ export class Project {
      * @param {string} clientId - 'Client ID' of Zoho OAuth2 app. For example: 1000.83C178000000000000000000RPNX0B
      * @param {string} clientSecret - 'Client Secret' of Zoho OAuth2 app. For example: fb5cac000000000000000000000000000000a68f6e
      * @param {boolean} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @param {ProjectOAuth2ZohoPrompt[]} prompt - Array of Zoho OAuth2 prompt values. "consent" means: prompt the user for consent. Pass an empty array to use the Zoho default.
      * @throws {AppwriteException}
      * @returns {Promise<Models.OAuth2Zoho>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5232,17 +5985,24 @@ export class Project {
         clientId?: string,
         clientSecret?: string,
         enabled?: boolean,
+        prompt?: ProjectOAuth2ZohoPrompt[],
     ): Promise<Models.OAuth2Zoho>;
     updateOAuth2Zoho(
         paramsOrFirst?:
-            | { clientId?: string; clientSecret?: string; enabled?: boolean }
+            | {
+                  clientId?: string;
+                  clientSecret?: string;
+                  enabled?: boolean;
+                  prompt?: ProjectOAuth2ZohoPrompt[];
+              }
             | string,
-        ...rest: [string?, boolean?]
+        ...rest: [string?, boolean?, ProjectOAuth2ZohoPrompt[]?]
     ): Promise<Models.OAuth2Zoho> {
         let params: {
             clientId?: string;
             clientSecret?: string;
             enabled?: boolean;
+            prompt?: ProjectOAuth2ZohoPrompt[];
         };
 
         if (
@@ -5255,18 +6015,21 @@ export class Project {
                 clientId?: string;
                 clientSecret?: string;
                 enabled?: boolean;
+                prompt?: ProjectOAuth2ZohoPrompt[];
             };
         } else {
             params = {
                 clientId: paramsOrFirst as string,
                 clientSecret: rest[0] as string,
                 enabled: rest[1] as boolean,
+                prompt: rest[2] as ProjectOAuth2ZohoPrompt[],
             };
         }
 
         const clientId = params.clientId;
         const clientSecret = params.clientSecret;
         const enabled = params.enabled;
+        const prompt = params.prompt;
         const apiPath = '/project/oauth2/zoho';
         const apiPayload: Payload = {};
         if (typeof clientId !== 'undefined') {
@@ -5277,6 +6040,9 @@ export class Project {
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof prompt !== 'undefined') {
+            apiPayload['prompt'] = prompt;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -5379,7 +6145,7 @@ export class Project {
      *
      * @param {ProjectOAuthProviderId} params.providerId - OAuth2 provider key. For example: github, google, apple.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft>}
+     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao>}
      */
     getOAuth2Provider(params: {
         providerId: ProjectOAuthProviderId;
@@ -5399,6 +6165,7 @@ export class Project {
         | Models.OAuth2Yandex
         | Models.OAuth2X
         | Models.OAuth2WordPress
+        | Models.OAuth2Webflow
         | Models.OAuth2Twitch
         | Models.OAuth2Stripe
         | Models.OAuth2Spotify
@@ -5427,13 +6194,15 @@ export class Project {
         | Models.OAuth2Okta
         | Models.OAuth2Kick
         | Models.OAuth2Microsoft
+        | Models.OAuth2TikTok
+        | Models.OAuth2Kakao
     >;
     /**
      * Get a single OAuth2 provider configuration. Credential fields (client secret, p8 file, key/team IDs) are write-only and always returned empty.
      *
      * @param {ProjectOAuthProviderId} providerId - OAuth2 provider key. For example: github, google, apple.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft>}
+     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     getOAuth2Provider(
@@ -5454,6 +6223,7 @@ export class Project {
         | Models.OAuth2Yandex
         | Models.OAuth2X
         | Models.OAuth2WordPress
+        | Models.OAuth2Webflow
         | Models.OAuth2Twitch
         | Models.OAuth2Stripe
         | Models.OAuth2Spotify
@@ -5482,6 +6252,8 @@ export class Project {
         | Models.OAuth2Okta
         | Models.OAuth2Kick
         | Models.OAuth2Microsoft
+        | Models.OAuth2TikTok
+        | Models.OAuth2Kakao
     >;
     getOAuth2Provider(
         paramsOrFirst:
@@ -5502,6 +6274,7 @@ export class Project {
         | Models.OAuth2Yandex
         | Models.OAuth2X
         | Models.OAuth2WordPress
+        | Models.OAuth2Webflow
         | Models.OAuth2Twitch
         | Models.OAuth2Stripe
         | Models.OAuth2Spotify
@@ -5530,6 +6303,8 @@ export class Project {
         | Models.OAuth2Okta
         | Models.OAuth2Kick
         | Models.OAuth2Microsoft
+        | Models.OAuth2TikTok
+        | Models.OAuth2Kakao
     > {
         let params: { providerId: ProjectOAuthProviderId };
 
@@ -5643,6 +6418,7 @@ export class Project {
      * @param {string} params.platformId - Platform ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Platform name. Max length: 128 chars.
      * @param {string} params.applicationId - Android application ID. Max length: 256 chars.
+     * @param {string[]} params.fingerprints - SHA-256 fingerprints of the certificates your app is signed with, such as "14:6D:E9:...:2B:6A". Passkeys created in the app are accepted when its signature matches one. Find them under App signing in Play Console, or with `./gradlew signingReport`.
      * @throws {AppwriteException}
      * @returns {Promise<Models.PlatformAndroid>}
      */
@@ -5650,6 +6426,7 @@ export class Project {
         platformId: string;
         name: string;
         applicationId: string;
+        fingerprints?: string[];
     }): Promise<Models.PlatformAndroid>;
     /**
      * Create a new Android platform for your project. Use this endpoint to register a new Android platform where your users will run your application which will interact with the Appwrite API.
@@ -5657,6 +6434,7 @@ export class Project {
      * @param {string} platformId - Platform ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Platform name. Max length: 128 chars.
      * @param {string} applicationId - Android application ID. Max length: 256 chars.
+     * @param {string[]} fingerprints - SHA-256 fingerprints of the certificates your app is signed with, such as "14:6D:E9:...:2B:6A". Passkeys created in the app are accepted when its signature matches one. Find them under App signing in Play Console, or with `./gradlew signingReport`.
      * @throws {AppwriteException}
      * @returns {Promise<Models.PlatformAndroid>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5665,14 +6443,25 @@ export class Project {
         platformId: string,
         name: string,
         applicationId: string,
+        fingerprints?: string[],
     ): Promise<Models.PlatformAndroid>;
     createAndroidPlatform(
         paramsOrFirst:
-            | { platformId: string; name: string; applicationId: string }
+            | {
+                  platformId: string;
+                  name: string;
+                  applicationId: string;
+                  fingerprints?: string[];
+              }
             | string,
-        ...rest: [string?, string?]
+        ...rest: [string?, string?, string[]?]
     ): Promise<Models.PlatformAndroid> {
-        let params: { platformId: string; name: string; applicationId: string };
+        let params: {
+            platformId: string;
+            name: string;
+            applicationId: string;
+            fingerprints?: string[];
+        };
 
         if (
             paramsOrFirst &&
@@ -5683,18 +6472,21 @@ export class Project {
                 platformId: string;
                 name: string;
                 applicationId: string;
+                fingerprints?: string[];
             };
         } else {
             params = {
                 platformId: paramsOrFirst as string,
                 name: rest[0] as string,
                 applicationId: rest[1] as string,
+                fingerprints: rest[2] as string[],
             };
         }
 
         const platformId = params.platformId;
         const name = params.name;
         const applicationId = params.applicationId;
+        const fingerprints = params.fingerprints;
         if (typeof platformId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "platformId"',
@@ -5719,6 +6511,9 @@ export class Project {
         if (typeof applicationId !== 'undefined') {
             apiPayload['applicationId'] = applicationId;
         }
+        if (typeof fingerprints !== 'undefined') {
+            apiPayload['fingerprints'] = fingerprints;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -5736,6 +6531,7 @@ export class Project {
      * @param {string} params.platformId - Platform ID.
      * @param {string} params.name - Platform name. Max length: 128 chars.
      * @param {string} params.applicationId - Android application ID. Max length: 256 chars.
+     * @param {string[]} params.fingerprints - SHA-256 fingerprints of the certificates your app is signed with, such as "14:6D:E9:...:2B:6A". Passkeys created in the app are accepted when its signature matches one. Find them under App signing in Play Console, or with `./gradlew signingReport`. Omit to keep the current list, or pass an empty array to clear it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.PlatformAndroid>}
      */
@@ -5743,6 +6539,7 @@ export class Project {
         platformId: string;
         name: string;
         applicationId: string;
+        fingerprints?: string[];
     }): Promise<Models.PlatformAndroid>;
     /**
      * Update an Android platform by its unique ID. Use this endpoint to update the platform's name or application ID.
@@ -5750,6 +6547,7 @@ export class Project {
      * @param {string} platformId - Platform ID.
      * @param {string} name - Platform name. Max length: 128 chars.
      * @param {string} applicationId - Android application ID. Max length: 256 chars.
+     * @param {string[]} fingerprints - SHA-256 fingerprints of the certificates your app is signed with, such as "14:6D:E9:...:2B:6A". Passkeys created in the app are accepted when its signature matches one. Find them under App signing in Play Console, or with `./gradlew signingReport`. Omit to keep the current list, or pass an empty array to clear it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.PlatformAndroid>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5758,14 +6556,25 @@ export class Project {
         platformId: string,
         name: string,
         applicationId: string,
+        fingerprints?: string[],
     ): Promise<Models.PlatformAndroid>;
     updateAndroidPlatform(
         paramsOrFirst:
-            | { platformId: string; name: string; applicationId: string }
+            | {
+                  platformId: string;
+                  name: string;
+                  applicationId: string;
+                  fingerprints?: string[];
+              }
             | string,
-        ...rest: [string?, string?]
+        ...rest: [string?, string?, string[]?]
     ): Promise<Models.PlatformAndroid> {
-        let params: { platformId: string; name: string; applicationId: string };
+        let params: {
+            platformId: string;
+            name: string;
+            applicationId: string;
+            fingerprints?: string[];
+        };
 
         if (
             paramsOrFirst &&
@@ -5776,18 +6585,21 @@ export class Project {
                 platformId: string;
                 name: string;
                 applicationId: string;
+                fingerprints?: string[];
             };
         } else {
             params = {
                 platformId: paramsOrFirst as string,
                 name: rest[0] as string,
                 applicationId: rest[1] as string,
+                fingerprints: rest[2] as string[],
             };
         }
 
         const platformId = params.platformId;
         const name = params.name;
         const applicationId = params.applicationId;
+        const fingerprints = params.fingerprints;
         if (typeof platformId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "platformId"',
@@ -5811,6 +6623,9 @@ export class Project {
         }
         if (typeof applicationId !== 'undefined') {
             apiPayload['applicationId'] = applicationId;
+        }
+        if (typeof fingerprints !== 'undefined') {
+            apiPayload['fingerprints'] = fingerprints;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -7476,6 +8291,156 @@ export class Project {
     }
 
     /**
+     * Updating this policy allows you to control if passwords are checked against the Have I Been Pwned breach database. When enabled, every password a user signs up, signs in or resets with is checked and the result is recorded on the user as `passwordPwned`. On its own the policy only records. Enable `users` to reject a breached password when a user signs up or sets a new password, and `sessions` to refuse a sign-in with a breached password until it is reset. Only the first five characters of the password hash are ever shared with the service. Options left out keep their current value.
+     *
+     * @param {boolean} params.enabled - Toggle password pwned policy. Set to true to check passwords against known data breaches and record the result on the user, or false to never check. Default is true. On its own this only records; use `users` and `sessions` to block. When changing this policy, existing passwords remain valid.
+     * @param {boolean} params.sessions - Whether a sign-in with a breached password is refused until the password is reset. Default is false, which allows the sign-in and only records the result.
+     * @param {boolean} params.users - Whether a breached password is rejected when a user signs up or sets a new password. Default is false, which allows the password and only records the result.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    updatePasswordPwnedPolicy(params?: {
+        enabled?: boolean;
+        sessions?: boolean;
+        users?: boolean;
+    }): Promise<Models.Project>;
+    /**
+     * Updating this policy allows you to control if passwords are checked against the Have I Been Pwned breach database. When enabled, every password a user signs up, signs in or resets with is checked and the result is recorded on the user as `passwordPwned`. On its own the policy only records. Enable `users` to reject a breached password when a user signs up or sets a new password, and `sessions` to refuse a sign-in with a breached password until it is reset. Only the first five characters of the password hash are ever shared with the service. Options left out keep their current value.
+     *
+     * @param {boolean} enabled - Toggle password pwned policy. Set to true to check passwords against known data breaches and record the result on the user, or false to never check. Default is true. On its own this only records; use `users` and `sessions` to block. When changing this policy, existing passwords remain valid.
+     * @param {boolean} sessions - Whether a sign-in with a breached password is refused until the password is reset. Default is false, which allows the sign-in and only records the result.
+     * @param {boolean} users - Whether a breached password is rejected when a user signs up or sets a new password. Default is false, which allows the password and only records the result.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updatePasswordPwnedPolicy(
+        enabled?: boolean,
+        sessions?: boolean,
+        users?: boolean,
+    ): Promise<Models.Project>;
+    updatePasswordPwnedPolicy(
+        paramsOrFirst?:
+            | { enabled?: boolean; sessions?: boolean; users?: boolean }
+            | boolean,
+        ...rest: [boolean?, boolean?]
+    ): Promise<Models.Project> {
+        let params: { enabled?: boolean; sessions?: boolean; users?: boolean };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                enabled?: boolean;
+                sessions?: boolean;
+                users?: boolean;
+            };
+        } else {
+            params = {
+                enabled: paramsOrFirst as boolean,
+                sessions: rest[0] as boolean,
+                users: rest[1] as boolean,
+            };
+        }
+
+        const enabled = params.enabled;
+        const sessions = params.sessions;
+        const users = params.users;
+        const apiPath = '/project/policies/password-pwned';
+        const apiPayload: Payload = {};
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        if (typeof sessions !== 'undefined') {
+            apiPayload['sessions'] = sessions;
+        }
+        if (typeof users !== 'undefined') {
+            apiPayload['users'] = users;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Require a password reset when an email/password sign-in uses a password older than the configured maximum age. Options left out keep their current value.
+     *
+     * @param {boolean} params.enabled - Enable password rotation. Disabled by default.
+     * @param {number} params.maxAge - Maximum password age in seconds. Minimum allowed value is 86400 seconds (1 day), and maximum is 10 years, which is 315360000 seconds. Defaults to 1 year, which is 31536000 seconds.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    updatePasswordRotationPolicy(params?: {
+        enabled?: boolean;
+        maxAge?: number;
+    }): Promise<Models.Project>;
+    /**
+     * Require a password reset when an email/password sign-in uses a password older than the configured maximum age. Options left out keep their current value.
+     *
+     * @param {boolean} enabled - Enable password rotation. Disabled by default.
+     * @param {number} maxAge - Maximum password age in seconds. Minimum allowed value is 86400 seconds (1 day), and maximum is 10 years, which is 315360000 seconds. Defaults to 1 year, which is 31536000 seconds.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updatePasswordRotationPolicy(
+        enabled?: boolean,
+        maxAge?: number,
+    ): Promise<Models.Project>;
+    updatePasswordRotationPolicy(
+        paramsOrFirst?: { enabled?: boolean; maxAge?: number } | boolean,
+        ...rest: [number?]
+    ): Promise<Models.Project> {
+        let params: { enabled?: boolean; maxAge?: number };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                enabled?: boolean;
+                maxAge?: number;
+            };
+        } else {
+            params = {
+                enabled: paramsOrFirst as boolean,
+                maxAge: rest[0] as number,
+            };
+        }
+
+        const enabled = params.enabled;
+        const maxAge = params.maxAge;
+        const apiPath = '/project/policies/password-rotation';
+        const apiPayload: Payload = {};
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        if (typeof maxAge !== 'undefined') {
+            apiPayload['maxAge'] = maxAge;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('patch', uri, apiHeaders, apiPayload);
+    }
+
+    /**
      * Update the password strength requirements for users in the project.
      *
      * @param {number} params.min - Minimum password length. Value must be between 8 and 256. Default is 8.
@@ -7877,7 +8842,7 @@ export class Project {
      *
      * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail | Models.PolicyPasskey>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicyPasswordPwned | Models.PolicyPasswordRotation | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail | Models.PolicyPasskey>}
      */
     getPolicy(params: {
         policyId: ProjectPolicyId;
@@ -7886,6 +8851,8 @@ export class Project {
         | Models.PolicyPasswordHistory
         | Models.PolicyPasswordStrength
         | Models.PolicyPasswordPersonalData
+        | Models.PolicyPasswordPwned
+        | Models.PolicyPasswordRotation
         | Models.PolicySessionAlert
         | Models.PolicySessionDuration
         | Models.PolicySessionInvalidation
@@ -7904,7 +8871,7 @@ export class Project {
      *
      * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail | Models.PolicyPasskey>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicyPasswordPwned | Models.PolicyPasswordRotation | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail | Models.PolicyPasskey>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     getPolicy(
@@ -7914,6 +8881,8 @@ export class Project {
         | Models.PolicyPasswordHistory
         | Models.PolicyPasswordStrength
         | Models.PolicyPasswordPersonalData
+        | Models.PolicyPasswordPwned
+        | Models.PolicyPasswordRotation
         | Models.PolicySessionAlert
         | Models.PolicySessionDuration
         | Models.PolicySessionInvalidation
@@ -7934,6 +8903,8 @@ export class Project {
         | Models.PolicyPasswordHistory
         | Models.PolicyPasswordStrength
         | Models.PolicyPasswordPersonalData
+        | Models.PolicyPasswordPwned
+        | Models.PolicyPasswordRotation
         | Models.PolicySessionAlert
         | Models.PolicySessionDuration
         | Models.PolicySessionInvalidation

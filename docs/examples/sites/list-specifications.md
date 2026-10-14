@@ -10,5 +10,6 @@ const sites = new sdk.Sites(client);
 
 const result = await sites.listSpecifications({
     type: 'runtimes', // optional
+    total: false, // optional
 });
 ```

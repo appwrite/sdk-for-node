@@ -503,4 +503,102 @@ describe('Organization', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method listProjectKeys()', async () => {
+        const data = {
+            total: 5,
+            keys: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await organization.listProjectKeys('<PROJECT_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method createEphemeralProjectKey()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'My API Key',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            scopes: [],
+            secret: '919c2d18fb5d4...a2ae413da83346ad2',
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+            sdks: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await organization.createEphemeralProjectKey(
+            '<PROJECT_ID>',
+            [],
+            1,
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method getProjectKey()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'My API Key',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            scopes: [],
+            secret: '919c2d18fb5d4...a2ae413da83346ad2',
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+            sdks: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await organization.getProjectKey(
+            '<PROJECT_ID>',
+            '<KEY_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateProjectKey()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'My API Key',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            scopes: [],
+            secret: '919c2d18fb5d4...a2ae413da83346ad2',
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+            sdks: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await organization.updateProjectKey(
+            '<PROJECT_ID>',
+            '<KEY_ID>',
+            '<NAME>',
+            [],
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method deleteProjectKey()', async () => {
+        const data = { message: '' };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await organization.deleteProjectKey(
+            '<PROJECT_ID>',
+            '<KEY_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
 });

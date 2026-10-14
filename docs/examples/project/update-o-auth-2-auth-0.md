@@ -13,5 +13,6 @@ const result = await project.updateOAuth2Auth0({
     clientSecret: '<CLIENT_SECRET>', // optional
     endpoint: '<ENDPOINT>', // optional
     enabled: false, // optional
+    prompt: [sdk.ProjectOAuth2Auth0Prompt.None], // optional
 });
 ```
