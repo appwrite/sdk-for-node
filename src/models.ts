@@ -25,6 +25,7 @@ import { ProxyRuleStatus } from './enums/proxy-rule-status';
 import { MessageStatus } from './enums/message-status';
 import { BillingPlanGroup } from './enums/billing-plan-group';
 import { DomainTransferStatusEnum } from './enums/domain-transfer-status-enum';
+import { WafRuleAction } from './enums/waf-rule-action';
 
 /**
  * Appwrite Models
@@ -503,6 +504,7 @@ export namespace Models {
             | Models.PolicyPasswordStrength
             | Models.PolicyPasswordPersonalData
             | Models.PolicyPasswordPwned
+            | Models.PolicyPasswordRotation
             | Models.PolicySessionAlert
             | Models.PolicySessionDuration
             | Models.PolicySessionInvalidation
@@ -514,6 +516,7 @@ export namespace Models {
             | Models.PolicyDenyDisposableEmail
             | Models.PolicyDenyFreeEmail
             | Models.PolicyDenyCorporateEmail
+            | Models.PolicyPasskey
         )[];
     };
 
@@ -744,39 +747,39 @@ export namespace Models {
         /**
          * Dedicated database lifecycle status. Null when the database has no valid dedicated backing.
          */
-        status?: DatabaseStatus;
+        status?: DatabaseStatus | null;
         /**
          * Underlying engine of the dedicated backing: postgresql, mysql, or mongodb. A managed product (tablesdb, documentsdb, vectorsdb) reports the engine it runs on, so its type and engine can differ. Null when the database has no dedicated backing.
          */
-        engine?: string;
+        engine?: string | null;
         /**
          * Compute specification identifier of the dedicated backing, e.g. s-2vcpu-2gb. Null when the database has no dedicated backing.
          */
-        specification?: string;
+        specification?: string | null;
         /**
          * Number of secondary high availability replicas, excluding the primary. Null when backing configuration is unavailable.
          */
-        replicas?: number;
+        replicas?: number | null;
         /**
          * Error message when the dedicated backing failed. Null when the database has no dedicated backing or has not failed.
          */
-        error?: string;
+        error?: string | null;
         /**
          * Container status of the dedicated backing: active, inactive, or failed (a wake was declined because the backing namespace is gone). Null when the database has no dedicated backing or the runtime has not reported one.
          */
-        containerStatus?: string;
+        containerStatus?: string | null;
         /**
          * Idle-lifecycle state of the dedicated backing: active, warm, cold, or hibernated. Null when the database has no dedicated backing or the runtime has not reported one.
          */
-        lifecycleState?: string;
+        lifecycleState?: string | null;
         /**
          * Database backup policies.
          */
-        policies?: BackupPolicy[];
+        policies?: BackupPolicy[] | null;
         /**
          * Database backup archives.
          */
-        archives?: BackupArchive[];
+        archives?: BackupArchive[] | null;
     };
 
     /**
@@ -934,7 +937,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -950,11 +953,11 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: string;
+        default?: string | null;
         /**
          * Defines whether this attribute is encrypted or not.
          */
-        encrypt?: boolean;
+        encrypt?: boolean | null;
     };
 
     /**
@@ -984,7 +987,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -996,15 +999,15 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number | bigint;
+        min?: number | bigint | null;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number | bigint;
+        max?: number | bigint | null;
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: number;
+        default?: number | null;
     };
 
     /**
@@ -1034,7 +1037,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1046,15 +1049,15 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number | bigint;
+        min?: number | bigint | null;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number | bigint;
+        max?: number | bigint | null;
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: number | bigint;
+        default?: number | bigint | null;
     };
 
     /**
@@ -1084,7 +1087,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1096,15 +1099,15 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number;
+        min?: number | null;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number;
+        max?: number | null;
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: number;
+        default?: number | null;
     };
 
     /**
@@ -1134,7 +1137,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1146,7 +1149,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: boolean;
+        default?: boolean | null;
     };
 
     /**
@@ -1176,7 +1179,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1192,7 +1195,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: string;
+        default?: string | null;
     };
 
     /**
@@ -1222,7 +1225,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1242,7 +1245,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: string;
+        default?: string | null;
     };
 
     /**
@@ -1272,7 +1275,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1288,7 +1291,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: string;
+        default?: string | null;
     };
 
     /**
@@ -1318,7 +1321,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1334,7 +1337,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: string;
+        default?: string | null;
     };
 
     /**
@@ -1364,7 +1367,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1380,7 +1383,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Only null is optional
          */
-        default?: string;
+        default?: string | null;
     };
 
     /**
@@ -1410,7 +1413,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1472,7 +1475,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1484,7 +1487,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: number[];
+        default?: number[] | null;
     };
 
     /**
@@ -1514,7 +1517,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1526,7 +1529,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: number[][];
+        default?: number[][] | null;
     };
 
     /**
@@ -1556,7 +1559,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1568,7 +1571,7 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: number[][][];
+        default?: number[][][] | null;
     };
 
     /**
@@ -1598,7 +1601,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1614,11 +1617,11 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: string;
+        default?: string | null;
         /**
          * Defines whether this attribute is encrypted or not.
          */
-        encrypt?: boolean;
+        encrypt?: boolean | null;
     };
 
     /**
@@ -1648,7 +1651,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1660,11 +1663,11 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: string;
+        default?: string | null;
         /**
          * Defines whether this attribute is encrypted or not.
          */
-        encrypt?: boolean;
+        encrypt?: boolean | null;
     };
 
     /**
@@ -1694,7 +1697,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1706,11 +1709,11 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: string;
+        default?: string | null;
         /**
          * Defines whether this attribute is encrypted or not.
          */
-        encrypt?: boolean;
+        encrypt?: boolean | null;
     };
 
     /**
@@ -1740,7 +1743,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1752,11 +1755,11 @@ export namespace Models {
         /**
          * Default value for attribute when not provided. Cannot be set when attribute is required.
          */
-        default?: string;
+        default?: string | null;
         /**
          * Defines whether this attribute is encrypted or not.
          */
-        encrypt?: boolean;
+        encrypt?: boolean | null;
     };
 
     /**
@@ -1844,7 +1847,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -1882,7 +1885,7 @@ export namespace Models {
         /**
          * Is attribute an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Attribute creation date in ISO 8601 format.
          */
@@ -2030,7 +2033,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2046,11 +2049,11 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: string;
+        default?: string | null;
         /**
          * Defines whether this column is encrypted or not.
          */
-        encrypt?: boolean;
+        encrypt?: boolean | null;
     };
 
     /**
@@ -2080,7 +2083,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2092,15 +2095,15 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number | bigint;
+        min?: number | bigint | null;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number | bigint;
+        max?: number | bigint | null;
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: number;
+        default?: number | null;
     };
 
     /**
@@ -2130,7 +2133,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2142,15 +2145,15 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number | bigint;
+        min?: number | bigint | null;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number | bigint;
+        max?: number | bigint | null;
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: number | bigint;
+        default?: number | bigint | null;
     };
 
     /**
@@ -2180,7 +2183,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2192,15 +2195,15 @@ export namespace Models {
         /**
          * Minimum value to enforce for new documents.
          */
-        min?: number;
+        min?: number | null;
         /**
          * Maximum value to enforce for new documents.
          */
-        max?: number;
+        max?: number | null;
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: number;
+        default?: number | null;
     };
 
     /**
@@ -2230,7 +2233,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2242,7 +2245,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: boolean;
+        default?: boolean | null;
     };
 
     /**
@@ -2272,7 +2275,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2288,7 +2291,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: string;
+        default?: string | null;
     };
 
     /**
@@ -2318,7 +2321,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2338,7 +2341,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: string;
+        default?: string | null;
     };
 
     /**
@@ -2368,7 +2371,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2384,7 +2387,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: string;
+        default?: string | null;
     };
 
     /**
@@ -2414,7 +2417,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2430,7 +2433,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: string;
+        default?: string | null;
     };
 
     /**
@@ -2460,7 +2463,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2476,7 +2479,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Only null is optional
          */
-        default?: string;
+        default?: string | null;
     };
 
     /**
@@ -2506,7 +2509,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2568,7 +2571,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2580,7 +2583,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: number[];
+        default?: number[] | null;
     };
 
     /**
@@ -2610,7 +2613,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2622,7 +2625,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: number[][];
+        default?: number[][] | null;
     };
 
     /**
@@ -2652,7 +2655,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2664,7 +2667,7 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: number[][][];
+        default?: number[][][] | null;
     };
 
     /**
@@ -2694,7 +2697,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2710,11 +2713,11 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: string;
+        default?: string | null;
         /**
          * Defines whether this column is encrypted or not.
          */
-        encrypt?: boolean;
+        encrypt?: boolean | null;
     };
 
     /**
@@ -2744,7 +2747,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2756,11 +2759,11 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: string;
+        default?: string | null;
         /**
          * Defines whether this column is encrypted or not.
          */
-        encrypt?: boolean;
+        encrypt?: boolean | null;
     };
 
     /**
@@ -2790,7 +2793,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2802,11 +2805,11 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: string;
+        default?: string | null;
         /**
          * Defines whether this column is encrypted or not.
          */
-        encrypt?: boolean;
+        encrypt?: boolean | null;
     };
 
     /**
@@ -2836,7 +2839,7 @@ export namespace Models {
         /**
          * Is column an array?
          */
-        array?: boolean;
+        array?: boolean | null;
         /**
          * Column creation date in ISO 8601 format.
          */
@@ -2848,11 +2851,11 @@ export namespace Models {
         /**
          * Default value for column when not provided. Cannot be set when column is required.
          */
-        default?: string;
+        default?: string | null;
         /**
          * Defines whether this column is encrypted or not.
          */
-        encrypt?: boolean;
+        encrypt?: boolean | null;
     };
 
     /**
@@ -2898,7 +2901,7 @@ export namespace Models {
         /**
          * Index orders.
          */
-        orders?: string[];
+        orders?: string[] | null;
     };
 
     /**
@@ -2944,7 +2947,7 @@ export namespace Models {
         /**
          * Index orders.
          */
-        orders?: string[];
+        orders?: string[] | null;
     };
 
     /**
@@ -3052,7 +3055,7 @@ export namespace Models {
         /**
          * Presence status.
          */
-        status?: string;
+        status?: string | null;
         /**
          * Presence source.
          */
@@ -3060,7 +3063,7 @@ export namespace Models {
         /**
          * Presence expiry date in ISO 8601 format.
          */
-        expiresAt?: string;
+        expiresAt?: string | null;
         /**
          * Presence metadata.
          */
@@ -3092,15 +3095,15 @@ export namespace Models {
         /**
          * Hashed user password.
          */
-        password?: string;
+        password?: string | null;
         /**
          * Password hashing algorithm.
          */
-        hash?: string;
+        hash?: string | null;
         /**
          * Password hashing algorithm configuration.
          */
-        hashOptions?: object;
+        hashOptions?: object | null;
         /**
          * User registration date in ISO 8601 format.
          */
@@ -3132,27 +3135,27 @@ export namespace Models {
         /**
          * Canonical form of the user email address.
          */
-        emailCanonical?: string;
+        emailCanonical?: string | null;
         /**
          * Whether the user email is from a free email provider.
          */
-        emailIsFree?: boolean;
+        emailIsFree?: boolean | null;
         /**
          * Whether the user email is from a disposable email provider.
          */
-        emailIsDisposable?: boolean;
+        emailIsDisposable?: boolean | null;
         /**
          * Whether the user email is from a corporate domain.
          */
-        emailIsCorporate?: boolean;
+        emailIsCorporate?: boolean | null;
         /**
          * Whether the user email is in its canonical form.
          */
-        emailIsCanonical?: boolean;
+        emailIsCanonical?: boolean | null;
         /**
          * Whether the password was found in a known data breach the last time it was checked. Null when the password has never been checked.
          */
-        passwordPwned?: boolean;
+        passwordPwned?: boolean | null;
         /**
          * Phone verification status.
          */
@@ -3176,11 +3179,11 @@ export namespace Models {
         /**
          * Whether the user can impersonate other users.
          */
-        impersonator?: boolean;
+        impersonator?: boolean | null;
         /**
          * ID of the original actor performing the impersonation. Present only when the current request is impersonating another user. Internal audit logs attribute the action to this user, while the impersonated target is recorded only in internal audit payload data.
          */
-        impersonatorUserId?: string;
+        impersonatorUserId?: string | null;
     };
 
     /**
@@ -3346,27 +3349,27 @@ export namespace Models {
         /**
          * Canonical form of the user email address.
          */
-        emailCanonical?: string;
+        emailCanonical?: string | null;
         /**
          * Whether the user email is from a free email provider.
          */
-        emailIsFree?: boolean;
+        emailIsFree?: boolean | null;
         /**
          * Whether the user email is from a disposable email provider.
          */
-        emailIsDisposable?: boolean;
+        emailIsDisposable?: boolean | null;
         /**
          * Whether the user email is from a corporate domain.
          */
-        emailIsCorporate?: boolean;
+        emailIsCorporate?: boolean | null;
         /**
          * Whether the user email is in its canonical form.
          */
-        emailIsCanonical?: boolean;
+        emailIsCanonical?: boolean | null;
         /**
          * Whether the password was found in a known data breach the last time it was checked. Null when the password has never been checked.
          */
-        passwordPwned?: boolean;
+        passwordPwned?: boolean | null;
         /**
          * Phone verification status.
          */
@@ -3390,11 +3393,11 @@ export namespace Models {
         /**
          * Whether the user can impersonate other users.
          */
-        impersonator?: boolean;
+        impersonator?: boolean | null;
         /**
          * ID of the original actor performing the impersonation. Present only when the current request is impersonating another user. Internal audit logs attribute the action to this user, while the impersonated target is recorded only in internal audit payload data.
          */
-        impersonatorUserId?: string;
+        impersonatorUserId?: string | null;
     };
 
     /**
@@ -3654,47 +3657,47 @@ export namespace Models {
         /**
          * City
          */
-        city?: string;
+        city?: string | null;
         /**
          * Name of timezone
          */
-        timeZone?: string;
+        timeZone?: string | null;
         /**
          * Postal code
          */
-        postalCode?: string;
+        postalCode?: string | null;
         /**
          * Latitude
          */
-        latitude?: number;
+        latitude?: number | null;
         /**
          * Longitude
          */
-        longitude?: number;
+        longitude?: number | null;
         /**
          * Autonomous System Number (ASN) of the IP
          */
-        autonomousSystemNumber?: string;
+        autonomousSystemNumber?: string | null;
         /**
          * Organization that owns the ASN
          */
-        autonomousSystemOrganization?: string;
+        autonomousSystemOrganization?: string | null;
         /**
          * Internet service provider of the IP
          */
-        isp?: string;
+        isp?: string | null;
         /**
          * Connection type of the IP (e.g. cable, cellular, corporate)
          */
-        connectionType?: string;
+        connectionType?: string | null;
         /**
          * User type classification of the IP (e.g. residential, business, hosting)
          */
-        connectionUsageType?: string;
+        connectionUsageType?: string | null;
         /**
          * Registered organization of the IP
          */
-        connectionOrganization?: string;
+        connectionOrganization?: string | null;
     };
 
     /**
@@ -4202,6 +4205,10 @@ export namespace Models {
          */
         schedule: string;
         /**
+         * Minutes between scheduled executions. 0 when the function has no interval.
+         */
+        interval?: number | null;
+        /**
          * Function execution timeout in seconds.
          */
         timeout: number;
@@ -4342,7 +4349,7 @@ export namespace Models {
         /**
          * Name of fallback file to use instead of 404 page. If null, Appwrite 404 page will be displayed.
          */
-        fallbackFile?: string;
+        fallbackFile?: string | null;
     };
 
     /**
@@ -4538,7 +4545,7 @@ export namespace Models {
         /**
          * The scheduled time for execution. If left empty, execution will be queued immediately.
          */
-        scheduledAt?: string;
+        scheduledAt?: string | null;
     };
 
     /**
@@ -4652,87 +4659,91 @@ export namespace Models {
         /**
          * Whether WAF enforcement is enabled for the project.
          */
-        wafEnabled?: boolean;
+        wafEnabled?: boolean | null;
+        /**
+         * ID of the project this environment belongs to. Null when the project is not an environment.
+         */
+        parentId?: string | null;
         /**
          * Billing limits reached
          */
-        billingLimits?: BillingLimits;
+        billingLimits?: BillingLimits | null;
         /**
          * First time the project received a non-console API request. Empty until the project is used.
          */
-        firstAccessedAt?: string;
+        firstAccessedAt?: string | null;
         /**
          * Last time the project was accessed through the MCP server. Empty if it was never accessed via MCP.
          */
-        mcpAccessedAt?: string;
+        mcpAccessedAt?: string | null;
         /**
          * OAuth2 server status
          */
-        oAuth2ServerEnabled?: boolean;
+        oAuth2ServerEnabled?: boolean | null;
         /**
          * OAuth2 server authorization URL
          */
-        oAuth2ServerAuthorizationUrl?: string;
+        oAuth2ServerAuthorizationUrl?: string | null;
         /**
          * OAuth2 server allowed scopes
          */
-        oAuth2ServerScopes?: string[];
+        oAuth2ServerScopes?: string[] | null;
         /**
          * OAuth2 server scopes used when an authorization request omits the scope parameter
          */
-        oAuth2ServerDefaultScopes?: string[];
+        oAuth2ServerDefaultScopes?: string[] | null;
         /**
          * Scopes an application may request when installed on a team
          */
-        oAuth2ServerInstallationScopes?: string[];
+        oAuth2ServerInstallationScopes?: string[] | null;
         /**
          * OAuth2 server accepted RFC 9396 authorization_details types
          */
-        oAuth2ServerAuthorizationDetailsTypes?: string[];
+        oAuth2ServerAuthorizationDetailsTypes?: string[] | null;
         /**
          * OAuth2 server access token duration in seconds for confidential clients
          */
-        oAuth2ServerAccessTokenDuration?: number;
+        oAuth2ServerAccessTokenDuration?: number | null;
         /**
          * OAuth2 server refresh token duration in seconds for confidential clients
          */
-        oAuth2ServerRefreshTokenDuration?: number;
+        oAuth2ServerRefreshTokenDuration?: number | null;
         /**
          * OAuth2 server access token duration in seconds for public clients (SPAs, mobile, native)
          */
-        oAuth2ServerPublicAccessTokenDuration?: number;
+        oAuth2ServerPublicAccessTokenDuration?: number | null;
         /**
          * OAuth2 server refresh token duration in seconds for public clients (SPAs, mobile, native)
          */
-        oAuth2ServerPublicRefreshTokenDuration?: number;
+        oAuth2ServerPublicRefreshTokenDuration?: number | null;
         /**
          * OAuth2 server access token duration in seconds for app installation access tokens
          */
-        oAuth2ServerInstallationAccessTokenDuration?: number;
+        oAuth2ServerInstallationAccessTokenDuration?: number | null;
         /**
          * When enabled, PKCE is required for confidential clients (server-side flows using client_secret). PKCE is always required for public clients regardless of this setting.
          */
-        oAuth2ServerConfidentialPkce?: boolean;
+        oAuth2ServerConfidentialPkce?: boolean | null;
         /**
          * URL to your application page where users enter the device flow user code. Empty when the Device Authorization Grant is not configured.
          */
-        oAuth2ServerVerificationUrl?: string;
+        oAuth2ServerVerificationUrl?: string | null;
         /**
          * Number of characters in the device flow user code, excluding the formatting separator.
          */
-        oAuth2ServerUserCodeLength?: number;
+        oAuth2ServerUserCodeLength?: number | null;
         /**
          * Character set for device flow user codes: `numeric`, `alphabetic`, or `alphanumeric`.
          */
-        oAuth2ServerUserCodeFormat?: string;
+        oAuth2ServerUserCodeFormat?: string | null;
         /**
          * Lifetime in seconds of device flow device codes and user codes.
          */
-        oAuth2ServerDeviceCodeDuration?: number;
+        oAuth2ServerDeviceCodeDuration?: number | null;
         /**
          * OAuth2 server discovery URL
          */
-        oAuth2ServerDiscoveryUrl?: string;
+        oAuth2ServerDiscoveryUrl?: string | null;
     };
 
     /**
@@ -5898,7 +5909,7 @@ export namespace Models {
         /**
          * Maximum authentication age in seconds. When set, the user must have authenticated within this many seconds.
          */
-        maxAge?: number;
+        maxAge?: number | null;
     };
 
     /**
@@ -6252,6 +6263,24 @@ export namespace Models {
     };
 
     /**
+     * Policy Password Rotation
+     */
+    export type PolicyPasswordRotation = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether expired passwords require a reset before email/password sign-in.
+         */
+        enabled: boolean;
+        /**
+         * Maximum password age in seconds.
+         */
+        maxAge: number;
+    };
+
+    /**
      * Policy Session Alert
      */
     export type PolicySessionAlert = {
@@ -6379,6 +6408,24 @@ export namespace Models {
          * Whether the custom factor can be used to complete an MFA challenge.
          */
         custom: boolean;
+    };
+
+    /**
+     * Policy Passkey
+     */
+    export type PolicyPasskey = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Relying party ID passkeys are bound to. Empty until configured.
+         */
+        rpId: string;
+        /**
+         * Web origins passkeys work on, from the project's platforms on the relying party ID and a localhost web platform. Read-only.
+         */
+        origins: string[];
     };
 
     /**
@@ -6525,6 +6572,10 @@ export namespace Models {
          * Android application ID.
          */
         applicationId: string;
+        /**
+         * SHA-256 fingerprints of the certificates the app is signed with. Passkeys created in the app are accepted when its signature matches one.
+         */
+        fingerprints: string[];
     };
 
     /**
@@ -6822,7 +6873,7 @@ export namespace Models {
         /**
          * Type of deployment resource: function, site, or dedicatedDatabase.
          */
-        deploymentResourceType?: ProxyRuleDeploymentResourceType;
+        deploymentResourceType?: ProxyRuleDeploymentResourceType | null;
         /**
          * ID of deployment's resource (site or function ID). Used if type is "deployment"
          */
@@ -6929,6 +6980,102 @@ export namespace Models {
          * Challenge code to be delivered to the end user through a custom channel.
          */
         code: string;
+    };
+
+    /**
+     * Token Secret
+     */
+    export type TokenSecret = {
+        /**
+         * Token ID.
+         */
+        $id: string;
+        /**
+         * Token creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * User ID.
+         */
+        userId: string;
+        /**
+         * Token secret key. Exchange it for a session with the create session endpoint.
+         */
+        secret: string;
+        /**
+         * Token expiration date in ISO 8601 format.
+         */
+        expire: string;
+        /**
+         * Security phrase of a token. Empty if security phrase was not requested when creating a token. It includes randomly generated phrase which is also sent in the external resource such as email.
+         */
+        phrase: string;
+    };
+
+    /**
+     * Passkey
+     */
+    export type Passkey = {
+        /**
+         * Passkey ID.
+         */
+        $id: string;
+        /**
+         * Passkey creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Passkey update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Passkey name.
+         */
+        name: string;
+        /**
+         * Most recent sign-in with this passkey in ISO 8601 format. Empty until the passkey is used to sign in.
+         */
+        accessedAt: string;
+    };
+
+    /**
+     * Passkey Challenge
+     */
+    export type PasskeyChallenge = {
+        /**
+         * Challenge ID. When signing in, pass it back with the credential to receive a token.
+         */
+        $id: string;
+        /**
+         * Challenge creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * ID of the passkey being registered. Empty for sign-in challenges.
+         */
+        passkeyId: string;
+        /**
+         * Challenge expiration date in ISO 8601 format.
+         */
+        expire: string;
+        /**
+         * WebAuthn options in JSON form. Pass them to `PublicKeyCredential.parseCreationOptionsFromJSON()` when registering, or `PublicKeyCredential.parseRequestOptionsFromJSON()` when signing in.
+         */
+        publicKey: object;
+    };
+
+    /**
+     * Passkeys List
+     */
+    export type PasskeyList = {
+        /**
+         * Total number of passkeys that matched your query.
+         */
+        total: number;
+        /**
+         * List of passkeys.
+         */
+        passkeys: Passkey[];
     };
 
     /**
@@ -7058,15 +7205,15 @@ export namespace Models {
         /**
          * The scheduled time for message.
          */
-        scheduledAt?: string;
+        scheduledAt?: string | null;
         /**
          * The time when the message was delivered.
          */
-        deliveredAt?: string;
+        deliveredAt?: string | null;
         /**
          * Delivery errors if any.
          */
-        deliveryErrors?: string[];
+        deliveryErrors?: string[] | null;
         /**
          * Number of recipients the message was delivered to.
          */
@@ -7120,11 +7267,11 @@ export namespace Models {
         /**
          * MQTT QoS for delivery on this topic. Null lets the subscriber choose their level.
          */
-        qos?: number;
+        qos?: number | null;
         /**
-         * Message retention in seconds for offline delivery.
+         * Message retention in seconds for offline delivery. Null inherits the lowest expiry of the project's enabled Appwrite providers, or the 7-day ledger window if none sets one.
          */
-        expiry?: number;
+        expiry?: number | null;
     };
 
     /**
@@ -7226,7 +7373,7 @@ export namespace Models {
         /**
          * Provider ID.
          */
-        providerId?: string;
+        providerId?: string | null;
         /**
          * The target provider type. Can be one of the following: `email`, `sms` or `push`.
          */
@@ -7304,15 +7451,15 @@ export namespace Models {
         /**
          * Time the insight was analyzed in ISO 8601 format.
          */
-        analyzedAt?: string;
+        analyzedAt?: string | null;
         /**
          * Time the insight was dismissed in ISO 8601 format. Empty when not dismissed.
          */
-        dismissedAt?: string;
+        dismissedAt?: string | null;
         /**
          * User ID that dismissed the insight. Empty when not dismissed.
          */
-        dismissedBy?: string;
+        dismissedBy?: string | null;
     };
 
     /**
@@ -7388,7 +7535,7 @@ export namespace Models {
         /**
          * Time the report was analyzed in ISO 8601 format.
          */
-        analyzedAt?: string;
+        analyzedAt?: string | null;
     };
 
     /**
@@ -7566,7 +7713,7 @@ export namespace Models {
         /**
          * Archive size in bytes. Null until the size is known.
          */
-        size?: number;
+        size?: number | null;
         /**
          * The status of the archive creation. Possible values: pending, processing, uploading, completed, failed, skipped.
          */
@@ -7574,7 +7721,7 @@ export namespace Models {
         /**
          * The backup start time. Null until the backup starts.
          */
-        startedAt?: string;
+        startedAt?: string | null;
         /**
          * Migration ID.
          */
@@ -7590,11 +7737,11 @@ export namespace Models {
         /**
          * The resource ID to backup. Set only if this archive should backup a single resource.
          */
-        resourceId?: string;
+        resourceId?: string | null;
         /**
          * The resource type to backup. Set only if this archive should backup a single resource.
          */
-        resourceType?: string;
+        resourceType?: string | null;
     };
 
     /**
@@ -7648,23 +7795,23 @@ export namespace Models {
         /**
          * Backup start time in ISO 8601 format.
          */
-        startedAt?: string;
+        startedAt?: string | null;
         /**
          * Backup completion time in ISO 8601 format.
          */
-        completedAt?: string;
+        completedAt?: string | null;
         /**
          * Backup verification time in ISO 8601 format.
          */
-        verifiedAt?: string;
+        verifiedAt?: string | null;
         /**
          * Backup expiration time in ISO 8601 format.
          */
-        expiresAt?: string;
+        expiresAt?: string | null;
         /**
          * Transaction-log position the backup anchors at, in the engine's own notation: PostgreSQL `{walSegment}|{lsn}`, MySQL and MariaDB `{binlogFile}|{offset}`, MongoDB `{seconds}|{increment}`. Empty when the backup recorded no position, which is the case for backup types that carry none.
          */
-        logPosition?: string;
+        logPosition?: string | null;
         /**
          * Error message if backup failed.
          */
@@ -7718,35 +7865,35 @@ export namespace Models {
         /**
          * Bandwidth limit
          */
-        bandwidth?: number;
+        bandwidth?: number | null;
         /**
          * Storage limit
          */
-        storage?: number;
+        storage?: number | null;
         /**
          * Users limit
          */
-        users?: number;
+        users?: number | null;
         /**
          * Executions limit
          */
-        executions?: number;
+        executions?: number | null;
         /**
          * GBHours limit
          */
-        GBHours?: number;
+        GBHours?: number | null;
         /**
          * Image transformations limit
          */
-        imageTransformations?: number;
+        imageTransformations?: number | null;
         /**
          * Auth phone limit
          */
-        authPhone?: number;
+        authPhone?: number | null;
         /**
          * Budget limit percentage
          */
-        budgetLimit?: number;
+        budgetLimit?: number | null;
     };
 
     /**
@@ -7796,7 +7943,7 @@ export namespace Models {
         /**
          * Members
          */
-        members?: number;
+        members?: number | null;
         /**
          * Webhooks
          */
@@ -7805,6 +7952,10 @@ export namespace Models {
          * Maximum WAF rules per project
          */
         wafRules: number;
+        /**
+         * Maximum environments per project. 0 when the plan does not offer environments.
+         */
+        environments: number;
         /**
          * Projects
          */
@@ -7892,7 +8043,7 @@ export namespace Models {
         /**
          * Activity log days
          */
-        activityLogs?: number;
+        activityLogs?: number | null;
         /**
          * Usage history days
          */
@@ -7900,11 +8051,11 @@ export namespace Models {
         /**
          * Usage log time intervals allowed for this plan (e.g. 15m, 1h, 1d).
          */
-        usageLogsIntervals?: string[];
+        usageLogsIntervals?: string[] | null;
         /**
          * Metrics this plan only records as a total. They cannot be broken down by dimension or filtered, because the stored events cover a fraction of the real traffic.
          */
-        usageAggregateOnlyMetrics?: string[];
+        usageAggregateOnlyMetrics?: string[] | null;
         /**
          * Number of days of console inactivity before a project is paused. 0 means pausing is disabled.
          */
@@ -7916,7 +8067,7 @@ export namespace Models {
         /**
          * Additional resources. Null when the plan does not support usage billing.
          */
-        usage?: UsageBillingPlan;
+        usage?: UsageBillingPlan | null;
         /**
          * Addons
          */
@@ -7944,7 +8095,7 @@ export namespace Models {
         /**
          * ISO country codes eligible for this regional plan. Empty means no restriction.
          */
-        eligibleCountries?: string[];
+        eligibleCountries?: string[] | null;
         /**
          * Is the billing plan available
          */
@@ -8000,7 +8151,7 @@ export namespace Models {
         /**
          * Does plan support backup policies.
          */
-        backupsEnabled?: boolean;
+        backupsEnabled?: boolean | null;
         /**
          * Whether usage addons are calculated per project.
          */
@@ -8012,7 +8163,7 @@ export namespace Models {
         /**
          * How many policies does plan support
          */
-        backupPolicies?: number;
+        backupPolicies?: number | null;
         /**
          * Maximum function and site deployment size in MB
          */
@@ -8022,13 +8173,17 @@ export namespace Models {
          */
         buildSize: number;
         /**
+         * Shortest function schedule interval allowed, in minutes. 0 allows every interval.
+         */
+        functionsIntervalMinimum: number;
+        /**
          * Does the plan support encrypted string attributes or not.
          */
         databasesAllowEncrypt: boolean;
         /**
          * Plan specific limits
          */
-        limits?: BillingPlanLimits;
+        limits?: BillingPlanLimits | null;
         /**
          * Group of this billing plan for variants
          */
@@ -8036,7 +8191,7 @@ export namespace Models {
         /**
          * Details of the program this plan is a part of.
          */
-        program?: Program;
+        program?: Program | null;
         /**
          * Included monthly dedicated-database compute credit in USD. Resets each billing cycle with no roll-over.
          */
@@ -8044,7 +8199,7 @@ export namespace Models {
         /**
          * Dedicated database limits available to this plan.
          */
-        dedicatedDatabases?: BillingPlanDedicatedDatabaseLimits;
+        dedicatedDatabases?: BillingPlanDedicatedDatabaseLimits | null;
     };
 
     /**
@@ -8054,11 +8209,11 @@ export namespace Models {
         /**
          * Addon seats
          */
-        seats?: BillingPlanAddonDetails;
+        seats?: BillingPlanAddonDetails | null;
         /**
          * Addon projects
          */
-        projects?: BillingPlanAddonDetails;
+        projects?: BillingPlanAddonDetails | null;
     };
 
     /**
@@ -8084,7 +8239,7 @@ export namespace Models {
         /**
          * Price currency
          */
-        currency?: string;
+        currency?: string | null;
         /**
          * Price
          */
@@ -8106,11 +8261,11 @@ export namespace Models {
         /**
          * Credits limit per billing cycle
          */
-        credits?: number;
+        credits?: number | null;
         /**
          * Daily credits limit (if applicable)
          */
-        dailyCredits?: number;
+        dailyCredits?: number | null;
     };
 
     /**
@@ -8120,79 +8275,79 @@ export namespace Models {
         /**
          * Minimum CPU allocation in millicores.
          */
-        minCpu?: number;
+        minCpu?: number | null;
         /**
          * Maximum CPU allocation in millicores.
          */
-        maxCpu?: number;
+        maxCpu?: number | null;
         /**
          * Minimum memory allocation in megabytes.
          */
-        minMemoryMb?: number;
+        minMemoryMb?: number | null;
         /**
          * Maximum memory allocation in megabytes.
          */
-        maxMemoryMb?: number;
+        maxMemoryMb?: number | null;
         /**
          * Minimum storage allocation in gigabytes.
          */
-        minStorageGb?: number;
+        minStorageGb?: number | null;
         /**
          * Maximum storage allocation in gigabytes.
          */
-        maxStorageGb?: number;
+        maxStorageGb?: number | null;
         /**
          * Maximum number of high-availability replicas per dedicated database.
          */
-        maxReplicas?: number;
+        maxReplicas?: number | null;
         /**
          * Maximum number of client connections.
          */
-        maxConnections?: number;
+        maxConnections?: number | null;
         /**
          * Maximum number of entries allowed in the IP allowlist.
          */
-        maxIpAllowlistSize?: number;
+        maxIpAllowlistSize?: number | null;
         /**
          * Maximum number of database extensions that can be enabled.
          */
-        maxExtensions?: number;
+        maxExtensions?: number | null;
         /**
          * Maximum number of days a backup can be retained.
          */
-        maxBackupRetentionDays?: number;
+        maxBackupRetentionDays?: number | null;
         /**
          * Maximum number of days of point-in-time recovery data that can be retained.
          */
-        maxPitrRetentionDays?: number;
+        maxPitrRetentionDays?: number | null;
         /**
          * Maximum number of rows a single SQL API query can return.
          */
-        maxSqlApiMaxRows?: number;
+        maxSqlApiMaxRows?: number | null;
         /**
          * Maximum response size in bytes for a single SQL API query.
          */
-        maxSqlApiMaxBytes?: number;
+        maxSqlApiMaxBytes?: number | null;
         /**
          * Maximum execution time in seconds for a single SQL API query.
          */
-        maxSqlApiTimeoutSeconds?: number;
+        maxSqlApiTimeoutSeconds?: number | null;
         /**
          * Maximum number of SQL statement types that can be permitted through the SQL API.
          */
-        maxSqlApiAllowedStatements?: number;
+        maxSqlApiAllowedStatements?: number | null;
         /**
          * SQL statement types permitted through the SQL API.
          */
-        allowedSqlStatements?: string[];
+        allowedSqlStatements?: string[] | null;
         /**
          * Storage classes available for dedicated databases.
          */
-        allowedStorageClasses?: string[];
+        allowedStorageClasses?: string[] | null;
         /**
          * Replica synchronization modes available for dedicated databases.
          */
-        allowedSyncModes?: string[];
+        allowedSyncModes?: string[] | null;
     };
 
     /**
@@ -8236,7 +8391,7 @@ export namespace Models {
         /**
          * Block expiration date in ISO 8601 format. Can be null if the block does not expire.
          */
-        expiredAt?: string;
+        expiredAt?: string | null;
     };
 
     /**
@@ -8266,7 +8421,7 @@ export namespace Models {
         /**
          * Branch port. Null until the backing reports one.
          */
-        port: number;
+        port?: number | null;
         /**
          * Advertised catalog the client connects to. MySQL/MariaDB use default; Postgres uses the routing label.
          */
@@ -8408,11 +8563,11 @@ export namespace Models {
         /**
          * Product API that owns this database: tablesdb, documentsdb, vectorsdb, mysql, postgresql, or mongodb.
          */
-        api: string;
+        api?: string | null;
         /**
          * Database engine: postgresql, mysql, or mongodb. Null until the backing reports one.
          */
-        engine: string;
+        engine?: string | null;
         /**
          * Database engine version.
          */
@@ -8432,7 +8587,7 @@ export namespace Models {
         /**
          * Database port for connections. Derived from the engine when the backing has not reported one yet.
          */
-        connectionPort: number;
+        connectionPort?: number | null;
         /**
          * Database username for connections.
          */
@@ -8444,7 +8599,7 @@ export namespace Models {
         /**
          * Committed generation of the primary connection credentials. Null until the rotation contract has been initialized.
          */
-        credentialGeneration: number;
+        credentialGeneration?: number | null;
         /**
          * Full database connection string (URI format).
          */
@@ -8464,11 +8619,11 @@ export namespace Models {
         /**
          * Last activity timestamp in ISO 8601 format.
          */
-        lastAccessedAt?: string;
+        lastAccessedAt?: string | null;
         /**
          * Display-only timestamp when the database is expected to be considered idle (ISO 8601 format). Derived from last activity; lifecycle transitions are driven by lifecycleState.
          */
-        idleUntil?: string;
+        idleUntil?: string | null;
         /**
          * Idle-lifecycle state of the database. Possible values: active, warm, cold, hibernated.
          */
@@ -8500,7 +8655,7 @@ export namespace Models {
         /**
          * Time the in-flight storage resize started, in ISO 8601 format.
          */
-        storageResizeStartedAt?: string;
+        storageResizeStartedAt?: string | null;
         /**
          * Storage class. Currently always 'ssd'; DigitalOcean exposes a single block-storage class.
          */
@@ -8658,7 +8813,7 @@ export namespace Models {
         /**
          * Source database ID when restoring a backup into another database.
          */
-        sourceDatabaseId: string;
+        sourceDatabaseId?: string | null;
         /**
          * Project ID.
          */
@@ -8666,7 +8821,7 @@ export namespace Models {
         /**
          * Backup ID used for restoration (null for PITR).
          */
-        backupId: string;
+        backupId?: string | null;
         /**
          * Restoration type. Possible values: backup (restore from a specific backup snapshot), pitr (point-in-time recovery to a specific timestamp).
          */
@@ -8678,15 +8833,15 @@ export namespace Models {
         /**
          * Target time for PITR restoration in ISO 8601 format.
          */
-        targetTime: string;
+        targetTime?: string | null;
         /**
          * Restoration start time in ISO 8601 format.
          */
-        startedAt: string;
+        startedAt?: string | null;
         /**
          * Restoration completion time in ISO 8601 format.
          */
-        completedAt: string;
+        completedAt?: string | null;
         /**
          * Error message if restoration failed.
          */
@@ -8720,7 +8875,7 @@ export namespace Models {
         /**
          * Connection statistics. Null when the database has not been probed.
          */
-        connections?: DatabaseStatusConnections;
+        connections?: DatabaseStatusConnections | null;
         /**
          * Requested replication sync mode. Possible values: async, sync, quorum. Compare with effectiveSyncMode for what the primary is enforcing.
          */
@@ -8728,7 +8883,7 @@ export namespace Models {
         /**
          * Replication sync mode the primary is actually enforcing. Null when high availability is disabled or the state could not be read.
          */
-        effectiveSyncMode?: string;
+        effectiveSyncMode?: string | null;
         /**
          * Whether the enforced replication is weaker than the requested syncMode.
          */
@@ -8744,7 +8899,7 @@ export namespace Models {
         /**
          * Whether the other sync fields are an engine reading rather than a recorded estimate. True when the primary answered what it is enforcing, including when that answer contradicted the record, in which case the contradicted values are replaced by the ones the engine reports. False when the reading could not be taken: the probe did not answer, there was no engine to ask, or the values describe a configuration change just applied rather than anything measured. Absent when no engine was asked at all, so an unprobed database is distinguishable from an unconfirmed one. False never means a standby was found lagging, because it is the absence of a reading rather than a negative one, so draw no conclusion about replication health from it or from a response that omits it.
          */
-        syncStateConfirmed?: boolean;
+        syncStateConfirmed?: boolean | null;
         /**
          * List of database replicas and their status. Every configured member appears, including one the backend has not brought up, which is reported as not healthy.
          */
@@ -8856,7 +9011,7 @@ export namespace Models {
         /**
          * Transfer status for domains being transferred in. Null when the domain is not being transferred.
          */
-        transferStatus?: DomainTransferStatusEnum;
+        transferStatus?: DomainTransferStatusEnum | null;
         /**
          * Team ID.
          */
@@ -8886,7 +9041,7 @@ export namespace Models {
         /**
          * Domain registration price. Null when the price could not be resolved, for example for an unsupported TLD.
          */
-        price?: number;
+        price?: number | null;
         /**
          * Price period in years.
          */
@@ -8898,7 +9053,7 @@ export namespace Models {
         /**
          * Domain renewal price for the same period. Null when the domain was not priced or the registrar has no renewal price for it.
          */
-        renewalPrice?: number;
+        renewalPrice?: number | null;
         /**
          * Renewal price period in years.
          */
@@ -8960,11 +9115,11 @@ export namespace Models {
         /**
          * Whether the engine reports this member's replication stream as up. Null when no reading was taken: a primary has no stream to report, and a member that is not active, or whose probe did not answer, has none yet. False is a reading and null is the absence of one, so the two are not interchangeable. Read it beside lagSeconds before expecting a failover that names no target to find a promotable standby: a member streaming at a known lag is one, and a member reporting null is not evidence either way.
          */
-        replicating?: boolean;
+        replicating?: boolean | null;
         /**
          * Replication lag in seconds. Null when the lag is not known: a primary has none to report, and a member the backend has not probed has none yet. Also null against `replicating: true`, for a member that is streaming but whose engine printed no numeric lag.
          */
-        lagSeconds?: number;
+        lagSeconds?: number | null;
     };
 
     /**
@@ -8998,15 +9153,15 @@ export namespace Models {
         /**
          * Time the operation was requested, in ISO 8601 format.
          */
-        requestedAt?: string;
+        requestedAt?: string | null;
         /**
          * Time the operation started, in ISO 8601 format.
          */
-        startedAt?: string;
+        startedAt?: string | null;
         /**
          * Time the operation reached a terminal state, in ISO 8601 format.
          */
-        completedAt?: string;
+        completedAt?: string | null;
         /**
          * Machine-readable failure code. `Interrupted` marks an attempt that ended before its outcome could be confirmed.
          */
@@ -9046,7 +9201,7 @@ export namespace Models {
         /**
          * Replication sync mode the primary is actually enforcing. Null when high availability is disabled or the state could not be read. A value below the requested syncMode means writes are being acknowledged with weaker durability than configured.
          */
-        effectiveSyncMode?: string;
+        effectiveSyncMode?: string | null;
         /**
          * Whether the enforced replication is weaker than the requested syncMode.
          */
@@ -9062,7 +9217,7 @@ export namespace Models {
         /**
          * Whether the other sync fields are an engine reading rather than a recorded estimate. True when the primary answered what it is enforcing, including when that answer contradicted the record, in which case the contradicted values are replaced by the ones the engine reports. False when the reading could not be taken: the probe did not answer, there was no engine to ask, or the values describe a configuration change just applied rather than anything measured. Absent when no engine was asked at all, so an unprobed database is distinguishable from an unconfirmed one. False never means a standby was found lagging, because it is the absence of a reading rather than a negative one, so draw no conclusion about replication health from it or from a response that omits it.
          */
-        syncStateConfirmed?: boolean;
+        syncStateConfirmed?: boolean | null;
         /**
          * Per-pod statuses for the primary and every replica.
          */
@@ -9124,7 +9279,7 @@ export namespace Models {
         /**
          * Project budget limit. Null when no budget is set.
          */
-        billingBudget?: number;
+        billingBudget?: number | null;
         /**
          * Project budget limit
          */
@@ -9148,43 +9303,43 @@ export namespace Models {
         /**
          * Billing cycle start date.
          */
-        billingStartDate: string;
+        billingStartDate?: string | null;
         /**
          * Current invoice cycle start date.
          */
-        billingCurrentInvoiceDate: string;
+        billingCurrentInvoiceDate?: string | null;
         /**
          * Next invoice cycle start date.
          */
-        billingNextInvoiceDate: string;
+        billingNextInvoiceDate?: string | null;
         /**
          * Start date of trial.
          */
-        billingTrialStartDate?: string;
+        billingTrialStartDate?: string | null;
         /**
          * Number of trial days.
          */
-        billingTrialDays: number;
+        billingTrialDays?: number | null;
         /**
          * Current active aggregation id.
          */
-        billingAggregationId: string;
+        billingAggregationId?: string | null;
         /**
          * Current active aggregation id.
          */
-        billingInvoiceId: string;
+        billingInvoiceId?: string | null;
         /**
          * Default payment method.
          */
-        paymentMethodId: string;
+        paymentMethodId?: string | null;
         /**
          * Default payment method.
          */
-        billingAddressId?: string;
+        billingAddressId?: string | null;
         /**
          * Backup payment method.
          */
-        backupPaymentMethodId?: string;
+        backupPaymentMethodId?: string | null;
         /**
          * Team status.
          */
@@ -9192,39 +9347,39 @@ export namespace Models {
         /**
          * Remarks on team status.
          */
-        remarks?: string;
+        remarks?: string | null;
         /**
          * Organization agreements
          */
-        agreementBAA?: string;
+        agreementBAA?: string | null;
         /**
          * Program manager's name.
          */
-        programManagerName?: string;
+        programManagerName?: string | null;
         /**
          * Program manager's calendar link.
          */
-        programManagerCalendar?: string;
+        programManagerCalendar?: string | null;
         /**
          * Program's discord channel name.
          */
-        programDiscordChannelName?: string;
+        programDiscordChannelName?: string | null;
         /**
          * Program's discord channel URL.
          */
-        programDiscordChannelUrl?: string;
+        programDiscordChannelUrl?: string | null;
         /**
          * Billing limits reached
          */
-        billingLimits?: BillingLimits;
+        billingLimits?: BillingLimits | null;
         /**
          * Billing plan selected for downgrade.
          */
-        billingPlanDowngrade?: string;
+        billingPlanDowngrade?: string | null;
         /**
          * Tax Id
          */
-        billingTaxId?: string;
+        billingTaxId?: string | null;
         /**
          * Marked for deletion
          */
@@ -9284,11 +9439,11 @@ export namespace Models {
         /**
          * The resource ID to backup. Set only if this policy should backup a single resource.
          */
-        resourceId?: string;
+        resourceId?: string | null;
         /**
          * The resource type to backup. Set only if this policy should backup a single resource.
          */
-        resourceType?: string;
+        resourceType?: string | null;
         /**
          * How many days to keep the backup before it will be automatically deleted.
          */
@@ -9448,7 +9603,7 @@ export namespace Models {
         /**
          * The restoration start time. Null until the restoration starts.
          */
-        startedAt?: string;
+        startedAt?: string | null;
         /**
          * Migration ID.
          */
@@ -9586,11 +9741,11 @@ export namespace Models {
         /**
          * Whether the engine reports this member's replication stream as up. Null when no reading was taken: a primary has no stream to report, and a member that is not healthy, or whose probe did not answer, has none yet. `healthy` is a reachability probe of the member itself and says nothing about replication, so a healthy member may still not be replicating.
          */
-        replicating?: boolean;
+        replicating?: boolean | null;
         /**
          * Replication lag in seconds (null for primary). Also null against `replicating: true`, for a member that is streaming but whose engine printed no numeric lag.
          */
-        lagSeconds?: number;
+        lagSeconds?: number | null;
     };
 
     /**
@@ -9622,47 +9777,47 @@ export namespace Models {
         /**
          * Bandwidth additional resources
          */
-        bandwidth: AdditionalResource;
+        bandwidth?: AdditionalResource | null;
         /**
          * Executions additional resources
          */
-        executions: AdditionalResource;
+        executions?: AdditionalResource | null;
         /**
          * Member additional resources
          */
-        member?: AdditionalResource;
+        member?: AdditionalResource | null;
         /**
          * Realtime additional resources
          */
-        realtime: AdditionalResource;
+        realtime?: AdditionalResource | null;
         /**
          * Realtime messages additional resources
          */
-        realtimeMessages: AdditionalResource;
+        realtimeMessages?: AdditionalResource | null;
         /**
          * Realtime bandwidth additional resources
          */
-        realtimeBandwidth?: AdditionalResource;
+        realtimeBandwidth?: AdditionalResource | null;
         /**
          * Storage additional resources
          */
-        storage: AdditionalResource;
+        storage?: AdditionalResource | null;
         /**
          * User additional resources
          */
-        users: AdditionalResource;
+        users?: AdditionalResource | null;
         /**
          * GBHour additional resources
          */
-        GBHours: AdditionalResource;
+        GBHours?: AdditionalResource | null;
         /**
          * Image transformation additional resources
          */
-        imageTransformations: AdditionalResource;
+        imageTransformations?: AdditionalResource | null;
         /**
          * Credits additional resources
          */
-        credits?: AdditionalResource;
+        credits?: AdditionalResource | null;
     };
 
     /**
@@ -9814,7 +9969,7 @@ export namespace Models {
         /**
          * Time the secret was last used for authentication in ISO 8601 format. Null if never used.
          */
-        lastAccessedAt?: string;
+        lastAccessedAt?: string | null;
     };
 
     /**
@@ -9856,7 +10011,7 @@ export namespace Models {
         /**
          * Time the secret was last used for authentication in ISO 8601 format. Null if never used.
          */
-        lastAccessedAt?: string;
+        lastAccessedAt?: string | null;
     };
 
     /**
@@ -9928,7 +10083,7 @@ export namespace Models {
         /**
          * Time an access token was last issued for the installation in ISO 8601 format. Null if never used.
          */
-        lastAccessedAt?: string;
+        lastAccessedAt?: string | null;
     };
 
     /**
@@ -9970,7 +10125,7 @@ export namespace Models {
         /**
          * Time the app key was last used for authentication in ISO 8601 format. Null if never used.
          */
-        lastAccessedAt?: string;
+        lastAccessedAt?: string | null;
     };
 
     /**
@@ -10132,11 +10287,11 @@ export namespace Models {
         /**
          * Granted RFC 9396 authorization details as a JSON string.
          */
-        authorization_details?: string;
+        authorization_details?: string | null;
         /**
          * OpenID Connect ID token. Returned when the `openid` scope is granted.
          */
-        id_token?: string;
+        id_token?: string | null;
     };
 
     /**
@@ -10150,47 +10305,47 @@ export namespace Models {
         /**
          * Kind of token that was introspected. Can be one of: `access_token` or `refresh_token`.
          */
-        token_use?: string;
+        token_use?: string | null;
         /**
          * OAuth2 token type.
          */
-        token_type?: string;
+        token_type?: string | null;
         /**
          * Space-separated scopes granted to the token.
          */
-        scope?: string;
+        scope?: string | null;
         /**
          * OAuth2 client ID the token was issued to.
          */
-        client_id?: string;
+        client_id?: string | null;
         /**
          * ID of the user who authorized the token.
          */
-        sub?: string;
+        sub?: string | null;
         /**
          * Audiences the token is intended for. The first entry is the project API base URL; any further entries are the resource indicators requested at authorization time (RFC 8707).
          */
-        aud?: string[];
+        aud?: string[] | null;
         /**
          * Issuer URL of the token.
          */
-        iss?: string;
+        iss?: string | null;
         /**
          * Expiration time as a Unix timestamp in seconds.
          */
-        exp?: number;
+        exp?: number | null;
         /**
          * Issued-at time as a Unix timestamp in seconds.
          */
-        iat?: number;
+        iat?: number | null;
         /**
          * Unique identifier of the token.
          */
-        jti?: string;
+        jti?: string | null;
         /**
          * Granted RFC 9396 authorization details, restricted to what the user can currently access.
          */
-        authorization_details?: Record<string, any>[];
+        authorization_details?: Record<string, any>[] | null;
     };
 
     /**
@@ -10287,6 +10442,376 @@ export namespace Models {
          * Expiration time of the current access token of this family in ISO 8601 format.
          */
         expire: string;
+    };
+
+    /**
+     * WafRuleBypass
+     */
+    export type WafRuleBypass = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+    };
+
+    /**
+     * WafRuleDeny
+     */
+    export type WafRuleDeny = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+    };
+
+    /**
+     * WafRuleChallenge
+     */
+    export type WafRuleChallenge = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+        /**
+         * Challenge type enforced when the rule matches.
+         */
+        challengeType: string;
+        /**
+         * Challenge difficulty from 1 (easiest) to 5 (hardest) enforced when the rule matches.
+         */
+        difficulty: number;
+        /**
+         * Seconds a visitor stays cleared after passing the challenge before being challenged again.
+         */
+        ttl: number;
+    };
+
+    /**
+     * WafRuleRateLimit
+     */
+    export type WafRuleRateLimit = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+        /**
+         * Maximum number of matching requests allowed for the given interval.
+         */
+        limit: number;
+        /**
+         * Interval in seconds for the rate limit window.
+         */
+        interval: number;
+        /**
+         * Rate limit key: `ip` limits per client IP, `userId` limits per authenticated user.
+         */
+        key: string;
+        /**
+         * Rate limit strategy: `fixedWindow`, `slidingWindow`, or `tokenBucket`.
+         */
+        strategy: string;
+        /**
+         * Maximum burst capacity in tokens, applied by the `tokenBucket` strategy. The sustained refill rate is `limit / interval`. Defaults to `limit`.
+         */
+        maxBucketSize: number;
+    };
+
+    /**
+     * WafRuleRedirect
+     */
+    export type WafRuleRedirect = {
+        /**
+         * Rule ID.
+         */
+        $id: string;
+        /**
+         * WAF rule creation time in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * WAF rule last update time in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human friendly rule name.
+         */
+        name: string;
+        /**
+         * Optional description for the rule.
+         */
+        description: string;
+        /**
+         * Team ID.
+         */
+        teamId: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Resource type the rule is scoped to.
+         */
+        resourceType: string;
+        /**
+         * Resource identifier. Empty for API-wide rules.
+         */
+        resourceId: string;
+        /**
+         * Action performed when the rule matches.
+         */
+        action: WafRuleAction;
+        /**
+         * Evaluation priority. Lower values execute earlier.
+         */
+        priority: number;
+        /**
+         * Whether the rule is active.
+         */
+        enabled: boolean;
+        /**
+         * List of conditions evaluated for this rule.
+         */
+        conditions: Record<string, any>[];
+        /**
+         * Action specific configuration.
+         */
+        config: object;
+        /**
+         * Target location for the redirect.
+         */
+        location: string;
+        /**
+         * HTTP status code used for the redirect.
+         */
+        statusCode: number;
+    };
+
+    /**
+     * WAF rule list
+     */
+    export type WafRuleList = {
+        /**
+         * Total number of rules that matched your query.
+         */
+        total: number;
+        /**
+         * List of rules.
+         */
+        rules: (
+            | Models.WafRuleBypass
+            | Models.WafRuleDeny
+            | Models.WafRuleChallenge
+            | Models.WafRuleRateLimit
+            | Models.WafRuleRedirect
+        )[];
     };
 
     /**

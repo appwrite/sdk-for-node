@@ -27,10 +27,10 @@ describe('Storage', () => {
     });
     test('test method createBucket()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             fileSecurity: true,
             name: 'Documents',
             enabled: true,
@@ -52,10 +52,10 @@ describe('Storage', () => {
     });
     test('test method getBucket()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             fileSecurity: true,
             name: 'Documents',
             enabled: true,
@@ -77,10 +77,10 @@ describe('Storage', () => {
     });
     test('test method updateBucket()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             fileSecurity: true,
             name: 'Documents',
             enabled: true,
@@ -125,11 +125,11 @@ describe('Storage', () => {
     });
     test('test method createFile()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             bucketId: '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             name: 'Pink.png',
             folder: 'photos/2026/',
             key: 'photos/2026/Pink.png',
@@ -156,11 +156,11 @@ describe('Storage', () => {
     });
     test('test method getFile()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             bucketId: '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             name: 'Pink.png',
             folder: 'photos/2026/',
             key: 'photos/2026/Pink.png',
@@ -183,11 +183,11 @@ describe('Storage', () => {
     });
     test('test method updateFile()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             bucketId: '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             name: 'Pink.png',
             folder: 'photos/2026/',
             key: 'photos/2026/Pink.png',

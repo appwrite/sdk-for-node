@@ -26,9 +26,9 @@ describe('Domains', () => {
     });
     test('test method create()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'example.com',
             registrar: 'appwrite',
             nameservers: 'Appwrite',
@@ -79,9 +79,9 @@ describe('Domains', () => {
     });
     test('test method get()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'example.com',
             registrar: 'appwrite',
             nameservers: 'Appwrite',
@@ -112,9 +112,9 @@ describe('Domains', () => {
     });
     test('test method updateNameservers()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'example.com',
             registrar: 'appwrite',
             nameservers: 'Appwrite',
@@ -135,9 +135,9 @@ describe('Domains', () => {
     });
     test('test method verifyNameservers()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'example.com',
             registrar: 'appwrite',
             nameservers: 'Appwrite',
@@ -328,9 +328,9 @@ describe('Domains', () => {
     });
     test('test method createRecordA()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -356,9 +356,9 @@ describe('Domains', () => {
     });
     test('test method updateRecordA()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -385,9 +385,9 @@ describe('Domains', () => {
     });
     test('test method createRecordAAAA()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -413,9 +413,9 @@ describe('Domains', () => {
     });
     test('test method updateRecordAAAA()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -442,9 +442,9 @@ describe('Domains', () => {
     });
     test('test method createRecordAlias()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -470,9 +470,9 @@ describe('Domains', () => {
     });
     test('test method updateRecordAlias()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -499,9 +499,9 @@ describe('Domains', () => {
     });
     test('test method createRecordCAA()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -527,9 +527,9 @@ describe('Domains', () => {
     });
     test('test method updateRecordCAA()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -556,9 +556,9 @@ describe('Domains', () => {
     });
     test('test method createRecordCNAME()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -584,9 +584,9 @@ describe('Domains', () => {
     });
     test('test method updateRecordCNAME()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -613,9 +613,9 @@ describe('Domains', () => {
     });
     test('test method createRecordHTTPS()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -641,9 +641,9 @@ describe('Domains', () => {
     });
     test('test method updateRecordHTTPS()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -670,9 +670,9 @@ describe('Domains', () => {
     });
     test('test method createRecordMX()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -699,9 +699,9 @@ describe('Domains', () => {
     });
     test('test method updateRecordMX()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -729,9 +729,9 @@ describe('Domains', () => {
     });
     test('test method createRecordNS()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -757,9 +757,9 @@ describe('Domains', () => {
     });
     test('test method updateRecordNS()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -786,9 +786,9 @@ describe('Domains', () => {
     });
     test('test method createRecordSRV()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -817,9 +817,9 @@ describe('Domains', () => {
     });
     test('test method updateRecordSRV()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -849,9 +849,9 @@ describe('Domains', () => {
     });
     test('test method createRecordTXT()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -876,9 +876,9 @@ describe('Domains', () => {
     });
     test('test method updateRecordTXT()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -905,9 +905,9 @@ describe('Domains', () => {
     });
     test('test method getRecord()', async () => {
         const data = {
-            '\\$id': '5f40a6e10c65e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5f40a6e10c65e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'A',
             name: 'mail',
             value: '192.0.2.1',
@@ -941,9 +941,9 @@ describe('Domains', () => {
     });
     test('test method updateTeam()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'example.com',
             registrar: 'appwrite',
             nameservers: 'Appwrite',
@@ -988,9 +988,9 @@ describe('Domains', () => {
     });
     test('test method updateZone()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'example.com',
             registrar: 'appwrite',
             nameservers: 'Appwrite',

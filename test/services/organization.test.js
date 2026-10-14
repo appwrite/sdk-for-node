@@ -13,9 +13,9 @@ describe('Organization', () => {
 
     test('test method get()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'VIP',
             total: 7,
             prefs: {},
@@ -24,13 +24,6 @@ describe('Organization', () => {
             billingPlanId: 'tier-1',
             billingPlanDetails: {},
             billingEmail: 'billing@org.example',
-            billingStartDate: '2020-10-15T06:38:00.000+00:00',
-            billingCurrentInvoiceDate: '2020-10-15T06:38:00.000+00:00',
-            billingNextInvoiceDate: '2020-10-15T06:38:00.000+00:00',
-            billingTrialDays: 14,
-            billingAggregationId: 'adbc3de4rddfsd',
-            billingInvoiceId: 'adbc3de4rddfsd',
-            paymentMethodId: 'adbc3de4rddfsd',
             status: 'active',
             markedForDeletion: true,
             platform: 'imagine',
@@ -46,9 +39,9 @@ describe('Organization', () => {
     });
     test('test method update()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'VIP',
             total: 7,
             prefs: {},
@@ -57,13 +50,6 @@ describe('Organization', () => {
             billingPlanId: 'tier-1',
             billingPlanDetails: {},
             billingEmail: 'billing@org.example',
-            billingStartDate: '2020-10-15T06:38:00.000+00:00',
-            billingCurrentInvoiceDate: '2020-10-15T06:38:00.000+00:00',
-            billingNextInvoiceDate: '2020-10-15T06:38:00.000+00:00',
-            billingTrialDays: 14,
-            billingAggregationId: 'adbc3de4rddfsd',
-            billingInvoiceId: 'adbc3de4rddfsd',
-            paymentMethodId: 'adbc3de4rddfsd',
             status: 'active',
             markedForDeletion: true,
             platform: 'imagine',
@@ -102,9 +88,9 @@ describe('Organization', () => {
     });
     test('test method createInstallation()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             appId: '5e5ea5c16897e',
             teamId: '5e5ea5c16897e',
             scopes: [],
@@ -122,9 +108,9 @@ describe('Organization', () => {
     });
     test('test method getInstallation()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             appId: '5e5ea5c16897e',
             teamId: '5e5ea5c16897e',
             scopes: [],
@@ -143,9 +129,9 @@ describe('Organization', () => {
     });
     test('test method updateInstallation()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             appId: '5e5ea5c16897e',
             teamId: '5e5ea5c16897e',
             scopes: [],
@@ -188,9 +174,9 @@ describe('Organization', () => {
     });
     test('test method createMembership()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c16897e',
             userName: 'John Doe',
             userEmail: 'john@appwrite.io',
@@ -214,9 +200,9 @@ describe('Organization', () => {
     });
     test('test method getMembership()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c16897e',
             userName: 'John Doe',
             userEmail: 'john@appwrite.io',
@@ -240,9 +226,9 @@ describe('Organization', () => {
     });
     test('test method updateMembership()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c16897e',
             userName: 'John Doe',
             userEmail: 'john@appwrite.io',
@@ -292,9 +278,9 @@ describe('Organization', () => {
     });
     test('test method createProject()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -332,9 +318,9 @@ describe('Organization', () => {
     });
     test('test method getProject()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -369,9 +355,9 @@ describe('Organization', () => {
     });
     test('test method updateProject()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -432,9 +418,9 @@ describe('Organization', () => {
     });
     test('test method createEphemeralProjectKey()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My API Key',
             expire: '2020-10-15T06:38:00.000+00:00',
             scopes: [],
@@ -456,9 +442,9 @@ describe('Organization', () => {
     });
     test('test method getProjectKey()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My API Key',
             expire: '2020-10-15T06:38:00.000+00:00',
             scopes: [],
@@ -479,9 +465,9 @@ describe('Organization', () => {
     });
     test('test method updateProjectKey()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My API Key',
             expire: '2020-10-15T06:38:00.000+00:00',
             scopes: [],

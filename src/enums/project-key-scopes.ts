@@ -122,4 +122,6 @@ export enum ProjectKeyScopes {
     Oauth2Read = 'oauth2.read',
     Oauth2Write = 'oauth2.write',
     Oauth2Introspect = 'oauth2.introspect',
+    AnalyticsRead = 'analytics.read',
+    AnalyticsWrite = 'analytics.write',
 }

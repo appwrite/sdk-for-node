@@ -26,10 +26,10 @@ describe('Presences', () => {
     });
     test('test method get()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             userId: '674af8f3e12a5f9ac0be',
             source: 'HTTP',
         };
@@ -43,10 +43,10 @@ describe('Presences', () => {
     });
     test('test method upsert()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             userId: '674af8f3e12a5f9ac0be',
             source: 'HTTP',
         };
@@ -64,10 +64,10 @@ describe('Presences', () => {
     });
     test('test method update()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             userId: '674af8f3e12a5f9ac0be',
             source: 'HTTP',
         };

@@ -26,10 +26,10 @@ describe('TablesDB', () => {
     });
     test('test method create()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'My Database',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
             type: 'legacy',
         };
@@ -69,9 +69,9 @@ describe('TablesDB', () => {
     });
     test('test method createTransaction()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             status: 'pending',
             operations: 5,
             expiresAt: '2020-10-15T06:38:00.000+00:00',
@@ -86,9 +86,9 @@ describe('TablesDB', () => {
     });
     test('test method getTransaction()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             status: 'pending',
             operations: 5,
             expiresAt: '2020-10-15T06:38:00.000+00:00',
@@ -103,9 +103,9 @@ describe('TablesDB', () => {
     });
     test('test method updateTransaction()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             status: 'pending',
             operations: 5,
             expiresAt: '2020-10-15T06:38:00.000+00:00',
@@ -130,9 +130,9 @@ describe('TablesDB', () => {
     });
     test('test method createOperations()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             status: 'pending',
             operations: 5,
             expiresAt: '2020-10-15T06:38:00.000+00:00',
@@ -147,10 +147,10 @@ describe('TablesDB', () => {
     });
     test('test method get()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'My Database',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
             type: 'legacy',
         };
@@ -164,10 +164,10 @@ describe('TablesDB', () => {
     });
     test('test method update()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'My Database',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
             type: 'legacy',
         };
@@ -191,21 +191,17 @@ describe('TablesDB', () => {
     });
     test('test method createFailover()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             name: 'My Production Database',
-            api: 'postgresql',
-            engine: 'postgresql',
             version: '16',
             specification: 's-2vcpu-2gb',
             backend: 'edge',
             hostname: 'db-myproject-mydb.fra.appwrite.center',
-            connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
-            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,
@@ -265,9 +261,9 @@ describe('TablesDB', () => {
     });
     test('test method createMigration()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             databaseId: '5e5ea5c16897e',
             specification: 's-2vcpu-4gb',
@@ -296,9 +292,9 @@ describe('TablesDB', () => {
     });
     test('test method getMigration()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             databaseId: '5e5ea5c16897e',
             specification: 's-2vcpu-4gb',
@@ -340,9 +336,9 @@ describe('TablesDB', () => {
     });
     test('test method createCutover()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             databaseId: '5e5ea5c16897e',
             specification: 's-2vcpu-4gb',
@@ -436,10 +432,10 @@ describe('TablesDB', () => {
     });
     test('test method createTable()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Table',
             enabled: true,
@@ -463,10 +459,10 @@ describe('TablesDB', () => {
     });
     test('test method getTable()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Table',
             enabled: true,
@@ -486,10 +482,10 @@ describe('TablesDB', () => {
     });
     test('test method updateTable()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Table',
             enabled: true,
@@ -546,8 +542,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.createBigIntColumn(
@@ -569,8 +565,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.updateBigIntColumn(
@@ -593,8 +589,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.createBooleanColumn(
@@ -616,8 +612,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.updateBooleanColumn(
@@ -640,8 +636,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'datetime',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -664,8 +660,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'datetime',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -689,8 +685,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'email',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -713,8 +709,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'email',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -738,8 +734,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             elements: [],
             format: 'enum',
         };
@@ -764,8 +760,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             elements: [],
             format: 'enum',
         };
@@ -791,8 +787,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.createFloatColumn(
@@ -814,8 +810,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.updateFloatColumn(
@@ -838,8 +834,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.createIntegerColumn(
@@ -861,8 +857,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.updateIntegerColumn(
@@ -885,8 +881,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'ip',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -909,8 +905,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'ip',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -934,8 +930,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.createLineColumn(
@@ -957,8 +953,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.updateLineColumn(
@@ -980,8 +976,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.createLongtextColumn(
@@ -1003,8 +999,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.updateLongtextColumn(
@@ -1027,8 +1023,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.createMediumtextColumn(
@@ -1050,8 +1046,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.updateMediumtextColumn(
@@ -1074,8 +1070,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.createPointColumn(
@@ -1097,8 +1093,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.updatePointColumn(
@@ -1120,8 +1116,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.createPolygonColumn(
@@ -1143,8 +1139,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.updatePolygonColumn(
@@ -1166,8 +1162,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             relatedTable: 'table',
             relationType: 'oneToOne|oneToMany|manyToOne|manyToMany',
             twoWay: true,
@@ -1195,8 +1191,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             relatedTable: 'table',
             relationType: 'oneToOne|oneToMany|manyToOne|manyToMany',
             twoWay: true,
@@ -1223,8 +1219,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             size: 128,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1248,8 +1244,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             size: 128,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1273,8 +1269,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.createTextColumn(
@@ -1296,8 +1292,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.updateTextColumn(
@@ -1320,8 +1316,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'url',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1344,8 +1340,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'url',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1369,8 +1365,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             size: 128,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1394,8 +1390,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             size: 128,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1419,8 +1415,8 @@ describe('TablesDB', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             size: 128,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1467,9 +1463,9 @@ describe('TablesDB', () => {
     });
     test('test method createIndex()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'index1',
             type: 'primary',
             status: 'available',
@@ -1493,9 +1489,9 @@ describe('TablesDB', () => {
     });
     test('test method getIndex()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'index1',
             type: 'primary',
             status: 'available',
@@ -1544,13 +1540,13 @@ describe('TablesDB', () => {
     });
     test('test method createRow()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$tableId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $tableId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.createRow(
@@ -1633,13 +1629,13 @@ describe('TablesDB', () => {
     });
     test('test method getRow()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$tableId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $tableId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.getRow(
@@ -1655,13 +1651,13 @@ describe('TablesDB', () => {
     });
     test('test method upsertRow()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$tableId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $tableId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.upsertRow(
@@ -1677,13 +1673,13 @@ describe('TablesDB', () => {
     });
     test('test method updateRow()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$tableId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $tableId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.updateRow(
@@ -1713,13 +1709,13 @@ describe('TablesDB', () => {
     });
     test('test method decrementRowColumn()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$tableId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $tableId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.decrementRowColumn(
@@ -1736,13 +1732,13 @@ describe('TablesDB', () => {
     });
     test('test method incrementRowColumn()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$tableId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $tableId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.incrementRowColumn(
