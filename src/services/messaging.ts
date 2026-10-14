@@ -2725,7 +2725,7 @@ export class Messaging {
      * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Provider name.
      * @param {boolean} params.enabled - Set as enabled.
-     * @param {number} params.qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
+     * @param {number | null} params.qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
      * @param {number} params.expiry - Default message retention in seconds for offline delivery. Max 7 days (604800).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
@@ -2734,7 +2734,7 @@ export class Messaging {
         providerId: string;
         name: string;
         enabled?: boolean;
-        qos?: number;
+        qos?: number | null;
         expiry?: number;
     }): Promise<Models.Provider>;
     /**
@@ -2743,7 +2743,7 @@ export class Messaging {
      * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Provider name.
      * @param {boolean} enabled - Set as enabled.
-     * @param {number} qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
+     * @param {number | null} qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
      * @param {number} expiry - Default message retention in seconds for offline delivery. Max 7 days (604800).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
@@ -2753,7 +2753,7 @@ export class Messaging {
         providerId: string,
         name: string,
         enabled?: boolean,
-        qos?: number,
+        qos?: number | null,
         expiry?: number,
     ): Promise<Models.Provider>;
     createAppwriteProvider(
@@ -2762,7 +2762,7 @@ export class Messaging {
                   providerId: string;
                   name: string;
                   enabled?: boolean;
-                  qos?: number;
+                  qos?: number | null;
                   expiry?: number;
               }
             | string,
@@ -2772,7 +2772,7 @@ export class Messaging {
             providerId: string;
             name: string;
             enabled?: boolean;
-            qos?: number;
+            qos?: number | null;
             expiry?: number;
         };
 
@@ -2785,7 +2785,7 @@ export class Messaging {
                 providerId: string;
                 name: string;
                 enabled?: boolean;
-                qos?: number;
+                qos?: number | null;
                 expiry?: number;
             };
         } else {
@@ -2793,7 +2793,7 @@ export class Messaging {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
                 enabled: rest[1] as boolean,
-                qos: rest[2] as number,
+                qos: rest[2] as number | null,
                 expiry: rest[3] as number,
             };
         }
@@ -2845,7 +2845,7 @@ export class Messaging {
      * @param {string} params.providerId - Provider ID.
      * @param {string} params.name - Provider name.
      * @param {boolean} params.enabled - Set as enabled.
-     * @param {number} params.qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
+     * @param {number | null} params.qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
      * @param {number} params.expiry - Default message retention in seconds for offline delivery. Max 7 days (604800).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
@@ -2854,7 +2854,7 @@ export class Messaging {
         providerId: string;
         name?: string;
         enabled?: boolean;
-        qos?: number;
+        qos?: number | null;
         expiry?: number;
     }): Promise<Models.Provider>;
     /**
@@ -2863,7 +2863,7 @@ export class Messaging {
      * @param {string} providerId - Provider ID.
      * @param {string} name - Provider name.
      * @param {boolean} enabled - Set as enabled.
-     * @param {number} qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
+     * @param {number | null} qos - Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
      * @param {number} expiry - Default message retention in seconds for offline delivery. Max 7 days (604800).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Provider>}
@@ -2873,7 +2873,7 @@ export class Messaging {
         providerId: string,
         name?: string,
         enabled?: boolean,
-        qos?: number,
+        qos?: number | null,
         expiry?: number,
     ): Promise<Models.Provider>;
     updateAppwriteProvider(
@@ -2882,7 +2882,7 @@ export class Messaging {
                   providerId: string;
                   name?: string;
                   enabled?: boolean;
-                  qos?: number;
+                  qos?: number | null;
                   expiry?: number;
               }
             | string,
@@ -2892,7 +2892,7 @@ export class Messaging {
             providerId: string;
             name?: string;
             enabled?: boolean;
-            qos?: number;
+            qos?: number | null;
             expiry?: number;
         };
 
@@ -2905,7 +2905,7 @@ export class Messaging {
                 providerId: string;
                 name?: string;
                 enabled?: boolean;
-                qos?: number;
+                qos?: number | null;
                 expiry?: number;
             };
         } else {
@@ -2913,7 +2913,7 @@ export class Messaging {
                 providerId: paramsOrFirst as string,
                 name: rest[0] as string,
                 enabled: rest[1] as boolean,
-                qos: rest[2] as number,
+                qos: rest[2] as number | null,
                 expiry: rest[3] as number,
             };
         }
@@ -7260,7 +7260,7 @@ export class Messaging {
      * @param {string} params.topicId - Topic ID. Choose a custom Topic ID or a new Topic ID.
      * @param {string} params.name - Topic Name.
      * @param {string[]} params.subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
-     * @param {number} params.qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
+     * @param {number | null} params.qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
      * @param {number} params.expiry - Message retention in seconds for offline delivery. Max 7 days (604800).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
@@ -7269,7 +7269,7 @@ export class Messaging {
         topicId: string;
         name: string;
         subscribe?: string[];
-        qos?: number;
+        qos?: number | null;
         expiry?: number;
     }): Promise<Models.Topic>;
     /**
@@ -7278,7 +7278,7 @@ export class Messaging {
      * @param {string} topicId - Topic ID. Choose a custom Topic ID or a new Topic ID.
      * @param {string} name - Topic Name.
      * @param {string[]} subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
-     * @param {number} qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
+     * @param {number | null} qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
      * @param {number} expiry - Message retention in seconds for offline delivery. Max 7 days (604800).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
@@ -7288,7 +7288,7 @@ export class Messaging {
         topicId: string,
         name: string,
         subscribe?: string[],
-        qos?: number,
+        qos?: number | null,
         expiry?: number,
     ): Promise<Models.Topic>;
     createTopic(
@@ -7297,7 +7297,7 @@ export class Messaging {
                   topicId: string;
                   name: string;
                   subscribe?: string[];
-                  qos?: number;
+                  qos?: number | null;
                   expiry?: number;
               }
             | string,
@@ -7307,7 +7307,7 @@ export class Messaging {
             topicId: string;
             name: string;
             subscribe?: string[];
-            qos?: number;
+            qos?: number | null;
             expiry?: number;
         };
 
@@ -7320,7 +7320,7 @@ export class Messaging {
                 topicId: string;
                 name: string;
                 subscribe?: string[];
-                qos?: number;
+                qos?: number | null;
                 expiry?: number;
             };
         } else {
@@ -7328,7 +7328,7 @@ export class Messaging {
                 topicId: paramsOrFirst as string,
                 name: rest[0] as string,
                 subscribe: rest[1] as string[],
-                qos: rest[2] as number,
+                qos: rest[2] as number | null,
                 expiry: rest[3] as number,
             };
         }
@@ -7438,7 +7438,7 @@ export class Messaging {
      * @param {string} params.topicId - Topic ID.
      * @param {string} params.name - Topic Name.
      * @param {string[]} params.subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
-     * @param {number} params.qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
+     * @param {number | null} params.qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
      * @param {number} params.expiry - Message retention in seconds for offline delivery. Max 7 days (604800).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
@@ -7447,7 +7447,7 @@ export class Messaging {
         topicId: string;
         name?: string;
         subscribe?: string[];
-        qos?: number;
+        qos?: number | null;
         expiry?: number;
     }): Promise<Models.Topic>;
     /**
@@ -7457,7 +7457,7 @@ export class Messaging {
      * @param {string} topicId - Topic ID.
      * @param {string} name - Topic Name.
      * @param {string[]} subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
-     * @param {number} qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
+     * @param {number | null} qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
      * @param {number} expiry - Message retention in seconds for offline delivery. Max 7 days (604800).
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
@@ -7467,7 +7467,7 @@ export class Messaging {
         topicId: string,
         name?: string,
         subscribe?: string[],
-        qos?: number,
+        qos?: number | null,
         expiry?: number,
     ): Promise<Models.Topic>;
     updateTopic(
@@ -7476,7 +7476,7 @@ export class Messaging {
                   topicId: string;
                   name?: string;
                   subscribe?: string[];
-                  qos?: number;
+                  qos?: number | null;
                   expiry?: number;
               }
             | string,
@@ -7486,7 +7486,7 @@ export class Messaging {
             topicId: string;
             name?: string;
             subscribe?: string[];
-            qos?: number;
+            qos?: number | null;
             expiry?: number;
         };
 
@@ -7499,7 +7499,7 @@ export class Messaging {
                 topicId: string;
                 name?: string;
                 subscribe?: string[];
-                qos?: number;
+                qos?: number | null;
                 expiry?: number;
             };
         } else {
@@ -7507,7 +7507,7 @@ export class Messaging {
                 topicId: paramsOrFirst as string,
                 name: rest[0] as string,
                 subscribe: rest[1] as string[],
-                qos: rest[2] as number,
+                qos: rest[2] as number | null,
                 expiry: rest[3] as number,
             };
         }
