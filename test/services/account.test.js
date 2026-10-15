@@ -13,9 +13,9 @@ describe('Account', () => {
 
     test('test method get()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -40,9 +40,9 @@ describe('Account', () => {
     });
     test('test method create()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -84,9 +84,9 @@ describe('Account', () => {
     });
     test('test method getConsent()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c16897e',
             appId: '5e5ea5c16897e',
             cimdUrl: 'https://example.com/.well-known/client-metadata.json',
@@ -129,9 +129,9 @@ describe('Account', () => {
     });
     test('test method getConsentToken()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             consentId: '5e5ea5c16897e',
             userId: '5e5ea5c16897e',
             appId: '5e5ea5c16897e',
@@ -168,9 +168,9 @@ describe('Account', () => {
     });
     test('test method updateEmail()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -221,9 +221,9 @@ describe('Account', () => {
     });
     test('test method updateMFA()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -274,9 +274,9 @@ describe('Account', () => {
     });
     test('test method updateMfaAuthenticator()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -301,9 +301,9 @@ describe('Account', () => {
     });
     test('test method updateMFAAuthenticator()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -348,8 +348,8 @@ describe('Account', () => {
     });
     test('test method createMfaChallenge()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             expire: '2020-10-15T06:38:00.000+00:00',
         };
@@ -363,8 +363,8 @@ describe('Account', () => {
     });
     test('test method createMFAChallenge()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             expire: '2020-10-15T06:38:00.000+00:00',
         };
@@ -378,9 +378,9 @@ describe('Account', () => {
     });
     test('test method updateMfaChallenge()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
@@ -421,9 +421,9 @@ describe('Account', () => {
     });
     test('test method updateMFAChallenge()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
@@ -568,9 +568,9 @@ describe('Account', () => {
     });
     test('test method updateName()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -593,11 +593,101 @@ describe('Account', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method listPasskeys()', async () => {
+        const data = {
+            total: 5,
+            passkeys: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.listPasskeys();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method createPasskey()', async () => {
+        const data = {
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            passkeyId: '5e5ea5c16897e',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            publicKey: {},
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.createPasskey();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method getPasskey()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'My laptop',
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.getPasskey('<PASSKEY_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updatePasskey()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'My laptop',
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.updatePasskey('<PASSKEY_ID>', '<NAME>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method deletePasskey()', async () => {
+        const data = { message: '' };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.deletePasskey('<PASSKEY_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updatePasskeyVerification()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'My laptop',
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.updatePasskeyVerification(
+            '<PASSKEY_ID>',
+            {},
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updatePassword()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -622,9 +712,9 @@ describe('Account', () => {
     });
     test('test method updatePhone()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -659,9 +749,9 @@ describe('Account', () => {
     });
     test('test method updatePrefs()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -686,8 +776,8 @@ describe('Account', () => {
     });
     test('test method createRecovery()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -706,8 +796,8 @@ describe('Account', () => {
     });
     test('test method updateRecovery()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -727,8 +817,8 @@ describe('Account', () => {
     });
     test('test method createRecoveryOTP()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -744,8 +834,8 @@ describe('Account', () => {
     });
     test('test method updateRecoveryOTP()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -788,9 +878,9 @@ describe('Account', () => {
     });
     test('test method createAnonymousSession()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
@@ -828,9 +918,9 @@ describe('Account', () => {
     });
     test('test method createEmailPasswordSession()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
@@ -871,9 +961,9 @@ describe('Account', () => {
     });
     test('test method createIdTokenSession()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
@@ -914,9 +1004,9 @@ describe('Account', () => {
     });
     test('test method updateMagicURLSession()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
@@ -957,9 +1047,9 @@ describe('Account', () => {
     });
     test('test method updatePhoneSession()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
@@ -1000,9 +1090,9 @@ describe('Account', () => {
     });
     test('test method createSession()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
@@ -1040,9 +1130,9 @@ describe('Account', () => {
     });
     test('test method getSession()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
@@ -1080,9 +1170,9 @@ describe('Account', () => {
     });
     test('test method updateSession()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
@@ -1130,9 +1220,9 @@ describe('Account', () => {
     });
     test('test method updateStatus()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -1157,8 +1247,8 @@ describe('Account', () => {
     });
     test('test method createEmailToken()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -1177,8 +1267,8 @@ describe('Account', () => {
     });
     test('test method createMagicURLToken()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -1205,10 +1295,43 @@ describe('Account', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method createPasskeyToken()', async () => {
+        const data = {
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            passkeyId: '5e5ea5c16897e',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            publicKey: {},
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.createPasskeyToken();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updatePasskeyToken()', async () => {
+        const data = {
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            userId: '5e5ea5c168bb8',
+            secret: '',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            phrase: 'Golden Fox',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.updatePasskeyToken('<CHALLENGE_ID>', {});
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method createPhoneToken()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -1227,8 +1350,8 @@ describe('Account', () => {
     });
     test('test method createEmailVerification()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -1246,8 +1369,8 @@ describe('Account', () => {
     });
     test('test method createVerification()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -1265,8 +1388,8 @@ describe('Account', () => {
     });
     test('test method updateEmailVerification()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -1285,8 +1408,8 @@ describe('Account', () => {
     });
     test('test method updateVerification()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -1305,8 +1428,8 @@ describe('Account', () => {
     });
     test('test method createEmailVerificationOTP()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -1322,8 +1445,8 @@ describe('Account', () => {
     });
     test('test method updateEmailVerificationOTP()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -1342,8 +1465,8 @@ describe('Account', () => {
     });
     test('test method createPhoneVerification()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -1359,8 +1482,8 @@ describe('Account', () => {
     });
     test('test method updatePhoneVerification()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',

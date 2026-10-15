@@ -1,34 +1,70 @@
 # Change Log
 
-## 30.0.0-rc.2
+## 30.0.1
 
-* Added: OAuth2 provider `prompt` enums (`OAuth2Auth0Prompt`, `OAuth2GithubPrompt`, and project variants)
-* Added: `Topic` and `ResolvedTopic` exports
-* Added: `Models.Account` and `Models.OAuth2Webflow` types
-* Added: `Webflow` to the `OAuthProvider` and `ProjectOAuthProviderId` enums
-* Added: `avatars.updatePhoto()` and `avatars.deletePhoto()` methods
-* Added: optional `total` param on locale and list endpoints; `duration` on email-password sessions
-* Updated: `chunkedUpload` supports a `text` responseType and falls back without a file
-* Updated: several model fields relaxed to optional; `RestorationStatus.options` is now an object
+* Breaking: requests send `X-Appwrite-Response-Format: 2.5.0`; responses follow the 2.5 shapes
+* Breaking: removed `account.listLogs`, `users.listLogs` and the `Models.Log`/`Models.LogList` models
+* Breaking: removed `organization.createKey`, `getKey`, `listKeys`, `updateKey` and `deleteKey`, and `OrganizationKeyScopes`; use `organization.listProjectKeys`, `getProjectKey`, `updateProjectKey` and `deleteProjectKey` instead
+* Breaking: removed `Client.setDevKey`, `Models.DevKey` and `Project.devKeys`
+* Breaking: removed `BillingPlanGroup.Starter`; use `BillingPlanGroup.Free`
+* Breaking: `listSpecifications` returns each specification's prices and overage rates on the row itself. Removed the list-level `pricing` field and the `DedicatedDatabaseSpecificationPricing` model
+* Breaking: removed `Block` fields `reason`, `projectName`, `region`, `organizationName`, `organizationId` and `billingPlan`
+* Breaking: OAuth2 `resource` params now take `string[]`
+* Breaking: `project.updateOAuth2Kakao` takes `enabled` before `prompt`
+* Breaking: `BackupRestoration.options` is now an object
+* Breaking: nullable response fields are typed `T | null`; some became optional, such as `BillingPlan.usage`
+* Added: `Topic` helper to build MQTT topics for push messages
+* Added: `mongo`, `mysql` and `postgresql` `promoteRestoration`, `restoreMode`, `targetName` and `autoPromote` on `createRestoration`, and `DedicatedDatabaseRestoration.restoreMode`
+* Added: `proxy.createSMTPRule`, the `ProxyRuleProtocol` enum and `ProxyRule.protocol`
+* Added: `emailEnabled` on `functions.update` and `Function`, and `ExecutionTrigger.Email`
+* Added: `Query` aggregates (`count`, `countDistinct`, `sum`, `avg`, `min`, `max` and more), `groupBy`, `having`, `distinct`, joins, `relationship`, `covers`, `spatialEquals` and `page`
+* Added: `Query.builder()` to chain queries into a list
+* Updated: nullable request params accept `null`, such as `qos` on topics and the Appwrite provider
+* Updated: missing response fields fall back to their documented defaults
+* Updated: OAuth2 `prompt` and native fields, `PlatformAndroid.fingerprints` and `Identity.providerIdToken` are always returned
+* Fixed: list and object defaults filled into a response are copied per model, and object defaults are `{}` instead of `[]`
 
-## 30.0.0
+## 29.4.0
 
-* Breaking: `account.listLogs`, `users.listLogs`, `Log` and `LogList` removed
-* Breaking: `organization` key methods renamed to `createEphemeralProjectKey`, `getProjectKey`, `listProjectKeys`, `updateProjectKey`, `deleteProjectKey`, and `OrganizationKeyScopes` removed
-* Breaking: `setDevKey` client method, `DevKey` model and `Project.devKeys` removed
-* Breaking: `region`, `reason`, `projectName`, `organizationId`, `organizationName`, `billingPlan` removed from `Block`
-* Breaking: `DedicatedDatabaseSpecificationList.pricing` and `DedicatedDatabaseSpecificationPricing` removed; rates now live on each `DedicatedDatabaseSpecification`
-* Breaking: `BillingPlanGroup.Starter` replaced by `Free` and `Start`
-* Added: `oauth2.introspect` for RFC 7662 token introspection with an API key, returning the `Oauth2Introspection` model
-* Added: `domains` service for domains, DNS records, email presets, prices and transfers
-* Added: `account.createIdTokenSession` and email verification and recovery OTP methods
+* Added: `domains` service to manage domains, DNS records, email presets, prices, transfer status and zones
+* Added: `waf` service with bypass, challenge, deny, rate-limit and redirect rules
+* Added: `account.createEmailVerificationOTP`, `updateEmailVerificationOTP`, `createRecoveryOTP` and `updateRecoveryOTP`
+* Added: `account.createIdTokenSession` and `Identity.providerIdToken`
+* Added: `oauth2.introspect`
+* Added: project environments with `project.createEnvironment`, `getEnvironment`, `listEnvironments`, `updateEnvironment` and `deleteEnvironment`
+* Added: `organization.createEphemeralProjectKey`, `listProjectKeys`, `getProjectKey`, `updateProjectKey` and `deleteProjectKey`
+* Added: Kakao, TikTok and Webflow OAuth2 providers with `project.updateOAuth2Kakao`, `updateOAuth2TikTok` and `updateOAuth2Webflow`
+* Added: optional `prompt` on the Auth0, Discord, GitHub, Microsoft, Okta, Salesforce and Zoho OAuth2 settings, and native client IDs on Apple and Google
+* Added: `project.updatePasswordPwnedPolicy`, `project.updatePasswordRotationPolicy` and `User.passwordPwned`
 * Added: `messaging.createAppwriteProvider` and `messaging.updateAppwriteProvider`
-* Added: `project.updatePasswordPwnedPolicy` with `PolicyPasswordPwned` model and `User.passwordPwned`
-* Added: Kakao and TikTok OAuth2 providers
-* Added: native client IDs on the Apple and Google OAuth2 providers
-* Added: reply-to on email messages, `qos` and `expiry` on topics
-* Added: `ImageGravity.Auto`, `jaspr` framework, and `dart-3.13` and `flutter-3.47` runtimes
-* Updated: requests send `X-Appwrite-Response-Format` `2.3.0`
+* Added: optional `replyToEmail` and `replyToName` on email messages, `channelId` on push messages, and `qos` and `expiry` on topics
+* Added: `avatars.updatePhoto` and `avatars.deletePhoto`
+* Added: optional `duration` on `account.createEmailPasswordSession`, `current` on `account.deleteSessions`, `membershipId` on `teams.createMembership` and `fingerprints` on Android platforms
+* Added: optional `total` on the locale, transaction, runtime, specification and framework lists
+* Added: `dart-3.13` and `flutter-3.47` runtimes, the `jaspr` framework, the `trigram` index type, `auto` image gravity, the `dedicatedDatabase` proxy rule resource type, OTP email templates and new key scopes
+* Added: optional fields on `BillingPlan`, `DedicatedDatabase`, `DedicatedDatabaseSpecification`, `Project` and `Topic`, and `free` and `start` in `BillingPlanGroup`
+
+## 29.3.1
+
+* Fixed: added `ProjectAuthMethodId.Passkey`, so `project.updateAuthMethod` can enable passkeys
+* Fixed: added `ProjectPolicyId.Passkey` and the `Models.PolicyPasskey` model, so `getPolicy` and `listPolicies` return the passkey policy
+
+## 29.3.0
+
+* Added: `account` passkey methods `listPasskeys`, `createPasskey`, `getPasskey`, `updatePasskey`, `deletePasskey` and `updatePasskeyVerification`
+* Added: `account.createPasskeyToken` and `account.updatePasskeyToken` for passkey sign-in
+* Added: `users.listPasskeys`, `users.getPasskey`, `users.updatePasskey` and `users.deletePasskey`
+* Added: `project.updatePasskeyPolicy` to configure passkey sign-in
+* Added: `Passkey`, `PasskeyList`, `PasskeyChallenge` and `TokenSecret` models
+
+## 29.2.0
+
+* Added: optional `interval` parameter on `functions.create` and `functions.update` to run a function every N minutes
+* Added: `interval` on the `Function` model and `functionsIntervalMinimum` on the `BillingPlan` model
+
+## 29.1.0
+
+* Added: optional `state` parameter on `createOAuth2Token`, returned unchanged on the success and failure URLs
 
 ## 29.0.0
 

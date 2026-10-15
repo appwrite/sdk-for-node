@@ -26,9 +26,9 @@ describe('Messaging', () => {
     });
     test('test method createEmail()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             providerType: 'email',
             topics: [],
             users: [],
@@ -51,9 +51,9 @@ describe('Messaging', () => {
     });
     test('test method updateEmail()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             providerType: 'email',
             topics: [],
             users: [],
@@ -72,9 +72,9 @@ describe('Messaging', () => {
     });
     test('test method createPush()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             providerType: 'email',
             topics: [],
             users: [],
@@ -93,9 +93,9 @@ describe('Messaging', () => {
     });
     test('test method updatePush()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             providerType: 'email',
             topics: [],
             users: [],
@@ -114,9 +114,9 @@ describe('Messaging', () => {
     });
     test('test method createSms()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             providerType: 'email',
             topics: [],
             users: [],
@@ -135,9 +135,9 @@ describe('Messaging', () => {
     });
     test('test method createSMS()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             providerType: 'email',
             topics: [],
             users: [],
@@ -156,9 +156,9 @@ describe('Messaging', () => {
     });
     test('test method updateSms()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             providerType: 'email',
             topics: [],
             users: [],
@@ -177,9 +177,9 @@ describe('Messaging', () => {
     });
     test('test method updateSMS()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             providerType: 'email',
             topics: [],
             users: [],
@@ -198,9 +198,9 @@ describe('Messaging', () => {
     });
     test('test method getMessage()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             providerType: 'email',
             topics: [],
             users: [],
@@ -255,9 +255,9 @@ describe('Messaging', () => {
     });
     test('test method createApnsProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -277,9 +277,9 @@ describe('Messaging', () => {
     });
     test('test method createAPNSProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -299,9 +299,9 @@ describe('Messaging', () => {
     });
     test('test method updateApnsProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -318,9 +318,9 @@ describe('Messaging', () => {
     });
     test('test method updateAPNSProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -337,9 +337,9 @@ describe('Messaging', () => {
     });
     test('test method createAppwriteProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -359,9 +359,9 @@ describe('Messaging', () => {
     });
     test('test method updateAppwriteProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -379,9 +379,9 @@ describe('Messaging', () => {
     });
     test('test method createFcmProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -401,9 +401,9 @@ describe('Messaging', () => {
     });
     test('test method createFCMProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -423,9 +423,9 @@ describe('Messaging', () => {
     });
     test('test method updateFcmProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -442,9 +442,9 @@ describe('Messaging', () => {
     });
     test('test method updateFCMProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -461,9 +461,9 @@ describe('Messaging', () => {
     });
     test('test method createMailgunProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -483,9 +483,9 @@ describe('Messaging', () => {
     });
     test('test method updateMailgunProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -502,9 +502,9 @@ describe('Messaging', () => {
     });
     test('test method createMsg91Provider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -524,9 +524,9 @@ describe('Messaging', () => {
     });
     test('test method updateMsg91Provider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -543,9 +543,9 @@ describe('Messaging', () => {
     });
     test('test method createResendProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -565,9 +565,9 @@ describe('Messaging', () => {
     });
     test('test method updateResendProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -584,9 +584,9 @@ describe('Messaging', () => {
     });
     test('test method createSendgridProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -606,9 +606,9 @@ describe('Messaging', () => {
     });
     test('test method updateSendgridProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -626,9 +626,9 @@ describe('Messaging', () => {
     });
     test('test method createSesProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -648,9 +648,9 @@ describe('Messaging', () => {
     });
     test('test method updateSesProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -667,9 +667,9 @@ describe('Messaging', () => {
     });
     test('test method createSmtpProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -690,9 +690,9 @@ describe('Messaging', () => {
     });
     test('test method createSMTPProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -713,9 +713,9 @@ describe('Messaging', () => {
     });
     test('test method updateSmtpProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -732,9 +732,9 @@ describe('Messaging', () => {
     });
     test('test method updateSMTPProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -751,9 +751,9 @@ describe('Messaging', () => {
     });
     test('test method createTelesignProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -773,9 +773,9 @@ describe('Messaging', () => {
     });
     test('test method updateTelesignProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -793,9 +793,9 @@ describe('Messaging', () => {
     });
     test('test method createTextmagicProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -815,9 +815,9 @@ describe('Messaging', () => {
     });
     test('test method updateTextmagicProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -835,9 +835,9 @@ describe('Messaging', () => {
     });
     test('test method createTwilioProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -857,9 +857,9 @@ describe('Messaging', () => {
     });
     test('test method updateTwilioProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -876,9 +876,9 @@ describe('Messaging', () => {
     });
     test('test method createVonageProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -898,9 +898,9 @@ describe('Messaging', () => {
     });
     test('test method updateVonageProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -917,9 +917,9 @@ describe('Messaging', () => {
     });
     test('test method getProvider()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Mailgun',
             provider: 'mailgun',
             enabled: true,
@@ -959,9 +959,9 @@ describe('Messaging', () => {
     });
     test('test method createTopic()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'events',
             emailTotal: 100,
             smsTotal: 100,
@@ -978,9 +978,9 @@ describe('Messaging', () => {
     });
     test('test method getTopic()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'events',
             emailTotal: 100,
             smsTotal: 100,
@@ -997,9 +997,9 @@ describe('Messaging', () => {
     });
     test('test method updateTopic()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'events',
             emailTotal: 100,
             smsTotal: 100,
@@ -1039,9 +1039,9 @@ describe('Messaging', () => {
     });
     test('test method createSubscriber()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             targetId: '259125845563242502',
             target: {},
             userId: '5e5ea5c16897e',
@@ -1063,9 +1063,9 @@ describe('Messaging', () => {
     });
     test('test method getSubscriber()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             targetId: '259125845563242502',
             target: {},
             userId: '5e5ea5c16897e',

@@ -26,21 +26,17 @@ describe('Postgresql', () => {
     });
     test('test method create()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             name: 'My Production Database',
-            api: 'postgresql',
-            engine: 'postgresql',
             version: '16',
             specification: 's-2vcpu-2gb',
             backend: 'edge',
             hostname: 'db-myproject-mydb.fra.appwrite.center',
-            connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
-            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,
@@ -100,21 +96,17 @@ describe('Postgresql', () => {
     });
     test('test method get()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             name: 'My Production Database',
-            api: 'postgresql',
-            engine: 'postgresql',
             version: '16',
             specification: 's-2vcpu-2gb',
             backend: 'edge',
             hostname: 'db-myproject-mydb.fra.appwrite.center',
-            connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
-            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,
@@ -161,21 +153,17 @@ describe('Postgresql', () => {
     });
     test('test method update()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             name: 'My Production Database',
-            api: 'postgresql',
-            engine: 'postgresql',
             version: '16',
             specification: 's-2vcpu-2gb',
             backend: 'edge',
             hostname: 'db-myproject-mydb.fra.appwrite.center',
-            connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
-            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,
@@ -245,8 +233,8 @@ describe('Postgresql', () => {
     });
     test('test method createBackup()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             databaseId: '5e5ea5c16897e',
             projectId: '5e5ea5c16897e',
             policyId: '5e5ea5c16897e',
@@ -282,10 +270,10 @@ describe('Postgresql', () => {
     });
     test('test method createBackupPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'Hourly backups',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             services: [],
             resources: [],
             retention: 7,
@@ -309,10 +297,10 @@ describe('Postgresql', () => {
     });
     test('test method getBackupPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'Hourly backups',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             services: [],
             resources: [],
             retention: 7,
@@ -333,10 +321,10 @@ describe('Postgresql', () => {
     });
     test('test method updateBackupPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'Hourly backups',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             services: [],
             resources: [],
             retention: 7,
@@ -392,8 +380,8 @@ describe('Postgresql', () => {
     });
     test('test method getBackup()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             databaseId: '5e5ea5c16897e',
             projectId: '5e5ea5c16897e',
             policyId: '5e5ea5c16897e',
@@ -445,21 +433,17 @@ describe('Postgresql', () => {
     });
     test('test method createBranch()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             name: 'My Production Database',
-            api: 'postgresql',
-            engine: 'postgresql',
             version: '16',
             specification: 's-2vcpu-2gb',
             backend: 'edge',
             hostname: 'db-myproject-mydb.fra.appwrite.center',
-            connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
-            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,
@@ -506,21 +490,17 @@ describe('Postgresql', () => {
     });
     test('test method deleteBranch()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             name: 'My Production Database',
-            api: 'postgresql',
-            engine: 'postgresql',
             version: '16',
             specification: 's-2vcpu-2gb',
             backend: 'edge',
             hostname: 'db-myproject-mydb.fra.appwrite.center',
-            connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
-            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,
@@ -570,8 +550,8 @@ describe('Postgresql', () => {
     });
     test('test method updateCredentials()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             databaseId: '5e5ea5c16897e',
             type: 'update',
             status: 'completed',
@@ -623,21 +603,17 @@ describe('Postgresql', () => {
     });
     test('test method createExtension()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             name: 'My Production Database',
-            api: 'postgresql',
-            engine: 'postgresql',
             version: '16',
             specification: 's-2vcpu-2gb',
             backend: 'edge',
             hostname: 'db-myproject-mydb.fra.appwrite.center',
-            connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
-            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,
@@ -687,21 +663,17 @@ describe('Postgresql', () => {
     });
     test('test method deleteExtension()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             name: 'My Production Database',
-            api: 'postgresql',
-            engine: 'postgresql',
             version: '16',
             specification: 's-2vcpu-2gb',
             backend: 'edge',
             hostname: 'db-myproject-mydb.fra.appwrite.center',
-            connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
-            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,
@@ -751,21 +723,17 @@ describe('Postgresql', () => {
     });
     test('test method createFailover()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             name: 'My Production Database',
-            api: 'postgresql',
-            engine: 'postgresql',
             version: '16',
             specification: 's-2vcpu-2gb',
             backend: 'edge',
             hostname: 'db-myproject-mydb.fra.appwrite.center',
-            connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
-            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,
@@ -812,21 +780,17 @@ describe('Postgresql', () => {
     });
     test('test method updateMaintenance()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             name: 'My Production Database',
-            api: 'postgresql',
-            engine: 'postgresql',
             version: '16',
             specification: 's-2vcpu-2gb',
             backend: 'edge',
             hostname: 'db-myproject-mydb.fra.appwrite.center',
-            connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
-            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,
@@ -877,21 +841,17 @@ describe('Postgresql', () => {
     });
     test('test method createMigration()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             name: 'My Production Database',
-            api: 'postgresql',
-            engine: 'postgresql',
             version: '16',
             specification: 's-2vcpu-2gb',
             backend: 'edge',
             hostname: 'db-myproject-mydb.fra.appwrite.center',
-            connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
-            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,
@@ -1039,17 +999,13 @@ describe('Postgresql', () => {
     });
     test('test method createRestoration()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             databaseId: '5e5ea5c16897e',
-            sourceDatabaseId: '5e5ea5c16897e',
             projectId: '5e5ea5c16897e',
-            backupId: '5e5ea5c16897e',
             type: 'backup',
+            restoreMode: 'clone',
             status: 'completed',
-            targetTime: '2020-10-15T06:38:00.000+00:00',
-            startedAt: '2020-10-15T06:38:00.000+00:00',
-            completedAt: '2020-10-15T06:38:00.000+00:00',
             error: '',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1062,21 +1018,39 @@ describe('Postgresql', () => {
     });
     test('test method getRestoration()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             databaseId: '5e5ea5c16897e',
-            sourceDatabaseId: '5e5ea5c16897e',
             projectId: '5e5ea5c16897e',
-            backupId: '5e5ea5c16897e',
             type: 'backup',
+            restoreMode: 'clone',
             status: 'completed',
-            targetTime: '2020-10-15T06:38:00.000+00:00',
-            startedAt: '2020-10-15T06:38:00.000+00:00',
-            completedAt: '2020-10-15T06:38:00.000+00:00',
             error: '',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await postgresql.getRestoration(
+            '<DATABASE_ID>',
+            '<RESTORATION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method promoteRestoration()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            databaseId: '5e5ea5c16897e',
+            projectId: '5e5ea5c16897e',
+            type: 'backup',
+            restoreMode: 'clone',
+            status: 'completed',
+            error: '',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await postgresql.promoteRestoration(
             '<DATABASE_ID>',
             '<RESTORATION_ID>',
         );
@@ -1110,21 +1084,17 @@ describe('Postgresql', () => {
     });
     test('test method createUpgrade()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             name: 'My Production Database',
-            api: 'postgresql',
-            engine: 'postgresql',
             version: '16',
             specification: 's-2vcpu-2gb',
             backend: 'edge',
             hostname: 'db-myproject-mydb.fra.appwrite.center',
-            connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
-            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,

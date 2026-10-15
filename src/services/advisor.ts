@@ -1,4 +1,9 @@
-import { AppwriteException, Client, type Payload } from '../client';
+import {
+    AppwriteException,
+    Client,
+    type Payload,
+    applyDefaults,
+} from '../client';
 import type { Models } from '../models';
 
 export class Advisor {
@@ -75,7 +80,76 @@ export class Advisor {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'reportList',
+            models: {
+                reportList: {
+                    defaults: {
+                        total: 0,
+                        reports: [],
+                    },
+                    properties: {
+                        reports: {
+                            items: 'report',
+                        },
+                    },
+                },
+                report: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        appId: '',
+                        type: '',
+                        title: '',
+                        summary: '',
+                        targetType: '',
+                        target: '',
+                        categories: [],
+                        insights: [],
+                    },
+                    properties: {
+                        insights: {
+                            items: 'insight',
+                        },
+                    },
+                },
+                insight: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        reportId: '',
+                        type: '',
+                        severity: 'info',
+                        status: 'active',
+                        resourceType: '',
+                        resourceId: '',
+                        parentResourceType: '',
+                        parentResourceId: '',
+                        title: '',
+                        summary: '',
+                        ctas: [],
+                    },
+                    properties: {
+                        ctas: {
+                            items: 'insightCTA',
+                        },
+                    },
+                },
+                insightCTA: {
+                    defaults: {
+                        label: '',
+                        service: '',
+                        method: '',
+                        params: {},
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -132,7 +206,65 @@ export class Advisor {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'report',
+            models: {
+                report: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        appId: '',
+                        type: '',
+                        title: '',
+                        summary: '',
+                        targetType: '',
+                        target: '',
+                        categories: [],
+                        insights: [],
+                    },
+                    properties: {
+                        insights: {
+                            items: 'insight',
+                        },
+                    },
+                },
+                insight: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        reportId: '',
+                        type: '',
+                        severity: 'info',
+                        status: 'active',
+                        resourceType: '',
+                        resourceId: '',
+                        parentResourceType: '',
+                        parentResourceId: '',
+                        title: '',
+                        summary: '',
+                        ctas: [],
+                    },
+                    properties: {
+                        ctas: {
+                            items: 'insightCTA',
+                        },
+                    },
+                },
+                insightCTA: {
+                    defaults: {
+                        label: '',
+                        service: '',
+                        method: '',
+                        params: {},
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -273,7 +405,56 @@ export class Advisor {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'insightList',
+            models: {
+                insightList: {
+                    defaults: {
+                        total: 0,
+                        insights: [],
+                    },
+                    properties: {
+                        insights: {
+                            items: 'insight',
+                        },
+                    },
+                },
+                insight: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        reportId: '',
+                        type: '',
+                        severity: 'info',
+                        status: 'active',
+                        resourceType: '',
+                        resourceId: '',
+                        parentResourceType: '',
+                        parentResourceId: '',
+                        title: '',
+                        summary: '',
+                        ctas: [],
+                    },
+                    properties: {
+                        ctas: {
+                            items: 'insightCTA',
+                        },
+                    },
+                },
+                insightCTA: {
+                    defaults: {
+                        label: '',
+                        service: '',
+                        method: '',
+                        params: {},
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -345,6 +526,44 @@ export class Advisor {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'insight',
+            models: {
+                insight: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        reportId: '',
+                        type: '',
+                        severity: 'info',
+                        status: 'active',
+                        resourceType: '',
+                        resourceId: '',
+                        parentResourceType: '',
+                        parentResourceId: '',
+                        title: '',
+                        summary: '',
+                        ctas: [],
+                    },
+                    properties: {
+                        ctas: {
+                            items: 'insightCTA',
+                        },
+                    },
+                },
+                insightCTA: {
+                    defaults: {
+                        label: '',
+                        service: '',
+                        method: '',
+                        params: {},
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 }

@@ -20,7 +20,7 @@ const result = await oauth2.createPAR({
     prompt: '<PROMPT>', // optional
     maxAge: 0, // optional
     authorizationDetails: '<AUTHORIZATION_DETAILS>', // optional
-    resource: '', // optional
+    resource: [], // optional
     audience: '<AUDIENCE>', // optional
 });
 ```

@@ -27,9 +27,9 @@ describe('Sites', () => {
     });
     test('test method create()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Site',
             enabled: true,
             live: true,
@@ -104,9 +104,9 @@ describe('Sites', () => {
     });
     test('test method get()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Site',
             enabled: true,
             live: true,
@@ -150,9 +150,9 @@ describe('Sites', () => {
     });
     test('test method update()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Site',
             enabled: true,
             live: true,
@@ -206,9 +206,9 @@ describe('Sites', () => {
     });
     test('test method updateSiteDeployment()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Site',
             enabled: true,
             live: true,
@@ -268,9 +268,9 @@ describe('Sites', () => {
     });
     test('test method createDeployment()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'vcs',
             resourceId: '5e5ea6g16897e',
             resourceType: 'functions',
@@ -312,9 +312,9 @@ describe('Sites', () => {
     });
     test('test method createDuplicateDeployment()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'vcs',
             resourceId: '5e5ea6g16897e',
             resourceType: 'functions',
@@ -356,9 +356,9 @@ describe('Sites', () => {
     });
     test('test method createTemplateDeployment()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'vcs',
             resourceId: '5e5ea6g16897e',
             resourceType: 'functions',
@@ -404,9 +404,9 @@ describe('Sites', () => {
     });
     test('test method createVcsDeployment()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'vcs',
             resourceId: '5e5ea6g16897e',
             resourceType: 'functions',
@@ -449,9 +449,9 @@ describe('Sites', () => {
     });
     test('test method getDeployment()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'vcs',
             resourceId: '5e5ea6g16897e',
             resourceType: 'functions',
@@ -519,9 +519,9 @@ describe('Sites', () => {
     });
     test('test method updateDeploymentStatus()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             type: 'vcs',
             resourceId: '5e5ea6g16897e',
             resourceType: 'functions',
@@ -576,10 +576,10 @@ describe('Sites', () => {
     });
     test('test method getLog()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             resourceId: '5e5ea6g16897e',
             resourceType: 'functions',
             deploymentId: '5e5ea5c16897e',
@@ -628,9 +628,9 @@ describe('Sites', () => {
     });
     test('test method createVariable()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'API_KEY',
             value: 'myPa\\$\\$word1',
             secret: true,
@@ -652,9 +652,9 @@ describe('Sites', () => {
     });
     test('test method getVariable()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'API_KEY',
             value: 'myPa\\$\\$word1',
             secret: true,
@@ -671,9 +671,9 @@ describe('Sites', () => {
     });
     test('test method updateVariable()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'API_KEY',
             value: 'myPa\\$\\$word1',
             secret: true,

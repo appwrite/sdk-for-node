@@ -41,9 +41,9 @@ describe('Proxy', () => {
     });
     test('test method createAPIRule()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'appwrite.company.com',
             type: 'deployment',
             trigger: 'manual',
@@ -55,6 +55,7 @@ describe('Proxy', () => {
             status: 'verified',
             logs: 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
             renewAt: 'datetime',
+            protocol: 'http',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await proxy.createAPIRule('example.com');
@@ -66,9 +67,9 @@ describe('Proxy', () => {
     });
     test('test method createFunctionRule()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'appwrite.company.com',
             type: 'deployment',
             trigger: 'manual',
@@ -80,6 +81,7 @@ describe('Proxy', () => {
             status: 'verified',
             logs: 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
             renewAt: 'datetime',
+            protocol: 'http',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await proxy.createFunctionRule(
@@ -94,9 +96,9 @@ describe('Proxy', () => {
     });
     test('test method createRedirectRule()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'appwrite.company.com',
             type: 'deployment',
             trigger: 'manual',
@@ -108,6 +110,7 @@ describe('Proxy', () => {
             status: 'verified',
             logs: 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
             renewAt: 'datetime',
+            protocol: 'http',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await proxy.createRedirectRule(
@@ -125,9 +128,9 @@ describe('Proxy', () => {
     });
     test('test method createSiteRule()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'appwrite.company.com',
             type: 'deployment',
             trigger: 'manual',
@@ -139,6 +142,7 @@ describe('Proxy', () => {
             status: 'verified',
             logs: 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
             renewAt: 'datetime',
+            protocol: 'http',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await proxy.createSiteRule('example.com', '<SITE_ID>');
@@ -148,11 +152,11 @@ describe('Proxy', () => {
 
         expect(response).toEqual(data);
     });
-    test('test method getRule()', async () => {
+    test('test method createSMTPRule()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'appwrite.company.com',
             type: 'deployment',
             trigger: 'manual',
@@ -164,6 +168,36 @@ describe('Proxy', () => {
             status: 'verified',
             logs: 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
             renewAt: 'datetime',
+            protocol: 'http',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await proxy.createSMTPRule(
+            'example.com',
+            '<FUNCTION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method getRule()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            domain: 'appwrite.company.com',
+            type: 'deployment',
+            trigger: 'manual',
+            redirectUrl: 'https://appwrite.io/docs',
+            redirectStatusCode: 301,
+            deploymentId: 'n3u9feiwmf',
+            deploymentResourceId: 'n3u9feiwmf',
+            deploymentVcsProviderBranch: 'main',
+            status: 'verified',
+            logs: 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
+            renewAt: 'datetime',
+            protocol: 'http',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await proxy.getRule('<RULE_ID>');
@@ -185,9 +219,9 @@ describe('Proxy', () => {
     });
     test('test method updateRuleStatus()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             domain: 'appwrite.company.com',
             type: 'deployment',
             trigger: 'manual',
@@ -199,6 +233,7 @@ describe('Proxy', () => {
             status: 'verified',
             logs: 'Verification of DNS records failed with DNS resolver 8.8.8.8. Domain stage.myapp.com does not have DNS record.',
             renewAt: 'datetime',
+            protocol: 'http',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await proxy.updateRuleStatus('<RULE_ID>');
