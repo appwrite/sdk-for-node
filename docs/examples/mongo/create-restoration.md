@@ -14,5 +14,8 @@ const result = await mongo.createRestoration({
     backupId: '<BACKUP_ID>', // optional
     targetDatabaseId: '<TARGET_DATABASE_ID>', // optional
     targetTime: '2020-10-15T06:38:00.000+00:00', // optional
+    restoreMode: 'in_place', // optional
+    targetName: '<TARGET_NAME>', // optional
+    autoPromote: false, // optional
 });
 ```
