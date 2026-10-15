@@ -1,4 +1,10 @@
-export { Client, Query, AppwriteException } from './client';
+export {
+    Client,
+    Query,
+    QueryBuilder,
+    flattenParam,
+    AppwriteException,
+} from './client';
 export { Account } from './services/account';
 export { Activities } from './services/activities';
 export { Apps } from './services/apps';
@@ -28,13 +34,14 @@ export { Teams } from './services/teams';
 export { Tokens } from './services/tokens';
 export { Users } from './services/users';
 export { VectorsDB } from './services/vectors-db';
+export { Waf } from './services/waf';
 export { Webhooks } from './services/webhooks';
 export type { Models, Payload, UploadProgress } from './client';
-export type { QueryTypes, QueryTypesList } from './query';
+export type { QueryTypes, QueryTypesList, QueryInput } from './query';
 export { Permission } from './permission';
 export { Role } from './role';
 export { ID } from './id';
-export { Topic, ResolvedTopic } from './topic';
+export { Topic } from './topic';
 export { Operator, Condition } from './operator';
 export { AuthenticatorType } from './enums/authenticator-type';
 export { AuthenticationFactor } from './enums/authentication-factor';
@@ -116,6 +123,8 @@ export { OAuth2KakaoPrompt } from './enums/o-auth-2-kakao-prompt';
 export { PlatformType } from './enums/platform-type';
 export { ProxyRuleDeploymentResourceType } from './enums/proxy-rule-deployment-resource-type';
 export { ProxyRuleStatus } from './enums/proxy-rule-status';
+export { ProxyRuleProtocol } from './enums/proxy-rule-protocol';
 export { MessageStatus } from './enums/message-status';
 export { BillingPlanGroup } from './enums/billing-plan-group';
 export { DomainTransferStatusEnum } from './enums/domain-transfer-status-enum';
+export { WafRuleAction } from './enums/waf-rule-action';

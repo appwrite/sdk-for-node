@@ -10,7 +10,7 @@ const domains = new sdk.Domains(client);
 
 const result = await domains.listPrices({
     domains: [],
-    periodYears: null, // optional
+    periodYears: 1, // optional
     registrationType: sdk.DomainRegistrationType.New, // optional
 });
 ```

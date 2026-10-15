@@ -26,10 +26,10 @@ describe('Databases', () => {
     });
     test('test method create()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'My Database',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
             type: 'legacy',
         };
@@ -56,9 +56,9 @@ describe('Databases', () => {
     });
     test('test method createTransaction()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             status: 'pending',
             operations: 5,
             expiresAt: '2020-10-15T06:38:00.000+00:00',
@@ -73,9 +73,9 @@ describe('Databases', () => {
     });
     test('test method getTransaction()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             status: 'pending',
             operations: 5,
             expiresAt: '2020-10-15T06:38:00.000+00:00',
@@ -90,9 +90,9 @@ describe('Databases', () => {
     });
     test('test method updateTransaction()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             status: 'pending',
             operations: 5,
             expiresAt: '2020-10-15T06:38:00.000+00:00',
@@ -117,9 +117,9 @@ describe('Databases', () => {
     });
     test('test method createOperations()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             status: 'pending',
             operations: 5,
             expiresAt: '2020-10-15T06:38:00.000+00:00',
@@ -134,10 +134,10 @@ describe('Databases', () => {
     });
     test('test method get()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'My Database',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
             type: 'legacy',
         };
@@ -151,10 +151,10 @@ describe('Databases', () => {
     });
     test('test method update()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'My Database',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
             type: 'legacy',
         };
@@ -191,10 +191,10 @@ describe('Databases', () => {
     });
     test('test method createCollection()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Collection',
             enabled: true,
@@ -218,10 +218,10 @@ describe('Databases', () => {
     });
     test('test method getCollection()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Collection',
             enabled: true,
@@ -244,10 +244,10 @@ describe('Databases', () => {
     });
     test('test method updateCollection()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Collection',
             enabled: true,
@@ -304,8 +304,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.createBigIntAttribute(
@@ -327,8 +327,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.updateBigIntAttribute(
@@ -351,8 +351,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.createBooleanAttribute(
@@ -374,8 +374,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.updateBooleanAttribute(
@@ -398,8 +398,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'datetime',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -422,8 +422,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'datetime',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -447,8 +447,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'email',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -471,8 +471,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'email',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -496,8 +496,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             elements: [],
             format: 'enum',
         };
@@ -522,8 +522,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             elements: [],
             format: 'enum',
         };
@@ -549,8 +549,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.createFloatAttribute(
@@ -572,8 +572,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.updateFloatAttribute(
@@ -596,8 +596,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.createIntegerAttribute(
@@ -619,8 +619,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.updateIntegerAttribute(
@@ -643,8 +643,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'ip',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -667,8 +667,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'ip',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -692,8 +692,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.createLineAttribute(
@@ -715,8 +715,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.updateLineAttribute(
@@ -738,8 +738,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.createLongtextAttribute(
@@ -761,8 +761,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.updateLongtextAttribute(
@@ -785,8 +785,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.createMediumtextAttribute(
@@ -808,8 +808,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.updateMediumtextAttribute(
@@ -832,8 +832,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.createPointAttribute(
@@ -855,8 +855,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.updatePointAttribute(
@@ -878,8 +878,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.createPolygonAttribute(
@@ -901,8 +901,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.updatePolygonAttribute(
@@ -924,8 +924,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             relatedCollection: 'collection',
             relationType: 'oneToOne|oneToMany|manyToOne|manyToMany',
             twoWay: true,
@@ -953,8 +953,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             relatedCollection: 'collection',
             relationType: 'oneToOne|oneToMany|manyToOne|manyToMany',
             twoWay: true,
@@ -981,8 +981,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             size: 128,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1006,8 +1006,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             size: 128,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1031,8 +1031,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.createTextAttribute(
@@ -1054,8 +1054,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.updateTextAttribute(
@@ -1078,8 +1078,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'url',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1102,8 +1102,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             format: 'url',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1127,8 +1127,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             size: 128,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1152,8 +1152,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             size: 128,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1177,8 +1177,8 @@ describe('Databases', () => {
             status: 'available',
             error: 'string',
             required: true,
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             size: 128,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -1225,13 +1225,13 @@ describe('Databases', () => {
     });
     test('test method createDocument()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$collectionId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $collectionId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.createDocument(
@@ -1314,13 +1314,13 @@ describe('Databases', () => {
     });
     test('test method getDocument()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$collectionId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $collectionId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.getDocument(
@@ -1336,13 +1336,13 @@ describe('Databases', () => {
     });
     test('test method upsertDocument()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$collectionId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $collectionId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.upsertDocument(
@@ -1358,13 +1358,13 @@ describe('Databases', () => {
     });
     test('test method updateDocument()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$collectionId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $collectionId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.updateDocument(
@@ -1394,13 +1394,13 @@ describe('Databases', () => {
     });
     test('test method decrementDocumentAttribute()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$collectionId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $collectionId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.decrementDocumentAttribute(
@@ -1417,13 +1417,13 @@ describe('Databases', () => {
     });
     test('test method incrementDocumentAttribute()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$collectionId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $collectionId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.incrementDocumentAttribute(
@@ -1456,9 +1456,9 @@ describe('Databases', () => {
     });
     test('test method createIndex()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'index1',
             type: 'primary',
             status: 'available',
@@ -1482,9 +1482,9 @@ describe('Databases', () => {
     });
     test('test method getIndex()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'index1',
             type: 'primary',
             status: 'available',

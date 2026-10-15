@@ -26,9 +26,9 @@ describe('Users', () => {
     });
     test('test method create()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -53,9 +53,9 @@ describe('Users', () => {
     });
     test('test method createArgon2User()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -84,9 +84,9 @@ describe('Users', () => {
     });
     test('test method createBcryptUser()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -138,9 +138,9 @@ describe('Users', () => {
     });
     test('test method createMD5User()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -169,9 +169,9 @@ describe('Users', () => {
     });
     test('test method createPHPassUser()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -200,9 +200,9 @@ describe('Users', () => {
     });
     test('test method createScryptUser()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -236,9 +236,9 @@ describe('Users', () => {
     });
     test('test method createScryptModifiedUser()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -270,9 +270,9 @@ describe('Users', () => {
     });
     test('test method createSHAUser()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -301,9 +301,9 @@ describe('Users', () => {
     });
     test('test method get()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -338,9 +338,9 @@ describe('Users', () => {
     });
     test('test method updateEmail()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -368,9 +368,9 @@ describe('Users', () => {
     });
     test('test method updateImpersonator()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -407,9 +407,9 @@ describe('Users', () => {
     });
     test('test method updateLabels()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -447,9 +447,9 @@ describe('Users', () => {
     });
     test('test method updateMfa()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -474,9 +474,9 @@ describe('Users', () => {
     });
     test('test method updateMFA()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -527,8 +527,8 @@ describe('Users', () => {
     });
     test('test method getMFAChallenge()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             expire: '2020-10-15T06:38:00.000+00:00',
             code: '446372',
@@ -650,9 +650,9 @@ describe('Users', () => {
     });
     test('test method updateName()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -675,11 +675,70 @@ describe('Users', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method listPasskeys()', async () => {
+        const data = {
+            total: 5,
+            passkeys: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await users.listPasskeys('<USER_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method getPasskey()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'My laptop',
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await users.getPasskey('<USER_ID>', '<PASSKEY_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updatePasskey()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'My laptop',
+            accessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await users.updatePasskey(
+            '<USER_ID>',
+            '<PASSKEY_ID>',
+            '<NAME>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method deletePasskey()', async () => {
+        const data = { message: '' };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await users.deletePasskey('<USER_ID>', '<PASSKEY_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updatePassword()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -704,9 +763,9 @@ describe('Users', () => {
     });
     test('test method updatePhone()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -764,9 +823,9 @@ describe('Users', () => {
     });
     test('test method createSession()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
@@ -824,9 +883,9 @@ describe('Users', () => {
     });
     test('test method updateStatus()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -864,9 +923,9 @@ describe('Users', () => {
     });
     test('test method createTarget()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Apple iPhone 12',
             userId: '259125845563242502',
             providerType: 'email',
@@ -888,9 +947,9 @@ describe('Users', () => {
     });
     test('test method getTarget()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Apple iPhone 12',
             userId: '259125845563242502',
             providerType: 'email',
@@ -907,9 +966,9 @@ describe('Users', () => {
     });
     test('test method updateTarget()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'Apple iPhone 12',
             userId: '259125845563242502',
             providerType: 'email',
@@ -936,8 +995,8 @@ describe('Users', () => {
     });
     test('test method createToken()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c168bb8',
             secret: '',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -953,9 +1012,9 @@ describe('Users', () => {
     });
     test('test method updateEmailVerification()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,
@@ -980,9 +1039,9 @@ describe('Users', () => {
     });
     test('test method updatePhoneVerification()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,

@@ -84,9 +84,9 @@ describe('Avatars', () => {
     });
     test('test method updatePhoto()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'John Doe',
             registration: '2020-10-15T06:38:00.000+00:00',
             status: true,

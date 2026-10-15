@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     UploadProgress,
+    applyDefaults,
 } from '../client';
 import type { Models } from '../models';
 import { InputFile } from '../inputFile';
@@ -93,7 +94,43 @@ export class Storage {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'bucketList',
+            models: {
+                bucketList: {
+                    defaults: {
+                        total: 0,
+                        buckets: [],
+                    },
+                    properties: {
+                        buckets: {
+                            items: 'bucket',
+                        },
+                    },
+                },
+                bucket: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        $permissions: [],
+                        fileSecurity: false,
+                        name: '',
+                        enabled: true,
+                        maximumFileSize: 0,
+                        allowedFileExtensions: [],
+                        compression: '',
+                        encryption: true,
+                        antivirus: true,
+                        transformations: true,
+                        totalSize: 0,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -101,7 +138,7 @@ export class Storage {
      *
      * @param {string} params.bucketId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Bucket name
-     * @param {string[]} params.permissions - An array of permission strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string[] | null} params.permissions - An array of permission strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.fileSecurity - Enables configuring permissions for individual file. A user needs one of file or bucket level permissions to access a file. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
      * @param {number} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
@@ -116,7 +153,7 @@ export class Storage {
     createBucket(params: {
         bucketId: string;
         name: string;
-        permissions?: string[];
+        permissions?: string[] | null;
         fileSecurity?: boolean;
         enabled?: boolean;
         maximumFileSize?: number;
@@ -131,7 +168,7 @@ export class Storage {
      *
      * @param {string} bucketId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Bucket name
-     * @param {string[]} permissions - An array of permission strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string[] | null} permissions - An array of permission strings. By default, no user is granted with any permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} fileSecurity - Enables configuring permissions for individual file. A user needs one of file or bucket level permissions to access a file. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
      * @param {number} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
@@ -147,7 +184,7 @@ export class Storage {
     createBucket(
         bucketId: string,
         name: string,
-        permissions?: string[],
+        permissions?: string[] | null,
         fileSecurity?: boolean,
         enabled?: boolean,
         maximumFileSize?: number,
@@ -162,7 +199,7 @@ export class Storage {
             | {
                   bucketId: string;
                   name: string;
-                  permissions?: string[];
+                  permissions?: string[] | null;
                   fileSecurity?: boolean;
                   enabled?: boolean;
                   maximumFileSize?: number;
@@ -175,7 +212,7 @@ export class Storage {
             | string,
         ...rest: [
             string?,
-            string[]?,
+            (string[] | null)?,
             boolean?,
             boolean?,
             number?,
@@ -189,7 +226,7 @@ export class Storage {
         let params: {
             bucketId: string;
             name: string;
-            permissions?: string[];
+            permissions?: string[] | null;
             fileSecurity?: boolean;
             enabled?: boolean;
             maximumFileSize?: number;
@@ -208,7 +245,7 @@ export class Storage {
             params = (paramsOrFirst || {}) as {
                 bucketId: string;
                 name: string;
-                permissions?: string[];
+                permissions?: string[] | null;
                 fileSecurity?: boolean;
                 enabled?: boolean;
                 maximumFileSize?: number;
@@ -222,7 +259,7 @@ export class Storage {
             params = {
                 bucketId: paramsOrFirst as string,
                 name: rest[0] as string,
-                permissions: rest[1] as string[],
+                permissions: rest[1] as string[] | null,
                 fileSecurity: rest[2] as boolean,
                 enabled: rest[3] as boolean,
                 maximumFileSize: rest[4] as number,
@@ -296,7 +333,32 @@ export class Storage {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'bucket',
+            models: {
+                bucket: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        $permissions: [],
+                        fileSecurity: false,
+                        name: '',
+                        enabled: true,
+                        maximumFileSize: 0,
+                        allowedFileExtensions: [],
+                        compression: '',
+                        encryption: true,
+                        antivirus: true,
+                        transformations: true,
+                        totalSize: 0,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -351,7 +413,32 @@ export class Storage {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'bucket',
+            models: {
+                bucket: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        $permissions: [],
+                        fileSecurity: false,
+                        name: '',
+                        enabled: true,
+                        maximumFileSize: 0,
+                        allowedFileExtensions: [],
+                        compression: '',
+                        encryption: true,
+                        antivirus: true,
+                        transformations: true,
+                        totalSize: 0,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -359,13 +446,13 @@ export class Storage {
      *
      * @param {string} params.bucketId - Bucket unique ID.
      * @param {string} params.name - Bucket name
-     * @param {string[]} params.permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string[] | null} params.permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.fileSecurity - Enables configuring permissions for individual file. A user needs one of file or bucket level permissions to access a file. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
-     * @param {number} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
+     * @param {number | null} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} params.allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} params.compression - Compression algorithm chosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
-     * @param {boolean} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
+     * @param {Compression | null} params.compression - Compression algorithm chosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {boolean | null} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} params.antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} params.transformations - Are image transformations enabled?
      * @throws {AppwriteException}
@@ -374,13 +461,13 @@ export class Storage {
     updateBucket(params: {
         bucketId: string;
         name: string;
-        permissions?: string[];
+        permissions?: string[] | null;
         fileSecurity?: boolean;
         enabled?: boolean;
-        maximumFileSize?: number;
+        maximumFileSize?: number | null;
         allowedFileExtensions?: string[];
-        compression?: Compression;
-        encryption?: boolean;
+        compression?: Compression | null;
+        encryption?: boolean | null;
         antivirus?: boolean;
         transformations?: boolean;
     }): Promise<Models.Bucket>;
@@ -389,13 +476,13 @@ export class Storage {
      *
      * @param {string} bucketId - Bucket unique ID.
      * @param {string} name - Bucket name
-     * @param {string[]} permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string[] | null} permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} fileSecurity - Enables configuring permissions for individual file. A user needs one of file or bucket level permissions to access a file. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} enabled - Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
-     * @param {number} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
+     * @param {number | null} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
-     * @param {Compression} compression - Compression algorithm chosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
-     * @param {boolean} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
+     * @param {Compression | null} compression - Compression algorithm chosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
+     * @param {boolean | null} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} transformations - Are image transformations enabled?
      * @throws {AppwriteException}
@@ -405,13 +492,13 @@ export class Storage {
     updateBucket(
         bucketId: string,
         name: string,
-        permissions?: string[],
+        permissions?: string[] | null,
         fileSecurity?: boolean,
         enabled?: boolean,
-        maximumFileSize?: number,
+        maximumFileSize?: number | null,
         allowedFileExtensions?: string[],
-        compression?: Compression,
-        encryption?: boolean,
+        compression?: Compression | null,
+        encryption?: boolean | null,
         antivirus?: boolean,
         transformations?: boolean,
     ): Promise<Models.Bucket>;
@@ -420,26 +507,26 @@ export class Storage {
             | {
                   bucketId: string;
                   name: string;
-                  permissions?: string[];
+                  permissions?: string[] | null;
                   fileSecurity?: boolean;
                   enabled?: boolean;
-                  maximumFileSize?: number;
+                  maximumFileSize?: number | null;
                   allowedFileExtensions?: string[];
-                  compression?: Compression;
-                  encryption?: boolean;
+                  compression?: Compression | null;
+                  encryption?: boolean | null;
                   antivirus?: boolean;
                   transformations?: boolean;
               }
             | string,
         ...rest: [
             string?,
+            (string[] | null)?,
+            boolean?,
+            boolean?,
+            (number | null)?,
             string[]?,
-            boolean?,
-            boolean?,
-            number?,
-            string[]?,
-            Compression?,
-            boolean?,
+            (Compression | null)?,
+            (boolean | null)?,
             boolean?,
             boolean?,
         ]
@@ -447,13 +534,13 @@ export class Storage {
         let params: {
             bucketId: string;
             name: string;
-            permissions?: string[];
+            permissions?: string[] | null;
             fileSecurity?: boolean;
             enabled?: boolean;
-            maximumFileSize?: number;
+            maximumFileSize?: number | null;
             allowedFileExtensions?: string[];
-            compression?: Compression;
-            encryption?: boolean;
+            compression?: Compression | null;
+            encryption?: boolean | null;
             antivirus?: boolean;
             transformations?: boolean;
         };
@@ -466,13 +553,13 @@ export class Storage {
             params = (paramsOrFirst || {}) as {
                 bucketId: string;
                 name: string;
-                permissions?: string[];
+                permissions?: string[] | null;
                 fileSecurity?: boolean;
                 enabled?: boolean;
-                maximumFileSize?: number;
+                maximumFileSize?: number | null;
                 allowedFileExtensions?: string[];
-                compression?: Compression;
-                encryption?: boolean;
+                compression?: Compression | null;
+                encryption?: boolean | null;
                 antivirus?: boolean;
                 transformations?: boolean;
             };
@@ -480,13 +567,13 @@ export class Storage {
             params = {
                 bucketId: paramsOrFirst as string,
                 name: rest[0] as string,
-                permissions: rest[1] as string[],
+                permissions: rest[1] as string[] | null,
                 fileSecurity: rest[2] as boolean,
                 enabled: rest[3] as boolean,
-                maximumFileSize: rest[4] as number,
+                maximumFileSize: rest[4] as number | null,
                 allowedFileExtensions: rest[5] as string[],
-                compression: rest[6] as Compression,
-                encryption: rest[7] as boolean,
+                compression: rest[6] as Compression | null,
+                encryption: rest[7] as boolean | null,
                 antivirus: rest[8] as boolean,
                 transformations: rest[9] as boolean,
             };
@@ -554,7 +641,32 @@ export class Storage {
             accept: 'application/json',
         };
 
-        return this.client.call('put', uri, apiHeaders, apiPayload);
+        const request = this.client.call('put', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'bucket',
+            models: {
+                bucket: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        $permissions: [],
+                        fileSecurity: false,
+                        name: '',
+                        enabled: true,
+                        maximumFileSize: 0,
+                        allowedFileExtensions: [],
+                        compression: '',
+                        encryption: true,
+                        antivirus: true,
+                        transformations: true,
+                        totalSize: 0,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -712,7 +824,45 @@ export class Storage {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'fileList',
+            models: {
+                fileList: {
+                    defaults: {
+                        total: 0,
+                        files: [],
+                    },
+                    properties: {
+                        files: {
+                            items: 'file',
+                        },
+                    },
+                },
+                file: {
+                    defaults: {
+                        $id: '',
+                        bucketId: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        $permissions: [],
+                        name: '',
+                        folder: '',
+                        key: '',
+                        signature: '',
+                        mimeType: '',
+                        sizeOriginal: 0,
+                        sizeActual: 0,
+                        chunksTotal: 0,
+                        chunksUploaded: 0,
+                        encryption: false,
+                        compression: 'none',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -934,7 +1084,34 @@ export class Storage {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'file',
+            models: {
+                file: {
+                    defaults: {
+                        $id: '',
+                        bucketId: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        $permissions: [],
+                        name: '',
+                        folder: '',
+                        key: '',
+                        signature: '',
+                        mimeType: '',
+                        sizeOriginal: 0,
+                        sizeActual: 0,
+                        chunksTotal: 0,
+                        chunksUploaded: 0,
+                        encryption: false,
+                        compression: 'none',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -943,7 +1120,7 @@ export class Storage {
      * @param {string} params.bucketId - Bucket unique ID.
      * @param {string} params.fileId - File ID.
      * @param {string} params.name - File name.
-     * @param {string[]} params.permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string[] | null} params.permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      */
@@ -951,7 +1128,7 @@ export class Storage {
         bucketId: string;
         fileId: string;
         name?: string;
-        permissions?: string[];
+        permissions?: string[] | null;
     }): Promise<Models.File>;
     /**
      * Update a file by its unique ID. Only users with write permissions have access to update this resource.
@@ -959,7 +1136,7 @@ export class Storage {
      * @param {string} bucketId - Bucket unique ID.
      * @param {string} fileId - File ID.
      * @param {string} name - File name.
-     * @param {string[]} permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param {string[] | null} permissions - An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @throws {AppwriteException}
      * @returns {Promise<Models.File>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -968,7 +1145,7 @@ export class Storage {
         bucketId: string,
         fileId: string,
         name?: string,
-        permissions?: string[],
+        permissions?: string[] | null,
     ): Promise<Models.File>;
     updateFile(
         paramsOrFirst:
@@ -976,16 +1153,16 @@ export class Storage {
                   bucketId: string;
                   fileId: string;
                   name?: string;
-                  permissions?: string[];
+                  permissions?: string[] | null;
               }
             | string,
-        ...rest: [string?, string?, string[]?]
+        ...rest: [string?, string?, (string[] | null)?]
     ): Promise<Models.File> {
         let params: {
             bucketId: string;
             fileId: string;
             name?: string;
-            permissions?: string[];
+            permissions?: string[] | null;
         };
 
         if (
@@ -997,14 +1174,14 @@ export class Storage {
                 bucketId: string;
                 fileId: string;
                 name?: string;
-                permissions?: string[];
+                permissions?: string[] | null;
             };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
                 fileId: rest[0] as string,
                 name: rest[1] as string,
-                permissions: rest[2] as string[],
+                permissions: rest[2] as string[] | null,
             };
         }
 
@@ -1038,7 +1215,34 @@ export class Storage {
             accept: 'application/json',
         };
 
-        return this.client.call('put', uri, apiHeaders, apiPayload);
+        const request = this.client.call('put', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'file',
+            models: {
+                file: {
+                    defaults: {
+                        $id: '',
+                        bucketId: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        $permissions: [],
+                        name: '',
+                        folder: '',
+                        key: '',
+                        signature: '',
+                        mimeType: '',
+                        sizeOriginal: 0,
+                        sizeActual: 0,
+                        chunksTotal: 0,
+                        chunksUploaded: 0,
+                        encryption: false,
+                        compression: 'none',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
