@@ -26,8 +26,8 @@ describe('Tokens', () => {
     });
     test('test method createFileToken()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             resourceId: '5e5ea5c168bb8:5e5ea5c168bb8',
             resourceType: 'files',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -47,8 +47,8 @@ describe('Tokens', () => {
     });
     test('test method get()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             resourceId: '5e5ea5c168bb8:5e5ea5c168bb8',
             resourceType: 'files',
             expire: '2020-10-15T06:38:00.000+00:00',
@@ -65,8 +65,8 @@ describe('Tokens', () => {
     });
     test('test method update()', async () => {
         const data = {
-            '\\$id': 'bb8ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
+            $id: 'bb8ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
             resourceId: '5e5ea5c168bb8:5e5ea5c168bb8',
             resourceType: 'files',
             expire: '2020-10-15T06:38:00.000+00:00',

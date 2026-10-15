@@ -13,9 +13,9 @@ describe('Project', () => {
 
     test('test method get()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -60,9 +60,9 @@ describe('Project', () => {
     });
     test('test method updateAuthMethod()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -95,6 +95,146 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method listEnvironments()', async () => {
+        const data = {
+            total: 5,
+            projects: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.listEnvironments();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method createEnvironment()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'New Project',
+            teamId: '1592981250',
+            region: 'fra',
+            smtpEnabled: true,
+            smtpSenderName: 'John Appwrite',
+            smtpSenderEmail: 'john@appwrite.io',
+            smtpReplyToName: 'Support Team',
+            smtpReplyToEmail: 'support@appwrite.io',
+            smtpHost: 'mail.appwrite.io',
+            smtpPort: 25,
+            smtpUsername: 'emailuser',
+            smtpPassword: 'smtp-password',
+            smtpSecure: 'tls',
+            pingCount: 1,
+            pingedAt: '2020-10-15T06:38:00.000+00:00',
+            labels: [],
+            status: 'active',
+            onboarding: {},
+            authMethods: [],
+            services: [],
+            protocols: [],
+            blocks: [],
+            consoleAccessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.createEnvironment(
+            '<ENVIRONMENT_ID>',
+            '<NAME>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method getEnvironment()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'New Project',
+            teamId: '1592981250',
+            region: 'fra',
+            smtpEnabled: true,
+            smtpSenderName: 'John Appwrite',
+            smtpSenderEmail: 'john@appwrite.io',
+            smtpReplyToName: 'Support Team',
+            smtpReplyToEmail: 'support@appwrite.io',
+            smtpHost: 'mail.appwrite.io',
+            smtpPort: 25,
+            smtpUsername: 'emailuser',
+            smtpPassword: 'smtp-password',
+            smtpSecure: 'tls',
+            pingCount: 1,
+            pingedAt: '2020-10-15T06:38:00.000+00:00',
+            labels: [],
+            status: 'active',
+            onboarding: {},
+            authMethods: [],
+            services: [],
+            protocols: [],
+            blocks: [],
+            consoleAccessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.getEnvironment('<ENVIRONMENT_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateEnvironment()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'New Project',
+            teamId: '1592981250',
+            region: 'fra',
+            smtpEnabled: true,
+            smtpSenderName: 'John Appwrite',
+            smtpSenderEmail: 'john@appwrite.io',
+            smtpReplyToName: 'Support Team',
+            smtpReplyToEmail: 'support@appwrite.io',
+            smtpHost: 'mail.appwrite.io',
+            smtpPort: 25,
+            smtpUsername: 'emailuser',
+            smtpPassword: 'smtp-password',
+            smtpSecure: 'tls',
+            pingCount: 1,
+            pingedAt: '2020-10-15T06:38:00.000+00:00',
+            labels: [],
+            status: 'active',
+            onboarding: {},
+            authMethods: [],
+            services: [],
+            protocols: [],
+            blocks: [],
+            consoleAccessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateEnvironment(
+            '<ENVIRONMENT_ID>',
+            '<NAME>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method deleteEnvironment()', async () => {
+        const data = { message: '' };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.deleteEnvironment('<ENVIRONMENT_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method listKeys()', async () => {
         const data = {
             total: 5,
@@ -110,9 +250,9 @@ describe('Project', () => {
     });
     test('test method createEphemeralKey()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My API Key',
             expire: '2020-10-15T06:38:00.000+00:00',
             scopes: [],
@@ -130,9 +270,9 @@ describe('Project', () => {
     });
     test('test method getKey()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My API Key',
             expire: '2020-10-15T06:38:00.000+00:00',
             scopes: [],
@@ -150,9 +290,9 @@ describe('Project', () => {
     });
     test('test method updateKey()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My API Key',
             expire: '2020-10-15T06:38:00.000+00:00',
             scopes: [],
@@ -180,9 +320,9 @@ describe('Project', () => {
     });
     test('test method updateLabels()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -232,8 +372,8 @@ describe('Project', () => {
         const data = {
             number: '+1612842323',
             otp: '123456',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.createMockPhone('+12065550100', '<OTP>');
@@ -247,8 +387,8 @@ describe('Project', () => {
         const data = {
             number: '+1612842323',
             otp: '123456',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.getMockPhone('+12065550100');
@@ -262,8 +402,8 @@ describe('Project', () => {
         const data = {
             number: '+1612842323',
             otp: '123456',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updateMockPhone('+12065550100', '<OTP>');
@@ -298,9 +438,9 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Server()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -338,7 +478,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Amazon()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId:
                 'amzn1.application-oa2-client.87400c00000000000000000000063d5b2',
@@ -355,7 +495,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Apple()', async () => {
         const data = {
-            '\\$id': 'apple',
+            $id: 'apple',
             enabled: true,
             serviceId: 'ip.appwrite.app.web',
             keyId: 'P4000000N8',
@@ -374,7 +514,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Appwrite()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '6a42000000000000b5a0',
             clientSecret:
@@ -390,7 +530,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Auth0()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'OaOkIA000000000000000000005KLSYq',
             clientSecret:
@@ -408,7 +548,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Authentik()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'dTKOPa0000000000000000000000000000e7G8hv',
             clientSecret:
@@ -425,7 +565,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Autodesk()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '5zw90v00000000000000000000kVYXN7',
             clientSecret: '7I000000000000MW',
@@ -440,7 +580,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Bitbucket()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             key: 'Knt70000000000ByRc',
             secret: 'NMfLZJ00000000000000000000TLQdDx',
@@ -455,7 +595,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Bitly()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'd95151000000000000000000000000000067af9b',
             clientSecret: 'a13e250000000000000000000000000000d73095',
@@ -470,7 +610,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Box()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'deglcs00000000000000000000x2og6y',
             clientSecret: 'OKM1f100000000000000000000eshEif',
@@ -485,7 +625,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Cloudflare()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '4b866000000000000000000000c9e4e2',
             clientSecret:
@@ -501,7 +641,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Dailymotion()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             apiKey: '07a9000000000000067f',
             apiSecret: 'a399a90000000000000000000000000000d90639',
@@ -516,7 +656,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Discord()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '950722000000343754',
             clientSecret: 'YmPXnM000000000000000000002zFg5D',
@@ -532,7 +672,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Disqus()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             publicKey:
                 'cgegH70000000000000000000000000000000000000000000000000000Hr1nYX',
@@ -549,7 +689,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Dropbox()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             appKey: 'jl000000000009t',
             appSecret: 'g200000000000vw',
@@ -564,7 +704,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Etsy()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             keyString: 'nsgzxh0000000000008j85a2',
             sharedSecret: 'tp000000ru',
@@ -579,7 +719,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Facebook()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             appId: '260600000007694',
             appSecret: '2d0b2800000000000000000000d38af4',
@@ -594,7 +734,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Figma()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'byay5H0000000000VtiI40',
             clientSecret: 'yEpOYn0000000000000000004iIsU5',
@@ -609,7 +749,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2FusionAuth()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'b2222c00-0000-0000-0000-000000862097',
             clientSecret: 'Jx4s0C0000000000000000000000000000000wGqLsc',
@@ -625,7 +765,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2GitHub()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'e4d87900000000540733',
             clientSecret: '5e07c00000000000000000000000000000198bcc',
@@ -641,7 +781,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Gitlab()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             applicationId:
                 'd41ffe0000000000000000000000000000000000000000000000000000d5e252',
@@ -658,7 +798,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Google()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId:
                 '120000000095-92ifjb00000000000000000000g7ijfb.apps.googleusercontent.com',
@@ -677,7 +817,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2HuggingFace()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '2ab9cff9-d711-40ad-a91e-b08a49c42d24',
             clientSecret: 'oauth_app_secret_wcLhRtl000000000000000000000xbNdLt',
@@ -692,7 +832,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Kakao()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '839ff5000000000000000000013206de',
             clientSecret: 'jLNVOK00000000000000000000yJebea',
@@ -708,7 +848,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Keycloak()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'appwrite-o0000000st-app',
             clientSecret: 'jdjrJd00000000000000000000HUsaZO',
@@ -725,7 +865,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Kick()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '01KQ7C00000000000001MFHS32',
             clientSecret:
@@ -741,7 +881,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Linkedin()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '770000000000dv',
             primaryClientSecret: 'WPL_AP1.2Bf0000000000000./HtlYw==',
@@ -756,7 +896,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Microsoft()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             applicationId: '00001111-aaaa-2222-bbbb-3333cccc4444',
             applicationSecret: 'A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u',
@@ -773,7 +913,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Notion()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             oauthClientId: '341d8700-0000-0000-0000-000000446ee3',
             oauthClientSecret:
@@ -789,7 +929,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Oidc()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'qibI2x0000000000000000000000000006L2YFoG',
             clientSecret:
@@ -811,7 +951,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Okta()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '0oa00000000000000698',
             clientSecret:
@@ -830,7 +970,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Paypal()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId:
                 'AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB',
@@ -847,7 +987,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2PaypalSandbox()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId:
                 'AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB',
@@ -864,7 +1004,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Podio()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'appwrite-oauth-test-app',
             clientSecret:
@@ -880,7 +1020,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Resend()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
             clientSecret:
@@ -896,7 +1036,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Salesforce()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             customerKey:
                 '3MVG9I0000000000000000000000000000000000000000000000000000000000000000000000000C5Aejq',
@@ -913,7 +1053,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Slack()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '23000000089.15000000000023',
             clientSecret: '81656000000000000000000000f3d2fd',
@@ -928,7 +1068,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Spotify()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '6ec271000000000000000000009beace',
             clientSecret: 'db068a000000000000000000008b5b9f',
@@ -943,7 +1083,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Stripe()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'ca_UKibXX0000000000000000000006byvR',
             apiSecretKey:
@@ -959,7 +1099,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2TikTok()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'awz000000000tyw0',
             clientSecret: '6wXewM00000000000000000000yXnite',
@@ -974,7 +1114,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Tradeshift()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             oauth2ClientId: 'appwrite-test-org.appwrite-test-app',
             oauth2ClientSecret: '7cb52700-0000-0000-0000-000000ca5b83',
@@ -989,7 +1129,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2TradeshiftSandbox()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             oauth2ClientId: 'appwrite-test-org.appwrite-test-app',
             oauth2ClientSecret: '7cb52700-0000-0000-0000-000000ca5b83',
@@ -1004,7 +1144,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Twitch()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'vvi0in000000000000000000ikmt9p',
             clientSecret: 'pmapue000000000000000000zylw3v',
@@ -1019,7 +1159,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Webflow()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId:
                 '8bb20000000000000000000000000000000000000000000000000000000040dd',
@@ -1036,7 +1176,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2WordPress()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '130005',
             clientSecret:
@@ -1052,7 +1192,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2X()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             customerKey: 'slzZV0000000000000NFLaWT',
             secretKey: 'tkEPkp00000000000000000000000000000000000000FTxbI9',
@@ -1067,7 +1207,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Yahoo()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId:
                 'dj0yJm000000000000000000000000000000000000000000000000000000000000000000000000000000000000Z4PWRm',
@@ -1083,7 +1223,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Yandex()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '6a8a6a0000000000000000000091483c',
             clientSecret: 'bbf98500000000000000000000c75a63',
@@ -1098,7 +1238,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Zoho()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '1000.83C178000000000000000000RPNX0B',
             clientSecret: 'fb5cac000000000000000000000000000000a68f6e',
@@ -1114,7 +1254,7 @@ describe('Project', () => {
     });
     test('test method updateOAuth2Zoom()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: 'QMAC00000000000000w0AQ',
             clientSecret: 'GAWsG4000000000000000000007U01ON',
@@ -1129,7 +1269,7 @@ describe('Project', () => {
     });
     test('test method getOAuth2Provider()', async () => {
         const data = {
-            '\\$id': 'github',
+            $id: 'github',
             enabled: true,
             clientId: '839ff5000000000000000000013206de',
             clientSecret: 'jLNVOK00000000000000000000yJebea',
@@ -1158,12 +1298,13 @@ describe('Project', () => {
     });
     test('test method createAndroidPlatform()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Web App',
             type: 'web',
             applicationId: 'com.company.appname',
+            fingerprints: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.createAndroidPlatform(
@@ -1179,12 +1320,13 @@ describe('Project', () => {
     });
     test('test method updateAndroidPlatform()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Web App',
             type: 'web',
             applicationId: 'com.company.appname',
+            fingerprints: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updateAndroidPlatform(
@@ -1200,9 +1342,9 @@ describe('Project', () => {
     });
     test('test method createApplePlatform()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Web App',
             type: 'web',
             bundleIdentifier: 'com.company.appname',
@@ -1221,9 +1363,9 @@ describe('Project', () => {
     });
     test('test method updateApplePlatform()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Web App',
             type: 'web',
             bundleIdentifier: 'com.company.appname',
@@ -1242,9 +1384,9 @@ describe('Project', () => {
     });
     test('test method createLinuxPlatform()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Web App',
             type: 'web',
             packageName: 'com.company.appname',
@@ -1263,9 +1405,9 @@ describe('Project', () => {
     });
     test('test method updateLinuxPlatform()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Web App',
             type: 'web',
             packageName: 'com.company.appname',
@@ -1284,9 +1426,9 @@ describe('Project', () => {
     });
     test('test method createWebPlatform()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Web App',
             type: 'web',
             hostname: 'app.example.com',
@@ -1305,9 +1447,9 @@ describe('Project', () => {
     });
     test('test method updateWebPlatform()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Web App',
             type: 'web',
             hostname: 'app.example.com',
@@ -1326,9 +1468,9 @@ describe('Project', () => {
     });
     test('test method createWindowsPlatform()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Web App',
             type: 'web',
             packageIdentifierName: 'com.company.appname',
@@ -1347,9 +1489,9 @@ describe('Project', () => {
     });
     test('test method updateWindowsPlatform()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Web App',
             type: 'web',
             packageIdentifierName: 'com.company.appname',
@@ -1368,9 +1510,9 @@ describe('Project', () => {
     });
     test('test method getPlatform()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'My Web App',
             type: 'web',
             packageName: 'com.company.appname',
@@ -1408,9 +1550,9 @@ describe('Project', () => {
     });
     test('test method updateDenyAliasedEmailPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1445,9 +1587,9 @@ describe('Project', () => {
     });
     test('test method updateDenyCorporateEmailPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1482,9 +1624,9 @@ describe('Project', () => {
     });
     test('test method updateDenyDisposableEmailPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1519,9 +1661,9 @@ describe('Project', () => {
     });
     test('test method updateDenyFreeEmailPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1556,9 +1698,9 @@ describe('Project', () => {
     });
     test('test method updateMembershipPrivacyPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1593,9 +1735,9 @@ describe('Project', () => {
     });
     test('test method updateMFAFactorsPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1628,11 +1770,48 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method updatePasskeyPolicy()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'New Project',
+            teamId: '1592981250',
+            region: 'fra',
+            smtpEnabled: true,
+            smtpSenderName: 'John Appwrite',
+            smtpSenderEmail: 'john@appwrite.io',
+            smtpReplyToName: 'Support Team',
+            smtpReplyToEmail: 'support@appwrite.io',
+            smtpHost: 'mail.appwrite.io',
+            smtpPort: 25,
+            smtpUsername: 'emailuser',
+            smtpPassword: 'smtp-password',
+            smtpSecure: 'tls',
+            pingCount: 1,
+            pingedAt: '2020-10-15T06:38:00.000+00:00',
+            labels: [],
+            status: 'active',
+            onboarding: {},
+            authMethods: [],
+            services: [],
+            protocols: [],
+            blocks: [],
+            consoleAccessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updatePasskeyPolicy('<RP_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updatePasswordDictionaryPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1667,9 +1846,9 @@ describe('Project', () => {
     });
     test('test method updatePasswordHistoryPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1704,9 +1883,9 @@ describe('Project', () => {
     });
     test('test method updatePasswordPersonalDataPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1741,9 +1920,9 @@ describe('Project', () => {
     });
     test('test method updatePasswordPwnedPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1776,9 +1955,46 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method updatePasswordRotationPolicy()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'New Project',
+            teamId: '1592981250',
+            region: 'fra',
+            smtpEnabled: true,
+            smtpSenderName: 'John Appwrite',
+            smtpSenderEmail: 'john@appwrite.io',
+            smtpReplyToName: 'Support Team',
+            smtpReplyToEmail: 'support@appwrite.io',
+            smtpHost: 'mail.appwrite.io',
+            smtpPort: 25,
+            smtpUsername: 'emailuser',
+            smtpPassword: 'smtp-password',
+            smtpSecure: 'tls',
+            pingCount: 1,
+            pingedAt: '2020-10-15T06:38:00.000+00:00',
+            labels: [],
+            status: 'active',
+            onboarding: {},
+            authMethods: [],
+            services: [],
+            protocols: [],
+            blocks: [],
+            consoleAccessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updatePasswordRotationPolicy();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updatePasswordStrengthPolicy()', async () => {
         const data = {
-            '\\$id': 'password-dictionary',
+            $id: 'password-dictionary',
             min: 12,
             uppercase: true,
             lowercase: true,
@@ -1795,9 +2011,9 @@ describe('Project', () => {
     });
     test('test method updateSessionAlertPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1832,9 +2048,9 @@ describe('Project', () => {
     });
     test('test method updateSessionDurationPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1869,9 +2085,9 @@ describe('Project', () => {
     });
     test('test method updateSessionInvalidationPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1906,9 +2122,9 @@ describe('Project', () => {
     });
     test('test method updateSessionLimitPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1943,9 +2159,9 @@ describe('Project', () => {
     });
     test('test method updateUserLimitPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -1980,8 +2196,9 @@ describe('Project', () => {
     });
     test('test method getPolicy()', async () => {
         const data = {
-            '\\$id': 'password-dictionary',
-            enabled: true,
+            $id: 'password-dictionary',
+            rpId: 'example.com',
+            origins: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.getPolicy('password-dictionary');
@@ -1993,9 +2210,9 @@ describe('Project', () => {
     });
     test('test method updateProtocol()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -2030,9 +2247,9 @@ describe('Project', () => {
     });
     test('test method updateService()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -2067,9 +2284,9 @@ describe('Project', () => {
     });
     test('test method updateSMTP()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             name: 'New Project',
             teamId: '1592981250',
             region: 'fra',
@@ -2178,9 +2395,9 @@ describe('Project', () => {
     });
     test('test method createVariable()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'API_KEY',
             value: 'myPa\\$\\$word1',
             secret: true,
@@ -2201,9 +2418,9 @@ describe('Project', () => {
     });
     test('test method getVariable()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'API_KEY',
             value: 'myPa\\$\\$word1',
             secret: true,
@@ -2220,9 +2437,9 @@ describe('Project', () => {
     });
     test('test method updateVariable()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'API_KEY',
             value: 'myPa\\$\\$word1',
             secret: true,

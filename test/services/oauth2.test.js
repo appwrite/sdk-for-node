@@ -70,9 +70,9 @@ describe('Oauth2', () => {
     });
     test('test method createGrant()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c16897e',
             appId: '5e5ea5c16897e',
             scopes: [],
@@ -94,9 +94,9 @@ describe('Oauth2', () => {
     });
     test('test method getGrant()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5ea5c16897e',
             appId: '5e5ea5c16897e',
             scopes: [],

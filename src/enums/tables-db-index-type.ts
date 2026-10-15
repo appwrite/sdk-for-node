@@ -3,4 +3,5 @@ export enum TablesDBIndexType {
     Fulltext = 'fulltext',
     Unique = 'unique',
     Spatial = 'spatial',
+    Trigram = 'trigram',
 }

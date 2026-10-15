@@ -26,10 +26,10 @@ describe('VectorsDB', () => {
     });
     test('test method create()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'My Database',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
             type: 'legacy',
         };
@@ -69,9 +69,9 @@ describe('VectorsDB', () => {
     });
     test('test method createTransaction()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             status: 'pending',
             operations: 5,
             expiresAt: '2020-10-15T06:38:00.000+00:00',
@@ -86,9 +86,9 @@ describe('VectorsDB', () => {
     });
     test('test method getTransaction()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             status: 'pending',
             operations: 5,
             expiresAt: '2020-10-15T06:38:00.000+00:00',
@@ -103,9 +103,9 @@ describe('VectorsDB', () => {
     });
     test('test method updateTransaction()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             status: 'pending',
             operations: 5,
             expiresAt: '2020-10-15T06:38:00.000+00:00',
@@ -130,9 +130,9 @@ describe('VectorsDB', () => {
     });
     test('test method createOperations()', async () => {
         const data = {
-            '\\$id': '259125845563242502',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '259125845563242502',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             status: 'pending',
             operations: 5,
             expiresAt: '2020-10-15T06:38:00.000+00:00',
@@ -147,10 +147,10 @@ describe('VectorsDB', () => {
     });
     test('test method get()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'My Database',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
             type: 'legacy',
         };
@@ -164,10 +164,10 @@ describe('VectorsDB', () => {
     });
     test('test method update()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'My Database',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
             type: 'legacy',
         };
@@ -204,10 +204,10 @@ describe('VectorsDB', () => {
     });
     test('test method createCollection()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Collection',
             enabled: true,
@@ -233,10 +233,10 @@ describe('VectorsDB', () => {
     });
     test('test method getCollection()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Collection',
             enabled: true,
@@ -260,10 +260,10 @@ describe('VectorsDB', () => {
     });
     test('test method updateCollection()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Collection',
             enabled: true,
@@ -317,13 +317,13 @@ describe('VectorsDB', () => {
     });
     test('test method createDocument()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$collectionId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $collectionId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await vectorsDB.createDocument(
@@ -422,13 +422,13 @@ describe('VectorsDB', () => {
     });
     test('test method getDocument()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$collectionId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $collectionId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await vectorsDB.getDocument(
@@ -444,13 +444,13 @@ describe('VectorsDB', () => {
     });
     test('test method upsertDocument()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$collectionId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $collectionId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await vectorsDB.upsertDocument(
@@ -466,13 +466,13 @@ describe('VectorsDB', () => {
     });
     test('test method updateDocument()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$sequence': '1',
-            '\\$collectionId': '5e5ea5c15117e',
-            '\\$databaseId': '5e5ea5c15117e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$permissions': [],
+            $id: '5e5ea5c16897e',
+            $sequence: '1',
+            $collectionId: '5e5ea5c15117e',
+            $databaseId: '5e5ea5c15117e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            $permissions: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await vectorsDB.updateDocument(
@@ -518,9 +518,9 @@ describe('VectorsDB', () => {
     });
     test('test method createIndex()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'index1',
             type: 'primary',
             status: 'available',
@@ -544,9 +544,9 @@ describe('VectorsDB', () => {
     });
     test('test method getIndex()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'index1',
             type: 'primary',
             status: 'available',
@@ -582,21 +582,17 @@ describe('VectorsDB', () => {
     });
     test('test method createFailover()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             projectId: '5e5ea5c16897e',
             name: 'My Production Database',
-            api: 'postgresql',
-            engine: 'postgresql',
             version: '16',
             specification: 's-2vcpu-2gb',
             backend: 'edge',
             hostname: 'db-myproject-mydb.fra.appwrite.center',
-            connectionPort: 5432,
             connectionUser: 'appwrite_user',
             connectionPassword: '••••••••',
-            credentialGeneration: 1,
             connectionString:
                 'postgresql://user:pass@db-myproject-mydb.fra.appwrite.center:5432/postgres?sslmode=require',
             ssl: true,

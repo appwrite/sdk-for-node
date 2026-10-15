@@ -26,9 +26,9 @@ describe('Backups', () => {
     });
     test('test method createArchive()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             policyId: 'did8jx6ws45jana098ab7',
             status: 'completed',
             migrationId: 'did8jx6ws45jana098ab7',
@@ -45,9 +45,9 @@ describe('Backups', () => {
     });
     test('test method getArchive()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             policyId: 'did8jx6ws45jana098ab7',
             status: 'completed',
             migrationId: 'did8jx6ws45jana098ab7',
@@ -87,10 +87,10 @@ describe('Backups', () => {
     });
     test('test method createPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'Hourly backups',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             services: [],
             resources: [],
             retention: 7,
@@ -113,10 +113,10 @@ describe('Backups', () => {
     });
     test('test method getPolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'Hourly backups',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             services: [],
             resources: [],
             retention: 7,
@@ -134,10 +134,10 @@ describe('Backups', () => {
     });
     test('test method updatePolicy()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
+            $id: '5e5ea5c16897e',
             name: 'Hourly backups',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             services: [],
             resources: [],
             retention: 7,
@@ -165,9 +165,9 @@ describe('Backups', () => {
     });
     test('test method createRestoration()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             archiveId: 'did8jx6ws45jana098ab7',
             policyId: 'did8jx6ws45jana098ab7',
             status: 'completed',
@@ -199,9 +199,9 @@ describe('Backups', () => {
     });
     test('test method getRestoration()', async () => {
         const data = {
-            '\\$id': '5e5ea5c16897e',
-            '\\$createdAt': '2020-10-15T06:38:00.000+00:00',
-            '\\$updatedAt': '2020-10-15T06:38:00.000+00:00',
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
             archiveId: 'did8jx6ws45jana098ab7',
             policyId: 'did8jx6ws45jana098ab7',
             status: 'completed',

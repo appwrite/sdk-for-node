@@ -1,4 +1,9 @@
-import { AppwriteException, Client, type Payload } from '../client';
+import {
+    AppwriteException,
+    Client,
+    type Payload,
+    applyDefaults,
+} from '../client';
 import type { Models } from '../models';
 
 import { InvalidationType } from '../enums/invalidation-type';
@@ -106,13 +111,28 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyInvalidation',
+            models: {
+                proxyInvalidation: {
+                    defaults: {
+                        domain: '',
+                        type: '',
+                        reference: '',
+                        status: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
      * Get a list of all the proxy rules. You can use the query params to filter your results.
      *
-     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: domain, type, trigger, deploymentResourceType, deploymentResourceId, deploymentId, deploymentVcsProviderBranch
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: domain, type, trigger, deploymentResourceType, deploymentResourceId, deploymentId, deploymentVcsProviderBranch, protocol
      * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ProxyRuleList>}
@@ -124,7 +144,7 @@ export class Proxy {
     /**
      * Get a list of all the proxy rules. You can use the query params to filter your results.
      *
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: domain, type, trigger, deploymentResourceType, deploymentResourceId, deploymentId, deploymentVcsProviderBranch
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: domain, type, trigger, deploymentResourceType, deploymentResourceId, deploymentId, deploymentVcsProviderBranch, protocol
      * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.ProxyRuleList>}
@@ -174,7 +194,43 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRuleList',
+            models: {
+                proxyRuleList: {
+                    defaults: {
+                        total: 0,
+                        rules: [],
+                    },
+                    properties: {
+                        rules: {
+                            items: 'proxyRule',
+                        },
+                    },
+                },
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                        protocol: 'http',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -232,7 +288,32 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                        protocol: 'http',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -323,7 +404,32 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                        protocol: 'http',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -460,7 +566,32 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                        protocol: 'http',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -549,7 +680,144 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                        protocol: 'http',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Create an SMTP ingress rule that asynchronously executes an Appwrite Function for incoming email.
+     *
+     * @param {string} params.domain - Domain that receives email.
+     * @param {string} params.functionId - ID of function to execute.
+     * @param {string} params.branch - Name of VCS branch to deploy changes automatically.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ProxyRule>}
+     */
+    createSMTPRule(params: {
+        domain: string;
+        functionId: string;
+        branch?: string;
+    }): Promise<Models.ProxyRule>;
+    /**
+     * Create an SMTP ingress rule that asynchronously executes an Appwrite Function for incoming email.
+     *
+     * @param {string} domain - Domain that receives email.
+     * @param {string} functionId - ID of function to execute.
+     * @param {string} branch - Name of VCS branch to deploy changes automatically.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ProxyRule>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createSMTPRule(
+        domain: string,
+        functionId: string,
+        branch?: string,
+    ): Promise<Models.ProxyRule>;
+    createSMTPRule(
+        paramsOrFirst:
+            { domain: string; functionId: string; branch?: string } | string,
+        ...rest: [string?, string?]
+    ): Promise<Models.ProxyRule> {
+        let params: { domain: string; functionId: string; branch?: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                domain: string;
+                functionId: string;
+                branch?: string;
+            };
+        } else {
+            params = {
+                domain: paramsOrFirst as string,
+                functionId: rest[0] as string,
+                branch: rest[1] as string,
+            };
+        }
+
+        const domain = params.domain;
+        const functionId = params.functionId;
+        const branch = params.branch;
+        if (typeof domain === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "domain"');
+        }
+        if (typeof functionId === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "functionId"',
+            );
+        }
+        const apiPath = '/proxy/rules/smtp';
+        const apiPayload: Payload = {};
+        if (typeof domain !== 'undefined') {
+            apiPayload['domain'] = domain;
+        }
+        if (typeof functionId !== 'undefined') {
+            apiPayload['functionId'] = functionId;
+        }
+        if (typeof branch !== 'undefined') {
+            apiPayload['branch'] = branch;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                        protocol: 'http',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -602,7 +870,32 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                        protocol: 'http',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -708,6 +1001,31 @@ export class Proxy {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                        protocol: 'http',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 }

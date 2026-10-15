@@ -1,4 +1,9 @@
-import { AppwriteException, Client, type Payload } from '../client';
+import {
+    AppwriteException,
+    Client,
+    type Payload,
+    applyDefaults,
+} from '../client';
 import type { Models } from '../models';
 
 export class Tokens {
@@ -108,7 +113,36 @@ export class Tokens {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'resourceTokenList',
+            models: {
+                resourceTokenList: {
+                    defaults: {
+                        total: 0,
+                        tokens: [],
+                    },
+                    properties: {
+                        tokens: {
+                            items: 'resourceToken',
+                        },
+                    },
+                },
+                resourceToken: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        resourceId: '',
+                        resourceType: '',
+                        expire: '',
+                        secret: '',
+                        accessedAt: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -116,21 +150,21 @@ export class Tokens {
      *
      * @param {string} params.bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param {string} params.fileId - File unique ID.
-     * @param {string} params.expire - Token expiry date
+     * @param {string | null} params.expire - Token expiry date
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceToken>}
      */
     createFileToken(params: {
         bucketId: string;
         fileId: string;
-        expire?: string;
+        expire?: string | null;
     }): Promise<Models.ResourceToken>;
     /**
      * Create a new token. A token is linked to a file. Token can be passed as a request URL search parameter.
      *
      * @param {string} bucketId - Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param {string} fileId - File unique ID.
-     * @param {string} expire - Token expiry date
+     * @param {string | null} expire - Token expiry date
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceToken>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -138,14 +172,19 @@ export class Tokens {
     createFileToken(
         bucketId: string,
         fileId: string,
-        expire?: string,
+        expire?: string | null,
     ): Promise<Models.ResourceToken>;
     createFileToken(
         paramsOrFirst:
-            { bucketId: string; fileId: string; expire?: string } | string,
-        ...rest: [string?, string?]
+            | { bucketId: string; fileId: string; expire?: string | null }
+            | string,
+        ...rest: [string?, (string | null)?]
     ): Promise<Models.ResourceToken> {
-        let params: { bucketId: string; fileId: string; expire?: string };
+        let params: {
+            bucketId: string;
+            fileId: string;
+            expire?: string | null;
+        };
 
         if (
             paramsOrFirst &&
@@ -155,13 +194,13 @@ export class Tokens {
             params = (paramsOrFirst || {}) as {
                 bucketId: string;
                 fileId: string;
-                expire?: string;
+                expire?: string | null;
             };
         } else {
             params = {
                 bucketId: paramsOrFirst as string,
                 fileId: rest[0] as string,
-                expire: rest[1] as string,
+                expire: rest[1] as string | null,
             };
         }
 
@@ -191,7 +230,25 @@ export class Tokens {
             accept: 'application/json',
         };
 
-        return this.client.call('post', uri, apiHeaders, apiPayload);
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'resourceToken',
+            models: {
+                resourceToken: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        resourceId: '',
+                        resourceType: '',
+                        expire: '',
+                        secret: '',
+                        accessedAt: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -246,36 +303,57 @@ export class Tokens {
             accept: 'application/json',
         };
 
-        return this.client.call('get', uri, apiHeaders, apiPayload);
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'resourceToken',
+            models: {
+                resourceToken: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        resourceId: '',
+                        resourceType: '',
+                        expire: '',
+                        secret: '',
+                        accessedAt: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
      * Update a token by its unique ID. Use this endpoint to update a token's expiry date.
      *
      * @param {string} params.tokenId - Token unique ID.
-     * @param {string} params.expire - File token expiry date
+     * @param {string | null} params.expire - File token expiry date
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceToken>}
      */
     update(params: {
         tokenId: string;
-        expire?: string;
+        expire?: string | null;
     }): Promise<Models.ResourceToken>;
     /**
      * Update a token by its unique ID. Use this endpoint to update a token's expiry date.
      *
      * @param {string} tokenId - Token unique ID.
-     * @param {string} expire - File token expiry date
+     * @param {string | null} expire - File token expiry date
      * @throws {AppwriteException}
      * @returns {Promise<Models.ResourceToken>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    update(tokenId: string, expire?: string): Promise<Models.ResourceToken>;
     update(
-        paramsOrFirst: { tokenId: string; expire?: string } | string,
-        ...rest: [string?]
+        tokenId: string,
+        expire?: string | null,
+    ): Promise<Models.ResourceToken>;
+    update(
+        paramsOrFirst: { tokenId: string; expire?: string | null } | string,
+        ...rest: [(string | null)?]
     ): Promise<Models.ResourceToken> {
-        let params: { tokenId: string; expire?: string };
+        let params: { tokenId: string; expire?: string | null };
 
         if (
             paramsOrFirst &&
@@ -284,12 +362,12 @@ export class Tokens {
         ) {
             params = (paramsOrFirst || {}) as {
                 tokenId: string;
-                expire?: string;
+                expire?: string | null;
             };
         } else {
             params = {
                 tokenId: paramsOrFirst as string,
-                expire: rest[0] as string,
+                expire: rest[0] as string | null,
             };
         }
 
@@ -316,7 +394,25 @@ export class Tokens {
             accept: 'application/json',
         };
 
-        return this.client.call('patch', uri, apiHeaders, apiPayload);
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'resourceToken',
+            models: {
+                resourceToken: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        resourceId: '',
+                        resourceType: '',
+                        expire: '',
+                        secret: '',
+                        accessedAt: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
