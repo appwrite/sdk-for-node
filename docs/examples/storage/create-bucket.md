@@ -20,5 +20,6 @@ const result = await storage.createBucket({
     encryption: false, // optional
     antivirus: false, // optional
     transformations: false, // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

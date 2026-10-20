@@ -15,5 +15,6 @@ const result = await tablesDB.updateLongtextColumn({
     required: false,
     xdefault: 'Hello World',
     newKey: '<NEW_KEY>', // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

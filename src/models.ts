@@ -730,6 +730,10 @@ export namespace Models {
          */
         name: string;
         /**
+         * Optional description for the database.
+         */
+        description: string;
+        /**
          * Database creation date in ISO 8601 format.
          */
         $createdAt: string;
@@ -834,6 +838,10 @@ export namespace Models {
          */
         name: string;
         /**
+         * Optional description for the collection.
+         */
+        description: string;
+        /**
          * Collection enabled. Can be 'enabled' or 'disabled'. When disabled, the collection is inaccessible to users, but remains accessible to Server SDKs using API keys.
          */
         enabled: boolean;
@@ -920,6 +928,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the attribute.
+         */
+        description: string;
+        /**
          * Attribute type.
          */
         type: string;
@@ -969,6 +981,10 @@ export namespace Models {
          * Attribute Key.
          */
         key: string;
+        /**
+         * Optional description for the attribute.
+         */
+        description: string;
         /**
          * Attribute type.
          */
@@ -1020,6 +1036,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the attribute.
+         */
+        description: string;
+        /**
          * Attribute type.
          */
         type: string;
@@ -1069,6 +1089,10 @@ export namespace Models {
          * Attribute Key.
          */
         key: string;
+        /**
+         * Optional description for the attribute.
+         */
+        description: string;
         /**
          * Attribute type.
          */
@@ -1120,6 +1144,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the attribute.
+         */
+        description: string;
+        /**
          * Attribute type.
          */
         type: string;
@@ -1161,6 +1189,10 @@ export namespace Models {
          * Attribute Key.
          */
         key: string;
+        /**
+         * Optional description for the attribute.
+         */
+        description: string;
         /**
          * Attribute type.
          */
@@ -1207,6 +1239,10 @@ export namespace Models {
          * Attribute Key.
          */
         key: string;
+        /**
+         * Optional description for the attribute.
+         */
+        description: string;
         /**
          * Attribute type.
          */
@@ -1258,6 +1294,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the attribute.
+         */
+        description: string;
+        /**
          * Attribute type.
          */
         type: string;
@@ -1303,6 +1343,10 @@ export namespace Models {
          * Attribute Key.
          */
         key: string;
+        /**
+         * Optional description for the attribute.
+         */
+        description: string;
         /**
          * Attribute type.
          */
@@ -1350,6 +1394,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the attribute.
+         */
+        description: string;
+        /**
          * Attribute type.
          */
         type: string;
@@ -1395,6 +1443,10 @@ export namespace Models {
          * Attribute Key.
          */
         key: string;
+        /**
+         * Optional description for the attribute.
+         */
+        description: string;
         /**
          * Attribute type.
          */
@@ -1458,6 +1510,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the attribute.
+         */
+        description: string;
+        /**
          * Attribute type.
          */
         type: string;
@@ -1499,6 +1555,10 @@ export namespace Models {
          * Attribute Key.
          */
         key: string;
+        /**
+         * Optional description for the attribute.
+         */
+        description: string;
         /**
          * Attribute type.
          */
@@ -1542,6 +1602,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the attribute.
+         */
+        description: string;
+        /**
          * Attribute type.
          */
         type: string;
@@ -1583,6 +1647,10 @@ export namespace Models {
          * Attribute Key.
          */
         key: string;
+        /**
+         * Optional description for the attribute.
+         */
+        description: string;
         /**
          * Attribute type.
          */
@@ -1634,6 +1702,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the attribute.
+         */
+        description: string;
+        /**
          * Attribute type.
          */
         type: string;
@@ -1680,6 +1752,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the attribute.
+         */
+        description: string;
+        /**
          * Attribute type.
          */
         type: string;
@@ -1725,6 +1801,10 @@ export namespace Models {
          * Attribute Key.
          */
         key: string;
+        /**
+         * Optional description for the attribute.
+         */
+        description: string;
         /**
          * Attribute type.
          */
@@ -1792,6 +1872,10 @@ export namespace Models {
          */
         name: string;
         /**
+         * Optional description for the collection.
+         */
+        description: string;
+        /**
          * Collection enabled. Can be 'enabled' or 'disabled'. When disabled, the collection is inaccessible to users, but remains accessible to Server SDKs using API keys.
          */
         enabled: boolean;
@@ -1830,6 +1914,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the attribute.
+         */
+        description: string;
+        /**
          * Attribute type.
          */
         type: string;
@@ -1867,6 +1955,10 @@ export namespace Models {
          * Attribute Key.
          */
         key: string;
+        /**
+         * Optional description for the attribute.
+         */
+        description: string;
         /**
          * Attribute type.
          */
@@ -1929,6 +2021,10 @@ export namespace Models {
          * Table name.
          */
         name: string;
+        /**
+         * Optional description for the table.
+         */
+        description: string;
         /**
          * Table enabled. Can be 'enabled' or 'disabled'. When disabled, the table is inaccessible to users, but remains accessible to Server SDKs using API keys.
          */
@@ -2016,6 +2112,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the column.
+         */
+        description: string;
+        /**
          * Column type.
          */
         type: string;
@@ -2065,6 +2165,10 @@ export namespace Models {
          * Column Key.
          */
         key: string;
+        /**
+         * Optional description for the column.
+         */
+        description: string;
         /**
          * Column type.
          */
@@ -2116,6 +2220,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the column.
+         */
+        description: string;
+        /**
          * Column type.
          */
         type: string;
@@ -2165,6 +2273,10 @@ export namespace Models {
          * Column Key.
          */
         key: string;
+        /**
+         * Optional description for the column.
+         */
+        description: string;
         /**
          * Column type.
          */
@@ -2216,6 +2328,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the column.
+         */
+        description: string;
+        /**
          * Column type.
          */
         type: string;
@@ -2257,6 +2373,10 @@ export namespace Models {
          * Column Key.
          */
         key: string;
+        /**
+         * Optional description for the column.
+         */
+        description: string;
         /**
          * Column type.
          */
@@ -2303,6 +2423,10 @@ export namespace Models {
          * Column Key.
          */
         key: string;
+        /**
+         * Optional description for the column.
+         */
+        description: string;
         /**
          * Column type.
          */
@@ -2354,6 +2478,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the column.
+         */
+        description: string;
+        /**
          * Column type.
          */
         type: string;
@@ -2399,6 +2527,10 @@ export namespace Models {
          * Column Key.
          */
         key: string;
+        /**
+         * Optional description for the column.
+         */
+        description: string;
         /**
          * Column type.
          */
@@ -2446,6 +2578,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the column.
+         */
+        description: string;
+        /**
          * Column type.
          */
         type: string;
@@ -2491,6 +2627,10 @@ export namespace Models {
          * Column Key.
          */
         key: string;
+        /**
+         * Optional description for the column.
+         */
+        description: string;
         /**
          * Column type.
          */
@@ -2554,6 +2694,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the column.
+         */
+        description: string;
+        /**
          * Column type.
          */
         type: string;
@@ -2595,6 +2739,10 @@ export namespace Models {
          * Column Key.
          */
         key: string;
+        /**
+         * Optional description for the column.
+         */
+        description: string;
         /**
          * Column type.
          */
@@ -2638,6 +2786,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the column.
+         */
+        description: string;
+        /**
          * Column type.
          */
         type: string;
@@ -2679,6 +2831,10 @@ export namespace Models {
          * Column Key.
          */
         key: string;
+        /**
+         * Optional description for the column.
+         */
+        description: string;
         /**
          * Column type.
          */
@@ -2730,6 +2886,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the column.
+         */
+        description: string;
+        /**
          * Column type.
          */
         type: string;
@@ -2776,6 +2936,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the column.
+         */
+        description: string;
+        /**
          * Column type.
          */
         type: string;
@@ -2821,6 +2985,10 @@ export namespace Models {
          * Column Key.
          */
         key: string;
+        /**
+         * Optional description for the column.
+         */
+        description: string;
         /**
          * Column type.
          */
@@ -2880,6 +3048,10 @@ export namespace Models {
          */
         key: string;
         /**
+         * Optional description for the index.
+         */
+        description: string;
+        /**
          * Index type.
          */
         type: string;
@@ -2925,6 +3097,10 @@ export namespace Models {
          * Index Key.
          */
         key: string;
+        /**
+         * Optional description for the index.
+         */
+        description: string;
         /**
          * Index type.
          */
@@ -3814,6 +3990,10 @@ export namespace Models {
          */
         name: string;
         /**
+         * Optional description for the bucket.
+         */
+        description: string;
+        /**
          * Bucket enabled.
          */
         enabled: boolean;
@@ -4000,6 +4180,10 @@ export namespace Models {
          */
         name: string;
         /**
+         * Optional description for the site.
+         */
+        description: string;
+        /**
          * Site enabled.
          */
         enabled: boolean;
@@ -4149,6 +4333,10 @@ export namespace Models {
          * Function name.
          */
         name: string;
+        /**
+         * Optional description for the function.
+         */
+        description: string;
         /**
          * Function enabled.
          */
@@ -4814,6 +5002,10 @@ export namespace Models {
          */
         name: string;
         /**
+         * Optional description for the webhook.
+         */
+        description: string;
+        /**
          * Webhook URL endpoint.
          */
         url: string;
@@ -4872,6 +5064,10 @@ export namespace Models {
          */
         name: string;
         /**
+         * Optional description for the key.
+         */
+        description: string;
+        /**
          * Key expiration date in ISO 8601 format.
          */
         expire: string;
@@ -4913,6 +5109,10 @@ export namespace Models {
          * Key name.
          */
         name: string;
+        /**
+         * Optional description for the key.
+         */
+        description: string;
         /**
          * Key expiration date in ISO 8601 format.
          */
@@ -6185,6 +6385,10 @@ export namespace Models {
          * Whether password dictionary policy is enabled.
          */
         enabled: boolean;
+        /**
+         * Custom passwords blocked by case-sensitive equality when enabled.
+         */
+        denyList: string[];
     };
 
     /**
@@ -6243,6 +6447,10 @@ export namespace Models {
          * Whether password personal data policy is enabled.
          */
         enabled: boolean;
+        /**
+         * Custom terms blocked by case-insensitive substring matching when enabled.
+         */
+        denyList: string[];
     };
 
     /**
@@ -6683,6 +6891,10 @@ export namespace Models {
          * Variable key.
          */
         key: string;
+        /**
+         * Optional description for the variable.
+         */
+        description: string;
         /**
          * Variable value.
          */
@@ -7257,6 +7469,10 @@ export namespace Models {
          * The name of the topic.
          */
         name: string;
+        /**
+         * Optional description for the topic.
+         */
+        description: string;
         /**
          * Total count of email subscribers subscribed to the topic.
          */
@@ -8185,6 +8401,10 @@ export namespace Models {
          * Shortest function schedule interval allowed, in minutes. 0 allows every interval.
          */
         functionsIntervalMinimum: number;
+        /**
+         * Does the plan allow cron function schedules or only intervals.
+         */
+        functionsAllowCron: boolean;
         /**
          * Does the plan support encrypted string attributes or not.
          */

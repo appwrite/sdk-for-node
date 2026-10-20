@@ -10,5 +10,6 @@ const mysql = new sdk.Mysql(client);
 
 const result = await mysql.list({
     queries: [], // optional
+    total: false, // optional
 });
 ```

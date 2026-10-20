@@ -12,5 +12,6 @@ const result = await databases.create({
     databaseId: '<DATABASE_ID>',
     name: '<NAME>',
     enabled: false, // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

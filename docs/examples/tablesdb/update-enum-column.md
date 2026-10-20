@@ -16,5 +16,6 @@ const result = await tablesDB.updateEnumColumn({
     required: false,
     xdefault: 'active',
     newKey: '<NEW_KEY>', // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

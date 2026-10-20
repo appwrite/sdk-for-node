@@ -15,5 +15,6 @@ const result = await databases.updateEmailAttribute({
     required: false,
     xdefault: 'email@example.com',
     newKey: '<NEW_KEY>', // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

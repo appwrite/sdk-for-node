@@ -17,44 +17,59 @@ export class Postgresql {
      * List all dedicated databases. Results support pagination.
      *
      * @param {string[]} params.queries - Array of query strings.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DedicatedDatabaseList>}
      */
     list(params?: {
         queries?: string[];
+        total?: boolean;
     }): Promise<Models.DedicatedDatabaseList>;
     /**
      * List all dedicated databases. Results support pagination.
      *
      * @param {string[]} queries - Array of query strings.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DedicatedDatabaseList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    list(queries?: string[]): Promise<Models.DedicatedDatabaseList>;
     list(
-        paramsOrFirst?: { queries?: string[] } | string[],
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.DedicatedDatabaseList>;
+    list(
+        paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
+        ...rest: [boolean?]
     ): Promise<Models.DedicatedDatabaseList> {
-        let params: { queries?: string[] };
+        let params: { queries?: string[]; total?: boolean };
 
         if (
-            typeof paramsOrFirst === 'undefined' ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
         ) {
-            params = (paramsOrFirst || {}) as { queries?: string[] };
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
+                total: rest[0] as boolean,
             };
         }
 
         const queries = params.queries;
+        const total = params.total;
         const apiPath = '/postgresql';
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1047,18 +1062,21 @@ export class Postgresql {
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: status, type, databaseId
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DedicatedDatabaseBackupList>}
      */
     listBackups(params: {
         databaseId: string;
         queries?: string[];
+        total?: boolean;
     }): Promise<Models.DedicatedDatabaseBackupList>;
     /**
      * List all backups for a dedicated database. Results can be filtered by status and type.
      *
      * @param {string} databaseId - Database ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: status, type, databaseId
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DedicatedDatabaseBackupList>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1066,12 +1084,15 @@ export class Postgresql {
     listBackups(
         databaseId: string,
         queries?: string[],
+        total?: boolean,
     ): Promise<Models.DedicatedDatabaseBackupList>;
     listBackups(
-        paramsOrFirst: { databaseId: string; queries?: string[] } | string,
-        ...rest: [string[]?]
+        paramsOrFirst:
+            | { databaseId: string; queries?: string[]; total?: boolean }
+            | string,
+        ...rest: [string[]?, boolean?]
     ): Promise<Models.DedicatedDatabaseBackupList> {
-        let params: { databaseId: string; queries?: string[] };
+        let params: { databaseId: string; queries?: string[]; total?: boolean };
 
         if (
             paramsOrFirst &&
@@ -1081,16 +1102,19 @@ export class Postgresql {
             params = (paramsOrFirst || {}) as {
                 databaseId: string;
                 queries?: string[];
+                total?: boolean;
             };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 queries: rest[0] as string[],
+                total: rest[1] as boolean,
             };
         }
 
         const databaseId = params.databaseId;
         const queries = params.queries;
+        const total = params.total;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -1103,6 +1127,9 @@ export class Postgresql {
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1249,18 +1276,21 @@ export class Postgresql {
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.BackupPolicyList>}
      */
     listBackupPolicies(params: {
         databaseId: string;
         queries?: string[];
+        total?: boolean;
     }): Promise<Models.BackupPolicyList>;
     /**
      * List scheduled backup policies for a dedicated database.
      *
      * @param {string} databaseId - Database ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.BackupPolicyList>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1268,12 +1298,15 @@ export class Postgresql {
     listBackupPolicies(
         databaseId: string,
         queries?: string[],
+        total?: boolean,
     ): Promise<Models.BackupPolicyList>;
     listBackupPolicies(
-        paramsOrFirst: { databaseId: string; queries?: string[] } | string,
-        ...rest: [string[]?]
+        paramsOrFirst:
+            | { databaseId: string; queries?: string[]; total?: boolean }
+            | string,
+        ...rest: [string[]?, boolean?]
     ): Promise<Models.BackupPolicyList> {
-        let params: { databaseId: string; queries?: string[] };
+        let params: { databaseId: string; queries?: string[]; total?: boolean };
 
         if (
             paramsOrFirst &&
@@ -1283,16 +1316,19 @@ export class Postgresql {
             params = (paramsOrFirst || {}) as {
                 databaseId: string;
                 queries?: string[];
+                total?: boolean;
             };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 queries: rest[0] as string[],
+                total: rest[1] as boolean,
             };
         }
 
         const databaseId = params.databaseId;
         const queries = params.queries;
+        const total = params.total;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -1305,6 +1341,9 @@ export class Postgresql {
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

@@ -17,5 +17,6 @@ const result = await tablesDB.updateFloatColumn({
     min: 0, // optional
     max: 100, // optional
     newKey: '<NEW_KEY>', // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

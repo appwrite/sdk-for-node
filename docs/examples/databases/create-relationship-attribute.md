@@ -17,5 +17,6 @@ const result = await databases.createRelationshipAttribute({
     key: '<KEY>', // optional
     twoWayKey: '<TWO_WAY_KEY>', // optional
     onDelete: sdk.RelationMutate.Cascade, // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

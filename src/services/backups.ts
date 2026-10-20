@@ -18,44 +18,59 @@ export class Backups {
      * List all archives for a project.
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.BackupArchiveList>}
      */
     listArchives(params?: {
         queries?: string[];
+        total?: boolean;
     }): Promise<Models.BackupArchiveList>;
     /**
      * List all archives for a project.
      *
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.BackupArchiveList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listArchives(queries?: string[]): Promise<Models.BackupArchiveList>;
     listArchives(
-        paramsOrFirst?: { queries?: string[] } | string[],
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.BackupArchiveList>;
+    listArchives(
+        paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
+        ...rest: [boolean?]
     ): Promise<Models.BackupArchiveList> {
-        let params: { queries?: string[] };
+        let params: { queries?: string[]; total?: boolean };
 
         if (
-            typeof paramsOrFirst === 'undefined' ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
         ) {
-            params = (paramsOrFirst || {}) as { queries?: string[] };
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
+                total: rest[0] as boolean,
             };
         }
 
         const queries = params.queries;
+        const total = params.total;
         const apiPath = '/backups/archives';
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -324,44 +339,59 @@ export class Backups {
      * List all policies for a project.
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.BackupPolicyList>}
      */
     listPolicies(params?: {
         queries?: string[];
+        total?: boolean;
     }): Promise<Models.BackupPolicyList>;
     /**
      * List all policies for a project.
      *
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.BackupPolicyList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listPolicies(queries?: string[]): Promise<Models.BackupPolicyList>;
     listPolicies(
-        paramsOrFirst?: { queries?: string[] } | string[],
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.BackupPolicyList>;
+    listPolicies(
+        paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
+        ...rest: [boolean?]
     ): Promise<Models.BackupPolicyList> {
-        let params: { queries?: string[] };
+        let params: { queries?: string[]; total?: boolean };
 
         if (
-            typeof paramsOrFirst === 'undefined' ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
         ) {
-            params = (paramsOrFirst || {}) as { queries?: string[] };
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
+                total: rest[0] as boolean,
             };
         }
 
         const queries = params.queries;
+        const total = params.total;
         const apiPath = '/backups/policies';
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1015,44 +1045,59 @@ export class Backups {
      * List all backup restorations for a project.
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.BackupRestorationList>}
      */
     listRestorations(params?: {
         queries?: string[];
+        total?: boolean;
     }): Promise<Models.BackupRestorationList>;
     /**
      * List all backup restorations for a project.
      *
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.BackupRestorationList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listRestorations(queries?: string[]): Promise<Models.BackupRestorationList>;
     listRestorations(
-        paramsOrFirst?: { queries?: string[] } | string[],
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.BackupRestorationList>;
+    listRestorations(
+        paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
+        ...rest: [boolean?]
     ): Promise<Models.BackupRestorationList> {
-        let params: { queries?: string[] };
+        let params: { queries?: string[]; total?: boolean };
 
         if (
-            typeof paramsOrFirst === 'undefined' ||
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
             (paramsOrFirst &&
                 typeof paramsOrFirst === 'object' &&
                 !Array.isArray(paramsOrFirst))
         ) {
-            params = (paramsOrFirst || {}) as { queries?: string[] };
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                total?: boolean;
+            };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
+                total: rest[0] as boolean,
             };
         }
 
         const queries = params.queries;
+        const total = params.total;
         const apiPath = '/backups/restorations';
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

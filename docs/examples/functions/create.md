@@ -32,5 +32,6 @@ const result = await functions.create({
     runtimeSpecification: 's-1vcpu-512mb', // optional
     deploymentRetention: 0, // optional
     interval: 0, // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

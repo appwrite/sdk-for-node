@@ -14,5 +14,6 @@ const result = await tablesDB.createPointColumn({
     key: '<KEY>',
     required: false,
     xdefault: [1, 2], // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

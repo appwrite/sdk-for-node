@@ -10,5 +10,6 @@ const backups = new sdk.Backups(client);
 
 const result = await backups.listArchives({
     queries: [], // optional
+    total: false, // optional
 });
 ```

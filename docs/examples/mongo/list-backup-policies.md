@@ -11,5 +11,6 @@ const mongo = new sdk.Mongo(client);
 const result = await mongo.listBackupPolicies({
     databaseId: '<DATABASE_ID>',
     queries: [], // optional
+    total: false, // optional
 });
 ```

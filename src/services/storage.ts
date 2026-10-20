@@ -117,6 +117,7 @@ export class Storage {
                         $permissions: [],
                         fileSecurity: false,
                         name: '',
+                        description: '',
                         enabled: true,
                         maximumFileSize: 0,
                         allowedFileExtensions: [],
@@ -147,6 +148,7 @@ export class Storage {
      * @param {boolean} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} params.antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} params.transformations - Are image transformations enabled?
+     * @param {string} params.description - Optional description for the bucket.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
@@ -162,6 +164,7 @@ export class Storage {
         encryption?: boolean;
         antivirus?: boolean;
         transformations?: boolean;
+        description?: string;
     }): Promise<Models.Bucket>;
     /**
      * Create a new storage bucket.
@@ -177,6 +180,7 @@ export class Storage {
      * @param {boolean} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} transformations - Are image transformations enabled?
+     * @param {string} description - Optional description for the bucket.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -193,6 +197,7 @@ export class Storage {
         encryption?: boolean,
         antivirus?: boolean,
         transformations?: boolean,
+        description?: string,
     ): Promise<Models.Bucket>;
     createBucket(
         paramsOrFirst:
@@ -208,6 +213,7 @@ export class Storage {
                   encryption?: boolean;
                   antivirus?: boolean;
                   transformations?: boolean;
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -221,6 +227,7 @@ export class Storage {
             boolean?,
             boolean?,
             boolean?,
+            string?,
         ]
     ): Promise<Models.Bucket> {
         let params: {
@@ -235,6 +242,7 @@ export class Storage {
             encryption?: boolean;
             antivirus?: boolean;
             transformations?: boolean;
+            description?: string;
         };
 
         if (
@@ -254,6 +262,7 @@ export class Storage {
                 encryption?: boolean;
                 antivirus?: boolean;
                 transformations?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -268,6 +277,7 @@ export class Storage {
                 encryption: rest[7] as boolean,
                 antivirus: rest[8] as boolean,
                 transformations: rest[9] as boolean,
+                description: rest[10] as string,
             };
         }
 
@@ -282,6 +292,7 @@ export class Storage {
         const encryption = params.encryption;
         const antivirus = params.antivirus;
         const transformations = params.transformations;
+        const description = params.description;
         if (typeof bucketId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
@@ -325,6 +336,9 @@ export class Storage {
         if (typeof transformations !== 'undefined') {
             apiPayload['transformations'] = transformations;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -345,6 +359,7 @@ export class Storage {
                         $permissions: [],
                         fileSecurity: false,
                         name: '',
+                        description: '',
                         enabled: true,
                         maximumFileSize: 0,
                         allowedFileExtensions: [],
@@ -425,6 +440,7 @@ export class Storage {
                         $permissions: [],
                         fileSecurity: false,
                         name: '',
+                        description: '',
                         enabled: true,
                         maximumFileSize: 0,
                         allowedFileExtensions: [],
@@ -455,6 +471,7 @@ export class Storage {
      * @param {boolean | null} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} params.antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} params.transformations - Are image transformations enabled?
+     * @param {string | null} params.description - Optional description for the bucket.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      */
@@ -470,6 +487,7 @@ export class Storage {
         encryption?: boolean | null;
         antivirus?: boolean;
         transformations?: boolean;
+        description?: string | null;
     }): Promise<Models.Bucket>;
     /**
      * Update a storage bucket by its unique ID.
@@ -485,6 +503,7 @@ export class Storage {
      * @param {boolean | null} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} transformations - Are image transformations enabled?
+     * @param {string | null} description - Optional description for the bucket.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Bucket>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -501,6 +520,7 @@ export class Storage {
         encryption?: boolean | null,
         antivirus?: boolean,
         transformations?: boolean,
+        description?: string | null,
     ): Promise<Models.Bucket>;
     updateBucket(
         paramsOrFirst:
@@ -516,6 +536,7 @@ export class Storage {
                   encryption?: boolean | null;
                   antivirus?: boolean;
                   transformations?: boolean;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -529,6 +550,7 @@ export class Storage {
             (boolean | null)?,
             boolean?,
             boolean?,
+            (string | null)?,
         ]
     ): Promise<Models.Bucket> {
         let params: {
@@ -543,6 +565,7 @@ export class Storage {
             encryption?: boolean | null;
             antivirus?: boolean;
             transformations?: boolean;
+            description?: string | null;
         };
 
         if (
@@ -562,6 +585,7 @@ export class Storage {
                 encryption?: boolean | null;
                 antivirus?: boolean;
                 transformations?: boolean;
+                description?: string | null;
             };
         } else {
             params = {
@@ -576,6 +600,7 @@ export class Storage {
                 encryption: rest[7] as boolean | null,
                 antivirus: rest[8] as boolean,
                 transformations: rest[9] as boolean,
+                description: rest[10] as string | null,
             };
         }
 
@@ -590,6 +615,7 @@ export class Storage {
         const encryption = params.encryption;
         const antivirus = params.antivirus;
         const transformations = params.transformations;
+        const description = params.description;
         if (typeof bucketId === 'undefined' || bucketId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "bucketId"',
@@ -633,6 +659,9 @@ export class Storage {
         if (typeof transformations !== 'undefined') {
             apiPayload['transformations'] = transformations;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -653,6 +682,7 @@ export class Storage {
                         $permissions: [],
                         fileSecurity: false,
                         name: '',
+                        description: '',
                         enabled: true,
                         maximumFileSize: 0,
                         allowedFileExtensions: [],

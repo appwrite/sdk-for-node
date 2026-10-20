@@ -28,6 +28,7 @@ describe('DocumentsDB', () => {
         const data = {
             $id: '5e5ea5c16897e',
             name: 'My Database',
+            description: 'Customer orders and invoices.',
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
@@ -151,6 +152,7 @@ describe('DocumentsDB', () => {
         const data = {
             $id: '5e5ea5c16897e',
             name: 'My Database',
+            description: 'Customer orders and invoices.',
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
@@ -168,6 +170,7 @@ describe('DocumentsDB', () => {
         const data = {
             $id: '5e5ea5c16897e',
             name: 'My Database',
+            description: 'Customer orders and invoices.',
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
@@ -212,6 +215,7 @@ describe('DocumentsDB', () => {
             $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Collection',
+            description: 'Movies available in the catalog.',
             enabled: true,
             documentSecurity: true,
             attributes: [],
@@ -239,6 +243,7 @@ describe('DocumentsDB', () => {
             $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Collection',
+            description: 'Movies available in the catalog.',
             enabled: true,
             documentSecurity: true,
             attributes: [],
@@ -265,6 +270,7 @@ describe('DocumentsDB', () => {
             $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Collection',
+            description: 'Movies available in the catalog.',
             enabled: true,
             documentSecurity: true,
             attributes: [],
@@ -393,6 +399,22 @@ describe('DocumentsDB', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await documentsDB.deleteDocuments(
+            '<DATABASE_ID>',
+            '<COLLECTION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method createQuery()', async () => {
+        const data = {
+            total: 5,
+            documents: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await documentsDB.createQuery(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
         );
@@ -550,6 +572,7 @@ describe('DocumentsDB', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'index1',
+            description: 'Speeds up lookups by email.',
             type: 'primary',
             status: 'available',
             error: 'string',
@@ -576,6 +599,7 @@ describe('DocumentsDB', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'index1',
+            description: 'Speeds up lookups by email.',
             type: 'primary',
             status: 'available',
             error: 'string',

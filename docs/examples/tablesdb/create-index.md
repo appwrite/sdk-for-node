@@ -16,5 +16,6 @@ const result = await tablesDB.createIndex({
     columns: ['username'],
     orders: [sdk.OrderBy.Asc], // optional
     lengths: [], // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

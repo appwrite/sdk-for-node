@@ -14,5 +14,6 @@ const result = await sites.updateVariable({
     key: '<KEY>', // optional
     value: '<VALUE>', // optional
     secret: false, // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```
