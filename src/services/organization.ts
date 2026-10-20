@@ -1848,6 +1848,7 @@ export class Organization {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         expire: '',
                         scopes: [],
                         secret: '',
@@ -1974,6 +1975,7 @@ export class Organization {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         expire: '',
                         scopes: [],
                         secret: '',
@@ -2062,6 +2064,7 @@ export class Organization {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         expire: '',
                         scopes: [],
                         secret: '',
@@ -2083,6 +2086,7 @@ export class Organization {
      * @param {string} params.name - Key name. Max length: 128 chars.
      * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 200 scopes are allowed.
      * @param {string | null} params.expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+     * @param {string | null} params.description - Optional description for the key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
      */
@@ -2092,6 +2096,7 @@ export class Organization {
         name: string;
         scopes: ProjectKeyScopes[];
         expire?: string | null;
+        description?: string | null;
     }): Promise<Models.Key>;
     /**
      * Update a project key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
@@ -2101,6 +2106,7 @@ export class Organization {
      * @param {string} name - Key name. Max length: 128 chars.
      * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 200 scopes are allowed.
      * @param {string | null} expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+     * @param {string | null} description - Optional description for the key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2111,6 +2117,7 @@ export class Organization {
         name: string,
         scopes: ProjectKeyScopes[],
         expire?: string | null,
+        description?: string | null,
     ): Promise<Models.Key>;
     updateProjectKey(
         paramsOrFirst:
@@ -2120,9 +2127,16 @@ export class Organization {
                   name: string;
                   scopes: ProjectKeyScopes[];
                   expire?: string | null;
+                  description?: string | null;
               }
             | string,
-        ...rest: [string?, string?, ProjectKeyScopes[]?, (string | null)?]
+        ...rest: [
+            string?,
+            string?,
+            ProjectKeyScopes[]?,
+            (string | null)?,
+            (string | null)?,
+        ]
     ): Promise<Models.Key> {
         let params: {
             projectId: string;
@@ -2130,6 +2144,7 @@ export class Organization {
             name: string;
             scopes: ProjectKeyScopes[];
             expire?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -2143,6 +2158,7 @@ export class Organization {
                 name: string;
                 scopes: ProjectKeyScopes[];
                 expire?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -2151,6 +2167,7 @@ export class Organization {
                 name: rest[1] as string,
                 scopes: rest[2] as ProjectKeyScopes[],
                 expire: rest[3] as string | null,
+                description: rest[4] as string | null,
             };
         }
 
@@ -2159,6 +2176,7 @@ export class Organization {
         const name = params.name;
         const scopes = params.scopes;
         const expire = params.expire;
+        const description = params.description;
         if (typeof projectId === 'undefined' || projectId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "projectId"',
@@ -2186,6 +2204,9 @@ export class Organization {
         if (typeof expire !== 'undefined') {
             apiPayload['expire'] = expire;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -2204,6 +2225,7 @@ export class Organization {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         expire: '',
                         scopes: [],
                         secret: '',

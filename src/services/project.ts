@@ -1021,6 +1021,7 @@ export class Project {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         expire: '',
                         scopes: [],
                         secret: '',
@@ -1124,6 +1125,7 @@ export class Project {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         expire: '',
                         scopes: [],
                         secret: '',
@@ -1195,6 +1197,7 @@ export class Project {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         expire: '',
                         scopes: [],
                         secret: '',
@@ -1215,6 +1218,7 @@ export class Project {
      * @param {string} params.name - Key name. Max length: 128 chars.
      * @param {ProjectKeyScopes[]} params.scopes - Key scopes list. Maximum of 200 scopes are allowed.
      * @param {string | null} params.expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+     * @param {string | null} params.description - Optional description for the key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
      */
@@ -1223,6 +1227,7 @@ export class Project {
         name: string;
         scopes: ProjectKeyScopes[];
         expire?: string | null;
+        description?: string | null;
     }): Promise<Models.Key>;
     /**
      * Update a key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
@@ -1231,6 +1236,7 @@ export class Project {
      * @param {string} name - Key name. Max length: 128 chars.
      * @param {ProjectKeyScopes[]} scopes - Key scopes list. Maximum of 200 scopes are allowed.
      * @param {string | null} expire - Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+     * @param {string | null} description - Optional description for the key.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Key>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1240,6 +1246,7 @@ export class Project {
         name: string,
         scopes: ProjectKeyScopes[],
         expire?: string | null,
+        description?: string | null,
     ): Promise<Models.Key>;
     updateKey(
         paramsOrFirst:
@@ -1248,15 +1255,22 @@ export class Project {
                   name: string;
                   scopes: ProjectKeyScopes[];
                   expire?: string | null;
+                  description?: string | null;
               }
             | string,
-        ...rest: [string?, ProjectKeyScopes[]?, (string | null)?]
+        ...rest: [
+            string?,
+            ProjectKeyScopes[]?,
+            (string | null)?,
+            (string | null)?,
+        ]
     ): Promise<Models.Key> {
         let params: {
             keyId: string;
             name: string;
             scopes: ProjectKeyScopes[];
             expire?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -1269,6 +1283,7 @@ export class Project {
                 name: string;
                 scopes: ProjectKeyScopes[];
                 expire?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -1276,6 +1291,7 @@ export class Project {
                 name: rest[0] as string,
                 scopes: rest[1] as ProjectKeyScopes[],
                 expire: rest[2] as string | null,
+                description: rest[3] as string | null,
             };
         }
 
@@ -1283,6 +1299,7 @@ export class Project {
         const name = params.name;
         const scopes = params.scopes;
         const expire = params.expire;
+        const description = params.description;
         if (typeof keyId === 'undefined' || keyId === '') {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
@@ -1306,6 +1323,9 @@ export class Project {
         if (typeof expire !== 'undefined') {
             apiPayload['expire'] = expire;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1324,6 +1344,7 @@ export class Project {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         expire: '',
                         scopes: [],
                         secret: '',
@@ -10606,40 +10627,57 @@ export class Project {
     /**
      * Updating this policy allows you to control if new passwords are checked against most common passwords dictionary. When enabled, and user changes their password, password must not be contained in the dictionary.
      *
+     * Custom denyList entries use case-sensitive equality and apply only while this policy is enabled. Omit denyList or pass null to preserve it, pass an array to replace it, or pass [] to clear it. Entries are stored without trimming or deduplication. Existing passwords remain valid for sign-in and password confirmation. The combined serialized project authentication configuration must fit within 16,384 characters, even when each list meets its entry limits.
+     *
      * @param {boolean} params.enabled - Toggle password dictionary policy. Set to true if you want password change to block passwords in the dictionary, or false to allow them. When changing this policy, existing passwords remain valid.
+     * @param {string[] | null} params.denyList - Custom blocked values using case-sensitive equality. Up to 100 entries of 1 to 256 characters. Omit or pass null to preserve, an array to replace, or [] to clear. Combined authentication settings must fit within 16,384 characters.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
     updatePasswordDictionaryPolicy(params: {
         enabled: boolean;
+        denyList?: string[] | null;
     }): Promise<Models.Project>;
     /**
      * Updating this policy allows you to control if new passwords are checked against most common passwords dictionary. When enabled, and user changes their password, password must not be contained in the dictionary.
      *
+     * Custom denyList entries use case-sensitive equality and apply only while this policy is enabled. Omit denyList or pass null to preserve it, pass an array to replace it, or pass [] to clear it. Entries are stored without trimming or deduplication. Existing passwords remain valid for sign-in and password confirmation. The combined serialized project authentication configuration must fit within 16,384 characters, even when each list meets its entry limits.
+     *
      * @param {boolean} enabled - Toggle password dictionary policy. Set to true if you want password change to block passwords in the dictionary, or false to allow them. When changing this policy, existing passwords remain valid.
+     * @param {string[] | null} denyList - Custom blocked values using case-sensitive equality. Up to 100 entries of 1 to 256 characters. Omit or pass null to preserve, an array to replace, or [] to clear. Combined authentication settings must fit within 16,384 characters.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePasswordDictionaryPolicy(enabled: boolean): Promise<Models.Project>;
     updatePasswordDictionaryPolicy(
-        paramsOrFirst: { enabled: boolean } | boolean,
+        enabled: boolean,
+        denyList?: string[] | null,
+    ): Promise<Models.Project>;
+    updatePasswordDictionaryPolicy(
+        paramsOrFirst:
+            { enabled: boolean; denyList?: string[] | null } | boolean,
+        ...rest: [(string[] | null)?]
     ): Promise<Models.Project> {
-        let params: { enabled: boolean };
+        let params: { enabled: boolean; denyList?: string[] | null };
 
         if (
             paramsOrFirst &&
             typeof paramsOrFirst === 'object' &&
             !Array.isArray(paramsOrFirst)
         ) {
-            params = (paramsOrFirst || {}) as { enabled: boolean };
+            params = (paramsOrFirst || {}) as {
+                enabled: boolean;
+                denyList?: string[] | null;
+            };
         } else {
             params = {
                 enabled: paramsOrFirst as boolean,
+                denyList: rest[0] as string[] | null,
             };
         }
 
         const enabled = params.enabled;
+        const denyList = params.denyList;
         if (typeof enabled === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "enabled"',
@@ -10649,6 +10687,9 @@ export class Project {
         const apiPayload: Payload = {};
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof denyList !== 'undefined') {
+            apiPayload['denyList'] = denyList;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -10872,40 +10913,59 @@ export class Project {
     /**
      * Updating this policy allows you to control if password strength is checked against personal data. When enabled, and user sets or changes their password, the password must not contain user ID, name, email or phone number.
      *
+     * Custom denyList entries use case-insensitive substring matching and apply only while this policy is enabled. Omit denyList or pass null to preserve it, pass an array to replace it, or pass [] to clear it. Entries are stored without trimming or deduplication. Existing passwords remain valid for sign-in and password confirmation. The combined serialized project authentication configuration must fit within 16,384 characters, even when each list meets its entry limits.
+     * Password recovery also checks the recovered user profile, closing the previous gap in profile-based personal-data validation.
+     *
      * @param {boolean} params.enabled - Toggle password personal data policy. Set to true if you want to block passwords including user's personal data, or false to allow it. When changing this policy, existing passwords remain valid.
+     * @param {string[] | null} params.denyList - Custom blocked values using case-insensitive substring matching. Up to 100 entries of 1 to 256 characters. Omit or pass null to preserve, an array to replace, or [] to clear. Combined authentication settings must fit within 16,384 characters.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      */
     updatePasswordPersonalDataPolicy(params: {
         enabled: boolean;
+        denyList?: string[] | null;
     }): Promise<Models.Project>;
     /**
      * Updating this policy allows you to control if password strength is checked against personal data. When enabled, and user sets or changes their password, the password must not contain user ID, name, email or phone number.
      *
+     * Custom denyList entries use case-insensitive substring matching and apply only while this policy is enabled. Omit denyList or pass null to preserve it, pass an array to replace it, or pass [] to clear it. Entries are stored without trimming or deduplication. Existing passwords remain valid for sign-in and password confirmation. The combined serialized project authentication configuration must fit within 16,384 characters, even when each list meets its entry limits.
+     * Password recovery also checks the recovered user profile, closing the previous gap in profile-based personal-data validation.
+     *
      * @param {boolean} enabled - Toggle password personal data policy. Set to true if you want to block passwords including user's personal data, or false to allow it. When changing this policy, existing passwords remain valid.
+     * @param {string[] | null} denyList - Custom blocked values using case-insensitive substring matching. Up to 100 entries of 1 to 256 characters. Omit or pass null to preserve, an array to replace, or [] to clear. Combined authentication settings must fit within 16,384 characters.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePasswordPersonalDataPolicy(enabled: boolean): Promise<Models.Project>;
     updatePasswordPersonalDataPolicy(
-        paramsOrFirst: { enabled: boolean } | boolean,
+        enabled: boolean,
+        denyList?: string[] | null,
+    ): Promise<Models.Project>;
+    updatePasswordPersonalDataPolicy(
+        paramsOrFirst:
+            { enabled: boolean; denyList?: string[] | null } | boolean,
+        ...rest: [(string[] | null)?]
     ): Promise<Models.Project> {
-        let params: { enabled: boolean };
+        let params: { enabled: boolean; denyList?: string[] | null };
 
         if (
             paramsOrFirst &&
             typeof paramsOrFirst === 'object' &&
             !Array.isArray(paramsOrFirst)
         ) {
-            params = (paramsOrFirst || {}) as { enabled: boolean };
+            params = (paramsOrFirst || {}) as {
+                enabled: boolean;
+                denyList?: string[] | null;
+            };
         } else {
             params = {
                 enabled: paramsOrFirst as boolean,
+                denyList: rest[0] as string[] | null,
             };
         }
 
         const enabled = params.enabled;
+        const denyList = params.denyList;
         if (typeof enabled === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "enabled"',
@@ -10915,6 +10975,9 @@ export class Project {
         const apiPayload: Payload = {};
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof denyList !== 'undefined') {
+            apiPayload['denyList'] = denyList;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -13296,6 +13359,7 @@ export class Project {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         value: '',
                         secret: false,
                         resourceType: '',
@@ -13315,6 +13379,7 @@ export class Project {
      * @param {string} params.key - Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
      * @param {string} params.value - Variable value. Max length: 8192 chars.
      * @param {boolean} params.secret - Secret variables can be updated or deleted, but only projects can read them during build and runtime.
+     * @param {string} params.description - Optional description for the variable.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
@@ -13323,6 +13388,7 @@ export class Project {
         key: string;
         value: string;
         secret?: boolean;
+        description?: string;
     }): Promise<Models.Variable>;
     /**
      * Create a new project environment variable. These variables can be accessed by all functions and sites in the project.
@@ -13331,6 +13397,7 @@ export class Project {
      * @param {string} key - Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
      * @param {string} value - Variable value. Max length: 8192 chars.
      * @param {boolean} secret - Secret variables can be updated or deleted, but only projects can read them during build and runtime.
+     * @param {string} description - Optional description for the variable.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -13340,6 +13407,7 @@ export class Project {
         key: string,
         value: string,
         secret?: boolean,
+        description?: string,
     ): Promise<Models.Variable>;
     createVariable(
         paramsOrFirst:
@@ -13348,15 +13416,17 @@ export class Project {
                   key: string;
                   value: string;
                   secret?: boolean;
+                  description?: string;
               }
             | string,
-        ...rest: [string?, string?, boolean?]
+        ...rest: [string?, string?, boolean?, string?]
     ): Promise<Models.Variable> {
         let params: {
             variableId: string;
             key: string;
             value: string;
             secret?: boolean;
+            description?: string;
         };
 
         if (
@@ -13369,6 +13439,7 @@ export class Project {
                 key: string;
                 value: string;
                 secret?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -13376,6 +13447,7 @@ export class Project {
                 key: rest[0] as string,
                 value: rest[1] as string,
                 secret: rest[2] as boolean,
+                description: rest[3] as string,
             };
         }
 
@@ -13383,6 +13455,7 @@ export class Project {
         const key = params.key;
         const value = params.value;
         const secret = params.secret;
+        const description = params.description;
         if (typeof variableId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "variableId"',
@@ -13408,6 +13481,9 @@ export class Project {
         if (typeof secret !== 'undefined') {
             apiPayload['secret'] = secret;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -13426,6 +13502,7 @@ export class Project {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         value: '',
                         secret: false,
                         resourceType: '',
@@ -13500,6 +13577,7 @@ export class Project {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         value: '',
                         secret: false,
                         resourceType: '',
@@ -13519,6 +13597,7 @@ export class Project {
      * @param {string | null} params.key - Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
      * @param {string | null} params.value - Variable value. Max length: 8192 chars.
      * @param {boolean | null} params.secret - Secret variables can be updated or deleted, but only projects can read them during build and runtime.
+     * @param {string | null} params.description - Optional description for the variable.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
@@ -13527,6 +13606,7 @@ export class Project {
         key?: string | null;
         value?: string | null;
         secret?: boolean | null;
+        description?: string | null;
     }): Promise<Models.Variable>;
     /**
      * Update variable by its unique ID.
@@ -13535,6 +13615,7 @@ export class Project {
      * @param {string | null} key - Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
      * @param {string | null} value - Variable value. Max length: 8192 chars.
      * @param {boolean | null} secret - Secret variables can be updated or deleted, but only projects can read them during build and runtime.
+     * @param {string | null} description - Optional description for the variable.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -13544,6 +13625,7 @@ export class Project {
         key?: string | null,
         value?: string | null,
         secret?: boolean | null,
+        description?: string | null,
     ): Promise<Models.Variable>;
     updateVariable(
         paramsOrFirst:
@@ -13552,15 +13634,22 @@ export class Project {
                   key?: string | null;
                   value?: string | null;
                   secret?: boolean | null;
+                  description?: string | null;
               }
             | string,
-        ...rest: [(string | null)?, (string | null)?, (boolean | null)?]
+        ...rest: [
+            (string | null)?,
+            (string | null)?,
+            (boolean | null)?,
+            (string | null)?,
+        ]
     ): Promise<Models.Variable> {
         let params: {
             variableId: string;
             key?: string | null;
             value?: string | null;
             secret?: boolean | null;
+            description?: string | null;
         };
 
         if (
@@ -13573,6 +13662,7 @@ export class Project {
                 key?: string | null;
                 value?: string | null;
                 secret?: boolean | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -13580,6 +13670,7 @@ export class Project {
                 key: rest[0] as string | null,
                 value: rest[1] as string | null,
                 secret: rest[2] as boolean | null,
+                description: rest[3] as string | null,
             };
         }
 
@@ -13587,6 +13678,7 @@ export class Project {
         const key = params.key;
         const value = params.value;
         const secret = params.secret;
+        const description = params.description;
         if (typeof variableId === 'undefined' || variableId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "variableId"',
@@ -13606,6 +13698,9 @@ export class Project {
         if (typeof secret !== 'undefined') {
             apiPayload['secret'] = secret;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -13624,6 +13719,7 @@ export class Project {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         value: '',
                         secret: false,
                         resourceType: '',

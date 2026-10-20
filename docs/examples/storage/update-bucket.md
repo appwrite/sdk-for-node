@@ -20,5 +20,7 @@ const result = await storage.updateBucket({
     encryption: false, // optional
     antivirus: false, // optional
     transformations: false, // optional
+    description: '<DESCRIPTION>', // optional
+    stripMetadata: false, // optional
 });
 ```

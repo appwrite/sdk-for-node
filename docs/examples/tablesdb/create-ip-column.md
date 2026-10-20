@@ -15,5 +15,6 @@ const result = await tablesDB.createIpColumn({
     required: false,
     xdefault: '192.0.2.0', // optional
     array: false, // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

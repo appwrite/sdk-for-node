@@ -17,5 +17,6 @@ const result = await tablesDB.createTable({
     enabled: false, // optional
     columns: [], // optional
     indexes: [], // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

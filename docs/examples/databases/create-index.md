@@ -16,5 +16,6 @@ const result = await databases.createIndex({
     attributes: ['username'],
     orders: [sdk.OrderBy.Asc], // optional
     lengths: [], // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

@@ -16,5 +16,6 @@ const result = await vectorsDB.createIndex({
     attributes: ['embeddings'],
     orders: [sdk.OrderBy.Asc], // optional
     lengths: [], // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

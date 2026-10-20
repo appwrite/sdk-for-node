@@ -19,28 +19,36 @@ export class Domains {
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on attributes such as domain name, teamInternalId, expiration, etc.
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DomainsList>}
      */
     list(params?: {
         queries?: string[];
         search?: string;
+        total?: boolean;
     }): Promise<Models.DomainsList>;
     /**
      * List all domains registered for this project. This endpoint supports pagination.
      *
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on attributes such as domain name, teamInternalId, expiration, etc.
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DomainsList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    list(queries?: string[], search?: string): Promise<Models.DomainsList>;
     list(
-        paramsOrFirst?: { queries?: string[]; search?: string } | string[],
-        ...rest: [string?]
+        queries?: string[],
+        search?: string,
+        total?: boolean,
+    ): Promise<Models.DomainsList>;
+    list(
+        paramsOrFirst?:
+            { queries?: string[]; search?: string; total?: boolean } | string[],
+        ...rest: [string?, boolean?]
     ): Promise<Models.DomainsList> {
-        let params: { queries?: string[]; search?: string };
+        let params: { queries?: string[]; search?: string; total?: boolean };
 
         if (
             (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
@@ -51,16 +59,19 @@ export class Domains {
             params = (paramsOrFirst || {}) as {
                 queries?: string[];
                 search?: string;
+                total?: boolean;
             };
         } else {
             params = {
                 queries: paramsOrFirst as string[],
                 search: rest[0] as string,
+                total: rest[1] as boolean,
             };
         }
 
         const queries = params.queries;
         const search = params.search;
+        const total = params.total;
         const apiPath = '/domains';
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -68,6 +79,9 @@ export class Domains {
         }
         if (typeof search !== 'undefined') {
             apiPayload['search'] = search;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1966,12 +1980,14 @@ export class Domains {
      *
      * @param {string} params.domainId - Domain unique ID.
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. You may filter on attributes such as type, name, value, etc. Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DnsRecordsList>}
      */
     listRecords(params: {
         domainId: string;
         queries?: string[];
+        total?: boolean;
     }): Promise<Models.DnsRecordsList>;
     /**
      * List DNS records for a given domain. You can use this endpoint to list all the DNS records
@@ -1979,6 +1995,7 @@ export class Domains {
      *
      * @param {string} domainId - Domain unique ID.
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. You may filter on attributes such as type, name, value, etc. Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
      * @returns {Promise<Models.DnsRecordsList>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1986,12 +2003,14 @@ export class Domains {
     listRecords(
         domainId: string,
         queries?: string[],
+        total?: boolean,
     ): Promise<Models.DnsRecordsList>;
     listRecords(
-        paramsOrFirst: { domainId: string; queries?: string[] } | string,
-        ...rest: [string[]?]
+        paramsOrFirst:
+            { domainId: string; queries?: string[]; total?: boolean } | string,
+        ...rest: [string[]?, boolean?]
     ): Promise<Models.DnsRecordsList> {
-        let params: { domainId: string; queries?: string[] };
+        let params: { domainId: string; queries?: string[]; total?: boolean };
 
         if (
             paramsOrFirst &&
@@ -2001,16 +2020,19 @@ export class Domains {
             params = (paramsOrFirst || {}) as {
                 domainId: string;
                 queries?: string[];
+                total?: boolean;
             };
         } else {
             params = {
                 domainId: paramsOrFirst as string,
                 queries: rest[0] as string[],
+                total: rest[1] as boolean,
             };
         }
 
         const domainId = params.domainId;
         const queries = params.queries;
+        const total = params.total;
         if (typeof domainId === 'undefined' || domainId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "domainId"',
@@ -2023,6 +2045,9 @@ export class Domains {
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

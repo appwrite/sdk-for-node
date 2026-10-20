@@ -28,6 +28,7 @@ describe('Databases', () => {
         const data = {
             $id: '5e5ea5c16897e',
             name: 'My Database',
+            description: 'Customer orders and invoices.',
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
@@ -136,6 +137,7 @@ describe('Databases', () => {
         const data = {
             $id: '5e5ea5c16897e',
             name: 'My Database',
+            description: 'Customer orders and invoices.',
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
@@ -153,6 +155,7 @@ describe('Databases', () => {
         const data = {
             $id: '5e5ea5c16897e',
             name: 'My Database',
+            description: 'Customer orders and invoices.',
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
@@ -197,6 +200,7 @@ describe('Databases', () => {
             $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Collection',
+            description: 'Movies available in the catalog.',
             enabled: true,
             documentSecurity: true,
             attributes: [],
@@ -224,6 +228,7 @@ describe('Databases', () => {
             $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Collection',
+            description: 'Movies available in the catalog.',
             enabled: true,
             documentSecurity: true,
             attributes: [],
@@ -250,6 +255,7 @@ describe('Databases', () => {
             $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Collection',
+            description: 'Movies available in the catalog.',
             enabled: true,
             documentSecurity: true,
             attributes: [],
@@ -300,6 +306,7 @@ describe('Databases', () => {
     test('test method createBigIntAttribute()', async () => {
         const data = {
             key: 'count',
+            description: 'Name shown on the public profile.',
             type: 'bigint',
             status: 'available',
             error: 'string',
@@ -323,6 +330,7 @@ describe('Databases', () => {
     test('test method updateBigIntAttribute()', async () => {
         const data = {
             key: 'count',
+            description: 'Name shown on the public profile.',
             type: 'bigint',
             status: 'available',
             error: 'string',
@@ -347,6 +355,7 @@ describe('Databases', () => {
     test('test method createBooleanAttribute()', async () => {
         const data = {
             key: 'isEnabled',
+            description: 'Name shown on the public profile.',
             type: 'boolean',
             status: 'available',
             error: 'string',
@@ -370,6 +379,7 @@ describe('Databases', () => {
     test('test method updateBooleanAttribute()', async () => {
         const data = {
             key: 'isEnabled',
+            description: 'Name shown on the public profile.',
             type: 'boolean',
             status: 'available',
             error: 'string',
@@ -394,6 +404,7 @@ describe('Databases', () => {
     test('test method createDatetimeAttribute()', async () => {
         const data = {
             key: 'birthDay',
+            description: 'Name shown on the public profile.',
             type: 'datetime',
             status: 'available',
             error: 'string',
@@ -418,6 +429,7 @@ describe('Databases', () => {
     test('test method updateDatetimeAttribute()', async () => {
         const data = {
             key: 'birthDay',
+            description: 'Name shown on the public profile.',
             type: 'datetime',
             status: 'available',
             error: 'string',
@@ -443,6 +455,7 @@ describe('Databases', () => {
     test('test method createEmailAttribute()', async () => {
         const data = {
             key: 'userEmail',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -467,6 +480,7 @@ describe('Databases', () => {
     test('test method updateEmailAttribute()', async () => {
         const data = {
             key: 'userEmail',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -492,6 +506,7 @@ describe('Databases', () => {
     test('test method createEnumAttribute()', async () => {
         const data = {
             key: 'status',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -518,6 +533,7 @@ describe('Databases', () => {
     test('test method updateEnumAttribute()', async () => {
         const data = {
             key: 'status',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -545,6 +561,7 @@ describe('Databases', () => {
     test('test method createFloatAttribute()', async () => {
         const data = {
             key: 'percentageCompleted',
+            description: 'Name shown on the public profile.',
             type: 'double',
             status: 'available',
             error: 'string',
@@ -568,6 +585,7 @@ describe('Databases', () => {
     test('test method updateFloatAttribute()', async () => {
         const data = {
             key: 'percentageCompleted',
+            description: 'Name shown on the public profile.',
             type: 'double',
             status: 'available',
             error: 'string',
@@ -592,6 +610,7 @@ describe('Databases', () => {
     test('test method createIntegerAttribute()', async () => {
         const data = {
             key: 'count',
+            description: 'Name shown on the public profile.',
             type: 'integer',
             status: 'available',
             error: 'string',
@@ -615,6 +634,7 @@ describe('Databases', () => {
     test('test method updateIntegerAttribute()', async () => {
         const data = {
             key: 'count',
+            description: 'Name shown on the public profile.',
             type: 'integer',
             status: 'available',
             error: 'string',
@@ -639,6 +659,7 @@ describe('Databases', () => {
     test('test method createIpAttribute()', async () => {
         const data = {
             key: 'ipAddress',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -663,6 +684,7 @@ describe('Databases', () => {
     test('test method updateIpAttribute()', async () => {
         const data = {
             key: 'ipAddress',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -688,6 +710,7 @@ describe('Databases', () => {
     test('test method createLineAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -711,6 +734,7 @@ describe('Databases', () => {
     test('test method updateLineAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -734,6 +758,7 @@ describe('Databases', () => {
     test('test method createLongtextAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -757,6 +782,7 @@ describe('Databases', () => {
     test('test method updateLongtextAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -781,6 +807,7 @@ describe('Databases', () => {
     test('test method createMediumtextAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -804,6 +831,7 @@ describe('Databases', () => {
     test('test method updateMediumtextAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -828,6 +856,7 @@ describe('Databases', () => {
     test('test method createPointAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -851,6 +880,7 @@ describe('Databases', () => {
     test('test method updatePointAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -874,6 +904,7 @@ describe('Databases', () => {
     test('test method createPolygonAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -897,6 +928,7 @@ describe('Databases', () => {
     test('test method updatePolygonAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -920,6 +952,7 @@ describe('Databases', () => {
     test('test method createRelationshipAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -949,6 +982,7 @@ describe('Databases', () => {
     test('test method updateRelationshipAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -977,6 +1011,7 @@ describe('Databases', () => {
     test('test method createStringAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1002,6 +1037,7 @@ describe('Databases', () => {
     test('test method updateStringAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1027,6 +1063,7 @@ describe('Databases', () => {
     test('test method createTextAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1050,6 +1087,7 @@ describe('Databases', () => {
     test('test method updateTextAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1074,6 +1112,7 @@ describe('Databases', () => {
     test('test method createUrlAttribute()', async () => {
         const data = {
             key: 'githubUrl',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1098,6 +1137,7 @@ describe('Databases', () => {
     test('test method updateUrlAttribute()', async () => {
         const data = {
             key: 'githubUrl',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1123,6 +1163,7 @@ describe('Databases', () => {
     test('test method createVarcharAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1148,6 +1189,7 @@ describe('Databases', () => {
     test('test method updateVarcharAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1173,6 +1215,7 @@ describe('Databases', () => {
     test('test method getAttribute()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1303,6 +1346,22 @@ describe('Databases', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await databases.deleteDocuments(
+            '<DATABASE_ID>',
+            '<COLLECTION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method createQuery()', async () => {
+        const data = {
+            total: 5,
+            documents: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await databases.createQuery(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
         );
@@ -1460,6 +1519,7 @@ describe('Databases', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'index1',
+            description: 'Speeds up lookups by email.',
             type: 'primary',
             status: 'available',
             error: 'string',
@@ -1486,6 +1546,7 @@ describe('Databases', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'index1',
+            description: 'Speeds up lookups by email.',
             type: 'primary',
             status: 'available',
             error: 'string',

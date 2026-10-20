@@ -17,5 +17,6 @@ const result = await databases.updateBigIntAttribute({
     min: 0, // optional
     max: 1000000, // optional
     newKey: '<NEW_KEY>', // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

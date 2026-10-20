@@ -1,5 +1,20 @@
 # Change Log
 
+## 31.0.0
+
+* Breaking: positional `tablesDB`, `documentsDB` and `vectorsDB` `create` and `update` take `description` before `specification`
+* Breaking: positional `functions.update` takes `description` before `emailEnabled`
+* Added: `createQuery` on `databases`, `documentsDB` and `tablesDB` to send list queries in the request body
+* Added: `account.listMemberships`
+* Added: optional `description` on create and update for databases, collections, tables, attributes, columns, indexes, buckets, functions, sites, variables, topics, webhooks and keys
+* Added: `description` on the matching models
+* Added: `total` on list methods in `activities`, `backups`, `domains`, `mongo`, `mysql` and `postgresql`
+* Added: `emails` on `messaging.createEmail` and `messaging.updateEmail`
+* Added: `denyList` on `project.updatePasswordDictionaryPolicy`, `updatePasswordPersonalDataPolicy` and their policy models
+* Added: `BillingPlan.functionsAllowCron`
+* Added: `stripMetadata` on `storage.createBucket`, `updateBucket` and the `Bucket` model
+* Updated: `package.json` declares `engines.node` `>=20.0.0`
+
 ## 30.0.1
 
 * Breaking: requests send `X-Appwrite-Response-Format: 2.5.0`; responses follow the 2.5 shapes

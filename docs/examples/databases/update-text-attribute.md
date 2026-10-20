@@ -15,5 +15,6 @@ const result = await databases.updateTextAttribute({
     required: false,
     xdefault: 'Hello World',
     newKey: '<NEW_KEY>', // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

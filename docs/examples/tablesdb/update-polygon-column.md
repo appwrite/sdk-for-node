@@ -22,5 +22,6 @@ const result = await tablesDB.updatePolygonColumn({
         ],
     ], // optional
     newKey: '<NEW_KEY>', // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

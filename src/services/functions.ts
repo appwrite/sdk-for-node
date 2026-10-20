@@ -119,6 +119,7 @@ export class Functions {
                         $updatedAt: '',
                         execute: [],
                         name: '',
+                        description: '',
                         enabled: true,
                         live: true,
                         logging: true,
@@ -160,6 +161,7 @@ export class Functions {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         value: '',
                         secret: false,
                         resourceType: '',
@@ -198,6 +200,7 @@ export class Functions {
      * @param {string} params.runtimeSpecification - Runtime specification for the function executions.
      * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
      * @param {number} params.interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule.
+     * @param {string} params.description - Optional description for the function.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
@@ -225,6 +228,7 @@ export class Functions {
         runtimeSpecification?: string;
         deploymentRetention?: number;
         interval?: number;
+        description?: string;
     }): Promise<Models.Function>;
     /**
      * Create a new function. You can pass a list of [permissions](https://appwrite.io/docs/permissions) to allow different project users or team with access to execute the function using the client API.
@@ -252,6 +256,7 @@ export class Functions {
      * @param {string} runtimeSpecification - Runtime specification for the function executions.
      * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
      * @param {number} interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule.
+     * @param {string} description - Optional description for the function.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -280,6 +285,7 @@ export class Functions {
         runtimeSpecification?: string,
         deploymentRetention?: number,
         interval?: number,
+        description?: string,
     ): Promise<Models.Function>;
     create(
         paramsOrFirst:
@@ -307,6 +313,7 @@ export class Functions {
                   runtimeSpecification?: string;
                   deploymentRetention?: number;
                   interval?: number;
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -332,6 +339,7 @@ export class Functions {
             string?,
             number?,
             number?,
+            string?,
         ]
     ): Promise<Models.Function> {
         let params: {
@@ -358,6 +366,7 @@ export class Functions {
             runtimeSpecification?: string;
             deploymentRetention?: number;
             interval?: number;
+            description?: string;
         };
 
         if (
@@ -389,6 +398,7 @@ export class Functions {
                 runtimeSpecification?: string;
                 deploymentRetention?: number;
                 interval?: number;
+                description?: string;
             };
         } else {
             params = {
@@ -415,6 +425,7 @@ export class Functions {
                 runtimeSpecification: rest[19] as string,
                 deploymentRetention: rest[20] as number,
                 interval: rest[21] as number,
+                description: rest[22] as string,
             };
         }
 
@@ -441,6 +452,7 @@ export class Functions {
         const runtimeSpecification = params.runtimeSpecification;
         const deploymentRetention = params.deploymentRetention;
         const interval = params.interval;
+        const description = params.description;
         if (typeof functionId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
@@ -525,6 +537,9 @@ export class Functions {
         if (typeof interval !== 'undefined') {
             apiPayload['interval'] = interval;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -544,6 +559,7 @@ export class Functions {
                         $updatedAt: '',
                         execute: [],
                         name: '',
+                        description: '',
                         enabled: true,
                         live: true,
                         logging: true,
@@ -585,6 +601,7 @@ export class Functions {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         value: '',
                         secret: false,
                         resourceType: '',
@@ -835,6 +852,7 @@ export class Functions {
                         $updatedAt: '',
                         execute: [],
                         name: '',
+                        description: '',
                         enabled: true,
                         live: true,
                         logging: true,
@@ -876,6 +894,7 @@ export class Functions {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         value: '',
                         secret: false,
                         resourceType: '',
@@ -914,6 +933,7 @@ export class Functions {
      * @param {string | null} params.runtimeSpecification - Runtime specification for the function executions.
      * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
      * @param {number | null} params.interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule. When omitted, the current interval is kept unless schedule is set.
+     * @param {string | null} params.description - Optional description for the function.
      * @param {boolean | null} params.emailEnabled - Enable inbound email triggering for this function. When false or omitted on create, SMTP recipients are rejected. Opt-in; default is off.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
@@ -942,6 +962,7 @@ export class Functions {
         runtimeSpecification?: string | null;
         deploymentRetention?: number;
         interval?: number | null;
+        description?: string | null;
         emailEnabled?: boolean | null;
     }): Promise<Models.Function>;
     /**
@@ -970,6 +991,7 @@ export class Functions {
      * @param {string | null} runtimeSpecification - Runtime specification for the function executions.
      * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
      * @param {number | null} interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule. When omitted, the current interval is kept unless schedule is set.
+     * @param {string | null} description - Optional description for the function.
      * @param {boolean | null} emailEnabled - Enable inbound email triggering for this function. When false or omitted on create, SMTP recipients are rejected. Opt-in; default is off.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
@@ -999,6 +1021,7 @@ export class Functions {
         runtimeSpecification?: string | null,
         deploymentRetention?: number,
         interval?: number | null,
+        description?: string | null,
         emailEnabled?: boolean | null,
     ): Promise<Models.Function>;
     update(
@@ -1027,6 +1050,7 @@ export class Functions {
                   runtimeSpecification?: string | null;
                   deploymentRetention?: number;
                   interval?: number | null;
+                  description?: string | null;
                   emailEnabled?: boolean | null;
               }
             | string,
@@ -1053,6 +1077,7 @@ export class Functions {
             (string | null)?,
             number?,
             (number | null)?,
+            (string | null)?,
             (boolean | null)?,
         ]
     ): Promise<Models.Function> {
@@ -1080,6 +1105,7 @@ export class Functions {
             runtimeSpecification?: string | null;
             deploymentRetention?: number;
             interval?: number | null;
+            description?: string | null;
             emailEnabled?: boolean | null;
         };
 
@@ -1112,6 +1138,7 @@ export class Functions {
                 runtimeSpecification?: string | null;
                 deploymentRetention?: number;
                 interval?: number | null;
+                description?: string | null;
                 emailEnabled?: boolean | null;
             };
         } else {
@@ -1139,7 +1166,8 @@ export class Functions {
                 runtimeSpecification: rest[19] as string | null,
                 deploymentRetention: rest[20] as number,
                 interval: rest[21] as number | null,
-                emailEnabled: rest[22] as boolean | null,
+                description: rest[22] as string | null,
+                emailEnabled: rest[23] as boolean | null,
             };
         }
 
@@ -1166,6 +1194,7 @@ export class Functions {
         const runtimeSpecification = params.runtimeSpecification;
         const deploymentRetention = params.deploymentRetention;
         const interval = params.interval;
+        const description = params.description;
         const emailEnabled = params.emailEnabled;
         if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
@@ -1246,6 +1275,9 @@ export class Functions {
         if (typeof interval !== 'undefined') {
             apiPayload['interval'] = interval;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         if (typeof emailEnabled !== 'undefined') {
             apiPayload['emailEnabled'] = emailEnabled;
         }
@@ -1268,6 +1300,7 @@ export class Functions {
                         $updatedAt: '',
                         execute: [],
                         name: '',
+                        description: '',
                         enabled: true,
                         live: true,
                         logging: true,
@@ -1309,6 +1342,7 @@ export class Functions {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         value: '',
                         secret: false,
                         resourceType: '',
@@ -1461,6 +1495,7 @@ export class Functions {
                         $updatedAt: '',
                         execute: [],
                         name: '',
+                        description: '',
                         enabled: true,
                         live: true,
                         logging: true,
@@ -1502,6 +1537,7 @@ export class Functions {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         value: '',
                         secret: false,
                         resourceType: '',
@@ -3343,6 +3379,7 @@ export class Functions {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         value: '',
                         secret: false,
                         resourceType: '',
@@ -3363,6 +3400,7 @@ export class Functions {
      * @param {string} params.key - Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
      * @param {string} params.value - Variable value. Max length: 8192 chars.
      * @param {boolean} params.secret - Secret variables can be updated or deleted, but only functions can read them during build and runtime.
+     * @param {string} params.description - Optional description for the variable.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
@@ -3372,6 +3410,7 @@ export class Functions {
         key: string;
         value: string;
         secret?: boolean;
+        description?: string;
     }): Promise<Models.Variable>;
     /**
      * Create a new function environment variable. These variables can be accessed in the function at runtime as environment variables.
@@ -3381,6 +3420,7 @@ export class Functions {
      * @param {string} key - Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
      * @param {string} value - Variable value. Max length: 8192 chars.
      * @param {boolean} secret - Secret variables can be updated or deleted, but only functions can read them during build and runtime.
+     * @param {string} description - Optional description for the variable.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3391,6 +3431,7 @@ export class Functions {
         key: string,
         value: string,
         secret?: boolean,
+        description?: string,
     ): Promise<Models.Variable>;
     createVariable(
         paramsOrFirst:
@@ -3400,9 +3441,10 @@ export class Functions {
                   key: string;
                   value: string;
                   secret?: boolean;
+                  description?: string;
               }
             | string,
-        ...rest: [string?, string?, string?, boolean?]
+        ...rest: [string?, string?, string?, boolean?, string?]
     ): Promise<Models.Variable> {
         let params: {
             functionId: string;
@@ -3410,6 +3452,7 @@ export class Functions {
             key: string;
             value: string;
             secret?: boolean;
+            description?: string;
         };
 
         if (
@@ -3423,6 +3466,7 @@ export class Functions {
                 key: string;
                 value: string;
                 secret?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -3431,6 +3475,7 @@ export class Functions {
                 key: rest[1] as string,
                 value: rest[2] as string,
                 secret: rest[3] as boolean,
+                description: rest[4] as string,
             };
         }
 
@@ -3439,6 +3484,7 @@ export class Functions {
         const key = params.key;
         const value = params.value;
         const secret = params.secret;
+        const description = params.description;
         if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
@@ -3472,6 +3518,9 @@ export class Functions {
         if (typeof secret !== 'undefined') {
             apiPayload['secret'] = secret;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -3490,6 +3539,7 @@ export class Functions {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         value: '',
                         secret: false,
                         resourceType: '',
@@ -3582,6 +3632,7 @@ export class Functions {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         value: '',
                         secret: false,
                         resourceType: '',
@@ -3602,6 +3653,7 @@ export class Functions {
      * @param {string | null} params.key - Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
      * @param {string | null} params.value - Variable value. Max length: 8192 chars.
      * @param {boolean | null} params.secret - Secret variables can be updated or deleted, but only functions can read them during build and runtime.
+     * @param {string | null} params.description - Optional description for the variable.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      */
@@ -3611,6 +3663,7 @@ export class Functions {
         key?: string | null;
         value?: string | null;
         secret?: boolean | null;
+        description?: string | null;
     }): Promise<Models.Variable>;
     /**
      * Update variable by its unique ID.
@@ -3620,6 +3673,7 @@ export class Functions {
      * @param {string | null} key - Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
      * @param {string | null} value - Variable value. Max length: 8192 chars.
      * @param {boolean | null} secret - Secret variables can be updated or deleted, but only functions can read them during build and runtime.
+     * @param {string | null} description - Optional description for the variable.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Variable>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3630,6 +3684,7 @@ export class Functions {
         key?: string | null,
         value?: string | null,
         secret?: boolean | null,
+        description?: string | null,
     ): Promise<Models.Variable>;
     updateVariable(
         paramsOrFirst:
@@ -3639,6 +3694,7 @@ export class Functions {
                   key?: string | null;
                   value?: string | null;
                   secret?: boolean | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -3646,6 +3702,7 @@ export class Functions {
             (string | null)?,
             (string | null)?,
             (boolean | null)?,
+            (string | null)?,
         ]
     ): Promise<Models.Variable> {
         let params: {
@@ -3654,6 +3711,7 @@ export class Functions {
             key?: string | null;
             value?: string | null;
             secret?: boolean | null;
+            description?: string | null;
         };
 
         if (
@@ -3667,6 +3725,7 @@ export class Functions {
                 key?: string | null;
                 value?: string | null;
                 secret?: boolean | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -3675,6 +3734,7 @@ export class Functions {
                 key: rest[1] as string | null,
                 value: rest[2] as string | null,
                 secret: rest[3] as boolean | null,
+                description: rest[4] as string | null,
             };
         }
 
@@ -3683,6 +3743,7 @@ export class Functions {
         const key = params.key;
         const value = params.value;
         const secret = params.secret;
+        const description = params.description;
         if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
@@ -3706,6 +3767,9 @@ export class Functions {
         if (typeof secret !== 'undefined') {
             apiPayload['secret'] = secret;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -3724,6 +3788,7 @@ export class Functions {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         value: '',
                         secret: false,
                         resourceType: '',

@@ -11,5 +11,6 @@ const mysql = new sdk.Mysql(client);
 const result = await mysql.listBackupPolicies({
     databaseId: '<DATABASE_ID>',
     queries: [], // optional
+    total: false, // optional
 });
 ```

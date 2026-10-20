@@ -22,5 +22,6 @@ const result = await databases.updatePolygonAttribute({
         ],
     ], // optional
     newKey: '<NEW_KEY>', // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```
