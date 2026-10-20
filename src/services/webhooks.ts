@@ -96,6 +96,7 @@ export class Webhooks {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         url: '',
                         events: [],
                         tls: true,
@@ -125,6 +126,7 @@ export class Webhooks {
      * @param {string} params.authUsername - Webhook HTTP user. Max length: 255 chars.
      * @param {string} params.authPassword - Webhook HTTP password. Max length: 2048 chars.
      * @param {string | null} params.secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
+     * @param {string} params.description - Optional description for the webhook.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      */
@@ -138,6 +140,7 @@ export class Webhooks {
         authUsername?: string;
         authPassword?: string;
         secret?: string | null;
+        description?: string;
     }): Promise<Models.Webhook>;
     /**
      * Create a new webhook. Use this endpoint to configure a URL that will receive events from Appwrite when specific events occur.
@@ -151,6 +154,7 @@ export class Webhooks {
      * @param {string} authUsername - Webhook HTTP user. Max length: 255 chars.
      * @param {string} authPassword - Webhook HTTP password. Max length: 2048 chars.
      * @param {string | null} secret - Webhook secret key. If not provided, a new key will be generated automatically. Key must be at least 8 characters long, and at max 256 characters.
+     * @param {string} description - Optional description for the webhook.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -165,6 +169,7 @@ export class Webhooks {
         authUsername?: string,
         authPassword?: string,
         secret?: string | null,
+        description?: string,
     ): Promise<Models.Webhook>;
     create(
         paramsOrFirst:
@@ -178,6 +183,7 @@ export class Webhooks {
                   authUsername?: string;
                   authPassword?: string;
                   secret?: string | null;
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -189,6 +195,7 @@ export class Webhooks {
             string?,
             string?,
             (string | null)?,
+            string?,
         ]
     ): Promise<Models.Webhook> {
         let params: {
@@ -201,6 +208,7 @@ export class Webhooks {
             authUsername?: string;
             authPassword?: string;
             secret?: string | null;
+            description?: string;
         };
 
         if (
@@ -218,6 +226,7 @@ export class Webhooks {
                 authUsername?: string;
                 authPassword?: string;
                 secret?: string | null;
+                description?: string;
             };
         } else {
             params = {
@@ -230,6 +239,7 @@ export class Webhooks {
                 authUsername: rest[5] as string,
                 authPassword: rest[6] as string,
                 secret: rest[7] as string | null,
+                description: rest[8] as string,
             };
         }
 
@@ -242,6 +252,7 @@ export class Webhooks {
         const authUsername = params.authUsername;
         const authPassword = params.authPassword;
         const secret = params.secret;
+        const description = params.description;
         if (typeof webhookId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "webhookId"',
@@ -285,6 +296,9 @@ export class Webhooks {
         if (typeof secret !== 'undefined') {
             apiPayload['secret'] = secret;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -303,6 +317,7 @@ export class Webhooks {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         url: '',
                         events: [],
                         tls: true,
@@ -382,6 +397,7 @@ export class Webhooks {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         url: '',
                         events: [],
                         tls: true,
@@ -410,6 +426,7 @@ export class Webhooks {
      * @param {boolean} params.tls - Certificate verification, false for disabled or true for enabled.
      * @param {string} params.authUsername - Webhook HTTP user. Max length: 255 chars.
      * @param {string | null} params.authPassword - Webhook HTTP password. Max length: 2048 chars. Omit to keep the current password; it is cleared when the URL changes or TLS verification is disabled.
+     * @param {string | null} params.description - Optional description for the webhook.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      */
@@ -422,6 +439,7 @@ export class Webhooks {
         tls?: boolean;
         authUsername?: string;
         authPassword?: string | null;
+        description?: string | null;
     }): Promise<Models.Webhook>;
     /**
      * Update a webhook by its unique ID. Use this endpoint to update the URL, events, or status of an existing webhook.
@@ -434,6 +452,7 @@ export class Webhooks {
      * @param {boolean} tls - Certificate verification, false for disabled or true for enabled.
      * @param {string} authUsername - Webhook HTTP user. Max length: 255 chars.
      * @param {string | null} authPassword - Webhook HTTP password. Max length: 2048 chars. Omit to keep the current password; it is cleared when the URL changes or TLS verification is disabled.
+     * @param {string | null} description - Optional description for the webhook.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Webhook>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -447,6 +466,7 @@ export class Webhooks {
         tls?: boolean,
         authUsername?: string,
         authPassword?: string | null,
+        description?: string | null,
     ): Promise<Models.Webhook>;
     update(
         paramsOrFirst:
@@ -459,6 +479,7 @@ export class Webhooks {
                   tls?: boolean;
                   authUsername?: string;
                   authPassword?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -468,6 +489,7 @@ export class Webhooks {
             boolean?,
             boolean?,
             string?,
+            (string | null)?,
             (string | null)?,
         ]
     ): Promise<Models.Webhook> {
@@ -480,6 +502,7 @@ export class Webhooks {
             tls?: boolean;
             authUsername?: string;
             authPassword?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -496,6 +519,7 @@ export class Webhooks {
                 tls?: boolean;
                 authUsername?: string;
                 authPassword?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -507,6 +531,7 @@ export class Webhooks {
                 tls: rest[4] as boolean,
                 authUsername: rest[5] as string,
                 authPassword: rest[6] as string | null,
+                description: rest[7] as string | null,
             };
         }
 
@@ -518,6 +543,7 @@ export class Webhooks {
         const tls = params.tls;
         const authUsername = params.authUsername;
         const authPassword = params.authPassword;
+        const description = params.description;
         if (typeof webhookId === 'undefined' || webhookId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "webhookId"',
@@ -558,6 +584,9 @@ export class Webhooks {
         if (typeof authPassword !== 'undefined') {
             apiPayload['authPassword'] = authPassword;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -576,6 +605,7 @@ export class Webhooks {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         url: '',
                         events: [],
                         tls: true,
@@ -727,6 +757,7 @@ export class Webhooks {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         url: '',
                         events: [],
                         tls: true,

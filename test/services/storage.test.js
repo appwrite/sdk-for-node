@@ -33,6 +33,7 @@ describe('Storage', () => {
             $permissions: [],
             fileSecurity: true,
             name: 'Documents',
+            description: 'Invoices and receipts uploaded by customers.',
             enabled: true,
             maximumFileSize: 100,
             allowedFileExtensions: [],
@@ -40,6 +41,7 @@ describe('Storage', () => {
             encryption: true,
             antivirus: true,
             transformations: true,
+            stripMetadata: true,
             totalSize: 128,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -58,6 +60,7 @@ describe('Storage', () => {
             $permissions: [],
             fileSecurity: true,
             name: 'Documents',
+            description: 'Invoices and receipts uploaded by customers.',
             enabled: true,
             maximumFileSize: 100,
             allowedFileExtensions: [],
@@ -65,6 +68,7 @@ describe('Storage', () => {
             encryption: true,
             antivirus: true,
             transformations: true,
+            stripMetadata: true,
             totalSize: 128,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
@@ -83,6 +87,7 @@ describe('Storage', () => {
             $permissions: [],
             fileSecurity: true,
             name: 'Documents',
+            description: 'Invoices and receipts uploaded by customers.',
             enabled: true,
             maximumFileSize: 100,
             allowedFileExtensions: [],
@@ -90,6 +95,7 @@ describe('Storage', () => {
             encryption: true,
             antivirus: true,
             transformations: true,
+            stripMetadata: true,
             totalSize: 128,
         };
         mockedFetch.mockImplementation(() => Response.json(data));

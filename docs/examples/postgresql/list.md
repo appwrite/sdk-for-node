@@ -10,5 +10,6 @@ const postgresql = new sdk.Postgresql(client);
 
 const result = await postgresql.list({
     queries: [], // optional
+    total: false, // optional
 });
 ```

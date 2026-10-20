@@ -96,6 +96,7 @@ export class DocumentsDB {
                     defaults: {
                         $id: '',
                         name: '',
+                        description: '',
                         $createdAt: '',
                         $updatedAt: '',
                         enabled: true,
@@ -149,6 +150,7 @@ export class DocumentsDB {
      * @param {string} params.databaseId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Database name. Max length: 128 chars.
      * @param {boolean} params.enabled - Is the database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @param {string} params.description - Optional description for the database.
      * @param {string} params.specification - Database specification. Defaults to `serverless`, which creates the database on the shared pool. Any other value provisions a dedicated database on that specification.
      * @param {number} params.replicas - Number of high availability replicas (0-5) for the dedicated database backing this database. Requires a dedicated `specification`; must be 0 for a serverless database. High availability is enabled when greater than 0.
      * @param {string | null} params.syncMode - Replication sync mode for the dedicated database backing this database. Requires a dedicated `specification`; the mode is only in force once there is at least one replica. Allowed values: async, sync, quorum.
@@ -159,6 +161,7 @@ export class DocumentsDB {
         databaseId: string;
         name: string;
         enabled?: boolean;
+        description?: string;
         specification?: string;
         replicas?: number;
         syncMode?: string | null;
@@ -170,6 +173,7 @@ export class DocumentsDB {
      * @param {string} databaseId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Database name. Max length: 128 chars.
      * @param {boolean} enabled - Is the database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @param {string} description - Optional description for the database.
      * @param {string} specification - Database specification. Defaults to `serverless`, which creates the database on the shared pool. Any other value provisions a dedicated database on that specification.
      * @param {number} replicas - Number of high availability replicas (0-5) for the dedicated database backing this database. Requires a dedicated `specification`; must be 0 for a serverless database. High availability is enabled when greater than 0.
      * @param {string | null} syncMode - Replication sync mode for the dedicated database backing this database. Requires a dedicated `specification`; the mode is only in force once there is at least one replica. Allowed values: async, sync, quorum.
@@ -181,6 +185,7 @@ export class DocumentsDB {
         databaseId: string,
         name: string,
         enabled?: boolean,
+        description?: string,
         specification?: string,
         replicas?: number,
         syncMode?: string | null,
@@ -191,17 +196,26 @@ export class DocumentsDB {
                   databaseId: string;
                   name: string;
                   enabled?: boolean;
+                  description?: string;
                   specification?: string;
                   replicas?: number;
                   syncMode?: string | null;
               }
             | string,
-        ...rest: [string?, boolean?, string?, number?, (string | null)?]
+        ...rest: [
+            string?,
+            boolean?,
+            string?,
+            string?,
+            number?,
+            (string | null)?,
+        ]
     ): Promise<Models.Database> {
         let params: {
             databaseId: string;
             name: string;
             enabled?: boolean;
+            description?: string;
             specification?: string;
             replicas?: number;
             syncMode?: string | null;
@@ -216,6 +230,7 @@ export class DocumentsDB {
                 databaseId: string;
                 name: string;
                 enabled?: boolean;
+                description?: string;
                 specification?: string;
                 replicas?: number;
                 syncMode?: string | null;
@@ -225,15 +240,17 @@ export class DocumentsDB {
                 databaseId: paramsOrFirst as string,
                 name: rest[0] as string,
                 enabled: rest[1] as boolean,
-                specification: rest[2] as string,
-                replicas: rest[3] as number,
-                syncMode: rest[4] as string | null,
+                description: rest[2] as string,
+                specification: rest[3] as string,
+                replicas: rest[4] as number,
+                syncMode: rest[5] as string | null,
             };
         }
 
         const databaseId = params.databaseId;
         const name = params.name;
         const enabled = params.enabled;
+        const description = params.description;
         const specification = params.specification;
         const replicas = params.replicas;
         const syncMode = params.syncMode;
@@ -255,6 +272,9 @@ export class DocumentsDB {
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
         }
         if (typeof specification !== 'undefined') {
             apiPayload['specification'] = specification;
@@ -281,6 +301,7 @@ export class DocumentsDB {
                     defaults: {
                         $id: '',
                         name: '',
+                        description: '',
                         $createdAt: '',
                         $updatedAt: '',
                         enabled: true,
@@ -934,6 +955,7 @@ export class DocumentsDB {
                     defaults: {
                         $id: '',
                         name: '',
+                        description: '',
                         $createdAt: '',
                         $updatedAt: '',
                         enabled: true,
@@ -986,6 +1008,7 @@ export class DocumentsDB {
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.name - Database name. Max length: 128 chars.
      * @param {boolean} params.enabled - Is database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @param {string | null} params.description - Optional description for the database.
      * @param {string | null} params.specification - Database specification. Resizing between dedicated specifications changes cpu, memory, storage and the connection ceiling via a rolling cutover with zero downtime. Moving a `serverless` database onto a dedicated specification is a data migration, not a resize.
      * @param {number | null} params.replicas - Number of high availability replicas (0-5) for the dedicated database backing this database. Only valid when the database is backed by a dedicated specification. High availability is enabled when greater than 0.
      * @param {string | null} params.syncMode - Replication sync mode for the dedicated database backing this database. Only valid when the database is backed by a dedicated specification; the mode is only in force once there is at least one replica. Allowed values: async, sync, quorum.
@@ -996,6 +1019,7 @@ export class DocumentsDB {
         databaseId: string;
         name: string;
         enabled?: boolean;
+        description?: string | null;
         specification?: string | null;
         replicas?: number | null;
         syncMode?: string | null;
@@ -1006,6 +1030,7 @@ export class DocumentsDB {
      * @param {string} databaseId - Database ID.
      * @param {string} name - Database name. Max length: 128 chars.
      * @param {boolean} enabled - Is database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @param {string | null} description - Optional description for the database.
      * @param {string | null} specification - Database specification. Resizing between dedicated specifications changes cpu, memory, storage and the connection ceiling via a rolling cutover with zero downtime. Moving a `serverless` database onto a dedicated specification is a data migration, not a resize.
      * @param {number | null} replicas - Number of high availability replicas (0-5) for the dedicated database backing this database. Only valid when the database is backed by a dedicated specification. High availability is enabled when greater than 0.
      * @param {string | null} syncMode - Replication sync mode for the dedicated database backing this database. Only valid when the database is backed by a dedicated specification; the mode is only in force once there is at least one replica. Allowed values: async, sync, quorum.
@@ -1017,6 +1042,7 @@ export class DocumentsDB {
         databaseId: string,
         name: string,
         enabled?: boolean,
+        description?: string | null,
         specification?: string | null,
         replicas?: number | null,
         syncMode?: string | null,
@@ -1027,6 +1053,7 @@ export class DocumentsDB {
                   databaseId: string;
                   name: string;
                   enabled?: boolean;
+                  description?: string | null;
                   specification?: string | null;
                   replicas?: number | null;
                   syncMode?: string | null;
@@ -1036,6 +1063,7 @@ export class DocumentsDB {
             string?,
             boolean?,
             (string | null)?,
+            (string | null)?,
             (number | null)?,
             (string | null)?,
         ]
@@ -1044,6 +1072,7 @@ export class DocumentsDB {
             databaseId: string;
             name: string;
             enabled?: boolean;
+            description?: string | null;
             specification?: string | null;
             replicas?: number | null;
             syncMode?: string | null;
@@ -1058,6 +1087,7 @@ export class DocumentsDB {
                 databaseId: string;
                 name: string;
                 enabled?: boolean;
+                description?: string | null;
                 specification?: string | null;
                 replicas?: number | null;
                 syncMode?: string | null;
@@ -1067,15 +1097,17 @@ export class DocumentsDB {
                 databaseId: paramsOrFirst as string,
                 name: rest[0] as string,
                 enabled: rest[1] as boolean,
-                specification: rest[2] as string | null,
-                replicas: rest[3] as number | null,
-                syncMode: rest[4] as string | null,
+                description: rest[2] as string | null,
+                specification: rest[3] as string | null,
+                replicas: rest[4] as number | null,
+                syncMode: rest[5] as string | null,
             };
         }
 
         const databaseId = params.databaseId;
         const name = params.name;
         const enabled = params.enabled;
+        const description = params.description;
         const specification = params.specification;
         const replicas = params.replicas;
         const syncMode = params.syncMode;
@@ -1097,6 +1129,9 @@ export class DocumentsDB {
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
         }
         if (typeof specification !== 'undefined') {
             apiPayload['specification'] = specification;
@@ -1123,6 +1158,7 @@ export class DocumentsDB {
                     defaults: {
                         $id: '',
                         name: '',
+                        description: '',
                         $createdAt: '',
                         $updatedAt: '',
                         enabled: true,
@@ -1347,6 +1383,7 @@ export class DocumentsDB {
                         $permissions: [],
                         databaseId: '',
                         name: '',
+                        description: '',
                         enabled: true,
                         documentSecurity: false,
                         attributes: [],
@@ -1366,6 +1403,7 @@ export class DocumentsDB {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],
@@ -1389,6 +1427,7 @@ export class DocumentsDB {
      * @param {boolean} params.enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
      * @param {object[]} params.attributes - Array of attribute definitions to create. Each attribute should contain: key (string), type (string: string, varchar, text, mediumtext, longtext, integer, bigint, double, boolean, datetime, point, linestring, polygon, email, url, ip, enum), size (integer, required for string and varchar types), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
      * @param {object[]} params.indexes - Array of index definitions to create. Each index should contain: key (string), type (string: key, fulltext, unique, spatial), attributes (array of attribute keys), orders (array of ASC/DESC, optional), and lengths (array of integers, optional).
+     * @param {string} params.description - Optional description for the collection.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      */
@@ -1401,6 +1440,7 @@ export class DocumentsDB {
         enabled?: boolean;
         attributes?: object[];
         indexes?: object[];
+        description?: string;
     }): Promise<Models.Collection>;
     /**
      * Create a new Collection. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/server/databases#documentsDBCreateCollection) API or directly from your database console.
@@ -1413,6 +1453,7 @@ export class DocumentsDB {
      * @param {boolean} enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
      * @param {object[]} attributes - Array of attribute definitions to create. Each attribute should contain: key (string), type (string: string, varchar, text, mediumtext, longtext, integer, bigint, double, boolean, datetime, point, linestring, polygon, email, url, ip, enum), size (integer, required for string and varchar types), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
      * @param {object[]} indexes - Array of index definitions to create. Each index should contain: key (string), type (string: key, fulltext, unique, spatial), attributes (array of attribute keys), orders (array of ASC/DESC, optional), and lengths (array of integers, optional).
+     * @param {string} description - Optional description for the collection.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1426,6 +1467,7 @@ export class DocumentsDB {
         enabled?: boolean,
         attributes?: object[],
         indexes?: object[],
+        description?: string,
     ): Promise<Models.Collection>;
     createCollection(
         paramsOrFirst:
@@ -1438,6 +1480,7 @@ export class DocumentsDB {
                   enabled?: boolean;
                   attributes?: object[];
                   indexes?: object[];
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -1448,6 +1491,7 @@ export class DocumentsDB {
             boolean?,
             object[]?,
             object[]?,
+            string?,
         ]
     ): Promise<Models.Collection> {
         let params: {
@@ -1459,6 +1503,7 @@ export class DocumentsDB {
             enabled?: boolean;
             attributes?: object[];
             indexes?: object[];
+            description?: string;
         };
 
         if (
@@ -1475,6 +1520,7 @@ export class DocumentsDB {
                 enabled?: boolean;
                 attributes?: object[];
                 indexes?: object[];
+                description?: string;
             };
         } else {
             params = {
@@ -1486,6 +1532,7 @@ export class DocumentsDB {
                 enabled: rest[4] as boolean,
                 attributes: rest[5] as object[],
                 indexes: rest[6] as object[],
+                description: rest[7] as string,
             };
         }
 
@@ -1497,6 +1544,7 @@ export class DocumentsDB {
         const enabled = params.enabled;
         const attributes = params.attributes;
         const indexes = params.indexes;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -1536,6 +1584,9 @@ export class DocumentsDB {
         if (typeof indexes !== 'undefined') {
             apiPayload['indexes'] = indexes;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1556,6 +1607,7 @@ export class DocumentsDB {
                         $permissions: [],
                         databaseId: '',
                         name: '',
+                        description: '',
                         enabled: true,
                         documentSecurity: false,
                         attributes: [],
@@ -1575,6 +1627,7 @@ export class DocumentsDB {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],
@@ -1672,6 +1725,7 @@ export class DocumentsDB {
                         $permissions: [],
                         databaseId: '',
                         name: '',
+                        description: '',
                         enabled: true,
                         documentSecurity: false,
                         attributes: [],
@@ -1691,6 +1745,7 @@ export class DocumentsDB {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],
@@ -1713,6 +1768,7 @@ export class DocumentsDB {
      * @param {boolean} params.documentSecurity - Enables configuring permissions for individual documents. A user needs one of document or collection level permissions to access a document. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
      * @param {boolean} params.purge - When true, purge all cached list responses for this collection as part of the update. Use this to force readers to see fresh data immediately instead of waiting for the cache TTL to expire.
+     * @param {string | null} params.description - Optional description for the collection.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      */
@@ -1724,6 +1780,7 @@ export class DocumentsDB {
         documentSecurity?: boolean;
         enabled?: boolean;
         purge?: boolean;
+        description?: string | null;
     }): Promise<Models.Collection>;
     /**
      * Update a collection by its unique ID.
@@ -1735,6 +1792,7 @@ export class DocumentsDB {
      * @param {boolean} documentSecurity - Enables configuring permissions for individual documents. A user needs one of document or collection level permissions to access a document. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
      * @param {boolean} purge - When true, purge all cached list responses for this collection as part of the update. Use this to force readers to see fresh data immediately instead of waiting for the cache TTL to expire.
+     * @param {string | null} description - Optional description for the collection.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1747,6 +1805,7 @@ export class DocumentsDB {
         documentSecurity?: boolean,
         enabled?: boolean,
         purge?: boolean,
+        description?: string | null,
     ): Promise<Models.Collection>;
     updateCollection(
         paramsOrFirst:
@@ -1758,9 +1817,18 @@ export class DocumentsDB {
                   documentSecurity?: boolean;
                   enabled?: boolean;
                   purge?: boolean;
+                  description?: string | null;
               }
             | string,
-        ...rest: [string?, string?, string[]?, boolean?, boolean?, boolean?]
+        ...rest: [
+            string?,
+            string?,
+            string[]?,
+            boolean?,
+            boolean?,
+            boolean?,
+            (string | null)?,
+        ]
     ): Promise<Models.Collection> {
         let params: {
             databaseId: string;
@@ -1770,6 +1838,7 @@ export class DocumentsDB {
             documentSecurity?: boolean;
             enabled?: boolean;
             purge?: boolean;
+            description?: string | null;
         };
 
         if (
@@ -1785,6 +1854,7 @@ export class DocumentsDB {
                 documentSecurity?: boolean;
                 enabled?: boolean;
                 purge?: boolean;
+                description?: string | null;
             };
         } else {
             params = {
@@ -1795,6 +1865,7 @@ export class DocumentsDB {
                 documentSecurity: rest[3] as boolean,
                 enabled: rest[4] as boolean,
                 purge: rest[5] as boolean,
+                description: rest[6] as string | null,
             };
         }
 
@@ -1805,6 +1876,7 @@ export class DocumentsDB {
         const documentSecurity = params.documentSecurity;
         const enabled = params.enabled;
         const purge = params.purge;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -1840,6 +1912,9 @@ export class DocumentsDB {
         if (typeof purge !== 'undefined') {
             apiPayload['purge'] = purge;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1860,6 +1935,7 @@ export class DocumentsDB {
                         $permissions: [],
                         databaseId: '',
                         name: '',
+                        description: '',
                         enabled: true,
                         documentSecurity: false,
                         attributes: [],
@@ -1879,6 +1955,7 @@ export class DocumentsDB {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],
@@ -2873,6 +2950,173 @@ export class DocumentsDB {
         };
 
         const request = this.client.call('delete', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'documentList',
+            models: {
+                documentList: {
+                    defaults: {
+                        total: 0,
+                        documents: [],
+                    },
+                    properties: {
+                        documents: {
+                            items: 'document',
+                        },
+                    },
+                },
+                document: {
+                    defaults: {
+                        $id: '',
+                        $sequence: '',
+                        $collectionId: '',
+                        $databaseId: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        $permissions: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Get a list of all the user's documents in a given collection using a POST request. This behaves identically to the list documents endpoint but accepts the queries in the request body, allowing much larger `queries` arrays than can fit in a URL query string.
+     *
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {string} params.transactionId - Transaction ID to read uncommitted changes within the transaction.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @param {number} params.ttl - TTL (seconds) for cached responses when caching is enabled for select queries. Must be between 0 and 86400 (24 hours).
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DocumentList<Document>>}
+     */
+    createQuery<
+        Document extends Models.Document = Models.DefaultDocument,
+    >(params: {
+        databaseId: string;
+        collectionId: string;
+        queries?: string[];
+        transactionId?: string;
+        total?: boolean;
+        ttl?: number;
+    }): Promise<Models.DocumentList<Document>>;
+    /**
+     * Get a list of all the user's documents in a given collection using a POST request. This behaves identically to the list documents endpoint but accepts the queries in the request body, allowing much larger `queries` arrays than can fit in a URL query string.
+     *
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {string} transactionId - Transaction ID to read uncommitted changes within the transaction.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @param {number} ttl - TTL (seconds) for cached responses when caching is enabled for select queries. Must be between 0 and 86400 (24 hours).
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DocumentList<Document>>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createQuery<Document extends Models.Document = Models.DefaultDocument>(
+        databaseId: string,
+        collectionId: string,
+        queries?: string[],
+        transactionId?: string,
+        total?: boolean,
+        ttl?: number,
+    ): Promise<Models.DocumentList<Document>>;
+    createQuery<Document extends Models.Document = Models.DefaultDocument>(
+        paramsOrFirst:
+            | {
+                  databaseId: string;
+                  collectionId: string;
+                  queries?: string[];
+                  transactionId?: string;
+                  total?: boolean;
+                  ttl?: number;
+              }
+            | string,
+        ...rest: [string?, string[]?, string?, boolean?, number?]
+    ): Promise<Models.DocumentList<Document>> {
+        let params: {
+            databaseId: string;
+            collectionId: string;
+            queries?: string[];
+            transactionId?: string;
+            total?: boolean;
+            ttl?: number;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                databaseId: string;
+                collectionId: string;
+                queries?: string[];
+                transactionId?: string;
+                total?: boolean;
+                ttl?: number;
+            };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                collectionId: rest[0] as string,
+                queries: rest[1] as string[],
+                transactionId: rest[2] as string,
+                total: rest[3] as boolean,
+                ttl: rest[4] as number,
+            };
+        }
+
+        const databaseId = params.databaseId;
+        const collectionId = params.collectionId;
+        const queries = params.queries;
+        const transactionId = params.transactionId;
+        const total = params.total;
+        const ttl = params.ttl;
+        if (typeof databaseId === 'undefined' || databaseId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "databaseId"',
+            );
+        }
+        if (typeof collectionId === 'undefined' || collectionId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "collectionId"',
+            );
+        }
+        const apiPath =
+            '/documentsdb/{databaseId}/collections/{collectionId}/documents/query'
+                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
+                .replace(
+                    '{collectionId}',
+                    encodeURIComponent(String(collectionId)),
+                );
+        const apiPayload: Payload = {};
+        if (typeof queries !== 'undefined') {
+            apiPayload['queries'] = queries;
+        }
+        if (typeof transactionId !== 'undefined') {
+            apiPayload['transactionId'] = transactionId;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
+        }
+        if (typeof ttl !== 'undefined') {
+            apiPayload['ttl'] = ttl;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
         const defaults = {
             root: 'documentList',
             models: {
@@ -4020,6 +4264,7 @@ export class DocumentsDB {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],
@@ -4043,6 +4288,7 @@ export class DocumentsDB {
      * @param {string[]} params.attributes - Array of attributes to index. Maximum of 100 attributes are allowed, each 32 characters long.
      * @param {OrderBy[]} params.orders - Array of index orders. Maximum of 100 orders are allowed.
      * @param {number[]} params.lengths - Length of index. Maximum of 100
+     * @param {string} params.description - Optional description for the index.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
      */
@@ -4054,6 +4300,7 @@ export class DocumentsDB {
         attributes: string[];
         orders?: OrderBy[];
         lengths?: number[];
+        description?: string;
     }): Promise<Models.Index>;
     /**
      * Creates an index on the attributes listed. Your index should include all the attributes you will query in a single request.
@@ -4066,6 +4313,7 @@ export class DocumentsDB {
      * @param {string[]} attributes - Array of attributes to index. Maximum of 100 attributes are allowed, each 32 characters long.
      * @param {OrderBy[]} orders - Array of index orders. Maximum of 100 orders are allowed.
      * @param {number[]} lengths - Length of index. Maximum of 100
+     * @param {string} description - Optional description for the index.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -4078,6 +4326,7 @@ export class DocumentsDB {
         attributes: string[],
         orders?: OrderBy[],
         lengths?: number[],
+        description?: string,
     ): Promise<Models.Index>;
     createIndex(
         paramsOrFirst:
@@ -4089,6 +4338,7 @@ export class DocumentsDB {
                   attributes: string[];
                   orders?: OrderBy[];
                   lengths?: number[];
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -4098,6 +4348,7 @@ export class DocumentsDB {
             string[]?,
             OrderBy[]?,
             number[]?,
+            string?,
         ]
     ): Promise<Models.Index> {
         let params: {
@@ -4108,6 +4359,7 @@ export class DocumentsDB {
             attributes: string[];
             orders?: OrderBy[];
             lengths?: number[];
+            description?: string;
         };
 
         if (
@@ -4123,6 +4375,7 @@ export class DocumentsDB {
                 attributes: string[];
                 orders?: OrderBy[];
                 lengths?: number[];
+                description?: string;
             };
         } else {
             params = {
@@ -4133,6 +4386,7 @@ export class DocumentsDB {
                 attributes: rest[3] as string[],
                 orders: rest[4] as OrderBy[],
                 lengths: rest[5] as number[],
+                description: rest[6] as string,
             };
         }
 
@@ -4143,6 +4397,7 @@ export class DocumentsDB {
         const attributes = params.attributes;
         const orders = params.orders;
         const lengths = params.lengths;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -4187,6 +4442,9 @@ export class DocumentsDB {
         if (typeof lengths !== 'undefined') {
             apiPayload['lengths'] = lengths;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -4205,6 +4463,7 @@ export class DocumentsDB {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],
@@ -4313,6 +4572,7 @@ export class DocumentsDB {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],

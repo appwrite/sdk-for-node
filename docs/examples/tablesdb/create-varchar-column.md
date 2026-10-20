@@ -17,5 +17,6 @@ const result = await tablesDB.createVarcharColumn({
     xdefault: 'Hello World', // optional
     array: false, // optional
     encrypt: false, // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

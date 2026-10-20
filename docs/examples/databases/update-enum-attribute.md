@@ -16,5 +16,6 @@ const result = await databases.updateEnumAttribute({
     required: false,
     xdefault: 'active',
     newKey: '<NEW_KEY>', // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

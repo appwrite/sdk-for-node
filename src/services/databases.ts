@@ -113,6 +113,7 @@ export class Databases {
                     defaults: {
                         $id: '',
                         name: '',
+                        description: '',
                         $createdAt: '',
                         $updatedAt: '',
                         enabled: true,
@@ -166,6 +167,7 @@ export class Databases {
      * @param {string} params.databaseId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Database name. Max length: 128 chars.
      * @param {boolean} params.enabled - Is the database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @param {string} params.description - Optional description for the database.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.create` instead.
@@ -174,6 +176,7 @@ export class Databases {
         databaseId: string;
         name: string;
         enabled?: boolean;
+        description?: string;
     }): Promise<Models.Database>;
     /**
      * Create a new Database.
@@ -182,6 +185,7 @@ export class Databases {
      * @param {string} databaseId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Database name. Max length: 128 chars.
      * @param {boolean} enabled - Is the database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @param {string} description - Optional description for the database.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -190,13 +194,25 @@ export class Databases {
         databaseId: string,
         name: string,
         enabled?: boolean,
+        description?: string,
     ): Promise<Models.Database>;
     create(
         paramsOrFirst:
-            { databaseId: string; name: string; enabled?: boolean } | string,
-        ...rest: [string?, boolean?]
+            | {
+                  databaseId: string;
+                  name: string;
+                  enabled?: boolean;
+                  description?: string;
+              }
+            | string,
+        ...rest: [string?, boolean?, string?]
     ): Promise<Models.Database> {
-        let params: { databaseId: string; name: string; enabled?: boolean };
+        let params: {
+            databaseId: string;
+            name: string;
+            enabled?: boolean;
+            description?: string;
+        };
 
         if (
             paramsOrFirst &&
@@ -207,18 +223,21 @@ export class Databases {
                 databaseId: string;
                 name: string;
                 enabled?: boolean;
+                description?: string;
             };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 name: rest[0] as string,
                 enabled: rest[1] as boolean,
+                description: rest[2] as string,
             };
         }
 
         const databaseId = params.databaseId;
         const name = params.name;
         const enabled = params.enabled;
+        const description = params.description;
         if (typeof databaseId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -238,6 +257,9 @@ export class Databases {
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -254,6 +276,7 @@ export class Databases {
                     defaults: {
                         $id: '',
                         name: '',
+                        description: '',
                         $createdAt: '',
                         $updatedAt: '',
                         enabled: true,
@@ -860,6 +883,7 @@ export class Databases {
                     defaults: {
                         $id: '',
                         name: '',
+                        description: '',
                         $createdAt: '',
                         $updatedAt: '',
                         enabled: true,
@@ -912,6 +936,7 @@ export class Databases {
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.name - Database name. Max length: 128 chars.
      * @param {boolean} params.enabled - Is database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @param {string | null} params.description - Optional description for the database.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.update` instead.
@@ -920,6 +945,7 @@ export class Databases {
         databaseId: string;
         name?: string;
         enabled?: boolean;
+        description?: string | null;
     }): Promise<Models.Database>;
     /**
      * Update a database by its unique ID.
@@ -927,6 +953,7 @@ export class Databases {
      * @param {string} databaseId - Database ID.
      * @param {string} name - Database name. Max length: 128 chars.
      * @param {boolean} enabled - Is database enabled? When set to 'disabled', users cannot access the database but Server SDKs with an API key can still read and write to the database. No data is lost when this is toggled.
+     * @param {string | null} description - Optional description for the database.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Database>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -935,13 +962,25 @@ export class Databases {
         databaseId: string,
         name?: string,
         enabled?: boolean,
+        description?: string | null,
     ): Promise<Models.Database>;
     update(
         paramsOrFirst:
-            { databaseId: string; name?: string; enabled?: boolean } | string,
-        ...rest: [string?, boolean?]
+            | {
+                  databaseId: string;
+                  name?: string;
+                  enabled?: boolean;
+                  description?: string | null;
+              }
+            | string,
+        ...rest: [string?, boolean?, (string | null)?]
     ): Promise<Models.Database> {
-        let params: { databaseId: string; name?: string; enabled?: boolean };
+        let params: {
+            databaseId: string;
+            name?: string;
+            enabled?: boolean;
+            description?: string | null;
+        };
 
         if (
             paramsOrFirst &&
@@ -952,18 +991,21 @@ export class Databases {
                 databaseId: string;
                 name?: string;
                 enabled?: boolean;
+                description?: string | null;
             };
         } else {
             params = {
                 databaseId: paramsOrFirst as string,
                 name: rest[0] as string,
                 enabled: rest[1] as boolean,
+                description: rest[2] as string | null,
             };
         }
 
         const databaseId = params.databaseId;
         const name = params.name;
         const enabled = params.enabled;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -979,6 +1021,9 @@ export class Databases {
         }
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
+        }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -996,6 +1041,7 @@ export class Databases {
                     defaults: {
                         $id: '',
                         name: '',
+                        description: '',
                         $createdAt: '',
                         $updatedAt: '',
                         enabled: true,
@@ -1222,6 +1268,7 @@ export class Databases {
                         $permissions: [],
                         databaseId: '',
                         name: '',
+                        description: '',
                         enabled: true,
                         documentSecurity: false,
                         attributes: [],
@@ -1241,6 +1288,7 @@ export class Databases {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],
@@ -1264,6 +1312,7 @@ export class Databases {
      * @param {boolean} params.enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
      * @param {object[]} params.attributes - Array of attribute definitions to create. Each attribute should contain: key (string), type (string: string, varchar, text, mediumtext, longtext, integer, bigint, double, boolean, datetime, point, linestring, polygon, email, url, ip, enum), size (integer, required for string and varchar types), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
      * @param {object[]} params.indexes - Array of index definitions to create. Each index should contain: key (string), type (string: key, fulltext, unique, spatial, trigram), attributes (array of attribute keys), orders (array of ASC/DESC, optional), and lengths (array of integers, optional).
+     * @param {string} params.description - Optional description for the collection.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createTable` instead.
@@ -1277,6 +1326,7 @@ export class Databases {
         enabled?: boolean;
         attributes?: object[];
         indexes?: object[];
+        description?: string;
     }): Promise<Models.Collection>;
     /**
      * Create a new Collection. Before using this route, you should create a new database resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
@@ -1289,6 +1339,7 @@ export class Databases {
      * @param {boolean} enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
      * @param {object[]} attributes - Array of attribute definitions to create. Each attribute should contain: key (string), type (string: string, varchar, text, mediumtext, longtext, integer, bigint, double, boolean, datetime, point, linestring, polygon, email, url, ip, enum), size (integer, required for string and varchar types), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
      * @param {object[]} indexes - Array of index definitions to create. Each index should contain: key (string), type (string: key, fulltext, unique, spatial, trigram), attributes (array of attribute keys), orders (array of ASC/DESC, optional), and lengths (array of integers, optional).
+     * @param {string} description - Optional description for the collection.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1302,6 +1353,7 @@ export class Databases {
         enabled?: boolean,
         attributes?: object[],
         indexes?: object[],
+        description?: string,
     ): Promise<Models.Collection>;
     createCollection(
         paramsOrFirst:
@@ -1314,6 +1366,7 @@ export class Databases {
                   enabled?: boolean;
                   attributes?: object[];
                   indexes?: object[];
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -1324,6 +1377,7 @@ export class Databases {
             boolean?,
             object[]?,
             object[]?,
+            string?,
         ]
     ): Promise<Models.Collection> {
         let params: {
@@ -1335,6 +1389,7 @@ export class Databases {
             enabled?: boolean;
             attributes?: object[];
             indexes?: object[];
+            description?: string;
         };
 
         if (
@@ -1351,6 +1406,7 @@ export class Databases {
                 enabled?: boolean;
                 attributes?: object[];
                 indexes?: object[];
+                description?: string;
             };
         } else {
             params = {
@@ -1362,6 +1418,7 @@ export class Databases {
                 enabled: rest[4] as boolean,
                 attributes: rest[5] as object[],
                 indexes: rest[6] as object[],
+                description: rest[7] as string,
             };
         }
 
@@ -1373,6 +1430,7 @@ export class Databases {
         const enabled = params.enabled;
         const attributes = params.attributes;
         const indexes = params.indexes;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -1412,6 +1470,9 @@ export class Databases {
         if (typeof indexes !== 'undefined') {
             apiPayload['indexes'] = indexes;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1432,6 +1493,7 @@ export class Databases {
                         $permissions: [],
                         databaseId: '',
                         name: '',
+                        description: '',
                         enabled: true,
                         documentSecurity: false,
                         attributes: [],
@@ -1451,6 +1513,7 @@ export class Databases {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],
@@ -1549,6 +1612,7 @@ export class Databases {
                         $permissions: [],
                         databaseId: '',
                         name: '',
+                        description: '',
                         enabled: true,
                         documentSecurity: false,
                         attributes: [],
@@ -1568,6 +1632,7 @@ export class Databases {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],
@@ -1590,6 +1655,7 @@ export class Databases {
      * @param {boolean} params.documentSecurity - Enables configuring permissions for individual documents. A user needs one of document or collection level permissions to access a document. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} params.enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
      * @param {boolean} params.purge - When true, purge all cached list responses for this collection as part of the update. Use this to force readers to see fresh data immediately instead of waiting for the cache TTL to expire.
+     * @param {string | null} params.description - Optional description for the collection.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateTable` instead.
@@ -1602,6 +1668,7 @@ export class Databases {
         documentSecurity?: boolean;
         enabled?: boolean;
         purge?: boolean;
+        description?: string | null;
     }): Promise<Models.Collection>;
     /**
      * Update a collection by its unique ID.
@@ -1613,6 +1680,7 @@ export class Databases {
      * @param {boolean} documentSecurity - Enables configuring permissions for individual documents. A user needs one of document or collection level permissions to access a document. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param {boolean} enabled - Is collection enabled? When set to 'disabled', users cannot access the collection but Server SDKs with and API key can still read and write to the collection. No data is lost when this is toggled.
      * @param {boolean} purge - When true, purge all cached list responses for this collection as part of the update. Use this to force readers to see fresh data immediately instead of waiting for the cache TTL to expire.
+     * @param {string | null} description - Optional description for the collection.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Collection>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1625,6 +1693,7 @@ export class Databases {
         documentSecurity?: boolean,
         enabled?: boolean,
         purge?: boolean,
+        description?: string | null,
     ): Promise<Models.Collection>;
     updateCollection(
         paramsOrFirst:
@@ -1636,6 +1705,7 @@ export class Databases {
                   documentSecurity?: boolean;
                   enabled?: boolean;
                   purge?: boolean;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -1645,6 +1715,7 @@ export class Databases {
             boolean?,
             boolean?,
             boolean?,
+            (string | null)?,
         ]
     ): Promise<Models.Collection> {
         let params: {
@@ -1655,6 +1726,7 @@ export class Databases {
             documentSecurity?: boolean;
             enabled?: boolean;
             purge?: boolean;
+            description?: string | null;
         };
 
         if (
@@ -1670,6 +1742,7 @@ export class Databases {
                 documentSecurity?: boolean;
                 enabled?: boolean;
                 purge?: boolean;
+                description?: string | null;
             };
         } else {
             params = {
@@ -1680,6 +1753,7 @@ export class Databases {
                 documentSecurity: rest[3] as boolean,
                 enabled: rest[4] as boolean,
                 purge: rest[5] as boolean,
+                description: rest[6] as string | null,
             };
         }
 
@@ -1690,6 +1764,7 @@ export class Databases {
         const documentSecurity = params.documentSecurity;
         const enabled = params.enabled;
         const purge = params.purge;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -1722,6 +1797,9 @@ export class Databases {
         if (typeof purge !== 'undefined') {
             apiPayload['purge'] = purge;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1742,6 +1820,7 @@ export class Databases {
                         $permissions: [],
                         databaseId: '',
                         name: '',
+                        description: '',
                         enabled: true,
                         documentSecurity: false,
                         attributes: [],
@@ -1761,6 +1840,7 @@ export class Databases {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],
@@ -1983,6 +2063,7 @@ export class Databases {
      * @param {number | bigint | null} params.max - Maximum value
      * @param {number | bigint | null} params.xdefault - Default value. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBigint>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createBigIntColumn` instead.
@@ -1996,6 +2077,7 @@ export class Databases {
         max?: number | bigint | null;
         xdefault?: number | bigint | null;
         array?: boolean;
+        description?: string;
     }): Promise<Models.AttributeBigint>;
     /**
      * Create a bigint attribute. Optionally, minimum and maximum values can be provided.
@@ -2009,6 +2091,7 @@ export class Databases {
      * @param {number | bigint | null} max - Maximum value
      * @param {number | bigint | null} xdefault - Default value. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBigint>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2022,6 +2105,7 @@ export class Databases {
         max?: number | bigint | null,
         xdefault?: number | bigint | null,
         array?: boolean,
+        description?: string,
     ): Promise<Models.AttributeBigint>;
     createBigIntAttribute(
         paramsOrFirst:
@@ -2034,6 +2118,7 @@ export class Databases {
                   max?: number | bigint | null;
                   xdefault?: number | bigint | null;
                   array?: boolean;
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -2044,6 +2129,7 @@ export class Databases {
             (number | bigint | null)?,
             (number | bigint | null)?,
             boolean?,
+            string?,
         ]
     ): Promise<Models.AttributeBigint> {
         let params: {
@@ -2055,6 +2141,7 @@ export class Databases {
             max?: number | bigint | null;
             xdefault?: number | bigint | null;
             array?: boolean;
+            description?: string;
         };
 
         if (
@@ -2071,6 +2158,7 @@ export class Databases {
                 max?: number | bigint | null;
                 xdefault?: number | bigint | null;
                 array?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -2082,6 +2170,7 @@ export class Databases {
                 max: rest[4] as number | bigint | null,
                 xdefault: rest[5] as number | bigint | null,
                 array: rest[6] as boolean,
+                description: rest[7] as string,
             };
         }
 
@@ -2093,6 +2182,7 @@ export class Databases {
         const max = params.max;
         const xdefault = params.xdefault;
         const array = params.array;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -2137,6 +2227,9 @@ export class Databases {
         if (typeof array !== 'undefined') {
             apiPayload['array'] = array;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -2152,6 +2245,7 @@ export class Databases {
                 attributeBigint: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -2177,6 +2271,7 @@ export class Databases {
      * @param {number | bigint | null} params.min - Minimum value
      * @param {number | bigint | null} params.max - Maximum value
      * @param {string | null} params.newKey - New Attribute Key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBigint>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateBigIntColumn` instead.
@@ -2190,6 +2285,7 @@ export class Databases {
         min?: number | bigint | null;
         max?: number | bigint | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeBigint>;
     /**
      * Update a bigint attribute. Changing the `default` value will not update already existing documents.
@@ -2203,6 +2299,7 @@ export class Databases {
      * @param {number | bigint | null} min - Minimum value
      * @param {number | bigint | null} max - Maximum value
      * @param {string | null} newKey - New Attribute Key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBigint>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2216,6 +2313,7 @@ export class Databases {
         min?: number | bigint | null,
         max?: number | bigint | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeBigint>;
     updateBigIntAttribute(
         paramsOrFirst:
@@ -2228,6 +2326,7 @@ export class Databases {
                   min?: number | bigint | null;
                   max?: number | bigint | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -2237,6 +2336,7 @@ export class Databases {
             (number | bigint | null)?,
             (number | bigint | null)?,
             (number | bigint | null)?,
+            (string | null)?,
             (string | null)?,
         ]
     ): Promise<Models.AttributeBigint> {
@@ -2249,6 +2349,7 @@ export class Databases {
             min?: number | bigint | null;
             max?: number | bigint | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -2265,6 +2366,7 @@ export class Databases {
                 min?: number | bigint | null;
                 max?: number | bigint | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -2276,6 +2378,7 @@ export class Databases {
                 min: rest[4] as number | bigint | null,
                 max: rest[5] as number | bigint | null,
                 newKey: rest[6] as string | null,
+                description: rest[7] as string | null,
             };
         }
 
@@ -2287,6 +2390,7 @@ export class Databases {
         const min = params.min;
         const max = params.max;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -2334,6 +2438,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -2349,6 +2456,7 @@ export class Databases {
                 attributeBigint: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -2372,6 +2480,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {boolean | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBoolean>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createBooleanColumn` instead.
@@ -2383,6 +2492,7 @@ export class Databases {
         required: boolean;
         xdefault?: boolean | null;
         array?: boolean;
+        description?: string;
     }): Promise<Models.AttributeBoolean>;
     /**
      * Create a boolean attribute.
@@ -2394,6 +2504,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {boolean | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBoolean>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2405,6 +2516,7 @@ export class Databases {
         required: boolean,
         xdefault?: boolean | null,
         array?: boolean,
+        description?: string,
     ): Promise<Models.AttributeBoolean>;
     createBooleanAttribute(
         paramsOrFirst:
@@ -2415,9 +2527,17 @@ export class Databases {
                   required: boolean;
                   xdefault?: boolean | null;
                   array?: boolean;
+                  description?: string;
               }
             | string,
-        ...rest: [string?, string?, boolean?, (boolean | null)?, boolean?]
+        ...rest: [
+            string?,
+            string?,
+            boolean?,
+            (boolean | null)?,
+            boolean?,
+            string?,
+        ]
     ): Promise<Models.AttributeBoolean> {
         let params: {
             databaseId: string;
@@ -2426,6 +2546,7 @@ export class Databases {
             required: boolean;
             xdefault?: boolean | null;
             array?: boolean;
+            description?: string;
         };
 
         if (
@@ -2440,6 +2561,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: boolean | null;
                 array?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -2449,6 +2571,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as boolean | null,
                 array: rest[4] as boolean,
+                description: rest[5] as string,
             };
         }
 
@@ -2458,6 +2581,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const array = params.array;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -2496,6 +2620,9 @@ export class Databases {
         if (typeof array !== 'undefined') {
             apiPayload['array'] = array;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -2511,6 +2638,7 @@ export class Databases {
                 attributeBoolean: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -2533,6 +2661,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {boolean | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} params.newKey - New attribute key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBoolean>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateBooleanColumn` instead.
@@ -2544,6 +2673,7 @@ export class Databases {
         required: boolean;
         xdefault?: boolean | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeBoolean>;
     /**
      * Update a boolean attribute. Changing the `default` value will not update already existing documents.
@@ -2554,6 +2684,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {boolean | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} newKey - New attribute key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeBoolean>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2565,6 +2696,7 @@ export class Databases {
         required: boolean,
         xdefault?: boolean | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeBoolean>;
     updateBooleanAttribute(
         paramsOrFirst:
@@ -2575,6 +2707,7 @@ export class Databases {
                   required: boolean;
                   xdefault?: boolean | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -2582,6 +2715,7 @@ export class Databases {
             string?,
             boolean?,
             (boolean | null)?,
+            (string | null)?,
             (string | null)?,
         ]
     ): Promise<Models.AttributeBoolean> {
@@ -2592,6 +2726,7 @@ export class Databases {
             required: boolean;
             xdefault?: boolean | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -2606,6 +2741,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: boolean | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -2615,6 +2751,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as boolean | null,
                 newKey: rest[4] as string | null,
+                description: rest[5] as string | null,
             };
         }
 
@@ -2624,6 +2761,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -2665,6 +2803,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -2680,6 +2821,7 @@ export class Databases {
                 attributeBoolean: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -2702,6 +2844,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {string | null} params.xdefault - Default value for the attribute in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeDatetime>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createDatetimeColumn` instead.
@@ -2713,6 +2856,7 @@ export class Databases {
         required: boolean;
         xdefault?: string | null;
         array?: boolean;
+        description?: string;
     }): Promise<Models.AttributeDatetime>;
     /**
      * Create a date time attribute according to the ISO 8601 standard.
@@ -2723,6 +2867,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {string | null} xdefault - Default value for the attribute in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeDatetime>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2734,6 +2879,7 @@ export class Databases {
         required: boolean,
         xdefault?: string | null,
         array?: boolean,
+        description?: string,
     ): Promise<Models.AttributeDatetime>;
     createDatetimeAttribute(
         paramsOrFirst:
@@ -2744,9 +2890,17 @@ export class Databases {
                   required: boolean;
                   xdefault?: string | null;
                   array?: boolean;
+                  description?: string;
               }
             | string,
-        ...rest: [string?, string?, boolean?, (string | null)?, boolean?]
+        ...rest: [
+            string?,
+            string?,
+            boolean?,
+            (string | null)?,
+            boolean?,
+            string?,
+        ]
     ): Promise<Models.AttributeDatetime> {
         let params: {
             databaseId: string;
@@ -2755,6 +2909,7 @@ export class Databases {
             required: boolean;
             xdefault?: string | null;
             array?: boolean;
+            description?: string;
         };
 
         if (
@@ -2769,6 +2924,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: string | null;
                 array?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -2778,6 +2934,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as string | null,
                 array: rest[4] as boolean,
+                description: rest[5] as string,
             };
         }
 
@@ -2787,6 +2944,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const array = params.array;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -2825,6 +2983,9 @@ export class Databases {
         if (typeof array !== 'undefined') {
             apiPayload['array'] = array;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -2840,6 +3001,7 @@ export class Databases {
                 attributeDatetime: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -2862,6 +3024,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} params.newKey - New attribute key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeDatetime>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateDatetimeColumn` instead.
@@ -2873,6 +3036,7 @@ export class Databases {
         required: boolean;
         xdefault?: string | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeDatetime>;
     /**
      * Update a date time attribute. Changing the `default` value will not update already existing documents.
@@ -2883,6 +3047,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} newKey - New attribute key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeDatetime>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2894,6 +3059,7 @@ export class Databases {
         required: boolean,
         xdefault?: string | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeDatetime>;
     updateDatetimeAttribute(
         paramsOrFirst:
@@ -2904,12 +3070,14 @@ export class Databases {
                   required: boolean;
                   xdefault?: string | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
             string?,
             string?,
             boolean?,
+            (string | null)?,
             (string | null)?,
             (string | null)?,
         ]
@@ -2921,6 +3089,7 @@ export class Databases {
             required: boolean;
             xdefault?: string | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -2935,6 +3104,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: string | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -2944,6 +3114,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as string | null,
                 newKey: rest[4] as string | null,
+                description: rest[5] as string | null,
             };
         }
 
@@ -2953,6 +3124,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -2994,6 +3166,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -3009,6 +3184,7 @@ export class Databases {
                 attributeDatetime: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -3032,6 +3208,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEmail>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createEmailColumn` instead.
@@ -3043,6 +3220,7 @@ export class Databases {
         required: boolean;
         xdefault?: string | null;
         array?: boolean;
+        description?: string;
     }): Promise<Models.AttributeEmail>;
     /**
      * Create an email attribute.
@@ -3054,6 +3232,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEmail>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3065,6 +3244,7 @@ export class Databases {
         required: boolean,
         xdefault?: string | null,
         array?: boolean,
+        description?: string,
     ): Promise<Models.AttributeEmail>;
     createEmailAttribute(
         paramsOrFirst:
@@ -3075,9 +3255,17 @@ export class Databases {
                   required: boolean;
                   xdefault?: string | null;
                   array?: boolean;
+                  description?: string;
               }
             | string,
-        ...rest: [string?, string?, boolean?, (string | null)?, boolean?]
+        ...rest: [
+            string?,
+            string?,
+            boolean?,
+            (string | null)?,
+            boolean?,
+            string?,
+        ]
     ): Promise<Models.AttributeEmail> {
         let params: {
             databaseId: string;
@@ -3086,6 +3274,7 @@ export class Databases {
             required: boolean;
             xdefault?: string | null;
             array?: boolean;
+            description?: string;
         };
 
         if (
@@ -3100,6 +3289,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: string | null;
                 array?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -3109,6 +3299,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as string | null,
                 array: rest[4] as boolean,
+                description: rest[5] as string,
             };
         }
 
@@ -3118,6 +3309,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const array = params.array;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -3156,6 +3348,9 @@ export class Databases {
         if (typeof array !== 'undefined') {
             apiPayload['array'] = array;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -3171,6 +3366,7 @@ export class Databases {
                 attributeEmail: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -3195,6 +3391,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} params.newKey - New Attribute Key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEmail>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateEmailColumn` instead.
@@ -3206,6 +3403,7 @@ export class Databases {
         required: boolean;
         xdefault?: string | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeEmail>;
     /**
      * Update an email attribute. Changing the `default` value will not update already existing documents.
@@ -3217,6 +3415,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} newKey - New Attribute Key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEmail>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3228,6 +3427,7 @@ export class Databases {
         required: boolean,
         xdefault?: string | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeEmail>;
     updateEmailAttribute(
         paramsOrFirst:
@@ -3238,12 +3438,14 @@ export class Databases {
                   required: boolean;
                   xdefault?: string | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
             string?,
             string?,
             boolean?,
+            (string | null)?,
             (string | null)?,
             (string | null)?,
         ]
@@ -3255,6 +3457,7 @@ export class Databases {
             required: boolean;
             xdefault?: string | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -3269,6 +3472,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: string | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -3278,6 +3482,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as string | null,
                 newKey: rest[4] as string | null,
+                description: rest[5] as string | null,
             };
         }
 
@@ -3287,6 +3492,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -3328,6 +3534,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -3343,6 +3552,7 @@ export class Databases {
                 attributeEmail: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -3368,6 +3578,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEnum>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createEnumColumn` instead.
@@ -3380,6 +3591,7 @@ export class Databases {
         required: boolean;
         xdefault?: string | null;
         array?: boolean;
+        description?: string;
     }): Promise<Models.AttributeEnum>;
     /**
      * Create an enum attribute. The `elements` param acts as a white-list of accepted values for this attribute.
@@ -3392,6 +3604,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEnum>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3404,6 +3617,7 @@ export class Databases {
         required: boolean,
         xdefault?: string | null,
         array?: boolean,
+        description?: string,
     ): Promise<Models.AttributeEnum>;
     createEnumAttribute(
         paramsOrFirst:
@@ -3415,6 +3629,7 @@ export class Databases {
                   required: boolean;
                   xdefault?: string | null;
                   array?: boolean;
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -3424,6 +3639,7 @@ export class Databases {
             boolean?,
             (string | null)?,
             boolean?,
+            string?,
         ]
     ): Promise<Models.AttributeEnum> {
         let params: {
@@ -3434,6 +3650,7 @@ export class Databases {
             required: boolean;
             xdefault?: string | null;
             array?: boolean;
+            description?: string;
         };
 
         if (
@@ -3449,6 +3666,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: string | null;
                 array?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -3459,6 +3677,7 @@ export class Databases {
                 required: rest[3] as boolean,
                 xdefault: rest[4] as string | null,
                 array: rest[5] as boolean,
+                description: rest[6] as string,
             };
         }
 
@@ -3469,6 +3688,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const array = params.array;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -3515,6 +3735,9 @@ export class Databases {
         if (typeof array !== 'undefined') {
             apiPayload['array'] = array;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -3530,6 +3753,7 @@ export class Databases {
                 attributeEnum: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -3556,6 +3780,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} params.newKey - New Attribute Key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEnum>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateEnumColumn` instead.
@@ -3568,6 +3793,7 @@ export class Databases {
         required: boolean;
         xdefault?: string | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeEnum>;
     /**
      * Update an enum attribute. Changing the `default` value will not update already existing documents.
@@ -3580,6 +3806,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} newKey - New Attribute Key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeEnum>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3592,6 +3819,7 @@ export class Databases {
         required: boolean,
         xdefault?: string | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeEnum>;
     updateEnumAttribute(
         paramsOrFirst:
@@ -3603,6 +3831,7 @@ export class Databases {
                   required: boolean;
                   xdefault?: string | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -3610,6 +3839,7 @@ export class Databases {
             string?,
             string[]?,
             boolean?,
+            (string | null)?,
             (string | null)?,
             (string | null)?,
         ]
@@ -3622,6 +3852,7 @@ export class Databases {
             required: boolean;
             xdefault?: string | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -3637,6 +3868,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: string | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -3647,6 +3879,7 @@ export class Databases {
                 required: rest[3] as boolean,
                 xdefault: rest[4] as string | null,
                 newKey: rest[5] as string | null,
+                description: rest[6] as string | null,
             };
         }
 
@@ -3657,6 +3890,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -3706,6 +3940,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -3721,6 +3958,7 @@ export class Databases {
                 attributeEnum: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -3748,6 +3986,7 @@ export class Databases {
      * @param {number | null} params.max - Maximum value.
      * @param {number | null} params.xdefault - Default value. Cannot be set when required.
      * @param {boolean} params.array - Is attribute an array?
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createFloatColumn` instead.
@@ -3761,6 +4000,7 @@ export class Databases {
         max?: number | null;
         xdefault?: number | null;
         array?: boolean;
+        description?: string;
     }): Promise<Models.AttributeFloat>;
     /**
      * Create a float attribute. Optionally, minimum and maximum values can be provided.
@@ -3774,6 +4014,7 @@ export class Databases {
      * @param {number | null} max - Maximum value.
      * @param {number | null} xdefault - Default value. Cannot be set when required.
      * @param {boolean} array - Is attribute an array?
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3787,6 +4028,7 @@ export class Databases {
         max?: number | null,
         xdefault?: number | null,
         array?: boolean,
+        description?: string,
     ): Promise<Models.AttributeFloat>;
     createFloatAttribute(
         paramsOrFirst:
@@ -3799,6 +4041,7 @@ export class Databases {
                   max?: number | null;
                   xdefault?: number | null;
                   array?: boolean;
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -3809,6 +4052,7 @@ export class Databases {
             (number | null)?,
             (number | null)?,
             boolean?,
+            string?,
         ]
     ): Promise<Models.AttributeFloat> {
         let params: {
@@ -3820,6 +4064,7 @@ export class Databases {
             max?: number | null;
             xdefault?: number | null;
             array?: boolean;
+            description?: string;
         };
 
         if (
@@ -3836,6 +4081,7 @@ export class Databases {
                 max?: number | null;
                 xdefault?: number | null;
                 array?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -3847,6 +4093,7 @@ export class Databases {
                 max: rest[4] as number | null,
                 xdefault: rest[5] as number | null,
                 array: rest[6] as boolean,
+                description: rest[7] as string,
             };
         }
 
@@ -3858,6 +4105,7 @@ export class Databases {
         const max = params.max;
         const xdefault = params.xdefault;
         const array = params.array;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -3902,6 +4150,9 @@ export class Databases {
         if (typeof array !== 'undefined') {
             apiPayload['array'] = array;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -3917,6 +4168,7 @@ export class Databases {
                 attributeFloat: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -3942,6 +4194,7 @@ export class Databases {
      * @param {number | null} params.min - Minimum value.
      * @param {number | null} params.max - Maximum value.
      * @param {string | null} params.newKey - New Attribute Key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateFloatColumn` instead.
@@ -3955,6 +4208,7 @@ export class Databases {
         min?: number | null;
         max?: number | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeFloat>;
     /**
      * Update a float attribute. Changing the `default` value will not update already existing documents.
@@ -3968,6 +4222,7 @@ export class Databases {
      * @param {number | null} min - Minimum value.
      * @param {number | null} max - Maximum value.
      * @param {string | null} newKey - New Attribute Key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeFloat>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -3981,6 +4236,7 @@ export class Databases {
         min?: number | null,
         max?: number | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeFloat>;
     updateFloatAttribute(
         paramsOrFirst:
@@ -3993,6 +4249,7 @@ export class Databases {
                   min?: number | null;
                   max?: number | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -4002,6 +4259,7 @@ export class Databases {
             (number | null)?,
             (number | null)?,
             (number | null)?,
+            (string | null)?,
             (string | null)?,
         ]
     ): Promise<Models.AttributeFloat> {
@@ -4014,6 +4272,7 @@ export class Databases {
             min?: number | null;
             max?: number | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -4030,6 +4289,7 @@ export class Databases {
                 min?: number | null;
                 max?: number | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -4041,6 +4301,7 @@ export class Databases {
                 min: rest[4] as number | null,
                 max: rest[5] as number | null,
                 newKey: rest[6] as string | null,
+                description: rest[7] as string | null,
             };
         }
 
@@ -4052,6 +4313,7 @@ export class Databases {
         const min = params.min;
         const max = params.max;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -4099,6 +4361,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -4114,6 +4379,7 @@ export class Databases {
                 attributeFloat: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -4139,6 +4405,7 @@ export class Databases {
      * @param {number | bigint | null} params.max - Maximum value
      * @param {number | bigint | null} params.xdefault - Default value. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeInteger>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createIntegerColumn` instead.
@@ -4152,6 +4419,7 @@ export class Databases {
         max?: number | bigint | null;
         xdefault?: number | bigint | null;
         array?: boolean;
+        description?: string;
     }): Promise<Models.AttributeInteger>;
     /**
      * Create an integer attribute. Optionally, minimum and maximum values can be provided.
@@ -4165,6 +4433,7 @@ export class Databases {
      * @param {number | bigint | null} max - Maximum value
      * @param {number | bigint | null} xdefault - Default value. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeInteger>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -4178,6 +4447,7 @@ export class Databases {
         max?: number | bigint | null,
         xdefault?: number | bigint | null,
         array?: boolean,
+        description?: string,
     ): Promise<Models.AttributeInteger>;
     createIntegerAttribute(
         paramsOrFirst:
@@ -4190,6 +4460,7 @@ export class Databases {
                   max?: number | bigint | null;
                   xdefault?: number | bigint | null;
                   array?: boolean;
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -4200,6 +4471,7 @@ export class Databases {
             (number | bigint | null)?,
             (number | bigint | null)?,
             boolean?,
+            string?,
         ]
     ): Promise<Models.AttributeInteger> {
         let params: {
@@ -4211,6 +4483,7 @@ export class Databases {
             max?: number | bigint | null;
             xdefault?: number | bigint | null;
             array?: boolean;
+            description?: string;
         };
 
         if (
@@ -4227,6 +4500,7 @@ export class Databases {
                 max?: number | bigint | null;
                 xdefault?: number | bigint | null;
                 array?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -4238,6 +4512,7 @@ export class Databases {
                 max: rest[4] as number | bigint | null,
                 xdefault: rest[5] as number | bigint | null,
                 array: rest[6] as boolean,
+                description: rest[7] as string,
             };
         }
 
@@ -4249,6 +4524,7 @@ export class Databases {
         const max = params.max;
         const xdefault = params.xdefault;
         const array = params.array;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -4293,6 +4569,9 @@ export class Databases {
         if (typeof array !== 'undefined') {
             apiPayload['array'] = array;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -4308,6 +4587,7 @@ export class Databases {
                 attributeInteger: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -4333,6 +4613,7 @@ export class Databases {
      * @param {number | bigint | null} params.min - Minimum value
      * @param {number | bigint | null} params.max - Maximum value
      * @param {string | null} params.newKey - New Attribute Key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeInteger>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateIntegerColumn` instead.
@@ -4346,6 +4627,7 @@ export class Databases {
         min?: number | bigint | null;
         max?: number | bigint | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeInteger>;
     /**
      * Update an integer attribute. Changing the `default` value will not update already existing documents.
@@ -4359,6 +4641,7 @@ export class Databases {
      * @param {number | bigint | null} min - Minimum value
      * @param {number | bigint | null} max - Maximum value
      * @param {string | null} newKey - New Attribute Key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeInteger>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -4372,6 +4655,7 @@ export class Databases {
         min?: number | bigint | null,
         max?: number | bigint | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeInteger>;
     updateIntegerAttribute(
         paramsOrFirst:
@@ -4384,6 +4668,7 @@ export class Databases {
                   min?: number | bigint | null;
                   max?: number | bigint | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -4393,6 +4678,7 @@ export class Databases {
             (number | bigint | null)?,
             (number | bigint | null)?,
             (number | bigint | null)?,
+            (string | null)?,
             (string | null)?,
         ]
     ): Promise<Models.AttributeInteger> {
@@ -4405,6 +4691,7 @@ export class Databases {
             min?: number | bigint | null;
             max?: number | bigint | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -4421,6 +4708,7 @@ export class Databases {
                 min?: number | bigint | null;
                 max?: number | bigint | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -4432,6 +4720,7 @@ export class Databases {
                 min: rest[4] as number | bigint | null,
                 max: rest[5] as number | bigint | null,
                 newKey: rest[6] as string | null,
+                description: rest[7] as string | null,
             };
         }
 
@@ -4443,6 +4732,7 @@ export class Databases {
         const min = params.min;
         const max = params.max;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -4490,6 +4780,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -4505,6 +4798,7 @@ export class Databases {
                 attributeInteger: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -4528,6 +4822,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {string | null} params.xdefault - Default value. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeIp>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createIpColumn` instead.
@@ -4539,6 +4834,7 @@ export class Databases {
         required: boolean;
         xdefault?: string | null;
         array?: boolean;
+        description?: string;
     }): Promise<Models.AttributeIp>;
     /**
      * Create IP address attribute.
@@ -4550,6 +4846,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {string | null} xdefault - Default value. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeIp>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -4561,6 +4858,7 @@ export class Databases {
         required: boolean,
         xdefault?: string | null,
         array?: boolean,
+        description?: string,
     ): Promise<Models.AttributeIp>;
     createIpAttribute(
         paramsOrFirst:
@@ -4571,9 +4869,17 @@ export class Databases {
                   required: boolean;
                   xdefault?: string | null;
                   array?: boolean;
+                  description?: string;
               }
             | string,
-        ...rest: [string?, string?, boolean?, (string | null)?, boolean?]
+        ...rest: [
+            string?,
+            string?,
+            boolean?,
+            (string | null)?,
+            boolean?,
+            string?,
+        ]
     ): Promise<Models.AttributeIp> {
         let params: {
             databaseId: string;
@@ -4582,6 +4888,7 @@ export class Databases {
             required: boolean;
             xdefault?: string | null;
             array?: boolean;
+            description?: string;
         };
 
         if (
@@ -4596,6 +4903,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: string | null;
                 array?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -4605,6 +4913,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as string | null,
                 array: rest[4] as boolean,
+                description: rest[5] as string,
             };
         }
 
@@ -4614,6 +4923,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const array = params.array;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -4652,6 +4962,9 @@ export class Databases {
         if (typeof array !== 'undefined') {
             apiPayload['array'] = array;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -4667,6 +4980,7 @@ export class Databases {
                 attributeIp: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -4691,6 +5005,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {string | null} params.xdefault - Default value. Cannot be set when attribute is required.
      * @param {string | null} params.newKey - New Attribute Key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeIp>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateIpColumn` instead.
@@ -4702,6 +5017,7 @@ export class Databases {
         required: boolean;
         xdefault?: string | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeIp>;
     /**
      * Update an ip attribute. Changing the `default` value will not update already existing documents.
@@ -4713,6 +5029,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {string | null} xdefault - Default value. Cannot be set when attribute is required.
      * @param {string | null} newKey - New Attribute Key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeIp>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -4724,6 +5041,7 @@ export class Databases {
         required: boolean,
         xdefault?: string | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeIp>;
     updateIpAttribute(
         paramsOrFirst:
@@ -4734,12 +5052,14 @@ export class Databases {
                   required: boolean;
                   xdefault?: string | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
             string?,
             string?,
             boolean?,
+            (string | null)?,
             (string | null)?,
             (string | null)?,
         ]
@@ -4751,6 +5071,7 @@ export class Databases {
             required: boolean;
             xdefault?: string | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -4765,6 +5086,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: string | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -4774,6 +5096,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as string | null,
                 newKey: rest[4] as string | null,
+                description: rest[5] as string | null,
             };
         }
 
@@ -4783,6 +5106,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -4824,6 +5148,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -4839,6 +5166,7 @@ export class Databases {
                 attributeIp: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -4861,6 +5189,7 @@ export class Databases {
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
      * @param {any[][] | null} params.xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLine>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createLineColumn` instead.
@@ -4871,6 +5200,7 @@ export class Databases {
         key: string;
         required: boolean;
         xdefault?: any[][] | null;
+        description?: string;
     }): Promise<Models.AttributeLine>;
     /**
      * Create a geometric line attribute.
@@ -4880,6 +5210,7 @@ export class Databases {
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
      * @param {any[][] | null} xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLine>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -4890,6 +5221,7 @@ export class Databases {
         key: string,
         required: boolean,
         xdefault?: any[][] | null,
+        description?: string,
     ): Promise<Models.AttributeLine>;
     createLineAttribute(
         paramsOrFirst:
@@ -4899,9 +5231,10 @@ export class Databases {
                   key: string;
                   required: boolean;
                   xdefault?: any[][] | null;
+                  description?: string;
               }
             | string,
-        ...rest: [string?, string?, boolean?, (any[][] | null)?]
+        ...rest: [string?, string?, boolean?, (any[][] | null)?, string?]
     ): Promise<Models.AttributeLine> {
         let params: {
             databaseId: string;
@@ -4909,6 +5242,7 @@ export class Databases {
             key: string;
             required: boolean;
             xdefault?: any[][] | null;
+            description?: string;
         };
 
         if (
@@ -4922,6 +5256,7 @@ export class Databases {
                 key: string;
                 required: boolean;
                 xdefault?: any[][] | null;
+                description?: string;
             };
         } else {
             params = {
@@ -4930,6 +5265,7 @@ export class Databases {
                 key: rest[1] as string,
                 required: rest[2] as boolean,
                 xdefault: rest[3] as any[][] | null,
+                description: rest[4] as string,
             };
         }
 
@@ -4938,6 +5274,7 @@ export class Databases {
         const key = params.key;
         const required = params.required;
         const xdefault = params.xdefault;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -4973,6 +5310,9 @@ export class Databases {
         if (typeof xdefault !== 'undefined') {
             apiPayload['default'] = xdefault;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -4988,6 +5328,7 @@ export class Databases {
                 attributeLine: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -5010,6 +5351,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {any[][] | null} params.xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
      * @param {string | null} params.newKey - New attribute key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLine>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateLineColumn` instead.
@@ -5021,6 +5363,7 @@ export class Databases {
         required: boolean;
         xdefault?: any[][] | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeLine>;
     /**
      * Update a line attribute. Changing the `default` value will not update already existing documents.
@@ -5031,6 +5374,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {any[][] | null} xdefault - Default value for attribute when not provided, two-dimensional array of coordinate pairs, [[longitude, latitude], [longitude, latitude], …], listing the vertices of the line in order. Cannot be set when attribute is required.
      * @param {string | null} newKey - New attribute key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLine>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5042,6 +5386,7 @@ export class Databases {
         required: boolean,
         xdefault?: any[][] | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeLine>;
     updateLineAttribute(
         paramsOrFirst:
@@ -5052,6 +5397,7 @@ export class Databases {
                   required: boolean;
                   xdefault?: any[][] | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -5059,6 +5405,7 @@ export class Databases {
             string?,
             boolean?,
             (any[][] | null)?,
+            (string | null)?,
             (string | null)?,
         ]
     ): Promise<Models.AttributeLine> {
@@ -5069,6 +5416,7 @@ export class Databases {
             required: boolean;
             xdefault?: any[][] | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -5083,6 +5431,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: any[][] | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -5092,6 +5441,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as any[][] | null,
                 newKey: rest[4] as string | null,
+                description: rest[5] as string | null,
             };
         }
 
@@ -5101,6 +5451,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -5137,6 +5488,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -5152,6 +5506,7 @@ export class Databases {
                 attributeLine: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -5176,6 +5531,7 @@ export class Databases {
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
      * @param {boolean} params.encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLongtext>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createLongtextColumn` instead.
@@ -5188,6 +5544,7 @@ export class Databases {
         xdefault?: string | null;
         array?: boolean;
         encrypt?: boolean;
+        description?: string;
     }): Promise<Models.AttributeLongtext>;
     /**
      * Create a longtext attribute.
@@ -5200,6 +5557,7 @@ export class Databases {
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
      * @param {boolean} encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLongtext>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5212,6 +5570,7 @@ export class Databases {
         xdefault?: string | null,
         array?: boolean,
         encrypt?: boolean,
+        description?: string,
     ): Promise<Models.AttributeLongtext>;
     createLongtextAttribute(
         paramsOrFirst:
@@ -5223,6 +5582,7 @@ export class Databases {
                   xdefault?: string | null;
                   array?: boolean;
                   encrypt?: boolean;
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -5232,6 +5592,7 @@ export class Databases {
             (string | null)?,
             boolean?,
             boolean?,
+            string?,
         ]
     ): Promise<Models.AttributeLongtext> {
         let params: {
@@ -5242,6 +5603,7 @@ export class Databases {
             xdefault?: string | null;
             array?: boolean;
             encrypt?: boolean;
+            description?: string;
         };
 
         if (
@@ -5257,6 +5619,7 @@ export class Databases {
                 xdefault?: string | null;
                 array?: boolean;
                 encrypt?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -5267,6 +5630,7 @@ export class Databases {
                 xdefault: rest[3] as string | null,
                 array: rest[4] as boolean,
                 encrypt: rest[5] as boolean,
+                description: rest[6] as string,
             };
         }
 
@@ -5277,6 +5641,7 @@ export class Databases {
         const xdefault = params.xdefault;
         const array = params.array;
         const encrypt = params.encrypt;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -5318,6 +5683,9 @@ export class Databases {
         if (typeof encrypt !== 'undefined') {
             apiPayload['encrypt'] = encrypt;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -5333,6 +5701,7 @@ export class Databases {
                 attributeLongtext: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -5356,6 +5725,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} params.newKey - New Attribute Key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLongtext>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateLongtextColumn` instead.
@@ -5367,6 +5737,7 @@ export class Databases {
         required: boolean;
         xdefault?: string | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeLongtext>;
     /**
      * Update a longtext attribute. Changing the `default` value will not update already existing documents.
@@ -5378,6 +5749,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} newKey - New Attribute Key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeLongtext>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5389,6 +5761,7 @@ export class Databases {
         required: boolean,
         xdefault?: string | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeLongtext>;
     updateLongtextAttribute(
         paramsOrFirst:
@@ -5399,12 +5772,14 @@ export class Databases {
                   required: boolean;
                   xdefault?: string | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
             string?,
             string?,
             boolean?,
+            (string | null)?,
             (string | null)?,
             (string | null)?,
         ]
@@ -5416,6 +5791,7 @@ export class Databases {
             required: boolean;
             xdefault?: string | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -5430,6 +5806,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: string | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -5439,6 +5816,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as string | null,
                 newKey: rest[4] as string | null,
+                description: rest[5] as string | null,
             };
         }
 
@@ -5448,6 +5826,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -5489,6 +5868,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -5504,6 +5886,7 @@ export class Databases {
                 attributeLongtext: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -5528,6 +5911,7 @@ export class Databases {
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
      * @param {boolean} params.encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeMediumtext>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createMediumtextColumn` instead.
@@ -5540,6 +5924,7 @@ export class Databases {
         xdefault?: string | null;
         array?: boolean;
         encrypt?: boolean;
+        description?: string;
     }): Promise<Models.AttributeMediumtext>;
     /**
      * Create a mediumtext attribute.
@@ -5552,6 +5937,7 @@ export class Databases {
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
      * @param {boolean} encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeMediumtext>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5564,6 +5950,7 @@ export class Databases {
         xdefault?: string | null,
         array?: boolean,
         encrypt?: boolean,
+        description?: string,
     ): Promise<Models.AttributeMediumtext>;
     createMediumtextAttribute(
         paramsOrFirst:
@@ -5575,6 +5962,7 @@ export class Databases {
                   xdefault?: string | null;
                   array?: boolean;
                   encrypt?: boolean;
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -5584,6 +5972,7 @@ export class Databases {
             (string | null)?,
             boolean?,
             boolean?,
+            string?,
         ]
     ): Promise<Models.AttributeMediumtext> {
         let params: {
@@ -5594,6 +5983,7 @@ export class Databases {
             xdefault?: string | null;
             array?: boolean;
             encrypt?: boolean;
+            description?: string;
         };
 
         if (
@@ -5609,6 +5999,7 @@ export class Databases {
                 xdefault?: string | null;
                 array?: boolean;
                 encrypt?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -5619,6 +6010,7 @@ export class Databases {
                 xdefault: rest[3] as string | null,
                 array: rest[4] as boolean,
                 encrypt: rest[5] as boolean,
+                description: rest[6] as string,
             };
         }
 
@@ -5629,6 +6021,7 @@ export class Databases {
         const xdefault = params.xdefault;
         const array = params.array;
         const encrypt = params.encrypt;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -5670,6 +6063,9 @@ export class Databases {
         if (typeof encrypt !== 'undefined') {
             apiPayload['encrypt'] = encrypt;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -5685,6 +6081,7 @@ export class Databases {
                 attributeMediumtext: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -5708,6 +6105,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} params.newKey - New Attribute Key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeMediumtext>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateMediumtextColumn` instead.
@@ -5719,6 +6117,7 @@ export class Databases {
         required: boolean;
         xdefault?: string | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeMediumtext>;
     /**
      * Update a mediumtext attribute. Changing the `default` value will not update already existing documents.
@@ -5730,6 +6129,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} newKey - New Attribute Key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeMediumtext>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5741,6 +6141,7 @@ export class Databases {
         required: boolean,
         xdefault?: string | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeMediumtext>;
     updateMediumtextAttribute(
         paramsOrFirst:
@@ -5751,12 +6152,14 @@ export class Databases {
                   required: boolean;
                   xdefault?: string | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
             string?,
             string?,
             boolean?,
+            (string | null)?,
             (string | null)?,
             (string | null)?,
         ]
@@ -5768,6 +6171,7 @@ export class Databases {
             required: boolean;
             xdefault?: string | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -5782,6 +6186,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: string | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -5791,6 +6196,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as string | null,
                 newKey: rest[4] as string | null,
+                description: rest[5] as string | null,
             };
         }
 
@@ -5800,6 +6206,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -5841,6 +6248,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -5856,6 +6266,7 @@ export class Databases {
                 attributeMediumtext: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -5877,6 +6288,7 @@ export class Databases {
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
      * @param {number[] | null} params.xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePoint>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createPointColumn` instead.
@@ -5887,6 +6299,7 @@ export class Databases {
         key: string;
         required: boolean;
         xdefault?: number[] | null;
+        description?: string;
     }): Promise<Models.AttributePoint>;
     /**
      * Create a geometric point attribute.
@@ -5896,6 +6309,7 @@ export class Databases {
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
      * @param {number[] | null} xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePoint>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -5906,6 +6320,7 @@ export class Databases {
         key: string,
         required: boolean,
         xdefault?: number[] | null,
+        description?: string,
     ): Promise<Models.AttributePoint>;
     createPointAttribute(
         paramsOrFirst:
@@ -5915,9 +6330,10 @@ export class Databases {
                   key: string;
                   required: boolean;
                   xdefault?: number[] | null;
+                  description?: string;
               }
             | string,
-        ...rest: [string?, string?, boolean?, (number[] | null)?]
+        ...rest: [string?, string?, boolean?, (number[] | null)?, string?]
     ): Promise<Models.AttributePoint> {
         let params: {
             databaseId: string;
@@ -5925,6 +6341,7 @@ export class Databases {
             key: string;
             required: boolean;
             xdefault?: number[] | null;
+            description?: string;
         };
 
         if (
@@ -5938,6 +6355,7 @@ export class Databases {
                 key: string;
                 required: boolean;
                 xdefault?: number[] | null;
+                description?: string;
             };
         } else {
             params = {
@@ -5946,6 +6364,7 @@ export class Databases {
                 key: rest[1] as string,
                 required: rest[2] as boolean,
                 xdefault: rest[3] as number[] | null,
+                description: rest[4] as string,
             };
         }
 
@@ -5954,6 +6373,7 @@ export class Databases {
         const key = params.key;
         const required = params.required;
         const xdefault = params.xdefault;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -5989,6 +6409,9 @@ export class Databases {
         if (typeof xdefault !== 'undefined') {
             apiPayload['default'] = xdefault;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -6004,6 +6427,7 @@ export class Databases {
                 attributePoint: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -6026,6 +6450,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {number[] | null} params.xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
      * @param {string | null} params.newKey - New attribute key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePoint>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updatePointColumn` instead.
@@ -6037,6 +6462,7 @@ export class Databases {
         required: boolean;
         xdefault?: number[] | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributePoint>;
     /**
      * Update a point attribute. Changing the `default` value will not update already existing documents.
@@ -6047,6 +6473,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {number[] | null} xdefault - Default value for attribute when not provided, array of two numbers [longitude, latitude], representing a single coordinate. Cannot be set when attribute is required.
      * @param {string | null} newKey - New attribute key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePoint>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6058,6 +6485,7 @@ export class Databases {
         required: boolean,
         xdefault?: number[] | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributePoint>;
     updatePointAttribute(
         paramsOrFirst:
@@ -6068,6 +6496,7 @@ export class Databases {
                   required: boolean;
                   xdefault?: number[] | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -6075,6 +6504,7 @@ export class Databases {
             string?,
             boolean?,
             (number[] | null)?,
+            (string | null)?,
             (string | null)?,
         ]
     ): Promise<Models.AttributePoint> {
@@ -6085,6 +6515,7 @@ export class Databases {
             required: boolean;
             xdefault?: number[] | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -6099,6 +6530,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: number[] | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -6108,6 +6540,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as number[] | null,
                 newKey: rest[4] as string | null,
+                description: rest[5] as string | null,
             };
         }
 
@@ -6117,6 +6550,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -6153,6 +6587,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -6168,6 +6605,7 @@ export class Databases {
                 attributePoint: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -6189,6 +6627,7 @@ export class Databases {
      * @param {string} params.key - Attribute Key.
      * @param {boolean} params.required - Is attribute required?
      * @param {any[][] | null} params.xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePolygon>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createPolygonColumn` instead.
@@ -6199,6 +6638,7 @@ export class Databases {
         key: string;
         required: boolean;
         xdefault?: any[][] | null;
+        description?: string;
     }): Promise<Models.AttributePolygon>;
     /**
      * Create a geometric polygon attribute.
@@ -6208,6 +6648,7 @@ export class Databases {
      * @param {string} key - Attribute Key.
      * @param {boolean} required - Is attribute required?
      * @param {any[][] | null} xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePolygon>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6218,6 +6659,7 @@ export class Databases {
         key: string,
         required: boolean,
         xdefault?: any[][] | null,
+        description?: string,
     ): Promise<Models.AttributePolygon>;
     createPolygonAttribute(
         paramsOrFirst:
@@ -6227,9 +6669,10 @@ export class Databases {
                   key: string;
                   required: boolean;
                   xdefault?: any[][] | null;
+                  description?: string;
               }
             | string,
-        ...rest: [string?, string?, boolean?, (any[][] | null)?]
+        ...rest: [string?, string?, boolean?, (any[][] | null)?, string?]
     ): Promise<Models.AttributePolygon> {
         let params: {
             databaseId: string;
@@ -6237,6 +6680,7 @@ export class Databases {
             key: string;
             required: boolean;
             xdefault?: any[][] | null;
+            description?: string;
         };
 
         if (
@@ -6250,6 +6694,7 @@ export class Databases {
                 key: string;
                 required: boolean;
                 xdefault?: any[][] | null;
+                description?: string;
             };
         } else {
             params = {
@@ -6258,6 +6703,7 @@ export class Databases {
                 key: rest[1] as string,
                 required: rest[2] as boolean,
                 xdefault: rest[3] as any[][] | null,
+                description: rest[4] as string,
             };
         }
 
@@ -6266,6 +6712,7 @@ export class Databases {
         const key = params.key;
         const required = params.required;
         const xdefault = params.xdefault;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -6301,6 +6748,9 @@ export class Databases {
         if (typeof xdefault !== 'undefined') {
             apiPayload['default'] = xdefault;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -6316,6 +6766,7 @@ export class Databases {
                 attributePolygon: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -6338,6 +6789,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {any[][] | null} params.xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
      * @param {string | null} params.newKey - New attribute key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePolygon>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updatePolygonColumn` instead.
@@ -6349,6 +6801,7 @@ export class Databases {
         required: boolean;
         xdefault?: any[][] | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributePolygon>;
     /**
      * Update a polygon attribute. Changing the `default` value will not update already existing documents.
@@ -6359,6 +6812,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {any[][] | null} xdefault - Default value for attribute when not provided, three-dimensional array where the outer array holds one or more linear rings, [[[longitude, latitude], …], …], the first ring is the exterior boundary, any additional rings are interior holes, and each ring must start and end with the same coordinate pair. Cannot be set when attribute is required.
      * @param {string | null} newKey - New attribute key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributePolygon>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6370,6 +6824,7 @@ export class Databases {
         required: boolean,
         xdefault?: any[][] | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributePolygon>;
     updatePolygonAttribute(
         paramsOrFirst:
@@ -6380,6 +6835,7 @@ export class Databases {
                   required: boolean;
                   xdefault?: any[][] | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -6387,6 +6843,7 @@ export class Databases {
             string?,
             boolean?,
             (any[][] | null)?,
+            (string | null)?,
             (string | null)?,
         ]
     ): Promise<Models.AttributePolygon> {
@@ -6397,6 +6854,7 @@ export class Databases {
             required: boolean;
             xdefault?: any[][] | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -6411,6 +6869,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: any[][] | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -6420,6 +6879,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as any[][] | null,
                 newKey: rest[4] as string | null,
+                description: rest[5] as string | null,
             };
         }
 
@@ -6429,6 +6889,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -6465,6 +6926,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -6480,6 +6944,7 @@ export class Databases {
                 attributePolygon: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -6505,6 +6970,7 @@ export class Databases {
      * @param {string | null} params.key - Attribute Key.
      * @param {string | null} params.twoWayKey - Two Way Attribute Key.
      * @param {RelationMutate} params.onDelete - Delete constraint. Possible values are: cascade, restrict, setNull.
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createRelationshipColumn` instead.
@@ -6518,6 +6984,7 @@ export class Databases {
         key?: string | null;
         twoWayKey?: string | null;
         onDelete?: RelationMutate;
+        description?: string;
     }): Promise<Models.AttributeRelationship>;
     /**
      * Create relationship attribute. [Learn more about relationship attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
@@ -6531,6 +6998,7 @@ export class Databases {
      * @param {string | null} key - Attribute Key.
      * @param {string | null} twoWayKey - Two Way Attribute Key.
      * @param {RelationMutate} onDelete - Delete constraint. Possible values are: cascade, restrict, setNull.
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6544,6 +7012,7 @@ export class Databases {
         key?: string | null,
         twoWayKey?: string | null,
         onDelete?: RelationMutate,
+        description?: string,
     ): Promise<Models.AttributeRelationship>;
     createRelationshipAttribute(
         paramsOrFirst:
@@ -6556,6 +7025,7 @@ export class Databases {
                   key?: string | null;
                   twoWayKey?: string | null;
                   onDelete?: RelationMutate;
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -6566,6 +7036,7 @@ export class Databases {
             (string | null)?,
             (string | null)?,
             RelationMutate?,
+            string?,
         ]
     ): Promise<Models.AttributeRelationship> {
         let params: {
@@ -6577,6 +7048,7 @@ export class Databases {
             key?: string | null;
             twoWayKey?: string | null;
             onDelete?: RelationMutate;
+            description?: string;
         };
 
         if (
@@ -6593,6 +7065,7 @@ export class Databases {
                 key?: string | null;
                 twoWayKey?: string | null;
                 onDelete?: RelationMutate;
+                description?: string;
             };
         } else {
             params = {
@@ -6604,6 +7077,7 @@ export class Databases {
                 key: rest[4] as string | null,
                 twoWayKey: rest[5] as string | null,
                 onDelete: rest[6] as RelationMutate,
+                description: rest[7] as string,
             };
         }
 
@@ -6615,6 +7089,7 @@ export class Databases {
         const key = params.key;
         const twoWayKey = params.twoWayKey;
         const onDelete = params.onDelete;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -6659,6 +7134,9 @@ export class Databases {
         if (typeof onDelete !== 'undefined') {
             apiPayload['onDelete'] = onDelete;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -6674,6 +7152,7 @@ export class Databases {
                 attributeRelationship: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -6701,6 +7180,7 @@ export class Databases {
      * @param {string} params.key - Attribute Key.
      * @param {RelationMutate} params.onDelete - Delete constraint. Possible values are: cascade, restrict, setNull.
      * @param {string | null} params.newKey - New Attribute Key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateRelationshipColumn` instead.
@@ -6711,6 +7191,7 @@ export class Databases {
         key: string;
         onDelete?: RelationMutate;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeRelationship>;
     /**
      * Update relationship attribute. [Learn more about relationship attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
@@ -6721,6 +7202,7 @@ export class Databases {
      * @param {string} key - Attribute Key.
      * @param {RelationMutate} onDelete - Delete constraint. Possible values are: cascade, restrict, setNull.
      * @param {string | null} newKey - New Attribute Key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeRelationship>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6731,6 +7213,7 @@ export class Databases {
         key: string,
         onDelete?: RelationMutate,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeRelationship>;
     updateRelationshipAttribute(
         paramsOrFirst:
@@ -6740,9 +7223,16 @@ export class Databases {
                   key: string;
                   onDelete?: RelationMutate;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
-        ...rest: [string?, string?, RelationMutate?, (string | null)?]
+        ...rest: [
+            string?,
+            string?,
+            RelationMutate?,
+            (string | null)?,
+            (string | null)?,
+        ]
     ): Promise<Models.AttributeRelationship> {
         let params: {
             databaseId: string;
@@ -6750,6 +7240,7 @@ export class Databases {
             key: string;
             onDelete?: RelationMutate;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -6763,6 +7254,7 @@ export class Databases {
                 key: string;
                 onDelete?: RelationMutate;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -6771,6 +7263,7 @@ export class Databases {
                 key: rest[1] as string,
                 onDelete: rest[2] as RelationMutate,
                 newKey: rest[3] as string | null,
+                description: rest[4] as string | null,
             };
         }
 
@@ -6779,6 +7272,7 @@ export class Databases {
         const key = params.key;
         const onDelete = params.onDelete;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -6807,6 +7301,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -6822,6 +7319,7 @@ export class Databases {
                 attributeRelationship: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -6852,6 +7350,7 @@ export class Databases {
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
      * @param {boolean} params.encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createStringColumn` instead.
@@ -6865,6 +7364,7 @@ export class Databases {
         xdefault?: string | null;
         array?: boolean;
         encrypt?: boolean;
+        description?: string;
     }): Promise<Models.AttributeString>;
     /**
      * Create a string attribute.
@@ -6878,6 +7378,7 @@ export class Databases {
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
      * @param {boolean} encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -6891,6 +7392,7 @@ export class Databases {
         xdefault?: string | null,
         array?: boolean,
         encrypt?: boolean,
+        description?: string,
     ): Promise<Models.AttributeString>;
     createStringAttribute(
         paramsOrFirst:
@@ -6903,6 +7405,7 @@ export class Databases {
                   xdefault?: string | null;
                   array?: boolean;
                   encrypt?: boolean;
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -6913,6 +7416,7 @@ export class Databases {
             (string | null)?,
             boolean?,
             boolean?,
+            string?,
         ]
     ): Promise<Models.AttributeString> {
         let params: {
@@ -6924,6 +7428,7 @@ export class Databases {
             xdefault?: string | null;
             array?: boolean;
             encrypt?: boolean;
+            description?: string;
         };
 
         if (
@@ -6940,6 +7445,7 @@ export class Databases {
                 xdefault?: string | null;
                 array?: boolean;
                 encrypt?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -6951,6 +7457,7 @@ export class Databases {
                 xdefault: rest[4] as string | null,
                 array: rest[5] as boolean,
                 encrypt: rest[6] as boolean,
+                description: rest[7] as string,
             };
         }
 
@@ -6962,6 +7469,7 @@ export class Databases {
         const xdefault = params.xdefault;
         const array = params.array;
         const encrypt = params.encrypt;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -7009,6 +7517,9 @@ export class Databases {
         if (typeof encrypt !== 'undefined') {
             apiPayload['encrypt'] = encrypt;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -7024,6 +7535,7 @@ export class Databases {
                 attributeString: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -7049,6 +7561,7 @@ export class Databases {
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {number | null} params.size - Maximum size of the string attribute.
      * @param {string | null} params.newKey - New Attribute Key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateStringColumn` instead.
@@ -7061,6 +7574,7 @@ export class Databases {
         xdefault?: string | null;
         size?: number | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeString>;
     /**
      * Update a string attribute. Changing the `default` value will not update already existing documents.
@@ -7073,6 +7587,7 @@ export class Databases {
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {number | null} size - Maximum size of the string attribute.
      * @param {string | null} newKey - New Attribute Key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeString>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -7085,6 +7600,7 @@ export class Databases {
         xdefault?: string | null,
         size?: number | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeString>;
     updateStringAttribute(
         paramsOrFirst:
@@ -7096,6 +7612,7 @@ export class Databases {
                   xdefault?: string | null;
                   size?: number | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -7104,6 +7621,7 @@ export class Databases {
             boolean?,
             (string | null)?,
             (number | null)?,
+            (string | null)?,
             (string | null)?,
         ]
     ): Promise<Models.AttributeString> {
@@ -7115,6 +7633,7 @@ export class Databases {
             xdefault?: string | null;
             size?: number | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -7130,6 +7649,7 @@ export class Databases {
                 xdefault?: string | null;
                 size?: number | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -7140,6 +7660,7 @@ export class Databases {
                 xdefault: rest[3] as string | null,
                 size: rest[4] as number | null,
                 newKey: rest[5] as string | null,
+                description: rest[6] as string | null,
             };
         }
 
@@ -7150,6 +7671,7 @@ export class Databases {
         const xdefault = params.xdefault;
         const size = params.size;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -7194,6 +7716,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -7209,6 +7734,7 @@ export class Databases {
                 attributeString: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -7234,6 +7760,7 @@ export class Databases {
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
      * @param {boolean} params.encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeText>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createTextColumn` instead.
@@ -7246,6 +7773,7 @@ export class Databases {
         xdefault?: string | null;
         array?: boolean;
         encrypt?: boolean;
+        description?: string;
     }): Promise<Models.AttributeText>;
     /**
      * Create a text attribute.
@@ -7258,6 +7786,7 @@ export class Databases {
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
      * @param {boolean} encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeText>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -7270,6 +7799,7 @@ export class Databases {
         xdefault?: string | null,
         array?: boolean,
         encrypt?: boolean,
+        description?: string,
     ): Promise<Models.AttributeText>;
     createTextAttribute(
         paramsOrFirst:
@@ -7281,6 +7811,7 @@ export class Databases {
                   xdefault?: string | null;
                   array?: boolean;
                   encrypt?: boolean;
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -7290,6 +7821,7 @@ export class Databases {
             (string | null)?,
             boolean?,
             boolean?,
+            string?,
         ]
     ): Promise<Models.AttributeText> {
         let params: {
@@ -7300,6 +7832,7 @@ export class Databases {
             xdefault?: string | null;
             array?: boolean;
             encrypt?: boolean;
+            description?: string;
         };
 
         if (
@@ -7315,6 +7848,7 @@ export class Databases {
                 xdefault?: string | null;
                 array?: boolean;
                 encrypt?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -7325,6 +7859,7 @@ export class Databases {
                 xdefault: rest[3] as string | null,
                 array: rest[4] as boolean,
                 encrypt: rest[5] as boolean,
+                description: rest[6] as string,
             };
         }
 
@@ -7335,6 +7870,7 @@ export class Databases {
         const xdefault = params.xdefault;
         const array = params.array;
         const encrypt = params.encrypt;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -7376,6 +7912,9 @@ export class Databases {
         if (typeof encrypt !== 'undefined') {
             apiPayload['encrypt'] = encrypt;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -7391,6 +7930,7 @@ export class Databases {
                 attributeText: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -7414,6 +7954,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} params.newKey - New Attribute Key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeText>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateTextColumn` instead.
@@ -7425,6 +7966,7 @@ export class Databases {
         required: boolean;
         xdefault?: string | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeText>;
     /**
      * Update a text attribute. Changing the `default` value will not update already existing documents.
@@ -7436,6 +7978,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} newKey - New Attribute Key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeText>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -7447,6 +7990,7 @@ export class Databases {
         required: boolean,
         xdefault?: string | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeText>;
     updateTextAttribute(
         paramsOrFirst:
@@ -7457,12 +8001,14 @@ export class Databases {
                   required: boolean;
                   xdefault?: string | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
             string?,
             string?,
             boolean?,
+            (string | null)?,
             (string | null)?,
             (string | null)?,
         ]
@@ -7474,6 +8020,7 @@ export class Databases {
             required: boolean;
             xdefault?: string | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -7488,6 +8035,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: string | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -7497,6 +8045,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as string | null,
                 newKey: rest[4] as string | null,
+                description: rest[5] as string | null,
             };
         }
 
@@ -7506,6 +8055,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -7547,6 +8097,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -7562,6 +8115,7 @@ export class Databases {
                 attributeText: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -7585,6 +8139,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeUrl>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createUrlColumn` instead.
@@ -7596,6 +8151,7 @@ export class Databases {
         required: boolean;
         xdefault?: string | null;
         array?: boolean;
+        description?: string;
     }): Promise<Models.AttributeUrl>;
     /**
      * Create a URL attribute.
@@ -7607,6 +8163,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeUrl>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -7618,6 +8175,7 @@ export class Databases {
         required: boolean,
         xdefault?: string | null,
         array?: boolean,
+        description?: string,
     ): Promise<Models.AttributeUrl>;
     createUrlAttribute(
         paramsOrFirst:
@@ -7628,9 +8186,17 @@ export class Databases {
                   required: boolean;
                   xdefault?: string | null;
                   array?: boolean;
+                  description?: string;
               }
             | string,
-        ...rest: [string?, string?, boolean?, (string | null)?, boolean?]
+        ...rest: [
+            string?,
+            string?,
+            boolean?,
+            (string | null)?,
+            boolean?,
+            string?,
+        ]
     ): Promise<Models.AttributeUrl> {
         let params: {
             databaseId: string;
@@ -7639,6 +8205,7 @@ export class Databases {
             required: boolean;
             xdefault?: string | null;
             array?: boolean;
+            description?: string;
         };
 
         if (
@@ -7653,6 +8220,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: string | null;
                 array?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -7662,6 +8230,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as string | null,
                 array: rest[4] as boolean,
+                description: rest[5] as string,
             };
         }
 
@@ -7671,6 +8240,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const array = params.array;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -7709,6 +8279,9 @@ export class Databases {
         if (typeof array !== 'undefined') {
             apiPayload['array'] = array;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -7724,6 +8297,7 @@ export class Databases {
                 attributeUrl: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -7748,6 +8322,7 @@ export class Databases {
      * @param {boolean} params.required - Is attribute required?
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} params.newKey - New Attribute Key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeUrl>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateUrlColumn` instead.
@@ -7759,6 +8334,7 @@ export class Databases {
         required: boolean;
         xdefault?: string | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeUrl>;
     /**
      * Update an url attribute. Changing the `default` value will not update already existing documents.
@@ -7770,6 +8346,7 @@ export class Databases {
      * @param {boolean} required - Is attribute required?
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {string | null} newKey - New Attribute Key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeUrl>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -7781,6 +8358,7 @@ export class Databases {
         required: boolean,
         xdefault?: string | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeUrl>;
     updateUrlAttribute(
         paramsOrFirst:
@@ -7791,12 +8369,14 @@ export class Databases {
                   required: boolean;
                   xdefault?: string | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
             string?,
             string?,
             boolean?,
+            (string | null)?,
             (string | null)?,
             (string | null)?,
         ]
@@ -7808,6 +8388,7 @@ export class Databases {
             required: boolean;
             xdefault?: string | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -7822,6 +8403,7 @@ export class Databases {
                 required: boolean;
                 xdefault?: string | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -7831,6 +8413,7 @@ export class Databases {
                 required: rest[2] as boolean,
                 xdefault: rest[3] as string | null,
                 newKey: rest[4] as string | null,
+                description: rest[5] as string | null,
             };
         }
 
@@ -7840,6 +8423,7 @@ export class Databases {
         const required = params.required;
         const xdefault = params.xdefault;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -7881,6 +8465,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -7896,6 +8483,7 @@ export class Databases {
                 attributeUrl: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -7922,6 +8510,7 @@ export class Databases {
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} params.array - Is attribute an array?
      * @param {boolean} params.encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
+     * @param {string} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeVarchar>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createVarcharColumn` instead.
@@ -7935,6 +8524,7 @@ export class Databases {
         xdefault?: string | null;
         array?: boolean;
         encrypt?: boolean;
+        description?: string;
     }): Promise<Models.AttributeVarchar>;
     /**
      * Create a varchar attribute.
@@ -7948,6 +8538,7 @@ export class Databases {
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {boolean} array - Is attribute an array?
      * @param {boolean} encrypt - Toggle encryption for the attribute. Encryption enhances security by not storing any plain text values in the database. However, encrypted attributes cannot be queried.
+     * @param {string} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeVarchar>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -7961,6 +8552,7 @@ export class Databases {
         xdefault?: string | null,
         array?: boolean,
         encrypt?: boolean,
+        description?: string,
     ): Promise<Models.AttributeVarchar>;
     createVarcharAttribute(
         paramsOrFirst:
@@ -7973,6 +8565,7 @@ export class Databases {
                   xdefault?: string | null;
                   array?: boolean;
                   encrypt?: boolean;
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -7983,6 +8576,7 @@ export class Databases {
             (string | null)?,
             boolean?,
             boolean?,
+            string?,
         ]
     ): Promise<Models.AttributeVarchar> {
         let params: {
@@ -7994,6 +8588,7 @@ export class Databases {
             xdefault?: string | null;
             array?: boolean;
             encrypt?: boolean;
+            description?: string;
         };
 
         if (
@@ -8010,6 +8605,7 @@ export class Databases {
                 xdefault?: string | null;
                 array?: boolean;
                 encrypt?: boolean;
+                description?: string;
             };
         } else {
             params = {
@@ -8021,6 +8617,7 @@ export class Databases {
                 xdefault: rest[4] as string | null,
                 array: rest[5] as boolean,
                 encrypt: rest[6] as boolean,
+                description: rest[7] as string,
             };
         }
 
@@ -8032,6 +8629,7 @@ export class Databases {
         const xdefault = params.xdefault;
         const array = params.array;
         const encrypt = params.encrypt;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -8079,6 +8677,9 @@ export class Databases {
         if (typeof encrypt !== 'undefined') {
             apiPayload['encrypt'] = encrypt;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -8094,6 +8695,7 @@ export class Databases {
                 attributeVarchar: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -8119,6 +8721,7 @@ export class Databases {
      * @param {string | null} params.xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {number | null} params.size - Maximum size of the varchar attribute.
      * @param {string | null} params.newKey - New Attribute Key.
+     * @param {string | null} params.description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeVarchar>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.updateVarcharColumn` instead.
@@ -8131,6 +8734,7 @@ export class Databases {
         xdefault?: string | null;
         size?: number | null;
         newKey?: string | null;
+        description?: string | null;
     }): Promise<Models.AttributeVarchar>;
     /**
      * Update a varchar attribute. Changing the `default` value will not update already existing documents.
@@ -8143,6 +8747,7 @@ export class Databases {
      * @param {string | null} xdefault - Default value for attribute when not provided. Cannot be set when attribute is required.
      * @param {number | null} size - Maximum size of the varchar attribute.
      * @param {string | null} newKey - New Attribute Key.
+     * @param {string | null} description - Optional description for the attribute.
      * @throws {AppwriteException}
      * @returns {Promise<Models.AttributeVarchar>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -8155,6 +8760,7 @@ export class Databases {
         xdefault?: string | null,
         size?: number | null,
         newKey?: string | null,
+        description?: string | null,
     ): Promise<Models.AttributeVarchar>;
     updateVarcharAttribute(
         paramsOrFirst:
@@ -8166,6 +8772,7 @@ export class Databases {
                   xdefault?: string | null;
                   size?: number | null;
                   newKey?: string | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -8174,6 +8781,7 @@ export class Databases {
             boolean?,
             (string | null)?,
             (number | null)?,
+            (string | null)?,
             (string | null)?,
         ]
     ): Promise<Models.AttributeVarchar> {
@@ -8185,6 +8793,7 @@ export class Databases {
             xdefault?: string | null;
             size?: number | null;
             newKey?: string | null;
+            description?: string | null;
         };
 
         if (
@@ -8200,6 +8809,7 @@ export class Databases {
                 xdefault?: string | null;
                 size?: number | null;
                 newKey?: string | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -8210,6 +8820,7 @@ export class Databases {
                 xdefault: rest[3] as string | null,
                 size: rest[4] as number | null,
                 newKey: rest[5] as string | null,
+                description: rest[6] as string | null,
             };
         }
 
@@ -8220,6 +8831,7 @@ export class Databases {
         const xdefault = params.xdefault;
         const size = params.size;
         const newKey = params.newKey;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -8264,6 +8876,9 @@ export class Databases {
         if (typeof newKey !== 'undefined') {
             apiPayload['newKey'] = newKey;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -8279,6 +8894,7 @@ export class Databases {
                 attributeVarchar: {
                     defaults: {
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         required: false,
@@ -8534,12 +9150,14 @@ export class Databases {
     /**
      * Get a list of all the user's documents in a given collection. You can use the query params to filter your results.
      *
+     * Documents returned by aggregate, groupBy or distinct queries hold only the attributes they select, group or aggregate, typed as a document types them, with a joined attribute named by its join alias (`alias.attribute`). The response omits their `$id`, `$sequence`, `$createdAt`, `$updatedAt`, `$permissions`, `$databaseId` and `$collectionId` unless they select or group it, and those of a right or full join document that no document of this collection matched. SDK document models fill omitted system attributes with empty values.
+     *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param {string} params.transactionId - Transaction ID to read uncommitted changes within the transaction.
      * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
-     * @param {number} params.ttl - TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, collection, schema version (attributes and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; document writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Must be between 0 and 86400 (24 hours).
+     * @param {number} params.ttl - TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, collection, schema version (attributes and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; document writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Lists with join queries are not cached. Must be between 0 and 86400 (24 hours).
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.listRows` instead.
@@ -8557,12 +9175,14 @@ export class Databases {
     /**
      * Get a list of all the user's documents in a given collection. You can use the query params to filter your results.
      *
+     * Documents returned by aggregate, groupBy or distinct queries hold only the attributes they select, group or aggregate, typed as a document types them, with a joined attribute named by its join alias (`alias.attribute`). The response omits their `$id`, `$sequence`, `$createdAt`, `$updatedAt`, `$permissions`, `$databaseId` and `$collectionId` unless they select or group it, and those of a right or full join document that no document of this collection matched. SDK document models fill omitted system attributes with empty values.
+     *
      * @param {string} databaseId - Database ID.
      * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param {string} transactionId - Transaction ID to read uncommitted changes within the transaction.
      * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
-     * @param {number} ttl - TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, collection, schema version (attributes and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; document writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Must be between 0 and 86400 (24 hours).
+     * @param {number} ttl - TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, collection, schema version (attributes and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; document writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Lists with join queries are not cached. Must be between 0 and 86400 (24 hours).
      * @throws {AppwriteException}
      * @returns {Promise<Models.DocumentList<Document>>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -9445,6 +10065,174 @@ export class Databases {
         };
 
         const request = this.client.call('delete', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'documentList',
+            models: {
+                documentList: {
+                    defaults: {
+                        total: 0,
+                        documents: [],
+                    },
+                    properties: {
+                        documents: {
+                            items: 'document',
+                        },
+                    },
+                },
+                document: {
+                    defaults: {
+                        $id: '',
+                        $sequence: '',
+                        $collectionId: '',
+                        $databaseId: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        $permissions: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Get a list of all the user's documents in a given collection using a POST request. This behaves identically to the list documents endpoint but accepts the queries in the request body, allowing much larger `queries` arrays than can fit in a URL query string.
+     *
+     *
+     * @param {string} params.databaseId - Database ID.
+     * @param {string} params.collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {string | null} params.transactionId - Transaction ID to read uncommitted changes within the transaction.
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @param {number} params.ttl - TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, collection, schema version (attributes and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; document writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Lists with join queries are not cached. Must be between 0 and 86400 (24 hours).
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DocumentList<Document>>}
+     * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createQuery` instead.
+     */
+    createQuery<
+        Document extends Models.Document = Models.DefaultDocument,
+    >(params: {
+        databaseId: string;
+        collectionId: string;
+        queries?: string[];
+        transactionId?: string | null;
+        total?: boolean;
+        ttl?: number;
+    }): Promise<Models.DocumentList<Document>>;
+    /**
+     * Get a list of all the user's documents in a given collection using a POST request. This behaves identically to the list documents endpoint but accepts the queries in the request body, allowing much larger `queries` arrays than can fit in a URL query string.
+     *
+     *
+     * @param {string} databaseId - Database ID.
+     * @param {string} collectionId - Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param {string | null} transactionId - Transaction ID to read uncommitted changes within the transaction.
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @param {number} ttl - TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, collection, schema version (attributes and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; document writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Lists with join queries are not cached. Must be between 0 and 86400 (24 hours).
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.DocumentList<Document>>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createQuery<Document extends Models.Document = Models.DefaultDocument>(
+        databaseId: string,
+        collectionId: string,
+        queries?: string[],
+        transactionId?: string | null,
+        total?: boolean,
+        ttl?: number,
+    ): Promise<Models.DocumentList<Document>>;
+    createQuery<Document extends Models.Document = Models.DefaultDocument>(
+        paramsOrFirst:
+            | {
+                  databaseId: string;
+                  collectionId: string;
+                  queries?: string[];
+                  transactionId?: string | null;
+                  total?: boolean;
+                  ttl?: number;
+              }
+            | string,
+        ...rest: [string?, string[]?, (string | null)?, boolean?, number?]
+    ): Promise<Models.DocumentList<Document>> {
+        let params: {
+            databaseId: string;
+            collectionId: string;
+            queries?: string[];
+            transactionId?: string | null;
+            total?: boolean;
+            ttl?: number;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                databaseId: string;
+                collectionId: string;
+                queries?: string[];
+                transactionId?: string | null;
+                total?: boolean;
+                ttl?: number;
+            };
+        } else {
+            params = {
+                databaseId: paramsOrFirst as string,
+                collectionId: rest[0] as string,
+                queries: rest[1] as string[],
+                transactionId: rest[2] as string | null,
+                total: rest[3] as boolean,
+                ttl: rest[4] as number,
+            };
+        }
+
+        const databaseId = params.databaseId;
+        const collectionId = params.collectionId;
+        const queries = params.queries;
+        const transactionId = params.transactionId;
+        const total = params.total;
+        const ttl = params.ttl;
+        if (typeof databaseId === 'undefined' || databaseId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "databaseId"',
+            );
+        }
+        if (typeof collectionId === 'undefined' || collectionId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "collectionId"',
+            );
+        }
+        const apiPath =
+            '/databases/{databaseId}/collections/{collectionId}/documents/query'
+                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
+                .replace(
+                    '{collectionId}',
+                    encodeURIComponent(String(collectionId)),
+                );
+        const apiPayload: Payload = {};
+        if (typeof queries !== 'undefined') {
+            apiPayload['queries'] = queries;
+        }
+        if (typeof transactionId !== 'undefined') {
+            apiPayload['transactionId'] = transactionId;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
+        }
+        if (typeof ttl !== 'undefined') {
+            apiPayload['ttl'] = ttl;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
         const defaults = {
             root: 'documentList',
             models: {
@@ -10613,6 +11401,7 @@ export class Databases {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],
@@ -10636,6 +11425,7 @@ export class Databases {
      * @param {string[]} params.attributes - Array of attributes to index. Maximum of 100 attributes are allowed, each 32 characters long.
      * @param {OrderBy[]} params.orders - Array of index orders. Maximum of 100 orders are allowed.
      * @param {number[]} params.lengths - Length of index. Maximum of 100
+     * @param {string} params.description - Optional description for the index.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
      * @deprecated This API has been deprecated since 1.8.0. Please use `TablesDB.createIndex` instead.
@@ -10648,6 +11438,7 @@ export class Databases {
         attributes: string[];
         orders?: OrderBy[];
         lengths?: number[];
+        description?: string;
     }): Promise<Models.Index>;
     /**
      * Creates an index on the attributes listed. Your index should include all the attributes you will query in a single request.
@@ -10660,6 +11451,7 @@ export class Databases {
      * @param {string[]} attributes - Array of attributes to index. Maximum of 100 attributes are allowed, each 32 characters long.
      * @param {OrderBy[]} orders - Array of index orders. Maximum of 100 orders are allowed.
      * @param {number[]} lengths - Length of index. Maximum of 100
+     * @param {string} description - Optional description for the index.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Index>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -10672,6 +11464,7 @@ export class Databases {
         attributes: string[],
         orders?: OrderBy[],
         lengths?: number[],
+        description?: string,
     ): Promise<Models.Index>;
     createIndex(
         paramsOrFirst:
@@ -10683,6 +11476,7 @@ export class Databases {
                   attributes: string[];
                   orders?: OrderBy[];
                   lengths?: number[];
+                  description?: string;
               }
             | string,
         ...rest: [
@@ -10692,6 +11486,7 @@ export class Databases {
             string[]?,
             OrderBy[]?,
             number[]?,
+            string?,
         ]
     ): Promise<Models.Index> {
         let params: {
@@ -10702,6 +11497,7 @@ export class Databases {
             attributes: string[];
             orders?: OrderBy[];
             lengths?: number[];
+            description?: string;
         };
 
         if (
@@ -10717,6 +11513,7 @@ export class Databases {
                 attributes: string[];
                 orders?: OrderBy[];
                 lengths?: number[];
+                description?: string;
             };
         } else {
             params = {
@@ -10727,6 +11524,7 @@ export class Databases {
                 attributes: rest[3] as string[],
                 orders: rest[4] as OrderBy[],
                 lengths: rest[5] as number[],
+                description: rest[6] as string,
             };
         }
 
@@ -10737,6 +11535,7 @@ export class Databases {
         const attributes = params.attributes;
         const orders = params.orders;
         const lengths = params.lengths;
+        const description = params.description;
         if (typeof databaseId === 'undefined' || databaseId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "databaseId"',
@@ -10781,6 +11580,9 @@ export class Databases {
         if (typeof lengths !== 'undefined') {
             apiPayload['lengths'] = lengths;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -10799,6 +11601,7 @@ export class Databases {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],
@@ -10908,6 +11711,7 @@ export class Databases {
                         $createdAt: '',
                         $updatedAt: '',
                         key: '',
+                        description: '',
                         type: '',
                         error: '',
                         attributes: [],

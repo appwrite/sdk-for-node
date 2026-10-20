@@ -19,5 +19,6 @@ const result = await databases.updateLineAttribute({
         [5, 6],
     ], // optional
     newKey: '<NEW_KEY>', // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

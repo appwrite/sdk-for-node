@@ -143,6 +143,7 @@ export class Messaging {
      * @param {string | null} params.scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @param {string} params.replyToEmail - Email address to reply to. If not set, defaults to the sender email address.
      * @param {string} params.replyToName - Name of the reply to recipient. If not set, defaults to the sender name.
+     * @param {string[]} params.emails - List of email addresses to send the message to. Use this to deliver to recipients that are not backed by an Appwrite user, target, or topic.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
@@ -161,6 +162,7 @@ export class Messaging {
         scheduledAt?: string | null;
         replyToEmail?: string;
         replyToName?: string;
+        emails?: string[];
     }): Promise<Models.Message>;
     /**
      * Create a new email message.
@@ -179,6 +181,7 @@ export class Messaging {
      * @param {string | null} scheduledAt - Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @param {string} replyToEmail - Email address to reply to. If not set, defaults to the sender email address.
      * @param {string} replyToName - Name of the reply to recipient. If not set, defaults to the sender name.
+     * @param {string[]} emails - List of email addresses to send the message to. Use this to deliver to recipients that are not backed by an Appwrite user, target, or topic.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -198,6 +201,7 @@ export class Messaging {
         scheduledAt?: string | null,
         replyToEmail?: string,
         replyToName?: string,
+        emails?: string[],
     ): Promise<Models.Message>;
     createEmail(
         paramsOrFirst:
@@ -216,6 +220,7 @@ export class Messaging {
                   scheduledAt?: string | null;
                   replyToEmail?: string;
                   replyToName?: string;
+                  emails?: string[];
               }
             | string,
         ...rest: [
@@ -232,6 +237,7 @@ export class Messaging {
             (string | null)?,
             string?,
             string?,
+            string[]?,
         ]
     ): Promise<Models.Message> {
         let params: {
@@ -249,6 +255,7 @@ export class Messaging {
             scheduledAt?: string | null;
             replyToEmail?: string;
             replyToName?: string;
+            emails?: string[];
         };
 
         if (
@@ -271,6 +278,7 @@ export class Messaging {
                 scheduledAt?: string | null;
                 replyToEmail?: string;
                 replyToName?: string;
+                emails?: string[];
             };
         } else {
             params = {
@@ -288,6 +296,7 @@ export class Messaging {
                 scheduledAt: rest[10] as string | null,
                 replyToEmail: rest[11] as string,
                 replyToName: rest[12] as string,
+                emails: rest[13] as string[],
             };
         }
 
@@ -305,6 +314,7 @@ export class Messaging {
         const scheduledAt = params.scheduledAt;
         const replyToEmail = params.replyToEmail;
         const replyToName = params.replyToName;
+        const emails = params.emails;
         if (typeof messageId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "messageId"',
@@ -364,6 +374,9 @@ export class Messaging {
         if (typeof replyToName !== 'undefined') {
             apiPayload['replyToName'] = replyToName;
         }
+        if (typeof emails !== 'undefined') {
+            apiPayload['emails'] = emails;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -414,6 +427,7 @@ export class Messaging {
      * @param {string[] | null} params.attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
      * @param {string | null} params.replyToEmail - Email address to reply to. Pass an empty string to restore the provider or sender default.
      * @param {string | null} params.replyToName - Name of the reply to recipient. Pass an empty string to restore the provider or sender default.
+     * @param {string[] | null} params.emails - List of email addresses to send the message to. Use this to deliver to recipients that are not backed by an Appwrite user, target, or topic.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      */
@@ -432,6 +446,7 @@ export class Messaging {
         attachments?: string[] | null;
         replyToEmail?: string | null;
         replyToName?: string | null;
+        emails?: string[] | null;
     }): Promise<Models.Message>;
     /**
      * Update an email message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
@@ -451,6 +466,7 @@ export class Messaging {
      * @param {string[] | null} attachments - Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
      * @param {string | null} replyToEmail - Email address to reply to. Pass an empty string to restore the provider or sender default.
      * @param {string | null} replyToName - Name of the reply to recipient. Pass an empty string to restore the provider or sender default.
+     * @param {string[] | null} emails - List of email addresses to send the message to. Use this to deliver to recipients that are not backed by an Appwrite user, target, or topic.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Message>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -470,6 +486,7 @@ export class Messaging {
         attachments?: string[] | null,
         replyToEmail?: string | null,
         replyToName?: string | null,
+        emails?: string[] | null,
     ): Promise<Models.Message>;
     updateEmail(
         paramsOrFirst:
@@ -488,6 +505,7 @@ export class Messaging {
                   attachments?: string[] | null;
                   replyToEmail?: string | null;
                   replyToName?: string | null;
+                  emails?: string[] | null;
               }
             | string,
         ...rest: [
@@ -504,6 +522,7 @@ export class Messaging {
             (string[] | null)?,
             (string | null)?,
             (string | null)?,
+            (string[] | null)?,
         ]
     ): Promise<Models.Message> {
         let params: {
@@ -521,6 +540,7 @@ export class Messaging {
             attachments?: string[] | null;
             replyToEmail?: string | null;
             replyToName?: string | null;
+            emails?: string[] | null;
         };
 
         if (
@@ -543,6 +563,7 @@ export class Messaging {
                 attachments?: string[] | null;
                 replyToEmail?: string | null;
                 replyToName?: string | null;
+                emails?: string[] | null;
             };
         } else {
             params = {
@@ -560,6 +581,7 @@ export class Messaging {
                 attachments: rest[10] as string[] | null,
                 replyToEmail: rest[11] as string | null,
                 replyToName: rest[12] as string | null,
+                emails: rest[13] as string[] | null,
             };
         }
 
@@ -577,6 +599,7 @@ export class Messaging {
         const attachments = params.attachments;
         const replyToEmail = params.replyToEmail;
         const replyToName = params.replyToName;
+        const emails = params.emails;
         if (typeof messageId === 'undefined' || messageId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "messageId"',
@@ -625,6 +648,9 @@ export class Messaging {
         }
         if (typeof replyToName !== 'undefined') {
             apiPayload['replyToName'] = replyToName;
+        }
+        if (typeof emails !== 'undefined') {
+            apiPayload['emails'] = emails;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -8225,6 +8251,7 @@ export class Messaging {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         emailTotal: 0,
                         smsTotal: 0,
                         pushTotal: 0,
@@ -8245,6 +8272,7 @@ export class Messaging {
      * @param {string[]} params.subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
      * @param {number | null} params.qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
      * @param {number | null} params.expiry - Message retention in seconds for offline delivery. Max 7 days (604800). Null inherits the lowest expiry of the project's enabled Appwrite providers, or the 7-day ledger window if none sets one.
+     * @param {string} params.description - Optional description for the topic.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      */
@@ -8254,6 +8282,7 @@ export class Messaging {
         subscribe?: string[];
         qos?: number | null;
         expiry?: number | null;
+        description?: string;
     }): Promise<Models.Topic>;
     /**
      * Create a new topic.
@@ -8263,6 +8292,7 @@ export class Messaging {
      * @param {string[]} subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
      * @param {number | null} qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
      * @param {number | null} expiry - Message retention in seconds for offline delivery. Max 7 days (604800). Null inherits the lowest expiry of the project's enabled Appwrite providers, or the 7-day ledger window if none sets one.
+     * @param {string} description - Optional description for the topic.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -8273,6 +8303,7 @@ export class Messaging {
         subscribe?: string[],
         qos?: number | null,
         expiry?: number | null,
+        description?: string,
     ): Promise<Models.Topic>;
     createTopic(
         paramsOrFirst:
@@ -8282,9 +8313,16 @@ export class Messaging {
                   subscribe?: string[];
                   qos?: number | null;
                   expiry?: number | null;
+                  description?: string;
               }
             | string,
-        ...rest: [string?, string[]?, (number | null)?, (number | null)?]
+        ...rest: [
+            string?,
+            string[]?,
+            (number | null)?,
+            (number | null)?,
+            string?,
+        ]
     ): Promise<Models.Topic> {
         let params: {
             topicId: string;
@@ -8292,6 +8330,7 @@ export class Messaging {
             subscribe?: string[];
             qos?: number | null;
             expiry?: number | null;
+            description?: string;
         };
 
         if (
@@ -8305,6 +8344,7 @@ export class Messaging {
                 subscribe?: string[];
                 qos?: number | null;
                 expiry?: number | null;
+                description?: string;
             };
         } else {
             params = {
@@ -8313,6 +8353,7 @@ export class Messaging {
                 subscribe: rest[1] as string[],
                 qos: rest[2] as number | null,
                 expiry: rest[3] as number | null,
+                description: rest[4] as string,
             };
         }
 
@@ -8321,6 +8362,7 @@ export class Messaging {
         const subscribe = params.subscribe;
         const qos = params.qos;
         const expiry = params.expiry;
+        const description = params.description;
         if (typeof topicId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "topicId"',
@@ -8346,6 +8388,9 @@ export class Messaging {
         if (typeof expiry !== 'undefined') {
             apiPayload['expiry'] = expiry;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -8364,6 +8409,7 @@ export class Messaging {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         emailTotal: 0,
                         smsTotal: 0,
                         pushTotal: 0,
@@ -8440,6 +8486,7 @@ export class Messaging {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         emailTotal: 0,
                         smsTotal: 0,
                         pushTotal: 0,
@@ -8461,6 +8508,7 @@ export class Messaging {
      * @param {string[] | null} params.subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
      * @param {number | null} params.qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
      * @param {number | null} params.expiry - Message retention in seconds for offline delivery. Max 7 days (604800). Null inherits the lowest expiry of the project's enabled Appwrite providers, or the 7-day ledger window if none sets one.
+     * @param {string | null} params.description - Optional description for the topic.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      */
@@ -8470,6 +8518,7 @@ export class Messaging {
         subscribe?: string[] | null;
         qos?: number | null;
         expiry?: number | null;
+        description?: string | null;
     }): Promise<Models.Topic>;
     /**
      * Update a topic by its unique ID.
@@ -8480,6 +8529,7 @@ export class Messaging {
      * @param {string[] | null} subscribe - An array of role strings with subscribe permission. By default all users are granted with any subscribe permission. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
      * @param {number | null} qos - MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
      * @param {number | null} expiry - Message retention in seconds for offline delivery. Max 7 days (604800). Null inherits the lowest expiry of the project's enabled Appwrite providers, or the 7-day ledger window if none sets one.
+     * @param {string | null} description - Optional description for the topic.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Topic>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -8490,6 +8540,7 @@ export class Messaging {
         subscribe?: string[] | null,
         qos?: number | null,
         expiry?: number | null,
+        description?: string | null,
     ): Promise<Models.Topic>;
     updateTopic(
         paramsOrFirst:
@@ -8499,6 +8550,7 @@ export class Messaging {
                   subscribe?: string[] | null;
                   qos?: number | null;
                   expiry?: number | null;
+                  description?: string | null;
               }
             | string,
         ...rest: [
@@ -8506,6 +8558,7 @@ export class Messaging {
             (string[] | null)?,
             (number | null)?,
             (number | null)?,
+            (string | null)?,
         ]
     ): Promise<Models.Topic> {
         let params: {
@@ -8514,6 +8567,7 @@ export class Messaging {
             subscribe?: string[] | null;
             qos?: number | null;
             expiry?: number | null;
+            description?: string | null;
         };
 
         if (
@@ -8527,6 +8581,7 @@ export class Messaging {
                 subscribe?: string[] | null;
                 qos?: number | null;
                 expiry?: number | null;
+                description?: string | null;
             };
         } else {
             params = {
@@ -8535,6 +8590,7 @@ export class Messaging {
                 subscribe: rest[1] as string[] | null,
                 qos: rest[2] as number | null,
                 expiry: rest[3] as number | null,
+                description: rest[4] as string | null,
             };
         }
 
@@ -8543,6 +8599,7 @@ export class Messaging {
         const subscribe = params.subscribe;
         const qos = params.qos;
         const expiry = params.expiry;
+        const description = params.description;
         if (typeof topicId === 'undefined' || topicId === '') {
             throw new AppwriteException(
                 'Missing required parameter: "topicId"',
@@ -8565,6 +8622,9 @@ export class Messaging {
         if (typeof expiry !== 'undefined') {
             apiPayload['expiry'] = expiry;
         }
+        if (typeof description !== 'undefined') {
+            apiPayload['description'] = description;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -8583,6 +8643,7 @@ export class Messaging {
                         $createdAt: '',
                         $updatedAt: '',
                         name: '',
+                        description: '',
                         emailTotal: 0,
                         smsTotal: 0,
                         pushTotal: 0,

@@ -33,5 +33,6 @@ const result = await sites.update({
     runtimeSpecification: 's-1vcpu-512mb', // optional
     deploymentRetention: 0, // optional
     scopes: [sdk.ProjectKeyScopes.ProjectRead], // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

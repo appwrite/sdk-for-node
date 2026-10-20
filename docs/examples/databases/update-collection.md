@@ -16,5 +16,6 @@ const result = await databases.updateCollection({
     documentSecurity: false, // optional
     enabled: false, // optional
     purge: false, // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

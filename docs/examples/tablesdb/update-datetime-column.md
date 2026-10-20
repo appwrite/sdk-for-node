@@ -15,5 +15,6 @@ const result = await tablesDB.updateDatetimeColumn({
     required: false,
     xdefault: '2020-10-15T06:38:00.000+00:00',
     newKey: '<NEW_KEY>', // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

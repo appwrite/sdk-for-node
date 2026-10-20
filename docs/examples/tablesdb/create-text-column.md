@@ -16,5 +16,6 @@ const result = await tablesDB.createTextColumn({
     xdefault: 'Hello World', // optional
     array: false, // optional
     encrypt: false, // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

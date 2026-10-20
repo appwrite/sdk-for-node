@@ -16,5 +16,6 @@ const result = await tablesDB.updateVarcharColumn({
     xdefault: 'Hello World',
     size: 1, // optional
     newKey: '<NEW_KEY>', // optional
+    description: '<DESCRIPTION>', // optional
 });
 ```

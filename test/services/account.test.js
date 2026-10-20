@@ -219,6 +219,19 @@ describe('Account', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method listMemberships()', async () => {
+        const data = {
+            total: 5,
+            memberships: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.listMemberships();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updateMFA()', async () => {
         const data = {
             $id: '5e5ea5c16897e',

@@ -28,6 +28,7 @@ describe('TablesDB', () => {
         const data = {
             $id: '5e5ea5c16897e',
             name: 'My Database',
+            description: 'Customer orders and invoices.',
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
@@ -149,6 +150,7 @@ describe('TablesDB', () => {
         const data = {
             $id: '5e5ea5c16897e',
             name: 'My Database',
+            description: 'Customer orders and invoices.',
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
@@ -166,6 +168,7 @@ describe('TablesDB', () => {
         const data = {
             $id: '5e5ea5c16897e',
             name: 'My Database',
+            description: 'Customer orders and invoices.',
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             enabled: true,
@@ -438,6 +441,7 @@ describe('TablesDB', () => {
             $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Table',
+            description: 'Movies available in the catalog.',
             enabled: true,
             rowSecurity: true,
             columns: [],
@@ -465,6 +469,7 @@ describe('TablesDB', () => {
             $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Table',
+            description: 'Movies available in the catalog.',
             enabled: true,
             rowSecurity: true,
             columns: [],
@@ -488,6 +493,7 @@ describe('TablesDB', () => {
             $permissions: [],
             databaseId: '5e5ea5c16897e',
             name: 'My Table',
+            description: 'Movies available in the catalog.',
             enabled: true,
             rowSecurity: true,
             columns: [],
@@ -538,6 +544,7 @@ describe('TablesDB', () => {
     test('test method createBigIntColumn()', async () => {
         const data = {
             key: 'count',
+            description: 'Name shown on the public profile.',
             type: 'bigint',
             status: 'available',
             error: 'string',
@@ -561,6 +568,7 @@ describe('TablesDB', () => {
     test('test method updateBigIntColumn()', async () => {
         const data = {
             key: 'count',
+            description: 'Name shown on the public profile.',
             type: 'bigint',
             status: 'available',
             error: 'string',
@@ -585,6 +593,7 @@ describe('TablesDB', () => {
     test('test method createBooleanColumn()', async () => {
         const data = {
             key: 'isEnabled',
+            description: 'Name shown on the public profile.',
             type: 'boolean',
             status: 'available',
             error: 'string',
@@ -608,6 +617,7 @@ describe('TablesDB', () => {
     test('test method updateBooleanColumn()', async () => {
         const data = {
             key: 'isEnabled',
+            description: 'Name shown on the public profile.',
             type: 'boolean',
             status: 'available',
             error: 'string',
@@ -632,6 +642,7 @@ describe('TablesDB', () => {
     test('test method createDatetimeColumn()', async () => {
         const data = {
             key: 'birthDay',
+            description: 'Name shown on the public profile.',
             type: 'datetime',
             status: 'available',
             error: 'string',
@@ -656,6 +667,7 @@ describe('TablesDB', () => {
     test('test method updateDatetimeColumn()', async () => {
         const data = {
             key: 'birthDay',
+            description: 'Name shown on the public profile.',
             type: 'datetime',
             status: 'available',
             error: 'string',
@@ -681,6 +693,7 @@ describe('TablesDB', () => {
     test('test method createEmailColumn()', async () => {
         const data = {
             key: 'userEmail',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -705,6 +718,7 @@ describe('TablesDB', () => {
     test('test method updateEmailColumn()', async () => {
         const data = {
             key: 'userEmail',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -730,6 +744,7 @@ describe('TablesDB', () => {
     test('test method createEnumColumn()', async () => {
         const data = {
             key: 'status',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -756,6 +771,7 @@ describe('TablesDB', () => {
     test('test method updateEnumColumn()', async () => {
         const data = {
             key: 'status',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -783,6 +799,7 @@ describe('TablesDB', () => {
     test('test method createFloatColumn()', async () => {
         const data = {
             key: 'percentageCompleted',
+            description: 'Name shown on the public profile.',
             type: 'double',
             status: 'available',
             error: 'string',
@@ -806,6 +823,7 @@ describe('TablesDB', () => {
     test('test method updateFloatColumn()', async () => {
         const data = {
             key: 'percentageCompleted',
+            description: 'Name shown on the public profile.',
             type: 'double',
             status: 'available',
             error: 'string',
@@ -830,6 +848,7 @@ describe('TablesDB', () => {
     test('test method createIntegerColumn()', async () => {
         const data = {
             key: 'count',
+            description: 'Name shown on the public profile.',
             type: 'integer',
             status: 'available',
             error: 'string',
@@ -853,6 +872,7 @@ describe('TablesDB', () => {
     test('test method updateIntegerColumn()', async () => {
         const data = {
             key: 'count',
+            description: 'Name shown on the public profile.',
             type: 'integer',
             status: 'available',
             error: 'string',
@@ -877,6 +897,7 @@ describe('TablesDB', () => {
     test('test method createIpColumn()', async () => {
         const data = {
             key: 'ipAddress',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -901,6 +922,7 @@ describe('TablesDB', () => {
     test('test method updateIpColumn()', async () => {
         const data = {
             key: 'ipAddress',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -926,6 +948,7 @@ describe('TablesDB', () => {
     test('test method createLineColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -949,6 +972,7 @@ describe('TablesDB', () => {
     test('test method updateLineColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -972,6 +996,7 @@ describe('TablesDB', () => {
     test('test method createLongtextColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -995,6 +1020,7 @@ describe('TablesDB', () => {
     test('test method updateLongtextColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1019,6 +1045,7 @@ describe('TablesDB', () => {
     test('test method createMediumtextColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1042,6 +1069,7 @@ describe('TablesDB', () => {
     test('test method updateMediumtextColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1066,6 +1094,7 @@ describe('TablesDB', () => {
     test('test method createPointColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1089,6 +1118,7 @@ describe('TablesDB', () => {
     test('test method updatePointColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1112,6 +1142,7 @@ describe('TablesDB', () => {
     test('test method createPolygonColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1135,6 +1166,7 @@ describe('TablesDB', () => {
     test('test method updatePolygonColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1158,6 +1190,7 @@ describe('TablesDB', () => {
     test('test method createRelationshipColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1187,6 +1220,7 @@ describe('TablesDB', () => {
     test('test method updateRelationshipColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1215,6 +1249,7 @@ describe('TablesDB', () => {
     test('test method createStringColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1240,6 +1275,7 @@ describe('TablesDB', () => {
     test('test method updateStringColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1265,6 +1301,7 @@ describe('TablesDB', () => {
     test('test method createTextColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1288,6 +1325,7 @@ describe('TablesDB', () => {
     test('test method updateTextColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1312,6 +1350,7 @@ describe('TablesDB', () => {
     test('test method createUrlColumn()', async () => {
         const data = {
             key: 'githubUrl',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1336,6 +1375,7 @@ describe('TablesDB', () => {
     test('test method updateUrlColumn()', async () => {
         const data = {
             key: 'githubUrl',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1361,6 +1401,7 @@ describe('TablesDB', () => {
     test('test method createVarcharColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1386,6 +1427,7 @@ describe('TablesDB', () => {
     test('test method updateVarcharColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1411,6 +1453,7 @@ describe('TablesDB', () => {
     test('test method getColumn()', async () => {
         const data = {
             key: 'fullName',
+            description: 'Name shown on the public profile.',
             type: 'string',
             status: 'available',
             error: 'string',
@@ -1467,6 +1510,7 @@ describe('TablesDB', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'index1',
+            description: 'Speeds up lookups by email.',
             type: 'primary',
             status: 'available',
             error: 'string',
@@ -1493,6 +1537,7 @@ describe('TablesDB', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             key: 'index1',
+            description: 'Speeds up lookups by email.',
             type: 'primary',
             status: 'available',
             error: 'string',
@@ -1618,6 +1663,22 @@ describe('TablesDB', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await tablesDB.deleteRows(
+            '<DATABASE_ID>',
+            '<TABLE_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method createQuery()', async () => {
+        const data = {
+            total: 5,
+            rows: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await tablesDB.createQuery(
             '<DATABASE_ID>',
             '<TABLE_ID>',
         );
