@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 
@@ -176,7 +177,7 @@ export class Activities {
         }
         const apiPath = '/activities/events/{eventId}'.replace(
             '{eventId}',
-            encodeURIComponent(String(eventId)),
+            encodePath(eventId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);

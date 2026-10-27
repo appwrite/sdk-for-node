@@ -517,6 +517,7 @@ export namespace Models {
             | Models.PolicyDenyDisposableEmail
             | Models.PolicyDenyFreeEmail
             | Models.PolicyDenyCorporateEmail
+            | Models.PolicyDenyRealtimeGuests
             | Models.PolicyPasskey
         )[];
     };
@@ -645,6 +646,20 @@ export namespace Models {
          * List of transactions.
          */
         transactions: Transaction[];
+    };
+
+    /**
+     * Migrations List
+     */
+    export type MigrationList = {
+        /**
+         * Total number of migrations that matched your query.
+         */
+        total: number;
+        /**
+         * List of migrations.
+         */
+        migrations: Migration[];
     };
 
     /**
@@ -6702,6 +6717,20 @@ export namespace Models {
     };
 
     /**
+     * Policy Deny Realtime Guests
+     */
+    export type PolicyDenyRealtimeGuests = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether guests are stopped from subscribing to realtime channels.
+         */
+        enabled: boolean;
+    };
+
+    /**
      * Platform Web
      */
     export type PlatformWeb = {
@@ -7386,7 +7415,7 @@ export namespace Models {
          */
         type: string;
         /**
-         * Provider credentials.
+         * Provider credentials. Secret values are write-only and never returned.
          */
         credentials: object;
         /**
@@ -7615,6 +7644,218 @@ export namespace Models {
          * Is the target expired.
          */
         expired: boolean;
+    };
+
+    /**
+     * Migration
+     */
+    export type Migration = {
+        /**
+         * Migration ID.
+         */
+        $id: string;
+        /**
+         * Migration creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Variable creation date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Migration status ( pending, processing, failed, completed )
+         */
+        status: string;
+        /**
+         * Migration stage ( init, processing, source-check, destination-check, migrating, finished )
+         */
+        stage: string;
+        /**
+         * A string containing the type of source of the migration.
+         */
+        source: string;
+        /**
+         * A string containing the type of destination of the migration.
+         */
+        destination: string;
+        /**
+         * Resources to migrate.
+         */
+        resources: string[];
+        /**
+         * ID of the resource being migrated.
+         */
+        resourceId: string;
+        /**
+         * Internal ID of the resource being migrated.
+         */
+        resourceInternalId: string;
+        /**
+         * Type of the resource being migrated.
+         */
+        resourceType: string;
+        /**
+         * ID of the parent resource that contains the migrated resource.
+         */
+        parentResourceId: string;
+        /**
+         * Internal ID of the parent resource that contains the migrated resource.
+         */
+        parentResourceInternalId: string;
+        /**
+         * Type of the parent resource that contains the migrated resource.
+         */
+        parentResourceType: string;
+        /**
+         * ID of the destination resource created or overwritten by the migration.
+         */
+        destinationResourceId: string;
+        /**
+         * Internal ID of the destination resource created or overwritten by the migration.
+         */
+        destinationResourceInternalId: string;
+        /**
+         * Type of the destination resource created or overwritten by the migration.
+         */
+        destinationResourceType: string;
+        /**
+         * A group of counters that represent the total progress of the migration.
+         */
+        statusCounters: object;
+        /**
+         * An array of objects containing the report data of the resources that were migrated.
+         */
+        resourceData: Record<string, any>[];
+        /**
+         * All errors that occurred during the migration process.
+         */
+        errors: string[];
+        /**
+         * Migration options used during the migration process.
+         */
+        options: object;
+    };
+
+    /**
+     * Migration Report
+     */
+    export type MigrationReport = {
+        /**
+         * Number of users to be migrated.
+         */
+        user: number;
+        /**
+         * Number of teams to be migrated.
+         */
+        team: number;
+        /**
+         * Number of databases to be migrated.
+         */
+        database: number;
+        /**
+         * Number of rows to be migrated.
+         */
+        row: number;
+        /**
+         * Number of files to be migrated.
+         */
+        file: number;
+        /**
+         * Number of buckets to be migrated.
+         */
+        bucket: number;
+        /**
+         * Number of functions to be migrated.
+         */
+        function: number;
+        /**
+         * Number of platforms to be migrated.
+         */
+        platform: number;
+        /**
+         * Number of API keys to be migrated.
+         */
+        'api-key': number;
+        /**
+         * Number of project variables to be migrated.
+         */
+        'project-variable': number;
+        /**
+         * Number of webhooks to be migrated.
+         */
+        webhook: number;
+        /**
+         * Number of auth-method configs to be migrated (always 0 or 1 — the project-level flag bundle).
+         */
+        'auth-methods': number;
+        /**
+         * Number of protocol configs to be migrated (always 0 or 1 — the project-level REST/GraphQL/WebSocket flags).
+         */
+        'project-protocols': number;
+        /**
+         * Number of label sets to be migrated (always 0 or 1 — the project-level RBAC label array).
+         */
+        'project-labels': number;
+        /**
+         * Number of service configs to be migrated (always 0 or 1 — the project-level enable/disable flags for all 17 services).
+         */
+        'project-services': number;
+        /**
+         * Number of policy bundles to be migrated (always 0 or 1 — the project-level security policies covering password rules, session behavior, user limits, and membership privacy).
+         */
+        policies: number;
+        /**
+         * Number of SMTP configurations to be migrated (always 0 or 1 — the project-level custom SMTP settings; password is not exposed by the source API).
+         */
+        smtp: number;
+        /**
+         * Number of custom-domain proxy rules to be migrated. Auto-generated `.appwrite.network` rules are skipped — they are recreated by parent Function/Site migration.
+         */
+        rule: number;
+        /**
+         * Number of custom email templates to be migrated (one per templateId × locale pair).
+         */
+        'project-email-template': number;
+        /**
+         * Number of project environments to be migrated. Each is recreated under a new ID, empty: its own resources belong to a separate project.
+         */
+        'project-environment': number;
+        /**
+         * Number of sites to be migrated.
+         */
+        site: number;
+        /**
+         * Number of providers to be migrated.
+         */
+        provider: number;
+        /**
+         * Number of topics to be migrated.
+         */
+        topic: number;
+        /**
+         * Number of subscribers to be migrated.
+         */
+        subscriber: number;
+        /**
+         * Number of messages to be migrated.
+         */
+        message: number;
+        /**
+         * Size of files to be migrated in mb.
+         */
+        size: number;
+        /**
+         * Version of the Appwrite instance to be migrated.
+         */
+        version: string;
+        /**
+         * Number of OAuth2 provider configurations to be migrated. Secrets (clientSecret, p8File) are never migrated — destination admin must re-enter them per provider.
+         */
+        'oauth2-provider': number;
+        /**
+         * Number of backup policies to be migrated.
+         */
+        'backup-policy': number;
     };
 
     /**
@@ -8241,6 +8482,18 @@ export namespace Models {
          * Rolling max executions retained per function/site
          */
         executionsRetentionCount: number;
+        /**
+         * Days non-active deployments are kept when a function or site sets no retention.
+         */
+        deploymentRetention?: number | null;
+        /**
+         * Maximum deployment retention in days a function or site can set. 0 means unlimited.
+         */
+        deploymentRetentionMax?: number | null;
+        /**
+         * Non-active deployments kept per function or site. 0 means unlimited.
+         */
+        deploymentsRetentionCount?: number | null;
         /**
          * GB hours for functions
          */
@@ -9168,7 +9421,7 @@ export namespace Models {
          */
         type: string;
         /**
-         * Record name or subdomain.
+         * Record name relative to the domain, or `@` for the domain itself.
          */
         name: string;
         /**

@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 
@@ -377,7 +378,7 @@ export class Webhooks {
         }
         const apiPath = '/webhooks/{webhookId}'.replace(
             '{webhookId}',
-            encodeURIComponent(String(webhookId)),
+            encodePath(webhookId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -560,7 +561,7 @@ export class Webhooks {
         }
         const apiPath = '/webhooks/{webhookId}'.replace(
             '{webhookId}',
-            encodeURIComponent(String(webhookId)),
+            encodePath(webhookId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -663,7 +664,7 @@ export class Webhooks {
         }
         const apiPath = '/webhooks/{webhookId}'.replace(
             '{webhookId}',
-            encodeURIComponent(String(webhookId)),
+            encodePath(webhookId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -733,7 +734,7 @@ export class Webhooks {
         }
         const apiPath = '/webhooks/{webhookId}/secret'.replace(
             '{webhookId}',
-            encodeURIComponent(String(webhookId)),
+            encodePath(webhookId),
         );
         const apiPayload: Payload = {};
         if (typeof secret !== 'undefined') {

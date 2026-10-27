@@ -4,6 +4,7 @@ import {
     type Payload,
     UploadProgress,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 import { InputFile } from '../inputFile';
@@ -200,7 +201,7 @@ export class Sites {
      * @param {string[]} params.providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
      * @param {string} params.buildSpecification - Build specification for the site deployments.
      * @param {string} params.runtimeSpecification - Runtime specification for the SSR executions.
-     * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
+     * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {ProjectKeyScopes[]} params.scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @param {string} params.description - Optional description for the site.
      * @throws {AppwriteException}
@@ -258,7 +259,7 @@ export class Sites {
      * @param {string[]} providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
      * @param {string} buildSpecification - Build specification for the site deployments.
      * @param {string} runtimeSpecification - Runtime specification for the SSR executions.
-     * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
+     * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {ProjectKeyScopes[]} scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @param {string} description - Optional description for the site.
      * @throws {AppwriteException}
@@ -854,7 +855,7 @@ export class Sites {
         }
         const apiPath = '/sites/{siteId}'.replace(
             '{siteId}',
-            encodeURIComponent(String(siteId)),
+            encodePath(siteId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -955,7 +956,7 @@ export class Sites {
      * @param {string[] | null} params.providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
      * @param {string | null} params.buildSpecification - Build specification for the site deployments.
      * @param {string} params.runtimeSpecification - Runtime specification for the SSR executions.
-     * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
+     * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {ProjectKeyScopes[] | null} params.scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @param {string | null} params.description - Optional description for the site.
      * @throws {AppwriteException}
@@ -1013,7 +1014,7 @@ export class Sites {
      * @param {string[] | null} providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
      * @param {string | null} buildSpecification - Build specification for the site deployments.
      * @param {string} runtimeSpecification - Runtime specification for the SSR executions.
-     * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
+     * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {ProjectKeyScopes[] | null} scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @param {string | null} description - Optional description for the site.
      * @throws {AppwriteException}
@@ -1232,7 +1233,7 @@ export class Sites {
         }
         const apiPath = '/sites/{siteId}'.replace(
             '{siteId}',
-            encodeURIComponent(String(siteId)),
+            encodePath(siteId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -1419,7 +1420,7 @@ export class Sites {
         }
         const apiPath = '/sites/{siteId}'.replace(
             '{siteId}',
-            encodeURIComponent(String(siteId)),
+            encodePath(siteId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1492,7 +1493,7 @@ export class Sites {
         }
         const apiPath = '/sites/{siteId}/deployment'.replace(
             '{siteId}',
-            encodeURIComponent(String(siteId)),
+            encodePath(siteId),
         );
         const apiPayload: Payload = {};
         if (typeof deploymentId !== 'undefined') {
@@ -1652,7 +1653,7 @@ export class Sites {
         }
         const apiPath = '/sites/{siteId}/deployments'.replace(
             '{siteId}',
-            encodeURIComponent(String(siteId)),
+            encodePath(siteId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -1838,7 +1839,7 @@ export class Sites {
         }
         const apiPath = '/sites/{siteId}/deployments'.replace(
             '{siteId}',
-            encodeURIComponent(String(siteId)),
+            encodePath(siteId),
         );
         const apiPayload: Payload = {};
         if (typeof installCommand !== 'undefined') {
@@ -1932,7 +1933,7 @@ export class Sites {
         }
         const apiPath = '/sites/{siteId}/deployments/duplicate'.replace(
             '{siteId}',
-            encodeURIComponent(String(siteId)),
+            encodePath(siteId),
         );
         const apiPayload: Payload = {};
         if (typeof deploymentId !== 'undefined') {
@@ -2125,7 +2126,7 @@ export class Sites {
         }
         const apiPath = '/sites/{siteId}/deployments/template'.replace(
             '{siteId}',
-            encodeURIComponent(String(siteId)),
+            encodePath(siteId),
         );
         const apiPayload: Payload = {};
         if (typeof repository !== 'undefined') {
@@ -2286,7 +2287,7 @@ export class Sites {
         }
         const apiPath = '/sites/{siteId}/deployments/vcs'.replace(
             '{siteId}',
-            encodeURIComponent(String(siteId)),
+            encodePath(siteId),
         );
         const apiPayload: Payload = {};
         if (typeof type !== 'undefined') {
@@ -2404,11 +2405,8 @@ export class Sites {
             );
         }
         const apiPath = '/sites/{siteId}/deployments/{deploymentId}'
-            .replace('{siteId}', encodeURIComponent(String(siteId)))
-            .replace(
-                '{deploymentId}',
-                encodeURIComponent(String(deploymentId)),
-            );
+            .replace('{siteId}', encodePath(siteId))
+            .replace('{deploymentId}', encodePath(deploymentId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2512,11 +2510,8 @@ export class Sites {
             );
         }
         const apiPath = '/sites/{siteId}/deployments/{deploymentId}'
-            .replace('{siteId}', encodeURIComponent(String(siteId)))
-            .replace(
-                '{deploymentId}',
-                encodeURIComponent(String(deploymentId)),
-            );
+            .replace('{siteId}', encodePath(siteId))
+            .replace('{deploymentId}', encodePath(deploymentId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2613,11 +2608,8 @@ export class Sites {
             );
         }
         const apiPath = '/sites/{siteId}/deployments/{deploymentId}/download'
-            .replace('{siteId}', encodeURIComponent(String(siteId)))
-            .replace(
-                '{deploymentId}',
-                encodeURIComponent(String(deploymentId)),
-            );
+            .replace('{siteId}', encodePath(siteId))
+            .replace('{deploymentId}', encodePath(deploymentId));
         const apiPayload: Payload = {};
         if (typeof type !== 'undefined') {
             apiPayload['type'] = type;
@@ -2699,11 +2691,8 @@ export class Sites {
             );
         }
         const apiPath = '/sites/{siteId}/deployments/{deploymentId}/status'
-            .replace('{siteId}', encodeURIComponent(String(siteId)))
-            .replace(
-                '{deploymentId}',
-                encodeURIComponent(String(deploymentId)),
-            );
+            .replace('{siteId}', encodePath(siteId))
+            .replace('{deploymentId}', encodePath(deploymentId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2815,7 +2804,7 @@ export class Sites {
         }
         const apiPath = '/sites/{siteId}/logs'.replace(
             '{siteId}',
-            encodeURIComponent(String(siteId)),
+            encodePath(siteId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -2936,8 +2925,8 @@ export class Sites {
             throw new AppwriteException('Missing required parameter: "logId"');
         }
         const apiPath = '/sites/{siteId}/logs/{logId}'
-            .replace('{siteId}', encodeURIComponent(String(siteId)))
-            .replace('{logId}', encodeURIComponent(String(logId)));
+            .replace('{siteId}', encodePath(siteId))
+            .replace('{logId}', encodePath(logId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -3037,8 +3026,8 @@ export class Sites {
             throw new AppwriteException('Missing required parameter: "logId"');
         }
         const apiPath = '/sites/{siteId}/logs/{logId}'
-            .replace('{siteId}', encodeURIComponent(String(siteId)))
-            .replace('{logId}', encodeURIComponent(String(logId)));
+            .replace('{siteId}', encodePath(siteId))
+            .replace('{logId}', encodePath(logId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -3113,7 +3102,7 @@ export class Sites {
         }
         const apiPath = '/sites/{siteId}/variables'.replace(
             '{siteId}',
-            encodeURIComponent(String(siteId)),
+            encodePath(siteId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -3272,7 +3261,7 @@ export class Sites {
         }
         const apiPath = '/sites/{siteId}/variables'.replace(
             '{siteId}',
-            encodeURIComponent(String(siteId)),
+            encodePath(siteId),
         );
         const apiPayload: Payload = {};
         if (typeof variableId !== 'undefined') {
@@ -3376,8 +3365,8 @@ export class Sites {
             );
         }
         const apiPath = '/sites/{siteId}/variables/{variableId}'
-            .replace('{siteId}', encodeURIComponent(String(siteId)))
-            .replace('{variableId}', encodeURIComponent(String(variableId)));
+            .replace('{siteId}', encodePath(siteId))
+            .replace('{variableId}', encodePath(variableId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -3517,8 +3506,8 @@ export class Sites {
             );
         }
         const apiPath = '/sites/{siteId}/variables/{variableId}'
-            .replace('{siteId}', encodeURIComponent(String(siteId)))
-            .replace('{variableId}', encodeURIComponent(String(variableId)));
+            .replace('{siteId}', encodePath(siteId))
+            .replace('{variableId}', encodePath(variableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -3615,8 +3604,8 @@ export class Sites {
             );
         }
         const apiPath = '/sites/{siteId}/variables/{variableId}'
-            .replace('{siteId}', encodeURIComponent(String(siteId)))
-            .replace('{variableId}', encodeURIComponent(String(variableId)));
+            .replace('{siteId}', encodePath(siteId))
+            .replace('{variableId}', encodePath(variableId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 

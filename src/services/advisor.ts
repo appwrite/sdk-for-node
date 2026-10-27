@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 
@@ -196,7 +197,7 @@ export class Advisor {
         }
         const apiPath = '/reports/{reportId}'.replace(
             '{reportId}',
-            encodeURIComponent(String(reportId)),
+            encodePath(reportId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -309,7 +310,7 @@ export class Advisor {
         }
         const apiPath = '/reports/{reportId}'.replace(
             '{reportId}',
-            encodeURIComponent(String(reportId)),
+            encodePath(reportId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -389,7 +390,7 @@ export class Advisor {
         }
         const apiPath = '/reports/{reportId}/insights'.replace(
             '{reportId}',
-            encodeURIComponent(String(reportId)),
+            encodePath(reportId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -516,8 +517,8 @@ export class Advisor {
             );
         }
         const apiPath = '/reports/{reportId}/insights/{insightId}'
-            .replace('{reportId}', encodeURIComponent(String(reportId)))
-            .replace('{insightId}', encodeURIComponent(String(insightId)));
+            .replace('{reportId}', encodePath(reportId))
+            .replace('{insightId}', encodePath(insightId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 

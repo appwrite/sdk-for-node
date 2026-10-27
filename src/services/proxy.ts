@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 
@@ -860,7 +861,7 @@ export class Proxy {
         }
         const apiPath = '/proxy/rules/{ruleId}'.replace(
             '{ruleId}',
-            encodeURIComponent(String(ruleId)),
+            encodePath(ruleId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -936,7 +937,7 @@ export class Proxy {
         }
         const apiPath = '/proxy/rules/{ruleId}'.replace(
             '{ruleId}',
-            encodeURIComponent(String(ruleId)),
+            encodePath(ruleId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -990,7 +991,7 @@ export class Proxy {
         }
         const apiPath = '/proxy/rules/{ruleId}/status'.replace(
             '{ruleId}',
-            encodeURIComponent(String(ruleId)),
+            encodePath(ruleId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);

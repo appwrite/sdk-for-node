@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 
@@ -108,7 +109,7 @@ export class Waf {
     }
 
     /**
-     * Create a bypass WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Create a bypass WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} params.ruleId - Rule ID. Choose a custom ID or pass `ID.unique()` to generate a unique one.
@@ -133,7 +134,7 @@ export class Waf {
         conditions?: string[];
     }): Promise<Models.WafRuleBypass>;
     /**
-     * Create a bypass WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Create a bypass WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} ruleId - Rule ID. Choose a custom ID or pass `ID.unique()` to generate a unique one.
@@ -301,7 +302,7 @@ export class Waf {
     }
 
     /**
-     * Update a bypass WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Update a bypass WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} params.ruleId - Rule ID.
@@ -326,7 +327,7 @@ export class Waf {
         conditions?: string[] | null;
     }): Promise<Models.WafRuleBypass>;
     /**
-     * Update a bypass WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Update a bypass WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} ruleId - Rule ID.
@@ -426,7 +427,7 @@ export class Waf {
         }
         const apiPath = '/waf/rules/bypass/{ruleId}'.replace(
             '{ruleId}',
-            encodeURIComponent(String(ruleId)),
+            encodePath(ruleId),
         );
         const apiPayload: Payload = {};
         if (typeof resourceType !== 'undefined') {
@@ -486,7 +487,7 @@ export class Waf {
     }
 
     /**
-     * Create a challenge WAF rule. Use `difficulty` (1 easiest to 5 hardest) to tune the client-side proof-of-work cost, and `ttl` to control how long, in seconds, a visitor stays cleared after passing the challenge before being challenged again. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Create a challenge WAF rule. Use `difficulty` (1 easiest to 5 hardest) to tune the client-side proof-of-work cost, and `ttl` to control how long, in seconds, a visitor stays cleared after passing the challenge before being challenged again. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} params.ruleId - Rule ID. Choose a custom ID or pass `ID.unique()` to generate a unique one.
@@ -517,7 +518,7 @@ export class Waf {
         ttl?: number;
     }): Promise<Models.WafRuleChallenge>;
     /**
-     * Create a challenge WAF rule. Use `difficulty` (1 easiest to 5 hardest) to tune the client-side proof-of-work cost, and `ttl` to control how long, in seconds, a visitor stays cleared after passing the challenge before being challenged again. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Create a challenge WAF rule. Use `difficulty` (1 easiest to 5 hardest) to tune the client-side proof-of-work cost, and `ttl` to control how long, in seconds, a visitor stays cleared after passing the challenge before being challenged again. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} ruleId - Rule ID. Choose a custom ID or pass `ID.unique()` to generate a unique one.
@@ -721,7 +722,7 @@ export class Waf {
     }
 
     /**
-     * Update a challenge WAF rule. Use `difficulty` (1 easiest to 5 hardest) to tune the client-side proof-of-work cost, and `ttl` to control how long, in seconds, a visitor stays cleared after passing the challenge before being challenged again. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Update a challenge WAF rule. Use `difficulty` (1 easiest to 5 hardest) to tune the client-side proof-of-work cost, and `ttl` to control how long, in seconds, a visitor stays cleared after passing the challenge before being challenged again. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} params.ruleId - Rule ID.
@@ -752,7 +753,7 @@ export class Waf {
         ttl?: number | null;
     }): Promise<Models.WafRuleChallenge>;
     /**
-     * Update a challenge WAF rule. Use `difficulty` (1 easiest to 5 hardest) to tune the client-side proof-of-work cost, and `ttl` to control how long, in seconds, a visitor stays cleared after passing the challenge before being challenged again. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Update a challenge WAF rule. Use `difficulty` (1 easiest to 5 hardest) to tune the client-side proof-of-work cost, and `ttl` to control how long, in seconds, a visitor stays cleared after passing the challenge before being challenged again. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} ruleId - Rule ID.
@@ -876,7 +877,7 @@ export class Waf {
         }
         const apiPath = '/waf/rules/challenge/{ruleId}'.replace(
             '{ruleId}',
-            encodeURIComponent(String(ruleId)),
+            encodePath(ruleId),
         );
         const apiPayload: Payload = {};
         if (typeof resourceType !== 'undefined') {
@@ -948,7 +949,7 @@ export class Waf {
     }
 
     /**
-     * Create a deny WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Create a deny WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon. `sessionAge` and `mfaAge` hold the seconds since the request's session was created and since its last MFA challenge. Both are null for requests without a session, such as guests and API keys, while a request authenticated with the `x-appwrite-jwt` header carries the age of the session its token is bound to; on `functions` rules the session comes from the `x-appwrite-user-jwt` header, and `mfaAge` is null when the session never completed MFA. A deny matching on `mfaAge` returns `user_challenge_required` and one matching on `sessionAge` returns `user_reauthentication_required`, both with status 401, so the user can sign in again and retry. To also deny requests without a session, combine `isNull` and `greaterThan` in an `or` condition.
      *
      *
      * @param {string} params.ruleId - Rule ID. Choose a custom ID or pass `ID.unique()` to generate a unique one.
@@ -973,7 +974,7 @@ export class Waf {
         conditions?: string[];
     }): Promise<Models.WafRuleDeny>;
     /**
-     * Create a deny WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Create a deny WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon. `sessionAge` and `mfaAge` hold the seconds since the request's session was created and since its last MFA challenge. Both are null for requests without a session, such as guests and API keys, while a request authenticated with the `x-appwrite-jwt` header carries the age of the session its token is bound to; on `functions` rules the session comes from the `x-appwrite-user-jwt` header, and `mfaAge` is null when the session never completed MFA. A deny matching on `mfaAge` returns `user_challenge_required` and one matching on `sessionAge` returns `user_reauthentication_required`, both with status 401, so the user can sign in again and retry. To also deny requests without a session, combine `isNull` and `greaterThan` in an `or` condition.
      *
      *
      * @param {string} ruleId - Rule ID. Choose a custom ID or pass `ID.unique()` to generate a unique one.
@@ -1141,7 +1142,7 @@ export class Waf {
     }
 
     /**
-     * Update a deny WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Update a deny WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon. `sessionAge` and `mfaAge` hold the seconds since the request's session was created and since its last MFA challenge. Both are null for requests without a session, such as guests and API keys, while a request authenticated with the `x-appwrite-jwt` header carries the age of the session its token is bound to; on `functions` rules the session comes from the `x-appwrite-user-jwt` header, and `mfaAge` is null when the session never completed MFA. A deny matching on `mfaAge` returns `user_challenge_required` and one matching on `sessionAge` returns `user_reauthentication_required`, both with status 401, so the user can sign in again and retry. To also deny requests without a session, combine `isNull` and `greaterThan` in an `or` condition.
      *
      *
      * @param {string} params.ruleId - Rule ID.
@@ -1166,7 +1167,7 @@ export class Waf {
         conditions?: string[] | null;
     }): Promise<Models.WafRuleDeny>;
     /**
-     * Update a deny WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Update a deny WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon. `sessionAge` and `mfaAge` hold the seconds since the request's session was created and since its last MFA challenge. Both are null for requests without a session, such as guests and API keys, while a request authenticated with the `x-appwrite-jwt` header carries the age of the session its token is bound to; on `functions` rules the session comes from the `x-appwrite-user-jwt` header, and `mfaAge` is null when the session never completed MFA. A deny matching on `mfaAge` returns `user_challenge_required` and one matching on `sessionAge` returns `user_reauthentication_required`, both with status 401, so the user can sign in again and retry. To also deny requests without a session, combine `isNull` and `greaterThan` in an `or` condition.
      *
      *
      * @param {string} ruleId - Rule ID.
@@ -1266,7 +1267,7 @@ export class Waf {
         }
         const apiPath = '/waf/rules/deny/{ruleId}'.replace(
             '{ruleId}',
-            encodeURIComponent(String(ruleId)),
+            encodePath(ruleId),
         );
         const apiPayload: Payload = {};
         if (typeof resourceType !== 'undefined') {
@@ -1326,7 +1327,7 @@ export class Waf {
     }
 
     /**
-     * Create a rate limit WAF rule. Use `key` to choose the counter: `ip` limits per client IP, while `userId` limits per authenticated user (requests without an authenticated user skip `userId` rules). Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Create a rate limit WAF rule. Use `key` to choose the counter: `ip` limits per client IP, while `userId` limits per authenticated user (requests without an authenticated user skip `userId` rules). Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} params.ruleId - Rule ID. Choose a custom ID or pass `ID.unique()` to generate a unique one.
@@ -1361,7 +1362,7 @@ export class Waf {
         conditions?: string[];
     }): Promise<Models.WafRuleRateLimit>;
     /**
-     * Create a rate limit WAF rule. Use `key` to choose the counter: `ip` limits per client IP, while `userId` limits per authenticated user (requests without an authenticated user skip `userId` rules). Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Create a rate limit WAF rule. Use `key` to choose the counter: `ip` limits per client IP, while `userId` limits per authenticated user (requests without an authenticated user skip `userId` rules). Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} ruleId - Rule ID. Choose a custom ID or pass `ID.unique()` to generate a unique one.
@@ -1597,7 +1598,7 @@ export class Waf {
     }
 
     /**
-     * Update a rate limit WAF rule. Use `key` to choose the counter: `ip` limits per client IP, while `userId` limits per authenticated user (requests without an authenticated user skip `userId` rules). Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Update a rate limit WAF rule. Use `key` to choose the counter: `ip` limits per client IP, while `userId` limits per authenticated user (requests without an authenticated user skip `userId` rules). Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} params.ruleId - Rule ID.
@@ -1630,7 +1631,7 @@ export class Waf {
         conditions?: string[] | null;
     }): Promise<Models.WafRuleRateLimit>;
     /**
-     * Update a rate limit WAF rule. Use `key` to choose the counter: `ip` limits per client IP, while `userId` limits per authenticated user (requests without an authenticated user skip `userId` rules). Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Update a rate limit WAF rule. Use `key` to choose the counter: `ip` limits per client IP, while `userId` limits per authenticated user (requests without an authenticated user skip `userId` rules). Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} ruleId - Rule ID.
@@ -1762,7 +1763,7 @@ export class Waf {
         }
         const apiPath = '/waf/rules/rate-limit/{ruleId}'.replace(
             '{ruleId}',
-            encodeURIComponent(String(ruleId)),
+            encodePath(ruleId),
         );
         const apiPayload: Payload = {};
         if (typeof resourceType !== 'undefined') {
@@ -1839,7 +1840,7 @@ export class Waf {
     }
 
     /**
-     * Create a redirect WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Create a redirect WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} params.ruleId - Rule ID. Choose a custom ID or pass `ID.unique()` to generate a unique one.
@@ -1868,7 +1869,7 @@ export class Waf {
         conditions?: string[];
     }): Promise<Models.WafRuleRedirect>;
     /**
-     * Create a redirect WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Create a redirect WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} ruleId - Rule ID. Choose a custom ID or pass `ID.unique()` to generate a unique one.
@@ -2070,7 +2071,7 @@ export class Waf {
     }
 
     /**
-     * Update a redirect WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Update a redirect WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} params.ruleId - Rule ID.
@@ -2099,7 +2100,7 @@ export class Waf {
         conditions?: string[] | null;
     }): Promise<Models.WafRuleRedirect>;
     /**
-     * Update a redirect WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
+     * Update a redirect WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
      *
      *
      * @param {string} ruleId - Rule ID.
@@ -2215,7 +2216,7 @@ export class Waf {
         }
         const apiPath = '/waf/rules/redirect/{ruleId}'.replace(
             '{ruleId}',
-            encodeURIComponent(String(ruleId)),
+            encodePath(ruleId),
         );
         const apiPayload: Payload = {};
         if (typeof resourceType !== 'undefined') {
@@ -2346,7 +2347,7 @@ export class Waf {
         }
         const apiPath = '/waf/rules/{ruleId}'.replace(
             '{ruleId}',
-            encodeURIComponent(String(ruleId)),
+            encodePath(ruleId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -2399,7 +2400,7 @@ export class Waf {
         }
         const apiPath = '/waf/rules/{ruleId}'.replace(
             '{ruleId}',
-            encodeURIComponent(String(ruleId)),
+            encodePath(ruleId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);

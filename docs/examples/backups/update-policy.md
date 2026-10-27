@@ -12,7 +12,7 @@ const result = await backups.updatePolicy({
     policyId: '<POLICY_ID>',
     name: '<NAME>', // optional
     retention: 1, // optional
-    schedule: '', // optional
+    schedule: undefined, // optional
     enabled: false, // optional
 });
 ```

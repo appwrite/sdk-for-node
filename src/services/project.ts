@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 
@@ -209,7 +210,7 @@ export class Project {
         }
         const apiPath = '/project/auth-methods/{methodId}'.replace(
             '{methodId}',
-            encodeURIComponent(String(methodId)),
+            encodePath(methodId),
         );
         const apiPayload: Payload = {};
         if (typeof enabled !== 'undefined') {
@@ -645,7 +646,7 @@ export class Project {
         }
         const apiPath = '/project/environments/{environmentId}'.replace(
             '{environmentId}',
-            encodeURIComponent(String(environmentId)),
+            encodePath(environmentId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -791,7 +792,7 @@ export class Project {
         }
         const apiPath = '/project/environments/{environmentId}'.replace(
             '{environmentId}',
-            encodeURIComponent(String(environmentId)),
+            encodePath(environmentId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -924,7 +925,7 @@ export class Project {
         }
         const apiPath = '/project/environments/{environmentId}'.replace(
             '{environmentId}',
-            encodeURIComponent(String(environmentId)),
+            encodePath(environmentId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1177,7 +1178,7 @@ export class Project {
         }
         const apiPath = '/project/keys/{keyId}'.replace(
             '{keyId}',
-            encodeURIComponent(String(keyId)),
+            encodePath(keyId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1311,7 +1312,7 @@ export class Project {
         }
         const apiPath = '/project/keys/{keyId}'.replace(
             '{keyId}',
-            encodeURIComponent(String(keyId)),
+            encodePath(keyId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -1396,7 +1397,7 @@ export class Project {
         }
         const apiPath = '/project/keys/{keyId}'.replace(
             '{keyId}',
-            encodeURIComponent(String(keyId)),
+            encodePath(keyId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1755,7 +1756,7 @@ export class Project {
         }
         const apiPath = '/project/mock-phones/{number}'.replace(
             '{number}',
-            encodeURIComponent(String(number)),
+            encodePath(number),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1834,7 +1835,7 @@ export class Project {
         }
         const apiPath = '/project/mock-phones/{number}'.replace(
             '{number}',
-            encodeURIComponent(String(number)),
+            encodePath(number),
         );
         const apiPayload: Payload = {};
         if (typeof otp !== 'undefined') {
@@ -1904,7 +1905,7 @@ export class Project {
         }
         const apiPath = '/project/mock-phones/{number}'.replace(
             '{number}',
-            encodeURIComponent(String(number)),
+            encodePath(number),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -8134,7 +8135,7 @@ export class Project {
         }
         const apiPath = '/project/oauth2/{providerId}'.replace(
             '{providerId}',
-            encodeURIComponent(String(providerId)),
+            encodePath(providerId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -8448,7 +8449,7 @@ export class Project {
         }
         const apiPath = '/project/platforms/android/{platformId}'.replace(
             '{platformId}',
-            encodeURIComponent(String(platformId)),
+            encodePath(platformId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -8678,7 +8679,7 @@ export class Project {
         }
         const apiPath = '/project/platforms/apple/{platformId}'.replace(
             '{platformId}',
-            encodeURIComponent(String(platformId)),
+            encodePath(platformId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -8894,7 +8895,7 @@ export class Project {
         }
         const apiPath = '/project/platforms/linux/{platformId}'.replace(
             '{platformId}',
-            encodeURIComponent(String(platformId)),
+            encodePath(platformId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -9110,7 +9111,7 @@ export class Project {
         }
         const apiPath = '/project/platforms/web/{platformId}'.replace(
             '{platformId}',
-            encodeURIComponent(String(platformId)),
+            encodePath(platformId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -9344,7 +9345,7 @@ export class Project {
         }
         const apiPath = '/project/platforms/windows/{platformId}'.replace(
             '{platformId}',
-            encodeURIComponent(String(platformId)),
+            encodePath(platformId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -9444,7 +9445,7 @@ export class Project {
         }
         const apiPath = '/project/platforms/{platformId}'.replace(
             '{platformId}',
-            encodeURIComponent(String(platformId)),
+            encodePath(platformId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -9499,7 +9500,7 @@ export class Project {
         }
         const apiPath = '/project/platforms/{platformId}'.replace(
             '{platformId}',
-            encodeURIComponent(String(platformId)),
+            encodePath(platformId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -10033,6 +10034,138 @@ export class Project {
             );
         }
         const apiPath = '/project/policies/deny-free-email';
+        const apiPayload: Payload = {};
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'project',
+            models: {
+                project: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        teamId: '',
+                        region: 'fra',
+                        smtpEnabled: false,
+                        smtpSenderName: '',
+                        smtpSenderEmail: '',
+                        smtpReplyToName: '',
+                        smtpReplyToEmail: '',
+                        smtpHost: '',
+                        smtpPort: 0,
+                        smtpUsername: '',
+                        smtpPassword: '',
+                        smtpSecure: '',
+                        pingCount: 0,
+                        pingedAt: '',
+                        labels: [],
+                        status: 'active',
+                        onboarding: {},
+                        authMethods: [],
+                        services: [],
+                        protocols: [],
+                        blocks: [],
+                        consoleAccessedAt: '',
+                    },
+                    properties: {
+                        authMethods: {
+                            items: 'projectAuthMethod',
+                        },
+                        services: {
+                            items: 'projectService',
+                        },
+                        protocols: {
+                            items: 'projectProtocol',
+                        },
+                        blocks: {
+                            items: 'block',
+                        },
+                    },
+                },
+                projectAuthMethod: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectService: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectProtocol: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                block: {
+                    defaults: {
+                        $createdAt: '',
+                        resourceType: '',
+                        resourceId: '',
+                        mode: 'full',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Configures if guests, connections without a signed-in user, may subscribe to realtime channels. When enabled, a guest can still connect and sign in over the connection, but cannot subscribe until it does.
+     *
+     * @param {boolean} params.enabled - Set whether or not to stop guests from subscribing to realtime channels.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     */
+    updateDenyRealtimeGuestsPolicy(params: {
+        enabled: boolean;
+    }): Promise<Models.Project>;
+    /**
+     * Configures if guests, connections without a signed-in user, may subscribe to realtime channels. When enabled, a guest can still connect and sign in over the connection, but cannot subscribe until it does.
+     *
+     * @param {boolean} enabled - Set whether or not to stop guests from subscribing to realtime channels.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateDenyRealtimeGuestsPolicy(enabled: boolean): Promise<Models.Project>;
+    updateDenyRealtimeGuestsPolicy(
+        paramsOrFirst: { enabled: boolean } | boolean,
+    ): Promise<Models.Project> {
+        let params: { enabled: boolean };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { enabled: boolean };
+        } else {
+            params = {
+                enabled: paramsOrFirst as boolean,
+            };
+        }
+
+        const enabled = params.enabled;
+        if (typeof enabled === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "enabled"',
+            );
+        }
+        const apiPath = '/project/policies/deny-realtime-guests';
         const apiPayload: Payload = {};
         if (typeof enabled !== 'undefined') {
             apiPayload['enabled'] = enabled;
@@ -12151,9 +12284,9 @@ export class Project {
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, password-rotation, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email, passkey.
+     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, password-rotation, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email, deny-realtime-guests, passkey.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicyPasswordPwned | Models.PolicyPasswordRotation | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail | Models.PolicyPasskey>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicyPasswordPwned | Models.PolicyPasswordRotation | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail | Models.PolicyDenyRealtimeGuests | Models.PolicyPasskey>}
      */
     getPolicy(params: {
         policyId: ProjectPolicyId;
@@ -12175,14 +12308,15 @@ export class Project {
         | Models.PolicyDenyDisposableEmail
         | Models.PolicyDenyFreeEmail
         | Models.PolicyDenyCorporateEmail
+        | Models.PolicyDenyRealtimeGuests
         | Models.PolicyPasskey
     >;
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, password-rotation, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email, passkey.
+     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, password-rotation, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email, deny-realtime-guests, passkey.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicyPasswordPwned | Models.PolicyPasswordRotation | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail | Models.PolicyPasskey>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicyPasswordPwned | Models.PolicyPasswordRotation | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail | Models.PolicyDenyRealtimeGuests | Models.PolicyPasskey>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     getPolicy(
@@ -12205,6 +12339,7 @@ export class Project {
         | Models.PolicyDenyDisposableEmail
         | Models.PolicyDenyFreeEmail
         | Models.PolicyDenyCorporateEmail
+        | Models.PolicyDenyRealtimeGuests
         | Models.PolicyPasskey
     >;
     getPolicy(
@@ -12227,6 +12362,7 @@ export class Project {
         | Models.PolicyDenyDisposableEmail
         | Models.PolicyDenyFreeEmail
         | Models.PolicyDenyCorporateEmail
+        | Models.PolicyDenyRealtimeGuests
         | Models.PolicyPasskey
     > {
         let params: { policyId: ProjectPolicyId };
@@ -12252,7 +12388,7 @@ export class Project {
         }
         const apiPath = '/project/policies/{policyId}'.replace(
             '{policyId}',
-            encodeURIComponent(String(policyId)),
+            encodePath(policyId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -12329,7 +12465,7 @@ export class Project {
         }
         const apiPath = '/project/protocols/{protocolId}'.replace(
             '{protocolId}',
-            encodeURIComponent(String(protocolId)),
+            encodePath(protocolId),
         );
         const apiPayload: Payload = {};
         if (typeof enabled !== 'undefined') {
@@ -12484,7 +12620,7 @@ export class Project {
         }
         const apiPath = '/project/services/{serviceId}'.replace(
             '{serviceId}',
-            encodeURIComponent(String(serviceId)),
+            encodePath(serviceId),
         );
         const apiPayload: Payload = {};
         if (typeof enabled !== 'undefined') {
@@ -12573,6 +12709,26 @@ export class Project {
         };
 
         return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Delete all sessions in the project. Any session created before this request will be invalidated immediately: users will be signed out of every active client (web, mobile, server SDKs, JWTs), and will be able to sign in again afterwards. API keys are not affected by this action.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deleteSessions(): Promise<{}> {
+        const apiPath = '/project/sessions';
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -13238,7 +13394,7 @@ export class Project {
         }
         const apiPath = '/project/templates/email/{templateId}'.replace(
             '{templateId}',
-            encodeURIComponent(String(templateId)),
+            encodePath(templateId),
         );
         const apiPayload: Payload = {};
         if (typeof locale !== 'undefined') {
@@ -13557,7 +13713,7 @@ export class Project {
         }
         const apiPath = '/project/variables/{variableId}'.replace(
             '{variableId}',
-            encodeURIComponent(String(variableId)),
+            encodePath(variableId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -13686,7 +13842,7 @@ export class Project {
         }
         const apiPath = '/project/variables/{variableId}'.replace(
             '{variableId}',
-            encodeURIComponent(String(variableId)),
+            encodePath(variableId),
         );
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
@@ -13774,7 +13930,7 @@ export class Project {
         }
         const apiPath = '/project/variables/{variableId}'.replace(
             '{variableId}',
-            encodeURIComponent(String(variableId)),
+            encodePath(variableId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);

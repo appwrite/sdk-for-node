@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 
@@ -135,7 +136,12 @@ export class Mongo {
                         maintenanceWindowHourUtc: 3,
                         metricsEnabled: false,
                         sqlApiEnabled: true,
-                        sqlApiAllowedStatements: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+                        sqlApiAllowedStatements: [
+                            'SELECT',
+                            'INSERT',
+                            'UPDATE',
+                            'DELETE',
+                        ],
                         sqlApiMaxRows: 10000,
                         sqlApiMaxBytes: 10485760,
                         sqlApiTimeoutSeconds: 30,
@@ -435,7 +441,12 @@ export class Mongo {
                         maintenanceWindowHourUtc: 3,
                         metricsEnabled: false,
                         sqlApiEnabled: true,
-                        sqlApiAllowedStatements: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+                        sqlApiAllowedStatements: [
+                            'SELECT',
+                            'INSERT',
+                            'UPDATE',
+                            'DELETE',
+                        ],
                         sqlApiMaxRows: 10000,
                         sqlApiMaxBytes: 10485760,
                         sqlApiTimeoutSeconds: 30,
@@ -544,7 +555,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -600,7 +611,12 @@ export class Mongo {
                         maintenanceWindowHourUtc: 3,
                         metricsEnabled: false,
                         sqlApiEnabled: true,
-                        sqlApiAllowedStatements: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+                        sqlApiAllowedStatements: [
+                            'SELECT',
+                            'INSERT',
+                            'UPDATE',
+                            'DELETE',
+                        ],
                         sqlApiMaxRows: 10000,
                         sqlApiMaxBytes: 10485760,
                         sqlApiTimeoutSeconds: 30,
@@ -871,7 +887,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -990,7 +1006,12 @@ export class Mongo {
                         maintenanceWindowHourUtc: 3,
                         metricsEnabled: false,
                         sqlApiEnabled: true,
-                        sqlApiAllowedStatements: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+                        sqlApiAllowedStatements: [
+                            'SELECT',
+                            'INSERT',
+                            'UPDATE',
+                            'DELETE',
+                        ],
                         sqlApiMaxRows: 10000,
                         sqlApiMaxBytes: 10485760,
                         sqlApiTimeoutSeconds: 30,
@@ -1043,7 +1064,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1122,7 +1143,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/backups'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -1231,7 +1252,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/backups'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof type !== 'undefined') {
@@ -1336,7 +1357,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/backups/policies'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -1514,7 +1535,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/backups/policies'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof policyId !== 'undefined') {
@@ -1627,8 +1648,8 @@ export class Mongo {
             );
         }
         const apiPath = '/mongo/{databaseId}/backups/policies/{policyId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{policyId}', encodeURIComponent(String(policyId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{policyId}', encodePath(policyId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1771,8 +1792,8 @@ export class Mongo {
             );
         }
         const apiPath = '/mongo/{databaseId}/backups/policies/{policyId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{policyId}', encodeURIComponent(String(policyId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{policyId}', encodePath(policyId));
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
             apiPayload['name'] = name;
@@ -1875,8 +1896,8 @@ export class Mongo {
             );
         }
         const apiPath = '/mongo/{databaseId}/backups/policies/{policyId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{policyId}', encodeURIComponent(String(policyId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{policyId}', encodePath(policyId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2025,7 +2046,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/backups/storage'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof provider !== 'undefined') {
@@ -2136,8 +2157,8 @@ export class Mongo {
             );
         }
         const apiPath = '/mongo/{databaseId}/backups/{backupId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{backupId}', encodeURIComponent(String(backupId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{backupId}', encodePath(backupId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2226,8 +2247,8 @@ export class Mongo {
             );
         }
         const apiPath = '/mongo/{databaseId}/backups/{backupId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{backupId}', encodeURIComponent(String(backupId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{backupId}', encodePath(backupId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2286,7 +2307,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/branches'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -2396,7 +2417,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/branches'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof branchId !== 'undefined') {
@@ -2459,7 +2480,12 @@ export class Mongo {
                         maintenanceWindowHourUtc: 3,
                         metricsEnabled: false,
                         sqlApiEnabled: true,
-                        sqlApiAllowedStatements: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+                        sqlApiAllowedStatements: [
+                            'SELECT',
+                            'INSERT',
+                            'UPDATE',
+                            'DELETE',
+                        ],
                         sqlApiMaxRows: 10000,
                         sqlApiMaxBytes: 10485760,
                         sqlApiTimeoutSeconds: 30,
@@ -2532,8 +2558,8 @@ export class Mongo {
             );
         }
         const apiPath = '/mongo/{databaseId}/branches/{branchId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{branchId}', encodeURIComponent(String(branchId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{branchId}', encodePath(branchId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2589,7 +2615,12 @@ export class Mongo {
                         maintenanceWindowHourUtc: 3,
                         metricsEnabled: false,
                         sqlApiEnabled: true,
-                        sqlApiAllowedStatements: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+                        sqlApiAllowedStatements: [
+                            'SELECT',
+                            'INSERT',
+                            'UPDATE',
+                            'DELETE',
+                        ],
                         sqlApiMaxRows: 10000,
                         sqlApiMaxBytes: 10485760,
                         sqlApiTimeoutSeconds: 30,
@@ -2648,7 +2679,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/credentials'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -2738,7 +2769,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/failovers'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof targetReplicaId !== 'undefined') {
@@ -2798,7 +2829,12 @@ export class Mongo {
                         maintenanceWindowHourUtc: 3,
                         metricsEnabled: false,
                         sqlApiEnabled: true,
-                        sqlApiAllowedStatements: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+                        sqlApiAllowedStatements: [
+                            'SELECT',
+                            'INSERT',
+                            'UPDATE',
+                            'DELETE',
+                        ],
                         sqlApiMaxRows: 10000,
                         sqlApiMaxBytes: 10485760,
                         sqlApiTimeoutSeconds: 30,
@@ -2883,7 +2919,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/maintenance'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof day !== 'undefined') {
@@ -2946,7 +2982,12 @@ export class Mongo {
                         maintenanceWindowHourUtc: 3,
                         metricsEnabled: false,
                         sqlApiEnabled: true,
-                        sqlApiAllowedStatements: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+                        sqlApiAllowedStatements: [
+                            'SELECT',
+                            'INSERT',
+                            'UPDATE',
+                            'DELETE',
+                        ],
                         sqlApiMaxRows: 10000,
                         sqlApiMaxBytes: 10485760,
                         sqlApiTimeoutSeconds: 30,
@@ -3037,7 +3078,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/migrations'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof targetType !== 'undefined') {
@@ -3100,7 +3141,12 @@ export class Mongo {
                         maintenanceWindowHourUtc: 3,
                         metricsEnabled: false,
                         sqlApiEnabled: true,
-                        sqlApiAllowedStatements: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+                        sqlApiAllowedStatements: [
+                            'SELECT',
+                            'INSERT',
+                            'UPDATE',
+                            'DELETE',
+                        ],
                         sqlApiMaxRows: 10000,
                         sqlApiMaxBytes: 10485760,
                         sqlApiTimeoutSeconds: 30,
@@ -3195,7 +3241,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/operations'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof status !== 'undefined') {
@@ -3291,7 +3337,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/pitr'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -3361,7 +3407,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/replicas'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -3494,7 +3540,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/restorations'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof status !== 'undefined') {
@@ -3679,7 +3725,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/restorations'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof type !== 'undefined') {
@@ -3793,11 +3839,8 @@ export class Mongo {
             );
         }
         const apiPath = '/mongo/{databaseId}/restorations/{restorationId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace(
-                '{restorationId}',
-                encodeURIComponent(String(restorationId)),
-            );
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{restorationId}', encodePath(restorationId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -3895,11 +3938,8 @@ export class Mongo {
         }
         const apiPath =
             '/mongo/{databaseId}/restorations/{restorationId}/promotions'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{restorationId}',
-                    encodeURIComponent(String(restorationId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{restorationId}', encodePath(restorationId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -3973,7 +4013,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/status'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -4092,7 +4132,7 @@ export class Mongo {
         }
         const apiPath = '/mongo/{databaseId}/upgrades'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof targetVersion !== 'undefined') {
@@ -4152,7 +4192,12 @@ export class Mongo {
                         maintenanceWindowHourUtc: 3,
                         metricsEnabled: false,
                         sqlApiEnabled: true,
-                        sqlApiAllowedStatements: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+                        sqlApiAllowedStatements: [
+                            'SELECT',
+                            'INSERT',
+                            'UPDATE',
+                            'DELETE',
+                        ],
                         sqlApiMaxRows: 10000,
                         sqlApiMaxBytes: 10485760,
                         sqlApiTimeoutSeconds: 30,

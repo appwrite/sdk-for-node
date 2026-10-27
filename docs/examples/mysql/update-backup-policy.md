@@ -12,7 +12,7 @@ const result = await mysql.updateBackupPolicy({
     databaseId: '<DATABASE_ID>',
     policyId: '<POLICY_ID>',
     name: '<NAME>', // optional
-    schedule: '', // optional
+    schedule: undefined, // optional
     retention: 1, // optional
     enabled: false, // optional
 });

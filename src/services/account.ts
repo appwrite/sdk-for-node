@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 
@@ -374,7 +375,7 @@ export class Account {
         }
         const apiPath = '/account/consents/{consentId}'.replace(
             '{consentId}',
-            encodeURIComponent(String(consentId)),
+            encodePath(consentId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -448,7 +449,7 @@ export class Account {
         }
         const apiPath = '/account/consents/{consentId}'.replace(
             '{consentId}',
-            encodeURIComponent(String(consentId)),
+            encodePath(consentId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -526,7 +527,7 @@ export class Account {
         }
         const apiPath = '/account/consents/{consentId}/tokens'.replace(
             '{consentId}',
-            encodeURIComponent(String(consentId)),
+            encodePath(consentId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -638,8 +639,8 @@ export class Account {
             );
         }
         const apiPath = '/account/consents/{consentId}/tokens/{tokenId}'
-            .replace('{consentId}', encodeURIComponent(String(consentId)))
-            .replace('{tokenId}', encodeURIComponent(String(tokenId)));
+            .replace('{consentId}', encodePath(consentId))
+            .replace('{tokenId}', encodePath(tokenId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -730,8 +731,8 @@ export class Account {
             );
         }
         const apiPath = '/account/consents/{consentId}/tokens/{tokenId}'
-            .replace('{consentId}', encodeURIComponent(String(consentId)))
-            .replace('{tokenId}', encodeURIComponent(String(tokenId)));
+            .replace('{consentId}', encodePath(consentId))
+            .replace('{tokenId}', encodePath(tokenId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1013,7 +1014,7 @@ export class Account {
         }
         const apiPath = '/account/identities/{identityId}'.replace(
             '{identityId}',
-            encodeURIComponent(String(identityId)),
+            encodePath(identityId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1279,7 +1280,7 @@ export class Account {
         }
         const apiPath = '/account/mfa/authenticators/{type}'.replace(
             '{type}',
-            encodeURIComponent(String(type)),
+            encodePath(type),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1349,7 +1350,7 @@ export class Account {
         }
         const apiPath = '/account/mfa/authenticators/{type}'.replace(
             '{type}',
-            encodeURIComponent(String(type)),
+            encodePath(type),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1439,7 +1440,7 @@ export class Account {
         }
         const apiPath = '/account/mfa/authenticators/{type}'.replace(
             '{type}',
-            encodeURIComponent(String(type)),
+            encodePath(type),
         );
         const apiPayload: Payload = {};
         if (typeof otp !== 'undefined') {
@@ -1561,7 +1562,7 @@ export class Account {
         }
         const apiPath = '/account/mfa/authenticators/{type}'.replace(
             '{type}',
-            encodeURIComponent(String(type)),
+            encodePath(type),
         );
         const apiPayload: Payload = {};
         if (typeof otp !== 'undefined') {
@@ -1663,7 +1664,7 @@ export class Account {
         }
         const apiPath = '/account/mfa/authenticators/{type}'.replace(
             '{type}',
-            encodeURIComponent(String(type)),
+            encodePath(type),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1718,7 +1719,7 @@ export class Account {
         }
         const apiPath = '/account/mfa/authenticators/{type}'.replace(
             '{type}',
-            encodeURIComponent(String(type)),
+            encodePath(type),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -2703,7 +2704,7 @@ export class Account {
         }
         const apiPath = '/account/passkeys/{passkeyId}'.replace(
             '{passkeyId}',
-            encodeURIComponent(String(passkeyId)),
+            encodePath(passkeyId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -2788,7 +2789,7 @@ export class Account {
         }
         const apiPath = '/account/passkeys/{passkeyId}'.replace(
             '{passkeyId}',
-            encodeURIComponent(String(passkeyId)),
+            encodePath(passkeyId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -2861,7 +2862,7 @@ export class Account {
         }
         const apiPath = '/account/passkeys/{passkeyId}'.replace(
             '{passkeyId}',
-            encodeURIComponent(String(passkeyId)),
+            encodePath(passkeyId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -2936,7 +2937,7 @@ export class Account {
         }
         const apiPath = '/account/passkeys/{passkeyId}/verification'.replace(
             '{passkeyId}',
-            encodeURIComponent(String(passkeyId)),
+            encodePath(passkeyId),
         );
         const apiPayload: Payload = {};
         if (typeof credential !== 'undefined') {
@@ -4678,7 +4679,7 @@ export class Account {
         }
         const apiPath = '/account/sessions/{sessionId}'.replace(
             '{sessionId}',
-            encodeURIComponent(String(sessionId)),
+            encodePath(sessionId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -4773,7 +4774,7 @@ export class Account {
         }
         const apiPath = '/account/sessions/{sessionId}'.replace(
             '{sessionId}',
-            encodeURIComponent(String(sessionId)),
+            encodePath(sessionId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -4867,7 +4868,7 @@ export class Account {
         }
         const apiPath = '/account/sessions/{sessionId}'.replace(
             '{sessionId}',
-            encodeURIComponent(String(sessionId)),
+            encodePath(sessionId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -5286,7 +5287,7 @@ export class Account {
         }
         const apiPath = '/account/tokens/oauth2/{provider}'.replace(
             '{provider}',
-            encodeURIComponent(String(provider)),
+            encodePath(provider),
         );
         const apiPayload: Payload = {};
         if (typeof success !== 'undefined') {

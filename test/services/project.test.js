@@ -1699,6 +1699,43 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method updateDenyRealtimeGuestsPolicy()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'New Project',
+            teamId: '1592981250',
+            region: 'fra',
+            smtpEnabled: true,
+            smtpSenderName: 'John Appwrite',
+            smtpSenderEmail: 'john@appwrite.io',
+            smtpReplyToName: 'Support Team',
+            smtpReplyToEmail: 'support@appwrite.io',
+            smtpHost: 'mail.appwrite.io',
+            smtpPort: 25,
+            smtpUsername: 'emailuser',
+            smtpPassword: 'smtp-password',
+            smtpSecure: 'tls',
+            pingCount: 1,
+            pingedAt: '2020-10-15T06:38:00.000+00:00',
+            labels: [],
+            status: 'active',
+            onboarding: {},
+            authMethods: [],
+            services: [],
+            protocols: [],
+            blocks: [],
+            consoleAccessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateDenyRealtimeGuestsPolicy(true);
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updateMembershipPrivacyPolicy()', async () => {
         const data = {
             $id: '5e5ea5c16897e',
@@ -2279,6 +2316,16 @@ describe('Project', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updateService('account', true);
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method deleteSessions()', async () => {
+        const data = { message: '' };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.deleteSessions();
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
