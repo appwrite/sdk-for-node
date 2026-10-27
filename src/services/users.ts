@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 
@@ -775,7 +776,7 @@ export class Users {
         }
         const apiPath = '/users/identities/{identityId}'.replace(
             '{identityId}',
-            encodeURIComponent(String(identityId)),
+            encodePath(identityId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1106,10 +1107,10 @@ export class Users {
      * @param {string} params.email - User email.
      * @param {string} params.password - User password hashed using Scrypt.
      * @param {string} params.passwordSalt - Optional salt used to hash password.
-     * @param {number} params.passwordCpu - Optional CPU cost used to hash password.
-     * @param {number} params.passwordMemory - Optional memory cost used to hash password.
-     * @param {number} params.passwordParallel - Optional parallelization cost used to hash password.
-     * @param {number} params.passwordLength - Optional hash length used to hash password.
+     * @param {number} params.passwordCpu - Optional CPU cost used to hash password. Must be a power of two, at most 65536.
+     * @param {number} params.passwordMemory - Optional memory cost used to hash password. Maximum is 16.
+     * @param {number} params.passwordParallel - Optional parallelization cost used to hash password. Maximum is 4.
+     * @param {number} params.passwordLength - Optional hash length used to hash password. Must be between 16 and 128.
      * @param {string} params.name - User name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
@@ -1134,10 +1135,10 @@ export class Users {
      * @param {string} email - User email.
      * @param {string} password - User password hashed using Scrypt.
      * @param {string} passwordSalt - Optional salt used to hash password.
-     * @param {number} passwordCpu - Optional CPU cost used to hash password.
-     * @param {number} passwordMemory - Optional memory cost used to hash password.
-     * @param {number} passwordParallel - Optional parallelization cost used to hash password.
-     * @param {number} passwordLength - Optional hash length used to hash password.
+     * @param {number} passwordCpu - Optional CPU cost used to hash password. Must be a power of two, at most 65536.
+     * @param {number} passwordMemory - Optional memory cost used to hash password. Maximum is 16.
+     * @param {number} passwordParallel - Optional parallelization cost used to hash password. Maximum is 4.
+     * @param {number} passwordLength - Optional hash length used to hash password. Must be between 16 and 128.
      * @param {string} name - User name. Max length: 128 chars.
      * @throws {AppwriteException}
      * @returns {Promise<Models.User<Preferences>>}
@@ -1780,7 +1781,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1874,7 +1875,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1945,7 +1946,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/email'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof email !== 'undefined') {
@@ -2069,7 +2070,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/impersonator'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof impersonator !== 'undefined') {
@@ -2191,7 +2192,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/jwts'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof sessionId !== 'undefined') {
@@ -2287,7 +2288,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/labels'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof labels !== 'undefined') {
@@ -2427,7 +2428,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/memberships'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -2544,7 +2545,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/mfa'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof mfa !== 'undefined') {
@@ -2661,7 +2662,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/mfa'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof mfa !== 'undefined') {
@@ -2778,8 +2779,8 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "type"');
         }
         const apiPath = '/users/{userId}/mfa/authenticators/{type}'
-            .replace('{userId}', encodeURIComponent(String(userId)))
-            .replace('{type}', encodeURIComponent(String(type)));
+            .replace('{userId}', encodePath(userId))
+            .replace('{type}', encodePath(type));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2848,8 +2849,8 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "type"');
         }
         const apiPath = '/users/{userId}/mfa/authenticators/{type}'
-            .replace('{userId}', encodeURIComponent(String(userId)))
-            .replace('{type}', encodeURIComponent(String(type)));
+            .replace('{userId}', encodePath(userId))
+            .replace('{type}', encodePath(type));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2920,8 +2921,8 @@ export class Users {
             );
         }
         const apiPath = '/users/{userId}/mfa/challenges/{challengeId}'
-            .replace('{userId}', encodeURIComponent(String(userId)))
-            .replace('{challengeId}', encodeURIComponent(String(challengeId)));
+            .replace('{userId}', encodePath(userId))
+            .replace('{challengeId}', encodePath(challengeId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2990,7 +2991,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/mfa/factors'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -3059,7 +3060,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/mfa/factors'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -3131,7 +3132,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -3198,7 +3199,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -3266,7 +3267,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -3334,7 +3335,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -3403,7 +3404,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -3471,7 +3472,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/mfa/recovery-codes'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -3554,7 +3555,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/name'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -3676,7 +3677,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/passkeys'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -3777,8 +3778,8 @@ export class Users {
             );
         }
         const apiPath = '/users/{userId}/passkeys/{passkeyId}'
-            .replace('{userId}', encodeURIComponent(String(userId)))
-            .replace('{passkeyId}', encodeURIComponent(String(passkeyId)));
+            .replace('{userId}', encodePath(userId))
+            .replace('{passkeyId}', encodePath(passkeyId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -3875,8 +3876,8 @@ export class Users {
             throw new AppwriteException('Missing required parameter: "name"');
         }
         const apiPath = '/users/{userId}/passkeys/{passkeyId}'
-            .replace('{userId}', encodeURIComponent(String(userId)))
-            .replace('{passkeyId}', encodeURIComponent(String(passkeyId)));
+            .replace('{userId}', encodePath(userId))
+            .replace('{passkeyId}', encodePath(passkeyId));
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
             apiPayload['name'] = name;
@@ -3960,8 +3961,8 @@ export class Users {
             );
         }
         const apiPath = '/users/{userId}/passkeys/{passkeyId}'
-            .replace('{userId}', encodeURIComponent(String(userId)))
-            .replace('{passkeyId}', encodeURIComponent(String(passkeyId)));
+            .replace('{userId}', encodePath(userId))
+            .replace('{passkeyId}', encodePath(passkeyId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -4036,7 +4037,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/password'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof password !== 'undefined') {
@@ -4156,7 +4157,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/phone'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof number !== 'undefined') {
@@ -4260,7 +4261,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/prefs'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -4327,7 +4328,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/prefs'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof prefs !== 'undefined') {
@@ -4395,7 +4396,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/sessions'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof total !== 'undefined') {
@@ -4506,7 +4507,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/sessions'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -4598,7 +4599,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/sessions'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -4664,8 +4665,8 @@ export class Users {
             );
         }
         const apiPath = '/users/{userId}/sessions/{sessionId}'
-            .replace('{userId}', encodeURIComponent(String(userId)))
-            .replace('{sessionId}', encodeURIComponent(String(sessionId)));
+            .replace('{userId}', encodePath(userId))
+            .replace('{sessionId}', encodePath(sessionId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -4738,7 +4739,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/status'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof status !== 'undefined') {
@@ -4860,7 +4861,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/targets'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -5022,7 +5023,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/targets'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof targetId !== 'undefined') {
@@ -5125,8 +5126,8 @@ export class Users {
             );
         }
         const apiPath = '/users/{userId}/targets/{targetId}'
-            .replace('{userId}', encodeURIComponent(String(userId)))
-            .replace('{targetId}', encodeURIComponent(String(targetId)));
+            .replace('{userId}', encodePath(userId))
+            .replace('{targetId}', encodePath(targetId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -5250,8 +5251,8 @@ export class Users {
             );
         }
         const apiPath = '/users/{userId}/targets/{targetId}'
-            .replace('{userId}', encodeURIComponent(String(userId)))
-            .replace('{targetId}', encodeURIComponent(String(targetId)));
+            .replace('{userId}', encodePath(userId))
+            .replace('{targetId}', encodePath(targetId));
         const apiPayload: Payload = {};
         if (typeof identifier !== 'undefined') {
             apiPayload['identifier'] = identifier;
@@ -5344,8 +5345,8 @@ export class Users {
             );
         }
         const apiPath = '/users/{userId}/targets/{targetId}'
-            .replace('{userId}', encodeURIComponent(String(userId)))
-            .replace('{targetId}', encodeURIComponent(String(targetId)));
+            .replace('{userId}', encodePath(userId))
+            .replace('{targetId}', encodePath(targetId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -5422,7 +5423,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/tokens'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof length !== 'undefined') {
@@ -5524,7 +5525,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/verification'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof emailVerification !== 'undefined') {
@@ -5649,7 +5650,7 @@ export class Users {
         }
         const apiPath = '/users/{userId}/verification/phone'.replace(
             '{userId}',
-            encodeURIComponent(String(userId)),
+            encodePath(userId),
         );
         const apiPayload: Payload = {};
         if (typeof phoneVerification !== 'undefined') {

@@ -74,7 +74,7 @@ describe('Users', () => {
         const response = await users.createArgon2User(
             '<USER_ID>',
             'email@example.com',
-            'password',
+            '\\$argon2id\\$v=19\\$m=65536,t=4,p=1\\$NC8xaW1CVXlIZXFSQi9FRg\\$0bd4pLo1ytyqvCwl5NSijpm5OIe8J6CjZ1vFemKAg+o',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
@@ -105,7 +105,7 @@ describe('Users', () => {
         const response = await users.createBcryptUser(
             '<USER_ID>',
             'email@example.com',
-            'password',
+            '\\$2y\\$10\\$vBiMe4NOvlbYL1iJUNdqkO.QJy17fvslZQ5oiqKq1G4uwyRWvdrXC',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.
@@ -190,7 +190,7 @@ describe('Users', () => {
         const response = await users.createPHPassUser(
             '<USER_ID>',
             'email@example.com',
-            'password',
+            '\\$P\\$BrOEFP1YR5W1yHpvvGuoeVUDPmw9ra/',
         );
 
         // Remove custom toString method on the objects to allow for clean data comparison.

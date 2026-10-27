@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 
@@ -249,7 +250,7 @@ export class Backups {
         }
         const apiPath = '/backups/archives/{archiveId}'.replace(
             '{archiveId}',
-            encodeURIComponent(String(archiveId)),
+            encodePath(archiveId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -321,7 +322,7 @@ export class Backups {
         }
         const apiPath = '/backups/archives/{archiveId}'.replace(
             '{archiveId}',
-            encodeURIComponent(String(archiveId)),
+            encodePath(archiveId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -661,7 +662,7 @@ export class Backups {
         }
         const apiPath = '/backups/policies/{policyId}'.replace(
             '{policyId}',
-            encodeURIComponent(String(policyId)),
+            encodePath(policyId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -791,7 +792,7 @@ export class Backups {
         }
         const apiPath = '/backups/policies/{policyId}'.replace(
             '{policyId}',
-            encodeURIComponent(String(policyId)),
+            encodePath(policyId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -878,7 +879,7 @@ export class Backups {
         }
         const apiPath = '/backups/policies/{policyId}'.replace(
             '{policyId}',
-            encodeURIComponent(String(policyId)),
+            encodePath(policyId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1185,7 +1186,7 @@ export class Backups {
         }
         const apiPath = '/backups/restorations/{restorationId}'.replace(
             '{restorationId}',
-            encodeURIComponent(String(restorationId)),
+            encodePath(restorationId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);

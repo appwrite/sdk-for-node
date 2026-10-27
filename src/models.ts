@@ -517,6 +517,7 @@ export namespace Models {
             | Models.PolicyDenyDisposableEmail
             | Models.PolicyDenyFreeEmail
             | Models.PolicyDenyCorporateEmail
+            | Models.PolicyDenyRealtimeGuests
             | Models.PolicyPasskey
         )[];
     };
@@ -645,6 +646,20 @@ export namespace Models {
          * List of transactions.
          */
         transactions: Transaction[];
+    };
+
+    /**
+     * Migrations List
+     */
+    export type MigrationList = {
+        /**
+         * Total number of migrations that matched your query.
+         */
+        total: number;
+        /**
+         * List of migrations.
+         */
+        migrations: Migration[];
     };
 
     /**
@@ -6702,6 +6717,20 @@ export namespace Models {
     };
 
     /**
+     * Policy Deny Realtime Guests
+     */
+    export type PolicyDenyRealtimeGuests = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether guests are stopped from subscribing to realtime channels.
+         */
+        enabled: boolean;
+    };
+
+    /**
      * Platform Web
      */
     export type PlatformWeb = {
@@ -7386,7 +7415,7 @@ export namespace Models {
          */
         type: string;
         /**
-         * Provider credentials.
+         * Provider credentials. Secret values are write-only and never returned.
          */
         credentials: object;
         /**
@@ -7615,6 +7644,96 @@ export namespace Models {
          * Is the target expired.
          */
         expired: boolean;
+    };
+
+    /**
+     * Migration
+     */
+    export type Migration = {
+        /**
+         * Migration ID.
+         */
+        $id: string;
+        /**
+         * Migration creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Variable creation date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Migration status ( pending, processing, failed, completed )
+         */
+        status: string;
+        /**
+         * Migration stage ( init, processing, source-check, destination-check, migrating, finished )
+         */
+        stage: string;
+        /**
+         * A string containing the type of source of the migration.
+         */
+        source: string;
+        /**
+         * A string containing the type of destination of the migration.
+         */
+        destination: string;
+        /**
+         * Resources to migrate.
+         */
+        resources: string[];
+        /**
+         * ID of the resource being migrated.
+         */
+        resourceId: string;
+        /**
+         * Internal ID of the resource being migrated.
+         */
+        resourceInternalId: string;
+        /**
+         * Type of the resource being migrated.
+         */
+        resourceType: string;
+        /**
+         * ID of the parent resource that contains the migrated resource.
+         */
+        parentResourceId: string;
+        /**
+         * Internal ID of the parent resource that contains the migrated resource.
+         */
+        parentResourceInternalId: string;
+        /**
+         * Type of the parent resource that contains the migrated resource.
+         */
+        parentResourceType: string;
+        /**
+         * ID of the destination resource created or overwritten by the migration.
+         */
+        destinationResourceId: string;
+        /**
+         * Internal ID of the destination resource created or overwritten by the migration.
+         */
+        destinationResourceInternalId: string;
+        /**
+         * Type of the destination resource created or overwritten by the migration.
+         */
+        destinationResourceType: string;
+        /**
+         * A group of counters that represent the total progress of the migration.
+         */
+        statusCounters: object;
+        /**
+         * An array of objects containing the report data of the resources that were migrated.
+         */
+        resourceData: Record<string, any>[];
+        /**
+         * All errors that occurred during the migration process.
+         */
+        errors: string[];
+        /**
+         * Migration options used during the migration process.
+         */
+        options: object;
     };
 
     /**
@@ -8241,6 +8360,18 @@ export namespace Models {
          * Rolling max executions retained per function/site
          */
         executionsRetentionCount: number;
+        /**
+         * Days non-active deployments are kept when a function or site sets no retention.
+         */
+        deploymentRetention?: number | null;
+        /**
+         * Maximum deployment retention in days a function or site can set. 0 means unlimited.
+         */
+        deploymentRetentionMax?: number | null;
+        /**
+         * Non-active deployments kept per function or site. 0 means unlimited.
+         */
+        deploymentsRetentionCount?: number | null;
         /**
          * GB hours for functions
          */
@@ -9168,7 +9299,7 @@ export namespace Models {
          */
         type: string;
         /**
-         * Record name or subdomain.
+         * Record name relative to the domain, or `@` for the domain itself.
          */
         name: string;
         /**

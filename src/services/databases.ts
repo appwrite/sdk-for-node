@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 
@@ -535,7 +536,7 @@ export class Databases {
         }
         const apiPath = '/databases/transactions/{transactionId}'.replace(
             '{transactionId}',
-            encodeURIComponent(String(transactionId)),
+            encodePath(transactionId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -635,7 +636,7 @@ export class Databases {
         }
         const apiPath = '/databases/transactions/{transactionId}'.replace(
             '{transactionId}',
-            encodeURIComponent(String(transactionId)),
+            encodePath(transactionId),
         );
         const apiPayload: Payload = {};
         if (typeof commit !== 'undefined') {
@@ -715,7 +716,7 @@ export class Databases {
         }
         const apiPath = '/databases/transactions/{transactionId}'.replace(
             '{transactionId}',
-            encodeURIComponent(String(transactionId)),
+            encodePath(transactionId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -788,7 +789,7 @@ export class Databases {
         const apiPath =
             '/databases/transactions/{transactionId}/operations'.replace(
                 '{transactionId}',
-                encodeURIComponent(String(transactionId)),
+                encodePath(transactionId),
             );
         const apiPayload: Payload = {};
         if (typeof operations !== 'undefined') {
@@ -865,7 +866,7 @@ export class Databases {
         }
         const apiPath = '/databases/{databaseId}'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1013,7 +1014,7 @@ export class Databases {
         }
         const apiPath = '/databases/{databaseId}'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -1129,7 +1130,7 @@ export class Databases {
         }
         const apiPath = '/databases/{databaseId}'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1226,7 +1227,7 @@ export class Databases {
         }
         const apiPath = '/databases/{databaseId}/collections'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -1446,7 +1447,7 @@ export class Databases {
         }
         const apiPath = '/databases/{databaseId}/collections'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof collectionId !== 'undefined') {
@@ -1587,11 +1588,8 @@ export class Databases {
             );
         }
         const apiPath = '/databases/{databaseId}/collections/{collectionId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace(
-                '{collectionId}',
-                encodeURIComponent(String(collectionId)),
-            );
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1776,11 +1774,8 @@ export class Databases {
             );
         }
         const apiPath = '/databases/{databaseId}/collections/{collectionId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace(
-                '{collectionId}',
-                encodeURIComponent(String(collectionId)),
-            );
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
             apiPayload['name'] = name;
@@ -1911,11 +1906,8 @@ export class Databases {
             );
         }
         const apiPath = '/databases/{databaseId}/collections/{collectionId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace(
-                '{collectionId}',
-                encodeURIComponent(String(collectionId)),
-            );
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2016,11 +2008,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
@@ -2203,11 +2192,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/bigint'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -2416,12 +2402,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/bigint/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -2602,11 +2585,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/boolean'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -2787,12 +2767,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/boolean/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -2965,11 +2942,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/datetime'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -3150,12 +3124,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/datetime/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -3330,11 +3301,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/email'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -3518,12 +3486,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/email/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -3714,11 +3679,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/enum'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -3921,12 +3883,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/enum/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof elements !== 'undefined') {
             apiPayload['elements'] = elements;
@@ -4126,11 +4085,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/float'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -4339,12 +4295,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/float/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -4545,11 +4498,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/integer'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -4758,12 +4708,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/integer/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -4944,11 +4891,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/ip'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -5132,12 +5076,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/ip/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -5295,11 +5236,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/line'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -5472,12 +5410,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/line/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -5662,11 +5597,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/longtext'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -5852,12 +5784,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/longtext/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -6042,11 +5971,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -6232,12 +6158,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -6394,11 +6317,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/point'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -6571,12 +6491,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/point/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -6733,11 +6650,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/polygon'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -6910,12 +6824,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/polygon/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -7110,11 +7021,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/relationship'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof relatedCollectionId !== 'undefined') {
             apiPayload['relatedCollectionId'] = relatedCollectionId;
@@ -7288,12 +7196,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/relationship/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof onDelete !== 'undefined') {
             apiPayload['onDelete'] = onDelete;
@@ -7493,11 +7398,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/string'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -7697,12 +7599,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/string/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -7891,11 +7790,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/text'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -8081,12 +7977,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/text/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -8261,11 +8154,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/url'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -8449,12 +8339,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/url/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -8653,11 +8540,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/varchar'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -8857,12 +8741,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/varchar/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -9039,12 +8920,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -9129,12 +9007,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/attributes/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -9259,11 +9134,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/documents'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
@@ -9457,11 +9329,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/documents'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof documentId !== 'undefined') {
             apiPayload['documentId'] = documentId;
@@ -9599,11 +9468,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/documents'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof documents !== 'undefined') {
             apiPayload['documents'] = documents;
@@ -9748,11 +9614,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/documents'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof documents !== 'undefined') {
             apiPayload['documents'] = documents;
@@ -9899,11 +9762,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/documents'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof data !== 'undefined') {
             apiPayload['data'] = data;
@@ -10044,11 +9904,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/documents'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
@@ -10206,11 +10063,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/documents/query'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
@@ -10368,15 +10222,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace(
-                    '{documentId}',
-                    encodeURIComponent(String(documentId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{documentId}', encodePath(documentId));
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
@@ -10552,15 +10400,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace(
-                    '{documentId}',
-                    encodeURIComponent(String(documentId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{documentId}', encodePath(documentId));
         const apiPayload: Payload = {};
         if (typeof data !== 'undefined') {
             apiPayload['data'] = data;
@@ -10740,15 +10582,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace(
-                    '{documentId}',
-                    encodeURIComponent(String(documentId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{documentId}', encodePath(documentId));
         const apiPayload: Payload = {};
         if (typeof data !== 'undefined') {
             apiPayload['data'] = data;
@@ -10881,15 +10717,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace(
-                    '{documentId}',
-                    encodeURIComponent(String(documentId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{documentId}', encodePath(documentId));
         const apiPayload: Payload = {};
         if (typeof transactionId !== 'undefined') {
             apiPayload['transactionId'] = transactionId;
@@ -11043,13 +10873,10 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{documentId}', encodeURIComponent(String(documentId)))
-                .replace('{attribute}', encodeURIComponent(String(attribute)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{documentId}', encodePath(documentId))
+                .replace('{attribute}', encodePath(attribute));
         const apiPayload: Payload = {};
         if (typeof value !== 'undefined') {
             apiPayload['value'] = value;
@@ -11227,13 +11054,10 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{documentId}', encodeURIComponent(String(documentId)))
-                .replace('{attribute}', encodeURIComponent(String(attribute)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{documentId}', encodePath(documentId))
+                .replace('{attribute}', encodePath(attribute));
         const apiPayload: Payload = {};
         if (typeof value !== 'undefined') {
             apiPayload['value'] = value;
@@ -11361,11 +11185,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/indexes'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
@@ -11559,11 +11380,8 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/indexes'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -11687,12 +11505,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/indexes/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -11797,12 +11612,9 @@ export class Databases {
         }
         const apiPath =
             '/databases/{databaseId}/collections/{collectionId}/indexes/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{collectionId}',
-                    encodeURIComponent(String(collectionId)),
-                )
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{collectionId}', encodePath(collectionId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 

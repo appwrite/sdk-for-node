@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 
@@ -397,7 +398,7 @@ export class Organization {
         }
         const apiPath = '/organization/installations/{installationId}'.replace(
             '{installationId}',
-            encodeURIComponent(String(installationId)),
+            encodePath(installationId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -491,7 +492,7 @@ export class Organization {
         }
         const apiPath = '/organization/installations/{installationId}'.replace(
             '{installationId}',
-            encodeURIComponent(String(installationId)),
+            encodePath(installationId),
         );
         const apiPayload: Payload = {};
         if (typeof authorizationDetails !== 'undefined') {
@@ -570,7 +571,7 @@ export class Organization {
         }
         const apiPath = '/organization/installations/{installationId}'.replace(
             '{installationId}',
-            encodeURIComponent(String(installationId)),
+            encodePath(installationId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -895,7 +896,7 @@ export class Organization {
         }
         const apiPath = '/organization/memberships/{membershipId}'.replace(
             '{membershipId}',
-            encodeURIComponent(String(membershipId)),
+            encodePath(membershipId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -993,7 +994,7 @@ export class Organization {
         }
         const apiPath = '/organization/memberships/{membershipId}'.replace(
             '{membershipId}',
-            encodeURIComponent(String(membershipId)),
+            encodePath(membershipId),
         );
         const apiPayload: Payload = {};
         if (typeof roles !== 'undefined') {
@@ -1078,7 +1079,7 @@ export class Organization {
         }
         const apiPath = '/organization/memberships/{membershipId}'.replace(
             '{membershipId}',
-            encodeURIComponent(String(membershipId)),
+            encodePath(membershipId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1459,7 +1460,7 @@ export class Organization {
         }
         const apiPath = '/organization/projects/{projectId}'.replace(
             '{projectId}',
-            encodeURIComponent(String(projectId)),
+            encodePath(projectId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1602,7 +1603,7 @@ export class Organization {
         }
         const apiPath = '/organization/projects/{projectId}'.replace(
             '{projectId}',
-            encodeURIComponent(String(projectId)),
+            encodePath(projectId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -1733,7 +1734,7 @@ export class Organization {
         }
         const apiPath = '/organization/projects/{projectId}'.replace(
             '{projectId}',
-            encodeURIComponent(String(projectId)),
+            encodePath(projectId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1811,7 +1812,7 @@ export class Organization {
         }
         const apiPath = '/organization/projects/{projectId}/keys'.replace(
             '{projectId}',
-            encodeURIComponent(String(projectId)),
+            encodePath(projectId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -1948,7 +1949,7 @@ export class Organization {
         const apiPath =
             '/organization/projects/{projectId}/keys/ephemeral'.replace(
                 '{projectId}',
-                encodeURIComponent(String(projectId)),
+                encodePath(projectId),
             );
         const apiPayload: Payload = {};
         if (typeof scopes !== 'undefined') {
@@ -2044,8 +2045,8 @@ export class Organization {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
         const apiPath = '/organization/projects/{projectId}/keys/{keyId}'
-            .replace('{projectId}', encodeURIComponent(String(projectId)))
-            .replace('{keyId}', encodeURIComponent(String(keyId)));
+            .replace('{projectId}', encodePath(projectId))
+            .replace('{keyId}', encodePath(keyId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2192,8 +2193,8 @@ export class Organization {
             throw new AppwriteException('Missing required parameter: "scopes"');
         }
         const apiPath = '/organization/projects/{projectId}/keys/{keyId}'
-            .replace('{projectId}', encodeURIComponent(String(projectId)))
-            .replace('{keyId}', encodeURIComponent(String(keyId)));
+            .replace('{projectId}', encodePath(projectId))
+            .replace('{keyId}', encodePath(keyId));
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
             apiPayload['name'] = name;
@@ -2291,8 +2292,8 @@ export class Organization {
             throw new AppwriteException('Missing required parameter: "keyId"');
         }
         const apiPath = '/organization/projects/{projectId}/keys/{keyId}'
-            .replace('{projectId}', encodeURIComponent(String(projectId)))
-            .replace('{keyId}', encodeURIComponent(String(keyId)));
+            .replace('{projectId}', encodePath(projectId))
+            .replace('{keyId}', encodePath(keyId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
