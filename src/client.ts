@@ -154,7 +154,7 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/31.0.0';
+    let ua = 'AppwriteNodeJSSDK/31.1.0';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
@@ -191,6 +191,14 @@ function getUserAgent() {
     return ua;
 }
 
+export function encodePath(value: unknown): string {
+    const segment = String(value);
+    if (segment === '.' || segment === '..') {
+        throw new AppwriteException('Path parameter cannot be "." or ".."');
+    }
+    return encodeURIComponent(segment);
+}
+
 class Client {
     static CHUNK_SIZE = 1024 * 1024 * 5;
     private selfSignedAgent?: Agent;
@@ -215,9 +223,9 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '31.0.0',
+        'x-sdk-version': '31.1.0',
         'user-agent': getUserAgent(),
-        'X-Appwrite-Response-Format': '2.5.0',
+        'X-Appwrite-Response-Format': '2.6.2',
     };
 
     /**
@@ -891,7 +899,11 @@ class Client {
 
         let data: any = null;
 
-        const response = await fetch(uri, options);
+        // Not followed: a redirect would carry the API key wherever it points.
+        const response = await fetch(uri, {
+            ...options,
+            redirect: 'manual',
+        });
 
         const warnings = response.headers.get('x-appwrite-warning');
         if (warnings) {
@@ -900,6 +912,16 @@ class Client {
                 .forEach((warning: string) =>
                     console.warn('Warning: ' + warning),
                 );
+        }
+
+        if (300 <= response.status && response.status < 400) {
+            const location = response.headers.get('location') || '';
+            throw new AppwriteException(
+                `Redirect to ${location} not followed`,
+                response.status,
+                '',
+                await response.text(),
+            );
         }
 
         if (responseType === 'text' && response.status < 400) {

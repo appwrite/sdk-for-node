@@ -11,5 +11,15 @@ const project = new sdk.Project(client);
 const result = await project.createEnvironment({
     environmentId: '<ENVIRONMENT_ID>',
     name: '<NAME>',
+    resources: [
+        sdk.EnvironmentResource.Database,
+        sdk.EnvironmentResource.Table,
+        sdk.EnvironmentResource.Column,
+        sdk.EnvironmentResource.Index,
+        sdk.EnvironmentResource.Bucket,
+        sdk.EnvironmentResource.Team,
+        sdk.EnvironmentResource.Function,
+        sdk.EnvironmentResource.EnvironmentVariable,
+    ], // optional
 });
 ```

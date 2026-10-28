@@ -4,6 +4,7 @@ import {
     type Payload,
     UploadProgress,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 import { InputFile } from '../inputFile';
@@ -433,7 +434,7 @@ export class Storage {
         }
         const apiPath = '/storage/buckets/{bucketId}'.replace(
             '{bucketId}',
-            encodeURIComponent(String(bucketId)),
+            encodePath(bucketId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -652,7 +653,7 @@ export class Storage {
         }
         const apiPath = '/storage/buckets/{bucketId}'.replace(
             '{bucketId}',
-            encodeURIComponent(String(bucketId)),
+            encodePath(bucketId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -769,7 +770,7 @@ export class Storage {
         }
         const apiPath = '/storage/buckets/{bucketId}'.replace(
             '{bucketId}',
-            encodeURIComponent(String(bucketId)),
+            encodePath(bucketId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -865,7 +866,7 @@ export class Storage {
         }
         const apiPath = '/storage/buckets/{bucketId}/files'.replace(
             '{bucketId}',
-            encodeURIComponent(String(bucketId)),
+            encodePath(bucketId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -1050,7 +1051,7 @@ export class Storage {
         }
         const apiPath = '/storage/buckets/{bucketId}/files'.replace(
             '{bucketId}',
-            encodeURIComponent(String(bucketId)),
+            encodePath(bucketId),
         );
         const apiPayload: Payload = {};
         if (typeof fileId !== 'undefined') {
@@ -1134,8 +1135,8 @@ export class Storage {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/storage/buckets/{bucketId}/files/{fileId}'
-            .replace('{bucketId}', encodeURIComponent(String(bucketId)))
-            .replace('{fileId}', encodeURIComponent(String(fileId)));
+            .replace('{bucketId}', encodePath(bucketId))
+            .replace('{fileId}', encodePath(fileId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1258,8 +1259,8 @@ export class Storage {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/storage/buckets/{bucketId}/files/{fileId}'
-            .replace('{bucketId}', encodeURIComponent(String(bucketId)))
-            .replace('{fileId}', encodeURIComponent(String(fileId)));
+            .replace('{bucketId}', encodePath(bucketId))
+            .replace('{fileId}', encodePath(fileId));
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
             apiPayload['name'] = name;
@@ -1357,8 +1358,8 @@ export class Storage {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/storage/buckets/{bucketId}/files/{fileId}'
-            .replace('{bucketId}', encodeURIComponent(String(bucketId)))
-            .replace('{fileId}', encodeURIComponent(String(fileId)));
+            .replace('{bucketId}', encodePath(bucketId))
+            .replace('{fileId}', encodePath(fileId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1437,8 +1438,8 @@ export class Storage {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/storage/buckets/{bucketId}/files/{fileId}/download'
-            .replace('{bucketId}', encodeURIComponent(String(bucketId)))
-            .replace('{fileId}', encodeURIComponent(String(fileId)));
+            .replace('{bucketId}', encodePath(bucketId))
+            .replace('{fileId}', encodePath(fileId));
         const apiPayload: Payload = {};
         if (typeof token !== 'undefined') {
             apiPayload['token'] = token;
@@ -1647,8 +1648,8 @@ export class Storage {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/storage/buckets/{bucketId}/files/{fileId}/preview'
-            .replace('{bucketId}', encodeURIComponent(String(bucketId)))
-            .replace('{fileId}', encodeURIComponent(String(fileId)));
+            .replace('{bucketId}', encodePath(bucketId))
+            .replace('{fileId}', encodePath(fileId));
         const apiPayload: Payload = {};
         if (typeof width !== 'undefined') {
             apiPayload['width'] = width;
@@ -1768,8 +1769,8 @@ export class Storage {
             throw new AppwriteException('Missing required parameter: "fileId"');
         }
         const apiPath = '/storage/buckets/{bucketId}/files/{fileId}/view'
-            .replace('{bucketId}', encodeURIComponent(String(bucketId)))
-            .replace('{fileId}', encodeURIComponent(String(fileId)));
+            .replace('{bucketId}', encodePath(bucketId))
+            .replace('{fileId}', encodePath(fileId));
         const apiPayload: Payload = {};
         if (typeof token !== 'undefined') {
             apiPayload['token'] = token;

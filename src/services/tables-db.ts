@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     applyDefaults,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 
@@ -627,7 +628,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/transactions/{transactionId}'.replace(
             '{transactionId}',
-            encodeURIComponent(String(transactionId)),
+            encodePath(transactionId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -726,7 +727,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/transactions/{transactionId}'.replace(
             '{transactionId}',
-            encodeURIComponent(String(transactionId)),
+            encodePath(transactionId),
         );
         const apiPayload: Payload = {};
         if (typeof commit !== 'undefined') {
@@ -805,7 +806,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/transactions/{transactionId}'.replace(
             '{transactionId}',
-            encodeURIComponent(String(transactionId)),
+            encodePath(transactionId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -877,7 +878,7 @@ export class TablesDB {
         const apiPath =
             '/tablesdb/transactions/{transactionId}/operations'.replace(
                 '{transactionId}',
-                encodeURIComponent(String(transactionId)),
+                encodePath(transactionId),
             );
         const apiPayload: Payload = {};
         if (typeof operations !== 'undefined') {
@@ -953,7 +954,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/{databaseId}'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1134,7 +1135,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/{databaseId}'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
@@ -1258,7 +1259,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/{databaseId}'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1329,7 +1330,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/{databaseId}/failovers'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof targetReplicaId !== 'undefined') {
@@ -1389,7 +1390,12 @@ export class TablesDB {
                         maintenanceWindowHourUtc: 3,
                         metricsEnabled: false,
                         sqlApiEnabled: true,
-                        sqlApiAllowedStatements: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+                        sqlApiAllowedStatements: [
+                            'SELECT',
+                            'INSERT',
+                            'UPDATE',
+                            'DELETE',
+                        ],
                         sqlApiMaxRows: 10000,
                         sqlApiMaxBytes: 10485760,
                         sqlApiTimeoutSeconds: 30,
@@ -1446,7 +1452,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/{databaseId}/migrations'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -1576,7 +1582,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/{databaseId}/migrations'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof specification !== 'undefined') {
@@ -1684,8 +1690,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/migrations/{migrationId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{migrationId}', encodeURIComponent(String(migrationId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{migrationId}', encodePath(migrationId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1782,8 +1788,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/migrations/{migrationId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{migrationId}', encodeURIComponent(String(migrationId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{migrationId}', encodePath(migrationId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1857,11 +1863,8 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/migrations/{migrationId}/cutovers'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace(
-                    '{migrationId}',
-                    encodeURIComponent(String(migrationId)),
-                );
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{migrationId}', encodePath(migrationId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1984,7 +1987,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/{databaseId}/operations'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof status !== 'undefined') {
@@ -2080,7 +2083,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/{databaseId}/replicas'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -2164,7 +2167,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/{databaseId}/status'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -2304,7 +2307,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/{databaseId}/tables'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
@@ -2524,7 +2527,7 @@ export class TablesDB {
         }
         const apiPath = '/tablesdb/{databaseId}/tables'.replace(
             '{databaseId}',
-            encodeURIComponent(String(databaseId)),
+            encodePath(databaseId),
         );
         const apiPayload: Payload = {};
         if (typeof tableId !== 'undefined') {
@@ -2662,8 +2665,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -2848,8 +2851,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof name !== 'undefined') {
             apiPayload['name'] = name;
@@ -2977,8 +2980,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -3077,8 +3080,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
@@ -3259,8 +3262,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/bigint'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -3468,9 +3471,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/bigint/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -3650,8 +3653,8 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/boolean'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -3831,9 +3834,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/boolean/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -4005,8 +4008,8 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/datetime'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -4186,9 +4189,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/datetime/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -4361,8 +4364,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/email'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -4545,9 +4548,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/email/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -4734,8 +4737,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/enum'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -4937,9 +4940,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/enum/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof elements !== 'undefined') {
             apiPayload['elements'] = elements;
@@ -5137,8 +5140,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/float'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -5346,9 +5349,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/float/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -5548,8 +5551,8 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/integer'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -5757,9 +5760,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/integer/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -5938,8 +5941,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/ip'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -6122,9 +6125,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/ip/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -6280,8 +6283,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/line'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -6453,9 +6456,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/line/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -6639,8 +6642,8 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/longtext'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -6825,9 +6828,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/longtext/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -7011,8 +7014,8 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/mediumtext'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -7197,9 +7200,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/mediumtext/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -7354,8 +7357,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/point'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -7527,9 +7530,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/point/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -7685,8 +7688,8 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/polygon'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -7858,9 +7861,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/polygon/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -8054,8 +8057,8 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/relationship'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof relatedTableId !== 'undefined') {
             apiPayload['relatedTableId'] = relatedTableId;
@@ -8228,9 +8231,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/relationship/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof onDelete !== 'undefined') {
             apiPayload['onDelete'] = onDelete;
@@ -8429,8 +8432,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/string'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -8630,9 +8633,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/string/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -8819,8 +8822,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/text'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -9005,9 +9008,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/text/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -9180,8 +9183,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/url'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -9364,9 +9367,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/url/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -9564,8 +9567,8 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/varchar'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -9764,9 +9767,9 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/columns/varchar/{key}'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{key}', encodeURIComponent(String(key)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         if (typeof required !== 'undefined') {
             apiPayload['required'] = required;
@@ -9941,9 +9944,9 @@ export class TablesDB {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/{key}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)))
-            .replace('{key}', encodeURIComponent(String(key)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId))
+            .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -10022,9 +10025,9 @@ export class TablesDB {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/columns/{key}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)))
-            .replace('{key}', encodeURIComponent(String(key)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId))
+            .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -10123,8 +10126,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/indexes'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
@@ -10317,8 +10320,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/indexes'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof key !== 'undefined') {
             apiPayload['key'] = key;
@@ -10441,9 +10444,9 @@ export class TablesDB {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/indexes/{key}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)))
-            .replace('{key}', encodeURIComponent(String(key)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId))
+            .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -10543,9 +10546,9 @@ export class TablesDB {
             throw new AppwriteException('Missing required parameter: "key"');
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/indexes/{key}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)))
-            .replace('{key}', encodeURIComponent(String(key)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId))
+            .replace('{key}', encodePath(key));
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -10666,8 +10669,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/rows'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
@@ -10850,8 +10853,8 @@ export class TablesDB {
             throw new AppwriteException('Missing required parameter: "data"');
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/rows'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof rowId !== 'undefined') {
             apiPayload['rowId'] = rowId;
@@ -10983,8 +10986,8 @@ export class TablesDB {
             throw new AppwriteException('Missing required parameter: "rows"');
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/rows'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof rows !== 'undefined') {
             apiPayload['rows'] = rows;
@@ -11123,8 +11126,8 @@ export class TablesDB {
             throw new AppwriteException('Missing required parameter: "rows"');
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/rows'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof rows !== 'undefined') {
             apiPayload['rows'] = rows;
@@ -11267,8 +11270,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/rows'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof data !== 'undefined') {
             apiPayload['data'] = data;
@@ -11405,8 +11408,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/rows'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
@@ -11560,8 +11563,8 @@ export class TablesDB {
             );
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/rows/query'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId));
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
@@ -11713,9 +11716,9 @@ export class TablesDB {
             throw new AppwriteException('Missing required parameter: "rowId"');
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)))
-            .replace('{rowId}', encodeURIComponent(String(rowId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId))
+            .replace('{rowId}', encodePath(rowId));
         const apiPayload: Payload = {};
         if (typeof queries !== 'undefined') {
             apiPayload['queries'] = queries;
@@ -11881,9 +11884,9 @@ export class TablesDB {
             throw new AppwriteException('Missing required parameter: "rowId"');
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)))
-            .replace('{rowId}', encodeURIComponent(String(rowId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId))
+            .replace('{rowId}', encodePath(rowId));
         const apiPayload: Payload = {};
         if (typeof data !== 'undefined') {
             apiPayload['data'] = data;
@@ -12053,9 +12056,9 @@ export class TablesDB {
             throw new AppwriteException('Missing required parameter: "rowId"');
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)))
-            .replace('{rowId}', encodeURIComponent(String(rowId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId))
+            .replace('{rowId}', encodePath(rowId));
         const apiPayload: Payload = {};
         if (typeof data !== 'undefined') {
             apiPayload['data'] = data;
@@ -12184,9 +12187,9 @@ export class TablesDB {
             throw new AppwriteException('Missing required parameter: "rowId"');
         }
         const apiPath = '/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}'
-            .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-            .replace('{tableId}', encodeURIComponent(String(tableId)))
-            .replace('{rowId}', encodeURIComponent(String(rowId)));
+            .replace('{databaseId}', encodePath(databaseId))
+            .replace('{tableId}', encodePath(tableId))
+            .replace('{rowId}', encodePath(rowId));
         const apiPayload: Payload = {};
         if (typeof transactionId !== 'undefined') {
             apiPayload['transactionId'] = transactionId;
@@ -12329,10 +12332,10 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}/{column}/decrement'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{rowId}', encodeURIComponent(String(rowId)))
-                .replace('{column}', encodeURIComponent(String(column)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{rowId}', encodePath(rowId))
+                .replace('{column}', encodePath(column));
         const apiPayload: Payload = {};
         if (typeof value !== 'undefined') {
             apiPayload['value'] = value;
@@ -12499,10 +12502,10 @@ export class TablesDB {
         }
         const apiPath =
             '/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}/{column}/increment'
-                .replace('{databaseId}', encodeURIComponent(String(databaseId)))
-                .replace('{tableId}', encodeURIComponent(String(tableId)))
-                .replace('{rowId}', encodeURIComponent(String(rowId)))
-                .replace('{column}', encodeURIComponent(String(column)));
+                .replace('{databaseId}', encodePath(databaseId))
+                .replace('{tableId}', encodePath(tableId))
+                .replace('{rowId}', encodePath(rowId))
+                .replace('{column}', encodePath(column));
         const apiPayload: Payload = {};
         if (typeof value !== 'undefined') {
             apiPayload['value'] = value;

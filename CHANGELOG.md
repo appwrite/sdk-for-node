@@ -1,5 +1,18 @@
 # Change Log
 
+## 31.1.0
+
+* Added: `Migrations` service to run Appwrite, Firebase, NHost, Supabase, CSV and JSON migrations, plus retries and listing
+* Added: `AppwriteMigrationResource`, `FirebaseMigrationResource`, `NHostMigrationResource`, `SupabaseMigrationResource` and `OnDuplicate` enums
+* Added: `project.updateDenyRealtimeGuestsPolicy`, `Models.PolicyDenyRealtimeGuests` and `ProjectPolicyId.Denyrealtimeguests`
+* Added: `project.deleteSessions` to sign out every user in the project
+* Added: `BillingPlan.deploymentRetention`, `deploymentRetentionMax` and `deploymentsRetentionCount`
+* Added: `python-3.15`, `deno-2.9`, `go-1.27` and `rust-1.99` to `Runtime` and `BuildRuntime`
+* Updated: requests send `X-Appwrite-Response-Format: 2.6.2`; README targets Appwrite 2.6.x
+* Updated: redirects are no longer followed; a 3xx throws `AppwriteException` naming the `Location`
+* Fixed: path parameters `.` and `..` throw `AppwriteException` instead of changing the request URL
+* Updated: dev dependencies `eslint`, `typescript-eslint`, `prettier` and `@types/node` refreshed
+
 ## 31.0.0
 
 * Breaking: positional `tablesDB`, `documentsDB` and `vectorsDB` `create` and `update` take `description` before `specification`

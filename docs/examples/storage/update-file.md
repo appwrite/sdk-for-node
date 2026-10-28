@@ -11,7 +11,7 @@ const storage = new sdk.Storage(client);
 const result = await storage.updateFile({
     bucketId: '<BUCKET_ID>',
     fileId: '<FILE_ID>',
-    name: '<NAME>', // optional
+    name: undefined, // optional
     permissions: [sdk.Permission.read(sdk.Role.any())], // optional
 });
 ```

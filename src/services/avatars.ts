@@ -3,6 +3,7 @@ import {
     Client,
     type Payload,
     UploadProgress,
+    encodePath,
 } from '../client';
 import type { Models } from '../models';
 import { InputFile } from '../inputFile';
@@ -109,7 +110,7 @@ export class Avatars {
         }
         const apiPath = '/avatars/browsers/{code}'.replace(
             '{code}',
-            encodeURIComponent(String(code)),
+            encodePath(code),
         );
         const apiPayload: Payload = {};
         if (typeof width !== 'undefined') {
@@ -227,7 +228,7 @@ export class Avatars {
         }
         const apiPath = '/avatars/credit-cards/{code}'.replace(
             '{code}',
-            encodeURIComponent(String(code)),
+            encodePath(code),
         );
         const apiPayload: Payload = {};
         if (typeof width !== 'undefined') {
@@ -401,7 +402,7 @@ export class Avatars {
         }
         const apiPath = '/avatars/flags/{code}'.replace(
             '{code}',
-            encodeURIComponent(String(code)),
+            encodePath(code),
         );
         const apiPayload: Payload = {};
         if (typeof width !== 'undefined') {
