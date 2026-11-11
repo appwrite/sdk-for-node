@@ -120,6 +120,7 @@ export class Waf {
      * @param {number} params.priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean} params.enabled - Set to false to create the rule in a disabled state.
      * @param {string[]} params.conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} params.schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleBypass>}
      */
@@ -132,6 +133,7 @@ export class Waf {
         priority?: number;
         enabled?: boolean;
         conditions?: string[];
+        schedule?: object | null;
     }): Promise<Models.WafRuleBypass>;
     /**
      * Create a bypass WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -145,6 +147,7 @@ export class Waf {
      * @param {number} priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean} enabled - Set to false to create the rule in a disabled state.
      * @param {string[]} conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleBypass>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -158,6 +161,7 @@ export class Waf {
         priority?: number,
         enabled?: boolean,
         conditions?: string[],
+        schedule?: object | null,
     ): Promise<Models.WafRuleBypass>;
     createBypassRule(
         paramsOrFirst:
@@ -170,6 +174,7 @@ export class Waf {
                   priority?: number;
                   enabled?: boolean;
                   conditions?: string[];
+                  schedule?: object | null;
               }
             | string,
         ...rest: [
@@ -180,6 +185,7 @@ export class Waf {
             number?,
             boolean?,
             string[]?,
+            (object | null)?,
         ]
     ): Promise<Models.WafRuleBypass> {
         let params: {
@@ -191,6 +197,7 @@ export class Waf {
             priority?: number;
             enabled?: boolean;
             conditions?: string[];
+            schedule?: object | null;
         };
 
         if (
@@ -207,6 +214,7 @@ export class Waf {
                 priority?: number;
                 enabled?: boolean;
                 conditions?: string[];
+                schedule?: object | null;
             };
         } else {
             params = {
@@ -218,6 +226,7 @@ export class Waf {
                 priority: rest[4] as number,
                 enabled: rest[5] as boolean,
                 conditions: rest[6] as string[],
+                schedule: rest[7] as object | null,
             };
         }
 
@@ -229,6 +238,7 @@ export class Waf {
         const priority = params.priority;
         const enabled = params.enabled;
         const conditions = params.conditions;
+        const schedule = params.schedule;
         if (typeof ruleId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
@@ -265,6 +275,9 @@ export class Waf {
         }
         if (typeof conditions !== 'undefined') {
             apiPayload['conditions'] = conditions;
+        }
+        if (typeof schedule !== 'undefined') {
+            apiPayload['schedule'] = schedule;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -313,6 +326,7 @@ export class Waf {
      * @param {number | null} params.priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean | null} params.enabled - Set to false to disable the rule.
      * @param {string[] | null} params.conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} params.schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleBypass>}
      */
@@ -325,6 +339,7 @@ export class Waf {
         priority?: number | null;
         enabled?: boolean | null;
         conditions?: string[] | null;
+        schedule?: object | null;
     }): Promise<Models.WafRuleBypass>;
     /**
      * Update a bypass WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -338,6 +353,7 @@ export class Waf {
      * @param {number | null} priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean | null} enabled - Set to false to disable the rule.
      * @param {string[] | null} conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleBypass>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -351,6 +367,7 @@ export class Waf {
         priority?: number | null,
         enabled?: boolean | null,
         conditions?: string[] | null,
+        schedule?: object | null,
     ): Promise<Models.WafRuleBypass>;
     updateBypassRule(
         paramsOrFirst:
@@ -363,6 +380,7 @@ export class Waf {
                   priority?: number | null;
                   enabled?: boolean | null;
                   conditions?: string[] | null;
+                  schedule?: object | null;
               }
             | string,
         ...rest: [
@@ -373,6 +391,7 @@ export class Waf {
             (number | null)?,
             (boolean | null)?,
             (string[] | null)?,
+            (object | null)?,
         ]
     ): Promise<Models.WafRuleBypass> {
         let params: {
@@ -384,6 +403,7 @@ export class Waf {
             priority?: number | null;
             enabled?: boolean | null;
             conditions?: string[] | null;
+            schedule?: object | null;
         };
 
         if (
@@ -400,6 +420,7 @@ export class Waf {
                 priority?: number | null;
                 enabled?: boolean | null;
                 conditions?: string[] | null;
+                schedule?: object | null;
             };
         } else {
             params = {
@@ -411,6 +432,7 @@ export class Waf {
                 priority: rest[4] as number | null,
                 enabled: rest[5] as boolean | null,
                 conditions: rest[6] as string[] | null,
+                schedule: rest[7] as object | null,
             };
         }
 
@@ -422,6 +444,7 @@ export class Waf {
         const priority = params.priority;
         const enabled = params.enabled;
         const conditions = params.conditions;
+        const schedule = params.schedule;
         if (typeof ruleId === 'undefined' || ruleId === '') {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
@@ -450,6 +473,9 @@ export class Waf {
         }
         if (typeof conditions !== 'undefined') {
             apiPayload['conditions'] = conditions;
+        }
+        if (typeof schedule !== 'undefined') {
+            apiPayload['schedule'] = schedule;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -501,6 +527,7 @@ export class Waf {
      * @param {string[]} params.conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
      * @param {number} params.difficulty - Challenge difficulty from 1 (easiest) to 5 (hardest). Higher values demand more client-side proof-of-work.
      * @param {number} params.ttl - How long, in seconds, a visitor stays cleared after passing the challenge before being challenged again.
+     * @param {object | null} params.schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleChallenge>}
      */
@@ -516,6 +543,7 @@ export class Waf {
         conditions?: string[];
         difficulty?: number;
         ttl?: number;
+        schedule?: object | null;
     }): Promise<Models.WafRuleChallenge>;
     /**
      * Create a challenge WAF rule. Use `difficulty` (1 easiest to 5 hardest) to tune the client-side proof-of-work cost, and `ttl` to control how long, in seconds, a visitor stays cleared after passing the challenge before being challenged again. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -532,6 +560,7 @@ export class Waf {
      * @param {string[]} conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
      * @param {number} difficulty - Challenge difficulty from 1 (easiest) to 5 (hardest). Higher values demand more client-side proof-of-work.
      * @param {number} ttl - How long, in seconds, a visitor stays cleared after passing the challenge before being challenged again.
+     * @param {object | null} schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleChallenge>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -548,6 +577,7 @@ export class Waf {
         conditions?: string[],
         difficulty?: number,
         ttl?: number,
+        schedule?: object | null,
     ): Promise<Models.WafRuleChallenge>;
     createChallengeRule(
         paramsOrFirst:
@@ -563,6 +593,7 @@ export class Waf {
                   conditions?: string[];
                   difficulty?: number;
                   ttl?: number;
+                  schedule?: object | null;
               }
             | string,
         ...rest: [
@@ -576,6 +607,7 @@ export class Waf {
             string[]?,
             number?,
             number?,
+            (object | null)?,
         ]
     ): Promise<Models.WafRuleChallenge> {
         let params: {
@@ -590,6 +622,7 @@ export class Waf {
             conditions?: string[];
             difficulty?: number;
             ttl?: number;
+            schedule?: object | null;
         };
 
         if (
@@ -609,6 +642,7 @@ export class Waf {
                 conditions?: string[];
                 difficulty?: number;
                 ttl?: number;
+                schedule?: object | null;
             };
         } else {
             params = {
@@ -623,6 +657,7 @@ export class Waf {
                 conditions: rest[7] as string[],
                 difficulty: rest[8] as number,
                 ttl: rest[9] as number,
+                schedule: rest[10] as object | null,
             };
         }
 
@@ -637,6 +672,7 @@ export class Waf {
         const conditions = params.conditions;
         const difficulty = params.difficulty;
         const ttl = params.ttl;
+        const schedule = params.schedule;
         if (typeof ruleId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
@@ -682,6 +718,9 @@ export class Waf {
         }
         if (typeof ttl !== 'undefined') {
             apiPayload['ttl'] = ttl;
+        }
+        if (typeof schedule !== 'undefined') {
+            apiPayload['schedule'] = schedule;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -736,6 +775,7 @@ export class Waf {
      * @param {string[] | null} params.conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
      * @param {number | null} params.difficulty - Challenge difficulty from 1 (easiest) to 5 (hardest). Higher values demand more client-side proof-of-work.
      * @param {number | null} params.ttl - How long, in seconds, a visitor stays cleared after passing the challenge before being challenged again.
+     * @param {object | null} params.schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleChallenge>}
      */
@@ -751,6 +791,7 @@ export class Waf {
         conditions?: string[] | null;
         difficulty?: number | null;
         ttl?: number | null;
+        schedule?: object | null;
     }): Promise<Models.WafRuleChallenge>;
     /**
      * Update a challenge WAF rule. Use `difficulty` (1 easiest to 5 hardest) to tune the client-side proof-of-work cost, and `ttl` to control how long, in seconds, a visitor stays cleared after passing the challenge before being challenged again. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -767,6 +808,7 @@ export class Waf {
      * @param {string[] | null} conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
      * @param {number | null} difficulty - Challenge difficulty from 1 (easiest) to 5 (hardest). Higher values demand more client-side proof-of-work.
      * @param {number | null} ttl - How long, in seconds, a visitor stays cleared after passing the challenge before being challenged again.
+     * @param {object | null} schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleChallenge>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -783,6 +825,7 @@ export class Waf {
         conditions?: string[] | null,
         difficulty?: number | null,
         ttl?: number | null,
+        schedule?: object | null,
     ): Promise<Models.WafRuleChallenge>;
     updateChallengeRule(
         paramsOrFirst:
@@ -798,6 +841,7 @@ export class Waf {
                   conditions?: string[] | null;
                   difficulty?: number | null;
                   ttl?: number | null;
+                  schedule?: object | null;
               }
             | string,
         ...rest: [
@@ -811,6 +855,7 @@ export class Waf {
             (string[] | null)?,
             (number | null)?,
             (number | null)?,
+            (object | null)?,
         ]
     ): Promise<Models.WafRuleChallenge> {
         let params: {
@@ -825,6 +870,7 @@ export class Waf {
             conditions?: string[] | null;
             difficulty?: number | null;
             ttl?: number | null;
+            schedule?: object | null;
         };
 
         if (
@@ -844,6 +890,7 @@ export class Waf {
                 conditions?: string[] | null;
                 difficulty?: number | null;
                 ttl?: number | null;
+                schedule?: object | null;
             };
         } else {
             params = {
@@ -858,6 +905,7 @@ export class Waf {
                 conditions: rest[7] as string[] | null,
                 difficulty: rest[8] as number | null,
                 ttl: rest[9] as number | null,
+                schedule: rest[10] as object | null,
             };
         }
 
@@ -872,6 +920,7 @@ export class Waf {
         const conditions = params.conditions;
         const difficulty = params.difficulty;
         const ttl = params.ttl;
+        const schedule = params.schedule;
         if (typeof ruleId === 'undefined' || ruleId === '') {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
@@ -909,6 +958,9 @@ export class Waf {
         }
         if (typeof ttl !== 'undefined') {
             apiPayload['ttl'] = ttl;
+        }
+        if (typeof schedule !== 'undefined') {
+            apiPayload['schedule'] = schedule;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -960,6 +1012,7 @@ export class Waf {
      * @param {number} params.priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean} params.enabled - Set to false to create the rule in a disabled state.
      * @param {string[]} params.conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} params.schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleDeny>}
      */
@@ -972,6 +1025,7 @@ export class Waf {
         priority?: number;
         enabled?: boolean;
         conditions?: string[];
+        schedule?: object | null;
     }): Promise<Models.WafRuleDeny>;
     /**
      * Create a deny WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon. `sessionAge` and `mfaAge` hold the seconds since the request's session was created and since its last MFA challenge. Both are null for requests without a session, such as guests and API keys, while a request authenticated with the `x-appwrite-jwt` header carries the age of the session its token is bound to; on `functions` rules the session comes from the `x-appwrite-user-jwt` header, and `mfaAge` is null when the session never completed MFA. A deny matching on `mfaAge` returns `user_challenge_required` and one matching on `sessionAge` returns `user_reauthentication_required`, both with status 401, so the user can sign in again and retry. To also deny requests without a session, combine `isNull` and `greaterThan` in an `or` condition.
@@ -985,6 +1039,7 @@ export class Waf {
      * @param {number} priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean} enabled - Set to false to create the rule in a disabled state.
      * @param {string[]} conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleDeny>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -998,6 +1053,7 @@ export class Waf {
         priority?: number,
         enabled?: boolean,
         conditions?: string[],
+        schedule?: object | null,
     ): Promise<Models.WafRuleDeny>;
     createDenyRule(
         paramsOrFirst:
@@ -1010,6 +1066,7 @@ export class Waf {
                   priority?: number;
                   enabled?: boolean;
                   conditions?: string[];
+                  schedule?: object | null;
               }
             | string,
         ...rest: [
@@ -1020,6 +1077,7 @@ export class Waf {
             number?,
             boolean?,
             string[]?,
+            (object | null)?,
         ]
     ): Promise<Models.WafRuleDeny> {
         let params: {
@@ -1031,6 +1089,7 @@ export class Waf {
             priority?: number;
             enabled?: boolean;
             conditions?: string[];
+            schedule?: object | null;
         };
 
         if (
@@ -1047,6 +1106,7 @@ export class Waf {
                 priority?: number;
                 enabled?: boolean;
                 conditions?: string[];
+                schedule?: object | null;
             };
         } else {
             params = {
@@ -1058,6 +1118,7 @@ export class Waf {
                 priority: rest[4] as number,
                 enabled: rest[5] as boolean,
                 conditions: rest[6] as string[],
+                schedule: rest[7] as object | null,
             };
         }
 
@@ -1069,6 +1130,7 @@ export class Waf {
         const priority = params.priority;
         const enabled = params.enabled;
         const conditions = params.conditions;
+        const schedule = params.schedule;
         if (typeof ruleId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
@@ -1105,6 +1167,9 @@ export class Waf {
         }
         if (typeof conditions !== 'undefined') {
             apiPayload['conditions'] = conditions;
+        }
+        if (typeof schedule !== 'undefined') {
+            apiPayload['schedule'] = schedule;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1153,6 +1218,7 @@ export class Waf {
      * @param {number | null} params.priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean | null} params.enabled - Set to false to disable the rule.
      * @param {string[] | null} params.conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} params.schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleDeny>}
      */
@@ -1165,6 +1231,7 @@ export class Waf {
         priority?: number | null;
         enabled?: boolean | null;
         conditions?: string[] | null;
+        schedule?: object | null;
     }): Promise<Models.WafRuleDeny>;
     /**
      * Update a deny WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon. `sessionAge` and `mfaAge` hold the seconds since the request's session was created and since its last MFA challenge. Both are null for requests without a session, such as guests and API keys, while a request authenticated with the `x-appwrite-jwt` header carries the age of the session its token is bound to; on `functions` rules the session comes from the `x-appwrite-user-jwt` header, and `mfaAge` is null when the session never completed MFA. A deny matching on `mfaAge` returns `user_challenge_required` and one matching on `sessionAge` returns `user_reauthentication_required`, both with status 401, so the user can sign in again and retry. To also deny requests without a session, combine `isNull` and `greaterThan` in an `or` condition.
@@ -1178,6 +1245,7 @@ export class Waf {
      * @param {number | null} priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean | null} enabled - Set to false to disable the rule.
      * @param {string[] | null} conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleDeny>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1191,6 +1259,7 @@ export class Waf {
         priority?: number | null,
         enabled?: boolean | null,
         conditions?: string[] | null,
+        schedule?: object | null,
     ): Promise<Models.WafRuleDeny>;
     updateDenyRule(
         paramsOrFirst:
@@ -1203,6 +1272,7 @@ export class Waf {
                   priority?: number | null;
                   enabled?: boolean | null;
                   conditions?: string[] | null;
+                  schedule?: object | null;
               }
             | string,
         ...rest: [
@@ -1213,6 +1283,7 @@ export class Waf {
             (number | null)?,
             (boolean | null)?,
             (string[] | null)?,
+            (object | null)?,
         ]
     ): Promise<Models.WafRuleDeny> {
         let params: {
@@ -1224,6 +1295,7 @@ export class Waf {
             priority?: number | null;
             enabled?: boolean | null;
             conditions?: string[] | null;
+            schedule?: object | null;
         };
 
         if (
@@ -1240,6 +1312,7 @@ export class Waf {
                 priority?: number | null;
                 enabled?: boolean | null;
                 conditions?: string[] | null;
+                schedule?: object | null;
             };
         } else {
             params = {
@@ -1251,6 +1324,7 @@ export class Waf {
                 priority: rest[4] as number | null,
                 enabled: rest[5] as boolean | null,
                 conditions: rest[6] as string[] | null,
+                schedule: rest[7] as object | null,
             };
         }
 
@@ -1262,6 +1336,7 @@ export class Waf {
         const priority = params.priority;
         const enabled = params.enabled;
         const conditions = params.conditions;
+        const schedule = params.schedule;
         if (typeof ruleId === 'undefined' || ruleId === '') {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
@@ -1290,6 +1365,9 @@ export class Waf {
         }
         if (typeof conditions !== 'undefined') {
             apiPayload['conditions'] = conditions;
+        }
+        if (typeof schedule !== 'undefined') {
+            apiPayload['schedule'] = schedule;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1343,6 +1421,7 @@ export class Waf {
      * @param {number} params.priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean} params.enabled - Set to false to create the rule in a disabled state.
      * @param {string[]} params.conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} params.schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleRateLimit>}
      */
@@ -1360,6 +1439,7 @@ export class Waf {
         priority?: number;
         enabled?: boolean;
         conditions?: string[];
+        schedule?: object | null;
     }): Promise<Models.WafRuleRateLimit>;
     /**
      * Create a rate limit WAF rule. Use `key` to choose the counter: `ip` limits per client IP, while `userId` limits per authenticated user (requests without an authenticated user skip `userId` rules). Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -1378,6 +1458,7 @@ export class Waf {
      * @param {number} priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean} enabled - Set to false to create the rule in a disabled state.
      * @param {string[]} conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleRateLimit>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1396,6 +1477,7 @@ export class Waf {
         priority?: number,
         enabled?: boolean,
         conditions?: string[],
+        schedule?: object | null,
     ): Promise<Models.WafRuleRateLimit>;
     createRateLimitRule(
         paramsOrFirst:
@@ -1413,6 +1495,7 @@ export class Waf {
                   priority?: number;
                   enabled?: boolean;
                   conditions?: string[];
+                  schedule?: object | null;
               }
             | string,
         ...rest: [
@@ -1428,6 +1511,7 @@ export class Waf {
             number?,
             boolean?,
             string[]?,
+            (object | null)?,
         ]
     ): Promise<Models.WafRuleRateLimit> {
         let params: {
@@ -1444,6 +1528,7 @@ export class Waf {
             priority?: number;
             enabled?: boolean;
             conditions?: string[];
+            schedule?: object | null;
         };
 
         if (
@@ -1465,6 +1550,7 @@ export class Waf {
                 priority?: number;
                 enabled?: boolean;
                 conditions?: string[];
+                schedule?: object | null;
             };
         } else {
             params = {
@@ -1481,6 +1567,7 @@ export class Waf {
                 priority: rest[9] as number,
                 enabled: rest[10] as boolean,
                 conditions: rest[11] as string[],
+                schedule: rest[12] as object | null,
             };
         }
 
@@ -1497,6 +1584,7 @@ export class Waf {
         const priority = params.priority;
         const enabled = params.enabled;
         const conditions = params.conditions;
+        const schedule = params.schedule;
         if (typeof ruleId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
@@ -1557,6 +1645,9 @@ export class Waf {
         if (typeof conditions !== 'undefined') {
             apiPayload['conditions'] = conditions;
         }
+        if (typeof schedule !== 'undefined') {
+            apiPayload['schedule'] = schedule;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1613,6 +1704,7 @@ export class Waf {
      * @param {number | null} params.priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean | null} params.enabled - Set to false to disable the rule.
      * @param {string[] | null} params.conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} params.schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleRateLimit>}
      */
@@ -1629,6 +1721,7 @@ export class Waf {
         priority?: number | null;
         enabled?: boolean | null;
         conditions?: string[] | null;
+        schedule?: object | null;
     }): Promise<Models.WafRuleRateLimit>;
     /**
      * Update a rate limit WAF rule. Use `key` to choose the counter: `ip` limits per client IP, while `userId` limits per authenticated user (requests without an authenticated user skip `userId` rules). Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -1646,6 +1739,7 @@ export class Waf {
      * @param {number | null} priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean | null} enabled - Set to false to disable the rule.
      * @param {string[] | null} conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleRateLimit>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1663,6 +1757,7 @@ export class Waf {
         priority?: number | null,
         enabled?: boolean | null,
         conditions?: string[] | null,
+        schedule?: object | null,
     ): Promise<Models.WafRuleRateLimit>;
     updateRateLimitRule(
         paramsOrFirst:
@@ -1679,6 +1774,7 @@ export class Waf {
                   priority?: number | null;
                   enabled?: boolean | null;
                   conditions?: string[] | null;
+                  schedule?: object | null;
               }
             | string,
         ...rest: [
@@ -1693,6 +1789,7 @@ export class Waf {
             (number | null)?,
             (boolean | null)?,
             (string[] | null)?,
+            (object | null)?,
         ]
     ): Promise<Models.WafRuleRateLimit> {
         let params: {
@@ -1708,6 +1805,7 @@ export class Waf {
             priority?: number | null;
             enabled?: boolean | null;
             conditions?: string[] | null;
+            schedule?: object | null;
         };
 
         if (
@@ -1728,6 +1826,7 @@ export class Waf {
                 priority?: number | null;
                 enabled?: boolean | null;
                 conditions?: string[] | null;
+                schedule?: object | null;
             };
         } else {
             params = {
@@ -1743,6 +1842,7 @@ export class Waf {
                 priority: rest[8] as number | null,
                 enabled: rest[9] as boolean | null,
                 conditions: rest[10] as string[] | null,
+                schedule: rest[11] as object | null,
             };
         }
 
@@ -1758,6 +1858,7 @@ export class Waf {
         const priority = params.priority;
         const enabled = params.enabled;
         const conditions = params.conditions;
+        const schedule = params.schedule;
         if (typeof ruleId === 'undefined' || ruleId === '') {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
@@ -1798,6 +1899,9 @@ export class Waf {
         }
         if (typeof conditions !== 'undefined') {
             apiPayload['conditions'] = conditions;
+        }
+        if (typeof schedule !== 'undefined') {
+            apiPayload['schedule'] = schedule;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
@@ -1853,6 +1957,7 @@ export class Waf {
      * @param {number} params.priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean} params.enabled - Set to false to create the rule in a disabled state.
      * @param {string[]} params.conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} params.schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleRedirect>}
      */
@@ -1867,6 +1972,7 @@ export class Waf {
         priority?: number;
         enabled?: boolean;
         conditions?: string[];
+        schedule?: object | null;
     }): Promise<Models.WafRuleRedirect>;
     /**
      * Create a redirect WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -1882,6 +1988,7 @@ export class Waf {
      * @param {number} priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean} enabled - Set to false to create the rule in a disabled state.
      * @param {string[]} conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleRedirect>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1897,6 +2004,7 @@ export class Waf {
         priority?: number,
         enabled?: boolean,
         conditions?: string[],
+        schedule?: object | null,
     ): Promise<Models.WafRuleRedirect>;
     createRedirectRule(
         paramsOrFirst:
@@ -1911,6 +2019,7 @@ export class Waf {
                   priority?: number;
                   enabled?: boolean;
                   conditions?: string[];
+                  schedule?: object | null;
               }
             | string,
         ...rest: [
@@ -1923,6 +2032,7 @@ export class Waf {
             number?,
             boolean?,
             string[]?,
+            (object | null)?,
         ]
     ): Promise<Models.WafRuleRedirect> {
         let params: {
@@ -1936,6 +2046,7 @@ export class Waf {
             priority?: number;
             enabled?: boolean;
             conditions?: string[];
+            schedule?: object | null;
         };
 
         if (
@@ -1954,6 +2065,7 @@ export class Waf {
                 priority?: number;
                 enabled?: boolean;
                 conditions?: string[];
+                schedule?: object | null;
             };
         } else {
             params = {
@@ -1967,6 +2079,7 @@ export class Waf {
                 priority: rest[6] as number,
                 enabled: rest[7] as boolean,
                 conditions: rest[8] as string[],
+                schedule: rest[9] as object | null,
             };
         }
 
@@ -1980,6 +2093,7 @@ export class Waf {
         const priority = params.priority;
         const enabled = params.enabled;
         const conditions = params.conditions;
+        const schedule = params.schedule;
         if (typeof ruleId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
@@ -2033,6 +2147,9 @@ export class Waf {
         if (typeof conditions !== 'undefined') {
             apiPayload['conditions'] = conditions;
         }
+        if (typeof schedule !== 'undefined') {
+            apiPayload['schedule'] = schedule;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -2084,6 +2201,7 @@ export class Waf {
      * @param {number | null} params.priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean | null} params.enabled - Set to false to disable the rule.
      * @param {string[] | null} params.conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} params.schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleRedirect>}
      */
@@ -2098,6 +2216,7 @@ export class Waf {
         priority?: number | null;
         enabled?: boolean | null;
         conditions?: string[] | null;
+        schedule?: object | null;
     }): Promise<Models.WafRuleRedirect>;
     /**
      * Update a redirect WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `accept`, `acceptLanguage`, `cookie`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -2113,6 +2232,7 @@ export class Waf {
      * @param {number | null} priority - Evaluation priority. Lower numbers run earlier.
      * @param {boolean | null} enabled - Set to false to disable the rule.
      * @param {string[] | null} conditions - Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
+     * @param {object | null} schedule - When the rule is active: mode, days, interval, anchor, startTime and endTime (HH:MM), and an optional IANA timezone (UTC by default). Leave out for always on; on update, leave out to keep the current schedule and pass an empty object to remove it.
      * @throws {AppwriteException}
      * @returns {Promise<Models.WafRuleRedirect>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -2128,6 +2248,7 @@ export class Waf {
         priority?: number | null,
         enabled?: boolean | null,
         conditions?: string[] | null,
+        schedule?: object | null,
     ): Promise<Models.WafRuleRedirect>;
     updateRedirectRule(
         paramsOrFirst:
@@ -2142,6 +2263,7 @@ export class Waf {
                   priority?: number | null;
                   enabled?: boolean | null;
                   conditions?: string[] | null;
+                  schedule?: object | null;
               }
             | string,
         ...rest: [
@@ -2154,6 +2276,7 @@ export class Waf {
             (number | null)?,
             (boolean | null)?,
             (string[] | null)?,
+            (object | null)?,
         ]
     ): Promise<Models.WafRuleRedirect> {
         let params: {
@@ -2167,6 +2290,7 @@ export class Waf {
             priority?: number | null;
             enabled?: boolean | null;
             conditions?: string[] | null;
+            schedule?: object | null;
         };
 
         if (
@@ -2185,6 +2309,7 @@ export class Waf {
                 priority?: number | null;
                 enabled?: boolean | null;
                 conditions?: string[] | null;
+                schedule?: object | null;
             };
         } else {
             params = {
@@ -2198,6 +2323,7 @@ export class Waf {
                 priority: rest[6] as number | null,
                 enabled: rest[7] as boolean | null,
                 conditions: rest[8] as string[] | null,
+                schedule: rest[9] as object | null,
             };
         }
 
@@ -2211,6 +2337,7 @@ export class Waf {
         const priority = params.priority;
         const enabled = params.enabled;
         const conditions = params.conditions;
+        const schedule = params.schedule;
         if (typeof ruleId === 'undefined' || ruleId === '') {
             throw new AppwriteException('Missing required parameter: "ruleId"');
         }
@@ -2245,6 +2372,9 @@ export class Waf {
         }
         if (typeof conditions !== 'undefined') {
             apiPayload['conditions'] = conditions;
+        }
+        if (typeof schedule !== 'undefined') {
+            apiPayload['schedule'] = schedule;
         }
         const uri = new URL(this.client.config.endpoint + apiPath);
 

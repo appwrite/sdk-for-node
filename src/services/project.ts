@@ -38,9 +38,11 @@ export class Project {
      * Get a project.
      *
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    get(): Promise<Models.Project> {
+    get<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(): Promise<Models.Project<Preferences>> {
         const apiPath = '/project';
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
@@ -153,31 +155,37 @@ export class Project {
      * @param {ProjectAuthMethodId} params.methodId - Auth Method ID. Possible values: email-password,magic-url,email-otp,anonymous,invites,jwt,phone,passkey
      * @param {boolean} params.enabled - Auth method status.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateAuthMethod(params: {
+    updateAuthMethod<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: {
         methodId: ProjectAuthMethodId;
         enabled: boolean;
-    }): Promise<Models.Project>;
+    }): Promise<Models.Project<Preferences>>;
     /**
      * Update properties of a specific auth method. Use this endpoint to enable or disable a method in your project.
      *
      * @param {ProjectAuthMethodId} methodId - Auth Method ID. Possible values: email-password,magic-url,email-otp,anonymous,invites,jwt,phone,passkey
      * @param {boolean} enabled - Auth method status.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateAuthMethod(
+    updateAuthMethod<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         methodId: ProjectAuthMethodId,
         enabled: boolean,
-    ): Promise<Models.Project>;
-    updateAuthMethod(
+    ): Promise<Models.Project<Preferences>>;
+    updateAuthMethod<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst:
             | { methodId: ProjectAuthMethodId; enabled: boolean }
             | ProjectAuthMethodId,
         ...rest: [boolean?]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { methodId: ProjectAuthMethodId; enabled: boolean };
 
         if (
@@ -303,34 +311,34 @@ export class Project {
     }
 
     /**
-     * Get a list of all environments of the project. You can use the query params to filter your results.
+     * Get a list of all environments of the project. You can use the query params to filter your results. An environment is listed by its ID, the one passed in the `X-Appwrite-Environment` header to act in it.
      *
-     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, teamId, labels, search, accessedAt, status, parentId
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: $id, name, search
      * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.ProjectList>}
+     * @returns {Promise<Models.EnvironmentList>}
      */
     listEnvironments(params?: {
         queries?: string[];
         total?: boolean;
-    }): Promise<Models.ProjectList>;
+    }): Promise<Models.EnvironmentList>;
     /**
-     * Get a list of all environments of the project. You can use the query params to filter your results.
+     * Get a list of all environments of the project. You can use the query params to filter your results. An environment is listed by its ID, the one passed in the `X-Appwrite-Environment` header to act in it.
      *
-     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, teamId, labels, search, accessedAt, status, parentId
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: $id, name, search
      * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.ProjectList>}
+     * @returns {Promise<Models.EnvironmentList>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     listEnvironments(
         queries?: string[],
         total?: boolean,
-    ): Promise<Models.ProjectList>;
+    ): Promise<Models.EnvironmentList>;
     listEnvironments(
         paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
         ...rest: [boolean?]
-    ): Promise<Models.ProjectList> {
+    ): Promise<Models.EnvironmentList> {
         let params: { queries?: string[]; total?: boolean };
 
         if (
@@ -369,84 +377,26 @@ export class Project {
 
         const request = this.client.call('get', uri, apiHeaders, apiPayload);
         const defaults = {
-            root: 'projectList',
+            root: 'environmentList',
             models: {
-                projectList: {
+                environmentList: {
                     defaults: {
                         total: 0,
-                        projects: [],
+                        environments: [],
                     },
                     properties: {
-                        projects: {
-                            items: 'project',
+                        environments: {
+                            items: 'environment',
                         },
                     },
                 },
-                project: {
+                environment: {
                     defaults: {
                         $id: '',
                         $createdAt: '',
                         $updatedAt: '',
+                        projectId: '',
                         name: '',
-                        teamId: '',
-                        region: 'fra',
-                        smtpEnabled: false,
-                        smtpSenderName: '',
-                        smtpSenderEmail: '',
-                        smtpReplyToName: '',
-                        smtpReplyToEmail: '',
-                        smtpHost: '',
-                        smtpPort: 0,
-                        smtpUsername: '',
-                        smtpPassword: '',
-                        smtpSecure: '',
-                        pingCount: 0,
-                        pingedAt: '',
-                        labels: [],
-                        status: 'active',
-                        onboarding: {},
-                        authMethods: [],
-                        services: [],
-                        protocols: [],
-                        blocks: [],
-                        consoleAccessedAt: '',
-                    },
-                    properties: {
-                        authMethods: {
-                            items: 'projectAuthMethod',
-                        },
-                        services: {
-                            items: 'projectService',
-                        },
-                        protocols: {
-                            items: 'projectProtocol',
-                        },
-                        blocks: {
-                            items: 'block',
-                        },
-                    },
-                },
-                projectAuthMethod: {
-                    defaults: {
-                        enabled: true,
-                    },
-                },
-                projectService: {
-                    defaults: {
-                        enabled: true,
-                    },
-                },
-                projectProtocol: {
-                    defaults: {
-                        enabled: true,
-                    },
-                },
-                block: {
-                    defaults: {
-                        $createdAt: '',
-                        resourceType: '',
-                        resourceId: '',
-                        mode: 'full',
                     },
                 },
             },
@@ -456,38 +406,38 @@ export class Project {
     }
 
     /**
-     * Create a new environment of the project. An environment is a separate project in the same organization and region, with its own resources and users. Its usage is billed under the project it belongs to.
+     * Create a new environment of the project. An environment is a separate project in the same organization and region, with its own resources and users. Its usage is billed under the project it belongs to. Requests act in the environment when they carry the project's ID in the `X-Appwrite-Project` header and the environment's ID in the `X-Appwrite-Environment` header; the environment has no project ID of its own to pass.
      *
      * Pass `resources` to copy the project into the environment. The environment is returned at once and the copy runs as a migration of the environment, listed by its migrations routes and announced on its `migrations.*` realtime events; a resource whose ID can be chosen keeps it. Users are copied newest first and at most 90 of them, so the environment keeps room under its limit of 100 users for test accounts, and the memberships of users left behind are not copied.
      *
-     * @param {string} params.environmentId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, and hyphen. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.environmentId - Environment ID, unique within the project and passed in the `X-Appwrite-Environment` header to act in the environment. Choose a custom ID such as `staging`, or generate a random ID with `ID.unique()`. Valid chars are a-z, 0-9, and hyphen. Can't start with a special char. Max length is 36 chars.
      * @param {string} params.name - Environment name. Max length: 128 chars.
      * @param {EnvironmentResource[]} params.resources - Resources to copy from the project into the environment, by type. A structural type such as `database`, `table`, `column`, `index`, `bucket`, `team`, `function` or `site` copies the structure and its settings; `row`, `file`, `user`, `membership`, `deployment` and `site-deployment` copy what it holds. A function or site is copied with its active deployment; add `deployment` or `site-deployment` to copy every deployment. Users are copied newest first and at most 90 of them, leaving room under the limit of 100 users of an environment for test accounts; the memberships of users left behind are not copied. Leave empty for an empty environment. Maximum of 100 types.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Environment>}
      */
     createEnvironment(params: {
         environmentId: string;
         name: string;
         resources?: EnvironmentResource[];
-    }): Promise<Models.Project>;
+    }): Promise<Models.Environment>;
     /**
-     * Create a new environment of the project. An environment is a separate project in the same organization and region, with its own resources and users. Its usage is billed under the project it belongs to.
+     * Create a new environment of the project. An environment is a separate project in the same organization and region, with its own resources and users. Its usage is billed under the project it belongs to. Requests act in the environment when they carry the project's ID in the `X-Appwrite-Project` header and the environment's ID in the `X-Appwrite-Environment` header; the environment has no project ID of its own to pass.
      *
      * Pass `resources` to copy the project into the environment. The environment is returned at once and the copy runs as a migration of the environment, listed by its migrations routes and announced on its `migrations.*` realtime events; a resource whose ID can be chosen keeps it. Users are copied newest first and at most 90 of them, so the environment keeps room under its limit of 100 users for test accounts, and the memberships of users left behind are not copied.
      *
-     * @param {string} environmentId - Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, and hyphen. Can't start with a special char. Max length is 36 chars.
+     * @param {string} environmentId - Environment ID, unique within the project and passed in the `X-Appwrite-Environment` header to act in the environment. Choose a custom ID such as `staging`, or generate a random ID with `ID.unique()`. Valid chars are a-z, 0-9, and hyphen. Can't start with a special char. Max length is 36 chars.
      * @param {string} name - Environment name. Max length: 128 chars.
      * @param {EnvironmentResource[]} resources - Resources to copy from the project into the environment, by type. A structural type such as `database`, `table`, `column`, `index`, `bucket`, `team`, `function` or `site` copies the structure and its settings; `row`, `file`, `user`, `membership`, `deployment` and `site-deployment` copy what it holds. A function or site is copied with its active deployment; add `deployment` or `site-deployment` to copy every deployment. Users are copied newest first and at most 90 of them, leaving room under the limit of 100 users of an environment for test accounts; the memberships of users left behind are not copied. Leave empty for an empty environment. Maximum of 100 types.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Environment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     createEnvironment(
         environmentId: string,
         name: string,
         resources?: EnvironmentResource[],
-    ): Promise<Models.Project>;
+    ): Promise<Models.Environment>;
     createEnvironment(
         paramsOrFirst:
             | {
@@ -497,7 +447,7 @@ export class Project {
               }
             | string,
         ...rest: [string?, EnvironmentResource[]?]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Environment> {
         let params: {
             environmentId: string;
             name: string;
@@ -554,73 +504,15 @@ export class Project {
 
         const request = this.client.call('post', uri, apiHeaders, apiPayload);
         const defaults = {
-            root: 'project',
+            root: 'environment',
             models: {
-                project: {
+                environment: {
                     defaults: {
                         $id: '',
                         $createdAt: '',
                         $updatedAt: '',
+                        projectId: '',
                         name: '',
-                        teamId: '',
-                        region: 'fra',
-                        smtpEnabled: false,
-                        smtpSenderName: '',
-                        smtpSenderEmail: '',
-                        smtpReplyToName: '',
-                        smtpReplyToEmail: '',
-                        smtpHost: '',
-                        smtpPort: 0,
-                        smtpUsername: '',
-                        smtpPassword: '',
-                        smtpSecure: '',
-                        pingCount: 0,
-                        pingedAt: '',
-                        labels: [],
-                        status: 'active',
-                        onboarding: {},
-                        authMethods: [],
-                        services: [],
-                        protocols: [],
-                        blocks: [],
-                        consoleAccessedAt: '',
-                    },
-                    properties: {
-                        authMethods: {
-                            items: 'projectAuthMethod',
-                        },
-                        services: {
-                            items: 'projectService',
-                        },
-                        protocols: {
-                            items: 'projectProtocol',
-                        },
-                        blocks: {
-                            items: 'block',
-                        },
-                    },
-                },
-                projectAuthMethod: {
-                    defaults: {
-                        enabled: true,
-                    },
-                },
-                projectService: {
-                    defaults: {
-                        enabled: true,
-                    },
-                },
-                projectProtocol: {
-                    defaults: {
-                        enabled: true,
-                    },
-                },
-                block: {
-                    defaults: {
-                        $createdAt: '',
-                        resourceType: '',
-                        resourceId: '',
-                        mode: 'full',
                     },
                 },
             },
@@ -630,25 +522,27 @@ export class Project {
     }
 
     /**
-     * Get an environment of the project by its unique ID.
+     * Get an environment of the project by its ID, the one passed in the `X-Appwrite-Environment` header to act in it.
      *
-     * @param {string} params.environmentId - Environment unique ID.
+     * @param {string} params.environmentId - Environment ID.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Environment>}
      */
-    getEnvironment(params: { environmentId: string }): Promise<Models.Project>;
+    getEnvironment(params: {
+        environmentId: string;
+    }): Promise<Models.Environment>;
     /**
-     * Get an environment of the project by its unique ID.
+     * Get an environment of the project by its ID, the one passed in the `X-Appwrite-Environment` header to act in it.
      *
-     * @param {string} environmentId - Environment unique ID.
+     * @param {string} environmentId - Environment ID.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Environment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getEnvironment(environmentId: string): Promise<Models.Project>;
+    getEnvironment(environmentId: string): Promise<Models.Environment>;
     getEnvironment(
         paramsOrFirst: { environmentId: string } | string,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Environment> {
         let params: { environmentId: string };
 
         if (
@@ -683,73 +577,15 @@ export class Project {
 
         const request = this.client.call('get', uri, apiHeaders, apiPayload);
         const defaults = {
-            root: 'project',
+            root: 'environment',
             models: {
-                project: {
+                environment: {
                     defaults: {
                         $id: '',
                         $createdAt: '',
                         $updatedAt: '',
+                        projectId: '',
                         name: '',
-                        teamId: '',
-                        region: 'fra',
-                        smtpEnabled: false,
-                        smtpSenderName: '',
-                        smtpSenderEmail: '',
-                        smtpReplyToName: '',
-                        smtpReplyToEmail: '',
-                        smtpHost: '',
-                        smtpPort: 0,
-                        smtpUsername: '',
-                        smtpPassword: '',
-                        smtpSecure: '',
-                        pingCount: 0,
-                        pingedAt: '',
-                        labels: [],
-                        status: 'active',
-                        onboarding: {},
-                        authMethods: [],
-                        services: [],
-                        protocols: [],
-                        blocks: [],
-                        consoleAccessedAt: '',
-                    },
-                    properties: {
-                        authMethods: {
-                            items: 'projectAuthMethod',
-                        },
-                        services: {
-                            items: 'projectService',
-                        },
-                        protocols: {
-                            items: 'projectProtocol',
-                        },
-                        blocks: {
-                            items: 'block',
-                        },
-                    },
-                },
-                projectAuthMethod: {
-                    defaults: {
-                        enabled: true,
-                    },
-                },
-                projectService: {
-                    defaults: {
-                        enabled: true,
-                    },
-                },
-                projectProtocol: {
-                    defaults: {
-                        enabled: true,
-                    },
-                },
-                block: {
-                    defaults: {
-                        $createdAt: '',
-                        resourceType: '',
-                        resourceId: '',
-                        mode: 'full',
                     },
                 },
             },
@@ -759,34 +595,34 @@ export class Project {
     }
 
     /**
-     * Update the name of an environment of the project.
+     * Update the name of an environment of the project. The environment ID cannot be changed.
      *
-     * @param {string} params.environmentId - Environment unique ID.
+     * @param {string} params.environmentId - Environment ID.
      * @param {string} params.name - Environment name. Max length: 128 chars.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Environment>}
      */
     updateEnvironment(params: {
         environmentId: string;
         name: string;
-    }): Promise<Models.Project>;
+    }): Promise<Models.Environment>;
     /**
-     * Update the name of an environment of the project.
+     * Update the name of an environment of the project. The environment ID cannot be changed.
      *
-     * @param {string} environmentId - Environment unique ID.
+     * @param {string} environmentId - Environment ID.
      * @param {string} name - Environment name. Max length: 128 chars.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Environment>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     updateEnvironment(
         environmentId: string,
         name: string,
-    ): Promise<Models.Project>;
+    ): Promise<Models.Environment>;
     updateEnvironment(
         paramsOrFirst: { environmentId: string; name: string } | string,
         ...rest: [string?]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Environment> {
         let params: { environmentId: string; name: string };
 
         if (
@@ -833,73 +669,15 @@ export class Project {
 
         const request = this.client.call('patch', uri, apiHeaders, apiPayload);
         const defaults = {
-            root: 'project',
+            root: 'environment',
             models: {
-                project: {
+                environment: {
                     defaults: {
                         $id: '',
                         $createdAt: '',
                         $updatedAt: '',
+                        projectId: '',
                         name: '',
-                        teamId: '',
-                        region: 'fra',
-                        smtpEnabled: false,
-                        smtpSenderName: '',
-                        smtpSenderEmail: '',
-                        smtpReplyToName: '',
-                        smtpReplyToEmail: '',
-                        smtpHost: '',
-                        smtpPort: 0,
-                        smtpUsername: '',
-                        smtpPassword: '',
-                        smtpSecure: '',
-                        pingCount: 0,
-                        pingedAt: '',
-                        labels: [],
-                        status: 'active',
-                        onboarding: {},
-                        authMethods: [],
-                        services: [],
-                        protocols: [],
-                        blocks: [],
-                        consoleAccessedAt: '',
-                    },
-                    properties: {
-                        authMethods: {
-                            items: 'projectAuthMethod',
-                        },
-                        services: {
-                            items: 'projectService',
-                        },
-                        protocols: {
-                            items: 'projectProtocol',
-                        },
-                        blocks: {
-                            items: 'block',
-                        },
-                    },
-                },
-                projectAuthMethod: {
-                    defaults: {
-                        enabled: true,
-                    },
-                },
-                projectService: {
-                    defaults: {
-                        enabled: true,
-                    },
-                },
-                projectProtocol: {
-                    defaults: {
-                        enabled: true,
-                    },
-                },
-                block: {
-                    defaults: {
-                        $createdAt: '',
-                        resourceType: '',
-                        resourceId: '',
-                        mode: 'full',
                     },
                 },
             },
@@ -911,7 +689,7 @@ export class Project {
     /**
      * Delete an environment of the project, with all of its resources and users.
      *
-     * @param {string} params.environmentId - Environment unique ID.
+     * @param {string} params.environmentId - Environment ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      */
@@ -919,7 +697,7 @@ export class Project {
     /**
      * Delete an environment of the project, with all of its resources and users.
      *
-     * @param {string} environmentId - Environment unique ID.
+     * @param {string} environmentId - Environment ID.
      * @throws {AppwriteException}
      * @returns {Promise<{}>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1441,21 +1219,27 @@ export class Project {
      *
      * @param {string[]} params.labels - Array of project labels. Replaces the previous labels. Maximum of 1000 labels are allowed, each up to 36 alphanumeric characters long.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateLabels(params: { labels: string[] }): Promise<Models.Project>;
+    updateLabels<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { labels: string[] }): Promise<Models.Project<Preferences>>;
     /**
      * Update the project labels. Labels can be used to easily filter projects in an organization.
      *
      * @param {string[]} labels - Array of project labels. Replaces the previous labels. Maximum of 1000 labels are allowed, each up to 36 alphanumeric characters long.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateLabels(labels: string[]): Promise<Models.Project>;
-    updateLabels(
+    updateLabels<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(labels: string[]): Promise<Models.Project<Preferences>>;
+    updateLabels<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst: { labels: string[] } | string[],
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { labels: string[] };
 
         if (
@@ -2045,9 +1829,11 @@ export class Project {
      * @param {string[]} params.defaultScopes - List of OAuth2 scopes used when an authorization request omits the scope parameter. Every default scope must also be allowed by the OAuth2 server. Maximum of 100 scopes are allowed, each up to 128 characters long.
      * @param {string[]} params.installationScopes - List of scopes an application may request when installed on a team. Omitting the parameter clears the list, so no installation scopes can be granted. Maximum of 100 scopes are allowed, each up to 128 characters long.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateOAuth2Server(params: {
+    updateOAuth2Server<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: {
         enabled: boolean;
         authorizationUrl: string;
         scopes?: string[];
@@ -2064,7 +1850,7 @@ export class Project {
         deviceCodeDuration?: number | null;
         defaultScopes?: string[];
         installationScopes?: string[];
-    }): Promise<Models.Project>;
+    }): Promise<Models.Project<Preferences>>;
     /**
      * Update the OAuth2 server (OIDC provider) configuration.
      *
@@ -2085,10 +1871,12 @@ export class Project {
      * @param {string[]} defaultScopes - List of OAuth2 scopes used when an authorization request omits the scope parameter. Every default scope must also be allowed by the OAuth2 server. Maximum of 100 scopes are allowed, each up to 128 characters long.
      * @param {string[]} installationScopes - List of scopes an application may request when installed on a team. Omitting the parameter clears the list, so no installation scopes can be granted. Maximum of 100 scopes are allowed, each up to 128 characters long.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateOAuth2Server(
+    updateOAuth2Server<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         enabled: boolean,
         authorizationUrl: string,
         scopes?: string[],
@@ -2105,8 +1893,10 @@ export class Project {
         deviceCodeDuration?: number | null,
         defaultScopes?: string[],
         installationScopes?: string[],
-    ): Promise<Models.Project>;
-    updateOAuth2Server(
+    ): Promise<Models.Project<Preferences>>;
+    updateOAuth2Server<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst:
             | {
                   enabled: boolean;
@@ -2144,7 +1934,7 @@ export class Project {
             string[]?,
             string[]?,
         ]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: {
             enabled: boolean;
             authorizationUrl: string;
@@ -7218,6 +7008,216 @@ export class Project {
     }
 
     /**
+     * Update the project OAuth2 Vipps MobilePay configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of Vipps MobilePay OAuth2 app. For example: 9a3a4b3e-0000-0000-0000-0f1a6d1c3b2e
+     * @param {string | null} params.clientSecret - 'Client Secret' of Vipps MobilePay OAuth2 app. For example: Ay1jb000000000000000000000000000000Vx3k
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Vipps>}
+     */
+    updateOAuth2Vipps(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Vipps>;
+    /**
+     * Update the project OAuth2 Vipps MobilePay configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of Vipps MobilePay OAuth2 app. For example: 9a3a4b3e-0000-0000-0000-0f1a6d1c3b2e
+     * @param {string | null} clientSecret - 'Client Secret' of Vipps MobilePay OAuth2 app. For example: Ay1jb000000000000000000000000000000Vx3k
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Vipps>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Vipps(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Vipps>;
+    updateOAuth2Vipps(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Vipps> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/vipps';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Vipps',
+            models: {
+                oAuth2Vipps: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update the project OAuth2 Vipps MobilePay Sandbox configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of Vipps MobilePay Sandbox OAuth2 app. For example: 9a3a4b3e-0000-0000-0000-0f1a6d1c3b2e
+     * @param {string | null} params.clientSecret - 'Client Secret' of Vipps MobilePay Sandbox OAuth2 app. For example: Ay1jb000000000000000000000000000000Vx3k
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Vipps>}
+     */
+    updateOAuth2VippsSandbox(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Vipps>;
+    /**
+     * Update the project OAuth2 Vipps MobilePay Sandbox configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of Vipps MobilePay Sandbox OAuth2 app. For example: 9a3a4b3e-0000-0000-0000-0f1a6d1c3b2e
+     * @param {string | null} clientSecret - 'Client Secret' of Vipps MobilePay Sandbox OAuth2 app. For example: Ay1jb000000000000000000000000000000Vx3k
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Vipps>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2VippsSandbox(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Vipps>;
+    updateOAuth2VippsSandbox(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Vipps> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/vippsSandbox';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Vipps',
+            models: {
+                oAuth2Vipps: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
      * Update the project OAuth2 Webflow configuration.
      *
      * @param {string | null} params.clientId - 'Client ID' of Webflow OAuth2 app. For example: 8bb20000000000000000000000000000000000000000000000000000000040dd
@@ -7974,7 +7974,7 @@ export class Project {
      *
      * @param {ProjectOAuthProviderId} params.providerId - OAuth2 provider key. For example: github, google, apple.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao>}
+     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao | Models.OAuth2Vipps>}
      */
     getOAuth2Provider(params: {
         providerId: ProjectOAuthProviderId;
@@ -8025,13 +8025,14 @@ export class Project {
         | Models.OAuth2Microsoft
         | Models.OAuth2TikTok
         | Models.OAuth2Kakao
+        | Models.OAuth2Vipps
     >;
     /**
      * Get a single OAuth2 provider configuration. Credential fields (client secret, p8 file, key/team IDs) are write-only and always returned empty.
      *
      * @param {ProjectOAuthProviderId} providerId - OAuth2 provider key. For example: github, google, apple.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao>}
+     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao | Models.OAuth2Vipps>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     getOAuth2Provider(
@@ -8083,6 +8084,7 @@ export class Project {
         | Models.OAuth2Microsoft
         | Models.OAuth2TikTok
         | Models.OAuth2Kakao
+        | Models.OAuth2Vipps
     >;
     getOAuth2Provider(
         paramsOrFirst:
@@ -8134,6 +8136,7 @@ export class Project {
         | Models.OAuth2Microsoft
         | Models.OAuth2TikTok
         | Models.OAuth2Kakao
+        | Models.OAuth2Vipps
     > {
         let params: { providerId: ProjectOAuthProviderId };
 
@@ -9621,27 +9624,167 @@ export class Project {
     }
 
     /**
+     * Update whether account devices are enabled for the project. When enabled, a browser can create an account device that holds multiple sessions and switch between them. When disabled, account devices can no longer be created, so each browser is limited to a single active session.
+     *
+     * @param {boolean} params.enabled - Set to true to allow account devices, or false to disable them for this project.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project<Preferences>>}
+     */
+    updateAccountDevicesPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { enabled: boolean }): Promise<Models.Project<Preferences>>;
+    /**
+     * Update whether account devices are enabled for the project. When enabled, a browser can create an account device that holds multiple sessions and switch between them. When disabled, account devices can no longer be created, so each browser is limited to a single active session.
+     *
+     * @param {boolean} enabled - Set to true to allow account devices, or false to disable them for this project.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project<Preferences>>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateAccountDevicesPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(enabled: boolean): Promise<Models.Project<Preferences>>;
+    updateAccountDevicesPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
+        paramsOrFirst: { enabled: boolean } | boolean,
+    ): Promise<Models.Project<Preferences>> {
+        let params: { enabled: boolean };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { enabled: boolean };
+        } else {
+            params = {
+                enabled: paramsOrFirst as boolean,
+            };
+        }
+
+        const enabled = params.enabled;
+        if (typeof enabled === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "enabled"',
+            );
+        }
+        const apiPath = '/project/policies/account-devices';
+        const apiPayload: Payload = {};
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'project',
+            models: {
+                project: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        teamId: '',
+                        region: 'fra',
+                        smtpEnabled: false,
+                        smtpSenderName: '',
+                        smtpSenderEmail: '',
+                        smtpReplyToName: '',
+                        smtpReplyToEmail: '',
+                        smtpHost: '',
+                        smtpPort: 0,
+                        smtpUsername: '',
+                        smtpPassword: '',
+                        smtpSecure: '',
+                        pingCount: 0,
+                        pingedAt: '',
+                        labels: [],
+                        status: 'active',
+                        onboarding: {},
+                        authMethods: [],
+                        services: [],
+                        protocols: [],
+                        blocks: [],
+                        consoleAccessedAt: '',
+                    },
+                    properties: {
+                        authMethods: {
+                            items: 'projectAuthMethod',
+                        },
+                        services: {
+                            items: 'projectService',
+                        },
+                        protocols: {
+                            items: 'projectProtocol',
+                        },
+                        blocks: {
+                            items: 'block',
+                        },
+                    },
+                },
+                projectAuthMethod: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectService: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectProtocol: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                block: {
+                    defaults: {
+                        $createdAt: '',
+                        resourceType: '',
+                        resourceId: '',
+                        mode: 'full',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
      * Configures if aliased emails such as subaddresses and emails with suffixes are denied during new users sign-ups and email updates.
      *
      * @param {boolean} params.enabled - Set whether or not to block aliased emails during signup and email updates.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateDenyAliasedEmailPolicy(params: {
-        enabled: boolean;
-    }): Promise<Models.Project>;
+    updateDenyAliasedEmailPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { enabled: boolean }): Promise<Models.Project<Preferences>>;
     /**
      * Configures if aliased emails such as subaddresses and emails with suffixes are denied during new users sign-ups and email updates.
      *
      * @param {boolean} enabled - Set whether or not to block aliased emails during signup and email updates.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateDenyAliasedEmailPolicy(enabled: boolean): Promise<Models.Project>;
-    updateDenyAliasedEmailPolicy(
+    updateDenyAliasedEmailPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(enabled: boolean): Promise<Models.Project<Preferences>>;
+    updateDenyAliasedEmailPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst: { enabled: boolean } | boolean,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { enabled: boolean };
 
         if (
@@ -9757,23 +9900,27 @@ export class Project {
      *
      * @param {boolean} params.enabled - Set whether or not to restrict sign-ups and email updates to corporate email addresses only.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateDenyCorporateEmailPolicy(params: {
-        enabled: boolean;
-    }): Promise<Models.Project>;
+    updateDenyCorporateEmailPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { enabled: boolean }): Promise<Models.Project<Preferences>>;
     /**
      * Configures if only corporate email addresses (non-free and non-disposable domains) are allowed during new user sign-ups and email updates.
      *
      * @param {boolean} enabled - Set whether or not to restrict sign-ups and email updates to corporate email addresses only.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateDenyCorporateEmailPolicy(enabled: boolean): Promise<Models.Project>;
-    updateDenyCorporateEmailPolicy(
+    updateDenyCorporateEmailPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(enabled: boolean): Promise<Models.Project<Preferences>>;
+    updateDenyCorporateEmailPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst: { enabled: boolean } | boolean,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { enabled: boolean };
 
         if (
@@ -9889,23 +10036,27 @@ export class Project {
      *
      * @param {boolean} params.enabled - Set whether or not to block disposable email addresses during signup and email updates.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateDenyDisposableEmailPolicy(params: {
-        enabled: boolean;
-    }): Promise<Models.Project>;
+    updateDenyDisposableEmailPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { enabled: boolean }): Promise<Models.Project<Preferences>>;
     /**
      * Configures if disposable emails from known temporary domains are denied during new users sign-ups and email updates.
      *
      * @param {boolean} enabled - Set whether or not to block disposable email addresses during signup and email updates.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateDenyDisposableEmailPolicy(enabled: boolean): Promise<Models.Project>;
-    updateDenyDisposableEmailPolicy(
+    updateDenyDisposableEmailPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(enabled: boolean): Promise<Models.Project<Preferences>>;
+    updateDenyDisposableEmailPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst: { enabled: boolean } | boolean,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { enabled: boolean };
 
         if (
@@ -10021,23 +10172,27 @@ export class Project {
      *
      * @param {boolean} params.enabled - Set whether or not to block free email addresses during signup and email updates.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateDenyFreeEmailPolicy(params: {
-        enabled: boolean;
-    }): Promise<Models.Project>;
+    updateDenyFreeEmailPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { enabled: boolean }): Promise<Models.Project<Preferences>>;
     /**
      * Configures if emails from free providers such as Gmail or Yahoo are denied during new users sign-ups and email updates.
      *
      * @param {boolean} enabled - Set whether or not to block free email addresses during signup and email updates.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateDenyFreeEmailPolicy(enabled: boolean): Promise<Models.Project>;
-    updateDenyFreeEmailPolicy(
+    updateDenyFreeEmailPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(enabled: boolean): Promise<Models.Project<Preferences>>;
+    updateDenyFreeEmailPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst: { enabled: boolean } | boolean,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { enabled: boolean };
 
         if (
@@ -10153,23 +10308,27 @@ export class Project {
      *
      * @param {boolean} params.enabled - Set whether or not to stop guests from subscribing to realtime channels.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateDenyRealtimeGuestsPolicy(params: {
-        enabled: boolean;
-    }): Promise<Models.Project>;
+    updateDenyRealtimeGuestsPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { enabled: boolean }): Promise<Models.Project<Preferences>>;
     /**
      * Configures if guests, connections without a signed-in user, may subscribe to realtime channels. When enabled, a guest can still connect and sign in over the connection, but cannot subscribe until it does.
      *
      * @param {boolean} enabled - Set whether or not to stop guests from subscribing to realtime channels.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateDenyRealtimeGuestsPolicy(enabled: boolean): Promise<Models.Project>;
-    updateDenyRealtimeGuestsPolicy(
+    updateDenyRealtimeGuestsPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(enabled: boolean): Promise<Models.Project<Preferences>>;
+    updateDenyRealtimeGuestsPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst: { enabled: boolean } | boolean,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { enabled: boolean };
 
         if (
@@ -10290,16 +10449,18 @@ export class Project {
      * @param {boolean} params.userMFA - Set to true if you want make user MFA status visible to all team members, or false to hide it.
      * @param {boolean} params.userAccessedAt - Set to true if you want make user last access time visible to all team members, or false to hide it.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateMembershipPrivacyPolicy(params?: {
+    updateMembershipPrivacyPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params?: {
         userId?: boolean;
         userEmail?: boolean;
         userPhone?: boolean;
         userName?: boolean;
         userMFA?: boolean;
         userAccessedAt?: boolean;
-    }): Promise<Models.Project>;
+    }): Promise<Models.Project<Preferences>>;
     /**
      * Updating this policy allows you to control if team members can see other members information. When enabled, all team members can see ID, name, email, phone number, and MFA status of other members..
      *
@@ -10310,18 +10471,22 @@ export class Project {
      * @param {boolean} userMFA - Set to true if you want make user MFA status visible to all team members, or false to hide it.
      * @param {boolean} userAccessedAt - Set to true if you want make user last access time visible to all team members, or false to hide it.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateMembershipPrivacyPolicy(
+    updateMembershipPrivacyPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         userId?: boolean,
         userEmail?: boolean,
         userPhone?: boolean,
         userName?: boolean,
         userMFA?: boolean,
         userAccessedAt?: boolean,
-    ): Promise<Models.Project>;
-    updateMembershipPrivacyPolicy(
+    ): Promise<Models.Project<Preferences>>;
+    updateMembershipPrivacyPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst?:
             | {
                   userId?: boolean;
@@ -10333,7 +10498,7 @@ export class Project {
               }
             | boolean,
         ...rest: [boolean?, boolean?, boolean?, boolean?, boolean?]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: {
             userId?: boolean;
             userEmail?: boolean;
@@ -10487,14 +10652,16 @@ export class Project {
      * @param {boolean} params.phone - Set to true to allow phone (SMS) to complete an MFA challenge, or false to disable it.
      * @param {boolean} params.custom - Set to true to allow the custom factor to complete an MFA challenge, or false to disable it.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateMFAFactorsPolicy(params?: {
+    updateMFAFactorsPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params?: {
         totp?: boolean;
         email?: boolean;
         phone?: boolean;
         custom?: boolean;
-    }): Promise<Models.Project>;
+    }): Promise<Models.Project<Preferences>>;
     /**
      * Updating this policy allows you to control which factors users can use to complete an MFA challenge. Disabled factors cannot be used to create a challenge and are reported as unavailable when listing factors. The custom factor is disabled by default; enable it to deliver challenge codes through your own channel. Recovery codes always remain available as a fallback.
      *
@@ -10503,16 +10670,20 @@ export class Project {
      * @param {boolean} phone - Set to true to allow phone (SMS) to complete an MFA challenge, or false to disable it.
      * @param {boolean} custom - Set to true to allow the custom factor to complete an MFA challenge, or false to disable it.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateMFAFactorsPolicy(
+    updateMFAFactorsPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         totp?: boolean,
         email?: boolean,
         phone?: boolean,
         custom?: boolean,
-    ): Promise<Models.Project>;
-    updateMFAFactorsPolicy(
+    ): Promise<Models.Project<Preferences>>;
+    updateMFAFactorsPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst?:
             | {
                   totp?: boolean;
@@ -10522,7 +10693,7 @@ export class Project {
               }
             | boolean,
         ...rest: [boolean?, boolean?, boolean?]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: {
             totp?: boolean;
             email?: boolean;
@@ -10659,21 +10830,27 @@ export class Project {
      *
      * @param {string} params.rpId - Relying party ID: the domain of your application, such as `example.com`. Use `localhost` for local development, or an empty string to unset it.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updatePasskeyPolicy(params: { rpId: string }): Promise<Models.Project>;
+    updatePasskeyPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { rpId: string }): Promise<Models.Project<Preferences>>;
     /**
      * Set the relying party ID passkeys are bound to: the domain of your application. Passkeys work on the project's web platforms on that domain or its subdomains, and on the domain itself for Apple apps. A localhost web platform enables passkeys for local development without a relying party ID. The relying party ID cannot change while users have passkeys, and any change invalidates ceremonies in progress.
      *
      * @param {string} rpId - Relying party ID: the domain of your application, such as `example.com`. Use `localhost` for local development, or an empty string to unset it.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePasskeyPolicy(rpId: string): Promise<Models.Project>;
-    updatePasskeyPolicy(
+    updatePasskeyPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(rpId: string): Promise<Models.Project<Preferences>>;
+    updatePasskeyPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst: { rpId: string } | string,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { rpId: string };
 
         if (
@@ -10790,12 +10967,14 @@ export class Project {
      * @param {boolean} params.enabled - Toggle password dictionary policy. Set to true if you want password change to block passwords in the dictionary, or false to allow them. When changing this policy, existing passwords remain valid.
      * @param {string[] | null} params.denyList - Custom blocked values using case-sensitive equality. Up to 100 entries of 1 to 256 characters. Omit or pass null to preserve, an array to replace, or [] to clear. Combined authentication settings must fit within 16,384 characters.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updatePasswordDictionaryPolicy(params: {
+    updatePasswordDictionaryPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: {
         enabled: boolean;
         denyList?: string[] | null;
-    }): Promise<Models.Project>;
+    }): Promise<Models.Project<Preferences>>;
     /**
      * Updating this policy allows you to control if new passwords are checked against most common passwords dictionary. When enabled, and user changes their password, password must not be contained in the dictionary.
      *
@@ -10804,18 +10983,22 @@ export class Project {
      * @param {boolean} enabled - Toggle password dictionary policy. Set to true if you want password change to block passwords in the dictionary, or false to allow them. When changing this policy, existing passwords remain valid.
      * @param {string[] | null} denyList - Custom blocked values using case-sensitive equality. Up to 100 entries of 1 to 256 characters. Omit or pass null to preserve, an array to replace, or [] to clear. Combined authentication settings must fit within 16,384 characters.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePasswordDictionaryPolicy(
+    updatePasswordDictionaryPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         enabled: boolean,
         denyList?: string[] | null,
-    ): Promise<Models.Project>;
-    updatePasswordDictionaryPolicy(
+    ): Promise<Models.Project<Preferences>>;
+    updatePasswordDictionaryPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst:
             { enabled: boolean; denyList?: string[] | null } | boolean,
         ...rest: [(string[] | null)?]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { enabled: boolean; denyList?: string[] | null };
 
         if (
@@ -10941,11 +11124,11 @@ export class Project {
      *
      * @param {number | null} params.total - Set the password history length per user. Value can be between 1 and 20, or null to disable the limit.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updatePasswordHistoryPolicy(params: {
-        total?: number | null;
-    }): Promise<Models.Project>;
+    updatePasswordHistoryPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { total?: number | null }): Promise<Models.Project<Preferences>>;
     /**
      * Updates one of password strength policies. Based on total length configured, previous password hashes are stored, and users cannot choose a new password that is already stored in the passwird history list, when updating an user password, or setting new one through password recovery.
      *
@@ -10953,13 +11136,17 @@ export class Project {
      *
      * @param {number | null} total - Set the password history length per user. Value can be between 1 and 20, or null to disable the limit.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePasswordHistoryPolicy(total?: number | null): Promise<Models.Project>;
-    updatePasswordHistoryPolicy(
+    updatePasswordHistoryPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(total?: number | null): Promise<Models.Project<Preferences>>;
+    updatePasswordHistoryPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst?: { total?: number | null } | number | null,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { total?: number | null };
 
         if (
@@ -11077,12 +11264,14 @@ export class Project {
      * @param {boolean} params.enabled - Toggle password personal data policy. Set to true if you want to block passwords including user's personal data, or false to allow it. When changing this policy, existing passwords remain valid.
      * @param {string[] | null} params.denyList - Custom blocked values using case-insensitive substring matching. Up to 100 entries of 1 to 256 characters. Omit or pass null to preserve, an array to replace, or [] to clear. Combined authentication settings must fit within 16,384 characters.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updatePasswordPersonalDataPolicy(params: {
+    updatePasswordPersonalDataPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: {
         enabled: boolean;
         denyList?: string[] | null;
-    }): Promise<Models.Project>;
+    }): Promise<Models.Project<Preferences>>;
     /**
      * Updating this policy allows you to control if password strength is checked against personal data. When enabled, and user sets or changes their password, the password must not contain user ID, name, email or phone number.
      *
@@ -11092,18 +11281,22 @@ export class Project {
      * @param {boolean} enabled - Toggle password personal data policy. Set to true if you want to block passwords including user's personal data, or false to allow it. When changing this policy, existing passwords remain valid.
      * @param {string[] | null} denyList - Custom blocked values using case-insensitive substring matching. Up to 100 entries of 1 to 256 characters. Omit or pass null to preserve, an array to replace, or [] to clear. Combined authentication settings must fit within 16,384 characters.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePasswordPersonalDataPolicy(
+    updatePasswordPersonalDataPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         enabled: boolean,
         denyList?: string[] | null,
-    ): Promise<Models.Project>;
-    updatePasswordPersonalDataPolicy(
+    ): Promise<Models.Project<Preferences>>;
+    updatePasswordPersonalDataPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst:
             { enabled: boolean; denyList?: string[] | null } | boolean,
         ...rest: [(string[] | null)?]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { enabled: boolean; denyList?: string[] | null };
 
         if (
@@ -11229,13 +11422,15 @@ export class Project {
      * @param {boolean} params.sessions - Whether a sign-in with a breached password is refused until the password is reset. Default is false, which allows the sign-in and only records the result.
      * @param {boolean} params.users - Whether a breached password is rejected when a user signs up or sets a new password. Default is false, which allows the password and only records the result.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updatePasswordPwnedPolicy(params?: {
+    updatePasswordPwnedPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params?: {
         enabled?: boolean;
         sessions?: boolean;
         users?: boolean;
-    }): Promise<Models.Project>;
+    }): Promise<Models.Project<Preferences>>;
     /**
      * Updating this policy allows you to control if passwords are checked against the Have I Been Pwned breach database. When enabled, every password a user signs up, signs in or resets with is checked and the result is recorded on the user as `passwordPwned`. On its own the policy only records. Enable `users` to reject a breached password when a user signs up or sets a new password, and `sessions` to refuse a sign-in with a breached password until it is reset. Only the first five characters of the password hash are ever shared with the service. Options left out keep their current value.
      *
@@ -11243,20 +11438,24 @@ export class Project {
      * @param {boolean} sessions - Whether a sign-in with a breached password is refused until the password is reset. Default is false, which allows the sign-in and only records the result.
      * @param {boolean} users - Whether a breached password is rejected when a user signs up or sets a new password. Default is false, which allows the password and only records the result.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePasswordPwnedPolicy(
+    updatePasswordPwnedPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         enabled?: boolean,
         sessions?: boolean,
         users?: boolean,
-    ): Promise<Models.Project>;
-    updatePasswordPwnedPolicy(
+    ): Promise<Models.Project<Preferences>>;
+    updatePasswordPwnedPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst?:
             | { enabled?: boolean; sessions?: boolean; users?: boolean }
             | boolean,
         ...rest: [boolean?, boolean?]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { enabled?: boolean; sessions?: boolean; users?: boolean };
 
         if (
@@ -11383,29 +11582,32 @@ export class Project {
      * @param {boolean} params.enabled - Enable password rotation. Disabled by default.
      * @param {number} params.maxAge - Maximum password age in seconds. Minimum allowed value is 86400 seconds (1 day), and maximum is 10 years, which is 315360000 seconds. Defaults to 1 year, which is 31536000 seconds.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updatePasswordRotationPolicy(params?: {
+    updatePasswordRotationPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params?: {
         enabled?: boolean;
         maxAge?: number;
-    }): Promise<Models.Project>;
+    }): Promise<Models.Project<Preferences>>;
     /**
      * Require a password reset when an email/password sign-in uses a password older than the configured maximum age. Options left out keep their current value.
      *
      * @param {boolean} enabled - Enable password rotation. Disabled by default.
      * @param {number} maxAge - Maximum password age in seconds. Minimum allowed value is 86400 seconds (1 day), and maximum is 10 years, which is 315360000 seconds. Defaults to 1 year, which is 31536000 seconds.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updatePasswordRotationPolicy(
-        enabled?: boolean,
-        maxAge?: number,
-    ): Promise<Models.Project>;
-    updatePasswordRotationPolicy(
+    updatePasswordRotationPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(enabled?: boolean, maxAge?: number): Promise<Models.Project<Preferences>>;
+    updatePasswordRotationPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst?: { enabled?: boolean; maxAge?: number } | boolean,
         ...rest: [number?]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { enabled?: boolean; maxAge?: number };
 
         if (
@@ -11655,23 +11857,27 @@ export class Project {
      *
      * @param {boolean} params.enabled - Toggle session alert policy. Set to true if you want users to receive email notifications when a sessions are created for their users, or false to not send email alerts.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateSessionAlertPolicy(params: {
-        enabled: boolean;
-    }): Promise<Models.Project>;
+    updateSessionAlertPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { enabled: boolean }): Promise<Models.Project<Preferences>>;
     /**
      * Updating this policy allows you to control if email alert is sent upon session creation. When enabled, and user signs into their account, they will be sent an email notification. There is an exception, the first session after a new sign up does not trigger an alert, even if the policy is enabled.
      *
      * @param {boolean} enabled - Toggle session alert policy. Set to true if you want users to receive email notifications when a sessions are created for their users, or false to not send email alerts.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateSessionAlertPolicy(enabled: boolean): Promise<Models.Project>;
-    updateSessionAlertPolicy(
+    updateSessionAlertPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(enabled: boolean): Promise<Models.Project<Preferences>>;
+    updateSessionAlertPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst: { enabled: boolean } | boolean,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { enabled: boolean };
 
         if (
@@ -11787,23 +11993,27 @@ export class Project {
      *
      * @param {number} params.duration - Maximum session length in seconds. Minium allowed value is 60 seconds, and maximum is 1 year, which is 31536000 seconds.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateSessionDurationPolicy(params: {
-        duration: number;
-    }): Promise<Models.Project>;
+    updateSessionDurationPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { duration: number }): Promise<Models.Project<Preferences>>;
     /**
      * Update maximum duration how long sessions created within a project should stay active for.
      *
      * @param {number} duration - Maximum session length in seconds. Minium allowed value is 60 seconds, and maximum is 1 year, which is 31536000 seconds.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateSessionDurationPolicy(duration: number): Promise<Models.Project>;
-    updateSessionDurationPolicy(
+    updateSessionDurationPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(duration: number): Promise<Models.Project<Preferences>>;
+    updateSessionDurationPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst: { duration: number } | number,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { duration: number };
 
         if (
@@ -11919,23 +12129,27 @@ export class Project {
      *
      * @param {boolean} params.enabled - Toggle session invalidation policy. Set to true if you want password change to invalidate all sessions of an user, or false to keep sessions active.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateSessionInvalidationPolicy(params: {
-        enabled: boolean;
-    }): Promise<Models.Project>;
+    updateSessionInvalidationPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { enabled: boolean }): Promise<Models.Project<Preferences>>;
     /**
      * Updating this policy allows you to control if existing sessions should be invalidated when a password of a user is changed. When enabled, and user changes their password, they will be logged out of all their devices.
      *
      * @param {boolean} enabled - Toggle session invalidation policy. Set to true if you want password change to invalidate all sessions of an user, or false to keep sessions active.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateSessionInvalidationPolicy(enabled: boolean): Promise<Models.Project>;
-    updateSessionInvalidationPolicy(
+    updateSessionInvalidationPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(enabled: boolean): Promise<Models.Project<Preferences>>;
+    updateSessionInvalidationPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst: { enabled: boolean } | boolean,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { enabled: boolean };
 
         if (
@@ -12051,23 +12265,27 @@ export class Project {
      *
      * @param {number} params.total - Set the maximum number of sessions allowed per user. Value can be between 1 and 100.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateSessionLimitPolicy(params: {
-        total: number;
-    }): Promise<Models.Project>;
+    updateSessionLimitPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { total: number }): Promise<Models.Project<Preferences>>;
     /**
      * Update the maximum number of sessions allowed per user. When the limit is hit, the oldest session will be deleted to make room for new one.
      *
      * @param {number} total - Set the maximum number of sessions allowed per user. Value can be between 1 and 100.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateSessionLimitPolicy(total: number): Promise<Models.Project>;
-    updateSessionLimitPolicy(
+    updateSessionLimitPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(total: number): Promise<Models.Project<Preferences>>;
+    updateSessionLimitPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst: { total: number } | number,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { total: number };
 
         if (
@@ -12181,23 +12399,27 @@ export class Project {
      *
      * @param {number | null} params.total - Set the maximum number of users allowed in the project. Value can be between 0 and 10000. Use 0 or null to disable the limit.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateUserLimitPolicy(params: {
-        total?: number | null;
-    }): Promise<Models.Project>;
+    updateUserLimitPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { total?: number | null }): Promise<Models.Project<Preferences>>;
     /**
      * Update the maximum number of users in the project. When the limit is hit or amount of existing users already exceeded the limit, all users remain active, but new user sign up will be prohibited.
      *
      * @param {number | null} total - Set the maximum number of users allowed in the project. Value can be between 0 and 10000. Use 0 or null to disable the limit.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateUserLimitPolicy(total?: number | null): Promise<Models.Project>;
-    updateUserLimitPolicy(
+    updateUserLimitPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(total?: number | null): Promise<Models.Project<Preferences>>;
+    updateUserLimitPolicy<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst?: { total?: number | null } | number | null,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { total?: number | null };
 
         if (
@@ -12309,9 +12531,9 @@ export class Project {
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, password-rotation, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email, deny-realtime-guests, passkey.
+     * @param {ProjectPolicyId} params.policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, password-rotation, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email, deny-realtime-guests, passkey, account-devices.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicyPasswordPwned | Models.PolicyPasswordRotation | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail | Models.PolicyDenyRealtimeGuests | Models.PolicyPasskey>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicyPasswordPwned | Models.PolicyPasswordRotation | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail | Models.PolicyDenyRealtimeGuests | Models.PolicyPasskey | Models.PolicyAccountDevices>}
      */
     getPolicy(params: {
         policyId: ProjectPolicyId;
@@ -12335,13 +12557,14 @@ export class Project {
         | Models.PolicyDenyCorporateEmail
         | Models.PolicyDenyRealtimeGuests
         | Models.PolicyPasskey
+        | Models.PolicyAccountDevices
     >;
     /**
      * Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
      *
-     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, password-rotation, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email, deny-realtime-guests, passkey.
+     * @param {ProjectPolicyId} policyId - Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, password-rotation, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email, deny-realtime-guests, passkey, account-devices.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicyPasswordPwned | Models.PolicyPasswordRotation | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail | Models.PolicyDenyRealtimeGuests | Models.PolicyPasskey>}
+     * @returns {Promise<Models.PolicyPasswordDictionary | Models.PolicyPasswordHistory | Models.PolicyPasswordStrength | Models.PolicyPasswordPersonalData | Models.PolicyPasswordPwned | Models.PolicyPasswordRotation | Models.PolicySessionAlert | Models.PolicySessionDuration | Models.PolicySessionInvalidation | Models.PolicySessionLimit | Models.PolicyUserLimit | Models.PolicyMembershipPrivacy | Models.PolicyMfaFactors | Models.PolicyDenyAliasedEmail | Models.PolicyDenyDisposableEmail | Models.PolicyDenyFreeEmail | Models.PolicyDenyCorporateEmail | Models.PolicyDenyRealtimeGuests | Models.PolicyPasskey | Models.PolicyAccountDevices>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     getPolicy(
@@ -12366,6 +12589,7 @@ export class Project {
         | Models.PolicyDenyCorporateEmail
         | Models.PolicyDenyRealtimeGuests
         | Models.PolicyPasskey
+        | Models.PolicyAccountDevices
     >;
     getPolicy(
         paramsOrFirst: { policyId: ProjectPolicyId } | ProjectPolicyId,
@@ -12389,6 +12613,7 @@ export class Project {
         | Models.PolicyDenyCorporateEmail
         | Models.PolicyDenyRealtimeGuests
         | Models.PolicyPasskey
+        | Models.PolicyAccountDevices
     > {
         let params: { policyId: ProjectPolicyId };
 
@@ -12427,36 +12652,122 @@ export class Project {
     }
 
     /**
+     * Get the project preferences. Preferences are a key-value object stored on the project for anyone working on it.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise<Preferences>}
+     */
+    getPrefs<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(): Promise<Preferences> {
+        const apiPath = '/project/prefs';
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            accept: 'application/json',
+        };
+
+        return this.client.call('get', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Update the project preferences. The object you pass is stored as is and replaces any previous value. The maximum allowed prefs size is 64kB and throws an error if exceeded.
+     *
+     * @param {object} params.prefs - Prefs key-value JSON object.
+     * @throws {AppwriteException}
+     * @returns {Promise<Preferences>}
+     */
+    updatePrefs<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { prefs: object }): Promise<Preferences>;
+    /**
+     * Update the project preferences. The object you pass is stored as is and replaces any previous value. The maximum allowed prefs size is 64kB and throws an error if exceeded.
+     *
+     * @param {object} prefs - Prefs key-value JSON object.
+     * @throws {AppwriteException}
+     * @returns {Promise<Preferences>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updatePrefs<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(prefs: object): Promise<Preferences>;
+    updatePrefs<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(paramsOrFirst: { prefs: object } | object): Promise<Preferences> {
+        let params: { prefs: object };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst) &&
+            'prefs' in paramsOrFirst
+        ) {
+            params = (paramsOrFirst || {}) as { prefs: object };
+        } else {
+            params = {
+                prefs: paramsOrFirst as object,
+            };
+        }
+
+        const prefs = params.prefs;
+        if (typeof prefs === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "prefs"');
+        }
+        const apiPath = '/project/prefs';
+        const apiPayload: Payload = {};
+        if (typeof prefs !== 'undefined') {
+            apiPayload['prefs'] = prefs;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('put', uri, apiHeaders, apiPayload);
+    }
+
+    /**
      * Update properties of a specific protocol. Use this endpoint to enable or disable a protocol in your project.
      *
      * @param {ProjectProtocolId} params.protocolId - Protocol name. Can be one of: rest, graphql, websocket
      * @param {boolean} params.enabled - Protocol status.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateProtocol(params: {
+    updateProtocol<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: {
         protocolId: ProjectProtocolId;
         enabled: boolean;
-    }): Promise<Models.Project>;
+    }): Promise<Models.Project<Preferences>>;
     /**
      * Update properties of a specific protocol. Use this endpoint to enable or disable a protocol in your project.
      *
      * @param {ProjectProtocolId} protocolId - Protocol name. Can be one of: rest, graphql, websocket
      * @param {boolean} enabled - Protocol status.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateProtocol(
+    updateProtocol<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         protocolId: ProjectProtocolId,
         enabled: boolean,
-    ): Promise<Models.Project>;
-    updateProtocol(
+    ): Promise<Models.Project<Preferences>>;
+    updateProtocol<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst:
             | { protocolId: ProjectProtocolId; enabled: boolean }
             | ProjectProtocolId,
         ...rest: [boolean?]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { protocolId: ProjectProtocolId; enabled: boolean };
 
         if (
@@ -12587,31 +12898,37 @@ export class Project {
      * @param {ProjectServiceId} params.serviceId - Service name. Can be one of: account, avatars, databases, tablesdb, locale, health, project, storage, teams, users, vcs, sites, functions, proxy, graphql, migrations, messaging, advisor, oauth2
      * @param {boolean} params.enabled - Service status.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateService(params: {
+    updateService<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: {
         serviceId: ProjectServiceId;
         enabled: boolean;
-    }): Promise<Models.Project>;
+    }): Promise<Models.Project<Preferences>>;
     /**
      * Update properties of a specific service. Use this endpoint to enable or disable a service in your project.
      *
      * @param {ProjectServiceId} serviceId - Service name. Can be one of: account, avatars, databases, tablesdb, locale, health, project, storage, teams, users, vcs, sites, functions, proxy, graphql, migrations, messaging, advisor, oauth2
      * @param {boolean} enabled - Service status.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateService(
+    updateService<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         serviceId: ProjectServiceId,
         enabled: boolean,
-    ): Promise<Models.Project>;
-    updateService(
+    ): Promise<Models.Project<Preferences>>;
+    updateService<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst:
             | { serviceId: ProjectServiceId; enabled: boolean }
             | ProjectServiceId,
         ...rest: [boolean?]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { serviceId: ProjectServiceId; enabled: boolean };
 
         if (
@@ -12770,9 +13087,11 @@ export class Project {
      * @param {ProjectSMTPSecure | null} params.secure - Configures if communication with SMTP server is encrypted. Allowed values are: tls, ssl. Leave empty for no encryption.
      * @param {boolean | null} params.enabled - Enable or disable custom SMTP. Custom SMTP is useful for branding purposes, but also allows use of custom email templates.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateSMTP(params?: {
+    updateSMTP<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params?: {
         host?: string | null;
         port?: number | null;
         username?: string | null;
@@ -12783,7 +13102,7 @@ export class Project {
         replyToName?: string | null;
         secure?: ProjectSMTPSecure | null;
         enabled?: boolean | null;
-    }): Promise<Models.Project>;
+    }): Promise<Models.Project<Preferences>>;
     /**
      * Update the SMTP configuration for your project. Use this endpoint to configure your project's SMTP provider with your custom settings for sending transactional emails.
      *
@@ -12798,10 +13117,12 @@ export class Project {
      * @param {ProjectSMTPSecure | null} secure - Configures if communication with SMTP server is encrypted. Allowed values are: tls, ssl. Leave empty for no encryption.
      * @param {boolean | null} enabled - Enable or disable custom SMTP. Custom SMTP is useful for branding purposes, but also allows use of custom email templates.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateSMTP(
+    updateSMTP<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         host?: string | null,
         port?: number | null,
         username?: string | null,
@@ -12812,8 +13133,10 @@ export class Project {
         replyToName?: string | null,
         secure?: ProjectSMTPSecure | null,
         enabled?: boolean | null,
-    ): Promise<Models.Project>;
-    updateSMTP(
+    ): Promise<Models.Project<Preferences>>;
+    updateSMTP<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst?:
             | {
                   host?: string | null;
@@ -12840,7 +13163,7 @@ export class Project {
             (ProjectSMTPSecure | null)?,
             (boolean | null)?,
         ]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: {
             host?: string | null;
             port?: number | null;

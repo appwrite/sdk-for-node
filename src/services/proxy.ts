@@ -225,6 +225,8 @@ export class Proxy {
                         deploymentVcsProviderBranch: '',
                         status: 'unverified',
                         logs: '',
+                        expireAt: '',
+                        certificateStatus: '',
                         protocol: 'http',
                     },
                 },
@@ -308,6 +310,8 @@ export class Proxy {
                         deploymentVcsProviderBranch: '',
                         status: 'unverified',
                         logs: '',
+                        expireAt: '',
+                        certificateStatus: '',
                         protocol: 'http',
                     },
                 },
@@ -424,6 +428,8 @@ export class Proxy {
                         deploymentVcsProviderBranch: '',
                         status: 'unverified',
                         logs: '',
+                        expireAt: '',
+                        certificateStatus: '',
                         protocol: 'http',
                     },
                 },
@@ -586,6 +592,8 @@ export class Proxy {
                         deploymentVcsProviderBranch: '',
                         status: 'unverified',
                         logs: '',
+                        expireAt: '',
+                        certificateStatus: '',
                         protocol: 'http',
                     },
                 },
@@ -700,6 +708,8 @@ export class Proxy {
                         deploymentVcsProviderBranch: '',
                         status: 'unverified',
                         logs: '',
+                        expireAt: '',
+                        certificateStatus: '',
                         protocol: 'http',
                     },
                 },
@@ -812,6 +822,8 @@ export class Proxy {
                         deploymentVcsProviderBranch: '',
                         status: 'unverified',
                         logs: '',
+                        expireAt: '',
+                        certificateStatus: '',
                         protocol: 'http',
                     },
                 },
@@ -890,6 +902,8 @@ export class Proxy {
                         deploymentVcsProviderBranch: '',
                         status: 'unverified',
                         logs: '',
+                        expireAt: '',
+                        certificateStatus: '',
                         protocol: 'http',
                     },
                 },
@@ -952,7 +966,393 @@ export class Proxy {
     }
 
     /**
-     * If not succeeded yet, retry verification process of a proxy rule domain. This endpoint triggers domain verification by checking DNS records. If verification is successful, a TLS certificate will be automatically provisioned for the domain asynchronously in the background.
+     * Update the function and VCS branch a function proxy rule executes. The rule domain cannot be changed.
+     *
+     * @param {string} params.ruleId - Rule ID.
+     * @param {string} params.functionId - ID of function to be executed.
+     * @param {string} params.branch - Name of VCS branch to deploy changes automatically
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ProxyRule>}
+     */
+    updateFunctionRule(params: {
+        ruleId: string;
+        functionId: string;
+        branch?: string;
+    }): Promise<Models.ProxyRule>;
+    /**
+     * Update the function and VCS branch a function proxy rule executes. The rule domain cannot be changed.
+     *
+     * @param {string} ruleId - Rule ID.
+     * @param {string} functionId - ID of function to be executed.
+     * @param {string} branch - Name of VCS branch to deploy changes automatically
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ProxyRule>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateFunctionRule(
+        ruleId: string,
+        functionId: string,
+        branch?: string,
+    ): Promise<Models.ProxyRule>;
+    updateFunctionRule(
+        paramsOrFirst:
+            { ruleId: string; functionId: string; branch?: string } | string,
+        ...rest: [string?, string?]
+    ): Promise<Models.ProxyRule> {
+        let params: { ruleId: string; functionId: string; branch?: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                ruleId: string;
+                functionId: string;
+                branch?: string;
+            };
+        } else {
+            params = {
+                ruleId: paramsOrFirst as string,
+                functionId: rest[0] as string,
+                branch: rest[1] as string,
+            };
+        }
+
+        const ruleId = params.ruleId;
+        const functionId = params.functionId;
+        const branch = params.branch;
+        if (typeof ruleId === 'undefined' || ruleId === '') {
+            throw new AppwriteException('Missing required parameter: "ruleId"');
+        }
+        if (typeof functionId === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "functionId"',
+            );
+        }
+        const apiPath = '/proxy/rules/{ruleId}/function'.replace(
+            '{ruleId}',
+            encodePath(ruleId),
+        );
+        const apiPayload: Payload = {};
+        if (typeof functionId !== 'undefined') {
+            apiPayload['functionId'] = functionId;
+        }
+        if (typeof branch !== 'undefined') {
+            apiPayload['branch'] = branch;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                        expireAt: '',
+                        certificateStatus: '',
+                        protocol: 'http',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update the target URL, status code and parent resource of a redirect proxy rule. The rule domain cannot be changed.
+     *
+     * @param {string} params.ruleId - Rule ID.
+     * @param {string} params.url - Target URL of redirection
+     * @param {StatusCode} params.statusCode - Status code of redirection
+     * @param {string} params.resourceId - ID of parent resource.
+     * @param {ProxyResourceType} params.resourceType - Type of parent resource.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ProxyRule>}
+     */
+    updateRedirectRule(params: {
+        ruleId: string;
+        url: string;
+        statusCode: StatusCode;
+        resourceId: string;
+        resourceType: ProxyResourceType;
+    }): Promise<Models.ProxyRule>;
+    /**
+     * Update the target URL, status code and parent resource of a redirect proxy rule. The rule domain cannot be changed.
+     *
+     * @param {string} ruleId - Rule ID.
+     * @param {string} url - Target URL of redirection
+     * @param {StatusCode} statusCode - Status code of redirection
+     * @param {string} resourceId - ID of parent resource.
+     * @param {ProxyResourceType} resourceType - Type of parent resource.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ProxyRule>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateRedirectRule(
+        ruleId: string,
+        url: string,
+        statusCode: StatusCode,
+        resourceId: string,
+        resourceType: ProxyResourceType,
+    ): Promise<Models.ProxyRule>;
+    updateRedirectRule(
+        paramsOrFirst:
+            | {
+                  ruleId: string;
+                  url: string;
+                  statusCode: StatusCode;
+                  resourceId: string;
+                  resourceType: ProxyResourceType;
+              }
+            | string,
+        ...rest: [string?, StatusCode?, string?, ProxyResourceType?]
+    ): Promise<Models.ProxyRule> {
+        let params: {
+            ruleId: string;
+            url: string;
+            statusCode: StatusCode;
+            resourceId: string;
+            resourceType: ProxyResourceType;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                ruleId: string;
+                url: string;
+                statusCode: StatusCode;
+                resourceId: string;
+                resourceType: ProxyResourceType;
+            };
+        } else {
+            params = {
+                ruleId: paramsOrFirst as string,
+                url: rest[0] as string,
+                statusCode: rest[1] as StatusCode,
+                resourceId: rest[2] as string,
+                resourceType: rest[3] as ProxyResourceType,
+            };
+        }
+
+        const ruleId = params.ruleId;
+        const url = params.url;
+        const statusCode = params.statusCode;
+        const resourceId = params.resourceId;
+        const resourceType = params.resourceType;
+        if (typeof ruleId === 'undefined' || ruleId === '') {
+            throw new AppwriteException('Missing required parameter: "ruleId"');
+        }
+        if (typeof url === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "url"');
+        }
+        if (typeof statusCode === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "statusCode"',
+            );
+        }
+        if (typeof resourceId === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "resourceId"',
+            );
+        }
+        if (typeof resourceType === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "resourceType"',
+            );
+        }
+        const apiPath = '/proxy/rules/{ruleId}/redirect'.replace(
+            '{ruleId}',
+            encodePath(ruleId),
+        );
+        const apiPayload: Payload = {};
+        if (typeof url !== 'undefined') {
+            apiPayload['url'] = url;
+        }
+        if (typeof statusCode !== 'undefined') {
+            apiPayload['statusCode'] = statusCode;
+        }
+        if (typeof resourceId !== 'undefined') {
+            apiPayload['resourceId'] = resourceId;
+        }
+        if (typeof resourceType !== 'undefined') {
+            apiPayload['resourceType'] = resourceType;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                        expireAt: '',
+                        certificateStatus: '',
+                        protocol: 'http',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update the site and VCS branch a site proxy rule serves. The rule domain cannot be changed.
+     *
+     * @param {string} params.ruleId - Rule ID.
+     * @param {string} params.siteId - ID of site to be executed.
+     * @param {string} params.branch - Name of VCS branch to deploy changes automatically
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ProxyRule>}
+     */
+    updateSiteRule(params: {
+        ruleId: string;
+        siteId: string;
+        branch?: string;
+    }): Promise<Models.ProxyRule>;
+    /**
+     * Update the site and VCS branch a site proxy rule serves. The rule domain cannot be changed.
+     *
+     * @param {string} ruleId - Rule ID.
+     * @param {string} siteId - ID of site to be executed.
+     * @param {string} branch - Name of VCS branch to deploy changes automatically
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.ProxyRule>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateSiteRule(
+        ruleId: string,
+        siteId: string,
+        branch?: string,
+    ): Promise<Models.ProxyRule>;
+    updateSiteRule(
+        paramsOrFirst:
+            { ruleId: string; siteId: string; branch?: string } | string,
+        ...rest: [string?, string?]
+    ): Promise<Models.ProxyRule> {
+        let params: { ruleId: string; siteId: string; branch?: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                ruleId: string;
+                siteId: string;
+                branch?: string;
+            };
+        } else {
+            params = {
+                ruleId: paramsOrFirst as string,
+                siteId: rest[0] as string,
+                branch: rest[1] as string,
+            };
+        }
+
+        const ruleId = params.ruleId;
+        const siteId = params.siteId;
+        const branch = params.branch;
+        if (typeof ruleId === 'undefined' || ruleId === '') {
+            throw new AppwriteException('Missing required parameter: "ruleId"');
+        }
+        if (typeof siteId === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "siteId"');
+        }
+        const apiPath = '/proxy/rules/{ruleId}/site'.replace(
+            '{ruleId}',
+            encodePath(ruleId),
+        );
+        const apiPayload: Payload = {};
+        if (typeof siteId !== 'undefined') {
+            apiPayload['siteId'] = siteId;
+        }
+        if (typeof branch !== 'undefined') {
+            apiPayload['branch'] = branch;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'proxyRule',
+            models: {
+                proxyRule: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        domain: '',
+                        type: '',
+                        trigger: '',
+                        redirectUrl: '',
+                        redirectStatusCode: 301,
+                        deploymentId: '',
+                        deploymentResourceId: '',
+                        deploymentVcsProviderBranch: '',
+                        status: 'unverified',
+                        logs: '',
+                        expireAt: '',
+                        certificateStatus: '',
+                        protocol: 'http',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * If not succeeded yet, retry verification process of a proxy rule domain. This endpoint triggers domain verification by checking DNS records. If verification is successful, a TLS certificate will be automatically provisioned for the domain asynchronously in the background. A verified rule whose certificate renewal failed or is blocked, or whose certificate expired, is checked the same way, and its certificate renewed in the background.
      *
      * @param {string} params.ruleId - Rule ID.
      * @throws {AppwriteException}
@@ -960,7 +1360,7 @@ export class Proxy {
      */
     updateRuleStatus(params: { ruleId: string }): Promise<Models.ProxyRule>;
     /**
-     * If not succeeded yet, retry verification process of a proxy rule domain. This endpoint triggers domain verification by checking DNS records. If verification is successful, a TLS certificate will be automatically provisioned for the domain asynchronously in the background.
+     * If not succeeded yet, retry verification process of a proxy rule domain. This endpoint triggers domain verification by checking DNS records. If verification is successful, a TLS certificate will be automatically provisioned for the domain asynchronously in the background. A verified rule whose certificate renewal failed or is blocked, or whose certificate expired, is checked the same way, and its certificate renewed in the background.
      *
      * @param {string} ruleId - Rule ID.
      * @throws {AppwriteException}
@@ -1021,6 +1421,8 @@ export class Proxy {
                         deploymentVcsProviderBranch: '',
                         status: 'unverified',
                         logs: '',
+                        expireAt: '',
+                        certificateStatus: '',
                         protocol: 'http',
                     },
                 },

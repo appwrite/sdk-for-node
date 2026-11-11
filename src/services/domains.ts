@@ -3376,7 +3376,7 @@ export class Domains {
      * to 'example.wordpress.com'.
      *
      * @param {string} params.domainId - Domain unique ID.
-     * @param {string} params.name - Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
+     * @param {string} params.name - Record name relative to the domain, such as `www`. A CNAME cannot be at the domain itself; use an ALIAS record there. A full name ending in the domain is also accepted and stored relative to it.
      * @param {string} params.value - Canonical target for this CNAME record.
      * @param {number} params.ttl - Time to live, in seconds. Must be between 1 and 2147483647.
      * @param {string} params.comment - A comment for this record.
@@ -3398,7 +3398,7 @@ export class Domains {
      * to 'example.wordpress.com'.
      *
      * @param {string} domainId - Domain unique ID.
-     * @param {string} name - Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
+     * @param {string} name - Record name relative to the domain, such as `www`. A CNAME cannot be at the domain itself; use an ALIAS record there. A full name ending in the domain is also accepted and stored relative to it.
      * @param {string} value - Canonical target for this CNAME record.
      * @param {number} ttl - Time to live, in seconds. Must be between 1 and 2147483647.
      * @param {string} comment - A comment for this record.
@@ -3530,7 +3530,7 @@ export class Domains {
      *
      * @param {string} params.domainId - Domain unique ID.
      * @param {string} params.recordId - DNS record unique ID.
-     * @param {string} params.name - Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
+     * @param {string} params.name - Record name relative to the domain, such as `www`. A CNAME cannot be at the domain itself; use an ALIAS record there. A full name ending in the domain is also accepted and stored relative to it.
      * @param {string} params.value - Canonical target for this CNAME record.
      * @param {number} params.ttl - Time to live, in seconds. Must be between 1 and 2147483647.
      * @param {string} params.comment - A comment for this record.
@@ -3550,7 +3550,7 @@ export class Domains {
      *
      * @param {string} domainId - Domain unique ID.
      * @param {string} recordId - DNS record unique ID.
-     * @param {string} name - Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
+     * @param {string} name - Record name relative to the domain, such as `www`. A CNAME cannot be at the domain itself; use an ALIAS record there. A full name ending in the domain is also accepted and stored relative to it.
      * @param {string} value - Canonical target for this CNAME record.
      * @param {number} ttl - Time to live, in seconds. Must be between 1 and 2147483647.
      * @param {string} comment - A comment for this record.
