@@ -98,7 +98,7 @@ describe('Project', () => {
     test('test method listEnvironments()', async () => {
         const data = {
             total: 5,
-            projects: [],
+            environments: [],
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.listEnvironments();
@@ -110,32 +110,11 @@ describe('Project', () => {
     });
     test('test method createEnvironment()', async () => {
         const data = {
-            $id: '5e5ea5c16897e',
+            $id: 'staging',
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
-            name: 'New Project',
-            teamId: '1592981250',
-            region: 'fra',
-            smtpEnabled: true,
-            smtpSenderName: 'John Appwrite',
-            smtpSenderEmail: 'john@appwrite.io',
-            smtpReplyToName: 'Support Team',
-            smtpReplyToEmail: 'support@appwrite.io',
-            smtpHost: 'mail.appwrite.io',
-            smtpPort: 25,
-            smtpUsername: 'emailuser',
-            smtpPassword: 'smtp-password',
-            smtpSecure: 'tls',
-            pingCount: 1,
-            pingedAt: '2020-10-15T06:38:00.000+00:00',
-            labels: [],
-            status: 'active',
-            onboarding: {},
-            authMethods: [],
-            services: [],
-            protocols: [],
-            blocks: [],
-            consoleAccessedAt: '2020-10-15T06:38:00.000+00:00',
+            projectId: '5e5ea5c16897e',
+            name: 'Staging',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.createEnvironment(
@@ -150,32 +129,11 @@ describe('Project', () => {
     });
     test('test method getEnvironment()', async () => {
         const data = {
-            $id: '5e5ea5c16897e',
+            $id: 'staging',
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
-            name: 'New Project',
-            teamId: '1592981250',
-            region: 'fra',
-            smtpEnabled: true,
-            smtpSenderName: 'John Appwrite',
-            smtpSenderEmail: 'john@appwrite.io',
-            smtpReplyToName: 'Support Team',
-            smtpReplyToEmail: 'support@appwrite.io',
-            smtpHost: 'mail.appwrite.io',
-            smtpPort: 25,
-            smtpUsername: 'emailuser',
-            smtpPassword: 'smtp-password',
-            smtpSecure: 'tls',
-            pingCount: 1,
-            pingedAt: '2020-10-15T06:38:00.000+00:00',
-            labels: [],
-            status: 'active',
-            onboarding: {},
-            authMethods: [],
-            services: [],
-            protocols: [],
-            blocks: [],
-            consoleAccessedAt: '2020-10-15T06:38:00.000+00:00',
+            projectId: '5e5ea5c16897e',
+            name: 'Staging',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.getEnvironment('<ENVIRONMENT_ID>');
@@ -187,32 +145,11 @@ describe('Project', () => {
     });
     test('test method updateEnvironment()', async () => {
         const data = {
-            $id: '5e5ea5c16897e',
+            $id: 'staging',
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
-            name: 'New Project',
-            teamId: '1592981250',
-            region: 'fra',
-            smtpEnabled: true,
-            smtpSenderName: 'John Appwrite',
-            smtpSenderEmail: 'john@appwrite.io',
-            smtpReplyToName: 'Support Team',
-            smtpReplyToEmail: 'support@appwrite.io',
-            smtpHost: 'mail.appwrite.io',
-            smtpPort: 25,
-            smtpUsername: 'emailuser',
-            smtpPassword: 'smtp-password',
-            smtpSecure: 'tls',
-            pingCount: 1,
-            pingedAt: '2020-10-15T06:38:00.000+00:00',
-            labels: [],
-            status: 'active',
-            onboarding: {},
-            authMethods: [],
-            services: [],
-            protocols: [],
-            blocks: [],
-            consoleAccessedAt: '2020-10-15T06:38:00.000+00:00',
+            projectId: '5e5ea5c16897e',
+            name: 'Staging',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updateEnvironment(
@@ -1160,6 +1097,36 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method updateOAuth2Vipps()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: '9a3a4b3e-0000-0000-0000-0f1a6d1c3b2e',
+            clientSecret: 'Ay1jb000000000000000000000000000000Vx3k',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2Vipps();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateOAuth2VippsSandbox()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: '9a3a4b3e-0000-0000-0000-0f1a6d1c3b2e',
+            clientSecret: 'Ay1jb000000000000000000000000000000Vx3k',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2VippsSandbox();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updateOAuth2Webflow()', async () => {
         const data = {
             $id: 'github',
@@ -1274,9 +1241,8 @@ describe('Project', () => {
         const data = {
             $id: 'github',
             enabled: true,
-            clientId: '839ff5000000000000000000013206de',
-            clientSecret: 'jLNVOK00000000000000000000yJebea',
-            prompt: [],
+            clientId: '9a3a4b3e-0000-0000-0000-0f1a6d1c3b2e',
+            clientSecret: 'Ay1jb000000000000000000000000000000Vx3k',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.getOAuth2Provider('amazon');
@@ -1545,6 +1511,43 @@ describe('Project', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.listPolicies();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateAccountDevicesPolicy()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'New Project',
+            teamId: '1592981250',
+            region: 'fra',
+            smtpEnabled: true,
+            smtpSenderName: 'John Appwrite',
+            smtpSenderEmail: 'john@appwrite.io',
+            smtpReplyToName: 'Support Team',
+            smtpReplyToEmail: 'support@appwrite.io',
+            smtpHost: 'mail.appwrite.io',
+            smtpPort: 25,
+            smtpUsername: 'emailuser',
+            smtpPassword: 'smtp-password',
+            smtpSecure: 'tls',
+            pingCount: 1,
+            pingedAt: '2020-10-15T06:38:00.000+00:00',
+            labels: [],
+            status: 'active',
+            onboarding: {},
+            authMethods: [],
+            services: [],
+            protocols: [],
+            blocks: [],
+            consoleAccessedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateAccountDevicesPolicy(true);
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
@@ -2237,11 +2240,30 @@ describe('Project', () => {
     test('test method getPolicy()', async () => {
         const data = {
             $id: 'password-dictionary',
-            rpId: 'example.com',
-            origins: [],
+            enabled: true,
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.getPolicy('password-dictionary');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method getPrefs()', async () => {
+        const data = {};
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.getPrefs();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updatePrefs()', async () => {
+        const data = {};
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updatePrefs({});
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;

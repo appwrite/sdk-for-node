@@ -46,6 +46,8 @@ export class Organization {
                         name: '',
                         total: 0,
                         budgetAlerts: [75],
+                        budgetNotify: ['owner', 'billing'],
+                        budgetCritical: [],
                         billingPlan: 'tier-0',
                         billingPlanId: 'tier-0',
                         billingEmail: '',
@@ -128,6 +130,8 @@ export class Organization {
                         name: '',
                         total: 0,
                         budgetAlerts: [75],
+                        budgetNotify: ['owner', 'billing'],
+                        budgetCritical: [],
                         billingPlan: 'tier-0',
                         billingPlanId: 'tier-0',
                         billingEmail: '',
@@ -1100,13 +1104,15 @@ export class Organization {
      * @param {string} params.search - Search term to filter your list results. Max length: 256 chars.
      * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.ProjectList>}
+     * @returns {Promise<Models.ProjectList<Preferences>>}
      */
-    listProjects(params?: {
+    listProjects<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params?: {
         queries?: string[];
         search?: string;
         total?: boolean;
-    }): Promise<Models.ProjectList>;
+    }): Promise<Models.ProjectList<Preferences>>;
     /**
      * Get a list of all projects. You can use the query params to filter your results.
      *
@@ -1114,19 +1120,23 @@ export class Organization {
      * @param {string} search - Search term to filter your list results. Max length: 256 chars.
      * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.ProjectList>}
+     * @returns {Promise<Models.ProjectList<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    listProjects(
+    listProjects<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         queries?: string[],
         search?: string,
         total?: boolean,
-    ): Promise<Models.ProjectList>;
-    listProjects(
+    ): Promise<Models.ProjectList<Preferences>>;
+    listProjects<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst?:
             { queries?: string[]; search?: string; total?: boolean } | string[],
         ...rest: [string?, boolean?]
-    ): Promise<Models.ProjectList> {
+    ): Promise<Models.ProjectList<Preferences>> {
         let params: { queries?: string[]; search?: string; total?: boolean };
 
         if (
@@ -1264,13 +1274,15 @@ export class Organization {
      * @param {string} params.name - Project name. Max length: 128 chars.
      * @param {Region} params.region - Project Region.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    createProject(params: {
+    createProject<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: {
         projectId: string;
         name: string;
         region?: Region;
-    }): Promise<Models.Project>;
+    }): Promise<Models.Project<Preferences>>;
     /**
      * Create a new project.
      *
@@ -1278,19 +1290,23 @@ export class Organization {
      * @param {string} name - Project name. Max length: 128 chars.
      * @param {Region} region - Project Region.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    createProject(
+    createProject<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         projectId: string,
         name: string,
         region?: Region,
-    ): Promise<Models.Project>;
-    createProject(
+    ): Promise<Models.Project<Preferences>>;
+    createProject<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst:
             { projectId: string; name: string; region?: Region } | string,
         ...rest: [string?, Region?]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { projectId: string; name: string; region?: Region };
 
         if (
@@ -1423,21 +1439,27 @@ export class Organization {
      *
      * @param {string} params.projectId - Project unique ID.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    getProject(params: { projectId: string }): Promise<Models.Project>;
+    getProject<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: { projectId: string }): Promise<Models.Project<Preferences>>;
     /**
      * Get a project.
      *
      * @param {string} projectId - Project unique ID.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    getProject(projectId: string): Promise<Models.Project>;
-    getProject(
+    getProject<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(projectId: string): Promise<Models.Project<Preferences>>;
+    getProject<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst: { projectId: string } | string,
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { projectId: string };
 
         if (
@@ -1553,26 +1575,32 @@ export class Organization {
      * @param {string} params.projectId - Project unique ID.
      * @param {string} params.name - Project name. Max length: 128 chars.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      */
-    updateProject(params: {
+    updateProject<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: {
         projectId: string;
         name: string;
-    }): Promise<Models.Project>;
+    }): Promise<Models.Project<Preferences>>;
     /**
      * Update a project by its unique ID.
      *
      * @param {string} projectId - Project unique ID.
      * @param {string} name - Project name. Max length: 128 chars.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.Project>}
+     * @returns {Promise<Models.Project<Preferences>>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
-    updateProject(projectId: string, name: string): Promise<Models.Project>;
-    updateProject(
+    updateProject<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(projectId: string, name: string): Promise<Models.Project<Preferences>>;
+    updateProject<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
         paramsOrFirst: { projectId: string; name: string } | string,
         ...rest: [string?]
-    ): Promise<Models.Project> {
+    ): Promise<Models.Project<Preferences>> {
         let params: { projectId: string; name: string };
 
         if (

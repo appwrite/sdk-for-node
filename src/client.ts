@@ -154,7 +154,7 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/31.1.0';
+    let ua = 'AppwriteNodeJSSDK/31.2.0';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
@@ -212,6 +212,7 @@ class Client {
         jwt: '',
         bearer: '',
         locale: '',
+        environment: '',
         session: '',
         forwardeduseragent: '',
         cookie: '',
@@ -223,9 +224,9 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '31.1.0',
+        'x-sdk-version': '31.2.0',
         'user-agent': getUserAgent(),
-        'X-Appwrite-Response-Format': '2.6.2',
+        'X-Appwrite-Response-Format': '2.7.1',
     };
 
     /**
@@ -381,6 +382,20 @@ class Client {
     setLocale(value: string): this {
         this.headers['X-Appwrite-Locale'] = value;
         this.config.locale = value;
+        return this;
+    }
+    /**
+     * Set Environment
+     *
+     * The ID of the project environment to act in, alongside the project ID. Used with Appwrite Cloud projects that have environments.
+     *
+     * @param value string
+     *
+     * @return {this}
+     */
+    setEnvironment(value: string): this {
+        this.headers['X-Appwrite-Environment'] = value;
+        this.config.environment = value;
         return this;
     }
     /**

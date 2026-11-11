@@ -18,4 +18,5 @@ export enum ProjectPolicyId {
     Denycorporateemail = 'deny-corporate-email',
     Denyrealtimeguests = 'deny-realtime-guests',
     Passkey = 'passkey',
+    Accountdevices = 'account-devices',
 }

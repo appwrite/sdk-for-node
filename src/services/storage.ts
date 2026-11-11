@@ -147,7 +147,7 @@ export class Storage {
      * @param {number} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} params.allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
      * @param {Compression} params.compression - Compression algorithm chosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
-     * @param {boolean} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
+     * @param {boolean} params.encryption - Is encryption enabled? Files of any size are encrypted.
      * @param {boolean} params.antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} params.transformations - Are image transformations enabled?
      * @param {string} params.description - Optional description for the bucket.
@@ -181,7 +181,7 @@ export class Storage {
      * @param {number} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
      * @param {Compression} compression - Compression algorithm chosen for compression. Can be one of none,  [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
-     * @param {boolean} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
+     * @param {boolean} encryption - Is encryption enabled? Files of any size are encrypted.
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} transformations - Are image transformations enabled?
      * @param {string} description - Optional description for the bucket.
@@ -485,7 +485,7 @@ export class Storage {
      * @param {number | null} params.maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} params.allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
      * @param {Compression | null} params.compression - Compression algorithm chosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
-     * @param {boolean | null} params.encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
+     * @param {boolean | null} params.encryption - Is encryption enabled? Files of any size are encrypted.
      * @param {boolean} params.antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} params.transformations - Are image transformations enabled?
      * @param {string | null} params.description - Optional description for the bucket.
@@ -519,7 +519,7 @@ export class Storage {
      * @param {number | null} maximumFileSize - Maximum file size allowed in bytes. Maximum allowed value is 5GB.
      * @param {string[]} allowedFileExtensions - Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
      * @param {Compression | null} compression - Compression algorithm chosen for compression. Can be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd), For file size above 20MB compression is skipped even if it's enabled
-     * @param {boolean | null} encryption - Is encryption enabled? For file size above 20MB encryption is skipped even if it's enabled
+     * @param {boolean | null} encryption - Is encryption enabled? Files of any size are encrypted.
      * @param {boolean} antivirus - Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
      * @param {boolean} transformations - Are image transformations enabled?
      * @param {string | null} description - Optional description for the bucket.

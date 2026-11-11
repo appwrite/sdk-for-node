@@ -351,7 +351,9 @@ export namespace Models {
     /**
      * Projects List
      */
-    export type ProjectList = {
+    export type ProjectList<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    > = {
         /**
          * Total number of projects that matched your query.
          */
@@ -359,7 +361,7 @@ export namespace Models {
         /**
          * List of projects.
          */
-        projects: Project[];
+        projects: Project<Preferences>[];
     };
 
     /**
@@ -519,6 +521,7 @@ export namespace Models {
             | Models.PolicyDenyCorporateEmail
             | Models.PolicyDenyRealtimeGuests
             | Models.PolicyPasskey
+            | Models.PolicyAccountDevices
         )[];
     };
 
@@ -3623,6 +3626,10 @@ export namespace Models {
          */
         userId: string;
         /**
+         * Name of the user the session belongs to. Lets a client label the account, for example in an account switcher.
+         */
+        userName: string;
+        /**
          * Session expiration date in ISO 8601 format.
          */
         expire: string;
@@ -3722,6 +3729,40 @@ export namespace Models {
          * Most recent date in ISO 8601 format when the session successfully passed MFA challenge.
          */
         mfaUpdatedAt: string;
+    };
+
+    /**
+     * Device
+     */
+    export type Device = {
+        /**
+         * Device ID.
+         */
+        $id: string;
+        /**
+         * Device creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Device update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Device expiration date in ISO 8601 format.
+         */
+        expire: string;
+        /**
+         * ID of the session that is currently active on the device. Empty when no session is active, for example right after the active session was deleted.
+         */
+        activeSessionId: string;
+        /**
+         * List of sessions the device holds. Switch between them to change the active account.
+         */
+        sessions: Session[];
+        /**
+         * Secret used to authenticate the device. Carried by the device cookie; only included in the response if the request was made with an API key.
+         */
+        secret: string;
     };
 
     /**
@@ -4763,7 +4804,9 @@ export namespace Models {
     /**
      * Project
      */
-    export type Project = {
+    export type Project<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    > = {
         /**
          * Project ID.
          */
@@ -4841,6 +4884,10 @@ export namespace Models {
          */
         labels: string[];
         /**
+         * Project preferences as a key-value object
+         */
+        prefs?: Preferences | null;
+        /**
          * Project status
          */
         status: string;
@@ -4876,6 +4923,10 @@ export namespace Models {
          * ID of the project this environment belongs to. Null when the project is not an environment.
          */
         parentId?: string | null;
+        /**
+         * ID of the environment, as passed in the X-Appwrite-Environment header, when the project is accessed as one. Null when the project is not an environment.
+         */
+        environmentId?: string | null;
         /**
          * Billing limits reached
          */
@@ -6193,6 +6244,28 @@ export namespace Models {
     };
 
     /**
+     * OAuth2Vipps
+     */
+    export type OAuth2Vipps = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Vipps MobilePay OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Vipps MobilePay OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
      * OAuth2Apple
      */
     export type OAuth2Apple = {
@@ -6389,6 +6462,7 @@ export namespace Models {
             | Models.OAuth2Cloudflare
             | Models.OAuth2TikTok
             | Models.OAuth2Kakao
+            | Models.OAuth2Vipps
         )[];
     };
 
@@ -6726,6 +6800,20 @@ export namespace Models {
         $id: string;
         /**
          * Whether guests are stopped from subscribing to realtime channels.
+         */
+        enabled: boolean;
+    };
+
+    /**
+     * Policy Account Devices
+     */
+    export type PolicyAccountDevices = {
+        /**
+         * Policy ID.
+         */
+        $id: string;
+        /**
+         * Whether account devices are enabled. When disabled, new account devices can no longer be created.
          */
         enabled: boolean;
     };
@@ -7144,6 +7232,14 @@ export namespace Models {
          * Certificate auto-renewal date in ISO 8601 format.
          */
         renewAt: string;
+        /**
+         * Certificate expiry date in ISO 8601 format. Empty when unknown or not checked yet.
+         */
+        expireAt: string;
+        /**
+         * Certificate status, as last reported by the certificate provider. Possible values are "pending", "processing", "issued", "renewing", "expiring", "blocked", "failed", or "unknown". "expiring" means the certificate expires soon, or has already expired, and the provider has not renewed it yet, "blocked" means the provider waits on a DNS record from the domain owner, and "failed" means the provider stopped trying or the last issuance or renewal attempt failed. Empty until the certificate is next checked.
+         */
+        certificateStatus: string;
         /**
          * Ingress protocol for the rule.
          */
@@ -8006,6 +8102,10 @@ export namespace Models {
          * Version of the SDK that triggered the event.
          */
         sdkVersion: string;
+        /**
+         * Why the actor made the request, as sent in the `X-Appwrite-Reason` header. Empty when no reason was given.
+         */
+        reason: string;
     };
 
     /**
@@ -9653,6 +9753,14 @@ export namespace Models {
          */
         budgetAlerts: number[];
         /**
+         * Organization roles whose confirmed members are emailed when a budget alert fires.
+         */
+        budgetNotify: string[];
+        /**
+         * Budget alert percentages whose push notifications are critical.
+         */
+        budgetCritical: number[];
+        /**
          * Organization's billing plan ID.
          */
         billingPlan: string;
@@ -9736,6 +9844,10 @@ export namespace Models {
          * Program's discord channel URL.
          */
         programDiscordChannelUrl?: string | null;
+        /**
+         * When the education plan ends, for an organization on it.
+         */
+        educationExpiresAt?: string | null;
         /**
          * Billing limits reached
          */
@@ -9938,6 +10050,46 @@ export namespace Models {
          * Billing plan ID that this is program is associated with.
          */
         billingPlanId: string;
+    };
+
+    /**
+     * Environment
+     */
+    export type Environment = {
+        /**
+         * Environment ID, as passed in the X-Appwrite-Environment header.
+         */
+        $id: string;
+        /**
+         * Environment creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Environment update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * ID of the project the environment belongs to, as passed in the X-Appwrite-Project header.
+         */
+        projectId: string;
+        /**
+         * Environment name.
+         */
+        name: string;
+    };
+
+    /**
+     * Environments list
+     */
+    export type EnvironmentList = {
+        /**
+         * Total number of environments that matched your query.
+         */
+        total: number;
+        /**
+         * List of environments.
+         */
+        environments: Environment[];
     };
 
     /**
@@ -10872,6 +11024,10 @@ export namespace Models {
          * Action specific configuration.
          */
         config: object;
+        /**
+         * When the rule is active: mode, days, interval, anchor, startTime, endTime and timezone. Null when the rule is always active.
+         */
+        schedule?: object;
     };
 
     /**
@@ -10934,6 +11090,10 @@ export namespace Models {
          * Action specific configuration.
          */
         config: object;
+        /**
+         * When the rule is active: mode, days, interval, anchor, startTime, endTime and timezone. Null when the rule is always active.
+         */
+        schedule?: object;
     };
 
     /**
@@ -10996,6 +11156,10 @@ export namespace Models {
          * Action specific configuration.
          */
         config: object;
+        /**
+         * When the rule is active: mode, days, interval, anchor, startTime, endTime and timezone. Null when the rule is always active.
+         */
+        schedule?: object;
         /**
          * Challenge type enforced when the rule matches.
          */
@@ -11070,6 +11234,10 @@ export namespace Models {
          * Action specific configuration.
          */
         config: object;
+        /**
+         * When the rule is active: mode, days, interval, anchor, startTime, endTime and timezone. Null when the rule is always active.
+         */
+        schedule?: object;
         /**
          * Maximum number of matching requests allowed for the given interval.
          */
@@ -11152,6 +11320,10 @@ export namespace Models {
          * Action specific configuration.
          */
         config: object;
+        /**
+         * When the rule is active: mode, days, interval, anchor, startTime, endTime and timezone. Null when the rule is always active.
+         */
+        schedule?: object;
         /**
          * Target location for the redirect.
          */

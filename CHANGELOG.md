@@ -1,5 +1,23 @@
 # Change Log
 
+## 31.2.0
+
+* Updated: `project.listEnvironments`, `project.createEnvironment`, `project.getEnvironment`, `project.updateEnvironment` return `Environment` models instead of `Project`
+* Added: `account.createDevice`, `account.getDevice`, `account.deleteDevice` and `account.updateDeviceSession`, and the `Device` model
+* Added: `project.updateAccountDevicesPolicy`, `ProjectPolicyId.Accountdevices` and the `PolicyAccountDevices` model
+* Added: `project.updateOAuth2Vipps`, `project.updateOAuth2VippsSandbox` and the `OAuth2Vipps` model
+* Added: `OAuthProvider.Vipps` and `OAuthProvider.VippsSandbox`
+* Added: `proxy.updateFunctionRule`, `proxy.updateRedirectRule` and `proxy.updateSiteRule`
+* Added: optional `schedule` on `waf` rule create and update methods and on `WafRule*` models
+* Added: `project.getPrefs` and `project.updatePrefs` for project preferences
+* Added: `Client.setEnvironment` to act in a project environment
+* Added: `AppwriteMigrationResource.Projectpreferences` to migrate project preferences
+* Added: `monitors.read`, `monitors.write`, `alerts.read`, `alerts.write`, `reviews.read` and `reviews.write` to `ProjectKeyScopes`
+* Added: `Organization.budgetNotify`, `budgetCritical` and `educationExpiresAt`
+* Added: `Project.environmentId`, `Session.userName` and `ActivityEvent.reason`
+* Added: `ProxyRule.expireAt` and `certificateStatus`
+* Updated: requests send response format `2.7.1`; README targets Appwrite 2.7.x
+
 ## 31.1.0
 
 * Added: `Migrations` service to run Appwrite, Firebase, NHost, Supabase, CSV and JSON migrations, plus retries and listing
