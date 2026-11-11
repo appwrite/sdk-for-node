@@ -19,5 +19,6 @@ const result = await waf.updateRedirectRule({
     priority: -100000, // optional
     enabled: false, // optional
     conditions: [], // optional
+    schedule: {}, // optional
 });
 ```

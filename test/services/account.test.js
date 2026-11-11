@@ -166,6 +166,96 @@ describe('Account', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method createDevice()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            activeSessionId: '5e5bb8c16897e',
+            sessions: [],
+            secret: '5e5bb8c16897e',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.createDevice();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method getDevice()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            activeSessionId: '5e5bb8c16897e',
+            sessions: [],
+            secret: '5e5bb8c16897e',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.getDevice('<DEVICE_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method deleteDevice()', async () => {
+        const data = { message: '' };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.deleteDevice('<DEVICE_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateDeviceSession()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            userId: '5e5bb8c16897e',
+            userName: 'John Doe',
+            expire: '2020-10-15T06:38:00.000+00:00',
+            provider: 'email',
+            providerUid: 'user@example.com',
+            providerAccessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
+            providerAccessTokenExpiry: '2020-10-15T06:38:00.000+00:00',
+            providerRefreshToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
+            ip: '127.0.0.1',
+            osCode: 'Mac',
+            osName: 'Mac',
+            osVersion: 'Mac',
+            clientType: 'browser',
+            clientCode: 'CM',
+            clientName: 'Chrome Mobile iOS',
+            clientVersion: '84.0',
+            clientEngine: 'WebKit',
+            clientEngineVersion: '605.1.15',
+            deviceName: 'smartphone',
+            deviceBrand: 'Google',
+            deviceModel: 'Nexus 5',
+            countryCode: 'US',
+            countryName: 'United States',
+            current: true,
+            factors: [],
+            secret: '5e5bb8c16897e',
+            mfaUpdatedAt: '2020-10-15T06:38:00.000+00:00',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await account.updateDeviceSession(
+            '<DEVICE_ID>',
+            '<SESSION_ID>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updateEmail()', async () => {
         const data = {
             $id: '5e5ea5c16897e',
@@ -395,6 +485,7 @@ describe('Account', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
+            userName: 'John Doe',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
             providerUid: 'user@example.com',
@@ -438,6 +529,7 @@ describe('Account', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
+            userName: 'John Doe',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
             providerUid: 'user@example.com',
@@ -895,6 +987,7 @@ describe('Account', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
+            userName: 'John Doe',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
             providerUid: 'user@example.com',
@@ -935,6 +1028,7 @@ describe('Account', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
+            userName: 'John Doe',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
             providerUid: 'user@example.com',
@@ -978,6 +1072,7 @@ describe('Account', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
+            userName: 'John Doe',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
             providerUid: 'user@example.com',
@@ -1021,6 +1116,7 @@ describe('Account', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
+            userName: 'John Doe',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
             providerUid: 'user@example.com',
@@ -1064,6 +1160,7 @@ describe('Account', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
+            userName: 'John Doe',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
             providerUid: 'user@example.com',
@@ -1107,6 +1204,7 @@ describe('Account', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
+            userName: 'John Doe',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
             providerUid: 'user@example.com',
@@ -1147,6 +1245,7 @@ describe('Account', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
+            userName: 'John Doe',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
             providerUid: 'user@example.com',
@@ -1187,6 +1286,7 @@ describe('Account', () => {
             $createdAt: '2020-10-15T06:38:00.000+00:00',
             $updatedAt: '2020-10-15T06:38:00.000+00:00',
             userId: '5e5bb8c16897e',
+            userName: 'John Doe',
             expire: '2020-10-15T06:38:00.000+00:00',
             provider: 'email',
             providerUid: 'user@example.com',

@@ -56,6 +56,7 @@ describe('Activities', () => {
             hostname: 'appwrite.io',
             sdk: 'web',
             sdkVersion: '14.0.0',
+            reason: 'Reported as spam by 25 users in the last 24 hours',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await activities.getEvent('<EVENT_ID>');
