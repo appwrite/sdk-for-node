@@ -150,6 +150,8 @@ export class Sites {
                         buildSpecification: 's-1vcpu-512mb',
                         runtimeSpecification: 's-1vcpu-512mb',
                         buildRuntime: '',
+                        analyticsEnabled: false,
+                        analyticsPropertyId: '',
                     },
                     properties: {
                         vars: {
@@ -606,6 +608,8 @@ export class Sites {
                         buildSpecification: 's-1vcpu-512mb',
                         runtimeSpecification: 's-1vcpu-512mb',
                         buildRuntime: '',
+                        analyticsEnabled: false,
+                        analyticsPropertyId: '',
                     },
                     properties: {
                         vars: {
@@ -905,6 +909,8 @@ export class Sites {
                         buildSpecification: 's-1vcpu-512mb',
                         runtimeSpecification: 's-1vcpu-512mb',
                         buildRuntime: '',
+                        analyticsEnabled: false,
+                        analyticsPropertyId: '',
                     },
                     properties: {
                         vars: {
@@ -937,26 +943,26 @@ export class Sites {
      * @param {string} params.siteId - Site ID.
      * @param {string} params.name - Site name. Max length: 128 chars.
      * @param {Framework} params.framework - Sites framework.
-     * @param {boolean} params.enabled - Is site enabled? When set to 'disabled', users cannot access the site but Server SDKs with and API key can still access the site. No data is lost when this is toggled.
-     * @param {boolean} params.logging - When disabled, request logs will exclude logs and errors, and site responses will be slightly faster.
-     * @param {number} params.timeout - Maximum request time in seconds.
-     * @param {string} params.installCommand - Install Command.
-     * @param {string} params.buildCommand - Build Command.
-     * @param {string} params.startCommand - Custom start command. Leave empty to use default.
-     * @param {string} params.outputDirectory - Output Directory for site.
+     * @param {boolean | null} params.enabled - Is site enabled? When set to 'disabled', users cannot access the site but Server SDKs with and API key can still access the site. No data is lost when this is toggled.
+     * @param {boolean | null} params.logging - When disabled, request logs will exclude logs and errors, and site responses will be slightly faster.
+     * @param {number | null} params.timeout - Maximum request time in seconds.
+     * @param {string | null} params.installCommand - Install Command.
+     * @param {string | null} params.buildCommand - Build Command.
+     * @param {string | null} params.startCommand - Custom start command. Leave empty to use default.
+     * @param {string | null} params.outputDirectory - Output Directory for site.
      * @param {BuildRuntime} params.buildRuntime - Runtime to use during build step.
-     * @param {Adapter} params.adapter - Framework adapter defining rendering strategy. Allowed values are: static, ssr
-     * @param {string} params.fallbackFile - Fallback file for single page application sites.
+     * @param {Adapter | null} params.adapter - Framework adapter defining rendering strategy. Allowed values are: static, ssr
+     * @param {string | null} params.fallbackFile - Fallback file for single page application sites.
      * @param {string} params.installationId - Appwrite Installation ID for VCS (Version Control System) deployment.
      * @param {string | null} params.providerRepositoryId - Repository ID of the repo linked to the site.
      * @param {string} params.providerBranch - Production branch for the repo linked to the site.
-     * @param {boolean} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the site? In silent mode, comments will not be made on commits and pull requests.
+     * @param {boolean | null} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the site? In silent mode, comments will not be made on commits and pull requests.
      * @param {string} params.providerRootDirectory - Path to site code in the linked repo.
      * @param {string[] | null} params.providerBranches - List of branch name patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all branches.
      * @param {string[] | null} params.providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
      * @param {string | null} params.buildSpecification - Build specification for the site deployments.
-     * @param {string} params.runtimeSpecification - Runtime specification for the SSR executions.
-     * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
+     * @param {string | null} params.runtimeSpecification - Runtime specification for the SSR executions.
+     * @param {number | null} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {ProjectKeyScopes[] | null} params.scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @param {string | null} params.description - Optional description for the site.
      * @throws {AppwriteException}
@@ -966,26 +972,26 @@ export class Sites {
         siteId: string;
         name: string;
         framework: Framework;
-        enabled?: boolean;
-        logging?: boolean;
-        timeout?: number;
-        installCommand?: string;
-        buildCommand?: string;
-        startCommand?: string;
-        outputDirectory?: string;
+        enabled?: boolean | null;
+        logging?: boolean | null;
+        timeout?: number | null;
+        installCommand?: string | null;
+        buildCommand?: string | null;
+        startCommand?: string | null;
+        outputDirectory?: string | null;
         buildRuntime?: BuildRuntime;
-        adapter?: Adapter;
-        fallbackFile?: string;
+        adapter?: Adapter | null;
+        fallbackFile?: string | null;
         installationId?: string;
         providerRepositoryId?: string | null;
         providerBranch?: string;
-        providerSilentMode?: boolean;
+        providerSilentMode?: boolean | null;
         providerRootDirectory?: string;
         providerBranches?: string[] | null;
         providerPaths?: string[] | null;
         buildSpecification?: string | null;
-        runtimeSpecification?: string;
-        deploymentRetention?: number;
+        runtimeSpecification?: string | null;
+        deploymentRetention?: number | null;
         scopes?: ProjectKeyScopes[] | null;
         description?: string | null;
     }): Promise<Models.Site>;
@@ -995,26 +1001,26 @@ export class Sites {
      * @param {string} siteId - Site ID.
      * @param {string} name - Site name. Max length: 128 chars.
      * @param {Framework} framework - Sites framework.
-     * @param {boolean} enabled - Is site enabled? When set to 'disabled', users cannot access the site but Server SDKs with and API key can still access the site. No data is lost when this is toggled.
-     * @param {boolean} logging - When disabled, request logs will exclude logs and errors, and site responses will be slightly faster.
-     * @param {number} timeout - Maximum request time in seconds.
-     * @param {string} installCommand - Install Command.
-     * @param {string} buildCommand - Build Command.
-     * @param {string} startCommand - Custom start command. Leave empty to use default.
-     * @param {string} outputDirectory - Output Directory for site.
+     * @param {boolean | null} enabled - Is site enabled? When set to 'disabled', users cannot access the site but Server SDKs with and API key can still access the site. No data is lost when this is toggled.
+     * @param {boolean | null} logging - When disabled, request logs will exclude logs and errors, and site responses will be slightly faster.
+     * @param {number | null} timeout - Maximum request time in seconds.
+     * @param {string | null} installCommand - Install Command.
+     * @param {string | null} buildCommand - Build Command.
+     * @param {string | null} startCommand - Custom start command. Leave empty to use default.
+     * @param {string | null} outputDirectory - Output Directory for site.
      * @param {BuildRuntime} buildRuntime - Runtime to use during build step.
-     * @param {Adapter} adapter - Framework adapter defining rendering strategy. Allowed values are: static, ssr
-     * @param {string} fallbackFile - Fallback file for single page application sites.
+     * @param {Adapter | null} adapter - Framework adapter defining rendering strategy. Allowed values are: static, ssr
+     * @param {string | null} fallbackFile - Fallback file for single page application sites.
      * @param {string} installationId - Appwrite Installation ID for VCS (Version Control System) deployment.
      * @param {string | null} providerRepositoryId - Repository ID of the repo linked to the site.
      * @param {string} providerBranch - Production branch for the repo linked to the site.
-     * @param {boolean} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the site? In silent mode, comments will not be made on commits and pull requests.
+     * @param {boolean | null} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the site? In silent mode, comments will not be made on commits and pull requests.
      * @param {string} providerRootDirectory - Path to site code in the linked repo.
      * @param {string[] | null} providerBranches - List of branch name patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all branches.
      * @param {string[] | null} providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
      * @param {string | null} buildSpecification - Build specification for the site deployments.
-     * @param {string} runtimeSpecification - Runtime specification for the SSR executions.
-     * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
+     * @param {string | null} runtimeSpecification - Runtime specification for the SSR executions.
+     * @param {number | null} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {ProjectKeyScopes[] | null} scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @param {string | null} description - Optional description for the site.
      * @throws {AppwriteException}
@@ -1025,26 +1031,26 @@ export class Sites {
         siteId: string,
         name: string,
         framework: Framework,
-        enabled?: boolean,
-        logging?: boolean,
-        timeout?: number,
-        installCommand?: string,
-        buildCommand?: string,
-        startCommand?: string,
-        outputDirectory?: string,
+        enabled?: boolean | null,
+        logging?: boolean | null,
+        timeout?: number | null,
+        installCommand?: string | null,
+        buildCommand?: string | null,
+        startCommand?: string | null,
+        outputDirectory?: string | null,
         buildRuntime?: BuildRuntime,
-        adapter?: Adapter,
-        fallbackFile?: string,
+        adapter?: Adapter | null,
+        fallbackFile?: string | null,
         installationId?: string,
         providerRepositoryId?: string | null,
         providerBranch?: string,
-        providerSilentMode?: boolean,
+        providerSilentMode?: boolean | null,
         providerRootDirectory?: string,
         providerBranches?: string[] | null,
         providerPaths?: string[] | null,
         buildSpecification?: string | null,
-        runtimeSpecification?: string,
-        deploymentRetention?: number,
+        runtimeSpecification?: string | null,
+        deploymentRetention?: number | null,
         scopes?: ProjectKeyScopes[] | null,
         description?: string | null,
     ): Promise<Models.Site>;
@@ -1054,26 +1060,26 @@ export class Sites {
                   siteId: string;
                   name: string;
                   framework: Framework;
-                  enabled?: boolean;
-                  logging?: boolean;
-                  timeout?: number;
-                  installCommand?: string;
-                  buildCommand?: string;
-                  startCommand?: string;
-                  outputDirectory?: string;
+                  enabled?: boolean | null;
+                  logging?: boolean | null;
+                  timeout?: number | null;
+                  installCommand?: string | null;
+                  buildCommand?: string | null;
+                  startCommand?: string | null;
+                  outputDirectory?: string | null;
                   buildRuntime?: BuildRuntime;
-                  adapter?: Adapter;
-                  fallbackFile?: string;
+                  adapter?: Adapter | null;
+                  fallbackFile?: string | null;
                   installationId?: string;
                   providerRepositoryId?: string | null;
                   providerBranch?: string;
-                  providerSilentMode?: boolean;
+                  providerSilentMode?: boolean | null;
                   providerRootDirectory?: string;
                   providerBranches?: string[] | null;
                   providerPaths?: string[] | null;
                   buildSpecification?: string | null;
-                  runtimeSpecification?: string;
-                  deploymentRetention?: number;
+                  runtimeSpecification?: string | null;
+                  deploymentRetention?: number | null;
                   scopes?: ProjectKeyScopes[] | null;
                   description?: string | null;
               }
@@ -1081,26 +1087,26 @@ export class Sites {
         ...rest: [
             string?,
             Framework?,
-            boolean?,
-            boolean?,
-            number?,
-            string?,
-            string?,
-            string?,
-            string?,
+            (boolean | null)?,
+            (boolean | null)?,
+            (number | null)?,
+            (string | null)?,
+            (string | null)?,
+            (string | null)?,
+            (string | null)?,
             BuildRuntime?,
-            Adapter?,
-            string?,
+            (Adapter | null)?,
+            (string | null)?,
             string?,
             (string | null)?,
             string?,
-            boolean?,
+            (boolean | null)?,
             string?,
             (string[] | null)?,
             (string[] | null)?,
             (string | null)?,
-            string?,
-            number?,
+            (string | null)?,
+            (number | null)?,
             (ProjectKeyScopes[] | null)?,
             (string | null)?,
         ]
@@ -1109,26 +1115,26 @@ export class Sites {
             siteId: string;
             name: string;
             framework: Framework;
-            enabled?: boolean;
-            logging?: boolean;
-            timeout?: number;
-            installCommand?: string;
-            buildCommand?: string;
-            startCommand?: string;
-            outputDirectory?: string;
+            enabled?: boolean | null;
+            logging?: boolean | null;
+            timeout?: number | null;
+            installCommand?: string | null;
+            buildCommand?: string | null;
+            startCommand?: string | null;
+            outputDirectory?: string | null;
             buildRuntime?: BuildRuntime;
-            adapter?: Adapter;
-            fallbackFile?: string;
+            adapter?: Adapter | null;
+            fallbackFile?: string | null;
             installationId?: string;
             providerRepositoryId?: string | null;
             providerBranch?: string;
-            providerSilentMode?: boolean;
+            providerSilentMode?: boolean | null;
             providerRootDirectory?: string;
             providerBranches?: string[] | null;
             providerPaths?: string[] | null;
             buildSpecification?: string | null;
-            runtimeSpecification?: string;
-            deploymentRetention?: number;
+            runtimeSpecification?: string | null;
+            deploymentRetention?: number | null;
             scopes?: ProjectKeyScopes[] | null;
             description?: string | null;
         };
@@ -1142,26 +1148,26 @@ export class Sites {
                 siteId: string;
                 name: string;
                 framework: Framework;
-                enabled?: boolean;
-                logging?: boolean;
-                timeout?: number;
-                installCommand?: string;
-                buildCommand?: string;
-                startCommand?: string;
-                outputDirectory?: string;
+                enabled?: boolean | null;
+                logging?: boolean | null;
+                timeout?: number | null;
+                installCommand?: string | null;
+                buildCommand?: string | null;
+                startCommand?: string | null;
+                outputDirectory?: string | null;
                 buildRuntime?: BuildRuntime;
-                adapter?: Adapter;
-                fallbackFile?: string;
+                adapter?: Adapter | null;
+                fallbackFile?: string | null;
                 installationId?: string;
                 providerRepositoryId?: string | null;
                 providerBranch?: string;
-                providerSilentMode?: boolean;
+                providerSilentMode?: boolean | null;
                 providerRootDirectory?: string;
                 providerBranches?: string[] | null;
                 providerPaths?: string[] | null;
                 buildSpecification?: string | null;
-                runtimeSpecification?: string;
-                deploymentRetention?: number;
+                runtimeSpecification?: string | null;
+                deploymentRetention?: number | null;
                 scopes?: ProjectKeyScopes[] | null;
                 description?: string | null;
             };
@@ -1170,26 +1176,26 @@ export class Sites {
                 siteId: paramsOrFirst as string,
                 name: rest[0] as string,
                 framework: rest[1] as Framework,
-                enabled: rest[2] as boolean,
-                logging: rest[3] as boolean,
-                timeout: rest[4] as number,
-                installCommand: rest[5] as string,
-                buildCommand: rest[6] as string,
-                startCommand: rest[7] as string,
-                outputDirectory: rest[8] as string,
+                enabled: rest[2] as boolean | null,
+                logging: rest[3] as boolean | null,
+                timeout: rest[4] as number | null,
+                installCommand: rest[5] as string | null,
+                buildCommand: rest[6] as string | null,
+                startCommand: rest[7] as string | null,
+                outputDirectory: rest[8] as string | null,
                 buildRuntime: rest[9] as BuildRuntime,
-                adapter: rest[10] as Adapter,
-                fallbackFile: rest[11] as string,
+                adapter: rest[10] as Adapter | null,
+                fallbackFile: rest[11] as string | null,
                 installationId: rest[12] as string,
                 providerRepositoryId: rest[13] as string | null,
                 providerBranch: rest[14] as string,
-                providerSilentMode: rest[15] as boolean,
+                providerSilentMode: rest[15] as boolean | null,
                 providerRootDirectory: rest[16] as string,
                 providerBranches: rest[17] as string[] | null,
                 providerPaths: rest[18] as string[] | null,
                 buildSpecification: rest[19] as string | null,
-                runtimeSpecification: rest[20] as string,
-                deploymentRetention: rest[21] as number,
+                runtimeSpecification: rest[20] as string | null,
+                deploymentRetention: rest[21] as number | null,
                 scopes: rest[22] as ProjectKeyScopes[] | null,
                 description: rest[23] as string | null,
             };
@@ -1356,6 +1362,8 @@ export class Sites {
                         buildSpecification: 's-1vcpu-512mb',
                         runtimeSpecification: 's-1vcpu-512mb',
                         buildRuntime: '',
+                        analyticsEnabled: false,
+                        analyticsPropertyId: '',
                     },
                     properties: {
                         vars: {
@@ -1432,6 +1440,144 @@ export class Sites {
         };
 
         return this.client.call('delete', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Turn analytics on or off for a site. Turning it on links an analytics property named after the site, creating one on first use, and injects the tracker into pages served on the site's production domains. Turning it on also needs the `analytics.write` scope. Turning it off stops the injection and keeps the property and its data.
+     *
+     * @param {string} params.siteId - Site ID.
+     * @param {boolean} params.enabled - Inject the analytics tracker into the site's production domains. Injected pageviews and events are billed as analytics usage.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Site>}
+     */
+    updateAnalytics(params: {
+        siteId: string;
+        enabled: boolean;
+    }): Promise<Models.Site>;
+    /**
+     * Turn analytics on or off for a site. Turning it on links an analytics property named after the site, creating one on first use, and injects the tracker into pages served on the site's production domains. Turning it on also needs the `analytics.write` scope. Turning it off stops the injection and keeps the property and its data.
+     *
+     * @param {string} siteId - Site ID.
+     * @param {boolean} enabled - Inject the analytics tracker into the site's production domains. Injected pageviews and events are billed as analytics usage.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Site>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateAnalytics(siteId: string, enabled: boolean): Promise<Models.Site>;
+    updateAnalytics(
+        paramsOrFirst: { siteId: string; enabled: boolean } | string,
+        ...rest: [boolean?]
+    ): Promise<Models.Site> {
+        let params: { siteId: string; enabled: boolean };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                siteId: string;
+                enabled: boolean;
+            };
+        } else {
+            params = {
+                siteId: paramsOrFirst as string,
+                enabled: rest[0] as boolean,
+            };
+        }
+
+        const siteId = params.siteId;
+        const enabled = params.enabled;
+        if (typeof siteId === 'undefined' || siteId === '') {
+            throw new AppwriteException('Missing required parameter: "siteId"');
+        }
+        if (typeof enabled === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "enabled"',
+            );
+        }
+        const apiPath = '/sites/{siteId}/analytics'.replace(
+            '{siteId}',
+            encodePath(siteId),
+        );
+        const apiPayload: Payload = {};
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'site',
+            models: {
+                site: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        description: '',
+                        enabled: true,
+                        live: true,
+                        logging: true,
+                        framework: '',
+                        deploymentRetention: 0,
+                        deploymentId: '',
+                        deploymentCreatedAt: '',
+                        deploymentScreenshotLight: '',
+                        deploymentScreenshotDark: '',
+                        latestDeploymentId: '',
+                        latestDeploymentCreatedAt: '',
+                        latestDeploymentStatus: '',
+                        scopes: [],
+                        vars: [],
+                        timeout: 15,
+                        installCommand: '',
+                        buildCommand: '',
+                        startCommand: '',
+                        outputDirectory: '',
+                        installationId: '',
+                        providerRepositoryId: '',
+                        providerBranch: '',
+                        providerRootDirectory: '',
+                        providerSilentMode: false,
+                        providerBranches: [],
+                        providerPaths: [],
+                        buildSpecification: 's-1vcpu-512mb',
+                        runtimeSpecification: 's-1vcpu-512mb',
+                        buildRuntime: '',
+                        analyticsEnabled: false,
+                        analyticsPropertyId: '',
+                    },
+                    properties: {
+                        vars: {
+                            items: 'variable',
+                        },
+                    },
+                },
+                variable: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        key: '',
+                        description: '',
+                        value: '',
+                        secret: false,
+                        resourceType: '',
+                        resourceId: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
     }
 
     /**
@@ -1547,6 +1693,8 @@ export class Sites {
                         buildSpecification: 's-1vcpu-512mb',
                         runtimeSpecification: 's-1vcpu-512mb',
                         buildRuntime: '',
+                        analyticsEnabled: false,
+                        analyticsPropertyId: '',
                     },
                     properties: {
                         vars: {

@@ -79,6 +79,7 @@ export { SupabaseMigrationResource } from './enums/supabase-migration-resource';
 export { Region } from './enums/region';
 export { ProjectAuthMethodId } from './enums/project-auth-method-id';
 export { EnvironmentResource } from './enums/environment-resource';
+export { ProjectLDAPEncryption } from './enums/project-ldap-encryption';
 export { ProjectOAuth2Auth0Prompt } from './enums/project-o-auth-2-auth-0-prompt';
 export { ProjectOAuth2DiscordPrompt } from './enums/project-o-auth-2-discord-prompt';
 export { ProjectOAuth2GitHubPrompt } from './enums/project-o-auth-2-git-hub-prompt';

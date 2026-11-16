@@ -63,6 +63,8 @@ describe('Sites', () => {
             buildRuntime: 'node-22',
             adapter: 'static',
             fallbackFile: 'index.html',
+            analyticsEnabled: true,
+            analyticsPropertyId: '5e5ea5c16897e',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await sites.create(
@@ -141,6 +143,8 @@ describe('Sites', () => {
             buildRuntime: 'node-22',
             adapter: 'static',
             fallbackFile: 'index.html',
+            analyticsEnabled: true,
+            analyticsPropertyId: '5e5ea5c16897e',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await sites.get('<SITE_ID>');
@@ -188,6 +192,8 @@ describe('Sites', () => {
             buildRuntime: 'node-22',
             adapter: 'static',
             fallbackFile: 'index.html',
+            analyticsEnabled: true,
+            analyticsPropertyId: '5e5ea5c16897e',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await sites.update('<SITE_ID>', '<NAME>', 'analog');
@@ -201,6 +207,55 @@ describe('Sites', () => {
         const data = { message: '' };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await sites.delete('<SITE_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateAnalytics()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'My Site',
+            description: 'Marketing site for the spring launch.',
+            enabled: true,
+            live: true,
+            logging: true,
+            framework: 'react',
+            deploymentRetention: 7,
+            deploymentId: '5e5ea5c16897e',
+            deploymentCreatedAt: '2020-10-15T06:38:00.000+00:00',
+            deploymentScreenshotLight: '5e5ea5c16897e',
+            deploymentScreenshotDark: '5e5ea5c16897e',
+            latestDeploymentId: '5e5ea5c16897e',
+            latestDeploymentCreatedAt: '2020-10-15T06:38:00.000+00:00',
+            latestDeploymentStatus: 'ready',
+            scopes: [],
+            vars: [],
+            timeout: 300,
+            installCommand: 'npm install',
+            buildCommand: 'npm run build',
+            startCommand: 'node custom-server.mjs',
+            outputDirectory: 'build',
+            installationId: '6m40at4ejk5h2u9s1hboo',
+            providerRepositoryId: 'appwrite',
+            providerBranch: 'main',
+            providerRootDirectory: 'sites/helloWorld',
+            providerSilentMode: true,
+            providerBranches: [],
+            providerPaths: [],
+            buildSpecification: 's-1vcpu-512mb',
+            runtimeSpecification: 's-1vcpu-512mb',
+            buildRuntime: 'node-22',
+            adapter: 'static',
+            fallbackFile: 'index.html',
+            analyticsEnabled: true,
+            analyticsPropertyId: '5e5ea5c16897e',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await sites.updateAnalytics('<SITE_ID>', true);
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
@@ -245,6 +300,8 @@ describe('Sites', () => {
             buildRuntime: 'node-22',
             adapter: 'static',
             fallbackFile: 'index.html',
+            analyticsEnabled: true,
+            analyticsPropertyId: '5e5ea5c16897e',
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await sites.updateSiteDeployment(

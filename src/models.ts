@@ -4367,6 +4367,14 @@ export namespace Models {
          * Name of fallback file to use instead of 404 page. If null, Appwrite 404 page will be displayed.
          */
         fallbackFile: string;
+        /**
+         * Whether the analytics tracker is injected into pages served on the site's production domains.
+         */
+        analyticsEnabled: boolean;
+        /**
+         * ID of the analytics property the site reports to. Kept when analytics is turned off, so turning it back on resumes the same property.
+         */
+        analyticsPropertyId: string;
     };
 
     /**
@@ -4871,6 +4879,70 @@ export namespace Models {
          * SMTP server secure protocol
          */
         smtpSecure: string;
+        /**
+         * Status for LDAP sign-in
+         */
+        ldapEnabled: boolean;
+        /**
+         * LDAP directory hosts, tried in order.
+         */
+        ldapHosts: string[];
+        /**
+         * LDAP directory port.
+         */
+        ldapPort: number;
+        /**
+         * LDAP transport encryption: none, ldaps or starttls.
+         */
+        ldapEncryption: string;
+        /**
+         * Whether the LDAP directory certificate is verified.
+         */
+        ldapVerification: boolean;
+        /**
+         * Certificate in PEM format of the authority that signed the LDAP directory certificate, or the directory certificate itself when it is self-signed. Empty for the system trust store.
+         */
+        ldapCertificate: string;
+        /**
+         * Seconds to wait for the LDAP directory to connect and answer.
+         */
+        ldapTimeout: number;
+        /**
+         * LDAP subtree the user search starts from.
+         */
+        ldapBaseDn: string;
+        /**
+         * LDAP service account used to search for users, empty for anonymous search.
+         */
+        ldapBindDn: string;
+        /**
+         * LDAP service account password. This property is write-only and always returned empty.
+         */
+        ldapBindPassword: string;
+        /**
+         * LDAP filter that finds the user signing in, with {username} where the username they enter goes.
+         */
+        ldapUserFilter: string;
+        /**
+         * LDAP group a user must belong to in order to sign in, empty to allow every user.
+         */
+        ldapRequiredGroupDn: string;
+        /**
+         * LDAP attribute holding the identifier that stays the same when an entry is renamed or moved.
+         */
+        ldapIdAttribute: string;
+        /**
+         * LDAP attribute holding the email address.
+         */
+        ldapEmailAttribute: string;
+        /**
+         * LDAP attribute holding the display name.
+         */
+        ldapNameAttribute: string;
+        /**
+         * LDAP attribute holding the phone number, empty when unmapped.
+         */
+        ldapPhoneAttribute: string;
         /**
          * Number of times the ping was received for this project.
          */
@@ -6404,6 +6476,28 @@ export namespace Models {
     };
 
     /**
+     * OAuth2Naver
+     */
+    export type OAuth2Naver = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Naver OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Naver OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
      * OAuth2 Providers List
      */
     export type OAuth2ProviderList = {
@@ -6462,6 +6556,7 @@ export namespace Models {
             | Models.OAuth2Cloudflare
             | Models.OAuth2TikTok
             | Models.OAuth2Kakao
+            | Models.OAuth2Naver
             | Models.OAuth2Vipps
         )[];
     };
@@ -9526,6 +9621,10 @@ export namespace Models {
          * Renewal price period in years.
          */
         renewalPeriodYears: number;
+        /**
+         * Why the domain was not priced for the requested registration type, for example a transfer of an unregistered domain. Empty otherwise.
+         */
+        reason?: string | null;
     };
 
     /**
