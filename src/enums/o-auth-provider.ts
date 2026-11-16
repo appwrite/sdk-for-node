@@ -26,6 +26,7 @@ export enum OAuthProvider {
     Kick = 'kick',
     Linkedin = 'linkedin',
     Microsoft = 'microsoft',
+    Naver = 'naver',
     Notion = 'notion',
     Oidc = 'oidc',
     Okta = 'okta',

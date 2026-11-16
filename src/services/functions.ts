@@ -914,25 +914,25 @@ export class Functions {
      * @param {string} params.functionId - Function ID.
      * @param {string} params.name - Function name. Max length: 128 chars.
      * @param {Runtime} params.runtime - Execution runtime.
-     * @param {string[]} params.execute - An array of role strings with execution permissions. By default no user is granted with any execute permissions. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
-     * @param {string[]} params.events - Events list. Maximum of 100 events are allowed.
-     * @param {string} params.schedule - Schedule CRON syntax. Cannot be combined with interval.
-     * @param {number} params.timeout - Maximum execution time in seconds.
-     * @param {boolean} params.enabled - Is function enabled? When set to 'disabled', users cannot access the function but Server SDKs with and API key can still access the function. No data is lost when this is toggled.
-     * @param {boolean} params.logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
-     * @param {string} params.entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
-     * @param {string} params.commands - Build Commands.
-     * @param {ProjectKeyScopes[]} params.scopes - List of scopes allowed for API Key auto-generated for every execution. Maximum of 200 scopes are allowed.
+     * @param {string[] | null} params.execute - An array of role strings with execution permissions. By default no user is granted with any execute permissions. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
+     * @param {string[] | null} params.events - Events list. Maximum of 100 events are allowed.
+     * @param {string | null} params.schedule - Schedule CRON syntax. Cannot be combined with interval.
+     * @param {number | null} params.timeout - Maximum execution time in seconds.
+     * @param {boolean | null} params.enabled - Is function enabled? When set to 'disabled', users cannot access the function but Server SDKs with and API key can still access the function. No data is lost when this is toggled.
+     * @param {boolean | null} params.logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
+     * @param {string | null} params.entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
+     * @param {string | null} params.commands - Build Commands.
+     * @param {ProjectKeyScopes[] | null} params.scopes - List of scopes allowed for API Key auto-generated for every execution. Maximum of 200 scopes are allowed.
      * @param {string} params.installationId - Appwrite Installation ID for VCS (Version Controle System) deployment.
      * @param {string | null} params.providerRepositoryId - Repository ID of the repo linked to the function
      * @param {string} params.providerBranch - Production branch for the repo linked to the function
-     * @param {boolean} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
+     * @param {boolean | null} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
      * @param {string} params.providerRootDirectory - Path to function code in the linked repo.
      * @param {string[] | null} params.providerBranches - List of branch name patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all branches.
      * @param {string[] | null} params.providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
      * @param {string | null} params.buildSpecification - Build specification for the function deployments.
      * @param {string | null} params.runtimeSpecification - Runtime specification for the function executions.
-     * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
+     * @param {number | null} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {number | null} params.interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule. When omitted, the current interval is kept unless schedule is set.
      * @param {string | null} params.description - Optional description for the function.
      * @param {boolean | null} params.emailEnabled - Enable inbound email triggering for this function. When false or omitted on create, SMTP recipients are rejected. Opt-in; default is off.
@@ -943,25 +943,25 @@ export class Functions {
         functionId: string;
         name: string;
         runtime?: Runtime;
-        execute?: string[];
-        events?: string[];
-        schedule?: string;
-        timeout?: number;
-        enabled?: boolean;
-        logging?: boolean;
-        entrypoint?: string;
-        commands?: string;
-        scopes?: ProjectKeyScopes[];
+        execute?: string[] | null;
+        events?: string[] | null;
+        schedule?: string | null;
+        timeout?: number | null;
+        enabled?: boolean | null;
+        logging?: boolean | null;
+        entrypoint?: string | null;
+        commands?: string | null;
+        scopes?: ProjectKeyScopes[] | null;
         installationId?: string;
         providerRepositoryId?: string | null;
         providerBranch?: string;
-        providerSilentMode?: boolean;
+        providerSilentMode?: boolean | null;
         providerRootDirectory?: string;
         providerBranches?: string[] | null;
         providerPaths?: string[] | null;
         buildSpecification?: string | null;
         runtimeSpecification?: string | null;
-        deploymentRetention?: number;
+        deploymentRetention?: number | null;
         interval?: number | null;
         description?: string | null;
         emailEnabled?: boolean | null;
@@ -972,25 +972,25 @@ export class Functions {
      * @param {string} functionId - Function ID.
      * @param {string} name - Function name. Max length: 128 chars.
      * @param {Runtime} runtime - Execution runtime.
-     * @param {string[]} execute - An array of role strings with execution permissions. By default no user is granted with any execute permissions. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
-     * @param {string[]} events - Events list. Maximum of 100 events are allowed.
-     * @param {string} schedule - Schedule CRON syntax. Cannot be combined with interval.
-     * @param {number} timeout - Maximum execution time in seconds.
-     * @param {boolean} enabled - Is function enabled? When set to 'disabled', users cannot access the function but Server SDKs with and API key can still access the function. No data is lost when this is toggled.
-     * @param {boolean} logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
-     * @param {string} entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
-     * @param {string} commands - Build Commands.
-     * @param {ProjectKeyScopes[]} scopes - List of scopes allowed for API Key auto-generated for every execution. Maximum of 200 scopes are allowed.
+     * @param {string[] | null} execute - An array of role strings with execution permissions. By default no user is granted with any execute permissions. [learn more about roles](https://appwrite.io/docs/permissions#permission-roles). Maximum of 100 roles are allowed, each 64 characters long.
+     * @param {string[] | null} events - Events list. Maximum of 100 events are allowed.
+     * @param {string | null} schedule - Schedule CRON syntax. Cannot be combined with interval.
+     * @param {number | null} timeout - Maximum execution time in seconds.
+     * @param {boolean | null} enabled - Is function enabled? When set to 'disabled', users cannot access the function but Server SDKs with and API key can still access the function. No data is lost when this is toggled.
+     * @param {boolean | null} logging - When disabled, executions will exclude logs and errors, and will be slightly faster.
+     * @param {string | null} entrypoint - Entrypoint File. This path is relative to the "providerRootDirectory".
+     * @param {string | null} commands - Build Commands.
+     * @param {ProjectKeyScopes[] | null} scopes - List of scopes allowed for API Key auto-generated for every execution. Maximum of 200 scopes are allowed.
      * @param {string} installationId - Appwrite Installation ID for VCS (Version Controle System) deployment.
      * @param {string | null} providerRepositoryId - Repository ID of the repo linked to the function
      * @param {string} providerBranch - Production branch for the repo linked to the function
-     * @param {boolean} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
+     * @param {boolean | null} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
      * @param {string} providerRootDirectory - Path to function code in the linked repo.
      * @param {string[] | null} providerBranches - List of branch name patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all branches.
      * @param {string[] | null} providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
      * @param {string | null} buildSpecification - Build specification for the function deployments.
      * @param {string | null} runtimeSpecification - Runtime specification for the function executions.
-     * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
+     * @param {number | null} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {number | null} interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule. When omitted, the current interval is kept unless schedule is set.
      * @param {string | null} description - Optional description for the function.
      * @param {boolean | null} emailEnabled - Enable inbound email triggering for this function. When false or omitted on create, SMTP recipients are rejected. Opt-in; default is off.
@@ -1002,25 +1002,25 @@ export class Functions {
         functionId: string,
         name: string,
         runtime?: Runtime,
-        execute?: string[],
-        events?: string[],
-        schedule?: string,
-        timeout?: number,
-        enabled?: boolean,
-        logging?: boolean,
-        entrypoint?: string,
-        commands?: string,
-        scopes?: ProjectKeyScopes[],
+        execute?: string[] | null,
+        events?: string[] | null,
+        schedule?: string | null,
+        timeout?: number | null,
+        enabled?: boolean | null,
+        logging?: boolean | null,
+        entrypoint?: string | null,
+        commands?: string | null,
+        scopes?: ProjectKeyScopes[] | null,
         installationId?: string,
         providerRepositoryId?: string | null,
         providerBranch?: string,
-        providerSilentMode?: boolean,
+        providerSilentMode?: boolean | null,
         providerRootDirectory?: string,
         providerBranches?: string[] | null,
         providerPaths?: string[] | null,
         buildSpecification?: string | null,
         runtimeSpecification?: string | null,
-        deploymentRetention?: number,
+        deploymentRetention?: number | null,
         interval?: number | null,
         description?: string | null,
         emailEnabled?: boolean | null,
@@ -1031,25 +1031,25 @@ export class Functions {
                   functionId: string;
                   name: string;
                   runtime?: Runtime;
-                  execute?: string[];
-                  events?: string[];
-                  schedule?: string;
-                  timeout?: number;
-                  enabled?: boolean;
-                  logging?: boolean;
-                  entrypoint?: string;
-                  commands?: string;
-                  scopes?: ProjectKeyScopes[];
+                  execute?: string[] | null;
+                  events?: string[] | null;
+                  schedule?: string | null;
+                  timeout?: number | null;
+                  enabled?: boolean | null;
+                  logging?: boolean | null;
+                  entrypoint?: string | null;
+                  commands?: string | null;
+                  scopes?: ProjectKeyScopes[] | null;
                   installationId?: string;
                   providerRepositoryId?: string | null;
                   providerBranch?: string;
-                  providerSilentMode?: boolean;
+                  providerSilentMode?: boolean | null;
                   providerRootDirectory?: string;
                   providerBranches?: string[] | null;
                   providerPaths?: string[] | null;
                   buildSpecification?: string | null;
                   runtimeSpecification?: string | null;
-                  deploymentRetention?: number;
+                  deploymentRetention?: number | null;
                   interval?: number | null;
                   description?: string | null;
                   emailEnabled?: boolean | null;
@@ -1058,25 +1058,25 @@ export class Functions {
         ...rest: [
             string?,
             Runtime?,
-            string[]?,
-            string[]?,
-            string?,
-            number?,
-            boolean?,
-            boolean?,
-            string?,
-            string?,
-            ProjectKeyScopes[]?,
+            (string[] | null)?,
+            (string[] | null)?,
+            (string | null)?,
+            (number | null)?,
+            (boolean | null)?,
+            (boolean | null)?,
+            (string | null)?,
+            (string | null)?,
+            (ProjectKeyScopes[] | null)?,
             string?,
             (string | null)?,
             string?,
-            boolean?,
+            (boolean | null)?,
             string?,
             (string[] | null)?,
             (string[] | null)?,
             (string | null)?,
             (string | null)?,
-            number?,
+            (number | null)?,
             (number | null)?,
             (string | null)?,
             (boolean | null)?,
@@ -1086,25 +1086,25 @@ export class Functions {
             functionId: string;
             name: string;
             runtime?: Runtime;
-            execute?: string[];
-            events?: string[];
-            schedule?: string;
-            timeout?: number;
-            enabled?: boolean;
-            logging?: boolean;
-            entrypoint?: string;
-            commands?: string;
-            scopes?: ProjectKeyScopes[];
+            execute?: string[] | null;
+            events?: string[] | null;
+            schedule?: string | null;
+            timeout?: number | null;
+            enabled?: boolean | null;
+            logging?: boolean | null;
+            entrypoint?: string | null;
+            commands?: string | null;
+            scopes?: ProjectKeyScopes[] | null;
             installationId?: string;
             providerRepositoryId?: string | null;
             providerBranch?: string;
-            providerSilentMode?: boolean;
+            providerSilentMode?: boolean | null;
             providerRootDirectory?: string;
             providerBranches?: string[] | null;
             providerPaths?: string[] | null;
             buildSpecification?: string | null;
             runtimeSpecification?: string | null;
-            deploymentRetention?: number;
+            deploymentRetention?: number | null;
             interval?: number | null;
             description?: string | null;
             emailEnabled?: boolean | null;
@@ -1119,25 +1119,25 @@ export class Functions {
                 functionId: string;
                 name: string;
                 runtime?: Runtime;
-                execute?: string[];
-                events?: string[];
-                schedule?: string;
-                timeout?: number;
-                enabled?: boolean;
-                logging?: boolean;
-                entrypoint?: string;
-                commands?: string;
-                scopes?: ProjectKeyScopes[];
+                execute?: string[] | null;
+                events?: string[] | null;
+                schedule?: string | null;
+                timeout?: number | null;
+                enabled?: boolean | null;
+                logging?: boolean | null;
+                entrypoint?: string | null;
+                commands?: string | null;
+                scopes?: ProjectKeyScopes[] | null;
                 installationId?: string;
                 providerRepositoryId?: string | null;
                 providerBranch?: string;
-                providerSilentMode?: boolean;
+                providerSilentMode?: boolean | null;
                 providerRootDirectory?: string;
                 providerBranches?: string[] | null;
                 providerPaths?: string[] | null;
                 buildSpecification?: string | null;
                 runtimeSpecification?: string | null;
-                deploymentRetention?: number;
+                deploymentRetention?: number | null;
                 interval?: number | null;
                 description?: string | null;
                 emailEnabled?: boolean | null;
@@ -1147,25 +1147,25 @@ export class Functions {
                 functionId: paramsOrFirst as string,
                 name: rest[0] as string,
                 runtime: rest[1] as Runtime,
-                execute: rest[2] as string[],
-                events: rest[3] as string[],
-                schedule: rest[4] as string,
-                timeout: rest[5] as number,
-                enabled: rest[6] as boolean,
-                logging: rest[7] as boolean,
-                entrypoint: rest[8] as string,
-                commands: rest[9] as string,
-                scopes: rest[10] as ProjectKeyScopes[],
+                execute: rest[2] as string[] | null,
+                events: rest[3] as string[] | null,
+                schedule: rest[4] as string | null,
+                timeout: rest[5] as number | null,
+                enabled: rest[6] as boolean | null,
+                logging: rest[7] as boolean | null,
+                entrypoint: rest[8] as string | null,
+                commands: rest[9] as string | null,
+                scopes: rest[10] as ProjectKeyScopes[] | null,
                 installationId: rest[11] as string,
                 providerRepositoryId: rest[12] as string | null,
                 providerBranch: rest[13] as string,
-                providerSilentMode: rest[14] as boolean,
+                providerSilentMode: rest[14] as boolean | null,
                 providerRootDirectory: rest[15] as string,
                 providerBranches: rest[16] as string[] | null,
                 providerPaths: rest[17] as string[] | null,
                 buildSpecification: rest[18] as string | null,
                 runtimeSpecification: rest[19] as string | null,
-                deploymentRetention: rest[20] as number,
+                deploymentRetention: rest[20] as number | null,
                 interval: rest[21] as number | null,
                 description: rest[22] as string | null,
                 emailEnabled: rest[23] as boolean | null,

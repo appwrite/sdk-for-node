@@ -370,7 +370,7 @@ export class Domains {
     }
 
     /**
-     * Check availability and get the requested registration price for one or more domain names. Availability is resolved for all domains in a single registrar lookup. Unavailable domains have a null price for new registrations, but can still be priced for renewal, transfer, or trade. Every priced domain also carries its renewal price for the same period, so a separate renewal lookup is not needed. A domain whose price could not be resolved, for example because its TLD is not supported, is returned with a null price.
+     * Check availability and get the requested registration price for one or more domain names. Availability is resolved for all domains in a single registrar lookup. Unavailable domains have a null price for new registrations, but can still be priced for renewal, transfer, or trade. Available domains have a null price for transfers, since an unregistered domain cannot be transferred, and the reason says so. Every priced domain also carries its renewal price for the same period, so a separate renewal lookup is not needed. A domain whose price could not be resolved, for example because its TLD is not supported, is returned with a null price.
      *
      * @param {string[]} params.domains - Domain names to check availability and price for. Maximum of 50 domains per request.
      * @param {number} params.periodYears - Number of years to calculate the domain price for. Must be at least 1.
@@ -384,7 +384,7 @@ export class Domains {
         registrationType?: DomainRegistrationType;
     }): Promise<Models.DomainPricesList>;
     /**
-     * Check availability and get the requested registration price for one or more domain names. Availability is resolved for all domains in a single registrar lookup. Unavailable domains have a null price for new registrations, but can still be priced for renewal, transfer, or trade. Every priced domain also carries its renewal price for the same period, so a separate renewal lookup is not needed. A domain whose price could not be resolved, for example because its TLD is not supported, is returned with a null price.
+     * Check availability and get the requested registration price for one or more domain names. Availability is resolved for all domains in a single registrar lookup. Unavailable domains have a null price for new registrations, but can still be priced for renewal, transfer, or trade. Available domains have a null price for transfers, since an unregistered domain cannot be transferred, and the reason says so. Every priced domain also carries its renewal price for the same period, so a separate renewal lookup is not needed. A domain whose price could not be resolved, for example because its TLD is not supported, is returned with a null price.
      *
      * @param {string[]} domains - Domain names to check availability and price for. Maximum of 50 domains per request.
      * @param {number} periodYears - Number of years to calculate the domain price for. Must be at least 1.

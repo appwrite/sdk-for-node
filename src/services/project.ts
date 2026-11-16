@@ -10,6 +10,7 @@ import type { Models } from '../models';
 import { ProjectAuthMethodId } from '../enums/project-auth-method-id';
 import { EnvironmentResource } from '../enums/environment-resource';
 import { ProjectKeyScopes } from '../enums/project-key-scopes';
+import { ProjectLDAPEncryption } from '../enums/project-ldap-encryption';
 import { ProjectOAuth2Auth0Prompt } from '../enums/project-o-auth-2-auth-0-prompt';
 import { ProjectOAuth2DiscordPrompt } from '../enums/project-o-auth-2-discord-prompt';
 import { ProjectOAuth2GitHubPrompt } from '../enums/project-o-auth-2-git-hub-prompt';
@@ -74,6 +75,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -152,7 +169,7 @@ export class Project {
     /**
      * Update properties of a specific auth method. Use this endpoint to enable or disable a method in your project.
      *
-     * @param {ProjectAuthMethodId} params.methodId - Auth Method ID. Possible values: email-password,magic-url,email-otp,anonymous,invites,jwt,phone,passkey
+     * @param {ProjectAuthMethodId} params.methodId - Auth Method ID. Possible values: email-password,magic-url,email-otp,anonymous,invites,jwt,phone,passkey,ldap
      * @param {boolean} params.enabled - Auth method status.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project<Preferences>>}
@@ -166,7 +183,7 @@ export class Project {
     /**
      * Update properties of a specific auth method. Use this endpoint to enable or disable a method in your project.
      *
-     * @param {ProjectAuthMethodId} methodId - Auth Method ID. Possible values: email-password,magic-url,email-otp,anonymous,invites,jwt,phone,passkey
+     * @param {ProjectAuthMethodId} methodId - Auth Method ID. Possible values: email-password,magic-url,email-otp,anonymous,invites,jwt,phone,passkey,ldap
      * @param {boolean} enabled - Auth method status.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Project<Preferences>>}
@@ -255,6 +272,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -1293,6 +1326,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -1346,6 +1395,430 @@ export class Project {
         };
 
         return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update the LDAP configuration for your project. Use this endpoint to connect your project to an LDAP directory, such as OpenLDAP or Active Directory, so users can sign in with their directory credentials. Omitted parameters keep their stored value. Enabling LDAP connects to the directory and binds as the service account, so a project cannot be left enabled with a configuration that cannot sign anyone in.
+     *
+     * @param {boolean | null} params.enabled - Enable or disable LDAP sign-in. Enabling connects to the directory to validate the configuration.
+     * @param {string[] | null} params.hosts - Directory hostnames or IP addresses, tried in order until one answers. IPv6 addresses can be written with or without square brackets. Maximum of 10 hosts are allowed. For example: ["ldap.example.com"]
+     * @param {number | null} params.port - Directory port. Defaults to 636 for LDAPS and 389 otherwise.
+     * @param {ProjectLDAPEncryption | null} params.encryption - Transport encryption. Use "ldaps" for TLS from the first byte, "starttls" to upgrade a plain connection, or "none" for a trusted network only. Allowed values are: none, ldaps, starttls. Defaults to ldaps.
+     * @param {boolean | null} params.verification - Certificate verification, false for disabled or true for enabled. Defaults to true. Has no effect when encryption is none.
+     * @param {string | null} params.certificate - Certificate in PEM format of the authority that signed the directory certificate, or the directory certificate itself when it is self-signed. Several certificates can be given one after another. Leave empty to use the system trust store. Pass an empty string to clear a previously set value.
+     * @param {number | null} params.timeout - Seconds to wait for the directory to connect and answer each operation. Maximum is 30 seconds. Defaults to 10.
+     * @param {string | null} params.baseDn - Subtree the user search starts from. For example: ou=people,dc=example,dc=com
+     * @param {string | null} params.bindDn - Service account used to search for users. Pass an empty string if the directory allows anonymous search. For example: cn=appwrite,ou=services,dc=example,dc=com
+     * @param {string | null} params.bindPassword - Service account password. This property is stored securely and cannot be read in future (write-only). Required again when hosts, port, encryption, verification, certificate or bindDn change.
+     * @param {string | null} params.userFilter - LDAP filter that finds the user signing in. {username} is replaced with the username they enter and must appear at least once. Pass an empty string to use the default, (uid={username}). For example: (sAMAccountName={username}) on Active Directory, or (|(uid={username})(mail={username})) to accept a username or an email address.
+     * @param {string | null} params.requiredGroupDn - Group a user must belong to in order to sign in, checked on every sign-in. Pass an empty string to allow every user the directory authenticates. For example: cn=staff,ou=groups,dc=example,dc=com
+     * @param {string | null} params.idAttribute - Attribute holding the identifier that stays the same when an entry is renamed or moved. Defaults to entryUUID; use objectGUID on Active Directory.
+     * @param {string | null} params.emailAttribute - Attribute holding the email address. Defaults to mail.
+     * @param {string | null} params.nameAttribute - Attribute holding the display name. Defaults to cn.
+     * @param {string | null} params.phoneAttribute - Attribute holding the phone number, in international format. Leave empty, the default, to leave the phone unmapped. For example: mobile
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project<Preferences>>}
+     */
+    updateLDAP<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params?: {
+        enabled?: boolean | null;
+        hosts?: string[] | null;
+        port?: number | null;
+        encryption?: ProjectLDAPEncryption | null;
+        verification?: boolean | null;
+        certificate?: string | null;
+        timeout?: number | null;
+        baseDn?: string | null;
+        bindDn?: string | null;
+        bindPassword?: string | null;
+        userFilter?: string | null;
+        requiredGroupDn?: string | null;
+        idAttribute?: string | null;
+        emailAttribute?: string | null;
+        nameAttribute?: string | null;
+        phoneAttribute?: string | null;
+    }): Promise<Models.Project<Preferences>>;
+    /**
+     * Update the LDAP configuration for your project. Use this endpoint to connect your project to an LDAP directory, such as OpenLDAP or Active Directory, so users can sign in with their directory credentials. Omitted parameters keep their stored value. Enabling LDAP connects to the directory and binds as the service account, so a project cannot be left enabled with a configuration that cannot sign anyone in.
+     *
+     * @param {boolean | null} enabled - Enable or disable LDAP sign-in. Enabling connects to the directory to validate the configuration.
+     * @param {string[] | null} hosts - Directory hostnames or IP addresses, tried in order until one answers. IPv6 addresses can be written with or without square brackets. Maximum of 10 hosts are allowed. For example: ["ldap.example.com"]
+     * @param {number | null} port - Directory port. Defaults to 636 for LDAPS and 389 otherwise.
+     * @param {ProjectLDAPEncryption | null} encryption - Transport encryption. Use "ldaps" for TLS from the first byte, "starttls" to upgrade a plain connection, or "none" for a trusted network only. Allowed values are: none, ldaps, starttls. Defaults to ldaps.
+     * @param {boolean | null} verification - Certificate verification, false for disabled or true for enabled. Defaults to true. Has no effect when encryption is none.
+     * @param {string | null} certificate - Certificate in PEM format of the authority that signed the directory certificate, or the directory certificate itself when it is self-signed. Several certificates can be given one after another. Leave empty to use the system trust store. Pass an empty string to clear a previously set value.
+     * @param {number | null} timeout - Seconds to wait for the directory to connect and answer each operation. Maximum is 30 seconds. Defaults to 10.
+     * @param {string | null} baseDn - Subtree the user search starts from. For example: ou=people,dc=example,dc=com
+     * @param {string | null} bindDn - Service account used to search for users. Pass an empty string if the directory allows anonymous search. For example: cn=appwrite,ou=services,dc=example,dc=com
+     * @param {string | null} bindPassword - Service account password. This property is stored securely and cannot be read in future (write-only). Required again when hosts, port, encryption, verification, certificate or bindDn change.
+     * @param {string | null} userFilter - LDAP filter that finds the user signing in. {username} is replaced with the username they enter and must appear at least once. Pass an empty string to use the default, (uid={username}). For example: (sAMAccountName={username}) on Active Directory, or (|(uid={username})(mail={username})) to accept a username or an email address.
+     * @param {string | null} requiredGroupDn - Group a user must belong to in order to sign in, checked on every sign-in. Pass an empty string to allow every user the directory authenticates. For example: cn=staff,ou=groups,dc=example,dc=com
+     * @param {string | null} idAttribute - Attribute holding the identifier that stays the same when an entry is renamed or moved. Defaults to entryUUID; use objectGUID on Active Directory.
+     * @param {string | null} emailAttribute - Attribute holding the email address. Defaults to mail.
+     * @param {string | null} nameAttribute - Attribute holding the display name. Defaults to cn.
+     * @param {string | null} phoneAttribute - Attribute holding the phone number, in international format. Leave empty, the default, to leave the phone unmapped. For example: mobile
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Project<Preferences>>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateLDAP<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
+        enabled?: boolean | null,
+        hosts?: string[] | null,
+        port?: number | null,
+        encryption?: ProjectLDAPEncryption | null,
+        verification?: boolean | null,
+        certificate?: string | null,
+        timeout?: number | null,
+        baseDn?: string | null,
+        bindDn?: string | null,
+        bindPassword?: string | null,
+        userFilter?: string | null,
+        requiredGroupDn?: string | null,
+        idAttribute?: string | null,
+        emailAttribute?: string | null,
+        nameAttribute?: string | null,
+        phoneAttribute?: string | null,
+    ): Promise<Models.Project<Preferences>>;
+    updateLDAP<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
+        paramsOrFirst?:
+            | {
+                  enabled?: boolean | null;
+                  hosts?: string[] | null;
+                  port?: number | null;
+                  encryption?: ProjectLDAPEncryption | null;
+                  verification?: boolean | null;
+                  certificate?: string | null;
+                  timeout?: number | null;
+                  baseDn?: string | null;
+                  bindDn?: string | null;
+                  bindPassword?: string | null;
+                  userFilter?: string | null;
+                  requiredGroupDn?: string | null;
+                  idAttribute?: string | null;
+                  emailAttribute?: string | null;
+                  nameAttribute?: string | null;
+                  phoneAttribute?: string | null;
+              }
+            | boolean
+            | null,
+        ...rest: [
+            (string[] | null)?,
+            (number | null)?,
+            (ProjectLDAPEncryption | null)?,
+            (boolean | null)?,
+            (string | null)?,
+            (number | null)?,
+            (string | null)?,
+            (string | null)?,
+            (string | null)?,
+            (string | null)?,
+            (string | null)?,
+            (string | null)?,
+            (string | null)?,
+            (string | null)?,
+            (string | null)?,
+        ]
+    ): Promise<Models.Project<Preferences>> {
+        let params: {
+            enabled?: boolean | null;
+            hosts?: string[] | null;
+            port?: number | null;
+            encryption?: ProjectLDAPEncryption | null;
+            verification?: boolean | null;
+            certificate?: string | null;
+            timeout?: number | null;
+            baseDn?: string | null;
+            bindDn?: string | null;
+            bindPassword?: string | null;
+            userFilter?: string | null;
+            requiredGroupDn?: string | null;
+            idAttribute?: string | null;
+            emailAttribute?: string | null;
+            nameAttribute?: string | null;
+            phoneAttribute?: string | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                enabled?: boolean | null;
+                hosts?: string[] | null;
+                port?: number | null;
+                encryption?: ProjectLDAPEncryption | null;
+                verification?: boolean | null;
+                certificate?: string | null;
+                timeout?: number | null;
+                baseDn?: string | null;
+                bindDn?: string | null;
+                bindPassword?: string | null;
+                userFilter?: string | null;
+                requiredGroupDn?: string | null;
+                idAttribute?: string | null;
+                emailAttribute?: string | null;
+                nameAttribute?: string | null;
+                phoneAttribute?: string | null;
+            };
+        } else {
+            params = {
+                enabled: paramsOrFirst as boolean | null,
+                hosts: rest[0] as string[] | null,
+                port: rest[1] as number | null,
+                encryption: rest[2] as ProjectLDAPEncryption | null,
+                verification: rest[3] as boolean | null,
+                certificate: rest[4] as string | null,
+                timeout: rest[5] as number | null,
+                baseDn: rest[6] as string | null,
+                bindDn: rest[7] as string | null,
+                bindPassword: rest[8] as string | null,
+                userFilter: rest[9] as string | null,
+                requiredGroupDn: rest[10] as string | null,
+                idAttribute: rest[11] as string | null,
+                emailAttribute: rest[12] as string | null,
+                nameAttribute: rest[13] as string | null,
+                phoneAttribute: rest[14] as string | null,
+            };
+        }
+
+        const enabled = params.enabled;
+        const hosts = params.hosts;
+        const port = params.port;
+        const encryption = params.encryption;
+        const verification = params.verification;
+        const certificate = params.certificate;
+        const timeout = params.timeout;
+        const baseDn = params.baseDn;
+        const bindDn = params.bindDn;
+        const bindPassword = params.bindPassword;
+        const userFilter = params.userFilter;
+        const requiredGroupDn = params.requiredGroupDn;
+        const idAttribute = params.idAttribute;
+        const emailAttribute = params.emailAttribute;
+        const nameAttribute = params.nameAttribute;
+        const phoneAttribute = params.phoneAttribute;
+        const apiPath = '/project/ldap';
+        const apiPayload: Payload = {};
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        if (typeof hosts !== 'undefined') {
+            apiPayload['hosts'] = hosts;
+        }
+        if (typeof port !== 'undefined') {
+            apiPayload['port'] = port;
+        }
+        if (typeof encryption !== 'undefined') {
+            apiPayload['encryption'] = encryption;
+        }
+        if (typeof verification !== 'undefined') {
+            apiPayload['verification'] = verification;
+        }
+        if (typeof certificate !== 'undefined') {
+            apiPayload['certificate'] = certificate;
+        }
+        if (typeof timeout !== 'undefined') {
+            apiPayload['timeout'] = timeout;
+        }
+        if (typeof baseDn !== 'undefined') {
+            apiPayload['baseDn'] = baseDn;
+        }
+        if (typeof bindDn !== 'undefined') {
+            apiPayload['bindDn'] = bindDn;
+        }
+        if (typeof bindPassword !== 'undefined') {
+            apiPayload['bindPassword'] = bindPassword;
+        }
+        if (typeof userFilter !== 'undefined') {
+            apiPayload['userFilter'] = userFilter;
+        }
+        if (typeof requiredGroupDn !== 'undefined') {
+            apiPayload['requiredGroupDn'] = requiredGroupDn;
+        }
+        if (typeof idAttribute !== 'undefined') {
+            apiPayload['idAttribute'] = idAttribute;
+        }
+        if (typeof emailAttribute !== 'undefined') {
+            apiPayload['emailAttribute'] = emailAttribute;
+        }
+        if (typeof nameAttribute !== 'undefined') {
+            apiPayload['nameAttribute'] = nameAttribute;
+        }
+        if (typeof phoneAttribute !== 'undefined') {
+            apiPayload['phoneAttribute'] = phoneAttribute;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'project',
+            models: {
+                project: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        teamId: '',
+                        region: 'fra',
+                        smtpEnabled: false,
+                        smtpSenderName: '',
+                        smtpSenderEmail: '',
+                        smtpReplyToName: '',
+                        smtpReplyToEmail: '',
+                        smtpHost: '',
+                        smtpPort: 0,
+                        smtpUsername: '',
+                        smtpPassword: '',
+                        smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
+                        pingCount: 0,
+                        pingedAt: '',
+                        labels: [],
+                        status: 'active',
+                        onboarding: {},
+                        authMethods: [],
+                        services: [],
+                        protocols: [],
+                        blocks: [],
+                        consoleAccessedAt: '',
+                    },
+                    properties: {
+                        authMethods: {
+                            items: 'projectAuthMethod',
+                        },
+                        services: {
+                            items: 'projectService',
+                        },
+                        protocols: {
+                            items: 'projectProtocol',
+                        },
+                        blocks: {
+                            items: 'block',
+                        },
+                    },
+                },
+                projectAuthMethod: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectService: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                projectProtocol: {
+                    defaults: {
+                        enabled: true,
+                    },
+                },
+                block: {
+                    defaults: {
+                        $createdAt: '',
+                        resourceType: '',
+                        resourceId: '',
+                        mode: 'full',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Test the stored LDAP configuration against the directory without signing anyone in. Connects to the directory, binds as the service account and reads the base DN. Pass a username to also look the user up and check the required group, and a password to also verify it. The error names the step that failed.
+     *
+     * @param {string} params.username - Username to look up in the directory. Leave empty to test the connection and service account only.
+     * @param {string} params.password - Password of the user to verify. Only used together with a username.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    createLDAPTest(params?: {
+        username?: string;
+        password?: string;
+    }): Promise<{}>;
+    /**
+     * Test the stored LDAP configuration against the directory without signing anyone in. Connects to the directory, binds as the service account and reads the base DN. Pass a username to also look the user up and check the required group, and a password to also verify it. The error names the step that failed.
+     *
+     * @param {string} username - Username to look up in the directory. Leave empty to test the connection and service account only.
+     * @param {string} password - Password of the user to verify. Only used together with a username.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createLDAPTest(username?: string, password?: string): Promise<{}>;
+    createLDAPTest(
+        paramsOrFirst?: { username?: string; password?: string } | string,
+        ...rest: [string?]
+    ): Promise<{}> {
+        let params: { username?: string; password?: string };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                username?: string;
+                password?: string;
+            };
+        } else {
+            params = {
+                username: paramsOrFirst as string,
+                password: rest[0] as string,
+            };
+        }
+
+        const username = params.username;
+        const password = params.password;
+        const apiPath = '/project/ldap/tests';
+        const apiPayload: Payload = {};
+        if (typeof username !== 'undefined') {
+            apiPayload['username'] = username;
+        }
+        if (typeof password !== 'undefined') {
+            apiPayload['password'] = password;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('post', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -2107,6 +2580,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -5285,6 +5774,111 @@ export class Project {
     }
 
     /**
+     * Update the project OAuth2 Naver configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of Naver OAuth2 app. For example: jK8pQ0000000000000Zv
+     * @param {string | null} params.clientSecret - 'Client Secret' of Naver OAuth2 app. For example: 9f42A0000000000c1dEb. Find it under Application > My Applications, on the overview of your app
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Naver>}
+     */
+    updateOAuth2Naver(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Naver>;
+    /**
+     * Update the project OAuth2 Naver configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of Naver OAuth2 app. For example: jK8pQ0000000000000Zv
+     * @param {string | null} clientSecret - 'Client Secret' of Naver OAuth2 app. For example: 9f42A0000000000c1dEb. Find it under Application > My Applications, on the overview of your app
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Naver>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Naver(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Naver>;
+    updateOAuth2Naver(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Naver> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/naver';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Naver',
+            models: {
+                oAuth2Naver: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
      * Update the project OAuth2 Notion configuration.
      *
      * @param {string | null} params.oauthClientId - 'OAuth Client ID' of Notion OAuth2 app. For example: 341d8700-0000-0000-0000-000000446ee3
@@ -7974,7 +8568,7 @@ export class Project {
      *
      * @param {ProjectOAuthProviderId} params.providerId - OAuth2 provider key. For example: github, google, apple.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao | Models.OAuth2Vipps>}
+     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao | Models.OAuth2Naver | Models.OAuth2Vipps>}
      */
     getOAuth2Provider(params: {
         providerId: ProjectOAuthProviderId;
@@ -8025,6 +8619,7 @@ export class Project {
         | Models.OAuth2Microsoft
         | Models.OAuth2TikTok
         | Models.OAuth2Kakao
+        | Models.OAuth2Naver
         | Models.OAuth2Vipps
     >;
     /**
@@ -8032,7 +8627,7 @@ export class Project {
      *
      * @param {ProjectOAuthProviderId} providerId - OAuth2 provider key. For example: github, google, apple.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao | Models.OAuth2Vipps>}
+     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao | Models.OAuth2Naver | Models.OAuth2Vipps>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     getOAuth2Provider(
@@ -8084,6 +8679,7 @@ export class Project {
         | Models.OAuth2Microsoft
         | Models.OAuth2TikTok
         | Models.OAuth2Kakao
+        | Models.OAuth2Naver
         | Models.OAuth2Vipps
     >;
     getOAuth2Provider(
@@ -8136,6 +8732,7 @@ export class Project {
         | Models.OAuth2Microsoft
         | Models.OAuth2TikTok
         | Models.OAuth2Kakao
+        | Models.OAuth2Naver
         | Models.OAuth2Vipps
     > {
         let params: { providerId: ProjectOAuthProviderId };
@@ -8174,6 +8771,26 @@ export class Project {
         };
 
         return this.client.call('get', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Delete all passwords in the project, forcing every user to reset their password. Any password set before this request stops working for email and password sign-in immediately: signing in returns a `user_password_reset_required` error until the user sets a new password through password recovery, or until a new password is set for them with the Users API. Existing sessions are not affected; call the delete sessions endpoint to sign users out as well. Users without a password and API keys are not affected by this action.
+     *
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deletePasswords(): Promise<{}> {
+        const apiPath = '/project/passwords';
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**
@@ -9704,6 +10321,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -9840,6 +10473,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -9976,6 +10625,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -10112,6 +10777,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -10248,6 +10929,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -10384,6 +11081,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -10589,6 +11302,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -10770,6 +11499,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -10904,6 +11649,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -11062,6 +11823,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -11200,6 +11977,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -11360,6 +12153,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -11521,6 +12330,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -11667,6 +12492,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -11933,6 +12774,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -12069,6 +12926,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -12205,6 +13078,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -12339,6 +13228,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -12473,6 +13378,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -12837,6 +13758,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -12998,6 +13935,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
@@ -13282,6 +14235,22 @@ export class Project {
                         smtpUsername: '',
                         smtpPassword: '',
                         smtpSecure: '',
+                        ldapEnabled: false,
+                        ldapHosts: [],
+                        ldapPort: 636,
+                        ldapEncryption: 'ldaps',
+                        ldapVerification: true,
+                        ldapCertificate: '',
+                        ldapTimeout: 10,
+                        ldapBaseDn: '',
+                        ldapBindDn: '',
+                        ldapBindPassword: '',
+                        ldapUserFilter: '(uid={username})',
+                        ldapRequiredGroupDn: '',
+                        ldapIdAttribute: 'entryUUID',
+                        ldapEmailAttribute: 'mail',
+                        ldapNameAttribute: 'cn',
+                        ldapPhoneAttribute: '',
                         pingCount: 0,
                         pingedAt: '',
                         labels: [],
