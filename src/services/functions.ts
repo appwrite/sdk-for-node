@@ -144,6 +144,9 @@ export class Functions {
                         providerBranch: '',
                         providerRootDirectory: '',
                         providerSilentMode: false,
+                        providerComments: true,
+                        providerDeployments: true,
+                        providerStatuses: true,
                         providerBranches: [],
                         providerPaths: [],
                         buildSpecification: 's-1vcpu-512mb',
@@ -193,7 +196,7 @@ export class Functions {
      * @param {string} params.installationId - Appwrite Installation ID for VCS (Version Control System) deployment.
      * @param {string} params.providerRepositoryId - Repository ID of the repo linked to the function.
      * @param {string} params.providerBranch - Production branch for the repo linked to the function.
-     * @param {boolean} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
+     * @param {boolean} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, no comments or checks are posted to commits and pull requests.
      * @param {string} params.providerRootDirectory - Path to function code in the linked repo.
      * @param {string[]} params.providerBranches - List of branch name patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all branches.
      * @param {string[]} params.providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
@@ -202,6 +205,9 @@ export class Functions {
      * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {number} params.interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule.
      * @param {string} params.description - Optional description for the function.
+     * @param {boolean} params.providerComments - Post a build summary on pull requests for the repo linked to the function. Commit statuses are still reported when disabled. Ignored in silent mode.
+     * @param {boolean} params.providerDeployments - Deploy every push that matches the branch and path rules for the repo linked to the function. When disabled, deploy manually.
+     * @param {boolean} params.providerStatuses - Report the build status on each commit for the repo linked to the function. Ignored in silent mode.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      */
@@ -230,6 +236,9 @@ export class Functions {
         deploymentRetention?: number;
         interval?: number;
         description?: string;
+        providerComments?: boolean;
+        providerDeployments?: boolean;
+        providerStatuses?: boolean;
     }): Promise<Models.Function>;
     /**
      * Create a new function. You can pass a list of [permissions](https://appwrite.io/docs/permissions) to allow different project users or team with access to execute the function using the client API.
@@ -249,7 +258,7 @@ export class Functions {
      * @param {string} installationId - Appwrite Installation ID for VCS (Version Control System) deployment.
      * @param {string} providerRepositoryId - Repository ID of the repo linked to the function.
      * @param {string} providerBranch - Production branch for the repo linked to the function.
-     * @param {boolean} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
+     * @param {boolean} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, no comments or checks are posted to commits and pull requests.
      * @param {string} providerRootDirectory - Path to function code in the linked repo.
      * @param {string[]} providerBranches - List of branch name patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all branches.
      * @param {string[]} providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
@@ -258,6 +267,9 @@ export class Functions {
      * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {number} interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule.
      * @param {string} description - Optional description for the function.
+     * @param {boolean} providerComments - Post a build summary on pull requests for the repo linked to the function. Commit statuses are still reported when disabled. Ignored in silent mode.
+     * @param {boolean} providerDeployments - Deploy every push that matches the branch and path rules for the repo linked to the function. When disabled, deploy manually.
+     * @param {boolean} providerStatuses - Report the build status on each commit for the repo linked to the function. Ignored in silent mode.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -287,6 +299,9 @@ export class Functions {
         deploymentRetention?: number,
         interval?: number,
         description?: string,
+        providerComments?: boolean,
+        providerDeployments?: boolean,
+        providerStatuses?: boolean,
     ): Promise<Models.Function>;
     create(
         paramsOrFirst:
@@ -315,6 +330,9 @@ export class Functions {
                   deploymentRetention?: number;
                   interval?: number;
                   description?: string;
+                  providerComments?: boolean;
+                  providerDeployments?: boolean;
+                  providerStatuses?: boolean;
               }
             | string,
         ...rest: [
@@ -341,6 +359,9 @@ export class Functions {
             number?,
             number?,
             string?,
+            boolean?,
+            boolean?,
+            boolean?,
         ]
     ): Promise<Models.Function> {
         let params: {
@@ -368,6 +389,9 @@ export class Functions {
             deploymentRetention?: number;
             interval?: number;
             description?: string;
+            providerComments?: boolean;
+            providerDeployments?: boolean;
+            providerStatuses?: boolean;
         };
 
         if (
@@ -400,6 +424,9 @@ export class Functions {
                 deploymentRetention?: number;
                 interval?: number;
                 description?: string;
+                providerComments?: boolean;
+                providerDeployments?: boolean;
+                providerStatuses?: boolean;
             };
         } else {
             params = {
@@ -427,6 +454,9 @@ export class Functions {
                 deploymentRetention: rest[20] as number,
                 interval: rest[21] as number,
                 description: rest[22] as string,
+                providerComments: rest[23] as boolean,
+                providerDeployments: rest[24] as boolean,
+                providerStatuses: rest[25] as boolean,
             };
         }
 
@@ -454,6 +484,9 @@ export class Functions {
         const deploymentRetention = params.deploymentRetention;
         const interval = params.interval;
         const description = params.description;
+        const providerComments = params.providerComments;
+        const providerDeployments = params.providerDeployments;
+        const providerStatuses = params.providerStatuses;
         if (typeof functionId === 'undefined') {
             throw new AppwriteException(
                 'Missing required parameter: "functionId"',
@@ -541,6 +574,15 @@ export class Functions {
         if (typeof description !== 'undefined') {
             apiPayload['description'] = description;
         }
+        if (typeof providerComments !== 'undefined') {
+            apiPayload['providerComments'] = providerComments;
+        }
+        if (typeof providerDeployments !== 'undefined') {
+            apiPayload['providerDeployments'] = providerDeployments;
+        }
+        if (typeof providerStatuses !== 'undefined') {
+            apiPayload['providerStatuses'] = providerStatuses;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -584,6 +626,9 @@ export class Functions {
                         providerBranch: '',
                         providerRootDirectory: '',
                         providerSilentMode: false,
+                        providerComments: true,
+                        providerDeployments: true,
+                        providerStatuses: true,
                         providerBranches: [],
                         providerPaths: [],
                         buildSpecification: 's-1vcpu-512mb',
@@ -877,6 +922,9 @@ export class Functions {
                         providerBranch: '',
                         providerRootDirectory: '',
                         providerSilentMode: false,
+                        providerComments: true,
+                        providerDeployments: true,
+                        providerStatuses: true,
                         providerBranches: [],
                         providerPaths: [],
                         buildSpecification: 's-1vcpu-512mb',
@@ -926,7 +974,7 @@ export class Functions {
      * @param {string} params.installationId - Appwrite Installation ID for VCS (Version Controle System) deployment.
      * @param {string | null} params.providerRepositoryId - Repository ID of the repo linked to the function
      * @param {string} params.providerBranch - Production branch for the repo linked to the function
-     * @param {boolean | null} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
+     * @param {boolean | null} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, no comments or checks are posted to commits and pull requests.
      * @param {string} params.providerRootDirectory - Path to function code in the linked repo.
      * @param {string[] | null} params.providerBranches - List of branch name patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all branches.
      * @param {string[] | null} params.providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
@@ -935,6 +983,9 @@ export class Functions {
      * @param {number | null} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {number | null} params.interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule. When omitted, the current interval is kept unless schedule is set.
      * @param {string | null} params.description - Optional description for the function.
+     * @param {boolean | null} params.providerComments - Post a build summary on pull requests for the repo linked to the function. Commit statuses are still reported when disabled. Ignored in silent mode.
+     * @param {boolean | null} params.providerDeployments - Deploy every push that matches the branch and path rules for the repo linked to the function. When disabled, deploy manually.
+     * @param {boolean | null} params.providerStatuses - Report the build status on each commit for the repo linked to the function. Ignored in silent mode.
      * @param {boolean | null} params.emailEnabled - Enable inbound email triggering for this function. When false or omitted on create, SMTP recipients are rejected. Opt-in; default is off.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
@@ -964,6 +1015,9 @@ export class Functions {
         deploymentRetention?: number | null;
         interval?: number | null;
         description?: string | null;
+        providerComments?: boolean | null;
+        providerDeployments?: boolean | null;
+        providerStatuses?: boolean | null;
         emailEnabled?: boolean | null;
     }): Promise<Models.Function>;
     /**
@@ -984,7 +1038,7 @@ export class Functions {
      * @param {string} installationId - Appwrite Installation ID for VCS (Version Controle System) deployment.
      * @param {string | null} providerRepositoryId - Repository ID of the repo linked to the function
      * @param {string} providerBranch - Production branch for the repo linked to the function
-     * @param {boolean | null} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, comments will not be made on commits and pull requests.
+     * @param {boolean | null} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the function? In silent mode, no comments or checks are posted to commits and pull requests.
      * @param {string} providerRootDirectory - Path to function code in the linked repo.
      * @param {string[] | null} providerBranches - List of branch name patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all branches.
      * @param {string[] | null} providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
@@ -993,6 +1047,9 @@ export class Functions {
      * @param {number | null} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {number | null} interval - Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule. When omitted, the current interval is kept unless schedule is set.
      * @param {string | null} description - Optional description for the function.
+     * @param {boolean | null} providerComments - Post a build summary on pull requests for the repo linked to the function. Commit statuses are still reported when disabled. Ignored in silent mode.
+     * @param {boolean | null} providerDeployments - Deploy every push that matches the branch and path rules for the repo linked to the function. When disabled, deploy manually.
+     * @param {boolean | null} providerStatuses - Report the build status on each commit for the repo linked to the function. Ignored in silent mode.
      * @param {boolean | null} emailEnabled - Enable inbound email triggering for this function. When false or omitted on create, SMTP recipients are rejected. Opt-in; default is off.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Function>}
@@ -1023,6 +1080,9 @@ export class Functions {
         deploymentRetention?: number | null,
         interval?: number | null,
         description?: string | null,
+        providerComments?: boolean | null,
+        providerDeployments?: boolean | null,
+        providerStatuses?: boolean | null,
         emailEnabled?: boolean | null,
     ): Promise<Models.Function>;
     update(
@@ -1052,6 +1112,9 @@ export class Functions {
                   deploymentRetention?: number | null;
                   interval?: number | null;
                   description?: string | null;
+                  providerComments?: boolean | null;
+                  providerDeployments?: boolean | null;
+                  providerStatuses?: boolean | null;
                   emailEnabled?: boolean | null;
               }
             | string,
@@ -1080,6 +1143,9 @@ export class Functions {
             (number | null)?,
             (string | null)?,
             (boolean | null)?,
+            (boolean | null)?,
+            (boolean | null)?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Function> {
         let params: {
@@ -1107,6 +1173,9 @@ export class Functions {
             deploymentRetention?: number | null;
             interval?: number | null;
             description?: string | null;
+            providerComments?: boolean | null;
+            providerDeployments?: boolean | null;
+            providerStatuses?: boolean | null;
             emailEnabled?: boolean | null;
         };
 
@@ -1140,6 +1209,9 @@ export class Functions {
                 deploymentRetention?: number | null;
                 interval?: number | null;
                 description?: string | null;
+                providerComments?: boolean | null;
+                providerDeployments?: boolean | null;
+                providerStatuses?: boolean | null;
                 emailEnabled?: boolean | null;
             };
         } else {
@@ -1168,7 +1240,10 @@ export class Functions {
                 deploymentRetention: rest[20] as number | null,
                 interval: rest[21] as number | null,
                 description: rest[22] as string | null,
-                emailEnabled: rest[23] as boolean | null,
+                providerComments: rest[23] as boolean | null,
+                providerDeployments: rest[24] as boolean | null,
+                providerStatuses: rest[25] as boolean | null,
+                emailEnabled: rest[26] as boolean | null,
             };
         }
 
@@ -1196,6 +1271,9 @@ export class Functions {
         const deploymentRetention = params.deploymentRetention;
         const interval = params.interval;
         const description = params.description;
+        const providerComments = params.providerComments;
+        const providerDeployments = params.providerDeployments;
+        const providerStatuses = params.providerStatuses;
         const emailEnabled = params.emailEnabled;
         if (typeof functionId === 'undefined' || functionId === '') {
             throw new AppwriteException(
@@ -1279,6 +1357,15 @@ export class Functions {
         if (typeof description !== 'undefined') {
             apiPayload['description'] = description;
         }
+        if (typeof providerComments !== 'undefined') {
+            apiPayload['providerComments'] = providerComments;
+        }
+        if (typeof providerDeployments !== 'undefined') {
+            apiPayload['providerDeployments'] = providerDeployments;
+        }
+        if (typeof providerStatuses !== 'undefined') {
+            apiPayload['providerStatuses'] = providerStatuses;
+        }
         if (typeof emailEnabled !== 'undefined') {
             apiPayload['emailEnabled'] = emailEnabled;
         }
@@ -1325,6 +1412,9 @@ export class Functions {
                         providerBranch: '',
                         providerRootDirectory: '',
                         providerSilentMode: false,
+                        providerComments: true,
+                        providerDeployments: true,
+                        providerStatuses: true,
                         providerBranches: [],
                         providerPaths: [],
                         buildSpecification: 's-1vcpu-512mb',
@@ -1520,6 +1610,9 @@ export class Functions {
                         providerBranch: '',
                         providerRootDirectory: '',
                         providerSilentMode: false,
+                        providerComments: true,
+                        providerDeployments: true,
+                        providerStatuses: true,
                         providerBranches: [],
                         providerPaths: [],
                         buildSpecification: 's-1vcpu-512mb',

@@ -2,10 +2,12 @@ import {
     AppwriteException,
     Client,
     type Payload,
+    UploadProgress,
     applyDefaults,
     encodePath,
 } from '../client';
 import type { Models } from '../models';
+import { InputFile } from '../inputFile';
 
 export class Teams {
     client: Client;
@@ -1695,6 +1697,277 @@ export class Teams {
         };
 
         return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Returns the photo of a team: the uploaded photo (see teams.updatePhoto), else the initials of the team name, else a built-in static placeholder.
+     *
+     * @param {string} params.teamId - Team ID.
+     * @param {number} params.width - Output image width in pixels. Pass an integer between 0 and 2000. Defaults to 256.
+     * @param {number} params.height - Output image height in pixels. Pass an integer between 0 and 2000. Defaults to 256.
+     * @param {number} params.quality - Output image quality between 0 and 100. Defaults to 100.
+     * @param {string} params.output - Output image format. Defaults to 'png'.
+     * @throws {AppwriteException}
+     * @returns {Promise<ArrayBuffer>}
+     */
+    getPhoto(params: {
+        teamId: string;
+        width?: number;
+        height?: number;
+        quality?: number;
+        output?: string;
+    }): Promise<ArrayBuffer>;
+    /**
+     * Returns the photo of a team: the uploaded photo (see teams.updatePhoto), else the initials of the team name, else a built-in static placeholder.
+     *
+     * @param {string} teamId - Team ID.
+     * @param {number} width - Output image width in pixels. Pass an integer between 0 and 2000. Defaults to 256.
+     * @param {number} height - Output image height in pixels. Pass an integer between 0 and 2000. Defaults to 256.
+     * @param {number} quality - Output image quality between 0 and 100. Defaults to 100.
+     * @param {string} output - Output image format. Defaults to 'png'.
+     * @throws {AppwriteException}
+     * @returns {Promise<ArrayBuffer>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getPhoto(
+        teamId: string,
+        width?: number,
+        height?: number,
+        quality?: number,
+        output?: string,
+    ): Promise<ArrayBuffer>;
+    getPhoto(
+        paramsOrFirst:
+            | {
+                  teamId: string;
+                  width?: number;
+                  height?: number;
+                  quality?: number;
+                  output?: string;
+              }
+            | string,
+        ...rest: [number?, number?, number?, string?]
+    ): Promise<ArrayBuffer> {
+        let params: {
+            teamId: string;
+            width?: number;
+            height?: number;
+            quality?: number;
+            output?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                teamId: string;
+                width?: number;
+                height?: number;
+                quality?: number;
+                output?: string;
+            };
+        } else {
+            params = {
+                teamId: paramsOrFirst as string,
+                width: rest[0] as number,
+                height: rest[1] as number,
+                quality: rest[2] as number,
+                output: rest[3] as string,
+            };
+        }
+
+        const teamId = params.teamId;
+        const width = params.width;
+        const height = params.height;
+        const quality = params.quality;
+        const output = params.output;
+        if (typeof teamId === 'undefined' || teamId === '') {
+            throw new AppwriteException('Missing required parameter: "teamId"');
+        }
+        const apiPath = '/teams/{teamId}/photo'.replace(
+            '{teamId}',
+            encodePath(teamId),
+        );
+        const apiPayload: Payload = {};
+        if (typeof width !== 'undefined') {
+            apiPayload['width'] = width;
+        }
+        if (typeof height !== 'undefined') {
+            apiPayload['height'] = height;
+        }
+        if (typeof quality !== 'undefined') {
+            apiPayload['quality'] = quality;
+        }
+        if (typeof output !== 'undefined') {
+            apiPayload['output'] = output;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            accept: 'image/*',
+        };
+
+        return this.client.call(
+            'get',
+            uri,
+            apiHeaders,
+            apiPayload,
+            'arrayBuffer',
+        );
+    }
+
+    /**
+     * Update the photo of a team. Updating an already customized photo replaces it. The image must be at most 5MB and is sent in a single request.
+     *
+     * @param {string} params.teamId - Team ID.
+     * @param {File | InputFile} params.file - Binary image file of at most 5MB. Allowed file types are png, jpg, jpeg, and webp.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Team<Preferences>>}
+     */
+    updatePhoto<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(params: {
+        teamId: string;
+        file: File | InputFile;
+        onProgress?: (progress: UploadProgress) => void;
+    }): Promise<Models.Team<Preferences>>;
+    /**
+     * Update the photo of a team. Updating an already customized photo replaces it. The image must be at most 5MB and is sent in a single request.
+     *
+     * @param {string} teamId - Team ID.
+     * @param {File | InputFile} file - Binary image file of at most 5MB. Allowed file types are png, jpg, jpeg, and webp.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Team<Preferences>>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updatePhoto<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
+        teamId: string,
+        file: File | InputFile,
+        onProgress?: (progress: UploadProgress) => void,
+    ): Promise<Models.Team<Preferences>>;
+    updatePhoto<
+        Preferences extends Models.Preferences = Models.DefaultPreferences,
+    >(
+        paramsOrFirst:
+            | {
+                  teamId: string;
+                  file: File | InputFile;
+                  onProgress?: (progress: UploadProgress) => void;
+              }
+            | string,
+        ...rest: [(File | InputFile)?, ((progress: UploadProgress) => void)?]
+    ): Promise<Models.Team<Preferences>> {
+        let params: { teamId: string; file: File | InputFile };
+        let onProgress: (progress: UploadProgress) => void;
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                teamId: string;
+                file: File | InputFile;
+            };
+            onProgress = paramsOrFirst?.onProgress as (
+                progress: UploadProgress,
+            ) => void;
+        } else {
+            params = {
+                teamId: paramsOrFirst as string,
+                file: rest[0] as File | InputFile,
+            };
+            onProgress = rest[1] as (progress: UploadProgress) => void;
+        }
+
+        const teamId = params.teamId;
+        const file = params.file;
+        if (typeof teamId === 'undefined' || teamId === '') {
+            throw new AppwriteException('Missing required parameter: "teamId"');
+        }
+        if (typeof file === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "file"');
+        }
+        const apiPath = '/teams/{teamId}/photo'.replace(
+            '{teamId}',
+            encodePath(teamId),
+        );
+        const apiPayload: Payload = {};
+        if (typeof file !== 'undefined') {
+            apiPayload['file'] = file;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'multipart/form-data',
+            accept: 'application/json',
+        };
+
+        return this.client.chunkedUpload(
+            'put',
+            uri,
+            apiHeaders,
+            apiPayload,
+            onProgress,
+        );
+    }
+
+    /**
+     * Delete the photo of a team and store the built-in static placeholder in its place. The placeholder is the team's photo from then on, so it takes priority over the initials of the team name until a new photo is uploaded with teams.updatePhoto.
+     *
+     * @param {string} params.teamId - Team ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deletePhoto(params: { teamId: string }): Promise<{}>;
+    /**
+     * Delete the photo of a team and store the built-in static placeholder in its place. The placeholder is the team's photo from then on, so it takes priority over the initials of the team name until a new photo is uploaded with teams.updatePhoto.
+     *
+     * @param {string} teamId - Team ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    deletePhoto(teamId: string): Promise<{}>;
+    deletePhoto(paramsOrFirst: { teamId: string } | string): Promise<{}> {
+        let params: { teamId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { teamId: string };
+        } else {
+            params = {
+                teamId: paramsOrFirst as string,
+            };
+        }
+
+        const teamId = params.teamId;
+        if (typeof teamId === 'undefined' || teamId === '') {
+            throw new AppwriteException('Missing required parameter: "teamId"');
+        }
+        const apiPath = '/teams/{teamId}/photo'.replace(
+            '{teamId}',
+            encodePath(teamId),
+        );
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
     }
 
     /**

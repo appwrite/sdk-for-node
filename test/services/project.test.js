@@ -595,6 +595,22 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method updateOAuth2Atlassian()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: 'uQ7mZ3s0000000000000000000000000',
+            clientSecret:
+                'ATOA0000000000000000000000000000000000000000000000000000000000000000000000',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2Atlassian();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updateOAuth2Auth0()', async () => {
         const data = {
             $id: 'github',
@@ -897,6 +913,21 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method updateOAuth2Instagram()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: '00000000000000000000000000000000',
+            clientSecret: '00000000000000000000000000000000',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2Instagram();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updateOAuth2Kakao()', async () => {
         const data = {
             $id: 'github',
@@ -946,6 +977,36 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method updateOAuth2Line()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: '1650000000',
+            clientSecret: 'a1b2c3d4e5f600000000000000000000',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2Line();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateOAuth2Linear()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: '5e1c0000000000000000000000000000',
+            clientSecret: '9f8e7d6c5b4a00000000000000000000',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2Linear();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updateOAuth2Linkedin()', async () => {
         const data = {
             $id: 'github',
@@ -987,6 +1048,21 @@ describe('Project', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updateOAuth2Naver();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateOAuth2Netlify()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: '00000000000000000000000000000000',
+            clientSecret: '00000000000000000000000000000000',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2Netlify();
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
@@ -1050,6 +1126,21 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method updateOAuth2Patreon()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: '00000000000000000000000000000000',
+            clientSecret: '00000000000000000000000000000000',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2Patreon();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updateOAuth2Paypal()', async () => {
         const data = {
             $id: 'github',
@@ -1100,6 +1191,36 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method updateOAuth2Railway()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: '00000000000000000000000000000000',
+            clientSecret: '00000000000000000000000000000000',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2Railway();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateOAuth2Reddit()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: 'aBcD0000000000000000aB',
+            clientSecret: 'xYz00000000000000000000000000a',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2Reddit();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updateOAuth2Resend()', async () => {
         const data = {
             $id: 'github',
@@ -1110,6 +1231,22 @@ describe('Project', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updateOAuth2Resend();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateOAuth2Roblox()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: '1234567890123456789',
+            clientSecret:
+                'RBX-0000000000000000000000000000000000000000000000000000000000000000000000',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2Roblox();
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
@@ -1157,6 +1294,21 @@ describe('Project', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updateOAuth2Spotify();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateOAuth2Strava()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: '00000000000000000000000000000000',
+            clientSecret: '00000000000000000000000000000000',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2Strava();
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
@@ -1239,6 +1391,21 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method updateOAuth2Vercel()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: 'cl_0000000000000000000000000000000',
+            clientSecret: 'vc_0000000000000000000000000000000000000000000000',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2Vercel();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method updateOAuth2Vipps()', async () => {
         const data = {
             $id: 'github',
@@ -1263,6 +1430,21 @@ describe('Project', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updateOAuth2VippsSandbox();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateOAuth2VK()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: '00000000000000000000000000000000',
+            clientSecret: '00000000000000000000000000000000',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2VK();
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
@@ -1296,6 +1478,22 @@ describe('Project', () => {
         };
         mockedFetch.mockImplementation(() => Response.json(data));
         const response = await project.updateOAuth2WordPress();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateOAuth2WorkOS()', async () => {
+        const data = {
+            $id: 'github',
+            enabled: true,
+            clientId: 'client_01H0000000000000000000000',
+            clientSecret:
+                'wos0000000000000000000000000000000000000000000000000000000000000',
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateOAuth2WorkOS();
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;

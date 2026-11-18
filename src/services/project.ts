@@ -3026,6 +3026,111 @@ export class Project {
     }
 
     /**
+     * Update the project OAuth2 Atlassian configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of Atlassian OAuth2 app. For example: uQ7mZ3s0000000000000000000000000
+     * @param {string | null} params.clientSecret - 'Client Secret' of Atlassian OAuth2 app. For example: ATOA0000000000000000000000000000000000000000000000000000000000000000000000
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Atlassian>}
+     */
+    updateOAuth2Atlassian(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Atlassian>;
+    /**
+     * Update the project OAuth2 Atlassian configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of Atlassian OAuth2 app. For example: uQ7mZ3s0000000000000000000000000
+     * @param {string | null} clientSecret - 'Client Secret' of Atlassian OAuth2 app. For example: ATOA0000000000000000000000000000000000000000000000000000000000000000000000
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Atlassian>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Atlassian(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Atlassian>;
+    updateOAuth2Atlassian(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Atlassian> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/atlassian';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Atlassian',
+            models: {
+                oAuth2Atlassian: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
      * Update the project OAuth2 Auth0 configuration.
      *
      * @param {string | null} params.clientId - 'Client ID' of Auth0 OAuth2 app. For example: OaOkIA000000000000000000005KLSYq
@@ -5170,6 +5275,111 @@ export class Project {
     }
 
     /**
+     * Update the project OAuth2 Instagram configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of Instagram OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {string | null} params.clientSecret - 'Client Secret' of Instagram OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Instagram>}
+     */
+    updateOAuth2Instagram(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Instagram>;
+    /**
+     * Update the project OAuth2 Instagram configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of Instagram OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {string | null} clientSecret - 'Client Secret' of Instagram OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Instagram>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Instagram(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Instagram>;
+    updateOAuth2Instagram(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Instagram> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/instagram';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Instagram',
+            models: {
+                oAuth2Instagram: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
      * Update the project OAuth2 Kakao configuration.
      *
      * @param {string | null} params.clientId - 'REST API key' of Kakao OAuth2 app. For example: 839ff5000000000000000000013206de
@@ -5533,6 +5743,216 @@ export class Project {
     }
 
     /**
+     * Update the project OAuth2 LINE configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of LINE OAuth2 app. For example: 1650000000
+     * @param {string | null} params.clientSecret - 'Client Secret' of LINE OAuth2 app. For example: a1b2c3d4e5f600000000000000000000
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Line>}
+     */
+    updateOAuth2Line(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Line>;
+    /**
+     * Update the project OAuth2 LINE configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of LINE OAuth2 app. For example: 1650000000
+     * @param {string | null} clientSecret - 'Client Secret' of LINE OAuth2 app. For example: a1b2c3d4e5f600000000000000000000
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Line>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Line(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Line>;
+    updateOAuth2Line(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Line> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/line';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Line',
+            models: {
+                oAuth2Line: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update the project OAuth2 Linear configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of Linear OAuth2 app. For example: 5e1c0000000000000000000000000000
+     * @param {string | null} params.clientSecret - 'Client Secret' of Linear OAuth2 app. For example: 9f8e7d6c5b4a00000000000000000000
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Linear>}
+     */
+    updateOAuth2Linear(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Linear>;
+    /**
+     * Update the project OAuth2 Linear configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of Linear OAuth2 app. For example: 5e1c0000000000000000000000000000
+     * @param {string | null} clientSecret - 'Client Secret' of Linear OAuth2 app. For example: 9f8e7d6c5b4a00000000000000000000
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Linear>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Linear(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Linear>;
+    updateOAuth2Linear(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Linear> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/linear';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Linear',
+            models: {
+                oAuth2Linear: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
      * Update the project OAuth2 Linkedin configuration.
      *
      * @param {string | null} params.clientId - 'Client ID' of Linkedin OAuth2 app. For example: 770000000000dv
@@ -5865,6 +6285,111 @@ export class Project {
             root: 'oAuth2Naver',
             models: {
                 oAuth2Naver: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update the project OAuth2 Netlify configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of Netlify OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {string | null} params.clientSecret - 'Client Secret' of Netlify OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Netlify>}
+     */
+    updateOAuth2Netlify(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Netlify>;
+    /**
+     * Update the project OAuth2 Netlify configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of Netlify OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {string | null} clientSecret - 'Client Secret' of Netlify OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Netlify>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Netlify(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Netlify>;
+    updateOAuth2Netlify(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Netlify> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/netlify';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Netlify',
+            models: {
+                oAuth2Netlify: {
                     defaults: {
                         $id: '',
                         enabled: false,
@@ -6325,6 +6850,111 @@ export class Project {
     }
 
     /**
+     * Update the project OAuth2 Patreon configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of Patreon OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {string | null} params.clientSecret - 'Client Secret' of Patreon OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Patreon>}
+     */
+    updateOAuth2Patreon(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Patreon>;
+    /**
+     * Update the project OAuth2 Patreon configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of Patreon OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {string | null} clientSecret - 'Client Secret' of Patreon OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Patreon>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Patreon(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Patreon>;
+    updateOAuth2Patreon(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Patreon> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/patreon';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Patreon',
+            models: {
+                oAuth2Patreon: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
      * Update the project OAuth2 Paypal configuration.
      *
      * @param {string | null} params.clientId - 'Client ID' of Paypal OAuth2 app. For example: AdhIEG7-000000000000-0000000000000000000000000000000-0000000000000000000000-2pyB
@@ -6640,6 +7270,216 @@ export class Project {
     }
 
     /**
+     * Update the project OAuth2 Railway configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of Railway OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {string | null} params.clientSecret - 'Client Secret' of Railway OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Railway>}
+     */
+    updateOAuth2Railway(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Railway>;
+    /**
+     * Update the project OAuth2 Railway configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of Railway OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {string | null} clientSecret - 'Client Secret' of Railway OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Railway>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Railway(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Railway>;
+    updateOAuth2Railway(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Railway> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/railway';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Railway',
+            models: {
+                oAuth2Railway: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update the project OAuth2 Reddit configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of Reddit OAuth2 app. For example: aBcD0000000000000000aB
+     * @param {string | null} params.clientSecret - 'Client Secret' of Reddit OAuth2 app. For example: xYz00000000000000000000000000a
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Reddit>}
+     */
+    updateOAuth2Reddit(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Reddit>;
+    /**
+     * Update the project OAuth2 Reddit configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of Reddit OAuth2 app. For example: aBcD0000000000000000aB
+     * @param {string | null} clientSecret - 'Client Secret' of Reddit OAuth2 app. For example: xYz00000000000000000000000000a
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Reddit>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Reddit(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Reddit>;
+    updateOAuth2Reddit(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Reddit> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/reddit';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Reddit',
+            models: {
+                oAuth2Reddit: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
      * Update the project OAuth2 Resend configuration.
      *
      * @param {string | null} params.clientId - 'Client ID' of Resend OAuth2 app. For example: f47ac10b-58cc-4372-a567-0e02b2c3d479
@@ -6731,6 +7571,111 @@ export class Project {
             root: 'oAuth2Resend',
             models: {
                 oAuth2Resend: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update the project OAuth2 Roblox configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of Roblox OAuth2 app. For example: 1234567890123456789
+     * @param {string | null} params.clientSecret - 'Client Secret' of Roblox OAuth2 app. For example: RBX-0000000000000000000000000000000000000000000000000000000000000000000000
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Roblox>}
+     */
+    updateOAuth2Roblox(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Roblox>;
+    /**
+     * Update the project OAuth2 Roblox configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of Roblox OAuth2 app. For example: 1234567890123456789
+     * @param {string | null} clientSecret - 'Client Secret' of Roblox OAuth2 app. For example: RBX-0000000000000000000000000000000000000000000000000000000000000000000000
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Roblox>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Roblox(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Roblox>;
+    updateOAuth2Roblox(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Roblox> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/roblox';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Roblox',
+            models: {
+                oAuth2Roblox: {
                     defaults: {
                         $id: '',
                         enabled: false,
@@ -7063,6 +8008,111 @@ export class Project {
             root: 'oAuth2Spotify',
             models: {
                 oAuth2Spotify: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update the project OAuth2 Strava configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of Strava OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {string | null} params.clientSecret - 'Client Secret' of Strava OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Strava>}
+     */
+    updateOAuth2Strava(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Strava>;
+    /**
+     * Update the project OAuth2 Strava configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of Strava OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {string | null} clientSecret - 'Client Secret' of Strava OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Strava>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Strava(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Strava>;
+    updateOAuth2Strava(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Strava> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/strava';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Strava',
+            models: {
+                oAuth2Strava: {
                     defaults: {
                         $id: '',
                         enabled: false,
@@ -7602,6 +8652,111 @@ export class Project {
     }
 
     /**
+     * Update the project OAuth2 Vercel configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of Vercel OAuth2 app. For example: cl_0000000000000000000000000000000
+     * @param {string | null} params.clientSecret - 'Client Secret' of Vercel OAuth2 app. For example: vc_0000000000000000000000000000000000000000000000
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Vercel>}
+     */
+    updateOAuth2Vercel(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2Vercel>;
+    /**
+     * Update the project OAuth2 Vercel configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of Vercel OAuth2 app. For example: cl_0000000000000000000000000000000
+     * @param {string | null} clientSecret - 'Client Secret' of Vercel OAuth2 app. For example: vc_0000000000000000000000000000000000000000000000
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2Vercel>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2Vercel(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2Vercel>;
+    updateOAuth2Vercel(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2Vercel> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/vercel';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2Vercel',
+            models: {
+                oAuth2Vercel: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
      * Update the project OAuth2 Vipps MobilePay configuration.
      *
      * @param {string | null} params.clientId - 'Client ID' of Vipps MobilePay OAuth2 app. For example: 9a3a4b3e-0000-0000-0000-0f1a6d1c3b2e
@@ -7812,6 +8967,111 @@ export class Project {
     }
 
     /**
+     * Update the project OAuth2 VK configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of VK OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {string | null} params.clientSecret - 'Client Secret' of VK OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2VK>}
+     */
+    updateOAuth2VK(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2VK>;
+    /**
+     * Update the project OAuth2 VK configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of VK OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {string | null} clientSecret - 'Client Secret' of VK OAuth2 app. For example: 00000000000000000000000000000000
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2VK>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2VK(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2VK>;
+    updateOAuth2VK(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2VK> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/vk';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2VK',
+            models: {
+                oAuth2VK: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
      * Update the project OAuth2 Webflow configuration.
      *
      * @param {string | null} params.clientId - 'Client ID' of Webflow OAuth2 app. For example: 8bb20000000000000000000000000000000000000000000000000000000040dd
@@ -8008,6 +9268,111 @@ export class Project {
             root: 'oAuth2WordPress',
             models: {
                 oAuth2WordPress: {
+                    defaults: {
+                        $id: '',
+                        enabled: false,
+                        clientId: '',
+                        clientSecret: '',
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update the project OAuth2 WorkOS configuration.
+     *
+     * @param {string | null} params.clientId - 'Client ID' of WorkOS OAuth2 app. For example: client_01H0000000000000000000000
+     * @param {string | null} params.clientSecret - 'Client Secret' of WorkOS OAuth2 app. For example: wos0000000000000000000000000000000000000000000000000000000000000
+     * @param {boolean | null} params.enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2WorkOS>}
+     */
+    updateOAuth2WorkOS(params?: {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        enabled?: boolean | null;
+    }): Promise<Models.OAuth2WorkOS>;
+    /**
+     * Update the project OAuth2 WorkOS configuration.
+     *
+     * @param {string | null} clientId - 'Client ID' of WorkOS OAuth2 app. For example: client_01H0000000000000000000000
+     * @param {string | null} clientSecret - 'Client Secret' of WorkOS OAuth2 app. For example: wos0000000000000000000000000000000000000000000000000000000000000
+     * @param {boolean | null} enabled - OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.OAuth2WorkOS>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateOAuth2WorkOS(
+        clientId?: string | null,
+        clientSecret?: string | null,
+        enabled?: boolean | null,
+    ): Promise<Models.OAuth2WorkOS>;
+    updateOAuth2WorkOS(
+        paramsOrFirst?:
+            | {
+                  clientId?: string | null;
+                  clientSecret?: string | null;
+                  enabled?: boolean | null;
+              }
+            | string
+            | null,
+        ...rest: [(string | null)?, (boolean | null)?]
+    ): Promise<Models.OAuth2WorkOS> {
+        let params: {
+            clientId?: string | null;
+            clientSecret?: string | null;
+            enabled?: boolean | null;
+        };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                clientId?: string | null;
+                clientSecret?: string | null;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                clientId: paramsOrFirst as string | null,
+                clientSecret: rest[0] as string | null,
+                enabled: rest[1] as boolean | null,
+            };
+        }
+
+        const clientId = params.clientId;
+        const clientSecret = params.clientSecret;
+        const enabled = params.enabled;
+        const apiPath = '/project/oauth2/workos';
+        const apiPayload: Payload = {};
+        if (typeof clientId !== 'undefined') {
+            apiPayload['clientId'] = clientId;
+        }
+        if (typeof clientSecret !== 'undefined') {
+            apiPayload['clientSecret'] = clientSecret;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'oAuth2WorkOS',
+            models: {
+                oAuth2WorkOS: {
                     defaults: {
                         $id: '',
                         enabled: false,
@@ -8568,7 +9933,7 @@ export class Project {
      *
      * @param {ProjectOAuthProviderId} params.providerId - OAuth2 provider key. For example: github, google, apple.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao | Models.OAuth2Naver | Models.OAuth2Vipps>}
+     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Instagram | Models.OAuth2Patreon | Models.OAuth2Strava | Models.OAuth2VK | Models.OAuth2Netlify | Models.OAuth2Railway | Models.OAuth2Reddit | Models.OAuth2Vercel | Models.OAuth2Atlassian | Models.OAuth2Line | Models.OAuth2Linear | Models.OAuth2Roblox | Models.OAuth2WorkOS | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao | Models.OAuth2Naver | Models.OAuth2Vipps>}
      */
     getOAuth2Provider(params: {
         providerId: ProjectOAuthProviderId;
@@ -8598,6 +9963,19 @@ export class Project {
         | Models.OAuth2Salesforce
         | Models.OAuth2Yahoo
         | Models.OAuth2HuggingFace
+        | Models.OAuth2Instagram
+        | Models.OAuth2Patreon
+        | Models.OAuth2Strava
+        | Models.OAuth2VK
+        | Models.OAuth2Netlify
+        | Models.OAuth2Railway
+        | Models.OAuth2Reddit
+        | Models.OAuth2Vercel
+        | Models.OAuth2Atlassian
+        | Models.OAuth2Line
+        | Models.OAuth2Linear
+        | Models.OAuth2Roblox
+        | Models.OAuth2WorkOS
         | Models.OAuth2Resend
         | Models.OAuth2Cloudflare
         | Models.OAuth2Linkedin
@@ -8627,7 +10005,7 @@ export class Project {
      *
      * @param {ProjectOAuthProviderId} providerId - OAuth2 provider key. For example: github, google, apple.
      * @throws {AppwriteException}
-     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao | Models.OAuth2Naver | Models.OAuth2Vipps>}
+     * @returns {Promise<Models.OAuth2Github | Models.OAuth2Discord | Models.OAuth2Figma | Models.OAuth2Dropbox | Models.OAuth2Dailymotion | Models.OAuth2Bitbucket | Models.OAuth2Bitly | Models.OAuth2Box | Models.OAuth2Autodesk | Models.OAuth2Google | Models.OAuth2Zoom | Models.OAuth2Zoho | Models.OAuth2Yandex | Models.OAuth2X | Models.OAuth2WordPress | Models.OAuth2Webflow | Models.OAuth2Twitch | Models.OAuth2Stripe | Models.OAuth2Spotify | Models.OAuth2Slack | Models.OAuth2Podio | Models.OAuth2Notion | Models.OAuth2Salesforce | Models.OAuth2Yahoo | Models.OAuth2HuggingFace | Models.OAuth2Instagram | Models.OAuth2Patreon | Models.OAuth2Strava | Models.OAuth2VK | Models.OAuth2Netlify | Models.OAuth2Railway | Models.OAuth2Reddit | Models.OAuth2Vercel | Models.OAuth2Atlassian | Models.OAuth2Line | Models.OAuth2Linear | Models.OAuth2Roblox | Models.OAuth2WorkOS | Models.OAuth2Resend | Models.OAuth2Cloudflare | Models.OAuth2Linkedin | Models.OAuth2Disqus | Models.OAuth2Amazon | Models.OAuth2Etsy | Models.OAuth2Facebook | Models.OAuth2Tradeshift | Models.OAuth2Paypal | Models.OAuth2Gitlab | Models.OAuth2Authentik | Models.OAuth2Auth0 | Models.OAuth2FusionAuth | Models.OAuth2Keycloak | Models.OAuth2Oidc | Models.OAuth2Apple | Models.OAuth2Okta | Models.OAuth2Kick | Models.OAuth2Microsoft | Models.OAuth2TikTok | Models.OAuth2Kakao | Models.OAuth2Naver | Models.OAuth2Vipps>}
      * @deprecated Use the object parameter style method for a better developer experience.
      */
     getOAuth2Provider(
@@ -8658,6 +10036,19 @@ export class Project {
         | Models.OAuth2Salesforce
         | Models.OAuth2Yahoo
         | Models.OAuth2HuggingFace
+        | Models.OAuth2Instagram
+        | Models.OAuth2Patreon
+        | Models.OAuth2Strava
+        | Models.OAuth2VK
+        | Models.OAuth2Netlify
+        | Models.OAuth2Railway
+        | Models.OAuth2Reddit
+        | Models.OAuth2Vercel
+        | Models.OAuth2Atlassian
+        | Models.OAuth2Line
+        | Models.OAuth2Linear
+        | Models.OAuth2Roblox
+        | Models.OAuth2WorkOS
         | Models.OAuth2Resend
         | Models.OAuth2Cloudflare
         | Models.OAuth2Linkedin
@@ -8711,6 +10102,19 @@ export class Project {
         | Models.OAuth2Salesforce
         | Models.OAuth2Yahoo
         | Models.OAuth2HuggingFace
+        | Models.OAuth2Instagram
+        | Models.OAuth2Patreon
+        | Models.OAuth2Strava
+        | Models.OAuth2VK
+        | Models.OAuth2Netlify
+        | Models.OAuth2Railway
+        | Models.OAuth2Reddit
+        | Models.OAuth2Vercel
+        | Models.OAuth2Atlassian
+        | Models.OAuth2Line
+        | Models.OAuth2Linear
+        | Models.OAuth2Roblox
+        | Models.OAuth2WorkOS
         | Models.OAuth2Resend
         | Models.OAuth2Cloudflare
         | Models.OAuth2Linkedin

@@ -1505,7 +1505,7 @@ export class TablesDB {
     }
 
     /**
-     * Start migrating a serverless TablesDB database onto a dedicated MySQL compute. Data is copied to the target while the source stays live. Reads continue throughout. Row writes are held for up to a few seconds while routing switches to the dedicated compute; a write the switch has not absorbed within that hold is refused with `database_migration_cutover` and can be retried. Schema changes (tables, columns, indexes) are refused from creation until the cutover completes, and resume once the migration is `soaking`.
+     * Start migrating a serverless TablesDB database onto a dedicated MySQL compute. Data is copied to the target while the source stays live. Reads continue throughout. Row writes are held for up to a few seconds while routing switches to the dedicated compute and are never refused; a write the switch has not absorbed within that hold proceeds and is carried across to the dedicated compute. Schema changes (tables, columns, indexes) are refused from creation until the cutover completes, and resume once the migration is `soaking`.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.specification - Dedicated compute specification to provision as the migration target (e.g. s-2vcpu-4gb). The migration always targets a dedicated compute, so `serverless` is not accepted.
@@ -1519,7 +1519,7 @@ export class TablesDB {
         autoCutover?: boolean;
     }): Promise<Models.DatabaseMigration>;
     /**
-     * Start migrating a serverless TablesDB database onto a dedicated MySQL compute. Data is copied to the target while the source stays live. Reads continue throughout. Row writes are held for up to a few seconds while routing switches to the dedicated compute; a write the switch has not absorbed within that hold is refused with `database_migration_cutover` and can be retried. Schema changes (tables, columns, indexes) are refused from creation until the cutover completes, and resume once the migration is `soaking`.
+     * Start migrating a serverless TablesDB database onto a dedicated MySQL compute. Data is copied to the target while the source stays live. Reads continue throughout. Row writes are held for up to a few seconds while routing switches to the dedicated compute and are never refused; a write the switch has not absorbed within that hold proceeds and is carried across to the dedicated compute. Schema changes (tables, columns, indexes) are refused from creation until the cutover completes, and resume once the migration is `soaking`.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} specification - Dedicated compute specification to provision as the migration target (e.g. s-2vcpu-4gb). The migration always targets a dedicated compute, so `serverless` is not accepted.
@@ -1803,7 +1803,7 @@ export class TablesDB {
     }
 
     /**
-     * Cut a verified TablesDB migration over to its dedicated compute. Only applies to a migration created with `autoCutover` disabled, which waits at `ready_to_cutover` until this is called. The routing flip happens shortly after this returns. Reads are unaffected; row writes are held for up to a few seconds while it lands, and a write the flip has not absorbed within that hold is refused with `database_migration_cutover` and can be retried. One call buys one attempt: a cutover that fails a check returns the migration to `verifying` and parks it again, so call this once more to retry.
+     * Cut a verified TablesDB migration over to its dedicated compute. Only applies to a migration created with `autoCutover` disabled, which waits at `ready_to_cutover` until this is called. The routing flip happens shortly after this returns. Reads are unaffected; row writes are held for up to a few seconds while it lands and are never refused; a write the flip has not absorbed within that hold proceeds and is carried across to the dedicated compute. One call buys one attempt: a cutover that fails a check returns the migration to `verifying` and parks it again, so call this once more to retry.
      *
      * @param {string} params.databaseId - Database ID.
      * @param {string} params.migrationId - Migration ID.
@@ -1815,7 +1815,7 @@ export class TablesDB {
         migrationId: string;
     }): Promise<Models.DatabaseMigration>;
     /**
-     * Cut a verified TablesDB migration over to its dedicated compute. Only applies to a migration created with `autoCutover` disabled, which waits at `ready_to_cutover` until this is called. The routing flip happens shortly after this returns. Reads are unaffected; row writes are held for up to a few seconds while it lands, and a write the flip has not absorbed within that hold is refused with `database_migration_cutover` and can be retried. One call buys one attempt: a cutover that fails a check returns the migration to `verifying` and parks it again, so call this once more to retry.
+     * Cut a verified TablesDB migration over to its dedicated compute. Only applies to a migration created with `autoCutover` disabled, which waits at `ready_to_cutover` until this is called. The routing flip happens shortly after this returns. Reads are unaffected; row writes are held for up to a few seconds while it lands and are never refused; a write the flip has not absorbed within that hold proceeds and is carried across to the dedicated compute. One call buys one attempt: a cutover that fails a check returns the migration to `verifying` and parks it again, so call this once more to retry.
      *
      * @param {string} databaseId - Database ID.
      * @param {string} migrationId - Migration ID.

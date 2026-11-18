@@ -145,6 +145,9 @@ export class Sites {
                         providerBranch: '',
                         providerRootDirectory: '',
                         providerSilentMode: false,
+                        providerComments: true,
+                        providerDeployments: true,
+                        providerStatuses: true,
                         providerBranches: [],
                         providerPaths: [],
                         buildSpecification: 's-1vcpu-512mb',
@@ -197,7 +200,7 @@ export class Sites {
      * @param {string} params.fallbackFile - Fallback file for single page application sites.
      * @param {string} params.providerRepositoryId - Repository ID of the repo linked to the site.
      * @param {string} params.providerBranch - Production branch for the repo linked to the site.
-     * @param {boolean} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the site? In silent mode, comments will not be made on commits and pull requests.
+     * @param {boolean} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the site? In silent mode, no comments or checks are posted to commits and pull requests.
      * @param {string} params.providerRootDirectory - Path to site code in the linked repo.
      * @param {string[]} params.providerBranches - List of branch name patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all branches.
      * @param {string[]} params.providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
@@ -206,6 +209,9 @@ export class Sites {
      * @param {number} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {ProjectKeyScopes[]} params.scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @param {string} params.description - Optional description for the site.
+     * @param {boolean} params.providerComments - Post a build summary on pull requests for the repo linked to the site. Commit statuses are still reported when disabled. Ignored in silent mode.
+     * @param {boolean} params.providerDeployments - Deploy every push that matches the branch and path rules for the repo linked to the site. When disabled, deploy manually.
+     * @param {boolean} params.providerStatuses - Report the build status on each commit for the repo linked to the site. Ignored in silent mode.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Site>}
      */
@@ -235,6 +241,9 @@ export class Sites {
         deploymentRetention?: number;
         scopes?: ProjectKeyScopes[];
         description?: string;
+        providerComments?: boolean;
+        providerDeployments?: boolean;
+        providerStatuses?: boolean;
     }): Promise<Models.Site>;
     /**
      * Create a new site.
@@ -255,7 +264,7 @@ export class Sites {
      * @param {string} fallbackFile - Fallback file for single page application sites.
      * @param {string} providerRepositoryId - Repository ID of the repo linked to the site.
      * @param {string} providerBranch - Production branch for the repo linked to the site.
-     * @param {boolean} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the site? In silent mode, comments will not be made on commits and pull requests.
+     * @param {boolean} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the site? In silent mode, no comments or checks are posted to commits and pull requests.
      * @param {string} providerRootDirectory - Path to site code in the linked repo.
      * @param {string[]} providerBranches - List of branch name patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all branches.
      * @param {string[]} providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
@@ -264,6 +273,9 @@ export class Sites {
      * @param {number} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {ProjectKeyScopes[]} scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @param {string} description - Optional description for the site.
+     * @param {boolean} providerComments - Post a build summary on pull requests for the repo linked to the site. Commit statuses are still reported when disabled. Ignored in silent mode.
+     * @param {boolean} providerDeployments - Deploy every push that matches the branch and path rules for the repo linked to the site. When disabled, deploy manually.
+     * @param {boolean} providerStatuses - Report the build status on each commit for the repo linked to the site. Ignored in silent mode.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Site>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -294,6 +306,9 @@ export class Sites {
         deploymentRetention?: number,
         scopes?: ProjectKeyScopes[],
         description?: string,
+        providerComments?: boolean,
+        providerDeployments?: boolean,
+        providerStatuses?: boolean,
     ): Promise<Models.Site>;
     create(
         paramsOrFirst:
@@ -323,6 +338,9 @@ export class Sites {
                   deploymentRetention?: number;
                   scopes?: ProjectKeyScopes[];
                   description?: string;
+                  providerComments?: boolean;
+                  providerDeployments?: boolean;
+                  providerStatuses?: boolean;
               }
             | string,
         ...rest: [
@@ -350,6 +368,9 @@ export class Sites {
             number?,
             ProjectKeyScopes[]?,
             string?,
+            boolean?,
+            boolean?,
+            boolean?,
         ]
     ): Promise<Models.Site> {
         let params: {
@@ -378,6 +399,9 @@ export class Sites {
             deploymentRetention?: number;
             scopes?: ProjectKeyScopes[];
             description?: string;
+            providerComments?: boolean;
+            providerDeployments?: boolean;
+            providerStatuses?: boolean;
         };
 
         if (
@@ -411,6 +435,9 @@ export class Sites {
                 deploymentRetention?: number;
                 scopes?: ProjectKeyScopes[];
                 description?: string;
+                providerComments?: boolean;
+                providerDeployments?: boolean;
+                providerStatuses?: boolean;
             };
         } else {
             params = {
@@ -439,6 +466,9 @@ export class Sites {
                 deploymentRetention: rest[21] as number,
                 scopes: rest[22] as ProjectKeyScopes[],
                 description: rest[23] as string,
+                providerComments: rest[24] as boolean,
+                providerDeployments: rest[25] as boolean,
+                providerStatuses: rest[26] as boolean,
             };
         }
 
@@ -467,6 +497,9 @@ export class Sites {
         const deploymentRetention = params.deploymentRetention;
         const scopes = params.scopes;
         const description = params.description;
+        const providerComments = params.providerComments;
+        const providerDeployments = params.providerDeployments;
+        const providerStatuses = params.providerStatuses;
         if (typeof siteId === 'undefined') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
@@ -560,6 +593,15 @@ export class Sites {
         if (typeof description !== 'undefined') {
             apiPayload['description'] = description;
         }
+        if (typeof providerComments !== 'undefined') {
+            apiPayload['providerComments'] = providerComments;
+        }
+        if (typeof providerDeployments !== 'undefined') {
+            apiPayload['providerDeployments'] = providerDeployments;
+        }
+        if (typeof providerStatuses !== 'undefined') {
+            apiPayload['providerStatuses'] = providerStatuses;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -603,6 +645,9 @@ export class Sites {
                         providerBranch: '',
                         providerRootDirectory: '',
                         providerSilentMode: false,
+                        providerComments: true,
+                        providerDeployments: true,
+                        providerStatuses: true,
                         providerBranches: [],
                         providerPaths: [],
                         buildSpecification: 's-1vcpu-512mb',
@@ -904,6 +949,9 @@ export class Sites {
                         providerBranch: '',
                         providerRootDirectory: '',
                         providerSilentMode: false,
+                        providerComments: true,
+                        providerDeployments: true,
+                        providerStatuses: true,
                         providerBranches: [],
                         providerPaths: [],
                         buildSpecification: 's-1vcpu-512mb',
@@ -956,7 +1004,7 @@ export class Sites {
      * @param {string} params.installationId - Appwrite Installation ID for VCS (Version Control System) deployment.
      * @param {string | null} params.providerRepositoryId - Repository ID of the repo linked to the site.
      * @param {string} params.providerBranch - Production branch for the repo linked to the site.
-     * @param {boolean | null} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the site? In silent mode, comments will not be made on commits and pull requests.
+     * @param {boolean | null} params.providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the site? In silent mode, no comments or checks are posted to commits and pull requests.
      * @param {string} params.providerRootDirectory - Path to site code in the linked repo.
      * @param {string[] | null} params.providerBranches - List of branch name patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all branches.
      * @param {string[] | null} params.providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
@@ -965,6 +1013,9 @@ export class Sites {
      * @param {number | null} params.deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {ProjectKeyScopes[] | null} params.scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @param {string | null} params.description - Optional description for the site.
+     * @param {boolean | null} params.providerComments - Post a build summary on pull requests for the repo linked to the site. Commit statuses are still reported when disabled. Ignored in silent mode.
+     * @param {boolean | null} params.providerDeployments - Deploy every push that matches the branch and path rules for the repo linked to the site. When disabled, deploy manually.
+     * @param {boolean | null} params.providerStatuses - Report the build status on each commit for the repo linked to the site. Ignored in silent mode.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Site>}
      */
@@ -994,6 +1045,9 @@ export class Sites {
         deploymentRetention?: number | null;
         scopes?: ProjectKeyScopes[] | null;
         description?: string | null;
+        providerComments?: boolean | null;
+        providerDeployments?: boolean | null;
+        providerStatuses?: boolean | null;
     }): Promise<Models.Site>;
     /**
      * Update site by its unique ID.
@@ -1014,7 +1068,7 @@ export class Sites {
      * @param {string} installationId - Appwrite Installation ID for VCS (Version Control System) deployment.
      * @param {string | null} providerRepositoryId - Repository ID of the repo linked to the site.
      * @param {string} providerBranch - Production branch for the repo linked to the site.
-     * @param {boolean | null} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the site? In silent mode, comments will not be made on commits and pull requests.
+     * @param {boolean | null} providerSilentMode - Is the VCS (Version Control System) connection in silent mode for the repo linked to the site? In silent mode, no comments or checks are posted to commits and pull requests.
      * @param {string} providerRootDirectory - Path to site code in the linked repo.
      * @param {string[] | null} providerBranches - List of branch name patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all branches.
      * @param {string[] | null} providerPaths - List of file path patterns to trigger automatic deployments. Supports wildcards. Leave empty to deploy on all file changes.
@@ -1023,6 +1077,9 @@ export class Sites {
      * @param {number | null} deploymentRetention - Days to keep non-active deployments before deletion. Value 0 keeps all deployments unless the server applies a default retention.
      * @param {ProjectKeyScopes[] | null} scopes - List of scopes allowed for API key auto-generated for every site build and SSR execution. Maximum of 200 scopes are allowed.
      * @param {string | null} description - Optional description for the site.
+     * @param {boolean | null} providerComments - Post a build summary on pull requests for the repo linked to the site. Commit statuses are still reported when disabled. Ignored in silent mode.
+     * @param {boolean | null} providerDeployments - Deploy every push that matches the branch and path rules for the repo linked to the site. When disabled, deploy manually.
+     * @param {boolean | null} providerStatuses - Report the build status on each commit for the repo linked to the site. Ignored in silent mode.
      * @throws {AppwriteException}
      * @returns {Promise<Models.Site>}
      * @deprecated Use the object parameter style method for a better developer experience.
@@ -1053,6 +1110,9 @@ export class Sites {
         deploymentRetention?: number | null,
         scopes?: ProjectKeyScopes[] | null,
         description?: string | null,
+        providerComments?: boolean | null,
+        providerDeployments?: boolean | null,
+        providerStatuses?: boolean | null,
     ): Promise<Models.Site>;
     update(
         paramsOrFirst:
@@ -1082,6 +1142,9 @@ export class Sites {
                   deploymentRetention?: number | null;
                   scopes?: ProjectKeyScopes[] | null;
                   description?: string | null;
+                  providerComments?: boolean | null;
+                  providerDeployments?: boolean | null;
+                  providerStatuses?: boolean | null;
               }
             | string,
         ...rest: [
@@ -1109,6 +1172,9 @@ export class Sites {
             (number | null)?,
             (ProjectKeyScopes[] | null)?,
             (string | null)?,
+            (boolean | null)?,
+            (boolean | null)?,
+            (boolean | null)?,
         ]
     ): Promise<Models.Site> {
         let params: {
@@ -1137,6 +1203,9 @@ export class Sites {
             deploymentRetention?: number | null;
             scopes?: ProjectKeyScopes[] | null;
             description?: string | null;
+            providerComments?: boolean | null;
+            providerDeployments?: boolean | null;
+            providerStatuses?: boolean | null;
         };
 
         if (
@@ -1170,6 +1239,9 @@ export class Sites {
                 deploymentRetention?: number | null;
                 scopes?: ProjectKeyScopes[] | null;
                 description?: string | null;
+                providerComments?: boolean | null;
+                providerDeployments?: boolean | null;
+                providerStatuses?: boolean | null;
             };
         } else {
             params = {
@@ -1198,6 +1270,9 @@ export class Sites {
                 deploymentRetention: rest[21] as number | null,
                 scopes: rest[22] as ProjectKeyScopes[] | null,
                 description: rest[23] as string | null,
+                providerComments: rest[24] as boolean | null,
+                providerDeployments: rest[25] as boolean | null,
+                providerStatuses: rest[26] as boolean | null,
             };
         }
 
@@ -1226,6 +1301,9 @@ export class Sites {
         const deploymentRetention = params.deploymentRetention;
         const scopes = params.scopes;
         const description = params.description;
+        const providerComments = params.providerComments;
+        const providerDeployments = params.providerDeployments;
+        const providerStatuses = params.providerStatuses;
         if (typeof siteId === 'undefined' || siteId === '') {
             throw new AppwriteException('Missing required parameter: "siteId"');
         }
@@ -1314,6 +1392,15 @@ export class Sites {
         if (typeof description !== 'undefined') {
             apiPayload['description'] = description;
         }
+        if (typeof providerComments !== 'undefined') {
+            apiPayload['providerComments'] = providerComments;
+        }
+        if (typeof providerDeployments !== 'undefined') {
+            apiPayload['providerDeployments'] = providerDeployments;
+        }
+        if (typeof providerStatuses !== 'undefined') {
+            apiPayload['providerStatuses'] = providerStatuses;
+        }
         const uri = new URL(this.client.config.endpoint + apiPath);
 
         const apiHeaders: { [header: string]: string } = {
@@ -1357,6 +1444,9 @@ export class Sites {
                         providerBranch: '',
                         providerRootDirectory: '',
                         providerSilentMode: false,
+                        providerComments: true,
+                        providerDeployments: true,
+                        providerStatuses: true,
                         providerBranches: [],
                         providerPaths: [],
                         buildSpecification: 's-1vcpu-512mb',
@@ -1547,6 +1637,9 @@ export class Sites {
                         providerBranch: '',
                         providerRootDirectory: '',
                         providerSilentMode: false,
+                        providerComments: true,
+                        providerDeployments: true,
+                        providerStatuses: true,
                         providerBranches: [],
                         providerPaths: [],
                         buildSpecification: 's-1vcpu-512mb',
@@ -1688,6 +1781,9 @@ export class Sites {
                         providerBranch: '',
                         providerRootDirectory: '',
                         providerSilentMode: false,
+                        providerComments: true,
+                        providerDeployments: true,
+                        providerStatuses: true,
                         providerBranches: [],
                         providerPaths: [],
                         buildSpecification: 's-1vcpu-512mb',
