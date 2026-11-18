@@ -4340,6 +4340,18 @@ export namespace Models {
          */
         providerSilentMode: boolean;
         /**
+         * Whether a build summary is posted on pull requests. Commit statuses are still reported when disabled.
+         */
+        providerComments: boolean;
+        /**
+         * Whether pushes that match the branch and path rules are deployed automatically.
+         */
+        providerDeployments: boolean;
+        /**
+         * Whether the build status is reported on each commit.
+         */
+        providerStatuses: boolean;
+        /**
          * List of branch name patterns that trigger automatic deployments. Supports glob wildcards. Empty list deploys on all branches.
          */
         providerBranches: string[];
@@ -4501,6 +4513,18 @@ export namespace Models {
          * Is VCS (Version Control System) connection is in silent mode? When in silence mode, no comments will be posted on the repository pull or merge requests
          */
         providerSilentMode: boolean;
+        /**
+         * Whether a build summary is posted on pull requests. Commit statuses are still reported when disabled.
+         */
+        providerComments: boolean;
+        /**
+         * Whether pushes that match the branch and path rules are deployed automatically.
+         */
+        providerDeployments: boolean;
+        /**
+         * Whether the build status is reported on each commit.
+         */
+        providerStatuses: boolean;
         /**
          * List of branch name patterns that trigger automatic deployments. Supports glob wildcards. Empty list deploys on all branches.
          */
@@ -5900,6 +5924,292 @@ export namespace Models {
     };
 
     /**
+     * OAuth2Instagram
+     */
+    export type OAuth2Instagram = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Instagram OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Instagram OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Patreon
+     */
+    export type OAuth2Patreon = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Patreon OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Patreon OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Strava
+     */
+    export type OAuth2Strava = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Strava OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Strava OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2VK
+     */
+    export type OAuth2VK = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * VK OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * VK OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Netlify
+     */
+    export type OAuth2Netlify = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Netlify OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Netlify OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Railway
+     */
+    export type OAuth2Railway = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Railway OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Railway OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Reddit
+     */
+    export type OAuth2Reddit = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Reddit OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Reddit OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Vercel
+     */
+    export type OAuth2Vercel = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Vercel OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Vercel OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Atlassian
+     */
+    export type OAuth2Atlassian = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Atlassian OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Atlassian OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Line
+     */
+    export type OAuth2Line = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * LINE OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * LINE OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Linear
+     */
+    export type OAuth2Linear = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Linear OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Linear OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2Roblox
+     */
+    export type OAuth2Roblox = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * Roblox OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * Roblox OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
+     * OAuth2WorkOS
+     */
+    export type OAuth2WorkOS = {
+        /**
+         * OAuth2 provider ID.
+         */
+        $id: string;
+        /**
+         * OAuth2 provider is active and can be used to create sessions.
+         */
+        enabled: boolean;
+        /**
+         * WorkOS OAuth2 client ID.
+         */
+        clientId: string;
+        /**
+         * WorkOS OAuth2 client secret.
+         */
+        clientSecret: string;
+    };
+
+    /**
      * OAuth2Linkedin
      */
     export type OAuth2Linkedin = {
@@ -6552,6 +6862,19 @@ export namespace Models {
             | Models.OAuth2Kick
             | Models.OAuth2Microsoft
             | Models.OAuth2HuggingFace
+            | Models.OAuth2Instagram
+            | Models.OAuth2Patreon
+            | Models.OAuth2Strava
+            | Models.OAuth2VK
+            | Models.OAuth2Netlify
+            | Models.OAuth2Railway
+            | Models.OAuth2Reddit
+            | Models.OAuth2Vercel
+            | Models.OAuth2Atlassian
+            | Models.OAuth2Line
+            | Models.OAuth2Linear
+            | Models.OAuth2Roblox
+            | Models.OAuth2WorkOS
             | Models.OAuth2Resend
             | Models.OAuth2Cloudflare
             | Models.OAuth2TikTok

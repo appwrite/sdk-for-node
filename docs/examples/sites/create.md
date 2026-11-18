@@ -34,5 +34,8 @@ const result = await sites.create({
     deploymentRetention: 0, // optional
     scopes: [sdk.ProjectKeyScopes.ProjectRead], // optional
     description: '<DESCRIPTION>', // optional
+    providerComments: false, // optional
+    providerDeployments: false, // optional
+    providerStatuses: false, // optional
 });
 ```

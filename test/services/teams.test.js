@@ -1,4 +1,5 @@
 const { Client } = require('../../dist/client');
+const { InputFile } = require('../../dist/inputFile');
 const { Teams } = require('../../dist/services/teams');
 
 const { fetch: mockedFetch, Response } = require('undici');
@@ -316,6 +317,46 @@ describe('Teams', () => {
             '<USER_ID>',
             '<SECRET>',
         );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method getPhoto()', async () => {
+        const data = new ArrayBuffer(0);
+        mockedFetch.mockImplementation(() => new Response(data));
+        const response = await teams.getPhoto('<TEAM_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updatePhoto()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'VIP',
+            total: 7,
+            prefs: {},
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await teams.updatePhoto(
+            '<TEAM_ID>',
+            InputFile.fromBuffer(new Uint8Array(0), 'image.png'),
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method deletePhoto()', async () => {
+        const data = { message: '' };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await teams.deletePhoto('<TEAM_ID>');
 
         // Remove custom toString method on the objects to allow for clean data comparison.
         delete response.toString;
