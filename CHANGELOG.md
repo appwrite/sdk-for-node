@@ -1,5 +1,9 @@
 # Change Log
 
+## 32.1.0
+
+* Added: `messaging.createBirdEmailProvider`, `updateBirdEmailProvider`, `createBirdSMSProvider` and `updateBirdSMSProvider` for the Bird email and SMS providers
+
 ## 32.0.0
 
 * Breaking: `emailEnabled` moved after the new provider params in positional `functions.update` calls
