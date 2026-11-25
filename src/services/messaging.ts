@@ -3423,6 +3423,644 @@ export class Messaging {
     }
 
     /**
+     * Create a new Bird email provider. It sends email through Bird's email API with a workspace API key that holds the `emails:write` scope.
+     *
+     * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Provider name.
+     * @param {string} params.apiKey - Bird workspace API key.
+     * @param {string} params.fromName - Sender Name.
+     * @param {string} params.fromEmail - Sender email address. Its domain must be verified in the Bird workspace.
+     * @param {string} params.replyToName - Name set in the reply to field for the mail. Default value is sender name.
+     * @param {string} params.replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
+     * @param {boolean | null} params.enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    createBirdEmailProvider(params: {
+        providerId: string;
+        name: string;
+        apiKey?: string;
+        fromName?: string;
+        fromEmail?: string;
+        replyToName?: string;
+        replyToEmail?: string;
+        enabled?: boolean | null;
+    }): Promise<Models.Provider>;
+    /**
+     * Create a new Bird email provider. It sends email through Bird's email API with a workspace API key that holds the `emails:write` scope.
+     *
+     * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} name - Provider name.
+     * @param {string} apiKey - Bird workspace API key.
+     * @param {string} fromName - Sender Name.
+     * @param {string} fromEmail - Sender email address. Its domain must be verified in the Bird workspace.
+     * @param {string} replyToName - Name set in the reply to field for the mail. Default value is sender name.
+     * @param {string} replyToEmail - Email set in the reply to field for the mail. Default value is sender email.
+     * @param {boolean | null} enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createBirdEmailProvider(
+        providerId: string,
+        name: string,
+        apiKey?: string,
+        fromName?: string,
+        fromEmail?: string,
+        replyToName?: string,
+        replyToEmail?: string,
+        enabled?: boolean | null,
+    ): Promise<Models.Provider>;
+    createBirdEmailProvider(
+        paramsOrFirst:
+            | {
+                  providerId: string;
+                  name: string;
+                  apiKey?: string;
+                  fromName?: string;
+                  fromEmail?: string;
+                  replyToName?: string;
+                  replyToEmail?: string;
+                  enabled?: boolean | null;
+              }
+            | string,
+        ...rest: [
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+            (boolean | null)?,
+        ]
+    ): Promise<Models.Provider> {
+        let params: {
+            providerId: string;
+            name: string;
+            apiKey?: string;
+            fromName?: string;
+            fromEmail?: string;
+            replyToName?: string;
+            replyToEmail?: string;
+            enabled?: boolean | null;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                providerId: string;
+                name: string;
+                apiKey?: string;
+                fromName?: string;
+                fromEmail?: string;
+                replyToName?: string;
+                replyToEmail?: string;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                apiKey: rest[1] as string,
+                fromName: rest[2] as string,
+                fromEmail: rest[3] as string,
+                replyToName: rest[4] as string,
+                replyToEmail: rest[5] as string,
+                enabled: rest[6] as boolean | null,
+            };
+        }
+
+        const providerId = params.providerId;
+        const name = params.name;
+        const apiKey = params.apiKey;
+        const fromName = params.fromName;
+        const fromEmail = params.fromEmail;
+        const replyToName = params.replyToName;
+        const replyToEmail = params.replyToEmail;
+        const enabled = params.enabled;
+        if (typeof providerId === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "providerId"',
+            );
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+        const apiPath = '/messaging/providers/bird-email';
+        const apiPayload: Payload = {};
+        if (typeof providerId !== 'undefined') {
+            apiPayload['providerId'] = providerId;
+        }
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        if (typeof apiKey !== 'undefined') {
+            apiPayload['apiKey'] = apiKey;
+        }
+        if (typeof fromName !== 'undefined') {
+            apiPayload['fromName'] = fromName;
+        }
+        if (typeof fromEmail !== 'undefined') {
+            apiPayload['fromEmail'] = fromEmail;
+        }
+        if (typeof replyToName !== 'undefined') {
+            apiPayload['replyToName'] = replyToName;
+        }
+        if (typeof replyToEmail !== 'undefined') {
+            apiPayload['replyToEmail'] = replyToEmail;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: {},
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update a Bird email provider by its unique ID.
+     *
+     * @param {string} params.providerId - Provider ID.
+     * @param {string} params.name - Provider name.
+     * @param {boolean | null} params.enabled - Set as enabled.
+     * @param {string} params.apiKey - Bird workspace API key.
+     * @param {string} params.fromName - Sender Name.
+     * @param {string} params.fromEmail - Sender email address. Its domain must be verified in the Bird workspace.
+     * @param {string} params.replyToName - Name set in the Reply To field for the mail. Default value is Sender Name.
+     * @param {string} params.replyToEmail - Email set in the Reply To field for the mail. Default value is Sender Email.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    updateBirdEmailProvider(params: {
+        providerId: string;
+        name?: string;
+        enabled?: boolean | null;
+        apiKey?: string;
+        fromName?: string;
+        fromEmail?: string;
+        replyToName?: string;
+        replyToEmail?: string;
+    }): Promise<Models.Provider>;
+    /**
+     * Update a Bird email provider by its unique ID.
+     *
+     * @param {string} providerId - Provider ID.
+     * @param {string} name - Provider name.
+     * @param {boolean | null} enabled - Set as enabled.
+     * @param {string} apiKey - Bird workspace API key.
+     * @param {string} fromName - Sender Name.
+     * @param {string} fromEmail - Sender email address. Its domain must be verified in the Bird workspace.
+     * @param {string} replyToName - Name set in the Reply To field for the mail. Default value is Sender Name.
+     * @param {string} replyToEmail - Email set in the Reply To field for the mail. Default value is Sender Email.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateBirdEmailProvider(
+        providerId: string,
+        name?: string,
+        enabled?: boolean | null,
+        apiKey?: string,
+        fromName?: string,
+        fromEmail?: string,
+        replyToName?: string,
+        replyToEmail?: string,
+    ): Promise<Models.Provider>;
+    updateBirdEmailProvider(
+        paramsOrFirst:
+            | {
+                  providerId: string;
+                  name?: string;
+                  enabled?: boolean | null;
+                  apiKey?: string;
+                  fromName?: string;
+                  fromEmail?: string;
+                  replyToName?: string;
+                  replyToEmail?: string;
+              }
+            | string,
+        ...rest: [
+            string?,
+            (boolean | null)?,
+            string?,
+            string?,
+            string?,
+            string?,
+            string?,
+        ]
+    ): Promise<Models.Provider> {
+        let params: {
+            providerId: string;
+            name?: string;
+            enabled?: boolean | null;
+            apiKey?: string;
+            fromName?: string;
+            fromEmail?: string;
+            replyToName?: string;
+            replyToEmail?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                providerId: string;
+                name?: string;
+                enabled?: boolean | null;
+                apiKey?: string;
+                fromName?: string;
+                fromEmail?: string;
+                replyToName?: string;
+                replyToEmail?: string;
+            };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                enabled: rest[1] as boolean | null,
+                apiKey: rest[2] as string,
+                fromName: rest[3] as string,
+                fromEmail: rest[4] as string,
+                replyToName: rest[5] as string,
+                replyToEmail: rest[6] as string,
+            };
+        }
+
+        const providerId = params.providerId;
+        const name = params.name;
+        const enabled = params.enabled;
+        const apiKey = params.apiKey;
+        const fromName = params.fromName;
+        const fromEmail = params.fromEmail;
+        const replyToName = params.replyToName;
+        const replyToEmail = params.replyToEmail;
+        if (typeof providerId === 'undefined' || providerId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "providerId"',
+            );
+        }
+        const apiPath = '/messaging/providers/bird-email/{providerId}'.replace(
+            '{providerId}',
+            encodePath(providerId),
+        );
+        const apiPayload: Payload = {};
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        if (typeof apiKey !== 'undefined') {
+            apiPayload['apiKey'] = apiKey;
+        }
+        if (typeof fromName !== 'undefined') {
+            apiPayload['fromName'] = fromName;
+        }
+        if (typeof fromEmail !== 'undefined') {
+            apiPayload['fromEmail'] = fromEmail;
+        }
+        if (typeof replyToName !== 'undefined') {
+            apiPayload['replyToName'] = replyToName;
+        }
+        if (typeof replyToEmail !== 'undefined') {
+            apiPayload['replyToEmail'] = replyToEmail;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: {},
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Create a new Bird SMS provider. It sends SMS through Bird with a workspace API key that holds the `sms:write` scope.
+     *
+     * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Provider name.
+     * @param {string} params.from - Sender phone number or alphanumeric sender ID. Format phone numbers with a leading '+' and a country code, e.g., +16175551212.
+     * @param {string} params.apiKey - Bird workspace API key.
+     * @param {boolean | null} params.enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    createBirdSMSProvider(params: {
+        providerId: string;
+        name: string;
+        from?: string;
+        apiKey?: string;
+        enabled?: boolean | null;
+    }): Promise<Models.Provider>;
+    /**
+     * Create a new Bird SMS provider. It sends SMS through Bird with a workspace API key that holds the `sms:write` scope.
+     *
+     * @param {string} providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} name - Provider name.
+     * @param {string} from - Sender phone number or alphanumeric sender ID. Format phone numbers with a leading '+' and a country code, e.g., +16175551212.
+     * @param {string} apiKey - Bird workspace API key.
+     * @param {boolean | null} enabled - Set as enabled.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createBirdSMSProvider(
+        providerId: string,
+        name: string,
+        from?: string,
+        apiKey?: string,
+        enabled?: boolean | null,
+    ): Promise<Models.Provider>;
+    createBirdSMSProvider(
+        paramsOrFirst:
+            | {
+                  providerId: string;
+                  name: string;
+                  from?: string;
+                  apiKey?: string;
+                  enabled?: boolean | null;
+              }
+            | string,
+        ...rest: [string?, string?, string?, (boolean | null)?]
+    ): Promise<Models.Provider> {
+        let params: {
+            providerId: string;
+            name: string;
+            from?: string;
+            apiKey?: string;
+            enabled?: boolean | null;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                providerId: string;
+                name: string;
+                from?: string;
+                apiKey?: string;
+                enabled?: boolean | null;
+            };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                from: rest[1] as string,
+                apiKey: rest[2] as string,
+                enabled: rest[3] as boolean | null,
+            };
+        }
+
+        const providerId = params.providerId;
+        const name = params.name;
+        const from = params.from;
+        const apiKey = params.apiKey;
+        const enabled = params.enabled;
+        if (typeof providerId === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "providerId"',
+            );
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+        const apiPath = '/messaging/providers/bird-sms';
+        const apiPayload: Payload = {};
+        if (typeof providerId !== 'undefined') {
+            apiPayload['providerId'] = providerId;
+        }
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        if (typeof from !== 'undefined') {
+            apiPayload['from'] = from;
+        }
+        if (typeof apiKey !== 'undefined') {
+            apiPayload['apiKey'] = apiKey;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: {},
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update a Bird SMS provider by its unique ID.
+     *
+     * @param {string} params.providerId - Provider ID.
+     * @param {string} params.name - Provider name.
+     * @param {boolean | null} params.enabled - Set as enabled.
+     * @param {string} params.apiKey - Bird workspace API key.
+     * @param {string} params.from - Sender phone number or alphanumeric sender ID. Format phone numbers with a leading '+' and a country code, e.g., +16175551212.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     */
+    updateBirdSMSProvider(params: {
+        providerId: string;
+        name?: string;
+        enabled?: boolean | null;
+        apiKey?: string;
+        from?: string;
+    }): Promise<Models.Provider>;
+    /**
+     * Update a Bird SMS provider by its unique ID.
+     *
+     * @param {string} providerId - Provider ID.
+     * @param {string} name - Provider name.
+     * @param {boolean | null} enabled - Set as enabled.
+     * @param {string} apiKey - Bird workspace API key.
+     * @param {string} from - Sender phone number or alphanumeric sender ID. Format phone numbers with a leading '+' and a country code, e.g., +16175551212.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Provider>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateBirdSMSProvider(
+        providerId: string,
+        name?: string,
+        enabled?: boolean | null,
+        apiKey?: string,
+        from?: string,
+    ): Promise<Models.Provider>;
+    updateBirdSMSProvider(
+        paramsOrFirst:
+            | {
+                  providerId: string;
+                  name?: string;
+                  enabled?: boolean | null;
+                  apiKey?: string;
+                  from?: string;
+              }
+            | string,
+        ...rest: [string?, (boolean | null)?, string?, string?]
+    ): Promise<Models.Provider> {
+        let params: {
+            providerId: string;
+            name?: string;
+            enabled?: boolean | null;
+            apiKey?: string;
+            from?: string;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                providerId: string;
+                name?: string;
+                enabled?: boolean | null;
+                apiKey?: string;
+                from?: string;
+            };
+        } else {
+            params = {
+                providerId: paramsOrFirst as string,
+                name: rest[0] as string,
+                enabled: rest[1] as boolean | null,
+                apiKey: rest[2] as string,
+                from: rest[3] as string,
+            };
+        }
+
+        const providerId = params.providerId;
+        const name = params.name;
+        const enabled = params.enabled;
+        const apiKey = params.apiKey;
+        const from = params.from;
+        if (typeof providerId === 'undefined' || providerId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "providerId"',
+            );
+        }
+        const apiPath = '/messaging/providers/bird-sms/{providerId}'.replace(
+            '{providerId}',
+            encodePath(providerId),
+        );
+        const apiPayload: Payload = {};
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        if (typeof enabled !== 'undefined') {
+            apiPayload['enabled'] = enabled;
+        }
+        if (typeof apiKey !== 'undefined') {
+            apiPayload['apiKey'] = apiKey;
+        }
+        if (typeof from !== 'undefined') {
+            apiPayload['from'] = from;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'provider',
+            models: {
+                provider: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        provider: '',
+                        enabled: true,
+                        type: '',
+                        credentials: {},
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
      * Create a new Firebase Cloud Messaging provider.
      *
      * @param {string} params.providerId - Provider ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.

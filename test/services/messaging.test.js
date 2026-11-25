@@ -377,6 +377,89 @@ describe('Messaging', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method createBirdEmailProvider()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'Mailgun',
+            provider: 'mailgun',
+            enabled: true,
+            type: 'sms',
+            credentials: {},
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await messaging.createBirdEmailProvider(
+            '<PROVIDER_ID>',
+            '<NAME>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateBirdEmailProvider()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'Mailgun',
+            provider: 'mailgun',
+            enabled: true,
+            type: 'sms',
+            credentials: {},
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response =
+            await messaging.updateBirdEmailProvider('<PROVIDER_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method createBirdSMSProvider()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'Mailgun',
+            provider: 'mailgun',
+            enabled: true,
+            type: 'sms',
+            credentials: {},
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await messaging.createBirdSMSProvider(
+            '<PROVIDER_ID>',
+            '<NAME>',
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateBirdSMSProvider()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'Mailgun',
+            provider: 'mailgun',
+            enabled: true,
+            type: 'sms',
+            credentials: {},
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await messaging.updateBirdSMSProvider('<PROVIDER_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method createFcmProvider()', async () => {
         const data = {
             $id: '5e5ea5c16897e',
