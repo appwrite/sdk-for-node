@@ -134,6 +134,20 @@ type Headers = {
     [key: string]: string;
 };
 
+/**
+ * Headers of an incoming request: a Fetch API `Headers` object, or a plain
+ * object of names and values such as Node.js' `req.headers`.
+ */
+type IncomingHeaders =
+    | { get(name: string): string | null | undefined }
+    | { [name: string]: string | string[] | undefined };
+
+/**
+ * An incoming request: anything that carries its headers, such as a Fetch
+ * API `Request`, a Node.js `IncomingMessage` or a Function's `req`.
+ */
+type IncomingRequest = { headers: IncomingHeaders };
+
 class AppwriteException extends Error {
     code: number;
     response: string;
@@ -154,7 +168,7 @@ class AppwriteException extends Error {
 }
 
 function getUserAgent() {
-    let ua = 'AppwriteNodeJSSDK/32.2.0';
+    let ua = 'AppwriteNodeJSSDK/32.3.0';
 
     // `process` is a global in Node.js, but not fully available in all runtimes.
     const platform: string[] = [];
@@ -191,6 +205,30 @@ function getUserAgent() {
     return ua;
 }
 
+function getRequestHeader(
+    request: IncomingRequest | IncomingHeaders,
+    name: string,
+): string {
+    const nested = (request as IncomingRequest).headers;
+    const headers =
+        typeof nested === 'object' && nested !== null
+            ? nested
+            : (request as IncomingHeaders);
+
+    if ('get' in headers && typeof headers.get === 'function') {
+        return headers.get(name) ?? '';
+    }
+
+    for (const [key, value] of Object.entries(headers)) {
+        if (key.toLowerCase() === name) {
+            const first = Array.isArray(value) ? value[0] : value;
+            return typeof first === 'string' ? first : '';
+        }
+    }
+
+    return '';
+}
+
 export function encodePath(value: unknown): string {
     const segment = String(value);
     if (segment === '.' || segment === '..') {
@@ -202,6 +240,7 @@ export function encodePath(value: unknown): string {
 class Client {
     static CHUNK_SIZE = 1024 * 1024 * 5;
     private selfSignedAgent?: Agent;
+    private request = { userAgent: '', ip: '' };
 
     config = {
         endpoint: 'https://cloud.appwrite.io/v1',
@@ -215,6 +254,7 @@ class Client {
         environment: '',
         session: '',
         forwardeduseragent: '',
+        forwardedip: '',
         cookie: '',
         impersonateuserid: '',
         impersonateuseremail: '',
@@ -224,7 +264,7 @@ class Client {
         'x-sdk-name': 'Node.js',
         'x-sdk-platform': 'server',
         'x-sdk-language': 'nodejs',
-        'x-sdk-version': '32.2.0',
+        'x-sdk-version': '32.3.0',
         'user-agent': getUserAgent(),
         'X-Appwrite-Response-Format': '2.7.2',
     };
@@ -300,7 +340,7 @@ class Client {
      * @returns {Headers}
      */
     getHeaders(): Headers {
-        return { ...this.headers };
+        return this.withRequest({ ...this.headers });
     }
 
     /**
@@ -427,6 +467,20 @@ class Client {
         return this;
     }
     /**
+     * Set ForwardedIP
+     *
+     * The IP address of the client that made the request
+     *
+     * @param value string
+     *
+     * @return {this}
+     */
+    setForwardedIP(value: string): this {
+        this.headers['X-Forwarded-IP'] = value;
+        this.config.forwardedip = value;
+        return this;
+    }
+    /**
      * Set Cookie
      *
      * The user cookie to authenticate with. Used by SDKs that forward an incoming Cookie header in server-side runtimes.
@@ -483,6 +537,59 @@ class Client {
         return this;
     }
 
+    /**
+     * Set Request
+     *
+     * Names the end user an incoming request comes from, so that what
+     * Appwrite records about them, such as the device of a session,
+     * describes them and not your server. Pass the request your server is
+     * handling, or only its headers.
+     *
+     * The user agent is read from the `user-agent` header.
+     * The IP address is read from `x-appwrite-client-ip`, which Appwrite
+     * Functions and Sites set. On any other host, call `setForwardedIP()`
+     * with the address your host reports.
+     *
+     * A value set with `setForwardedUserAgent()` or `setForwardedIP()` is
+     * used instead of the request's.
+     *
+     * Appwrite only accepts these values from a client with an API key, so
+     * call this on that client, and create it for each request. On any
+     * other client they are sent and ignored, as with the setters above.
+     *
+     * @param {object} request
+     *
+     * @returns {this}
+     */
+    setRequest(request: IncomingRequest | IncomingHeaders): this {
+        this.request.userAgent = getRequestHeader(request, 'user-agent');
+
+        // Functions and Sites set this header themselves and replace what a
+        // visitor sent. On any other host, the visitor controls it.
+        const hosted =
+            typeof process !== 'undefined' &&
+            Boolean(
+                process.env?.APPWRITE_FUNCTION_ID ||
+                process.env?.APPWRITE_SITE_ID,
+            );
+        this.request.ip = hosted
+            ? getRequestHeader(request, 'x-appwrite-client-ip')
+            : '';
+
+        return this;
+    }
+
+    private withRequest(headers: Headers): Headers {
+        if (!this.config.forwardeduseragent && this.request.userAgent) {
+            headers['X-Forwarded-User-Agent'] = this.request.userAgent;
+        }
+        if (!this.config.forwardedip && this.request.ip) {
+            headers['X-Forwarded-IP'] = this.request.ip;
+        }
+
+        return headers;
+    }
+
     prepareRequest(
         method: string,
         url: URL,
@@ -496,6 +603,7 @@ class Client {
         }
 
         headers = Object.assign({}, this.headers, headers);
+        headers = this.withRequest(headers);
 
         const options: RequestInit = {
             method,

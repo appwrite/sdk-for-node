@@ -1,7 +1,13 @@
 const { Client } = require('../dist/client');
 const { InputFile } = require('../dist/inputFile');
 const { Query } = require('../dist/query');
-const { fetch: mockedFetch, Response, Dispatcher } = require('undici');
+const {
+    fetch: mockedFetch,
+    Response,
+    Request,
+    Headers,
+    Dispatcher,
+} = require('undici');
 
 jest.mock('undici', () => ({
     ...jest.requireActual('undici'),
@@ -95,6 +101,99 @@ describe('Client.prepareRequest', () => {
 
         expect(options.body.getAll('queries[]')).toEqual(queries);
         expect(options.body.getAll('filters[]')).toEqual(queries);
+    });
+});
+
+describe('Client.setRequest', () => {
+    const userAgentHeader = 'X-Forwarded-User-Agent';
+    const ipHeader = 'X-Forwarded-IP';
+    const incoming = {
+        'user-agent': 'Mozilla/5.0 (end user)',
+        'x-appwrite-client-ip': '203.0.113.7',
+    };
+    const url = () => new URL('https://cloud.appwrite.io/v1/account/sessions');
+    const sent = (client) =>
+        client.prepareRequest('POST', url()).options.headers;
+    const env = process.env;
+
+    beforeEach(() => {
+        process.env = { ...env, APPWRITE_SITE_ID: 'site' };
+        delete process.env.APPWRITE_FUNCTION_ID;
+    });
+
+    afterEach(() => {
+        process.env = env;
+    });
+
+    test.each([
+        [
+            'a Fetch API Request',
+            () => new Request('https://example.com', { headers: incoming }),
+        ],
+        ['Fetch API Headers', () => new Headers(incoming)],
+        ['a request with plain headers', () => ({ headers: { ...incoming } })],
+        [
+            'plain headers in any case',
+            () => ({
+                'User-Agent': ['Mozilla/5.0 (end user)'],
+                'X-Appwrite-Client-IP': '203.0.113.7',
+            }),
+        ],
+    ])('names the end user from %s', (_name, request) => {
+        const headers = sent(new Client().setRequest(request()));
+
+        expect(headers[userAgentHeader]).toBe('Mozilla/5.0 (end user)');
+        expect(headers[ipHeader]).toBe('203.0.113.7');
+    });
+
+    test('keeps the end user the app named, whichever is set first', () => {
+        const before = new Client();
+        before.setForwardedUserAgent('Custom/1.0');
+        before.setForwardedIP('198.51.100.9');
+        before.setRequest(incoming);
+
+        const after = new Client().setRequest(incoming);
+        after.setForwardedUserAgent('Custom/1.0');
+        after.setForwardedIP('198.51.100.9');
+
+        for (const headers of [sent(before), sent(after)]) {
+            expect(headers[userAgentHeader]).toBe('Custom/1.0');
+            expect(headers[ipHeader]).toBe('198.51.100.9');
+        }
+    });
+
+    test('reads the IP address only inside Functions and Sites', () => {
+        delete process.env.APPWRITE_SITE_ID;
+        const elsewhere = sent(new Client().setRequest(incoming));
+
+        process.env.APPWRITE_FUNCTION_ID = 'function';
+        const hosted = sent(new Client().setRequest(incoming));
+
+        expect(elsewhere).not.toHaveProperty(ipHeader);
+        expect(elsewhere[userAgentHeader]).toBe('Mozilla/5.0 (end user)');
+        expect(hosted[ipHeader]).toBe('203.0.113.7');
+    });
+
+    test('replaces the request named before', () => {
+        const client = new Client().setRequest(incoming);
+        client.setRequest({ 'user-agent': 'Mozilla/5.0 (someone else)' });
+        const headers = sent(client);
+
+        expect(headers[userAgentHeader]).toBe('Mozilla/5.0 (someone else)');
+        expect(headers).not.toHaveProperty(ipHeader);
+    });
+
+    test('names nobody from a request without the headers', () => {
+        const headers = sent(new Client().setRequest({ headers: {} }));
+
+        expect(headers).not.toHaveProperty(userAgentHeader);
+        expect(headers).not.toHaveProperty(ipHeader);
+    });
+
+    test('is part of the headers the client reports', () => {
+        const headers = new Client().setRequest(incoming).getHeaders();
+
+        expect(headers[userAgentHeader]).toBe('Mozilla/5.0 (end user)');
     });
 });
 
