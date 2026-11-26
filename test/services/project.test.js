@@ -3241,4 +3241,94 @@ describe('Project', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method listVideoProfiles()', async () => {
+        const data = {
+            total: 5,
+            profiles: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.listVideoProfiles();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method createVideoProfile()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: '360p',
+            codec: 'h264',
+            videoBitRate: 890000,
+            audioBitRate: 64000,
+            width: 640,
+            height: 360,
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.createVideoProfile(
+            '<PROFILE_ID>',
+            '<NAME>',
+            1,
+            1,
+            1,
+            1,
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method getVideoProfile()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: '360p',
+            codec: 'h264',
+            videoBitRate: 890000,
+            audioBitRate: 64000,
+            width: 640,
+            height: 360,
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.getVideoProfile('<PROFILE_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateVideoProfile()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: '360p',
+            codec: 'h264',
+            videoBitRate: 890000,
+            audioBitRate: 64000,
+            width: 640,
+            height: 360,
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.updateVideoProfile('<PROFILE_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method deleteVideoProfile()', async () => {
+        const data = { message: '' };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await project.deleteVideoProfile('<PROFILE_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
 });
