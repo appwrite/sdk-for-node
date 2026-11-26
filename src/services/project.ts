@@ -28,6 +28,7 @@ import { ProjectServiceId } from '../enums/project-service-id';
 import { ProjectSMTPSecure } from '../enums/project-smtp-secure';
 import { ProjectEmailTemplateId } from '../enums/project-email-template-id';
 import { ProjectEmailTemplateLocale } from '../enums/project-email-template-locale';
+import { VideoCodecId } from '../enums/video-codec-id';
 export class Project {
     client: Client;
 
@@ -16652,6 +16653,583 @@ export class Project {
         const apiPath = '/project/variables/{variableId}'.replace(
             '{variableId}',
             encodePath(variableId),
+        );
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
+    }
+
+    /**
+     * Get a list of video profiles in the current project (`GET /v1/project/videos/profiles`). Every profile is returned regardless of codec. Filter with `queries`, for example `Query.equal('codec', ['h264'])` for one encode ladder, or on `name`, `width`, `height`, `videoBitRate` and `audioBitRate`. Search with `Query.search()` on the `search` attribute.
+     *
+     *
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, codec, width, height, videoBitRate, audioBitRate, search
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.VideoProfileList>}
+     */
+    listVideoProfiles(params?: {
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.VideoProfileList>;
+    /**
+     * Get a list of video profiles in the current project (`GET /v1/project/videos/profiles`). Every profile is returned regardless of codec. Filter with `queries`, for example `Query.equal('codec', ['h264'])` for one encode ladder, or on `name`, `width`, `height`, `videoBitRate` and `audioBitRate`. Search with `Query.search()` on the `search` attribute.
+     *
+     *
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, codec, width, height, videoBitRate, audioBitRate, search
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.VideoProfileList>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    listVideoProfiles(
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.VideoProfileList>;
+    listVideoProfiles(
+        paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
+        ...rest: [boolean?]
+    ): Promise<Models.VideoProfileList> {
+        let params: { queries?: string[]; total?: boolean };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                total?: boolean;
+            };
+        } else {
+            params = {
+                queries: paramsOrFirst as string[],
+                total: rest[0] as boolean,
+            };
+        }
+
+        const queries = params.queries;
+        const total = params.total;
+        const apiPath = '/project/videos/profiles';
+        const apiPayload: Payload = {};
+        if (typeof queries !== 'undefined') {
+            apiPayload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'videoProfileList',
+            models: {
+                videoProfileList: {
+                    defaults: {
+                        total: 0,
+                        profiles: [],
+                    },
+                    properties: {
+                        profiles: {
+                            items: 'videoProfile',
+                        },
+                    },
+                },
+                videoProfile: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        codec: 'h264',
+                        videoBitRate: 0,
+                        audioBitRate: 0,
+                        width: 0,
+                        height: 0,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Create a video profile (`POST /v1/project/videos/profiles`) describing an encoding target: output dimensions, video/audio bitrates, and encode codec. Only codecs enabled on this instance are accepted; the default is `h264`. A disabled codec is rejected. Creating a profile with the same width, height, bitrates, and codec fails with `video_profile_already_exists`. Bitrates are in bits per second and must be multiples of 1000. Renditions are encoded against a profile.
+     *
+     *
+     * @param {string} params.profileId - Video profile ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Video profile name.
+     * @param {number} params.videoBitRate - Target video bitrate in bits per second. Must be a multiple of 1000.
+     * @param {number} params.audioBitRate - Target audio bitrate in bits per second. Must be a multiple of 1000.
+     * @param {number} params.width - Target video width in pixels. Must be an even number.
+     * @param {number} params.height - Target video height in pixels. Must be an even number.
+     * @param {VideoCodecId} params.codec - Video encode codec. Codecs not enabled on this instance are rejected. Defaults to `h264`.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.VideoProfile>}
+     */
+    createVideoProfile(params: {
+        profileId: string;
+        name: string;
+        videoBitRate: number;
+        audioBitRate: number;
+        width: number;
+        height: number;
+        codec?: VideoCodecId;
+    }): Promise<Models.VideoProfile>;
+    /**
+     * Create a video profile (`POST /v1/project/videos/profiles`) describing an encoding target: output dimensions, video/audio bitrates, and encode codec. Only codecs enabled on this instance are accepted; the default is `h264`. A disabled codec is rejected. Creating a profile with the same width, height, bitrates, and codec fails with `video_profile_already_exists`. Bitrates are in bits per second and must be multiples of 1000. Renditions are encoded against a profile.
+     *
+     *
+     * @param {string} profileId - Video profile ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} name - Video profile name.
+     * @param {number} videoBitRate - Target video bitrate in bits per second. Must be a multiple of 1000.
+     * @param {number} audioBitRate - Target audio bitrate in bits per second. Must be a multiple of 1000.
+     * @param {number} width - Target video width in pixels. Must be an even number.
+     * @param {number} height - Target video height in pixels. Must be an even number.
+     * @param {VideoCodecId} codec - Video encode codec. Codecs not enabled on this instance are rejected. Defaults to `h264`.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.VideoProfile>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createVideoProfile(
+        profileId: string,
+        name: string,
+        videoBitRate: number,
+        audioBitRate: number,
+        width: number,
+        height: number,
+        codec?: VideoCodecId,
+    ): Promise<Models.VideoProfile>;
+    createVideoProfile(
+        paramsOrFirst:
+            | {
+                  profileId: string;
+                  name: string;
+                  videoBitRate: number;
+                  audioBitRate: number;
+                  width: number;
+                  height: number;
+                  codec?: VideoCodecId;
+              }
+            | string,
+        ...rest: [string?, number?, number?, number?, number?, VideoCodecId?]
+    ): Promise<Models.VideoProfile> {
+        let params: {
+            profileId: string;
+            name: string;
+            videoBitRate: number;
+            audioBitRate: number;
+            width: number;
+            height: number;
+            codec?: VideoCodecId;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                profileId: string;
+                name: string;
+                videoBitRate: number;
+                audioBitRate: number;
+                width: number;
+                height: number;
+                codec?: VideoCodecId;
+            };
+        } else {
+            params = {
+                profileId: paramsOrFirst as string,
+                name: rest[0] as string,
+                videoBitRate: rest[1] as number,
+                audioBitRate: rest[2] as number,
+                width: rest[3] as number,
+                height: rest[4] as number,
+                codec: rest[5] as VideoCodecId,
+            };
+        }
+
+        const profileId = params.profileId;
+        const name = params.name;
+        const videoBitRate = params.videoBitRate;
+        const audioBitRate = params.audioBitRate;
+        const width = params.width;
+        const height = params.height;
+        const codec = params.codec;
+        if (typeof profileId === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "profileId"',
+            );
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+        if (typeof videoBitRate === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "videoBitRate"',
+            );
+        }
+        if (typeof audioBitRate === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "audioBitRate"',
+            );
+        }
+        if (typeof width === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "width"');
+        }
+        if (typeof height === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "height"');
+        }
+        const apiPath = '/project/videos/profiles';
+        const apiPayload: Payload = {};
+        if (typeof profileId !== 'undefined') {
+            apiPayload['profileId'] = profileId;
+        }
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        if (typeof videoBitRate !== 'undefined') {
+            apiPayload['videoBitRate'] = videoBitRate;
+        }
+        if (typeof audioBitRate !== 'undefined') {
+            apiPayload['audioBitRate'] = audioBitRate;
+        }
+        if (typeof width !== 'undefined') {
+            apiPayload['width'] = width;
+        }
+        if (typeof height !== 'undefined') {
+            apiPayload['height'] = height;
+        }
+        if (typeof codec !== 'undefined') {
+            apiPayload['codec'] = codec;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'videoProfile',
+            models: {
+                videoProfile: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        codec: 'h264',
+                        videoBitRate: 0,
+                        audioBitRate: 0,
+                        width: 0,
+                        height: 0,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Get a video profile by its unique ID (`GET /v1/project/videos/profiles/:profileId`).
+     *
+     *
+     * @param {string} params.profileId - Video profile unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.VideoProfile>}
+     */
+    getVideoProfile(params: {
+        profileId: string;
+    }): Promise<Models.VideoProfile>;
+    /**
+     * Get a video profile by its unique ID (`GET /v1/project/videos/profiles/:profileId`).
+     *
+     *
+     * @param {string} profileId - Video profile unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.VideoProfile>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getVideoProfile(profileId: string): Promise<Models.VideoProfile>;
+    getVideoProfile(
+        paramsOrFirst: { profileId: string } | string,
+    ): Promise<Models.VideoProfile> {
+        let params: { profileId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { profileId: string };
+        } else {
+            params = {
+                profileId: paramsOrFirst as string,
+            };
+        }
+
+        const profileId = params.profileId;
+        if (typeof profileId === 'undefined' || profileId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "profileId"',
+            );
+        }
+        const apiPath = '/project/videos/profiles/{profileId}'.replace(
+            '{profileId}',
+            encodePath(profileId),
+        );
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'videoProfile',
+            models: {
+                videoProfile: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        codec: 'h264',
+                        videoBitRate: 0,
+                        audioBitRate: 0,
+                        width: 0,
+                        height: 0,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update a video profile by its unique ID (`PATCH /v1/project/videos/profiles/:profileId`). Existing renditions are not re-encoded. Changing the profile onto the same width, height, bitrates, and codec as another profile fails with `video_profile_already_exists`.
+     *
+     *
+     * @param {string} params.profileId - Video profile unique ID.
+     * @param {string | null} params.name - Video profile name.
+     * @param {number | null} params.videoBitRate - Target video bitrate in bits per second. Must be a multiple of 1000.
+     * @param {number | null} params.audioBitRate - Target audio bitrate in bits per second. Must be a multiple of 1000.
+     * @param {number | null} params.width - Target video width in pixels. Must be an even number.
+     * @param {number | null} params.height - Target video height in pixels. Must be an even number.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.VideoProfile>}
+     */
+    updateVideoProfile(params: {
+        profileId: string;
+        name?: string | null;
+        videoBitRate?: number | null;
+        audioBitRate?: number | null;
+        width?: number | null;
+        height?: number | null;
+    }): Promise<Models.VideoProfile>;
+    /**
+     * Update a video profile by its unique ID (`PATCH /v1/project/videos/profiles/:profileId`). Existing renditions are not re-encoded. Changing the profile onto the same width, height, bitrates, and codec as another profile fails with `video_profile_already_exists`.
+     *
+     *
+     * @param {string} profileId - Video profile unique ID.
+     * @param {string | null} name - Video profile name.
+     * @param {number | null} videoBitRate - Target video bitrate in bits per second. Must be a multiple of 1000.
+     * @param {number | null} audioBitRate - Target audio bitrate in bits per second. Must be a multiple of 1000.
+     * @param {number | null} width - Target video width in pixels. Must be an even number.
+     * @param {number | null} height - Target video height in pixels. Must be an even number.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.VideoProfile>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateVideoProfile(
+        profileId: string,
+        name?: string | null,
+        videoBitRate?: number | null,
+        audioBitRate?: number | null,
+        width?: number | null,
+        height?: number | null,
+    ): Promise<Models.VideoProfile>;
+    updateVideoProfile(
+        paramsOrFirst:
+            | {
+                  profileId: string;
+                  name?: string | null;
+                  videoBitRate?: number | null;
+                  audioBitRate?: number | null;
+                  width?: number | null;
+                  height?: number | null;
+              }
+            | string,
+        ...rest: [
+            (string | null)?,
+            (number | null)?,
+            (number | null)?,
+            (number | null)?,
+            (number | null)?,
+        ]
+    ): Promise<Models.VideoProfile> {
+        let params: {
+            profileId: string;
+            name?: string | null;
+            videoBitRate?: number | null;
+            audioBitRate?: number | null;
+            width?: number | null;
+            height?: number | null;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                profileId: string;
+                name?: string | null;
+                videoBitRate?: number | null;
+                audioBitRate?: number | null;
+                width?: number | null;
+                height?: number | null;
+            };
+        } else {
+            params = {
+                profileId: paramsOrFirst as string,
+                name: rest[0] as string | null,
+                videoBitRate: rest[1] as number | null,
+                audioBitRate: rest[2] as number | null,
+                width: rest[3] as number | null,
+                height: rest[4] as number | null,
+            };
+        }
+
+        const profileId = params.profileId;
+        const name = params.name;
+        const videoBitRate = params.videoBitRate;
+        const audioBitRate = params.audioBitRate;
+        const width = params.width;
+        const height = params.height;
+        if (typeof profileId === 'undefined' || profileId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "profileId"',
+            );
+        }
+        const apiPath = '/project/videos/profiles/{profileId}'.replace(
+            '{profileId}',
+            encodePath(profileId),
+        );
+        const apiPayload: Payload = {};
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        if (typeof videoBitRate !== 'undefined') {
+            apiPayload['videoBitRate'] = videoBitRate;
+        }
+        if (typeof audioBitRate !== 'undefined') {
+            apiPayload['audioBitRate'] = audioBitRate;
+        }
+        if (typeof width !== 'undefined') {
+            apiPayload['width'] = width;
+        }
+        if (typeof height !== 'undefined') {
+            apiPayload['height'] = height;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'videoProfile',
+            models: {
+                videoProfile: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        codec: 'h264',
+                        videoBitRate: 0,
+                        audioBitRate: 0,
+                        width: 0,
+                        height: 0,
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Delete a video profile by its unique ID (`DELETE /v1/project/videos/profiles/:profileId`). Renditions already encoded against it are left in place.
+     *
+     *
+     * @param {string} params.profileId - Video profile unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deleteVideoProfile(params: { profileId: string }): Promise<{}>;
+    /**
+     * Delete a video profile by its unique ID (`DELETE /v1/project/videos/profiles/:profileId`). Renditions already encoded against it are left in place.
+     *
+     *
+     * @param {string} profileId - Video profile unique ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    deleteVideoProfile(profileId: string): Promise<{}>;
+    deleteVideoProfile(
+        paramsOrFirst: { profileId: string } | string,
+    ): Promise<{}> {
+        let params: { profileId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { profileId: string };
+        } else {
+            params = {
+                profileId: paramsOrFirst as string,
+            };
+        }
+
+        const profileId = params.profileId;
+        if (typeof profileId === 'undefined' || profileId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "profileId"',
+            );
+        }
+        const apiPath = '/project/videos/profiles/{profileId}'.replace(
+            '{profileId}',
+            encodePath(profileId),
         );
         const apiPayload: Payload = {};
         const uri = new URL(this.client.config.endpoint + apiPath);
