@@ -168,6 +168,528 @@ export class Organization {
     }
 
     /**
+     * Get a list of your organization's escalations. Use `Query.search('search', term)` to search escalation IDs and names.
+     *
+     * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, repeat, search
+     * @param {boolean} params.total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.EscalationList>}
+     */
+    listEscalations(params?: {
+        queries?: string[];
+        total?: boolean;
+    }): Promise<Models.EscalationList>;
+    /**
+     * Get a list of your organization's escalations. Use `Query.search('search', term)` to search escalation IDs and names.
+     *
+     * @param {string[]} queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, repeat, search
+     * @param {boolean} total - When set to false, the total count returned will be 0 and will not be calculated.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.EscalationList>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    listEscalations(
+        queries?: string[],
+        total?: boolean,
+    ): Promise<Models.EscalationList>;
+    listEscalations(
+        paramsOrFirst?: { queries?: string[]; total?: boolean } | string[],
+        ...rest: [boolean?]
+    ): Promise<Models.EscalationList> {
+        let params: { queries?: string[]; total?: boolean };
+
+        if (
+            (typeof paramsOrFirst === 'undefined' && rest.length === 0) ||
+            (paramsOrFirst &&
+                typeof paramsOrFirst === 'object' &&
+                !Array.isArray(paramsOrFirst))
+        ) {
+            params = (paramsOrFirst || {}) as {
+                queries?: string[];
+                total?: boolean;
+            };
+        } else {
+            params = {
+                queries: paramsOrFirst as string[],
+                total: rest[0] as boolean,
+            };
+        }
+
+        const queries = params.queries;
+        const total = params.total;
+        const apiPath = '/organization/escalations';
+        const apiPayload: Payload = {};
+        if (typeof queries !== 'undefined') {
+            apiPayload['queries'] = queries;
+        }
+        if (typeof total !== 'undefined') {
+            apiPayload['total'] = total;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'escalationList',
+            models: {
+                escalationList: {
+                    defaults: {
+                        total: 0,
+                        escalations: [],
+                    },
+                    properties: {
+                        escalations: {
+                            items: 'escalation',
+                        },
+                    },
+                },
+                escalation: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        steps: [],
+                        repeat: 0,
+                    },
+                    properties: {
+                        steps: {
+                            items: 'escalationStep',
+                        },
+                    },
+                },
+                escalationStep: {
+                    defaults: {
+                        delay: 0,
+                        roles: [],
+                        userIds: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Create an escalation for your organization. A monitor using it notifies the escalation's steps one after another while its alert fires, each by email, push and in the console, until a member acknowledges the alert or it resolves. Each step waits its `delay` in seconds, after the alert fires for the first step and after the previous step for the others, then notifies the members holding its `roles` and those named in `userIds`. With `repeat`, the steps run again from the first, a monitor's cooldown after the last step.
+     *
+     * @param {string} params.escalationId - Escalation ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} params.name - Escalation name. Max length: 128 chars.
+     * @param {object[]} params.steps - Steps notified in order while nobody acknowledges the alert. Each step is an object with `delay` (seconds to wait before the step, 0 to 2592000, default 0), `roles` (organization roles such as `owner` or `developer`) and `userIds` (organization members who accepted their invitation). A step names each role and member at most once and needs at least one of `roles` or `userIds`. Maximum of 100 steps.
+     * @param {number} params.repeat - How many more times the steps run from the first while nobody acknowledges the alert, between 0 and 9. Each round starts a monitor's cooldown after the last step.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Escalation>}
+     */
+    createEscalation(params: {
+        escalationId: string;
+        name: string;
+        steps: object[];
+        repeat?: number;
+    }): Promise<Models.Escalation>;
+    /**
+     * Create an escalation for your organization. A monitor using it notifies the escalation's steps one after another while its alert fires, each by email, push and in the console, until a member acknowledges the alert or it resolves. Each step waits its `delay` in seconds, after the alert fires for the first step and after the previous step for the others, then notifies the members holding its `roles` and those named in `userIds`. With `repeat`, the steps run again from the first, a monitor's cooldown after the last step.
+     *
+     * @param {string} escalationId - Escalation ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param {string} name - Escalation name. Max length: 128 chars.
+     * @param {object[]} steps - Steps notified in order while nobody acknowledges the alert. Each step is an object with `delay` (seconds to wait before the step, 0 to 2592000, default 0), `roles` (organization roles such as `owner` or `developer`) and `userIds` (organization members who accepted their invitation). A step names each role and member at most once and needs at least one of `roles` or `userIds`. Maximum of 100 steps.
+     * @param {number} repeat - How many more times the steps run from the first while nobody acknowledges the alert, between 0 and 9. Each round starts a monitor's cooldown after the last step.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Escalation>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    createEscalation(
+        escalationId: string,
+        name: string,
+        steps: object[],
+        repeat?: number,
+    ): Promise<Models.Escalation>;
+    createEscalation(
+        paramsOrFirst:
+            | {
+                  escalationId: string;
+                  name: string;
+                  steps: object[];
+                  repeat?: number;
+              }
+            | string,
+        ...rest: [string?, object[]?, number?]
+    ): Promise<Models.Escalation> {
+        let params: {
+            escalationId: string;
+            name: string;
+            steps: object[];
+            repeat?: number;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                escalationId: string;
+                name: string;
+                steps: object[];
+                repeat?: number;
+            };
+        } else {
+            params = {
+                escalationId: paramsOrFirst as string,
+                name: rest[0] as string,
+                steps: rest[1] as object[],
+                repeat: rest[2] as number,
+            };
+        }
+
+        const escalationId = params.escalationId;
+        const name = params.name;
+        const steps = params.steps;
+        const repeat = params.repeat;
+        if (typeof escalationId === 'undefined') {
+            throw new AppwriteException(
+                'Missing required parameter: "escalationId"',
+            );
+        }
+        if (typeof name === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+        if (typeof steps === 'undefined') {
+            throw new AppwriteException('Missing required parameter: "steps"');
+        }
+        const apiPath = '/organization/escalations';
+        const apiPayload: Payload = {};
+        if (typeof escalationId !== 'undefined') {
+            apiPayload['escalationId'] = escalationId;
+        }
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        if (typeof steps !== 'undefined') {
+            apiPayload['steps'] = steps;
+        }
+        if (typeof repeat !== 'undefined') {
+            apiPayload['repeat'] = repeat;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('post', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'escalation',
+            models: {
+                escalation: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        steps: [],
+                        repeat: 0,
+                    },
+                    properties: {
+                        steps: {
+                            items: 'escalationStep',
+                        },
+                    },
+                },
+                escalationStep: {
+                    defaults: {
+                        delay: 0,
+                        roles: [],
+                        userIds: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Get one of your organization's escalations by its ID.
+     *
+     * @param {string} params.escalationId - Escalation ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Escalation>}
+     */
+    getEscalation(params: { escalationId: string }): Promise<Models.Escalation>;
+    /**
+     * Get one of your organization's escalations by its ID.
+     *
+     * @param {string} escalationId - Escalation ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Escalation>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    getEscalation(escalationId: string): Promise<Models.Escalation>;
+    getEscalation(
+        paramsOrFirst: { escalationId: string } | string,
+    ): Promise<Models.Escalation> {
+        let params: { escalationId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { escalationId: string };
+        } else {
+            params = {
+                escalationId: paramsOrFirst as string,
+            };
+        }
+
+        const escalationId = params.escalationId;
+        if (typeof escalationId === 'undefined' || escalationId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "escalationId"',
+            );
+        }
+        const apiPath = '/organization/escalations/{escalationId}'.replace(
+            '{escalationId}',
+            encodePath(escalationId),
+        );
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('get', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'escalation',
+            models: {
+                escalation: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        steps: [],
+                        repeat: 0,
+                    },
+                    properties: {
+                        steps: {
+                            items: 'escalationStep',
+                        },
+                    },
+                },
+                escalationStep: {
+                    defaults: {
+                        delay: 0,
+                        roles: [],
+                        userIds: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Update an escalation's name, steps or repeats; what you leave out stays as it is. Alerts already escalating keep the steps they started with; the next alert uses the new ones.
+     *
+     * @param {string} params.escalationId - Escalation ID.
+     * @param {string | null} params.name - Escalation name. Max length: 128 chars.
+     * @param {object[] | null} params.steps - Steps notified in order while nobody acknowledges the alert. Each step is an object with `delay` (seconds to wait before the step, 0 to 2592000, default 0), `roles` (organization roles such as `owner` or `developer`) and `userIds` (organization members who accepted their invitation). A step names each role and member at most once and needs at least one of `roles` or `userIds`. Maximum of 100 steps.
+     * @param {number | null} params.repeat - How many more times the steps run from the first while nobody acknowledges the alert, between 0 and 9. Each round starts a monitor's cooldown after the last step.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Escalation>}
+     */
+    updateEscalation(params: {
+        escalationId: string;
+        name?: string | null;
+        steps?: object[] | null;
+        repeat?: number | null;
+    }): Promise<Models.Escalation>;
+    /**
+     * Update an escalation's name, steps or repeats; what you leave out stays as it is. Alerts already escalating keep the steps they started with; the next alert uses the new ones.
+     *
+     * @param {string} escalationId - Escalation ID.
+     * @param {string | null} name - Escalation name. Max length: 128 chars.
+     * @param {object[] | null} steps - Steps notified in order while nobody acknowledges the alert. Each step is an object with `delay` (seconds to wait before the step, 0 to 2592000, default 0), `roles` (organization roles such as `owner` or `developer`) and `userIds` (organization members who accepted their invitation). A step names each role and member at most once and needs at least one of `roles` or `userIds`. Maximum of 100 steps.
+     * @param {number | null} repeat - How many more times the steps run from the first while nobody acknowledges the alert, between 0 and 9. Each round starts a monitor's cooldown after the last step.
+     * @throws {AppwriteException}
+     * @returns {Promise<Models.Escalation>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    updateEscalation(
+        escalationId: string,
+        name?: string | null,
+        steps?: object[] | null,
+        repeat?: number | null,
+    ): Promise<Models.Escalation>;
+    updateEscalation(
+        paramsOrFirst:
+            | {
+                  escalationId: string;
+                  name?: string | null;
+                  steps?: object[] | null;
+                  repeat?: number | null;
+              }
+            | string,
+        ...rest: [(string | null)?, (object[] | null)?, (number | null)?]
+    ): Promise<Models.Escalation> {
+        let params: {
+            escalationId: string;
+            name?: string | null;
+            steps?: object[] | null;
+            repeat?: number | null;
+        };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as {
+                escalationId: string;
+                name?: string | null;
+                steps?: object[] | null;
+                repeat?: number | null;
+            };
+        } else {
+            params = {
+                escalationId: paramsOrFirst as string,
+                name: rest[0] as string | null,
+                steps: rest[1] as object[] | null,
+                repeat: rest[2] as number | null,
+            };
+        }
+
+        const escalationId = params.escalationId;
+        const name = params.name;
+        const steps = params.steps;
+        const repeat = params.repeat;
+        if (typeof escalationId === 'undefined' || escalationId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "escalationId"',
+            );
+        }
+        const apiPath = '/organization/escalations/{escalationId}'.replace(
+            '{escalationId}',
+            encodePath(escalationId),
+        );
+        const apiPayload: Payload = {};
+        if (typeof name !== 'undefined') {
+            apiPayload['name'] = name;
+        }
+        if (typeof steps !== 'undefined') {
+            apiPayload['steps'] = steps;
+        }
+        if (typeof repeat !== 'undefined') {
+            apiPayload['repeat'] = repeat;
+        }
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        const request = this.client.call('patch', uri, apiHeaders, apiPayload);
+        const defaults = {
+            root: 'escalation',
+            models: {
+                escalation: {
+                    defaults: {
+                        $id: '',
+                        $createdAt: '',
+                        $updatedAt: '',
+                        name: '',
+                        steps: [],
+                        repeat: 0,
+                    },
+                    properties: {
+                        steps: {
+                            items: 'escalationStep',
+                        },
+                    },
+                },
+                escalationStep: {
+                    defaults: {
+                        delay: 0,
+                        roles: [],
+                        userIds: [],
+                    },
+                },
+            },
+        };
+
+        return request.then((response) => applyDefaults(response, defaults));
+    }
+
+    /**
+     * Delete an escalation. An escalation that a monitor uses cannot be deleted: move the monitor to another escalation or to `notify` roles first. Open alerts keep the steps they started with.
+     *
+     * @param {string} params.escalationId - Escalation ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     */
+    deleteEscalation(params: { escalationId: string }): Promise<{}>;
+    /**
+     * Delete an escalation. An escalation that a monitor uses cannot be deleted: move the monitor to another escalation or to `notify` roles first. Open alerts keep the steps they started with.
+     *
+     * @param {string} escalationId - Escalation ID.
+     * @throws {AppwriteException}
+     * @returns {Promise<{}>}
+     * @deprecated Use the object parameter style method for a better developer experience.
+     */
+    deleteEscalation(escalationId: string): Promise<{}>;
+    deleteEscalation(
+        paramsOrFirst: { escalationId: string } | string,
+    ): Promise<{}> {
+        let params: { escalationId: string };
+
+        if (
+            paramsOrFirst &&
+            typeof paramsOrFirst === 'object' &&
+            !Array.isArray(paramsOrFirst)
+        ) {
+            params = (paramsOrFirst || {}) as { escalationId: string };
+        } else {
+            params = {
+                escalationId: paramsOrFirst as string,
+            };
+        }
+
+        const escalationId = params.escalationId;
+        if (typeof escalationId === 'undefined' || escalationId === '') {
+            throw new AppwriteException(
+                'Missing required parameter: "escalationId"',
+            );
+        }
+        const apiPath = '/organization/escalations/{escalationId}'.replace(
+            '{escalationId}',
+            encodePath(escalationId),
+        );
+        const apiPayload: Payload = {};
+        const uri = new URL(this.client.config.endpoint + apiPath);
+
+        const apiHeaders: { [header: string]: string } = {
+            'X-Appwrite-Project': this.client.config.project,
+            'content-type': 'application/json',
+            accept: 'application/json',
+        };
+
+        return this.client.call('delete', uri, apiHeaders, apiPayload);
+    }
+
+    /**
      * List app installations on the organization. Any organization member can read installations.
      *
      * @param {string[]} params.queries - Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.

@@ -77,6 +77,84 @@ describe('Organization', () => {
 
         expect(response).toEqual(data);
     });
+    test('test method listEscalations()', async () => {
+        const data = {
+            total: 5,
+            escalations: [],
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await organization.listEscalations();
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method createEscalation()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'Platform',
+            steps: [],
+            repeat: 2,
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await organization.createEscalation(
+            '<ESCALATION_ID>',
+            '<NAME>',
+            [],
+        );
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method getEscalation()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'Platform',
+            steps: [],
+            repeat: 2,
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await organization.getEscalation('<ESCALATION_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method updateEscalation()', async () => {
+        const data = {
+            $id: '5e5ea5c16897e',
+            $createdAt: '2020-10-15T06:38:00.000+00:00',
+            $updatedAt: '2020-10-15T06:38:00.000+00:00',
+            name: 'Platform',
+            steps: [],
+            repeat: 2,
+        };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await organization.updateEscalation('<ESCALATION_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
+    test('test method deleteEscalation()', async () => {
+        const data = { message: '' };
+        mockedFetch.mockImplementation(() => Response.json(data));
+        const response = await organization.deleteEscalation('<ESCALATION_ID>');
+
+        // Remove custom toString method on the objects to allow for clean data comparison.
+        delete response.toString;
+
+        expect(response).toEqual(data);
+    });
     test('test method listInstallations()', async () => {
         const data = {
             total: 5,

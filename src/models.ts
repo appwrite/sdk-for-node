@@ -9,6 +9,17 @@ import { ExecutionStatus } from './enums/execution-status';
 import { ProjectAuthMethodId } from './enums/project-auth-method-id';
 import { ProjectServiceId } from './enums/project-service-id';
 import { ProjectProtocolId } from './enums/project-protocol-id';
+import { MonitorType } from './enums/monitor-type';
+import { MonitorResourceType } from './enums/monitor-resource-type';
+import { MonitorSeverity } from './enums/monitor-severity';
+import { MonitorStatus } from './enums/monitor-status';
+import { MonitorMethod } from './enums/monitor-method';
+import { MonitorRecord } from './enums/monitor-record';
+import { MonitorTlsMode } from './enums/monitor-tls-mode';
+import { MonitorResult } from './enums/monitor-result';
+import { AlertStatus } from './enums/alert-status';
+import { AlertMetric } from './enums/alert-metric';
+import { AlertComparator } from './enums/alert-comparator';
 import { OAuth2GithubPrompt } from './enums/o-auth-2-github-prompt';
 import { OAuth2DiscordPrompt } from './enums/o-auth-2-discord-prompt';
 import { OAuth2GooglePrompt } from './enums/o-auth-2-google-prompt';
@@ -376,6 +387,48 @@ export namespace Models {
          * List of webhooks.
          */
         webhooks: Webhook[];
+    };
+
+    /**
+     * Monitors List
+     */
+    export type MonitorList = {
+        /**
+         * Total number of monitors that matched your query.
+         */
+        total: number;
+        /**
+         * List of monitors.
+         */
+        monitors: Monitor[];
+    };
+
+    /**
+     * Alerts List
+     */
+    export type AlertList = {
+        /**
+         * Total number of alerts that matched your query.
+         */
+        total: number;
+        /**
+         * List of alerts.
+         */
+        alerts: Alert[];
+    };
+
+    /**
+     * Escalations List
+     */
+    export type EscalationList = {
+        /**
+         * Total number of escalations that matched your query.
+         */
+        total: number;
+        /**
+         * List of escalations.
+         */
+        escalations: Escalation[];
     };
 
     /**
@@ -5207,6 +5260,322 @@ export namespace Models {
          * Number of consecutive failed webhook attempts.
          */
         attempts: number;
+    };
+
+    /**
+     * Monitor
+     */
+    export type Monitor = {
+        /**
+         * Monitor ID.
+         */
+        $id: string;
+        /**
+         * Monitor creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Monitor update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Monitor name.
+         */
+        name: string;
+        /**
+         * Project ID.
+         */
+        projectId: string;
+        /**
+         * Rules that must all hold for the monitor to fire, as query strings. A usage monitor has one comparing a metric with a threshold, optionally scoped with `equal('resourceType')` and `equal('resourceId')`. A probe monitor fires when its rules match the check, over these variables: `http` `statusCode`, `latency`, `certificateDays` and `certificateLifetime`; `dns` `answer`, `answers` and `latency`; `tcp` `latency`; `smtp` `code`, `latency`, `certificateDays` and `certificateLifetime`. A failed connection fires whatever the rules.
+         */
+        rules: string[];
+        /**
+         * What the monitor checks: `usage` compares a usage metric with a threshold; `http`, `dns`, `tcp` and `smtp` probe a target on their own interval.
+         */
+        type: MonitorType;
+        /**
+         * Type of the resource the monitor watches, from its rules: the project, or one database, bucket, function or site.
+         */
+        resourceType: MonitorResourceType;
+        /**
+         * ID of the resource the monitor watches, from its rules. The project ID for a project-wide monitor.
+         */
+        resourceId: string;
+        /**
+         * Seconds a counter metric is summed over, and a growth metric is measured across. Gauges compare their latest value. Usage is read a short lag behind the evaluation (`_APP_ALERTS_USAGE_LAG`, 120 seconds by default) so events still being written are counted by the next evaluation.
+         */
+        window: number;
+        /**
+         * Minimum seconds between two team notifications of this monitor firing. Events fire on every change regardless.
+         */
+        cooldown: number;
+        /**
+         * Whether the monitor is evaluated.
+         */
+        enabled: boolean;
+        /**
+         * Organization roles whose confirmed members get an email and a console notification when the monitor fires and resolves. Empty when the alert events are the only delivery. Not used while `escalationId` is set.
+         */
+        notify: string[];
+        /**
+         * ID of the organization's escalation that notifies the team of this monitor's alerts, step by step until one is acknowledged. When set, `notify` is not used. Empty to notify the `notify` roles once.
+         */
+        escalationId: string;
+        /**
+         * How urgent the monitor's alerts are: `info`, `warning`, `error` or `critical`. Critical alerts may be delivered with higher urgency by the notification channels that support it.
+         */
+        severity: MonitorSeverity;
+        /**
+         * Whether the monitor is firing, as of its last evaluation.
+         */
+        status: MonitorStatus;
+        /**
+         * Metric value at the last evaluation. Null before the first evaluation, and when the last evaluation (`evaluatedAt`) found no usage recorded to read: without data a monitor is not compared, so it keeps its status and open alert.
+         */
+        value?: number | null;
+        /**
+         * Last evaluation date in ISO 8601 format.
+         */
+        evaluatedAt?: string | null;
+        /**
+         * ID of the alert the monitor is firing for. Empty while it is not firing.
+         */
+        alertId: string;
+        /**
+         * Date the monitor last announced an alert, in ISO 8601 format.
+         */
+        triggeredAt?: string | null;
+        /**
+         * Probe monitors: seconds between two checks, read back raised to the plan's minimum. 0 for usage monitors, which are evaluated on the server's interval.
+         */
+        interval: number;
+        /**
+         * Probe monitors: seconds a check may take before it fails.
+         */
+        timeout: number;
+        /**
+         * HTTP monitors: URL requested.
+         */
+        url: string;
+        /**
+         * HTTP monitors: method the URL is requested with. Null for other types.
+         */
+        method?: MonitorMethod | null;
+        /**
+         * HTTP monitors: headers sent, as an object of header names and values.
+         */
+        headers?: object;
+        /**
+         * HTTP monitors: request body sent.
+         */
+        body: string;
+        /**
+         * DNS monitors: domain queried.
+         */
+        domain: string;
+        /**
+         * DNS monitors: record type queried. Null for other types.
+         */
+        record?: MonitorRecord | null;
+        /**
+         * DNS monitors: resolver queried. Empty for the server's DNS resolver.
+         */
+        resolver: string;
+        /**
+         * TCP and SMTP monitors: hostname or IP address connected to.
+         */
+        host: string;
+        /**
+         * TCP and SMTP monitors: port connected to.
+         */
+        port: number;
+        /**
+         * SMTP monitors: how the connection is secured. `auto` picks implicit TLS on port 465, STARTTLS on 587 and none otherwise. Null for other types.
+         */
+        tlsMode?: MonitorTlsMode | null;
+        /**
+         * Probe monitors: what the last check found. `ok` passes; anything else opened the monitor's alert. Null before the first check.
+         */
+        result?: MonitorResult | null;
+        /**
+         * Probe monitors: milliseconds the last check took.
+         */
+        latency?: number | null;
+        /**
+         * Probe monitors: last status code an HTTP target answered with, reply code an SMTP server sent, or response code a DNS resolver returned.
+         */
+        code?: number | null;
+        /**
+         * Probe monitors: expiry date of the TLS certificate the last check saw, in ISO 8601 format. Null without TLS.
+         */
+        certificateExpiresAt?: string | null;
+    };
+
+    /**
+     * Alert
+     */
+    export type Alert = {
+        /**
+         * Alert ID.
+         */
+        $id: string;
+        /**
+         * Date the alert started firing, in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Alert update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * ID of the monitor that raised the alert.
+         */
+        monitorId: string;
+        /**
+         * ID of the project the alert is about. Empty for an alert of the whole organization.
+         */
+        projectId: string;
+        /**
+         * Name of the monitor when the alert fired.
+         */
+        name: string;
+        /**
+         * Whether the alert is still firing or has resolved.
+         */
+        status: AlertStatus;
+        /**
+         * Date the alert resolved, in ISO 8601 format. Empty while it fires.
+         */
+        resolvedAt?: string | null;
+        /**
+         * Date a member acknowledged the alert, in ISO 8601 format. Empty while nobody has.
+         */
+        acknowledgedAt?: string | null;
+        /**
+         * ID of the user who acknowledged the alert. Empty while nobody has, or when it was acknowledged with an API key.
+         */
+        acknowledgedBy: string;
+        /**
+         * Name of the user who acknowledged the alert, when they did.
+         */
+        acknowledgedByName: string;
+        /**
+         * ID of the escalation notifying the team of this alert. Empty when the monitor notified its `notify` roles instead.
+         */
+        escalationId: string;
+        /**
+         * Index of the escalation's next step to notify, counting from 0. Equal to the number of steps once the last round has gone out.
+         */
+        escalationStep: number;
+        /**
+         * How many times the escalation's steps have been repeated for this alert.
+         */
+        escalationRound: number;
+        /**
+         * When the next step is notified, in ISO 8601 format. Null when nothing is due: the alert was acknowledged or resolved, or every step has gone out.
+         */
+        escalatesAt?: string | null;
+        /**
+         * The monitor's rules when the alert fired, as query strings.
+         */
+        rules: string[];
+        /**
+         * The monitor's severity when the alert fired: `info`, `warning`, `error` or `critical`.
+         */
+        severity: MonitorSeverity;
+        /**
+         * Metric the alert fired on. Null for a probe monitor's alert.
+         */
+        metric?: AlertMetric | null;
+        /**
+         * How the metric was compared with the threshold. Null for a probe monitor's alert.
+         */
+        comparator?: AlertComparator | null;
+        /**
+         * Threshold the metric crossed, in the metric's unit.
+         */
+        threshold: number;
+        /**
+         * Latest reading while the alert fired: the metric's value for a usage monitor, and for a probe monitor its `latency`.
+         */
+        value: number;
+        /**
+         * Reading furthest past the threshold while the alert fired.
+         */
+        peak: number;
+        /**
+         * Type of the monitor that raised the alert.
+         */
+        type: MonitorType;
+        /**
+         * Type of the resource the alert fired on: the project, or one database, bucket, function or site.
+         */
+        resourceType: MonitorResourceType;
+        /**
+         * ID of the resource the alert fired on. The project ID for a project-wide monitor.
+         */
+        resourceId: string;
+        /**
+         * How many times the alert was announced as firing: once when it fired, and again after each cooldown while it kept firing.
+         */
+        notifications: number;
+        /**
+         * Probe monitors: response time in milliseconds of the latest check recorded on the alert.
+         */
+        latency?: number | null;
+        /**
+         * What the failing check of a probe monitor found when the alert opened, such as `connect_refused`. Null for a usage monitor's alert.
+         */
+        result?: MonitorResult | null;
+    };
+
+    /**
+     * Escalation Step
+     */
+    export type EscalationStep = {
+        /**
+         * Seconds to wait before notifying this step: after the alert fires for the first step, after the previous step for the others.
+         */
+        delay: number;
+        /**
+         * Organization roles whose confirmed members this step notifies.
+         */
+        roles: string[];
+        /**
+         * IDs of the organization's members this step notifies, whatever their role.
+         */
+        userIds: string[];
+    };
+
+    /**
+     * Escalation
+     */
+    export type Escalation = {
+        /**
+         * Escalation ID.
+         */
+        $id: string;
+        /**
+         * Escalation creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Escalation update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Escalation name.
+         */
+        name: string;
+        /**
+         * Who is notified of a firing alert, in order, until a member acknowledges it.
+         */
+        steps: EscalationStep[];
+        /**
+         * How many more times the steps run from the first, a monitor's cooldown after the last step, while nobody has acknowledged the alert.
+         */
+        repeat: number;
     };
 
     /**
