@@ -1,0 +1,15 @@
+export enum MonitorResult {
+    Ok = 'ok',
+    DnsFailed = 'dns_failed',
+    ConnectRefused = 'connect_refused',
+    ConnectTimeout = 'connect_timeout',
+    ConnectFailed = 'connect_failed',
+    TlsFailed = 'tls_failed',
+    TlsExpiring = 'tls_expiring',
+    StatusMismatch = 'status_mismatch',
+    AnswerMismatch = 'answer_mismatch',
+    SmtpRejected = 'smtp_rejected',
+    TargetDenied = 'target_denied',
+    Timeout = 'timeout',
+    RuleMatched = 'rule_matched',
+}
