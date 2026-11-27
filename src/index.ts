@@ -8,6 +8,7 @@ export {
 export { Account } from './services/account';
 export { Activities } from './services/activities';
 export { Alerts } from './services/alerts';
+export { Analytics } from './services/analytics';
 export { Apps } from './services/apps';
 export { Avatars } from './services/avatars';
 export { Backups } from './services/backups';
@@ -51,6 +52,9 @@ export { AuthenticatorType } from './enums/authenticator-type';
 export { AuthenticationFactor } from './enums/authentication-factor';
 export { IdTokenProvider } from './enums/id-token-provider';
 export { OAuthProvider } from './enums/o-auth-provider';
+export { AnalyticsPropertyType } from './enums/analytics-property-type';
+export { AnalyticsInterval } from './enums/analytics-interval';
+export { AnalyticsDimension } from './enums/analytics-dimension';
 export { Browser } from './enums/browser';
 export { CreditCard } from './enums/credit-card';
 export { Flag } from './enums/flag';
