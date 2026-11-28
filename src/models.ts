@@ -40,6 +40,7 @@ import { VideoOutput } from './enums/video-output';
 import { VideoCodecId } from './enums/video-codec-id';
 import { VideoRenditionStatus } from './enums/video-rendition-status';
 import { VideoCaptionStatus } from './enums/video-caption-status';
+import { AnalyticsPropertyType } from './enums/analytics-property-type';
 import { BillingPlanGroup } from './enums/billing-plan-group';
 import { DomainTransferStatusEnum } from './enums/domain-transfer-status-enum';
 import { WafRuleAction } from './enums/waf-rule-action';
@@ -9311,6 +9312,162 @@ export namespace Models {
     };
 
     /**
+     * AnalyticsAnnotation
+     */
+    export type AnalyticsAnnotation = {
+        /**
+         * Annotation ID.
+         */
+        $id: string;
+        /**
+         * Annotation creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Annotation update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * ID of the analytics property the annotation belongs to.
+         */
+        propertyId: string;
+        /**
+         * Point in time the annotation marks, in ISO 8601 format.
+         */
+        date: string;
+        /**
+         * Annotation text.
+         */
+        content: string;
+        /**
+         * ID of the user who created the annotation. Empty when it was created with an API key.
+         */
+        userId: string;
+    };
+
+    /**
+     * AnalyticsMetric
+     */
+    export type AnalyticsMetric = {
+        /**
+         * Dimension value this row covers. Null when no dimension was requested, empty when the dimension could not be derived for those events.
+         */
+        value?: string | null;
+        /**
+         * Start of the time bucket this row covers, in ISO 8601. Null when no interval was requested.
+         */
+        date?: string | null;
+        /**
+         * Unique visitors in the requested range.
+         */
+        visitors: number;
+        /**
+         * Unique sessions in the requested range.
+         */
+        sessions: number;
+        /**
+         * Total page and screen view events (events named "pageview" or "screen_view") in the requested range. The flat aggregate and the time series compute it; null on breakdown rows.
+         */
+        pageviews?: number | null;
+        /**
+         * Total events in the requested range.
+         */
+        events: number;
+        /**
+         * Unique identified users in the requested range. Anonymous events are not counted. Null on entry and exit page breakdown rows.
+         */
+        users?: number | null;
+        /**
+         * Total sessions with activity in the requested range. Only the flat aggregate computes it; null on breakdown and time-series rows.
+         */
+        visits?: number | null;
+        /**
+         * Share of bounced visits, as a percentage; a visit is a bounce unless it records two or more page or screen views, at least one interaction, or ten seconds or more of activity. An interaction is any event that is neither a view nor automatic measurement such as "app_foregrounded", "engagement_time" or "scroll_depth". Only the flat aggregate computes it; null on breakdown and time-series rows.
+         */
+        bounceRate?: number | null;
+        /**
+         * Average session length in seconds, measured first event to last event. Single-event sessions count as 0. Only the flat aggregate computes it; null on breakdown and time-series rows.
+         */
+        visitDuration?: number | null;
+        /**
+         * Average pageviews per session (pageviews divided by visits). Only the flat aggregate computes it; null on breakdown and time-series rows.
+         */
+        viewsPerVisit?: number | null;
+        /**
+         * Average scroll depth across events, as a percentage. Only the flat aggregate computes it; null on breakdown and time-series rows.
+         */
+        scrollDepth?: number | null;
+        /**
+         * Average engaged time per session in seconds, counting only foreground time. Sessions that reported no engagement are excluded. Only the flat aggregate computes it; null on breakdown and time-series rows.
+         */
+        engagementTime?: number | null;
+    };
+
+    /**
+     * AnalyticsMetricList
+     */
+    export type AnalyticsMetricList = {
+        /**
+         * Total number of metric rows returned.
+         */
+        total: number;
+        /**
+         * Metric rows: one per time bucket, one per dimension value, or a single row for the flat aggregate.
+         */
+        metrics: AnalyticsMetric[];
+    };
+
+    /**
+     * AnalyticsProperty
+     */
+    export type AnalyticsProperty = {
+        /**
+         * Analytics property ID.
+         */
+        $id: string;
+        /**
+         * Property creation date in ISO 8601 format.
+         */
+        $createdAt: string;
+        /**
+         * Property update date in ISO 8601 format.
+         */
+        $updatedAt: string;
+        /**
+         * Human-readable name of the tracked website or application.
+         */
+        name: string;
+        /**
+         * Primary domain being tracked (e.g. example.com). May be empty for mobile and agent properties.
+         */
+        domain: string;
+        /**
+         * Whether tracking is currently active.
+         */
+        enabled: boolean;
+        /**
+         * List of origins allowed to send tracking events. Use ["*"] to allow all. Managed by Appwrite for a property linked to a site, following the site's production domains.
+         */
+        allowedOrigins: string[];
+        /**
+         * Kind of product this property tracks. Decides which dashboard panels apply.
+         */
+        type: AnalyticsPropertyType;
+        /**
+         * Whether events sent from a signed-in client session record that user's ID.
+         */
+        identifyUsers: boolean;
+        /**
+         * Most recent event date in ISO 8601 format. This attribute is only updated again after 24 hours.
+         */
+        accessedAt: string;
+        /**
+         * First event date in ISO 8601 format. Empty until the property receives its first event.
+         */
+        firstAccessedAt: string;
+    };
+
+    /**
      * Archive
      */
     export type BackupArchive = {
@@ -12626,6 +12783,34 @@ export namespace Models {
          * List of events.
          */
         events: ActivityEvent[];
+    };
+
+    /**
+     * Analytics properties list
+     */
+    export type AnalyticsPropertyList = {
+        /**
+         * Total number of properties that matched your query.
+         */
+        total: number;
+        /**
+         * List of properties.
+         */
+        properties: AnalyticsProperty[];
+    };
+
+    /**
+     * Analytics annotations list
+     */
+    export type AnalyticsAnnotationList = {
+        /**
+         * Total number of annotations that matched your query.
+         */
+        total: number;
+        /**
+         * List of annotations.
+         */
+        annotations: AnalyticsAnnotation[];
     };
 
     /**
